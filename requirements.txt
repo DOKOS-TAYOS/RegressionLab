@@ -1,0 +1,23 @@
+# Core dependencies for RegresionLab
+# Install with: pip install -r requirements.txt
+
+# Numerical computing
+numpy>=2.0,<3.0
+
+# Plotting and visualization
+matplotlib>=3.10,<4.0
+
+# Scientific computing and optimization
+scipy>=1.17,<2.0
+
+# Data manipulation
+pandas>=2.3,<3.0
+
+# Excel file support
+openpyxl>=3.1,<4.0
+
+# Environment variable management
+python-dotenv>=1.0,<2.0
+
+# Colored terminal output
+colorama>=0.4,<1.0

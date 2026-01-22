@@ -1,0 +1,76 @@
+# Environment variables
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+*.cover
+.hypothesis/
+
+# Type checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Linting
+.ruff_cache/
+
+# Logs
+*.log
+logs/
+
+# Output files (but keep the directories)
+output/*
+!output/.gitkeep
+*.png
+*.jpg
+*.jpeg
+
+# Input files (keep example files, ignore user data if needed)
+# Uncomment the following lines if you want to ignore user data files:
+# input/*.xlsx
+# input/*.xls
+# input/*.csv
+# !input/.gitkeep
+
+# Documentation builds
+docs/_build/
+site/
+
+# Keep template files
+!.env.example
+tests/
