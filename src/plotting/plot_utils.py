@@ -63,9 +63,13 @@ def create_plot(x: list[float], y: list[float], ux: list[float], uy: list[float]
                     markeredgecolor=plot_config['marker_edge_color'])
         logger.debug("Data plotted")
         
-        # Set labels and title with proper fonts
+        # Set labels with proper fonts
         ax.set_xlabel(x_name, fontproperties=fonta)
         ax.set_ylabel(y_name, fontproperties=fonta)
+        
+        # Set title if enabled in configuration
+        if plot_config.get('show_title', False):
+            ax.set_title(fit_name, fontproperties=fontt)
         
         # Set tick label font size for better visibility
         ax.tick_params(axis='both', which='major', labelsize=font_config['tick_size'])

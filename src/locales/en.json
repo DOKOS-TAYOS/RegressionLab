@@ -72,7 +72,7 @@
     "invalid_data_filtered": "Filtered {count} rows with invalid values (NaN, Inf)"
   },
   "log": {
-    "application_starting": "RegresionLab application starting",
+    "application_starting": "RegressionLab application starting",
     "application_closed": "Application closed normally",
     "version": "Version: {version}",
     "logging_initialized": "Logging initialized",
@@ -129,6 +129,6 @@
     "data_formats": "• Supported formats: .xlsx, .xls, .csv",
     "output_location": "\nResults:",
     "output_plots": "• Plots are saved in the 'output/' folder",
-    "output_logs": "• Logs are saved in 'regresionlab.log'"
+    "output_logs": "• Logs are saved in 'regressionlab.log'"
   }
 }

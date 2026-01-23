@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Central configuration file for the RegresionLab project.
+Central configuration file for the RegressionLab project.
 
 This file consolidates all configuration settings for:
 - UI Theme and appearance
@@ -124,6 +124,10 @@ PLOT_CONFIG = {
         get_env('PLOT_FIGSIZE_HEIGHT', 6, int)
     ),
     'dpi': get_env('DPI', 100, int),
+    
+    # Plot title settings
+    'show_title': get_env('PLOT_SHOW_TITLE', False, bool),
+    
     # Line properties for fitted curve
     'line_color': get_env('PLOT_LINE_COLOR', 'black'),
     'line_width': get_env('PLOT_LINE_WIDTH', 1.00, float),

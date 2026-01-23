@@ -164,7 +164,7 @@ def generic_fit(
     param_names: List[str],
     equation_template: str,
     initial_guess: Optional[List[float]] = None
-) -> Tuple[str, NDArray, str]:
+) -> Tuple[str, NDArray, str, float]:
     """
     Generic fitting function that performs curve fitting with any function.
     
@@ -181,10 +181,11 @@ def generic_fit(
         initial_guess: Optional initial parameter values for fitting (improves convergence)
     
     Returns:
-        Tuple of (text, y_fitted, equation):
+        Tuple of (text, y_fitted, equation, r_squared):
             - text: Formatted text with parameters and uncertainties
             - y_fitted: Array with fitted y values
             - equation: Formatted equation with parameter values
+            - r_squared: Coefficient of determination (R²)
             
     Raises:
         FittingError: If fitting fails or data is invalid
@@ -270,8 +271,6 @@ def generic_fit(
             )
         )
     
-    text = '\n'.join(text_lines)
-    
     # Calculate fitted curve
     try:
         y_fitted = fit_func(x, *params)
@@ -280,11 +279,28 @@ def generic_fit(
         logger.error(t('log.error_calculating_fitted_curve', error=str(e)), exc_info=True)
         raise FittingError(t('error.calculating_fitted_curve', error=str(e)))
     
+    # Calculate R² (coefficient of determination)
+    try:
+        # Residual sum of squares
+        ss_res = np.sum((y - y_fitted) ** 2)
+        # Total sum of squares
+        ss_tot = np.sum((y - np.mean(y)) ** 2)
+        # R² = 1 - (SS_res / SS_tot)
+        r_squared = 1.0 - (ss_res / ss_tot) if ss_tot != 0 else 0.0
+        logger.debug(f"R² = {r_squared:.6f}")
+    except Exception as e:
+        logger.warning(f"Error calculating R²: {str(e)}")
+        r_squared = 0.0
+    
+    # Add R² to the text output
+    text_lines.append(f"R\u00B2={r_squared:.6f}")
+    text = '\n'.join(text_lines)
+    
     # Format equation with parameter values
     equation_str = equation_template.format(**formatted_params)
     logger.info(t('log.fit_completed_successfully', equation=equation_str))
 
-    return text, y_fitted, equation_str
+    return text, y_fitted, equation_str, r_squared
 
 
 def get_fitting_function(equation_name: str) -> Optional[Callable]:

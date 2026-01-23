@@ -1,8 +1,8 @@
 @echo off
 REM ============================================================================
-REM RegresionLab - Quick Launch Script for Windows
+REM RegressionLab - Quick Launch Script for Windows
 REM ============================================================================
-REM This script activates the virtual environment and runs RegresionLab
+REM This script activates the virtual environment and runs RegressionLab
 REM ============================================================================
 
 REM Language Configuration (Uncomment and modify to set language)

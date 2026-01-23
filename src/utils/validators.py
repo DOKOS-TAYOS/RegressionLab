@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Data validation utilities for the RegresionLab application.
+Data validation utilities for the RegressionLab application.
 
 This module provides functions to validate data integrity,
 file paths, and parameter values before processing.

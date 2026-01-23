@@ -1,4 +1,4 @@
-# Development dependencies for RegresionLab
+# Development dependencies for RegressionLab
 # Install with: pip install -r requirements-dev.txt
 
 # Include main dependencies

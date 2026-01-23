@@ -1,5 +1,5 @@
 @echo off
-REM Run all tests for RegresionLab project
-echo Running RegresionLab tests...
+REM Run all tests for RegressionLab project
+echo Running RegressionLab tests...
 python tests\run_tests.py
 pause

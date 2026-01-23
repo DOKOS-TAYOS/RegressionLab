@@ -1,24 +1,24 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Custom exceptions for the RegresionLab application.
+Custom exceptions for the RegressionLab application.
 
 This module defines specific exception types for different error scenarios,
 providing better error handling and debugging capabilities.
 """
 
 
-class RegresionLabError(Exception):
-    """Base exception class for all RegresionLab-related errors."""
+class RegressionLabError(Exception):
+    """Base exception class for all RegressionLab-related errors."""
     pass
 
 
-class DataLoadError(RegresionLabError):
+class DataLoadError(RegressionLabError):
     """Exception raised when data loading fails."""
     pass
 
 
-class DataValidationError(RegresionLabError):
+class DataValidationError(RegressionLabError):
     """Exception raised when data validation fails."""
     pass
 
@@ -33,21 +33,21 @@ class InvalidFileTypeError(DataLoadError):
     pass
 
 
-class FittingError(RegresionLabError):
+class FittingError(RegressionLabError):
     """Exception raised when curve fitting fails."""
     pass
 
 
-class EquationError(RegresionLabError):
+class EquationError(RegressionLabError):
     """Exception raised when equation evaluation fails."""
     pass
 
 
-class ConfigurationError(RegresionLabError):
+class ConfigurationError(RegressionLabError):
     """Exception raised when configuration is invalid."""
     pass
 
 
-class ValidationError(RegresionLabError):
+class ValidationError(RegressionLabError):
     """Exception raised when input validation fails."""
     pass

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Test dataset generator for RegresionLab.
+Test dataset generator for RegressionLab.
 Creates Excel files with simulated experimental data following the structure
 of Ejemplo.xlsx and Exper1.xlsx.
 """
@@ -582,7 +582,7 @@ def main() -> None:
     Generate all test datasets.
     
     Creates comprehensive test datasets with different mathematical relationships
-    to test ALL fitting capabilities of the RegresionLab application.
+    to test ALL fitting capabilities of the RegressionLab application.
     Each dataset simulates realistic experimental data with:
     - Realistic noise levels
     - Measurement uncertainties
@@ -600,7 +600,7 @@ def main() -> None:
     """
     
     print("=" * 80)
-    print("Test Dataset Generator - RegresionLab")
+    print("Test Dataset Generator - RegressionLab")
     print("=" * 80)
     print()
     

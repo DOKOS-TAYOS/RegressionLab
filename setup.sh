@@ -1,15 +1,15 @@
 #!/bin/bash
 # ============================================================================
-# RegresionLab - Setup Script for Unix/Mac
+# RegressionLab - Setup Script for Unix/Mac
 # ============================================================================
-# This script sets up the development environment for RegresionLab
+# This script sets up the development environment for RegressionLab
 # ============================================================================
 
 set -e  # Exit on error
 
 echo ""
 echo "===================================="
-echo "   RegresionLab Setup (Unix/Mac)"
+echo "   RegressionLab Setup (Unix/Mac)"
 echo "===================================="
 echo ""
 
@@ -56,7 +56,7 @@ echo "===================================="
 echo "   Setup Complete!"
 echo "===================================="
 echo ""
-echo "To run RegresionLab:"
+echo "To run RegressionLab:"
 echo "  1. Activate the virtual environment: source .venv/bin/activate"
 echo "  2. Run the program: python main_program.py"
 echo ""

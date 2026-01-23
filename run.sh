@@ -1,8 +1,8 @@
 #!/bin/bash
 # ============================================================================
-# RegresionLab - Quick Launch Script for Unix/Mac
+# RegressionLab - Quick Launch Script for Unix/Mac
 # ============================================================================
-# This script activates the virtual environment and runs RegresionLab
+# This script activates the virtual environment and runs RegressionLab
 # ============================================================================
 
 set -e  # Exit on error

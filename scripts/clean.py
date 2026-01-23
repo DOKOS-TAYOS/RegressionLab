@@ -1,5 +1,5 @@
 """
-Clean script for the RegresionLab project.
+Clean script for the RegressionLab project.
 
 This script removes all __pycache__ directories from the project,
 which contain compiled Python bytecode files (.pyc).

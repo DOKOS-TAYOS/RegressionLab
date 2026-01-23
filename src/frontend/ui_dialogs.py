@@ -966,7 +966,7 @@ def show_help_dialog(parent_window) -> None:
     parent_window.wait_window(help_level)
 
 
-def create_result_window(fit_name: str, text: str, equation_str: str, output_path: str) -> Toplevel:
+def create_result_window(fit_name: str, text: str, equation_str: str, output_path: str, r_squared: float = None) -> Toplevel:
     """
     Create a Tkinter window to display the fitting results.
     
@@ -975,6 +975,7 @@ def create_result_window(fit_name: str, text: str, equation_str: str, output_pat
         text: Formatted text with parameters and uncertainties
         equation_str: Formatted equation string
         output_path: Path to the plot image file
+        r_squared: Coefficient of determination (R²), optional
         
     Returns:
         The created Toplevel window
@@ -1007,7 +1008,7 @@ def create_result_window(fit_name: str, text: str, equation_str: str, output_pat
     plot_level.equation_text.insert('1.0', equation_str)
     plot_level.equation_text.config(state='disabled')  # Read-only but still selectable
     
-    # Create parameters text widget (selectable)
+    # Create parameters text widget (selectable, now includes R²)
     # Count lines and calculate width based on longest line
     text_lines = text.split('\n')
     num_lines = len(text_lines)
@@ -1055,7 +1056,7 @@ def create_result_window(fit_name: str, text: str, equation_str: str, output_pat
     
     # Top: Equation
     plot_level.equation_text.pack(padx=UI_THEME['padding_x'], pady=UI_THEME['padding_y'])
-    # Middle: Frame containing parameters (left) and image (right)
+    # Middle: Frame containing parameters (left, now includes R²) and image (right)
     plot_level.middle_frame.pack(padx=UI_THEME['padding_x'], pady=UI_THEME['padding_y'])
     plot_level.label_parameters.pack(in_=plot_level.middle_frame, side='left', padx=UI_THEME['padding_x'], pady=UI_THEME['padding_y'])
     plot_level.image.pack(in_=plot_level.middle_frame, side='left', padx=UI_THEME['padding_x'], pady=UI_THEME['padding_y'])

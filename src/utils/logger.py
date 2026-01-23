@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Logging configuration for RegresionLab.
+Logging configuration for RegressionLab.
 
 This module provides centralized logging configuration and utilities.
 It supports both file and console logging with customizable log levels.
@@ -24,7 +24,7 @@ except ImportError:
 
 # Default logging configuration
 DEFAULT_LOG_LEVEL = 'INFO'
-DEFAULT_LOG_FILE = 'regresionlab.log'
+DEFAULT_LOG_FILE = 'regressionlab.log'
 DEFAULT_LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 DEFAULT_DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
 

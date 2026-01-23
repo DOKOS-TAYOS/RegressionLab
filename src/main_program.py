@@ -151,8 +151,8 @@ def _wrap_with_visualization(base_fit_function: Callable, fit_name: str) -> Call
         """Execute fitting and display results."""
         try:
             # Backend: Perform the fitting calculation
-            # Returns: parameter text, fitted y values, formatted equation
-            text, y_fitted, equation = base_fit_function(data, x_name, y_name)
+            # Returns: parameter text, fitted y values, formatted equation, R²
+            text, y_fitted, equation, r_squared = base_fit_function(data, x_name, y_name)
             
             # Extract data arrays for plotting
             # The application expects uncertainty columns to be named 'u<varname>'
@@ -169,7 +169,7 @@ def _wrap_with_visualization(base_fit_function: Callable, fit_name: str) -> Call
             output_path = create_plot(x, y, ux, uy, y_fitted, filename_base, x_name, y_name)
             # 2. Display the results in a Tkinter window
             window_title = plot_name if plot_name else fit_name
-            create_result_window(window_title, text, equation, output_path)
+            create_result_window(window_title, text, equation, output_path, r_squared)
         except FittingError as e:
             # Show error message when fitting fails due to scipy convergence issues
             messagebox.showerror(

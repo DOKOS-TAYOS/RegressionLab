@@ -1,4 +1,4 @@
-# Core dependencies for RegresionLab
+# Core dependencies for RegressionLab
 # Install with: pip install -r requirements.txt
 
 # Numerical computing
@@ -21,3 +21,6 @@ python-dotenv>=1.0,<2.0
 
 # Colored terminal output
 colorama>=0.4,<1.0
+
+# Web application framework
+streamlit>=1.31,<2.0

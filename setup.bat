@@ -1,13 +1,13 @@
 @echo off
 REM ============================================================================
-REM RegresionLab - Setup Script for Windows
+REM RegressionLab - Setup Script for Windows
 REM ============================================================================
-REM This script sets up the development environment for RegresionLab
+REM This script sets up the development environment for RegressionLab
 REM ============================================================================
 
 echo.
 echo ====================================
-echo    RegresionLab Setup (Windows)
+echo    RegressionLab Setup (Windows)
 echo ====================================
 echo.
 
@@ -58,7 +58,7 @@ echo ====================================
 echo    Setup Complete!
 echo ====================================
 echo.
-echo To run RegresionLab:
+echo To run RegressionLab:
 echo   1. Activate the virtual environment: .venv\Scripts\activate.bat
 echo   2. Run the program: python main_program.py
 echo.

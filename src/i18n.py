@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Internationalization (i18n) module for the RegresionLab application.
+Internationalization (i18n) module for the RegressionLab application.
 
 This module provides language support for the application, allowing all UI messages,
 logs, and errors to be displayed in different languages based on the LANGUAGE
@@ -133,7 +133,7 @@ def t(key: str, **kwargs) -> str:
         'Bienvenido, científico. ¿Qué deseas hacer?'
         
         >>> t('error.fitting_failed_details', error='Invalid data')
-        'RegresionLab no ha sido capaz de ajustar los datos.\n\nDetalles: Invalid data'
+        'RegressionLab no ha sido capaz de ajustar los datos.\n\nDetalles: Invalid data'
     """
     # Ensure translations are loaded
     if not _translations:
