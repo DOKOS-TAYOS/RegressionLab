@@ -16,19 +16,28 @@ echo ""
 # Check if Python is installed
 if ! command -v python3 &> /dev/null; then
     echo "ERROR: Python 3 is not installed"
-    echo "Please install Python 3.11 or higher"
+    echo "Please install Python 3.10 or higher"
+    echo "Python 3.12 is recommended for best performance"
     exit 1
 fi
 
 echo "[1/7] Checking Python version..."
 python3 --version
 
-# Check Python version is 3.11 or higher
-python3 -c "import sys; exit(0 if sys.version_info >= (3, 11) else 1)" || {
-    echo "ERROR: Python 3.11 or higher is required"
+# Check Python version is 3.10 or higher
+python3 -c "import sys; exit(0 if sys.version_info >= (3, 10) else 1)" || {
+    echo "ERROR: Python 3.10 or higher is required"
+    echo "Python 3.12 is recommended for best performance"
     exit 1
 }
-echo "      Python version OK"
+
+# Check if Python version is 3.12 or higher (recommended)
+if python3 -c "import sys; exit(0 if sys.version_info >= (3, 12) else 1)" 2>/dev/null; then
+    echo "      Python version OK (recommended version)"
+else
+    echo "WARNING: Python 3.12 or higher is recommended for best performance"
+    echo "      Current version will work, but 3.12+ is preferred"
+fi
 
 echo ""
 echo "[2/7] Creating virtual environment..."
