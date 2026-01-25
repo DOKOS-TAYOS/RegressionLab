@@ -1,45 +1,78 @@
+<div align="center">
+
+![RegressionLab Logo](images/RegressionLab_logo.png)
+
 # RegressionLab
 
-[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.8.0-blue.svg)](https://github.com/DOKOS-TAYOS/RegressionLab)
+**A powerful and user-friendly curve fitting application for scientists, engineers, students, and data analysts**
 
-**RegressionLab** is a powerful and user-friendly curve fitting application designed for scientists, engineers, students, and data analysts. Perform curve fitting operations using multiple mathematical models with an intuitive interface.
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
+[![Version](https://img.shields.io/badge/version-0.8.0-blue.svg?style=for-the-badge)](https://github.com/DOKOS-TAYOS/RegressionLab)
+[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://regressionlab.streamlit.app/)
+[![SciPy](https://img.shields.io/badge/SciPy-8CAAE6?style=for-the-badge&logo=scipy&logoColor=white)](https://scipy.org/)
+[![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white)](https://numpy.org/)
 
-## 🌟 Features
+[🌐 **Try Online**](https://regressionlab.streamlit.app/) • [📖 **Documentation**](docs/index.md) • [🐛 **Report Bug**](https://github.com/DOKOS-TAYOS/RegressionLab/issues) • [💡 **Request Feature**](https://github.com/DOKOS-TAYOS/RegressionLab/issues)
 
-- **Dual Interface**: Web version (Streamlit) and desktop version (Tkinter)
-- **Multiple Fitting Functions**: Linear, polynomial, trigonometric, logarithmic, inverse, hyperbolic, and custom functions
-- **Multiple Operation Modes**: Normal fitting, multiple datasets, checker mode, and total fitting
-- **Professional Visualization**: Publication-ready plots with error bars and customizable styles
-- **Uncertainty Handling**: Automatic detection and visualization of measurement uncertainties
-- **Batch Processing**: Fit multiple datasets or test all equations simultaneously
-- **Internationalization**: Full support for English and Spanish (easily extensible)
-- **Highly Configurable**: Customize every aspect through the `.env` file
+</div>
+
+---
+
+**RegressionLab** is a comprehensive curve fitting application that enables you to perform advanced curve fitting operations using multiple mathematical models with an intuitive interface. Whether you're analyzing experimental data, calibrating instruments, or exploring mathematical relationships, RegressionLab provides the tools you need.
+
+## ✨ Features
+
+<div align="center">
+
+| 🖥️ **Dual Interface** | 📊 **Advanced Fitting** | 🎨 **Professional Plots** |
+|:---:|:---:|:---:|
+| Web (Streamlit) & Desktop (Tkinter) | Multiple mathematical models | Publication-ready visualizations |
+
+</div>
+
+### 🚀 Key Capabilities
+
+- **🌐 Dual Interface**: Choose between web version (Streamlit) for instant access or desktop version (Tkinter) for offline use
+- **📈 Multiple Fitting Functions**: Linear, polynomial, trigonometric, logarithmic, inverse, hyperbolic, and custom functions
+- **⚙️ Multiple Operation Modes**: Normal fitting, multiple datasets, checker mode, and total fitting
+- **📊 Professional Visualization**: Publication-ready plots with error bars and customizable styles
+- **📏 Uncertainty Handling**: Automatic detection and visualization of measurement uncertainties
+- **🔄 Batch Processing**: Fit multiple datasets or test all equations simultaneously
+- **🌍 Internationalization**: Full support for English and Spanish (easily extensible)
+- **⚙️ Highly Configurable**: Customize every aspect through the `.env` file
 
 
-## 📖 Documentation
+## 📚 Documentation
 
-Complete documentation is available in the [`docs/`](docs/) directory:
+<div align="center">
 
-- **[Getting Started](docs/index.md)** - Main documentation index
-- **[Introduction](docs/introduction.md)** - Project overview and benefits
-- **[Installation Guide](docs/installation.md)** - Detailed installation instructions
-- **[User Guide](docs/usage.md)** - How to use RegressionLab
-- **[Configuration](docs/configuration.md)** - Configuration options
-- **[API Documentation](docs/api/index.md)** - Technical reference for developers
+📖 **Complete documentation is available in the [`docs/`](docs/) directory**
+
+</div>
+
+| 📄 Document | 📝 Description |
+|:---|:---|
+| **[Getting Started](docs/index.md)** | Main documentation index |
+| **[Introduction](docs/introduction.md)** | Project overview and benefits |
+| **[Installation Guide](docs/installation.md)** | Detailed installation instructions |
+| **[User Guide](docs/usage.md)** | How to use RegressionLab |
+| **[Configuration](docs/configuration.md)** | Configuration options |
+| **[API Documentation](docs/api/index.md)** | Technical reference for developers |
 
 ## 🚀 Quick Start
 
-### Web Version (Easiest)
+### 🌐 Web Version (Easiest)
 
-Access RegressionLab instantly in your browser:
+<div align="center">
 
-**[https://regressionlab.streamlit.app/](https://regressionlab.streamlit.app/)**
+**[👉 Try RegressionLab Online Now 👈](https://regressionlab.streamlit.app/)**
 
-No installation required!
+*No installation required!*
 
-### Desktop Installation
+</div>
+
+### 💻 Desktop Installation
 
 **Quick Installation (Recommended):**
 
@@ -86,12 +119,15 @@ chmod +x install.sh
    ```
 
 
-## 📊 Use Cases
+## 🎯 Use Cases
 
-- **Academic Research**: Analyzing experimental data from physics, chemistry, or biology labs
-- **Engineering**: Calibration curve generation, system identification, and modeling
-- **Data Science**: Exploratory data analysis and model validation
-- **Education**: Learning about mathematical functions and curve fitting concepts
+<div align="center">
+
+| 🎓 **Academic Research** | 🔧 **Engineering** | 📊 **Data Science** | 📚 **Education** |
+|:---:|:---:|:---:|:---:|
+| Analyzing experimental data from physics, chemistry, or biology labs | Calibration curve generation, system identification, and modeling | Exploratory data analysis and model validation | Learning about mathematical functions and curve fitting concepts |
+
+</div>
 
 ## 🛠️ Requirements
 
@@ -101,18 +137,22 @@ chmod +x install.sh
 
 ## 📦 Dependencies
 
-Core dependencies:
-- NumPy >= 2.0
-- Matplotlib >= 3.10
-- SciPy >= 1.17
-- Pandas >= 2.3
-- OpenPyXL >= 3.1
-- Python-dotenv >= 1.0
-- Colorama >= 0.4
+### Core Dependencies
 
-Optional dependencies:
-- Streamlit (for web interface)
-- Tkinter (usually included with Python)
+| Package | Version | Purpose |
+|:---|:---:|:---|
+| **NumPy** | >= 2.0 | Numerical computations |
+| **Matplotlib** | >= 3.10 | Plotting and visualization |
+| **SciPy** | >= 1.17 | Scientific computing and curve fitting |
+| **Pandas** | >= 2.3 | Data manipulation |
+| **OpenPyXL** | >= 3.1 | Excel file handling |
+| **Python-dotenv** | >= 1.0 | Environment configuration |
+| **Colorama** | >= 0.4 | Terminal colors |
+
+### Optional Dependencies
+
+- **Streamlit** - For web interface
+- **Tkinter** - For desktop interface (usually included with Python)
 
 ## 🔧 Configuration
 
@@ -134,18 +174,23 @@ Contributions are welcome! Please read the [Contributing Guidelines](docs/contri
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👤 Author
+## 👨‍💻 Author
+
+<div align="center">
 
 **Alejandro Mata Ali**
 
-- Email: alejandro.mata.ali@gmail.com
-- GitHub: [@DOKOS-TAYOS](https://github.com/DOKOS-TAYOS)
+[📧 Email](mailto:alejandro.mata.ali@gmail.com) • [🐙 GitHub](https://github.com/DOKOS-TAYOS)
+
+</div>
 
 ## 🔗 Links
 
-- **Web Application**: [https://regressionlab.streamlit.app/](https://regressionlab.streamlit.app/)
-- **GitHub Repository**: [https://github.com/DOKOS-TAYOS/RegressionLab](https://github.com/DOKOS-TAYOS/RegressionLab)
-- **Issue Tracker**: [https://github.com/DOKOS-TAYOS/RegressionLab/issues](https://github.com/DOKOS-TAYOS/RegressionLab/issues)
+<div align="center">
+
+[🌐 Web Application](https://regressionlab.streamlit.app/) • [📦 GitHub Repository](https://github.com/DOKOS-TAYOS/RegressionLab) • [🐛 Issue Tracker](https://github.com/DOKOS-TAYOS/RegressionLab/issues)
+
+</div>
 
 ## 💡 Need Help?
 
@@ -156,5 +201,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Version**: 0.8.0  
-**Last Updated**: January 2026
+<div align="center">
+
+**Version**: 0.8.0 • **Last Updated**: January 2026
+
+Made with ❤️ by [Alejandro Mata Ali](https://github.com/DOKOS-TAYOS)
+
+[![GitHub stars](https://img.shields.io/github/stars/DOKOS-TAYOS/RegressionLab?style=social)](https://github.com/DOKOS-TAYOS/RegressionLab)
+[![GitHub forks](https://img.shields.io/github/forks/DOKOS-TAYOS/RegressionLab?style=social)](https://github.com/DOKOS-TAYOS/RegressionLab)
+
+</div>
