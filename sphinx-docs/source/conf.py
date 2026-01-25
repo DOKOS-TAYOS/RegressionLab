@@ -100,7 +100,7 @@ html_theme_options = {
 }
 
 # Add logo if available
-# html_logo = '_static/logo.png'
+html_logo = '_static/RegressionLab_logo.png'
 
 # Add favicon if available
 # html_favicon = '_static/favicon.ico'

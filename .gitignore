@@ -63,10 +63,16 @@ output/*
 *.png
 *.jpg
 *.jpeg
-# But keep logo images
-!images/*.png
-!images/*.jpg
-!images/*.jpeg
+# But keep logo images (recursively in all subdirectories)
+!images/**/*.png
+!images/**/*.jpg
+!images/**/*.jpeg
+!images/**/*.ico
+# Keep Sphinx static images (recursively in all subdirectories)
+!sphinx-docs/source/_static/**/*.png
+!sphinx-docs/source/_static/**/*.jpg
+!sphinx-docs/source/_static/**/*.jpeg
+!sphinx-docs/source/_static/**/*.ico
 
 # Input files (keep example files, ignore user data if needed)
 # Uncomment the following lines if you want to ignore user data files:
