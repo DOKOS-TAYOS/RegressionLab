@@ -11,15 +11,16 @@ font = "sans serif"
 
 [server]
 # Server configuration
-headless = false
+# Note: headless should be true for Streamlit Cloud
+headless = true
 port = 8501
 enableXsrfProtection = true
+# Note: enableCORS is automatically set to true when enableXsrfProtection is enabled
 
 [browser]
 # Browser configuration
 gatherUsageStats = false
-serverAddress = "localhost"
-serverPort = 8501
+# Note: serverAddress and serverPort are not needed for Streamlit Cloud
 
 [runner]
 # Runner configuration

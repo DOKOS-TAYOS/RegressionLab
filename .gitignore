@@ -77,6 +77,8 @@ output/*
 
 # Documentation builds
 docs/_build/
+docs/
+sphinx-docs/
 site/
 
 # Keep template files

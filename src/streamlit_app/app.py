@@ -17,13 +17,33 @@ import streamlit as st
 from typing import Optional, Tuple, List, Dict, Any
 import tempfile
 import os
+import traceback
 
 # Lightweight imports only at startup (config + heavy deps loaded lazily)
-from i18n import initialize_i18n, t
-from utils.logger import setup_logging, get_logger
-
-setup_logging()
-logger = get_logger(__name__)
+try:
+    from i18n import initialize_i18n, t
+    from utils.logger import setup_logging, get_logger
+    
+    # Initialize i18n first (before logging which uses t())
+    initialize_i18n('es')  # Default to Spanish, will be changed by user later
+    
+    # Setup logging after i18n is initialized
+    setup_logging()
+    logger = get_logger(__name__)
+except Exception as e:
+    # Fallback error handling if imports fail
+    import logging
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger(__name__)
+    logger.error(f"Failed to initialize app: {e}")
+    logger.error(traceback.format_exc())
+    
+    # Create minimal fallback functions
+    def t(key: str, **kwargs) -> str:
+        return key
+    
+    def initialize_i18n(language: Optional[str] = None) -> None:
+        pass
 
 # ============================================================================
 # CONSTANTS
@@ -733,38 +753,54 @@ def _show_logo() -> None:
 
 def main() -> None:
     """Main Streamlit application."""
-    from config import __version__, AVAILABLE_EQUATION_TYPES
+    try:
+        from config import __version__, AVAILABLE_EQUATION_TYPES
+    except ImportError as e:
+        st.error(f"Error importing configuration: {e}")
+        st.error("Please ensure all dependencies are installed correctly.")
+        logger.error(f"Import error: {e}", exc_info=True)
+        return
 
-    # Page configuration MUST be first Streamlit call
-    st.set_page_config(
-        page_title="RegressionLab",
-        page_icon="📊",
-        layout="wide",
-        initial_sidebar_state="collapsed"
-    )
+    try:
+        # Page configuration MUST be first Streamlit call
+        st.set_page_config(
+            page_title="RegressionLab",
+            page_icon="📊",
+            layout="wide",
+            initial_sidebar_state="collapsed"
+        )
+    except Exception as e:
+        # If page config was already set, continue
+        logger.warning(f"Page config already set: {e}")
     
-    # Initialize session state and i18n
-    initialize_session_state()
-    initialize_i18n(st.session_state.language)
-    
-    # Setup sidebar and get operation mode
-    operation_mode = _setup_sidebar(__version__)
-    
-    # Display logo and help section
-    _show_logo()
-    show_help_section()
-    
-    # Route to appropriate mode handler
-    mode_map = {
-        t('menu.normal_fitting'): mode_normal_fitting,
-        t('menu.multiple_datasets'): mode_multiple_datasets,
-        t('menu.checker_fitting'): mode_checker_fitting,
-        t('menu.total_fitting'): mode_total_fitting,
-    }
-    
-    mode_handler = mode_map.get(operation_mode)
-    if mode_handler:
-        mode_handler(AVAILABLE_EQUATION_TYPES)
+    try:
+        # Initialize session state and i18n
+        initialize_session_state()
+        initialize_i18n(st.session_state.language)
+        
+        # Setup sidebar and get operation mode
+        operation_mode = _setup_sidebar(__version__)
+        
+        # Display logo and help section
+        _show_logo()
+        show_help_section()
+        
+        # Route to appropriate mode handler
+        mode_map = {
+            t('menu.normal_fitting'): mode_normal_fitting,
+            t('menu.multiple_datasets'): mode_multiple_datasets,
+            t('menu.checker_fitting'): mode_checker_fitting,
+            t('menu.total_fitting'): mode_total_fitting,
+        }
+        
+        mode_handler = mode_map.get(operation_mode)
+        if mode_handler:
+            mode_handler(AVAILABLE_EQUATION_TYPES)
+    except Exception as e:
+        st.error(f"An error occurred while running the application: {e}")
+        st.error("Please check the logs for more details.")
+        logger.error(f"Application error: {e}", exc_info=True)
+        st.code(traceback.format_exc())
 
 
 if __name__ == "__main__":
