@@ -7,6 +7,53 @@
 
 set -e  # Exit on error
 
+# Detect Linux and package manager (for optional auto-install of dependencies)
+is_linux_with_pkg_manager() {
+    [ "$(uname -s)" = "Linux" ] || return 1
+    command -v apt-get &> /dev/null || command -v dnf &> /dev/null || \
+    command -v yum &> /dev/null || command -v zypper &> /dev/null || \
+    command -v pacman &> /dev/null
+}
+
+install_python312_linux() {
+    if command -v apt-get &> /dev/null; then
+        # Debian/Ubuntu: use deadsnakes PPA for Python 3.12
+        sudo apt-get update
+        if ! apt-cache show python3.12 &> /dev/null; then
+            sudo add-apt-repository -y ppa:deadsnakes/ppa
+            sudo apt-get update
+        fi
+        sudo apt-get install -y python3.12 python3.12-venv python3.12-pip
+        sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 2
+        sudo update-alternatives --set python3 /usr/bin/python3.12
+    elif command -v dnf &> /dev/null; then
+        sudo dnf install -y python3.12 python3.12-pip
+        if command -v python3.12 &> /dev/null; then
+            sudo alternatives --set python3 /usr/bin/python3.12 2>/dev/null || true
+        fi
+    elif command -v yum &> /dev/null; then
+        sudo yum install -y python3.12 python3.12-pip 2>/dev/null || \
+        { echo "Python 3.12 may not be in default repos. Try: sudo yum install python3.12"; return 1; }
+        if command -v python3.12 &> /dev/null; then
+            sudo alternatives --set python3 /usr/bin/python3.12 2>/dev/null || true
+        fi
+    elif command -v zypper &> /dev/null; then
+        sudo zypper install -y python312 python312-pip python312-venv 2>/dev/null || \
+        sudo zypper install -y python3.12 python3.12-pip 2>/dev/null || return 1
+        if command -v python3.12 &> /dev/null; then
+            sudo update-alternatives --set python3 /usr/bin/python3.12 2>/dev/null || true
+        fi
+    elif command -v pacman &> /dev/null; then
+        sudo pacman -S --noconfirm python python-pip
+        # Arch uses 'python' for latest (3.12+); ensure python3 exists
+        if ! command -v python3 &> /dev/null && command -v python &> /dev/null; then
+            sudo ln -sf "$(command -v python)" /usr/local/bin/python3 2>/dev/null || true
+        fi
+    else
+        return 1
+    fi
+}
+
 echo ""
 echo "===================================="
 echo "   RegressionLab Setup (Unix/Mac)"
@@ -15,10 +62,47 @@ echo ""
 
 # Check if Python is installed
 if ! command -v python3 &> /dev/null; then
-    echo "ERROR: Python 3 is not installed"
-    echo "Please install Python 3.10 or higher"
-    echo "Python 3.12 is recommended for best performance"
-    exit 1
+    # On Arch, python3 might be symlinked as 'python'
+    if command -v python &> /dev/null && python --version 2>&1 | grep -q "Python 3"; then
+        # Create alias/symlink expectation: many scripts use python3
+        if ! command -v python3 &> /dev/null; then
+            echo "Python 3 is installed as 'python' but not as 'python3'."
+            echo "On some systems (e.g. Arch) you may need: sudo ln -s $(which python) /usr/local/bin/python3"
+            echo "Or install python3 package: sudo pacman -S python"
+            exit 1
+        fi
+    fi
+fi
+
+if ! command -v python3 &> /dev/null; then
+    echo "Python 3 is not installed."
+    if is_linux_with_pkg_manager; then
+        read -p "Do you want to install Python 3.12 now? (y/N): " INSTALL_PYTHON
+        if [[ "$INSTALL_PYTHON" =~ ^[Yy]$ ]]; then
+            echo "Installing Python 3.12..."
+            if install_python312_linux; then
+                echo "Python 3.12 installed successfully."
+                # On Arch, 'python' is the command; ensure python3 exists
+                if ! command -v python3 &> /dev/null && command -v python &> /dev/null; then
+                    echo "Note: On this system Python 3 is run as 'python'. Creating python3 symlink if possible..."
+                    if [ -x "$(command -v python)" ]; then
+                        sudo ln -sf "$(command -v python)" /usr/local/bin/python3 2>/dev/null || true
+                    fi
+                fi
+            else
+                echo "ERROR: Failed to install Python 3.12 automatically."
+                echo "Please install Python 3.12 manually (Python 3.10+ is required)."
+                exit 1
+            fi
+        else
+            echo "Please install Python 3.12 and run this script again."
+            exit 1
+        fi
+    else
+        echo "ERROR: Python 3 is not installed"
+        echo "Please install Python 3.12 (Python 3.10+ is required)"
+        exit 1
+    fi
 fi
 
 echo "[1/7] Checking Python version..."
