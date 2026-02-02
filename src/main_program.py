@@ -11,16 +11,18 @@ __maintainer__ = "Alejandro Mata Ali"
 __email__ = "alejandro.mata.ali@gmail.com"
 __status__ = "Beta"
 
-# Add src directory to Python path for proper imports
+# Standard library
 import sys
 from pathlib import Path
+from tkinter import messagebox
+from typing import Callable, Optional
+
+# Add src directory to Python path for proper imports
 src_dir = Path(__file__).parent
 if str(src_dir) not in sys.path:
     sys.path.insert(0, str(src_dir))
 
-from tkinter import messagebox
-from typing import Optional, Callable
-
+# Local imports
 from config import AVAILABLE_EQUATION_TYPES, EXIT_SIGNAL, __version__
 from i18n import t, initialize_i18n
 from frontend.ui_main_menu import start_main_menu
@@ -243,7 +245,9 @@ def normal_fitting() -> None:
     
     # Phase 3: Data Loading
     # Load the dataset and get variable selections
-    data, x_name, y_name, plot_name, data_file_path, data_file_type = coordinate_data_loading(
+    (
+        data, x_name, y_name, plot_name, data_file_path, data_file_type
+    ) = coordinate_data_loading(
         parent_window=menu,
         ask_file_type_func=ask_file_type,
         ask_file_name_func=ask_file_name,
@@ -317,7 +321,9 @@ def single_fit_multiple_datasets() -> None:
     for i in range(num_datasets):
         # Check if user hasn't cancelled any previous load
         if not any(ds.get('file_type') == EXIT_SIGNAL for ds in datasets):
-            data, x_name, y_name, plot_name, data_file_path, data_file_type = coordinate_data_loading(
+            (
+                data, x_name, y_name, plot_name, data_file_path, data_file_type
+            ) = coordinate_data_loading(
                 parent_window=menu,
                 ask_file_type_func=ask_file_type,
                 ask_file_name_func=ask_file_name,
@@ -359,7 +365,9 @@ def multiple_fits_single_dataset() -> None:
     menu = _get_menu_window()
     
     # Load data once
-    data, x_name, y_name, plot_name, data_file_path, data_file_type = coordinate_data_loading(
+    (
+        data, x_name, y_name, plot_name, data_file_path, data_file_type
+    ) = coordinate_data_loading(
         parent_window=menu,
         ask_file_type_func=ask_file_type,
         ask_file_name_func=ask_file_name,
@@ -408,7 +416,9 @@ def all_fits_single_dataset() -> None:
     menu = _get_menu_window()
     
     # Load data
-    data, x_name, y_name, plot_name, data_file_path, data_file_type = coordinate_data_loading(
+    (
+        data, x_name, y_name, plot_name, data_file_path, data_file_type
+    ) = coordinate_data_loading(
         parent_window=menu,
         ask_file_type_func=ask_file_type,
         ask_file_name_func=ask_file_name,

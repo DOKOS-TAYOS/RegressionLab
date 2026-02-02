@@ -1,9 +1,12 @@
+# Standard library
 from pathlib import Path
 from typing import Union
 
+# Third-party packages
 import matplotlib.pyplot as plt
 
-from config import PLOT_CONFIG, FONT_CONFIG, setup_fonts, get_output_path
+# Local imports
+from config import FONT_CONFIG, PLOT_CONFIG, get_output_path, setup_fonts
 from utils.logger import get_logger
 
 logger = get_logger(__name__)

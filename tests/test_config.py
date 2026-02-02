@@ -4,17 +4,19 @@
 Tests for config module.
 """
 
-import unittest
+# Standard library
 import os
-import sys
-from pathlib import Path
-import tempfile
 import shutil
+import sys
+import tempfile
+import unittest
+from pathlib import Path
 
 # Add src to path
 src_path = Path(__file__).parent.parent / 'src'
 sys.path.insert(0, str(src_path))
 
+# Local imports
 from config import (
     get_env,
     get_project_root,

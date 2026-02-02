@@ -5,16 +5,24 @@ Workflow controller for fitting operations.
 Contains coordination functions and workflow patterns for the fitting application.
 """
 
+# Standard library
 from tkinter import messagebox
-from typing import Callable, Any, List, Dict, Tuple, Optional
+from typing import Any, Callable, Dict, List, Optional, Tuple
+
+# Third-party packages
 import pandas as pd
 
+# Local imports
+from config import EXIT_SIGNAL
+from i18n import t
+from loaders.data_loader import (
+    get_file_list_by_type,
+    get_variable_names,
+    load_data_workflow,
+)
 from loaders.loading_utils import csv_reader, excel_reader, get_file_names
-from loaders.data_loader import load_data_workflow, get_variable_names, get_file_list_by_type
 from utils.exceptions import DataLoadError
 from utils.logger import get_logger
-from i18n import t
-from config import EXIT_SIGNAL
 
 logger = get_logger(__name__)
 
@@ -125,7 +133,10 @@ def single_fit_with_loop(
             fitter_function(data, x_name, y_name, plot_name)
             logger.debug(f"Loop iteration {iteration} completed successfully")
         except Exception as e:
-            logger.error(t('log.error_in_iteration', iteration=iteration, error=str(e)), exc_info=True)
+            logger.error(
+                t('log.error_in_iteration', iteration=iteration, error=str(e)),
+                exc_info=True
+            )
             # Error is handled by fitter_function wrapper or messagebox
         
         # Ask if user wants another iteration
@@ -219,7 +230,8 @@ def apply_all_equations(
     Args:
         equation_setter: Function to set the current equation type (e.g., 'linear_function')
         get_fitter: Function to retrieve the fitter for the currently set equation type
-        equation_types: List of equation type identifiers to test (e.g., from config.AVAILABLE_EQUATION_TYPES)
+        equation_types: List of equation type identifiers to test
+            (e.g., from config.AVAILABLE_EQUATION_TYPES)
         data: Dataset to fit (pandas DataFrame)
         x_name: Independent variable column name
         y_name: Dependent variable column name
@@ -418,12 +430,14 @@ def coordinate_data_viewing(parent_window,
 # EQUATION SELECTION COORDINATION WORKFLOWS
 # ============================================================================
 
-def coordinate_equation_selection(parent_window,
-                                  ask_equation_type_func: Callable,
-                                  ask_num_parameters_func: Callable,
-                                  ask_parameter_names_func: Callable,
-                                  ask_custom_formula_func: Callable,
-                                  get_fitting_function_func: Callable) -> Tuple[str, Optional[Callable]]:
+def coordinate_equation_selection(
+    parent_window,
+    ask_equation_type_func: Callable,
+    ask_num_parameters_func: Callable,
+    ask_parameter_names_func: Callable,
+    ask_custom_formula_func: Callable,
+    get_fitting_function_func: Callable
+) -> Tuple[str, Optional[Callable]]:
     """
     Coordinate the equation selection workflow.
     
@@ -462,10 +476,12 @@ def coordinate_equation_selection(parent_window,
     return EXIT_SIGNAL, None
 
 
-def coordinate_custom_equation(parent_window,
-                               ask_num_parameters_func: Callable,
-                               ask_parameter_names_func: Callable,
-                               ask_custom_formula_func: Callable) -> Tuple[str, Optional[Callable]]:
+def coordinate_custom_equation(
+    parent_window,
+    ask_num_parameters_func: Callable,
+    ask_parameter_names_func: Callable,
+    ask_custom_formula_func: Callable
+) -> Tuple[str, Optional[Callable]]:
     """
     Coordinate the custom equation creation workflow.
     
@@ -493,7 +509,11 @@ def coordinate_custom_equation(parent_window,
     
     # Check if user wants to exit (check both translated and internal values)
     exit_option = t('dialog.exit_option')
-    if EXIT_SIGNAL in parameter_names or 'salir' in parameter_names or exit_option in parameter_names:
+    if (
+        EXIT_SIGNAL in parameter_names
+        or 'salir' in parameter_names
+        or exit_option in parameter_names
+    ):
         return EXIT_SIGNAL, None
     
     # Frontend: Get formula

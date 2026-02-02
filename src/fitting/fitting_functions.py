@@ -3,24 +3,32 @@ Fitting functions and operations for curve fitting.
 
 This module provides:
 
-    1. Mathematical functions commonly used for curve fitting (func_lineal, func_sin, etc.)
-    2. High-level fitting wrapper functions (ajlineal, ajsin, etc.) that perform the actual curve fitting
+    1. Mathematical functions for curve fitting (func_lineal, func_sin, etc.)
+    2. High-level fitting wrappers (ajlineal, ajsin, etc.) that perform curve fitting
     3. Factory functions to generate custom fitting functions dynamically
 """
 
+# Standard library
+from typing import Callable, Tuple, Union
+
+# Third-party packages
 import numpy as np
 from numpy.typing import NDArray
-from typing import Union, Tuple
 from scipy.special import eval_hermite
 
-from fitting.fitting_utils import generic_fit, estimate_trigonometric_parameters, estimate_phase_shift
+# Local imports
+from fitting.fitting_utils import (
+    estimate_phase_shift,
+    estimate_trigonometric_parameters,
+    generic_fit,
+)
 
 
 # Type alias for numeric inputs that can be scalars or arrays
 Numeric = Union[float, NDArray[np.floating]]
 
 
-def generate_polynomial_function(parameters: list[bool]):
+def generate_polynomial_function(parameters: list[bool]) -> Callable:
     """
     Generate a polynomial function dynamically based on which parameters are enabled.
     
@@ -87,7 +95,9 @@ def generate_polynomial_function(parameters: list[bool]):
                     result = result + coeff * t**power
             return result
     elif num_params == 5:
-        def polynomial(t: Numeric, c0: float, c1: float, c2: float, c3: float, c4: float) -> Numeric:
+        def polynomial(
+            t: Numeric, c0: float, c1: float, c2: float, c3: float, c4: float
+        ) -> Numeric:
             """Polynomial with 5 coefficients"""
             coeffs = (c0, c1, c2, c3, c4)
             result = np.zeros_like(t) if isinstance(t, np.ndarray) else 0.0
@@ -280,7 +290,9 @@ def hermite_polynomial_3(t: Numeric, c0: float, c1: float, c2: float, c3: float)
     return out
 
 
-def hermite_polynomial_4(t: Numeric, c0: float, c1: float, c2: float, c3: float, c4: float) -> Numeric:
+def hermite_polynomial_4(
+    t: Numeric, c0: float, c1: float, c2: float, c3: float, c4: float
+) -> Numeric:
     """
     Sum of physicist's Hermite polynomials up to degree 4:
     y = c0*H_0(t) + ... + c4*H_4(t)
@@ -322,7 +334,9 @@ def fit_linear_function(data: dict, x_name: str, y_name: str) -> Tuple[str, NDAr
     )
 
 
-def fit_quadratic_function_complete(data: dict, x_name: str, y_name: str) -> Tuple[str, NDArray, str]:
+def fit_quadratic_function_complete(
+    data: dict, x_name: str, y_name: str
+) -> Tuple[str, NDArray, str]:
     """Quadratic fit: y = ax^2 + bx + c
     
     Returns:

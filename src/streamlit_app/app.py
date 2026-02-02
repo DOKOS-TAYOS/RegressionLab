@@ -5,21 +5,23 @@ Streamlit Application for RegressionLab
 Web-based interface for curve fitting operations.
 """
 
+# Standard library
+import os
 import sys
+import tempfile
+import traceback
 from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple
 
 # Add src directory to Python path for proper imports
 src_dir = Path(__file__).parent.parent
 if str(src_dir) not in sys.path:
     sys.path.insert(0, str(src_dir))
 
+# Third-party packages
 import streamlit as st
-from typing import Optional, Tuple, List, Dict, Any
-import tempfile
-import os
-import traceback
 
-# Lightweight imports only at startup (config + heavy deps loaded lazily)
+# Local imports (lightweight at startup; config + heavy deps loaded lazily)
 try:
     from i18n import initialize_i18n, t
     from utils.logger import setup_logging, get_logger
@@ -393,7 +395,9 @@ def _create_equation_options(equation_types: List[str]) -> Dict[str, str]:
     return equation_options
 
 
-def show_equation_selector(equation_types: List[str]) -> Tuple[str, Optional[str], Optional[List[str]]]:
+def show_equation_selector(
+    equation_types: List[str]
+) -> Tuple[str, Optional[str], Optional[List[str]]]:
     """
     Show equation type selector and return selection.
 
@@ -497,7 +501,9 @@ def mode_normal_fitting(equation_types: List[str]) -> None:
     """Handle normal fitting mode (single file, single equation)."""
     st.subheader(t('menu.normal_fitting'))
     
-    uploaded_file = st.file_uploader(t('dialog.upload_file'), type=['csv', 'xls', 'xlsx'], key='single_file')
+    uploaded_file = st.file_uploader(
+        t('dialog.upload_file'), type=['csv', 'xls', 'xlsx'], key='single_file'
+    )
     
     if uploaded_file is not None:
         data = load_uploaded_file(uploaded_file)
@@ -512,9 +518,12 @@ def mode_normal_fitting(equation_types: List[str]) -> None:
                 x_name, y_name, plot_name = _select_variables(data)
             
             with col2:
-                equation_name, custom_formula, parameter_names = show_equation_selector(equation_types)
-                
-                if st.button(t('menu.normal_fitting'), type="primary", key="fit_btn", width='stretch'):
+                equation_name, custom_formula, parameter_names = (
+                    show_equation_selector(equation_types)
+                )
+                if st.button(
+                    t('menu.normal_fitting'), type="primary", key="fit_btn", width='stretch'
+                ):
                     with st.spinner(t('workflow.normal_fitting_title')):
                         result = perform_fit(
                             data, x_name, y_name, equation_name, plot_name,
@@ -570,7 +579,12 @@ def mode_multiple_datasets(equation_types: List[str]) -> None:
             # Centered execute button
             col1, col2, col3 = st.columns([1, 2, 1])
             with col2:
-                if st.button(t('menu.multiple_datasets'), type="primary", key="fit_multiple_btn", width='stretch'):
+                if st.button(
+                    t('menu.multiple_datasets'),
+                    type="primary",
+                    key="fit_multiple_btn",
+                    width='stretch'
+                ):
                     results = []
                     
                     for idx, uploaded_file in enumerate(uploaded_files):
@@ -579,10 +593,16 @@ def mode_multiple_datasets(equation_types: List[str]) -> None:
                             
                             x_name = st.session_state.get(f'{idx}_x')
                             y_name = st.session_state.get(f'{idx}_y')
-                            plot_name = st.session_state.get(f'{idx}_plot', uploaded_file.name.split('.')[0])
+                            plot_name = st.session_state.get(
+                                f'{idx}_plot', uploaded_file.name.split('.')[0]
+                            )
                             
                             if x_name and y_name:
-                                with st.spinner(f"{t('workflow.multiple_fitting_title')} {uploaded_file.name} (#{idx + 1})"):
+                                title = (
+                                    f"{t('workflow.multiple_fitting_title')} "
+                                    f"{uploaded_file.name} (#{idx + 1})"
+                                )
+                                with st.spinner(title):
                                     result = perform_fit(
                                         data, x_name, y_name, equation_name, plot_name,
                                         custom_formula, parameter_names
@@ -603,7 +623,9 @@ def mode_checker_fitting(equation_types: List[str]) -> None:
     """Handle checker fitting mode (single file, multiple equations)."""
     st.subheader(t('menu.checker_fitting'))
     
-    uploaded_file = st.file_uploader(t('dialog.upload_file'), type=['csv', 'xls', 'xlsx'], key='checker_file')
+    uploaded_file = st.file_uploader(
+        t('dialog.upload_file'), type=['csv', 'xls', 'xlsx'], key='checker_file'
+    )
     
     if uploaded_file is not None:
         data = load_uploaded_file(uploaded_file)
@@ -626,9 +648,15 @@ def mode_checker_fitting(equation_types: List[str]) -> None:
                     default=list(equation_options_filtered.keys())[:3]
                 )
                 
-                selected_equations = [equation_options_filtered[label] for label in selected_labels]
-                
-                if st.button(t('menu.checker_fitting'), type="primary", key="checker_fit_btn", width='stretch'):
+                selected_equations = [
+                    equation_options_filtered[label] for label in selected_labels
+                ]
+                if st.button(
+                    t('menu.checker_fitting'),
+                    type="primary",
+                    key="checker_fit_btn",
+                    width='stretch'
+                ):
                     results = []
                     progress_bar = st.progress(0)
                     
@@ -652,7 +680,9 @@ def mode_total_fitting(equation_types: List[str]) -> None:
     """Handle total fitting mode (single file, all equations)."""
     st.subheader(t('menu.total_fitting'))
     
-    uploaded_file = st.file_uploader(t('dialog.upload_file'), type=['csv', 'xls', 'xlsx'], key='total_file')
+    uploaded_file = st.file_uploader(
+        t('dialog.upload_file'), type=['csv', 'xls', 'xlsx'], key='total_file'
+    )
     
     if uploaded_file is not None:
         data = load_uploaded_file(uploaded_file)
@@ -666,7 +696,12 @@ def mode_total_fitting(equation_types: List[str]) -> None:
             with col2:
                 st.info(f"📊 {t('menu.total_fitting')}: {len(equation_types)}")
                 
-                if st.button(t('menu.total_fitting'), type="primary", key="total_fit_btn", width='stretch'):
+                if st.button(
+                    t('menu.total_fitting'),
+                    type="primary",
+                    key="total_fit_btn",
+                    width='stretch'
+                ):
                     results = []
                     progress_bar = st.progress(0)
                     
@@ -746,7 +781,8 @@ def _show_logo() -> None:
         st.image(logo_bytes, width='content')
     else:
         st.markdown("""
-            <h1 style='text-align: center; color: #1f77b4; font-size: 3.5em; font-weight: bold; margin-bottom: 0;'>
+            <h1 style='text-align: center; color: #1f77b4; font-size: 3.5em;
+                font-weight: bold; margin-bottom: 0;'>
                 RegressionLab
             </h1>
             <p style='text-align: center; color: #666; font-size: 1.2em; margin-top: 0;'>

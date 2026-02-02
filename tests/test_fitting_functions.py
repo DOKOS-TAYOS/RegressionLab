@@ -4,9 +4,12 @@
 Tests for fitting_functions module.
 """
 
-import unittest
+# Standard library
 import sys
+import unittest
 from pathlib import Path
+
+# Third-party packages
 import numpy as np
 from numpy.typing import NDArray
 
@@ -14,6 +17,7 @@ from numpy.typing import NDArray
 src_path = Path(__file__).parent.parent / 'src'
 sys.path.insert(0, str(src_path))
 
+# Local imports
 from fitting.fitting_functions import (
     generate_polynomial_function,
     generate_trigonometric_function,

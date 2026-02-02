@@ -5,9 +5,10 @@ UI Dialogs module.
 Contains all Tkinter dialog windows for user interaction.
 """
 
+# Standard library
 import re
 import webbrowser
-from typing import Tuple, List
+from typing import List, Tuple
 from tkinter import (
     Tk,
     Toplevel, 
@@ -25,7 +26,8 @@ from tkinter import (
     ttk
 )
 
-from config import UI_STYLE, EXIT_SIGNAL, UI_THEME, DONATIONS_URL
+# Local imports
+from config import DONATIONS_URL, EXIT_SIGNAL, UI_STYLE, UI_THEME
 from i18n import t
 
 def ask_file_type(parent_window) -> str:
@@ -111,12 +113,15 @@ def ask_file_type(parent_window) -> str:
 
     # Grid layout: frame at (0,0)
     call_file_level.frame.grid(column=0, row=0)
-    # Label on row 0
-    call_file_level.label_message.grid(column=0, row=0, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'], sticky='w')
-    # Radio buttons frame on row 1
-    call_file_level.radio_frame.grid(column=0, row=1, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    # Button on row 2
-    call_file_level.accept_button.grid(column=0, row=2, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
+    call_file_level.label_message.grid(
+        column=0, row=0, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'], sticky='w'
+    )
+    call_file_level.radio_frame.grid(
+        column=0, row=1, padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
+    )
+    call_file_level.accept_button.grid(
+        column=0, row=2, padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
+    )
 
     # Set initial focus on the first radiobutton for keyboard navigation
     call_file_level.radiobuttons[0].focus_set()
@@ -185,9 +190,16 @@ def ask_file_name(parent_window, file_list: list) -> str:
     )
 
     call_data_level.frame_custom.grid(column=0, row=0)
-    call_data_level.label_message.grid(column=0, row=0, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    call_data_level.name_entry.grid(column=1, row=0, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    call_data_level.accept_button.grid(column=0, row=1, columnspan=2, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
+    call_data_level.label_message.grid(
+        column=0, row=0, padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
+    )
+    call_data_level.name_entry.grid(
+        column=1, row=0, padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
+    )
+    call_data_level.accept_button.grid(
+        column=0, row=1, columnspan=2,
+        padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
+    )
 
     call_data_level.name_entry.focus_set()
     parent_window.wait_window(call_data_level)
@@ -341,14 +353,30 @@ def ask_variables(parent_window, variable_names: list) -> Tuple[str, str, str]:
     )
 
     call_var_level.frame_custom.grid(column=0, row=0)
-    call_var_level.label_message_plot.grid(column=0, row=0, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    call_var_level.graf_nom.grid(column=1, row=0, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    call_var_level.label_message.grid(column=0, row=1, columnspan=2, padx=UI_STYLE['padding'], pady=6)
-    call_var_level.label_message_x.grid(column=0, row=2, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    call_var_level.x_nom.grid(column=1, row=2, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    call_var_level.label_message_y.grid(column=0, row=3, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    call_var_level.y_nom.grid(column=1, row=3, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    call_var_level.accept_button.grid(column=1, row=4, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
+    call_var_level.label_message_plot.grid(
+        column=0, row=0, padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
+    )
+    call_var_level.graf_nom.grid(
+        column=1, row=0, padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
+    )
+    call_var_level.label_message.grid(
+        column=0, row=1, columnspan=2, padx=UI_STYLE['padding'], pady=6
+    )
+    call_var_level.label_message_x.grid(
+        column=0, row=2, padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
+    )
+    call_var_level.x_nom.grid(
+        column=1, row=2, padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
+    )
+    call_var_level.label_message_y.grid(
+        column=0, row=3, padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
+    )
+    call_var_level.y_nom.grid(
+        column=1, row=3, padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
+    )
+    call_var_level.accept_button.grid(
+        column=1, row=4, padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
+    )
 
     call_var_level.x_nom.focus_set()
     parent_window.wait_window(call_var_level)
@@ -547,51 +575,36 @@ def ask_equation_type(parent_window) -> str:
 
     # Grid layout - organized in rows of 3 buttons for clean appearance
     equation_level.frame_custom.grid(column=0, row=0)
-    equation_level.message.grid(column=0, row=0, columnspan=3, padx=UI_STYLE['padding'], pady=6)
-    
-    # Row 1: Linear functions
-    equation_level.linear_function_with_n.grid(column=0, row=1, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    equation_level.linear_function.grid(column=1, row=1, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    equation_level.ln_function.grid(column=2, row=1, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    
-    # Row 2: Polynomial functions
-    equation_level.quadratic_function_complete.grid(column=0, row=2, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    equation_level.quadratic_function.grid(column=1, row=2, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    equation_level.fourth_power.grid(column=2, row=2, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    
-    # Row 3: Sine functions
-    equation_level.sin_function.grid(column=0, row=3, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    equation_level.sin_function_with_c.grid(column=1, row=3, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    equation_level.sinh_function.grid(column=2, row=3, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    
-    # Row 4: Cosine functions
-    equation_level.cos_function.grid(column=0, row=4, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    equation_level.cos_function_with_c.grid(column=1, row=4, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    equation_level.cosh_function.grid(column=2, row=4, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    
-    # Row 5: Inverse and Gaussian
-    equation_level.inverse_function.grid(column=0, row=5, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    equation_level.inverse_square_function.grid(column=1, row=5, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    equation_level.gaussian_function.grid(column=2, row=5, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    
-    # Row 6: Exponential, binomial, tangent
-    equation_level.exponential_function.grid(column=0, row=6, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    equation_level.binomial_function.grid(column=1, row=6, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    equation_level.tan_function.grid(column=2, row=6, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    
-    # Row 7: Tangent with phase, square pulse, Hermite 3
-    equation_level.tan_function_with_c.grid(column=0, row=7, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    equation_level.square_pulse_function.grid(column=1, row=7, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    equation_level.hermite_polynomial_3.grid(column=2, row=7, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    
-    # Row 8: Hermite 4
-    equation_level.hermite_polynomial_4.grid(column=0, row=8, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    
-    # Row 9: Custom equation button (spans all 3 columns)
-    equation_level.custom.grid(column=0, row=9, columnspan=3, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    
-    # Row 10: Exit button (right-aligned in column 2)
-    equation_level.accept_button.grid(column=2, row=10, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
+    equation_level.message.grid(
+        column=0, row=0, columnspan=3, padx=UI_STYLE['padding'], pady=6
+    )
+    _pad = UI_STYLE['padding']
+    equation_level.linear_function_with_n.grid(column=0, row=1, padx=_pad, pady=_pad)
+    equation_level.linear_function.grid(column=1, row=1, padx=_pad, pady=_pad)
+    equation_level.ln_function.grid(column=2, row=1, padx=_pad, pady=_pad)
+    equation_level.quadratic_function_complete.grid(column=0, row=2, padx=_pad, pady=_pad)
+    equation_level.quadratic_function.grid(column=1, row=2, padx=_pad, pady=_pad)
+    equation_level.fourth_power.grid(column=2, row=2, padx=_pad, pady=_pad)
+    equation_level.sin_function.grid(column=0, row=3, padx=_pad, pady=_pad)
+    equation_level.sin_function_with_c.grid(column=1, row=3, padx=_pad, pady=_pad)
+    equation_level.sinh_function.grid(column=2, row=3, padx=_pad, pady=_pad)
+    equation_level.cos_function.grid(column=0, row=4, padx=_pad, pady=_pad)
+    equation_level.cos_function_with_c.grid(column=1, row=4, padx=_pad, pady=_pad)
+    equation_level.cosh_function.grid(column=2, row=4, padx=_pad, pady=_pad)
+    equation_level.inverse_function.grid(column=0, row=5, padx=_pad, pady=_pad)
+    equation_level.inverse_square_function.grid(column=1, row=5, padx=_pad, pady=_pad)
+    equation_level.gaussian_function.grid(column=2, row=5, padx=_pad, pady=_pad)
+    equation_level.exponential_function.grid(column=0, row=6, padx=_pad, pady=_pad)
+    equation_level.binomial_function.grid(column=1, row=6, padx=_pad, pady=_pad)
+    equation_level.tan_function.grid(column=2, row=6, padx=_pad, pady=_pad)
+    equation_level.tan_function_with_c.grid(column=0, row=7, padx=_pad, pady=_pad)
+    equation_level.square_pulse_function.grid(column=1, row=7, padx=_pad, pady=_pad)
+    equation_level.hermite_polynomial_3.grid(column=2, row=7, padx=_pad, pady=_pad)
+    equation_level.hermite_polynomial_4.grid(column=0, row=8, padx=_pad, pady=_pad)
+    equation_level.custom.grid(
+        column=0, row=9, columnspan=3, padx=_pad, pady=_pad
+    )
+    equation_level.accept_button.grid(column=2, row=10, padx=_pad, pady=_pad)
 
     equation_level.linear_function_with_n.focus_set()
     parent_window.wait_window(equation_level)
@@ -649,10 +662,11 @@ def ask_num_parameters(parent_window) -> int:
         font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
     )
 
+    _pad = UI_STYLE['padding']
     num_parameter_level.frame_custom.grid(column=0, row=0)
-    num_parameter_level.message.grid(column=0, row=0, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    num_parameter_level.num.grid(column=1, row=0, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    num_parameter_level.accept_button.grid(column=1, row=1, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
+    num_parameter_level.message.grid(column=0, row=0, padx=_pad, pady=_pad)
+    num_parameter_level.num.grid(column=1, row=0, padx=_pad, pady=_pad)
+    num_parameter_level.accept_button.grid(column=1, row=1, padx=_pad, pady=_pad)
 
     num_parameter_level.num.focus_set()
     parent_window.wait_window(num_parameter_level)
@@ -726,11 +740,14 @@ def ask_parameter_names(parent_window, num_params: int) -> List[str]:
             font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
         )
 
+        _pad = UI_STYLE['padding']
         parameter_asker_leve.frame_custom.grid(column=0, row=0)
-        parameter_asker_leve.codes.grid(column=0, row=0, columnspan=2, padx=UI_STYLE['padding'], pady=6)
-        parameter_asker_leve.message.grid(column=0, row=1, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-        parameter_asker_leve.name_entry.grid(column=1, row=1, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-        parameter_asker_leve.accept_button.grid(column=1, row=2, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
+        parameter_asker_leve.codes.grid(
+            column=0, row=0, columnspan=2, padx=_pad, pady=6
+        )
+        parameter_asker_leve.message.grid(column=0, row=1, padx=_pad, pady=_pad)
+        parameter_asker_leve.name_entry.grid(column=1, row=1, padx=_pad, pady=_pad)
+        parameter_asker_leve.accept_button.grid(column=1, row=2, padx=_pad, pady=_pad)
 
         parameter_asker_leve.name_entry.focus_set()
         parent_window.wait_window(parameter_asker_leve)
@@ -813,11 +830,14 @@ def ask_custom_formula(parent_window, parameter_names: List[str]) -> str:
         font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
     )
 
+    _pad = UI_STYLE['padding']
     formulator_level.frame_custom.grid(column=0, row=0)
-    formulator_level.codes.grid(column=0, row=0, columnspan=2, padx=UI_STYLE['padding'], pady=6)
-    formulator_level.message.grid(column=0, row=1, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    formulator_level.name_entry.grid(column=1, row=1, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    formulator_level.accept_button.grid(column=1, row=2, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
+    formulator_level.codes.grid(
+        column=0, row=0, columnspan=2, padx=_pad, pady=6
+    )
+    formulator_level.message.grid(column=0, row=1, padx=_pad, pady=_pad)
+    formulator_level.name_entry.grid(column=1, row=1, padx=_pad, pady=_pad)
+    formulator_level.accept_button.grid(column=1, row=2, padx=_pad, pady=_pad)
 
     formulator_level.name_entry.focus_set()
     parent_window.wait_window(formulator_level)
@@ -877,10 +897,11 @@ def ask_num_fits(parent_window, min_val: int = 2, max_val: int = 10) -> int:
         font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
     )
 
+    _pad = UI_STYLE['padding']
     number_fits_level.frame_custom.grid(column=0, row=0)
-    number_fits_level.num_label.grid(column=0, row=0, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    number_fits_level.num_x.grid(column=1, row=0, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    number_fits_level.accept_button.grid(column=1, row=1, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
+    number_fits_level.num_label.grid(column=0, row=0, padx=_pad, pady=_pad)
+    number_fits_level.num_x.grid(column=1, row=0, padx=_pad, pady=_pad)
+    number_fits_level.accept_button.grid(column=1, row=1, padx=_pad, pady=_pad)
 
     number_fits_level.num_x.focus_set()
     parent_window.wait_window(number_fits_level)
@@ -1050,7 +1071,9 @@ def show_help_dialog(parent_window: Tk | Toplevel) -> None:
     parent_window.wait_window(help_level)
 
 
-def create_result_window(fit_name: str, text: str, equation_str: str, output_path: str) -> Toplevel:
+def create_result_window(
+    fit_name: str, text: str, equation_str: str, output_path: str
+) -> Toplevel:
     """
     Create a Tkinter window to display the fitting results.
 
@@ -1138,8 +1161,13 @@ def create_result_window(fit_name: str, text: str, equation_str: str, output_pat
     plot_level.equation_text.pack(padx=UI_THEME['padding_x'], pady=UI_THEME['padding_y'])
     # Middle: Frame containing parameters (left, now includes R²) and image (right)
     plot_level.middle_frame.pack(padx=UI_THEME['padding_x'], pady=UI_THEME['padding_y'])
-    plot_level.label_parameters.pack(in_=plot_level.middle_frame, side='left', padx=UI_THEME['padding_x'], pady=UI_THEME['padding_y'])
-    plot_level.image.pack(in_=plot_level.middle_frame, side='left', padx=UI_THEME['padding_x'], pady=UI_THEME['padding_y'])
+    _px, _py = UI_THEME['padding_x'], UI_THEME['padding_y']
+    plot_level.label_parameters.pack(
+        in_=plot_level.middle_frame, side='left', padx=_px, pady=_py
+    )
+    plot_level.image.pack(
+        in_=plot_level.middle_frame, side='left', padx=_px, pady=_py
+    )
     # Bottom: Accept button
     plot_level.accept_button.pack(padx=UI_THEME['padding_x'], pady=UI_THEME['padding_y'])
     plot_level.accept_button.focus_set()

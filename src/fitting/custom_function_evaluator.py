@@ -14,15 +14,19 @@ Key features:
     - No dynamic file generation required
 """
 
+# Standard library
+import re
+from typing import Callable, List, Tuple
+
+# Third-party packages
 import numpy as np
 from numpy.typing import NDArray
-from typing import Callable, List, Tuple
-import re
 
+# Local imports
 from config import MATH_FUNCTION_REPLACEMENTS
 from utils.exceptions import EquationError, ValidationError
-from utils.validators import validate_parameter_names
 from utils.logger import get_logger
+from utils.validators import validate_parameter_names
 
 logger = get_logger(__name__)
 
@@ -242,4 +246,7 @@ class CustomFunctionEvaluator:
     
     def __repr__(self) -> str:
         """String representation of the evaluator."""
-        return f"CustomFunctionEvaluator(formula='{self.original_equation_str}', params={self.parameter_names})"
+        return (
+            f"CustomFunctionEvaluator(formula='{self.original_equation_str}', "
+            f"params={self.parameter_names})"
+        )

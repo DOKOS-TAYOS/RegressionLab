@@ -1,16 +1,20 @@
+# Standard library
+from decimal import Decimal
+from typing import Callable, List, Optional, Sequence, Tuple
+
+# Third-party packages
 import numpy as np
+from numpy.typing import NDArray
+from scipy import stats as scipy_stats
 from scipy.optimize import curve_fit
 from scipy.signal import find_peaks
-from scipy import stats as scipy_stats
-from typing import Callable, List, Tuple, Optional, Sequence
-from numpy.typing import NDArray
-from decimal import Decimal
 
+# Local imports
 from config import EQUATION_FUNCTION_MAP, EXIT_SIGNAL
-from utils.exceptions import FittingError
-from utils.validators import validate_fitting_data
-from utils.logger import get_logger
 from i18n import t
+from utils.exceptions import FittingError
+from utils.logger import get_logger
+from utils.validators import validate_fitting_data
 
 logger = get_logger(__name__)
 
@@ -113,7 +117,13 @@ def estimate_trigonometric_parameters(x: NDArray, y: NDArray) -> Tuple[float, fl
     if frequency <= 0 or not np.isfinite(frequency):
         frequency = 1.0
     
-    logger.debug(t('log.estimated_trig_parameters', amplitude=f"{amplitude:.3f}", frequency=f"{frequency:.3f}"))
+    logger.debug(
+        t(
+            'log.estimated_trig_parameters',
+            amplitude=f"{amplitude:.3f}",
+            frequency=f"{frequency:.3f}"
+        )
+    )
     return amplitude, frequency
 
 
@@ -181,7 +191,8 @@ def generic_fit(
         param_names: List of parameter names (e.g., ['m', 'n'] or ['a', 'b', 'c'])
         equation_template: Template for equation display (e.g., "y={m}x+{n}")
         initial_guess: Optional initial parameter values for fitting (improves convergence)
-        bounds: Optional (lower_bounds, upper_bounds) for parameters; avoids overflow in exponentials
+        bounds: Optional (lower_bounds, upper_bounds) for parameters;
+            avoids overflow in exponentials
     
     Returns:
         Tuple of (text, y_fitted, equation):
@@ -290,8 +301,6 @@ def generic_fit(
         logger.error(t('log.error_calculating_fitted_curve', error=str(e)), exc_info=True)
         raise FittingError(t('error.calculating_fitted_curve', error=str(e)))
     
-    # Compute the fit statistics. If you want some news, include them here and add them to the lines
-
     # Calculate fit statistics
     n_points = len(y)
     n_params = len(params)
@@ -339,7 +348,9 @@ def generic_fit(
     # Generate text output using the fit_stats dictionary
     text_lines.append(f"R\u00B2={fit_stats['r_squared']:.6f}")
     text_lines.append(t('stats.chi_squared', value=f"{fit_stats['chi_squared']:.4g}"))
-    text_lines.append(t('stats.reduced_chi_squared', value=f"{fit_stats['reduced_chi_squared']:.4g}"))
+    text_lines.append(
+        t('stats.reduced_chi_squared', value=f"{fit_stats['reduced_chi_squared']:.4g}")
+    )
     text_lines.append(t('stats.dof', value=fit_stats['dof']))
     
     # Add confidence intervals
@@ -347,7 +358,12 @@ def generic_fit(
         ci = fit_stats['confidence_intervals'][name]
         if ci['available']:
             text_lines.append(
-                t('stats.param_ci_95', param=name, low=f"{ci['low']:.4g}", high=f"{ci['high']:.4g}")
+                t(
+                    'stats.param_ci_95',
+                    param=name,
+                    low=f"{ci['low']:.4g}",
+                    high=f"{ci['high']:.4g}"
+                )
             )
         else:
             text_lines.append(t('stats.param_ci_95_na', param=name))
@@ -385,7 +401,9 @@ def get_fitting_function(equation_name: str) -> Optional[Callable]:
     # Import and return the appropriate fitting function
     if equation_name in EQUATION_FUNCTION_MAP:
         function_name = EQUATION_FUNCTION_MAP[equation_name]
-        logger.debug(t('log.equation_maps_to_function', equation=equation_name, function=function_name))
+        logger.debug(
+            t('log.equation_maps_to_function', equation=equation_name, function=function_name)
+        )
         
         try:
             from fitting import fitting_functions
@@ -394,7 +412,10 @@ def get_fitting_function(equation_name: str) -> Optional[Callable]:
             return fit_function
         except (ImportError, AttributeError) as e:
             # Handle import errors gracefully
-            logger.error(t('log.error_importing_fitting_function', function=function_name, error=str(e)), exc_info=True)
+            logger.error(
+                t('log.error_importing_fitting_function', function=function_name, error=str(e)),
+                exc_info=True
+            )
             return None
     else:
         # Unknown equation type

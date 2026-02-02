@@ -14,6 +14,7 @@ This is equivalent to 'make clean' in C projects - it removes
 build artifacts without affecting source code.
 """
 
+# Standard library
 import os
 import shutil
 from pathlib import Path

@@ -13,25 +13,29 @@ This file consolidates all configuration settings for:
 All modules should import configuration from this central file.
 """
 
+# Standard library
 import os
 from pathlib import Path
+from typing import Any, Type, Union
+
+# Third-party packages
+try:
+    from dotenv import load_dotenv
+    env_path = Path(__file__).parent.parent / '.env'
+    load_dotenv(dotenv_path=env_path)
+except ImportError:
+    pass
 
 # ============================================================================
 # ENVIRONMENT VARIABLE LOADING
 # ============================================================================
 
-# Try to load environment variables from .env file
-try:
-    from dotenv import load_dotenv
-    # Look for .env in the project root (one level up from src/)
-    env_path = Path(__file__).parent.parent / '.env'
-    load_dotenv(dotenv_path=env_path)
-except ImportError:
-    # python-dotenv not installed, will use defaults
-    pass
 
-
-def get_env(key: str, default, cast_type=str):
+def get_env(
+    key: str,
+    default: Any,
+    cast_type: Type[Union[str, int, float, bool]] = str
+) -> Union[str, int, float, bool]:
     """
     Get environment variable with type casting and default value.
     
@@ -41,7 +45,8 @@ def get_env(key: str, default, cast_type=str):
         cast_type: Type to cast the value to (str, int, float, bool)
         
     Returns:
-        The environment variable value cast to the specified type, or default
+        The environment variable value cast to the specified type, or default.
+        Type is Union[str, int, float, bool] depending on cast_type.
     """
     value = os.getenv(key)
     if value is None:
@@ -132,10 +137,12 @@ PLOT_CONFIG = {
     # Line properties for fitted curve
     'line_color': get_env('PLOT_LINE_COLOR', 'black'),
     'line_width': get_env('PLOT_LINE_WIDTH', 1.00, float),
-    'line_style': get_env('PLOT_LINE_STYLE', '-'),  # '-' solid, '--' dashed, '-.' dash-dot, ':' dotted
+    # '-' solid, '--' dashed, '-.' dash-dot, ':' dotted
+    'line_style': get_env('PLOT_LINE_STYLE', '-'),
     
     # Marker properties for data points
-    'marker_format': get_env('PLOT_MARKER_FORMAT', 'o'),  # 'o' circle, 's' square, '^' triangle, 'd' diamond
+    # 'o' circle, 's' square, '^' triangle, 'd' diamond
+    'marker_format': get_env('PLOT_MARKER_FORMAT', 'o'),
     'marker_size': get_env('PLOT_MARKER_SIZE', 5, int),
     
     # Error bar and marker colors
@@ -154,8 +161,10 @@ FONT_CONFIG = {
     'family': get_env('FONT_FAMILY', 'serif'),
     
     # Title font properties
-    'title_size': get_env('FONT_TITLE_SIZE', 'xx-large'),  # 'xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large'
-    'title_weight': get_env('FONT_TITLE_WEIGHT', 'semibold'),  # 'normal', 'bold', 'light', 'semibold', 'heavy'
+    # 'xx-small' through 'xx-large'
+    'title_size': get_env('FONT_TITLE_SIZE', 'xx-large'),
+    # 'normal', 'bold', 'light', 'semibold', 'heavy'
+    'title_weight': get_env('FONT_TITLE_WEIGHT', 'semibold'),
     
     # Axis label font properties
     'axis_size': get_env('FONT_AXIS_SIZE', 30, int),

@@ -6,10 +6,13 @@ Creates Excel files with simulated experimental data following the structure
 of Ejemplo.xlsx and Exper1.xlsx.
 """
 
-import numpy as np
-import pandas as pd
+# Standard library
 from pathlib import Path
 from typing import Tuple
+
+# Third-party packages
+import numpy as np
+import pandas as pd
 
 
 def generate_linear_data(

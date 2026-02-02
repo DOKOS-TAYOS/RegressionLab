@@ -5,11 +5,16 @@ Main menu module.
 Contains the main application window and exit confirmation dialog.
 """
 
-from tkinter import Tk, Toplevel, Frame, Label, Button, TOP, LEFT, RIGHT
-from typing import Callable, Optional
-import sys
+# Standard library
 import os
+import sys
+from tkinter import Tk, Toplevel, Frame, Label, Button, TOP, LEFT, RIGHT
+from typing import Callable
+
+# Third-party packages
 from PIL import Image, ImageTk
+
+# Local imports
 from config import UI_STYLE
 from i18n import t
 
@@ -162,27 +167,23 @@ def create_main_menu(
     main_frame.grid(column=0, row=0)
     
     # Place logo if it was loaded successfully
+    _pad = UI_STYLE['padding']
     current_row = 0
     if logo_label:
-        logo_label.grid(column=0, row=current_row, columnspan=2, padx=UI_STYLE['padding'], pady=6)
+        logo_label.grid(column=0, row=current_row, columnspan=2, padx=_pad, pady=6)
         current_row += 1
-    
-    message.grid(column=0, row=current_row, columnspan=2, padx=UI_STYLE['padding'], pady=6)
+    message.grid(column=0, row=current_row, columnspan=2, padx=_pad, pady=6)
     current_row += 1
-    
-    normal_fitting_button.grid(column=0, row=current_row, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    multiple_datasets_button.grid(column=1, row=current_row, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
+    normal_fitting_button.grid(column=0, row=current_row, padx=_pad, pady=_pad)
+    multiple_datasets_button.grid(column=1, row=current_row, padx=_pad, pady=_pad)
     current_row += 1
-    
-    multiple_fits_button.grid(column=0, row=current_row, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    all_fits_button.grid(column=1, row=current_row, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
+    multiple_fits_button.grid(column=0, row=current_row, padx=_pad, pady=_pad)
+    all_fits_button.grid(column=1, row=current_row, padx=_pad, pady=_pad)
     current_row += 1
-    
-    help_button.grid(column=0, row=current_row, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    view_data_button.grid(column=1, row=current_row, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
+    help_button.grid(column=0, row=current_row, padx=_pad, pady=_pad)
+    view_data_button.grid(column=1, row=current_row, padx=_pad, pady=_pad)
     current_row += 1
-    
-    exit_button.grid(column=1, row=current_row, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
+    exit_button.grid(column=1, row=current_row, padx=_pad, pady=_pad)
     
     normal_fitting_button.focus_set()
     

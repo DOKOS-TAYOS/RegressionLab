@@ -7,11 +7,15 @@ This module provides functions to validate data integrity,
 file paths, and parameter values before processing.
 """
 
+# Standard library
 from pathlib import Path
-from typing import List, Any
-import pandas as pd
-import numpy as np
+from typing import Any, List
 
+# Third-party packages
+import numpy as np
+import pandas as pd
+
+# Local imports
 from utils.exceptions import (
     DataValidationError,
     FileNotFoundError,
@@ -63,11 +67,16 @@ def validate_file_type(file_type: str, allowed_types: List[str] = None) -> None:
         allowed_types = ['csv', 'xls', 'xlsx']
     
     if file_type not in allowed_types:
-        logger.error(t('log.invalid_file_type', file_type=file_type, allowed_types=', '.join(allowed_types)))
+        allowed_str = ', '.join(allowed_types)
+        logger.error(
+            t('log.invalid_file_type', file_type=file_type, allowed_types=allowed_str)
+        )
         raise InvalidFileTypeError(
-            t('error.unsupported_file_type_details', 
-              file_type=file_type, 
-              allowed_types=', '.join(allowed_types))
+            t(
+                'error.unsupported_file_type_details',
+                file_type=file_type,
+                allowed_types=allowed_str
+            )
         )
     logger.debug(t('log.file_type_validated', file_type=file_type))
 

@@ -7,12 +7,13 @@ This module provides centralized logging configuration and utilities.
 It supports both file and console logging with customizable log levels.
 """
 
+# Standard library
 import logging
 import os
 from pathlib import Path
 from typing import Optional
-from i18n import t
 
+# Third-party packages
 try:
     from colorama import Fore, Style, init as colorama_init
     # Initialize colorama for Windows
@@ -21,6 +22,8 @@ try:
 except ImportError:
     COLORAMA_AVAILABLE = False
 
+# Local imports
+from i18n import t
 
 # Default logging configuration
 DEFAULT_LOG_LEVEL = 'INFO'

@@ -23,10 +23,11 @@ Usage:
     logger.info(t('log.application_starting'))
 """
 
-import os
+# Standard library
 import json
+import os
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Any, Dict, Optional
 
 
 # Default language if not specified
@@ -57,6 +58,7 @@ def _normalize_language(language: str) -> str:
         return 'de'
     else:
         return DEFAULT_LANGUAGE
+
 
 def _get_language_from_env() -> str:
     """

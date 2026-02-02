@@ -17,13 +17,18 @@ Key features:
 All functions are UI-independent and can be used in both GUI and CLI contexts.
 """
 
+# Standard library
 from typing import List, Tuple
+
+# Third-party packages
 import pandas as pd
+
+# Local imports
+from config import FILE_CONFIG, get_project_root
 from loaders.loading_utils import csv_reader, excel_reader
 from utils.exceptions import InvalidFileTypeError
-from utils.validators import validate_file_type
 from utils.logger import get_logger
-from config import FILE_CONFIG, get_project_root
+from utils.validators import validate_file_type
 
 logger = get_logger(__name__)
 
@@ -224,5 +229,8 @@ def load_data_workflow(filename: str, file_type: str) -> Tuple[pd.DataFrame, str
         return data, file_path
         
     except Exception as e:
-        logger.error(f"Data loading workflow failed: {filename}.{file_type} - {str(e)}", exc_info=True)
+        logger.error(
+            f"Data loading workflow failed: {filename}.{file_type} - {str(e)}",
+            exc_info=True
+        )
         raise
