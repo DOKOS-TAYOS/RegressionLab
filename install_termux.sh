@@ -200,19 +200,25 @@ echo "Activating virtual environment..."
 source venv/bin/activate
 
 # ----------------------------------------------------------------------------
-# 7. Install Python dependencies (prefer wheels to avoid long builds on device)
+# 7. Install Python dependencies (wheels only; never build from tar.gz)
 # ----------------------------------------------------------------------------
 echo ""
-echo "[7/11] Installing dependencies..."
+echo "[7/11] Installing dependencies (wheels only, no build)..."
 pip install --upgrade pip
 export PIP_ONLY_BINARY=:all:
-# Scientific stack first so streamlit does not trigger a pandas build
-if ! pip install "numpy>=2.0,<3.0" "scipy>=1.17,<2.0" "pandas>=2.3,<3.0" "matplotlib>=3.10,<4.0" 2>/dev/null; then
-    unset PIP_ONLY_BINARY 2>/dev/null || true
-    echo "No binary wheels for this platform; building from source (may take 15-30 min)..."
-    pip install "numpy>=2.0,<3.0" "scipy>=1.17,<2.0" "pandas>=2.3,<3.0" "matplotlib>=3.10,<4.0"
+
+# Try scientific stack from wheels; on Termux often there are none
+if pip install "numpy>=2.0,<3.0" "scipy>=1.17,<2.0" "pandas>=2.3,<3.0" "matplotlib>=3.10,<4.0" 2>/dev/null; then
+    # Wheels available: install the rest normally
+    pip install "openpyxl>=3.1,<4.0" "Pillow>=10.0,<11.0" "python-dotenv>=1.0,<2.0" "colorama>=0.4,<1.0" "streamlit>=1.31,<2.0"
+else
+    # No wheels for this platform: use pkg-installed numpy/pandas, install streamlit without deps
+    echo "No binary wheels for numpy/scipy/pandas/matplotlib; using pkg-installed versions."
+    pip install "openpyxl>=3.1,<4.0" "Pillow>=10.0,<11.0" "python-dotenv>=1.0,<2.0" "colorama>=0.4,<1.0"
+    pip install --no-deps "streamlit>=1.31,<2.0"
+    # Streamlit deps (excluding numpy, pandas - from pkg)
+    pip install "altair>=4.0,<6" "blinker>=1.0,<2" "cachetools>=4.0,<6" "click>=7.0,<9" "importlib-metadata>=1.4,<8" "packaging>=16.8,<24" "protobuf>=3.20,<5" "pyarrow>=7.0" "python-dateutil>=2.7,<3" "requests>=2.27,<3" "rich>=10.14,<14" "tenacity>=8.1,<9" "toml>=0.10,<2" "typing-extensions>=4.3,<5" "tzlocal>=1.1,<6" "validators>=0.2,<1" "watchdog>=2.1" "gitpython>=3.0.7,<4" "tornado>=6.0,<7" 2>/dev/null || true
 fi
-pip install "openpyxl>=3.1,<4.0" "Pillow>=10.0,<11.0" "python-dotenv>=1.0,<2.0" "colorama>=0.4,<1.0" "streamlit>=1.31,<2.0"
 unset PIP_ONLY_BINARY 2>/dev/null || true
 echo "Dependencies installed."
 
