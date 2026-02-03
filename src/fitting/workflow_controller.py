@@ -510,7 +510,9 @@ def coordinate_custom_equation(
     
     # Frontend: Get number of parameters
     num_param = ask_num_parameters_func(parent_window)
-    
+    if num_param is None:
+        return EXIT_SIGNAL, None
+
     # Frontend: Get parameter names
     parameter_names = ask_parameter_names_func(parent_window, num_param)
     

@@ -18,11 +18,18 @@ from numpy.typing import NDArray
 from scipy.special import eval_hermite
 
 # Local imports
-from fitting.fitting_utils import (
+from fitting.estimators import (
+    estimate_binomial_parameters,
+    estimate_gaussian_parameters,
+    estimate_inverse_parameter,
+    estimate_linear_parameters,
+    estimate_ln_parameter,
     estimate_phase_shift,
+    estimate_polynomial_parameters,
+    estimate_single_power_parameter,
     estimate_trigonometric_parameters,
-    generic_fit,
 )
+from fitting.fitting_utils import generic_fit
 
 
 # Type alias for numeric inputs that can be scalars or arrays
@@ -320,11 +327,15 @@ def fit_linear_function_with_n(
     Returns:
         Tuple of (text, y_fitted, equation)
     """
+    x = data[x_name]
+    y = data[y_name]
+    n_0, m_0 = estimate_linear_parameters(x, y)
     return generic_fit(
         data, x_name, y_name,
         fit_func=linear_function_with_n,
         param_names=['n', 'm'],
-        equation_template='y={m}x+{n}'
+        equation_template='y={m}x+{n}',
+        initial_guess=[n_0, m_0]
     )
 
 
@@ -336,11 +347,15 @@ def fit_linear_function(
     Returns:
         Tuple of (text, y_fitted, equation)
     """
+    x = data[x_name]
+    y = data[y_name]
+    m_0 = estimate_single_power_parameter(x, y, 1)
     return generic_fit(
         data, x_name, y_name,
         fit_func=linear_function,
         param_names=['m'],
-        equation_template='y={m}x'
+        equation_template='y={m}x',
+        initial_guess=[m_0]
     )
 
 
@@ -352,11 +367,15 @@ def fit_quadratic_function_complete(
     Returns:
         Tuple of (text, y_fitted, equation)
     """
+    x = data[x_name]
+    y = data[y_name]
+    initial_guess = estimate_polynomial_parameters(x, y, 2)
     return generic_fit(
         data, x_name, y_name,
         fit_func=quadratic_function_complete,
         param_names=['a', 'b', 'c'],
-        equation_template='y={c}x^2+{b}x+{a}'
+        equation_template='y={c}x^2+{b}x+{a}',
+        initial_guess=initial_guess
     )
 
 
@@ -368,11 +387,15 @@ def fit_quadratic_function(
     Returns:
         Tuple of (text, y_fitted, equation)
     """
+    x = data[x_name]
+    y = data[y_name]
+    a_0 = estimate_single_power_parameter(x, y, 2)
     return generic_fit(
         data, x_name, y_name,
         fit_func=quadratic_function,
         param_names=['a'],
-        equation_template='y={a}x^2'
+        equation_template='y={a}x^2',
+        initial_guess=[a_0]
     )
 
 
@@ -384,11 +407,15 @@ def fit_fourth_power(
     Returns:
         Tuple of (text, y_fitted, equation)
     """
+    x = data[x_name]
+    y = data[y_name]
+    a_0 = estimate_single_power_parameter(x, y, 4)
     return generic_fit(
         data, x_name, y_name,
         fit_func=fourth_power,
         param_names=['a'],
-        equation_template='y={a}x^4'
+        equation_template='y={a}x^4',
+        initial_guess=[a_0]
     )
 
     
@@ -480,24 +507,22 @@ def fit_sinh_function(data: DataLike, x_name: str, y_name: str) -> Tuple[str, ND
     Returns:
         Tuple of (text, y_fitted, equation)
     """
-    # Estimate initial parameters for better convergence
     x = data[x_name]
     y = data[y_name]
-    
-    # For sinh, estimate amplitude from range
     y_range = np.max(y) - np.min(y)
     amplitude = y_range / 2.0 if y_range > 0 else 1.0
-    
-    # For hyperbolic functions, b should be small (starts slow, grows fast)
-    x_range = np.max(x) - np.min(x)
-    frequency = 1.0 / x_range if x_range > 0 else 1.0
-    
+    x_range = float(np.ptp(x))
+    frequency = 1.0 / x_range if x_range > 1e-30 else 1.0
+    # Limit b to avoid overflow: sinh(b*x) grows fast; keep b*x_max < ~700
+    b_max = 700.0 / (np.max(np.abs(x)) + 1e-30)
+    bounds = ([-np.inf, 1e-9], [np.inf, min(b_max, 1e3)])
     return generic_fit(
         data, x_name, y_name,
         fit_func=sinh_function,
         param_names=['a', 'b'],
         equation_template='y={a} sinh({b}x)',
-        initial_guess=[amplitude, frequency]
+        initial_guess=[amplitude, frequency],
+        bounds=bounds
     )
 
 
@@ -507,25 +532,22 @@ def fit_cosh_function(data: DataLike, x_name: str, y_name: str) -> Tuple[str, ND
     Returns:
         Tuple of (text, y_fitted, equation)
     """
-    # Estimate initial parameters for better convergence
     x = data[x_name]
     y = data[y_name]
-    
-    # For cosh, minimum value gives us info about amplitude
     y_min = np.min(y)
     y_max = np.max(y)
     amplitude = (y_max - y_min) / 2.0 if (y_max - y_min) > 0 else 1.0
-    
-    # For hyperbolic functions, b should be small
-    x_range = np.max(x) - np.min(x)
-    frequency = 1.0 / x_range if x_range > 0 else 1.0
-    
+    x_range = float(np.ptp(x))
+    frequency = 1.0 / x_range if x_range > 1e-30 else 1.0
+    b_max = 700.0 / (np.max(np.abs(x)) + 1e-30)
+    bounds = ([-np.inf, 1e-9], [np.inf, min(b_max, 1e3)])
     return generic_fit(
         data, x_name, y_name,
         fit_func=cosh_function,
         param_names=['a', 'b'],
         equation_template='y={a} cosh({b}x)',
-        initial_guess=[amplitude, frequency]
+        initial_guess=[amplitude, frequency],
+        bounds=bounds
     )
 
 
@@ -535,11 +557,15 @@ def fit_ln_function(data: DataLike, x_name: str, y_name: str) -> Tuple[str, NDAr
     Returns:
         Tuple of (text, y_fitted, equation)
     """
+    x = data[x_name]
+    y = data[y_name]
+    a_0 = estimate_ln_parameter(x, y)
     return generic_fit(
         data, x_name, y_name,
         fit_func=ln_function,
         param_names=['a'],
-        equation_template='y={a} ln(x)'
+        equation_template='y={a} ln(x)',
+        initial_guess=[a_0]
     )
 
 
@@ -549,11 +575,15 @@ def fit_inverse_function(data: DataLike, x_name: str, y_name: str) -> Tuple[str,
     Returns:
         Tuple of (text, y_fitted, equation)
     """
+    x = data[x_name]
+    y = data[y_name]
+    a_0 = estimate_inverse_parameter(x, y, 1)
     return generic_fit(
         data, x_name, y_name,
         fit_func=inverse_function,
         param_names=['a'],
-        equation_template='y={a}/x'
+        equation_template='y={a}/x',
+        initial_guess=[a_0]
     )
 
 
@@ -563,11 +593,15 @@ def fit_inverse_square_function(data: DataLike, x_name: str, y_name: str) -> Tup
     Returns:
         Tuple of (text, y_fitted, equation)
     """
+    x = data[x_name]
+    y = data[y_name]
+    a_0 = estimate_inverse_parameter(x, y, 2)
     return generic_fit(
         data, x_name, y_name,
         fit_func=inverse_square_function,
         param_names=['a'],
-        equation_template='y={a}/x^2'
+        equation_template='y={a}/x^2',
+        initial_guess=[a_0]
     )
 
 
@@ -579,17 +613,16 @@ def fit_gaussian_function(data: DataLike, x_name: str, y_name: str) -> Tuple[str
     """
     x = data[x_name]
     y = data[y_name]
-    idx_max = np.argmax(y)
-    A_0 = float(y[idx_max])
-    mu_0 = float(x[idx_max])
-    x_range = np.max(x) - np.min(x)
-    sigma_0 = x_range / 4.0 if x_range > 0 else 1.0
+    A_0, mu_0, sigma_0 = estimate_gaussian_parameters(x, y)
+    # Bounds: A > 0 (peak height), sigma > 0 (width)
+    bounds = ([0.0, -np.inf, 1e-9], [np.inf, np.inf, np.inf])
     return generic_fit(
         data, x_name, y_name,
         fit_func=gaussian_function,
         param_names=['A', 'mu', 'sigma'],
         equation_template='y={A} exp(-(x-{mu})^2/(2*{sigma}^2))',
-        initial_guess=[A_0, mu_0, sigma_0]
+        initial_guess=[A_0, mu_0, sigma_0],
+        bounds=bounds
     )
 
 
@@ -643,17 +676,16 @@ def fit_binomial_function(data: DataLike, x_name: str, y_name: str) -> Tuple[str
     """
     x = data[x_name]
     y = data[y_name]
-    y_min, y_max = float(np.min(y)), float(np.max(y))
-    a_0 = y_max - y_min if (y_max - y_min) > 0 else 1.0
-    c_0 = float(np.median(x))
-    x_range = np.max(x) - np.min(x)
-    b_0 = 4.0 / (x_range + 1e-12) if x_range > 0 else 1.0
+    a_0, b_0, c_0 = estimate_binomial_parameters(x, y)
+    # Bounds: a > 0 (saturation range), b > 0 (steepness)
+    bounds = ([1e-9, 1e-9, -np.inf], [np.inf, np.inf, np.inf])
     return generic_fit(
         data, x_name, y_name,
         fit_func=binomial_function,
         param_names=['a', 'b', 'c'],
         equation_template='y={a}/(1+exp(-{b}(x-{c})))',
-        initial_guess=[a_0, b_0, c_0]
+        initial_guess=[a_0, b_0, c_0],
+        bounds=bounds
     )
 
 
@@ -704,14 +736,18 @@ def fit_square_pulse_function(data: DataLike, x_name: str, y_name: str) -> Tuple
     y = data[y_name]
     A_0 = float(np.max(y) - np.min(y)) or 1.0
     t0_0 = float(x[np.argmax(y)])
-    x_range = np.max(x) - np.min(x)
+    x_range = float(np.ptp(x))
     w_0 = x_range / 5.0 if x_range > 0 else 1.0
+    # Bounds: A > 0, w > 0; t0 within data range with margin
+    x_min, x_max = float(np.min(x)), float(np.max(x))
+    bounds = ([1e-9, x_min - x_range, 1e-9], [np.inf, x_max + x_range, x_range * 2])
     return generic_fit(
         data, x_name, y_name,
         fit_func=square_pulse_function,
         param_names=['A', 't0', 'w'],
         equation_template='y=pulso(A={A}, t0={t0}, w={w})',
-        initial_guess=[A_0, t0_0, w_0]
+        initial_guess=[A_0, t0_0, w_0],
+        bounds=bounds
     )
 
 
@@ -721,11 +757,17 @@ def fit_hermite_polynomial_3(data: DataLike, x_name: str, y_name: str) -> Tuple[
     Returns:
         Tuple of (text, y_fitted, equation)
     """
+    x = data[x_name]
+    y = data[y_name]
+    # H_0(x)=1; start with mean as constant term and zeros for higher orders
+    y_mean = float(np.mean(y))
+    initial_guess = [y_mean, 0.0, 0.0, 0.0]
     return generic_fit(
         data, x_name, y_name,
         fit_func=hermite_polynomial_3,
         param_names=['c0', 'c1', 'c2', 'c3'],
-        equation_template='y={c0}*H_0(x)+{c1}*H_1(x)+{c2}*H_2(x)+{c3}*H_3(x)'
+        equation_template='y={c0}*H_0(x)+{c1}*H_1(x)+{c2}*H_2(x)+{c3}*H_3(x)',
+        initial_guess=initial_guess
     )
 
 
@@ -735,9 +777,14 @@ def fit_hermite_polynomial_4(data: DataLike, x_name: str, y_name: str) -> Tuple[
     Returns:
         Tuple of (text, y_fitted, equation)
     """
+    x = data[x_name]
+    y = data[y_name]
+    y_mean = float(np.mean(y))
+    initial_guess = [y_mean, 0.0, 0.0, 0.0, 0.0]
     return generic_fit(
         data, x_name, y_name,
         fit_func=hermite_polynomial_4,
         param_names=['c0', 'c1', 'c2', 'c3', 'c4'],
-        equation_template='y={c0}*H_0(x)+{c1}*H_1(x)+{c2}*H_2(x)+{c3}*H_3(x)+{c4}*H_4(x)'
+        equation_template='y={c0}*H_0(x)+{c1}*H_1(x)+{c2}*H_2(x)+{c3}*H_3(x)+{c4}*H_4(x)',
+        initial_guess=initial_guess
     )

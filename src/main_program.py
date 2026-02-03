@@ -327,7 +327,9 @@ def single_fit_multiple_datasets() -> None:
     
     # Ask for number of datasets
     num_datasets = ask_num_fits(menu)
-    
+    if num_datasets is None:
+        return
+
     # Ask if user wants loop mode
     loop_mode = messagebox.askyesno(
         message=t('workflow.loop_question'), 

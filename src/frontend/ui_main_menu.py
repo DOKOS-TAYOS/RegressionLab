@@ -243,6 +243,8 @@ def show_exit_confirmation(parent_menu: Tk) -> None:
     
     close_button.focus_set()
     exit_level.transient(master=parent_menu)
+    # Closing with X = cancel exit (same as "No")
+    exit_level.protocol("WM_DELETE_WINDOW", exit_level.destroy)
     parent_menu.wait_window(exit_level)
 
 

@@ -8,7 +8,7 @@ Contains all Tkinter dialog windows for user interaction.
 # Standard library
 import re
 import webbrowser
-from typing import Any, List, Tuple
+from typing import Any, List, Optional, Tuple
 from tkinter import (
     Tk,
     Toplevel, 
@@ -73,6 +73,13 @@ def ask_file_type(parent_window: Any) -> str:
     
     # Set default value
     call_file_level.tipo.set(file_type_values[0])
+    call_file_level.cancelled = False
+
+    def _on_close_file_type() -> None:
+        call_file_level.cancelled = True
+        call_file_level.destroy()
+
+    call_file_level.protocol("WM_DELETE_WINDOW", _on_close_file_type)
     
     # Create a frame to contain the radiobuttons
     call_file_level.radio_frame = Frame(
@@ -129,6 +136,8 @@ def ask_file_type(parent_window: Any) -> str:
     # Wait for dialog to close before continuing
     parent_window.wait_window(call_file_level)
 
+    if getattr(call_file_level, 'cancelled', False):
+        return EXIT_SIGNAL
     # Map translated exit option back to internal EXIT_SIGNAL
     selected_value = call_file_level.tipo.get()
     if selected_value == t('dialog.exit_option'):
@@ -149,6 +158,13 @@ def ask_file_name(parent_window: Any, file_list: List[str]) -> str:
     """
     call_data_level = Toplevel()
     call_data_level.title(t('dialog.data'))
+    call_data_level.cancelled = False
+
+    def _on_close_file_name() -> None:
+        call_data_level.cancelled = True
+        call_data_level.destroy()
+
+    call_data_level.protocol("WM_DELETE_WINDOW", _on_close_file_name)
     call_data_level.frame_custom = Frame(
         call_data_level, 
         borderwidth=2, 
@@ -204,6 +220,8 @@ def ask_file_name(parent_window: Any, file_list: List[str]) -> str:
     call_data_level.name_entry.focus_set()
     parent_window.wait_window(call_data_level)
 
+    if getattr(call_data_level, 'cancelled', False):
+        return ''
     return call_data_level.arch.get()
 
 
@@ -225,6 +243,13 @@ def ask_variables(parent_window: Any, variable_names: List[str]) -> Tuple[str, s
     # Create dialog window
     call_var_level = Toplevel()
     call_var_level.title(t('dialog.data'))
+    call_var_level.cancelled = False
+
+    def _on_close_variables() -> None:
+        call_var_level.cancelled = True
+        call_var_level.destroy()
+
+    call_var_level.protocol("WM_DELETE_WINDOW", _on_close_variables)
     
     # Main frame with styled border
     call_var_level.frame_custom = Frame(
@@ -381,6 +406,8 @@ def ask_variables(parent_window: Any, variable_names: List[str]) -> Tuple[str, s
     call_var_level.x_nom.focus_set()
     parent_window.wait_window(call_var_level)
 
+    if getattr(call_var_level, 'cancelled', False):
+        return ('', '', '')
     return call_var_level.x_name.get(), call_var_level.y_name.get(), call_var_level.graf_name.get()
 
 
@@ -467,6 +494,12 @@ def ask_equation_type(parent_window: Any) -> str:
     equation_level = Toplevel()
     equation_level.title(t('dialog.equation_type'))
     equation_level.selected_equation = ''  # Variable to store the user's selection
+
+    def _on_close_equation_type() -> None:
+        equation_level.selected_equation = EXIT_SIGNAL
+        equation_level.destroy()
+
+    equation_level.protocol("WM_DELETE_WINDOW", _on_close_equation_type)
     
     # Main frame with styled border
     equation_level.frame_custom = Frame(
@@ -606,7 +639,7 @@ def ask_equation_type(parent_window: Any) -> str:
     return equation_level.selected_equation
 
 
-def ask_num_parameters(parent_window: Any) -> int:
+def ask_num_parameters(parent_window: Any) -> Optional[int]:
     """
     Dialog to ask for number of parameters in a custom function.
     
@@ -614,11 +647,18 @@ def ask_num_parameters(parent_window: Any) -> int:
         parent_window: Parent Tkinter window
         
     Returns:
-        Selected number of parameters
+        Selected number of parameters, or None if the user closed the window with X.
     """
     num_parameter_level = Toplevel()
     num_parameter_level.title(t('dialog.custom_formula_title'))
+    num_parameter_level.cancelled = False
     num_parameter_level.numparam = IntVar()
+
+    def _on_close_num_parameters() -> None:
+        num_parameter_level.cancelled = True
+        num_parameter_level.destroy()
+
+    num_parameter_level.protocol("WM_DELETE_WINDOW", _on_close_num_parameters)
     num_parameter_level.frame_custom = Frame(
         num_parameter_level, 
         borderwidth=2, 
@@ -665,6 +705,8 @@ def ask_num_parameters(parent_window: Any) -> int:
     num_parameter_level.num.focus_set()
     parent_window.wait_window(num_parameter_level)
 
+    if getattr(num_parameter_level, 'cancelled', False):
+        return None
     return num_parameter_level.numparam.get()
 
 
@@ -692,7 +734,14 @@ def ask_parameter_names(parent_window: Any, num_params: int) -> List[str]:
     for i in range(num_params):
         parameter_asker_leve = Toplevel()
         parameter_asker_leve.title(t('dialog.parameter_names_title'))
+        parameter_asker_leve.cancelled = False
         parameter_asker_leve.name_parame = StringVar()
+
+        def _on_close_param(w: Any = parameter_asker_leve) -> None:
+            w.cancelled = True
+            w.destroy()
+
+        parameter_asker_leve.protocol("WM_DELETE_WINDOW", lambda w=parameter_asker_leve: _on_close_param(w))
         parameter_asker_leve.frame_custom = Frame(
             parameter_asker_leve, 
             borderwidth=2, 
@@ -746,6 +795,8 @@ def ask_parameter_names(parent_window: Any, num_params: int) -> List[str]:
         parameter_asker_leve.name_entry.focus_set()
         parent_window.wait_window(parameter_asker_leve)
 
+        if getattr(parameter_asker_leve, 'cancelled', False):
+            return [EXIT_SIGNAL]
         parameter_name = parameter_asker_leve.name_parame.get()
         parameter_names_list.append(parameter_name)
 
@@ -774,13 +825,27 @@ def ask_custom_formula(parent_window: Any, parameter_names: List[str]) -> str:
 
     formulator_level = Toplevel()
     formulator_level.title(t('dialog.custom_formula_title'))
+    formulator_level.cancelled = False
     formulator_level.formule = StringVar()
+
+    def _on_close_formula() -> None:
+        formulator_level.cancelled = True
+        formulator_level.destroy()
+
+    formulator_level.protocol("WM_DELETE_WINDOW", _on_close_formula)
     formulator_level.frame_custom = Frame(
         formulator_level, 
         borderwidth=2, 
         relief="raised", 
         bg=UI_STYLE['bg'], 
         bd=UI_STYLE['border_width']
+    )
+    formulator_level.syntax_hint = Label(
+        formulator_level.frame_custom,
+        text=t('dialog.custom_formula_syntax_hint'),
+        bg=UI_STYLE['bg'],
+        fg=UI_STYLE['fg'],
+        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
     )
     formulator_level.message = Label(
         formulator_level.frame_custom, 
@@ -797,10 +862,11 @@ def ask_custom_formula(parent_window: Any, parameter_names: List[str]) -> str:
         fg=UI_STYLE['fg'],
         font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
     )
+    params_display = t('dialog.parameters_defined', params=', '.join(parameter_names))
     formulator_level.parametros = Label(
-        formulator_level.frame_custom, 
-        text=str(parameter_names), 
-        bg=UI_STYLE['bg'], 
+        formulator_level.frame_custom,
+        text=params_display,
+        bg=UI_STYLE['bg'],
         fg=UI_STYLE['fg'],
         font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
     )
@@ -826,20 +892,28 @@ def ask_custom_formula(parent_window: Any, parameter_names: List[str]) -> str:
 
     _pad = UI_STYLE['padding']
     formulator_level.frame_custom.grid(column=0, row=0)
-    formulator_level.codes.grid(
-        column=0, row=0, columnspan=2, padx=_pad, pady=6
+    formulator_level.syntax_hint.grid(
+        column=0, row=0, columnspan=2, padx=_pad, pady=(6, 0)
     )
-    formulator_level.message.grid(column=0, row=1, padx=_pad, pady=_pad)
-    formulator_level.name_entry.grid(column=1, row=1, padx=_pad, pady=_pad)
-    formulator_level.accept_button.grid(column=1, row=2, padx=_pad, pady=_pad)
+    formulator_level.codes.grid(
+        column=0, row=1, columnspan=2, padx=_pad, pady=6
+    )
+    formulator_level.parametros.grid(
+        column=0, row=2, columnspan=2, padx=_pad, pady=_pad
+    )
+    formulator_level.message.grid(column=0, row=3, padx=_pad, pady=_pad)
+    formulator_level.name_entry.grid(column=1, row=3, padx=_pad, pady=_pad)
+    formulator_level.accept_button.grid(column=1, row=4, padx=_pad, pady=_pad)
 
     formulator_level.name_entry.focus_set()
     parent_window.wait_window(formulator_level)
 
+    if getattr(formulator_level, 'cancelled', False):
+        return EXIT_SIGNAL
     return formulator_level.formule.get()
 
 
-def ask_num_fits(parent_window: Any, min_val: int = 2, max_val: int = 10) -> int:
+def ask_num_fits(parent_window: Any, min_val: int = 2, max_val: int = 10) -> Optional[int]:
     """
     Dialog to ask for number of multiple fits.
     
@@ -849,10 +923,17 @@ def ask_num_fits(parent_window: Any, min_val: int = 2, max_val: int = 10) -> int
         max_val: Maximum number of fits (default: 10)
         
     Returns:
-        Selected number of fits
+        Selected number of fits, or None if the user closed the window with X.
     """
     number_fits_level = Toplevel()
     number_fits_level.title(t('workflow.multiple_fitting_title'))
+    number_fits_level.cancelled = False
+
+    def _on_close_num_fits() -> None:
+        number_fits_level.cancelled = True
+        number_fits_level.destroy()
+
+    number_fits_level.protocol("WM_DELETE_WINDOW", _on_close_num_fits)
     number_fits_level.frame_custom = Frame(
         number_fits_level, 
         borderwidth=2, 
@@ -900,6 +981,8 @@ def ask_num_fits(parent_window: Any, min_val: int = 2, max_val: int = 10) -> int
     number_fits_level.num_x.focus_set()
     parent_window.wait_window(number_fits_level)
 
+    if getattr(number_fits_level, 'cancelled', False):
+        return None
     return number_fits_level.num.get()
 
 
