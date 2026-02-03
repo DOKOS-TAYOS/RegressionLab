@@ -294,6 +294,8 @@ cat > "$RUN_SCRIPT" << 'RUNEOF'
 #!/data/data/com.termux/files/usr/bin/bash
 cd "$(dirname "$0")"
 source venv/bin/activate
+# Tkinter needs a display: open Termux:X11 app first, then run this script
+export DISPLAY="${DISPLAY:-:0}"
 echo "Starting RegressionLab (Tkinter)..."
 exec python -m src.main_program
 RUNEOF
@@ -304,9 +306,10 @@ if [ -d "$DOWNLOADS" ]; then
     SHORTCUT="$DOWNLOADS/run_regressionlab.sh"
     cat > "$SHORTCUT" << SHORTCUTEOF
 #!/data/data/com.termux/files/usr/bin/bash
-# RegressionLab launcher (Tkinter) - run from Termux: bash run_regressionlab.sh
+# RegressionLab launcher (Tkinter). Open Termux:X11 first, then run this.
 cd "$INSTALL_DIR" || exit 1
 source venv/bin/activate
+export DISPLAY="\${DISPLAY:-:0}"
 echo "Starting RegressionLab (Tkinter)..."
 exec python -m src.main_program
 SHORTCUTEOF
@@ -332,9 +335,9 @@ echo ""
 echo "Installation directory: $INSTALL_DIR"
 echo ""
 echo "To run RegressionLab (Tkinter):"
-echo "  cd $INSTALL_DIR"
-echo "  source venv/bin/activate"
-echo "  python -m src.main_program"
+echo "  1. Open the Termux:X11 app (install from F-Droid if needed)"
+echo "  2. In Termux: bash $RUN_SCRIPT"
+echo "  Or: cd $INSTALL_DIR && source venv/bin/activate && export DISPLAY=:0 && python -m src.main_program"
 echo ""
 if [ -f "$RUN_SCRIPT" ]; then
     echo "Or run: bash $RUN_SCRIPT"
