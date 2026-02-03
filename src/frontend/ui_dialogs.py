@@ -27,8 +27,61 @@ from tkinter import (
 )
 
 # Local imports
-from config import DONATIONS_URL, EXIT_SIGNAL, UI_STYLE, UI_THEME
+from config import DONATIONS_URL, EQUATION_FORMULAS, EXIT_SIGNAL, UI_STYLE, UI_THEME
 from i18n import t
+
+
+def _bind_tooltip(widget: Any, text: str, delay_ms: int = 500) -> None:
+    """
+    Bind a tooltip to a widget: show after delay on Enter, hide on Leave.
+    """
+    tooltip_window: Optional[Toplevel] = None
+    after_id: Optional[str] = None
+
+    def show_tooltip() -> None:
+        nonlocal tooltip_window
+        if tooltip_window is not None:
+            return
+        tooltip_window = Toplevel(widget)
+        tooltip_window.wm_overrideredirect(True)
+        tooltip_window.wm_geometry("+0+0")
+        label = Label(
+            tooltip_window,
+            text=text,
+            justify="left",
+            bg="#ffffcc",
+            fg="black",
+            relief="solid",
+            borderwidth=1,
+            font=(UI_STYLE['font_family'], max(8, UI_STYLE['font_size'] - 2)),
+            padx=6,
+            pady=4,
+        )
+        label.pack()
+        # Position near cursor/widget
+        widget.update_idletasks()
+        x = widget.winfo_rootx() + 20
+        y = widget.winfo_rooty() + widget.winfo_height() + 4
+        tooltip_window.wm_geometry(f"+{x}+{y}")
+
+    def hide_tooltip() -> None:
+        nonlocal tooltip_window, after_id
+        if after_id is not None:
+            widget.after_cancel(after_id)
+            after_id = None
+        if tooltip_window is not None:
+            tooltip_window.destroy()
+            tooltip_window = None
+
+    def on_enter(_event: Any) -> None:
+        nonlocal after_id
+        after_id = widget.after(delay_ms, show_tooltip)
+
+    def on_leave(_event: Any) -> None:
+        hide_tooltip()
+
+    widget.bind("<Enter>", on_enter)
+    widget.bind("<Leave>", on_leave)
 
 def ask_file_type(parent_window: Any) -> str:
     """
@@ -521,7 +574,7 @@ def ask_equation_type(parent_window: Any) -> str:
     
     # Common button styling configuration
     btn_config = {
-        'width': 20,
+        'width': 32,
         'bg': UI_STYLE['bg'],
         'fg': "gold2",  # Gold color for equation buttons
         'activebackground': UI_STYLE['active_bg'],
@@ -529,55 +582,46 @@ def ask_equation_type(parent_window: Any) -> str:
         'font': (UI_STYLE['font_family'], UI_STYLE['font_size'])
     }
     
-    # Define all available equation types with their display text
-    # Format: (internal_name, display_text)
-    equation_buttons = [
-        ('linear_function_with_n', 'y=mx+n'),  # Linear with intercept
-        ('linear_function', 'y=mx'),  # Linear through origin
-        ('quadratic_function_complete', 'y=cx^2+bx+a'),  # Full quadratic
-        ('quadratic_function', 'y=ax^2'),  # Simple quadratic
-        ('fourth_power', 'y=ax^4'),  # Fourth power
-        ('sin_function', 'y=a sin(bx)'),  # Sinusoidal
-        ('sin_function_with_c', 'y=a sin(bx+c)'),  # Sinusoidal with phase
-        ('cos_function', 'y=a cos(bx)'),  # Cosinusoidal
-        ('cos_function_with_c', 'y=a cos(bx+c)'),  # Cosinusoidal with phase
-        ('sinh_function', 'y=a sinh(bx)'),  # Hyperbolic sine
-        ('cosh_function', 'y=a cosh(bx)'),  # Hyperbolic cosine
-        ('ln_function', 'y=a ln(x)'),  # Logarithmic
-        ('inverse_function', 'y=a/x'),  # Inverse (1/x)
-        ('inverse_square_function', 'y=a/x^2'),  # Inverse square (1/x^2)
-        ('gaussian_function', 'y=A exp(-(x-μ)²/2σ²)'),  # Gaussian
-        ('exponential_function', 'y=a exp(bx)'),  # Exponential
-        ('binomial_function', 'y=a/(1+exp(-b(x-c)))'),  # Logistic/binomial
-        ('tan_function', 'y=a tan(bx)'),  # Tangent
-        ('tan_function_with_c', 'y=a tan(bx+c)'),  # Tangent with phase
-        ('square_pulse_function', 'y=pulso(A,t0,w)'),  # Square pulse
-        ('hermite_polynomial_3', 'y=Σ ck Hk(x) k=0,...,3'),  # Hermite 0-3
-        ('hermite_polynomial_4', 'y=Σ ck Hk(x) k=0,...,4'),  # Hermite 0-4
+    # Equation types: order by family (linear → polynomial → log → inverse → trig → hyperbolic → exp → special)
+    equation_keys = [
+        'linear_function_with_n', 'linear_function', 'quadratic_function_complete',
+        'quadratic_function', 'fourth_power', 'ln_function',
+        'inverse_function', 'inverse_square_function', 'sin_function',
+        'sin_function_with_c', 'cos_function', 'cos_function_with_c',
+        'tan_function', 'tan_function_with_c', 'sinh_function',
+        'cosh_function', 'exponential_function', 'binomial_function',
+        'gaussian_function', 'square_pulse_function', 'hermite_polynomial_3',
+        'hermite_polynomial_4',
     ]
     # Button click handlers - these set the selection and close the dialog
     def handle_equation_click(eq_type: str) -> None:
         """Handle predefined equation button click."""
         equation_level.selected_equation = eq_type
         equation_level.destroy()
-    
+
     def handle_custom_click() -> None:
         """Handle custom equation button click."""
         equation_level.selected_equation = 'custom'
         equation_level.destroy()
-    
+
     def handle_exit_click() -> None:
         """Handle exit button click."""
         equation_level.selected_equation = EXIT_SIGNAL
         equation_level.destroy()
-    
-    # Dynamically create buttons for all predefined equations
-    # Using setattr to attach buttons as attributes to the window object
-    for attr_name, text in equation_buttons:
-        setattr(equation_level, attr_name, 
-                Button(equation_level.frame_custom, text=text, 
-                       command=lambda eq_type=attr_name: handle_equation_click(eq_type), 
-                       **btn_config))
+
+    for attr_name in equation_keys:
+        btn_text = t(f'equations.{attr_name}')
+        desc = t(f'equations_descriptions.{attr_name}')
+        formula = EQUATION_FORMULAS.get(attr_name, '')
+        tooltip_text = f"{desc}\n{t('dialog.equation')} {formula}" if formula else desc
+        btn = Button(
+            equation_level.frame_custom,
+            text=btn_text,
+            command=lambda eq_type=attr_name: handle_equation_click(eq_type),
+            **btn_config
+        )
+        _bind_tooltip(btn, tooltip_text)
+        setattr(equation_level, attr_name, btn)
     
     # Custom equation button
     equation_level.custom = Button(
@@ -600,38 +644,19 @@ def ask_equation_type(parent_window: Any) -> str:
         font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
     )
 
-    # Grid layout - organized in rows of 3 buttons for clean appearance
+    # Grid layout: 3 columns, equation buttons in order (row = 1 + i//3, col = i%3)
     equation_level.frame_custom.grid(column=0, row=0)
     equation_level.message.grid(
         column=0, row=0, columnspan=3, padx=UI_STYLE['padding'], pady=6
     )
     _pad = UI_STYLE['padding']
-    equation_level.linear_function_with_n.grid(column=0, row=1, padx=_pad, pady=_pad)
-    equation_level.linear_function.grid(column=1, row=1, padx=_pad, pady=_pad)
-    equation_level.ln_function.grid(column=2, row=1, padx=_pad, pady=_pad)
-    equation_level.quadratic_function_complete.grid(column=0, row=2, padx=_pad, pady=_pad)
-    equation_level.quadratic_function.grid(column=1, row=2, padx=_pad, pady=_pad)
-    equation_level.fourth_power.grid(column=2, row=2, padx=_pad, pady=_pad)
-    equation_level.sin_function.grid(column=0, row=3, padx=_pad, pady=_pad)
-    equation_level.sin_function_with_c.grid(column=1, row=3, padx=_pad, pady=_pad)
-    equation_level.sinh_function.grid(column=2, row=3, padx=_pad, pady=_pad)
-    equation_level.cos_function.grid(column=0, row=4, padx=_pad, pady=_pad)
-    equation_level.cos_function_with_c.grid(column=1, row=4, padx=_pad, pady=_pad)
-    equation_level.cosh_function.grid(column=2, row=4, padx=_pad, pady=_pad)
-    equation_level.inverse_function.grid(column=0, row=5, padx=_pad, pady=_pad)
-    equation_level.inverse_square_function.grid(column=1, row=5, padx=_pad, pady=_pad)
-    equation_level.gaussian_function.grid(column=2, row=5, padx=_pad, pady=_pad)
-    equation_level.exponential_function.grid(column=0, row=6, padx=_pad, pady=_pad)
-    equation_level.binomial_function.grid(column=1, row=6, padx=_pad, pady=_pad)
-    equation_level.tan_function.grid(column=2, row=6, padx=_pad, pady=_pad)
-    equation_level.tan_function_with_c.grid(column=0, row=7, padx=_pad, pady=_pad)
-    equation_level.square_pulse_function.grid(column=1, row=7, padx=_pad, pady=_pad)
-    equation_level.hermite_polynomial_3.grid(column=2, row=7, padx=_pad, pady=_pad)
-    equation_level.hermite_polynomial_4.grid(column=0, row=8, padx=_pad, pady=_pad)
-    equation_level.custom.grid(
-        column=0, row=9, columnspan=3, padx=_pad, pady=_pad
-    )
-    equation_level.accept_button.grid(column=2, row=10, padx=_pad, pady=_pad)
+    for i, attr_name in enumerate(equation_keys):
+        getattr(equation_level, attr_name).grid(
+            column=i % 3, row=1 + i // 3, padx=_pad, pady=_pad
+        )
+    equation_level.custom.grid(column=0, row=1 + (len(equation_keys) + 2) // 3, columnspan=3, padx=_pad, pady=_pad)
+    _last_row = 1 + (len(equation_keys) + 2) // 3
+    equation_level.accept_button.grid(column=2, row=_last_row + 1, padx=_pad, pady=_pad)
 
     equation_level.linear_function_with_n.focus_set()
     parent_window.wait_window(equation_level)
@@ -840,9 +865,10 @@ def ask_custom_formula(parent_window: Any, parameter_names: List[str]) -> str:
         bg=UI_STYLE['bg'], 
         bd=UI_STYLE['border_width']
     )
+    syntax_hint_text = t('dialog.custom_formula_syntax_hint') + '\n' + t('dialog.formula_example')
     formulator_level.syntax_hint = Label(
         formulator_level.frame_custom,
-        text=t('dialog.custom_formula_syntax_hint'),
+        text=syntax_hint_text,
         bg=UI_STYLE['bg'],
         fg=UI_STYLE['fg'],
         font=(UI_STYLE['font_family'], UI_STYLE['font_size'])

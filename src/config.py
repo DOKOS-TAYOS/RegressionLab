@@ -324,26 +324,27 @@ For example: 'ln(x)' becomes 'np.log(x)', 'sin(x)' becomes 'np.sin(x)', etc.
 You can extend this dictionary to support additional mathematical functions or notation.
 """
 
+# Order: linear → polynomial/power → log → inverse → trig (sin/cos/tan) → hyperbolic → exp/logistic → special
 EQUATION_FUNCTION_MAP = {
     'linear_function_with_n': 'fit_linear_function_with_n',
     'linear_function': 'fit_linear_function',
-    'ln_function': 'fit_ln_function',
     'quadratic_function_complete': 'fit_quadratic_function_complete',
     'quadratic_function': 'fit_quadratic_function',
     'fourth_power': 'fit_fourth_power',
+    'ln_function': 'fit_ln_function',
+    'inverse_function': 'fit_inverse_function',
+    'inverse_square_function': 'fit_inverse_square_function',
     'sin_function': 'fit_sin_function',
     'sin_function_with_c': 'fit_sin_function_with_c',
     'cos_function': 'fit_cos_function',
     'cos_function_with_c': 'fit_cos_function_with_c',
-    'sinh_function': 'fit_sinh_function',
-    'cosh_function': 'fit_cosh_function',
-    'inverse_function': 'fit_inverse_function',
-    'inverse_square_function': 'fit_inverse_square_function',
-    'gaussian_function': 'fit_gaussian_function',
-    'exponential_function': 'fit_exponential_function',
-    'binomial_function': 'fit_binomial_function',
     'tan_function': 'fit_tan_function',
     'tan_function_with_c': 'fit_tan_function_with_c',
+    'sinh_function': 'fit_sinh_function',
+    'cosh_function': 'fit_cosh_function',
+    'exponential_function': 'fit_exponential_function',
+    'binomial_function': 'fit_binomial_function',
+    'gaussian_function': 'fit_gaussian_function',
     'square_pulse_function': 'fit_square_pulse_function',
     'hermite_polynomial_3': 'fit_hermite_polynomial_3',
     'hermite_polynomial_4': 'fit_hermite_polynomial_4',
@@ -361,6 +362,34 @@ List of all available equation types that can be used for fitting.
 
 This list defines all the equation types that the application can test
 when applying multiple equation fits to a dataset.
+"""
+
+EQUATION_FORMULAS: dict[str, str] = {
+    'linear_function_with_n': 'y = mx + n',
+    'linear_function': 'y = mx',
+    'quadratic_function_complete': 'y = ax² + bx + c',
+    'quadratic_function': 'y = ax²',
+    'fourth_power': 'y = ax⁴',
+    'sin_function': 'y = a·sin(bx)',
+    'sin_function_with_c': 'y = a·sin(bx + c)',
+    'cos_function': 'y = a·cos(bx)',
+    'cos_function_with_c': 'y = a·cos(bx + c)',
+    'sinh_function': 'y = a·sinh(bx)',
+    'cosh_function': 'y = a·cosh(bx)',
+    'ln_function': 'y = a·ln(x)',
+    'inverse_function': 'y = a/x',
+    'inverse_square_function': 'y = a/x²',
+    'gaussian_function': 'y = a·exp(-(x-μ)²/(2σ²))',
+    'exponential_function': 'y = a·exp(bx)',
+    'binomial_function': 'y = L/(1 + exp(-k(x-x₀)))',
+    'tan_function': 'y = a·tan(bx)',
+    'tan_function_with_c': 'y = a·tan(bx + c)',
+    'square_pulse_function': 'y = a si |x-x₀| ≤ w/2, else 0',
+    'hermite_polynomial_3': 'y = Σ cᵢ·Hᵢ(x) (grado 0-3)',
+    'hermite_polynomial_4': 'y = Σ cᵢ·Hᵢ(x) (grado 0-4)',
+}
+"""
+Display formulas for each equation type (for tooltips and UI).
 """
 
 

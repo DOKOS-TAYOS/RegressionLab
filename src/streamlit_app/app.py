@@ -51,31 +51,6 @@ except Exception as e:
 # CONSTANTS
 # ============================================================================
 
-EQUATION_FORMULAS = {
-    'linear_function_with_n': 'y = mx + n',
-    'linear_function': 'y = mx',
-    'quadratic_function_complete': 'y = ax² + bx + c',
-    'quadratic_function': 'y = ax²',
-    'fourth_power': 'y = ax⁴',
-    'sin_function': 'y = a·sin(bx)',
-    'sin_function_with_c': 'y = a·sin(bx + c)',
-    'cos_function': 'y = a·cos(bx)',
-    'cos_function_with_c': 'y = a·cos(bx + c)',
-    'sinh_function': 'y = a·sinh(bx)',
-    'cosh_function': 'y = a·cosh(bx)',
-    'ln_function': 'y = a·ln(x)',
-    'inverse_function': 'y = a/x',
-    'inverse_square_function': 'y = a/x²',
-    'gaussian_function': 'y = a·exp(-(x-μ)²/(2σ²))',
-    'exponential_function': 'y = a·exp(bx)',
-    'binomial_function': 'y = L/(1 + exp(-k(x-x₀)))',
-    'tan_function': 'y = a·tan(bx)',
-    'tan_function_with_c': 'y = a·tan(bx + c)',
-    'square_pulse_function': 'y = a si |x-x₀| ≤ w/2, else 0',
-    'hermite_polynomial_3': 'y = Σ cᵢ·Hᵢ(x) (grado 0-3)',
-    'hermite_polynomial_4': 'y = Σ cᵢ·Hᵢ(x) (grado 0-4)',
-}
-
 SIDEBAR_CSS = """
     <style>
     .sidebar-brand {
@@ -397,22 +372,13 @@ def show_help_section() -> None:
 
 def _create_equation_options(equation_types: List[str]) -> Dict[str, str]:
     """
-    Create equation options mapping display text to equation key.
-    
-    Args:
-        equation_types: List of equation type keys
-        
-    Returns:
-        Dictionary mapping display text to equation key
+    Create equation options mapping display name to equation key.
+    Buttons/options show only the function name (no formula).
     """
-    equation_options = {}
+    equation_options: Dict[str, str] = {}
     for eq in equation_types:
         eq_name = t(f'equations.{eq}')
-        eq_formula = EQUATION_FORMULAS.get(eq, '')
-        display_text = f"{eq_name} - {eq_formula}" if eq_formula else eq_name
-        equation_options[display_text] = eq
-    
-    # Add custom formula option
+        equation_options[eq_name] = eq
     equation_options[t('equations.custom_formula')] = 'custom_formula'
     return equation_options
 
@@ -422,21 +388,22 @@ def show_equation_selector(
 ) -> Tuple[str, Optional[str], Optional[List[str]]]:
     """
     Show equation type selector and return selection.
-
-    Args:
-        equation_types: List of equation type keys (e.g. from config.AVAILABLE_EQUATION_TYPES).
-
-    Returns:
-        Tuple of (equation_name, custom_formula, parameter_names)
+    Options show function names; selected option shows description + formula below.
     """
+    from config import EQUATION_FORMULAS
     equation_options = _create_equation_options(equation_types)
     
     selected_label = st.selectbox(
         t('dialog.select_equation'),
-        options=list(equation_options.keys())
+        options=list(equation_options.keys()),
+        key='equation_selector'
     )
     
     selected_equation = equation_options[selected_label]
+    if selected_equation != 'custom_formula':
+        desc = t(f'equations_descriptions.{selected_equation}')
+        formula = EQUATION_FORMULAS.get(selected_equation, '')
+        st.caption(f"**{desc}** — {formula}")
     custom_formula = None
     parameter_names = None
     
