@@ -217,6 +217,9 @@ echo ""
 echo "[7/11] Installing dependencies..."
 pip install --upgrade pip
 
+# Critical Streamlit deps first (so a later failure does not leave them missing)
+pip install "blinker>=1.0,<2" "cachetools>=4.0,<6" "click>=7.0,<9" "requests>=2.27,<3" "protobuf>=3.20,<5" "typing-extensions>=4.3,<5" "tornado>=6.0,<7"
+
 # Scientific stack: wheels only (never build numpy/pandas on device)
 export PIP_ONLY_BINARY=:all:
 if pip install "numpy>=2.0,<3.0" "scipy>=1.17,<2.0" "pandas>=2.3,<3.0" "matplotlib>=3.10,<4.0" 2>/dev/null; then
@@ -245,6 +248,8 @@ pip install \
   "watchdog>=2.1" "gitpython>=3.0.7,<4" "tornado>=6.0,<7" "pydeck>=0.8.0b4,<1" \
   "urllib3>=1.26" "certifi" "charset-normalizer" "idna>=2.0" "Jinja2>=2.0" \
   || true
+# rpds-py may fail on Termux (no wheel); try separately so it does not block the rest
+pip install rpds-py 2>/dev/null || true
 echo "Dependencies installed."
 
 # ----------------------------------------------------------------------------
