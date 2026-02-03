@@ -51,7 +51,8 @@ echo ""
 echo "[2/11] Checking for Git..."
 if ! command -v git &> /dev/null; then
     echo "Git is not installed."
-    read -p "Do you want to install Git now? (y/n): " INSTALL_GIT
+    echo -n "Do you want to install Git now? (y/n): "
+    if [ -t 0 ]; then read -r INSTALL_GIT; else read -r INSTALL_GIT < /dev/tty; fi
     if [[ "$INSTALL_GIT" =~ ^[Yy]$ ]]; then
         echo "Installing Git (pkg install git)..."
         pkg install -y git
@@ -79,7 +80,8 @@ fi
 
 if [ -z "$PYTHON_CMD" ]; then
     echo "Python 3 is not installed."
-    read -p "Do you want to install Python now? (y/n): " INSTALL_PY
+    echo -n "Do you want to install Python now? (y/n): "
+    if [ -t 0 ]; then read -r INSTALL_PY; else read -r INSTALL_PY < /dev/tty; fi
     if [[ "$INSTALL_PY" =~ ^[Yy]$ ]]; then
         echo "Installing Python (pkg install python)..."
         pkg install -y python
@@ -99,7 +101,8 @@ fi
 echo ""
 echo "[3b/11] Scientific packages (numpy, scipy, matplotlib, pandas)..."
 echo "In Termux it is better to install them with pkg to avoid pip building for a long time."
-read -p "Install scientific packages with pkg now? (y/n, default y): " INSTALL_PKG
+echo -n "Install scientific packages with pkg now? (y/n, default y): "
+if [ -t 0 ]; then read -r INSTALL_PKG; else read -r INSTALL_PKG < /dev/tty; fi
 INSTALL_PKG="${INSTALL_PKG:-y}"
 if [[ "$INSTALL_PKG" =~ ^[Yy]$ ]]; then
     echo "Installing python-numpy, matplotlib, python-pandas (main repo)..."
@@ -123,7 +126,8 @@ echo "[4/11] Cloning repository..."
 
 if [ -d "$REPO_NAME" ]; then
     echo "Directory $REPO_NAME already exists."
-    read -p "Do you want to remove it and clone again? (y/N): " OVERWRITE
+    echo -n "Do you want to remove it and clone again? (y/N): "
+    if [ -t 0 ]; then read -r OVERWRITE; else read -r OVERWRITE < /dev/tty; fi
     if [[ "$OVERWRITE" =~ ^[Yy]$ ]]; then
         rm -rf "$REPO_NAME"
     else
@@ -203,8 +207,10 @@ fi
 echo ""
 echo "[9/11] File paths for datasets and outputs"
 echo "You can use absolute paths (e.g. $HOME/storage/dcim/Datasets) or names relative to the project (e.g. input)."
-read -p "Directory for input datasets [default: input]: " USER_INPUT_DIR
-read -p "Directory for output files [default: output]: " USER_OUTPUT_DIR
+echo -n "Directory for input datasets [default: input]: "
+if [ -t 0 ]; then read -r USER_INPUT_DIR; else read -r USER_INPUT_DIR < /dev/tty; fi
+echo -n "Directory for output files [default: output]: "
+if [ -t 0 ]; then read -r USER_OUTPUT_DIR; else read -r USER_OUTPUT_DIR < /dev/tty; fi
 
 USER_INPUT_DIR="${USER_INPUT_DIR:-input}"
 USER_OUTPUT_DIR="${USER_OUTPUT_DIR:-output}"
