@@ -14,8 +14,11 @@
 #  (If you downloaded it to Downloads)
 #     bash ~/storage/downloads/install_termux.sh
 #
-#  One-line option (download and run without saving the file):
-#     curl -sL https://raw.githubusercontent.com/DOKOS-TAYOS/RegressionLab/dev/install_termux.sh | bash
+#  One-line INTERACTIVE (prompts work; use this to choose options):
+#     bash <(curl -sL https://raw.githubusercontent.com/DOKOS-TAYOS/RegressionLab/dev/install_termux.sh | sed 's/\r$//')
+#
+#  One-line NON-INTERACTIVE (no prompts, uses defaults):
+#     curl -sL https://raw.githubusercontent.com/DOKOS-TAYOS/RegressionLab/dev/install_termux.sh | sed 's/\r$//' | bash
 #
 # Requires: Termux (recommended from F-Droid).
 # ============================================================================
@@ -25,6 +28,14 @@ set -e
 REPO_URL="https://github.com/DOKOS-TAYOS/RegressionLab.git"
 REPO_NAME="RegressionLab"
 BASE_DIR="$HOME/python_materials"
+
+# When run as "curl ... | bash", stdin is a pipe: use defaults, no prompts
+if [ ! -t 0 ]; then
+    NONINTERACTIVE=1
+    echo "Running in non-interactive mode (e.g. curl | bash). Using defaults."
+    echo "To choose options, save the file and run: bash install_termux.sh"
+    echo ""
+fi
 
 echo ""
 echo "===================================="
@@ -51,8 +62,13 @@ echo ""
 echo "[2/11] Checking for Git..."
 if ! command -v git &> /dev/null; then
     echo "Git is not installed."
-    echo -n "Do you want to install Git now? (y/n): "
-    if [ -t 0 ]; then read -r INSTALL_GIT; else read -r INSTALL_GIT < /dev/tty; fi
+    if [ -n "${NONINTERACTIVE}" ]; then
+        INSTALL_GIT=y
+        echo "Non-interactive: installing Git (default)."
+    else
+        echo -n "Do you want to install Git now? (y/n): "
+        if [ -t 0 ]; then read -r INSTALL_GIT; else read -r INSTALL_GIT < /dev/tty; fi
+    fi
     if [[ "$INSTALL_GIT" =~ ^[Yy]$ ]]; then
         echo "Installing Git (pkg install git)..."
         pkg install -y git
@@ -80,8 +96,13 @@ fi
 
 if [ -z "$PYTHON_CMD" ]; then
     echo "Python 3 is not installed."
-    echo -n "Do you want to install Python now? (y/n): "
-    if [ -t 0 ]; then read -r INSTALL_PY; else read -r INSTALL_PY < /dev/tty; fi
+    if [ -n "${NONINTERACTIVE}" ]; then
+        INSTALL_PY=y
+        echo "Non-interactive: installing Python (default)."
+    else
+        echo -n "Do you want to install Python now? (y/n): "
+        if [ -t 0 ]; then read -r INSTALL_PY; else read -r INSTALL_PY < /dev/tty; fi
+    fi
     if [[ "$INSTALL_PY" =~ ^[Yy]$ ]]; then
         echo "Installing Python (pkg install python)..."
         pkg install -y python
@@ -101,8 +122,13 @@ fi
 echo ""
 echo "[3b/11] Scientific packages (numpy, scipy, matplotlib, pandas)..."
 echo "In Termux it is better to install them with pkg to avoid pip building for a long time."
-echo -n "Install scientific packages with pkg now? (y/n, default y): "
-if [ -t 0 ]; then read -r INSTALL_PKG; else read -r INSTALL_PKG < /dev/tty; fi
+if [ -n "${NONINTERACTIVE}" ]; then
+    INSTALL_PKG=y
+    echo "Non-interactive: installing scientific packages with pkg (default)."
+else
+    echo -n "Install scientific packages with pkg now? (y/n, default y): "
+    if [ -t 0 ]; then read -r INSTALL_PKG; else read -r INSTALL_PKG < /dev/tty; fi
+fi
 INSTALL_PKG="${INSTALL_PKG:-y}"
 if [[ "$INSTALL_PKG" =~ ^[Yy]$ ]]; then
     echo "Installing python-numpy, matplotlib, python-pandas (main repo)..."
@@ -126,8 +152,13 @@ echo "[4/11] Cloning repository..."
 
 if [ -d "$REPO_NAME" ]; then
     echo "Directory $REPO_NAME already exists."
-    echo -n "Do you want to remove it and clone again? (y/N): "
-    if [ -t 0 ]; then read -r OVERWRITE; else read -r OVERWRITE < /dev/tty; fi
+    if [ -n "${NONINTERACTIVE}" ]; then
+        OVERWRITE=n
+        echo "Non-interactive: keeping existing directory (default)."
+    else
+        echo -n "Do you want to remove it and clone again? (y/N): "
+        if [ -t 0 ]; then read -r OVERWRITE; else read -r OVERWRITE < /dev/tty; fi
+    fi
     if [[ "$OVERWRITE" =~ ^[Yy]$ ]]; then
         rm -rf "$REPO_NAME"
     else
