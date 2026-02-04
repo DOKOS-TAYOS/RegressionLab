@@ -9,19 +9,34 @@ RegressionLab follows a modular architecture with clear separation of concerns:
 ```
 RegressionLab/
 ├── src/
-│   ├── config.py              # Configuration and constants
+│   ├── config/                # Configuration package
+│   │   ├── env.py             # Environment and .env
+│   │   ├── theme.py           # UI theme and plot style
+│   │   ├── paths.py           # Paths and output
+│   │   └── constants.py       # Equations, version, signals
 │   ├── i18n.py                # Internationalization
 │   ├── main_program.py        # Entry point for Tkinter app
 │   │
 │   ├── fitting/               # Curve fitting core
-│   │   ├── fitting_functions.py
+│   │   ├── functions/         # Mathematical and fit_* functions
+│   │   │   ├── polynomials.py
+│   │   │   ├── trigonometric.py
+│   │   │   ├── inverse.py
+│   │   │   └── special.py
+│   │   ├── fitting_functions/ # Re-exports (fitting.fitting_functions)
 │   │   ├── fitting_utils.py
 │   │   ├── workflow_controller.py
 │   │   └── custom_function_evaluator.py
 │   │
 │   ├── frontend/              # User interface (Tkinter)
 │   │   ├── ui_main_menu.py
-│   │   └── ui_dialogs.py
+│   │   └── ui_dialogs/        # Dialog package
+│   │       ├── data_selection.py
+│   │       ├── equation.py
+│   │       ├── help.py
+│   │       ├── config_dialog.py
+│   │       ├── result.py
+│   │       └── tooltip.py
 │   │
 │   ├── loaders/               # Data loading
 │   │   ├── data_loader.py
@@ -31,7 +46,14 @@ RegressionLab/
 │   │   └── plot_utils.py
 │   │
 │   ├── streamlit_app/         # Web interface
-│   │   └── app.py
+│   │   ├── app.py             # Entry point
+│   │   └── sections/          # UI sections
+│   │       ├── sidebar.py
+│   │       ├── data.py
+│   │       ├── fitting.py
+│   │       ├── results.py
+│   │       ├── help_section.py
+│   │       └── modes.py
 │   │
 │   └── utils/                 # Utilities
 │       ├── exceptions.py
@@ -158,9 +180,9 @@ def example_function(data: NDArray, threshold: float = 0.5) -> Tuple[NDArray, fl
 See [Extending RegressionLab](../extending.md) for detailed instructions.
 
 Quick summary:
-1. Add mathematical function to `fitting_functions.py`
+1. Add mathematical function in `fitting/functions/` (e.g. `polynomials.py`, `special.py`)
 2. Create fitting wrapper function
-3. Register in `config.py` and `fitting_utils.py`
+3. Register in `config/constants.py` (EQUATION_FUNCTION_MAP, AVAILABLE_EQUATION_TYPES) and add translations
 4. Add translations to locales
 5. Test thoroughly
 
@@ -168,26 +190,26 @@ Quick summary:
 
 **Tkinter**:
 - Main menu: Edit `frontend/ui_main_menu.py`
-- Dialogs: Edit `frontend/ui_dialogs.py`
+- Dialogs: Edit modules in `frontend/ui_dialogs/` (e.g. `data_selection.py`, `equation.py`)
 - Styling: Configure in `.env` file
 
 **Streamlit**:
-- All UI in `streamlit_app/app.py`
-- CSS in `SIDEBAR_CSS` constant
-- Add new modes by creating new functions
+- Entry point: `streamlit_app/app.py`; UI logic in `streamlit_app/sections/`
+- CSS in `SIDEBAR_CSS` in `sections/sidebar.py`
+- Add new modes in `sections/modes.py`
 
 ### Adding a New Data Format
 
 1. Create reader function in `loaders/loading_utils.py`
 2. Update `load_data()` in `loaders/data_loader.py`
-3. Add file type option to `ask_file_type()` in `frontend/ui_dialogs.py`
+3. Add file type option to `ask_file_type()` in `frontend/ui_dialogs/data_selection.py`
 4. Test with sample data
 
 ### Changing Plot Style
 
 - **Per-plot**: Pass parameters to `create_plot()` in `plotting/plot_utils.py`
 - **Globally**: Configure in `.env` file
-- **Programmatically**: Modify `get_plot_config()` in `config.py`
+- **Programmatically**: Modify `PLOT_CONFIG` and related settings in `config/theme.py`
 
 ## Testing
 
@@ -466,4 +488,4 @@ See [Contributing Guide](../contributing.md) for:
 
 ---
 
-*Last updated: January 2026*
+*Last updated: February 2026*

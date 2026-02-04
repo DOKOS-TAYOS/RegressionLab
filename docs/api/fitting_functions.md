@@ -4,7 +4,16 @@ Mathematical functions and curve fitting implementations for RegressionLab.
 
 ## Overview
 
-The `fitting_functions.py` module provides two types of functions:
+The `fitting.fitting_functions` package re-exports all mathematical and fitting functions from `fitting.functions`. The implementations live in submodules under `src/fitting/functions/`:
+
+- **`fitting/functions/polynomials.py`** – Linear, quadratic, fourth power
+- **`fitting/functions/trigonometric.py`** – Sin, cos (with/without phase)
+- **`fitting/functions/inverse.py`** – ln, inverse, inverse square
+- **`fitting/functions/special.py`** – Gaussian, exponential, binomial, square pulse, Hermite
+
+Imports remain unchanged: `from fitting.fitting_functions import linear_function, fit_linear_function_with_n`, etc.
+
+The package provides two types of functions:
 
 1. **Mathematical functions** (`*_function`): Pure mathematical functions that calculate y from x and parameters
 2. **Fitting functions** (`fit_*`): Wrapper functions that perform curve fitting and return results
@@ -447,12 +456,16 @@ See [Extending RegressionLab](../extending.md) for a detailed guide on adding ne
        )
    ```
 
-3. **Register in `config.py`**:
+3. **Register in `config/constants.py`** (add to `AVAILABLE_EQUATION_TYPES` and `EQUATION_FUNCTION_MAP`):
    ```python
    AVAILABLE_EQUATION_TYPES = [
        # ... existing equations ...
        'my_function',
    ]
+   EQUATION_FUNCTION_MAP = {
+       # ...
+       'my_function': 'fit_my_function',
+   }
    ```
 
 4. **Add translations** in `locales/en.json` and `locales/es.json`
@@ -535,4 +548,4 @@ All fitting functions use `generic_fit()` from `fitting_utils`, which:
 
 ---
 
-*For implementation details, see the source code: `src/fitting/fitting_functions.py`*
+*For implementation details, see the source code: `src/fitting/functions/` (e.g. `polynomials.py`, `trigonometric.py`, `inverse.py`, `special.py`). The public API is re-exported by `src/fitting/fitting_functions/`.*

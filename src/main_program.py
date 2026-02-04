@@ -106,6 +106,16 @@ def _get_menu_window() -> Optional[Any]:
     return getattr(__main__, 'menu', None)
 
 
+# Helper function to set equation and get fitter with visualization
+def _set_equation_helper(equation_name: str) -> None:
+    # Get backend fitting function
+    base_fit = get_fitting_function(equation_name)
+    if base_fit:
+        # Wrap with frontend visualization
+        display_name = equation_name.replace('_', ' ').title()
+        fitter_with_ui = _wrap_with_visualization(base_fit, display_name)
+        app_state.set_equation(equation_name, fitter_with_ui)
+
 def _wrap_with_visualization(base_fit_function: Callable, fit_name: str) -> Callable:
     """
     Wrap a backend fitting function with frontend visualization.
@@ -468,19 +478,9 @@ def all_fits_single_dataset() -> None:
     if isinstance(data, str):  # Empty result
         return
     
-    # Helper function to set equation and get fitter with visualization
-    def set_equation_helper(equation_name: str) -> None:
-        # Get backend fitting function
-        base_fit = get_fitting_function(equation_name)
-        if base_fit:
-            # Wrap with frontend visualization
-            display_name = equation_name.replace('_', ' ').title()
-            fitter_with_ui = _wrap_with_visualization(base_fit, display_name)
-            app_state.set_equation(equation_name, fitter_with_ui)
-    
     # Apply all equation types
     apply_all_equations(
-        equation_setter=set_equation_helper,
+        equation_setter=_set_equation_helper,
         get_fitter=lambda: app_state.current_fitter,
         equation_types=AVAILABLE_EQUATION_TYPES,
         data=data,

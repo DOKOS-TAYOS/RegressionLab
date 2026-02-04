@@ -333,8 +333,8 @@ pytest tests/ --cov=src --cov-report=term-missing
 See [Extending RegressionLab](extending.md) for detailed guide.
 
 Summary:
-1. Add function to `src/fitting/fitting_functions.py`
-2. Register in `src/config.py`
+1. Add function in `src/fitting/functions/` (e.g. `special.py`, `polynomials.py`)
+2. Register in `src/config/constants.py` (AVAILABLE_EQUATION_TYPES, EQUATION_FUNCTION_MAP)
 3. Add to `src/fitting/fitting_utils.py`
 4. Add translations to `src/locales/`
 5. Write tests in `tests/test_fitting_functions.py`
@@ -521,7 +521,7 @@ Understanding the codebase:
 ```
 RegressionLab/
 ├── src/                          # Source code
-│   ├── config.py                # Configuration constants
+│   ├── config/                  # Configuration package (env, theme, paths, constants)
 │   ├── i18n.py                  # Internationalization functions
 │   ├── main_program.py          # Tkinter main entry point
 │   ├── fitting/                 # Curve fitting logic and models

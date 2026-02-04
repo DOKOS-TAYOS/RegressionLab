@@ -4,7 +4,16 @@ Streamlit Application for RegressionLab - Web-based interface for curve fitting 
 
 ## Overview
 
-The `app.py` module provides a complete web-based interface for RegressionLab using Streamlit. It offers the same functionality as the Tkinter desktop application but accessible through a web browser.
+The `streamlit_app.app` module is the entry point for the web interface; the main UI logic is organized in the `streamlit_app.sections` package. `app.py` sets up the page, sidebar, and mode routing; each operation mode and shared components (data loading, fitting, results, help) live in `streamlit_app/sections/`:
+
+- **`sections/sidebar.py`** – Sidebar setup, logo, language toggle, session state
+- **`sections/data.py`** – `load_uploaded_file`, `show_data_with_pair_plots`, `get_variable_names`, `get_temp_output_dir`
+- **`sections/fitting.py`** – `perform_fit`, `show_equation_selector`, `select_variables`, `create_equation_options`
+- **`sections/results.py`** – `show_results`
+- **`sections/help_section.py`** – `show_help_section`
+- **`sections/modes.py`** – `mode_normal_fitting`, `mode_multiple_datasets`, `mode_checker_fitting`, `mode_total_fitting`
+
+Imports such as `from streamlit_app.app import main, mode_normal_fitting` or `from streamlit_app.sections import perform_fit, load_uploaded_file` work as before. The application offers the same functionality as the Tkinter desktop version but in a web browser.
 
 ## Main Application
 
@@ -176,9 +185,9 @@ if result:
 
 ## UI Components
 
-### UI Components
+Sidebar and shared UI are implemented in `streamlit_app.sections.sidebar` and other section modules.
 
-#### `_setup_sidebar(version: str) -> str`
+#### `setup_sidebar(version: str)` / sidebar helpers
 
 Setup the application sidebar.
 
@@ -245,8 +254,6 @@ Displays:
 
 ## Session State Management
 
-### Session State Management
-
 #### `initialize_session_state() -> None`
 
 Initialize Streamlit session state variables.
@@ -277,7 +284,7 @@ st.set_page_config(
 
 ### CSS Styling
 
-The sidebar uses custom CSS defined in `SIDEBAR_CSS` constant for:
+The sidebar uses custom CSS defined in `SIDEBAR_CSS` in `sections/sidebar.py` for:
 - Brand header styling
 - Button hover effects
 - Section titles

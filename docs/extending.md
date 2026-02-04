@@ -22,17 +22,22 @@ Adding a new fitting function involves three main steps:
 
 ```
 src/
-├── config.py                          # Add equation to list
+├── config/
+│   └── constants.py                   # Add equation type, EQUATION_FUNCTION_MAP, EQUATION_FORMULAS
 └── fitting/
-    ├── fitting_functions.py           # Add mathematical function
-    └── fitting_utils.py               # (optional) Add to factory
+    ├── functions/                     # Add mathematical and fit_* in appropriate module
+    │   ├── polynomials.py
+    │   ├── trigonometric.py
+    │   ├── inverse.py
+    │   └── special.py
+    └── fitting_utils.py               # (optional) factory / get_fitting_function
 ```
 
 ## Step-by-Step Guide
 
 ### Step 1: Define the Mathematical Function
 
-Open `src/fitting/fitting_functions.py` and add your mathematical function.
+Open the appropriate module under `src/fitting/functions/` (e.g. `special.py` for exponential/Gaussian, `polynomials.py` for polynomial models) and add your mathematical function.
 
 #### Example: Adding an Exponential Function
 
@@ -80,7 +85,7 @@ def hyperbola_function(t: Numeric, a: float, b: float) -> Numeric:
 
 ### Step 2: Create the Fitting Wrapper
 
-In the same file (`fitting_functions.py`), create a wrapper function that performs the fitting.
+In the same module under `fitting/functions/`, create a wrapper function that performs the fitting.
 
 #### Basic Template
 
@@ -106,6 +111,7 @@ def fit_exponential(data: dict, x_name: str, y_name: str) -> Tuple[str, NDArray,
 - **Parameter names**: List of strings matching the function parameters
 - **Equation template**: String with placeholders like `{a}`, `{b}`, etc.
 - **Return value**: `generic_fit` handles everything and returns the tuple
+- Add the fitting wrapper in the same module as the mathematical function (under `fitting/functions/`).
 
 #### Advanced: With Initial Parameter Guess
 
@@ -141,7 +147,7 @@ def fit_gaussian(data: dict, x_name: str, y_name: str) -> Tuple[str, NDArray, st
 
 #### Add to Configuration
 
-Open `src/config.py` and add your equation to the `EQUATION_FUNCTION_MAP` dictionary:
+Open `src/config/constants.py` and add your equation to `AVAILABLE_EQUATION_TYPES` and to the `EQUATION_FUNCTION_MAP` dictionary:
 
 ```python
 EQUATION_FUNCTION_MAP = {
@@ -153,7 +159,7 @@ EQUATION_FUNCTION_MAP = {
 }
 ```
 
-The `get_fitting_function()` in `fitting_utils.py` automatically uses this map to load functions, so you don't need to modify it directly.
+The `get_fitting_function()` in `fitting_utils.py` uses this map (imported from `config`) to load functions, so you don't need to modify it directly.
 
 #### Add Translations
 
@@ -178,9 +184,9 @@ Add translations for your equation name in both language files:
 ```
 
 
-#### Add Formula to Streamlit (Optional)
+#### Add Formula for UI (Optional)
 
-For the Streamlit interface, add the formula to `src/streamlit_app/app.py`:
+For both Tkinter and Streamlit, add the formula to `src/config/constants.py` in `EQUATION_FORMULAS`:
 
 ```python
 EQUATION_FORMULAS = {
@@ -535,9 +541,8 @@ def fit_power(data: dict, x_name: str, y_name: str) -> Tuple[str, NDArray, str, 
         equation_template='y={a}·x^{n}'
     )
 
-# 3. Register in config.py: add 'power_function' to AVAILABLE_EQUATION_TYPES
-# 4. Register in config.py: add mapping in EQUATION_FUNCTION_MAP
-# 5. Add translations in locales/
+# 3. Register in config/constants.py: AVAILABLE_EQUATION_TYPES, EQUATION_FUNCTION_MAP, (optional) EQUATION_FORMULAS
+# 4. Add translations in locales/
 ```
 
 ### Pattern 2: Function with Estimation
@@ -623,7 +628,7 @@ def fit_bounded_growth(data: dict, x_name: str, y_name: str) -> Tuple[str, NDArr
 
 Here's a complete example adding a Stretched Exponential function:
 
-**1. Add to `fitting_functions.py`:**
+**1. Add to `fitting/functions/` (e.g. `special.py`):**
 
 ```python
 def stretched_exponential_function(t: Numeric, a: float, tau: float, beta: float) -> Numeric:
@@ -657,25 +662,27 @@ def fit_stretched_exponential(data: dict, x_name: str, y_name: str) -> Tuple[str
     )
 ```
 
-**2. Add to `config.py`:**
+**2. Add to `config/constants.py`:**
 
 ```python
 AVAILABLE_EQUATION_TYPES = [
     # ... existing types ...
     'stretched_exponential_function',
 ]
-```
 
-**3. Add to `config.py`:**
-
-```python
 EQUATION_FUNCTION_MAP = {
     # ... existing mappings ...
     'stretched_exponential_function': 'fit_stretched_exponential',
 }
+
+# Optional: for UI formula display
+EQUATION_FORMULAS = {
+    # ...
+    'stretched_exponential_function': 'y=a·exp(-(x/τ)^β)',
+}
 ```
 
-**4. Add to `locales/en.json`:**
+**3. Add to `locales/en.json`:**
 
 ```json
 {
@@ -685,7 +692,7 @@ EQUATION_FUNCTION_MAP = {
 }
 ```
 
-**5. Add to `locales/es.json`:**
+**4. Add to `locales/es.json`:**
 
 ```json
 {
@@ -695,16 +702,9 @@ EQUATION_FUNCTION_MAP = {
 }
 ```
 
-**6. Add to `streamlit_app/app.py`:**
+**5. (Optional)** If you didn’t add the formula in step 2, add it to `EQUATION_FORMULAS` in `config/constants.py`.
 
-```python
-EQUATION_FORMULAS = {
-    # ... existing formulas ...
-    'stretched_exponential_function': 'y=a·exp(-(x/τ)^β)',
-}
-```
-
-**7. Test:**
+**6. Test:**
 
 ```python
 # Create test data
@@ -722,7 +722,7 @@ Then test in both interfaces!
 
 ## Next Steps
 
-- **Study existing functions**: Look at `fitting_functions.py` for more examples
+- **Study existing functions**: Look at the modules under `fitting/functions/` for more examples
 - **Test thoroughly**: Create synthetic data with known parameters
 - **Document well**: Write clear docstrings and comments
 - **Contribute**: Submit your functions as pull requests to help others!

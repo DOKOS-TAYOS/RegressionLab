@@ -1,10 +1,18 @@
 # config
 
-Configuration module for RegressionLab.
+Configuration package for RegressionLab.
 
 ## Overview
 
-The `config.py` module centralizes all application configuration, constants, and settings. It reads from the `.env` file and provides typed access to configuration values.
+The `config` package centralizes all application configuration, constants, and settings. It is split into submodules; the main package re-exports everything so that `from config import PLOT_CONFIG`, `from config import __version__`, etc. continue to work.
+
+**Package structure:**
+- **`config/env.py`** – Environment variables, `.env` loading, `get_env`, `get_current_env_values`, `write_env_file`
+- **`config/theme.py`** – `UI_THEME`, `UI_STYLE`, `PLOT_CONFIG`, `FONT_CONFIG`, `setup_fonts`
+- **`config/paths.py`** – `PLOT_FORMATS`, `FILE_CONFIG`, `get_project_root`, `ensure_output_directory`, `get_output_path`
+- **`config/constants.py`** – `__version__`, `AVAILABLE_EQUATION_TYPES`, `EQUATION_FUNCTION_MAP`, `EQUATION_FORMULAS`, `EQUATION_PARAM_NAMES`, `EXIT_SIGNAL`, `MATH_FUNCTION_REPLACEMENTS`
+
+Usage remains the same: import from `config` (e.g. `from config import PLOT_CONFIG, get_project_root`).
 
 ## Key Components
 
@@ -306,18 +314,10 @@ if 'linear_function' in AVAILABLE_EQUATION_TYPES:
 
 To add a new equation to the system:
 
-1. Implement the function in `fitting_functions.py`
-2. Add to `AVAILABLE_EQUATION_TYPES`:
-
-```python
-AVAILABLE_EQUATION_TYPES = [
-    # ... existing equations ...
-    'exponential_decay',  # New equation
-]
-```
-
+1. Implement the function in the appropriate module under `fitting/functions/` (e.g. `special.py`, `polynomials.py`)
+2. Add to `AVAILABLE_EQUATION_TYPES` and `EQUATION_FUNCTION_MAP` in `config/constants.py`
 3. Add translations in `locales/en.json` and `locales/es.json`
-4. Register in `fitting_utils.py`
+4. Optionally add formula string to `EQUATION_FORMULAS` in `config/constants.py` for the UI
 
 ## Configuration Best Practices
 
@@ -357,10 +357,10 @@ AVAILABLE_EQUATION_TYPES = [
 
 ### Loading Order
 
-1. Environment variables loaded from `.env`
+1. Environment variables loaded from `.env` (see `config/env.py`)
 2. Defaults applied for missing values
 3. Validation performed
-4. Configuration frozen (immutable during runtime)
+4. Configuration exposed via package; values are effectively immutable during runtime
 
 ### Thread Safety
 

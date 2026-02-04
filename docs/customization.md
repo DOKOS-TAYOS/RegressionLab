@@ -190,7 +190,7 @@ generic_fit = generic_fit_lmfit
 
 Option B - Use configuration flag:
 ```python
-# In config.py
+# In config/constants.py or config/env.py
 USE_LMFIT = True  # Set to False to use SciPy
 
 # In fitting_utils.py
@@ -444,7 +444,7 @@ def ajlineal_con_n_bounded(data, x_name: str, y_name: str):
 Add bounds to function metadata:
 
 ```python
-# In config.py
+# In config/constants.py
 EQUATION_BOUNDS = {
     'exponential_decay': ([0, 0], [np.inf, np.inf]),  # a > 0, b > 0
     'sine_function': ([-np.inf, 0], [np.inf, np.inf]),  # b > 0
@@ -586,7 +586,7 @@ print(f"Intercept: {n}")  # Prints: 1.30+/-0.15
 Create a comprehensive configuration system:
 
 ```python
-# config.py
+# config/constants.py or new config/fitting_config.py
 FITTING_CONFIG = {
     'backend': 'scipy',  # Options: 'scipy', 'lmfit', 'least_squares'
     'scipy_options': {
@@ -619,7 +619,7 @@ def generic_fit(func, x, y, uy=None, p0=None):
         raise ValueError(f"Unknown fitting backend: {backend}")
 ```
 
-Users can then switch backends by editing `config.py` without modifying code.
+Users can then switch backends by editing the config package (e.g. `config/constants.py`) without modifying code.
 
 ## Testing New Backends
 

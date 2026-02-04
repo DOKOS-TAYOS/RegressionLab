@@ -393,7 +393,7 @@ pip show numpy
 
 If you can't solve the issue, please report it on GitHub with:
 
-1. **Version**: Check version in main menu or `config.py`
+1. **Version**: Check version in main menu or `config` (e.g. `config/constants.py`)
 2. **Operating System**: Windows, macOS, or Linux (with version)
 3. **Python Version**: Output of `python --version`
 4. **Steps to Reproduce**: Exact steps to trigger the issue

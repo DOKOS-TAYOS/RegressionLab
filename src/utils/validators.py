@@ -293,3 +293,23 @@ def validate_positive_integer(value: Any, name: str) -> int:
     
     logger.debug(t('log.positive_integer_validated', name=name, value=int_value))
     return int_value
+
+def parse_optional_float(s: str) -> Optional[float]:
+    """
+    Parse a string to float; empty or invalid input returns None.
+
+    Useful for optional numeric fields in dialogs (e.g. initial guess, bounds).
+
+    Args:
+        s: String to parse (e.g. from an Entry widget).
+
+    Returns:
+        The parsed float, or None if empty or invalid.
+    """
+    s = (s or "").strip()
+    if not s:
+        return None
+    try:
+        return float(s)
+    except ValueError:
+        return None

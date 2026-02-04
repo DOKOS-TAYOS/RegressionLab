@@ -1,10 +1,20 @@
 # frontend.ui_dialogs
 
-UI Dialogs module containing all Tkinter dialog windows for user interaction.
+UI Dialogs package containing all Tkinter dialog windows for user interaction.
 
 ## Overview
 
-The `ui_dialogs.py` module provides all dialog windows used in the Tkinter interface for user input and data display. It includes dialogs for file selection, variable selection, equation selection, and result display.
+The `frontend.ui_dialogs` package provides all dialog windows used in the Tkinter interface. It is split into submodules; the package re-exports public functions so that `from frontend.ui_dialogs import ask_file_type, show_help_dialog`, etc. continue to work.
+
+**Package structure:**
+- **`ui_dialogs/data_selection.py`** – `ask_file_type`, `ask_file_name`, `ask_variables`, `show_data_dialog`, `get_variable_names`
+- **`ui_dialogs/equation.py`** – `ask_equation_type`, `ask_num_parameters`, `ask_parameter_names`, `ask_custom_formula`, `ask_num_fits`
+- **`ui_dialogs/help.py`** – `show_help_dialog`
+- **`ui_dialogs/config_dialog.py`** – `show_config_dialog`
+- **`ui_dialogs/result.py`** – `create_result_window`
+- **`ui_dialogs/tooltip.py`** – `bind_tooltip`
+
+Dialogs cover file selection, variable selection, equation selection, and result display.
 
 ## File Selection Dialogs
 

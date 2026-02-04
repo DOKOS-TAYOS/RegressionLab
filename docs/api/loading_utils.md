@@ -106,7 +106,7 @@ csv, xlsx, txt = get_file_names('custom_input')
 
 ## File Path Resolution
 
-All file paths are resolved relative to the project root directory. The project root is determined automatically based on the location of the `config.py` file.
+All file paths are resolved relative to the project root directory. The project root is determined automatically (see `config.paths.get_project_root`).
 
 ### Example Path Resolution
 
