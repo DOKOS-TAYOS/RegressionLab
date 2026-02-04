@@ -143,7 +143,7 @@ def load_uploaded_file(uploaded_file: Any) -> Optional[Any]:
     Returns:
         DataFrame with loaded data, or None if loading fails.
     """
-    from loaders.loading_utils import csv_reader, excel_reader
+    from loaders.loading_utils import csv_reader, excel_reader, txt_reader
 
     try:
         file_extension = uploaded_file.name.split('.')[-1].lower()
@@ -156,8 +156,10 @@ def load_uploaded_file(uploaded_file: Any) -> Optional[Any]:
         try:
             if file_extension == 'csv':
                 data = csv_reader(tmp_path)
-            elif file_extension in ['xls', 'xlsx']:
+            elif file_extension == 'xlsx':
                 data = excel_reader(tmp_path)
+            elif file_extension == 'txt':
+                data = txt_reader(tmp_path)
             else:
                 st.error(t('error.unsupported_file_type', file_type=file_extension))
                 return None
@@ -183,6 +185,37 @@ def _get_variable_names(data: Any, filter_uncertainty: bool = True) -> List[str]
     """Lazy wrapper for get_variable_names to defer pandas/loaders import."""
     from loaders.data_loader import get_variable_names
     return get_variable_names(data, filter_uncertainty=filter_uncertainty)
+
+
+def _show_data_with_pair_plots(data: Any) -> None:
+    """
+    Show data in an expander with optional pair plots (scatter matrix).
+    """
+    with st.expander(t('dialog.show_data_title'), expanded=True):
+        st.dataframe(data)
+        st.markdown(
+            """
+            <style>
+            div[data-testid="stExpander"] .stButton > button {
+                padding: 0.6rem 2rem; font-size: 1.15rem; min-height: 2.5rem; width: 100%%;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
+        if st.button(t('dialog.show_pair_plots'), key='btn_show_pair_plots', use_container_width=True):
+            st.session_state['data_show_pair_plots'] = True
+        if st.session_state.get('data_show_pair_plots'):
+            variables = _get_variable_names(data, filter_uncertainty=True)
+            if len(variables) < 1:
+                st.caption(t('error.no_valid_data'))
+            else:
+                from plotting.plot_utils import create_pair_plots
+                fig = create_pair_plots(data, variables, output_path=None)
+                st.subheader(t('dialog.pair_plots_title'))
+                st.pyplot(fig)
+                if hasattr(fig, 'close'):
+                    fig.close()
 
 
 def get_temp_output_dir() -> Path:
@@ -258,10 +291,12 @@ def perform_fit(
         uy = data[uy_col] if uy_col in data.columns else [0.0] * len(y)
         
         # Create plot in temporary directory (Streamlit Cloud compatible)
+        from config import FILE_CONFIG
         display_name = equation_name.replace('_', ' ').title()
         st.session_state.plot_counter += 1
         filename = f"{plot_name}_{st.session_state.plot_counter}"
-        out_path = get_temp_output_dir() / f"fit_{filename}.png"
+        plot_ext = FILE_CONFIG.get('plot_format', 'png')
+        out_path = get_temp_output_dir() / f"fit_{filename}.{plot_ext}"
         output_path = create_plot(
             x, y, ux, uy, y_fitted, filename, x_name, y_name,
             output_path=str(out_path),
@@ -462,22 +497,30 @@ def show_results(results: List[Dict[str, Any]]) -> None:
             # Display parameters and download button side by side
             if os.path.exists(result['plot_path']):
                 param_col, download_col = st.columns([3, 1])
-                
+                plot_path = result['plot_path']
+                plot_ext = os.path.splitext(plot_path)[1].lower() or '.png'
+                mime_map = {'.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.pdf': 'application/pdf'}
+                mime = mime_map.get(plot_ext, 'image/png')
+                download_name = f"{result['plot_name']}{plot_ext}"
+
                 with param_col:
                     st.text(result['parameters'])
-                
+
                 with download_col:
-                    with open(result['plot_path'], "rb") as file:
+                    with open(plot_path, "rb") as file:
                         st.download_button(
                             label=f"📥 {t('dialog.download')}",
                             data=file,
-                            file_name=f"{result['plot_name']}.png",
-                            mime="image/png",
+                            file_name=download_name,
+                            mime=mime,
                             key=f"download_{idx}",
                             width='stretch'
                         )
-                
-                st.image(result['plot_path'], width='stretch')
+
+                if plot_ext in ('.png', '.jpg', '.jpeg'):
+                    st.image(plot_path, width='stretch')
+                else:
+                    st.caption(f"Plot saved as {plot_ext}. Download to view.")
             else:
                 st.text(result['parameters'])
 
@@ -491,16 +534,15 @@ def mode_normal_fitting(equation_types: List[str]) -> None:
     st.subheader(t('menu.normal_fitting'))
     
     uploaded_file = st.file_uploader(
-        t('dialog.upload_file'), type=['csv', 'xls', 'xlsx'], key='single_file'
+        t('dialog.upload_file'), type=['csv', 'xlsx', 'txt'], key='single_file'
     )
     
     if uploaded_file is not None:
         data = load_uploaded_file(uploaded_file)
         
         if data is not None:
-            with st.expander(t('dialog.show_data_title')):
-                st.dataframe(data)
-            
+            _show_data_with_pair_plots(data)
+
             col1, col2 = st.columns([1, 1])
             
             with col1:
@@ -533,7 +575,7 @@ def mode_multiple_datasets(equation_types: List[str]) -> None:
     equation_name, custom_formula, parameter_names = show_equation_selector(equation_types)
     
     uploaded_files = st.file_uploader(
-        t('dialog.upload_file'), type=['csv', 'xls', 'xlsx'],
+        t('dialog.upload_file'), type=['csv', 'xlsx', 'txt'],
         accept_multiple_files=True, key='multiple_files'
     )
     
@@ -613,13 +655,15 @@ def mode_checker_fitting(equation_types: List[str]) -> None:
     st.subheader(t('menu.checker_fitting'))
     
     uploaded_file = st.file_uploader(
-        t('dialog.upload_file'), type=['csv', 'xls', 'xlsx'], key='checker_file'
+        t('dialog.upload_file'), type=['csv', 'xlsx', 'txt'], key='checker_file'
     )
     
     if uploaded_file is not None:
         data = load_uploaded_file(uploaded_file)
         
         if data is not None:
+            _show_data_with_pair_plots(data)
+
             col1, col2 = st.columns([1, 1])
             
             with col1:
@@ -670,13 +714,15 @@ def mode_total_fitting(equation_types: List[str]) -> None:
     st.subheader(t('menu.total_fitting'))
     
     uploaded_file = st.file_uploader(
-        t('dialog.upload_file'), type=['csv', 'xls', 'xlsx'], key='total_file'
+        t('dialog.upload_file'), type=['csv', 'xlsx', 'txt'], key='total_file'
     )
     
     if uploaded_file is not None:
         data = load_uploaded_file(uploaded_file)
         
         if data is not None:
+            _show_data_with_pair_plots(data)
+
             col1, col2 = st.columns([1, 1])
             
             with col1:

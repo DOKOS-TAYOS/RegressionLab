@@ -64,9 +64,50 @@ def csv_reader(file_path: str) -> pd.DataFrame:
         raise DataLoadError(t('error.unexpected_loading_csv', error=str(e)))
 
 
+def txt_reader(file_path: str) -> pd.DataFrame:
+    """
+    Load data from a text file (whitespace or tab separated).
+
+    Uses pandas read_csv with sep=None (delimiter sniffing) so that
+    tab-separated and space-separated values are detected automatically.
+
+    Args:
+        file_path: Path to the text file.
+
+    Returns:
+        DataFrame with the text file data, treating 'no' as NaN values.
+
+    Raises:
+        FileNotFoundError: If file does not exist
+        DataLoadError: If file cannot be read
+    """
+    logger.info(t('log.loading_txt_file', path=file_path))
+
+    validate_file_path(file_path)
+
+    try:
+        # sep=None triggers Python engine's delimiter sniffing (tab, space, etc.)
+        data = pd.read_csv(file_path, sep=None, engine='python', na_values=['no'])
+        validate_dataframe(data)
+        logger.info(t('log.successfully_loaded_txt', rows=len(data), columns=len(data.columns)))
+        return data
+    except pd.errors.EmptyDataError:
+        logger.error(t('log.csv_file_empty', path=file_path))
+        raise DataLoadError(t('error.csv_file_empty', path=file_path))
+    except pd.errors.ParserError as e:
+        logger.error(t('log.csv_parsing_error', path=file_path, error=str(e)))
+        raise DataLoadError(t('error.csv_parsing_error', error=str(e)))
+    except Exception as e:
+        logger.error(
+            t('log.unexpected_error_reading_csv', path=file_path, error=str(e)),
+            exc_info=True
+        )
+        raise DataLoadError(t('error.unexpected_loading_csv', error=str(e)))
+
+
 def excel_reader(file_path: str) -> pd.DataFrame:
     """
-    Load data from an Excel file (.xls or .xlsx).
+    Load data from an Excel file (.xlsx).
     
     Args:
         file_path: Path to the Excel file
@@ -108,14 +149,14 @@ def get_file_names(
         directory: Name of the directory to scan (default: None, relative to project root)
         
     Returns:
-        Tuple of three lists: (csv_files, xls_files, xlsx_files)
+        Tuple of three lists: (csv_files, xlsx_files, txt_files)
         Each list contains file names without extensions
         
     Raises:
         FileNotFoundError: If directory does not exist
         
     Example:
-        >>> csv, xls, xlsx = get_file_names()
+        >>> csv, xlsx, txt = get_file_names()
         >>> # If 'input' contains 'data.csv' and 'experiment.xlsx':
         >>> print(csv)  # ['data']
         >>> print(xlsx)  # ['experiment']
@@ -146,20 +187,20 @@ def get_file_names(
         
         # Initialize empty lists for each file type
         csv = []
-        xls = []
         xlsx = []
-        
+        txt = []
+
         # Categorize files by extension and strip the extension from the name
         for file in file_list:
             if file.endswith('.csv'):
                 csv.append(file[:-4])  # Remove '.csv' (4 chars)
             elif file.endswith('.xlsx'):
                 xlsx.append(file[:-5])  # Remove '.xlsx' (5 chars)
-            elif file.endswith('.xls'):
-                xls.append(file[:-4])  # Remove '.xls' (4 chars)
-        
-        logger.info(t('log.found_files', csv=len(csv), xls=len(xls), xlsx=len(xlsx)))
-        return csv, xls, xlsx
+            elif file.endswith('.txt'):
+                txt.append(file[:-4])  # Remove '.txt' (4 chars)
+
+        logger.info(t('log.found_files', csv=len(csv), xlsx=len(xlsx), txt=len(txt)))
+        return csv, xlsx, txt
         
     except PermissionError:
         logger.error(t('log.permission_denied_directory', path=str(file_path)))

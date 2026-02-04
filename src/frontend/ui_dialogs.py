@@ -8,26 +8,39 @@ Contains all Tkinter dialog windows for user interaction.
 # Standard library
 import re
 import webbrowser
-from typing import Any, List, Optional, Tuple
+from typing import Any, List, Optional, Tuple, Union
 from tkinter import (
     Tk,
-    Toplevel, 
-    Frame, 
-    Label, 
-    Spinbox, 
-    Button, 
-    Entry, 
-    StringVar, 
-    IntVar, 
-    Text, 
-    Scrollbar, 
-    Radiobutton, 
+    Toplevel,
+    Frame,
+    Label,
+    Spinbox,
+    Button,
+    Entry,
+    StringVar,
+    IntVar,
+    BooleanVar,
+    Text,
+    Scrollbar,
+    Radiobutton,
     PhotoImage,
-    ttk
+    Checkbutton,
+    Canvas,
+    ttk,
 )
 
 # Local imports
-from config import DONATIONS_URL, EQUATION_FORMULAS, EXIT_SIGNAL, UI_STYLE, UI_THEME
+from config import (
+    DONATIONS_URL,
+    ENV_SCHEMA,
+    EQUATION_FORMULAS,
+    EXIT_SIGNAL,
+    UI_STYLE,
+    UI_THEME,
+    get_current_env_values,
+    get_project_root,
+    write_env_file,
+)
 from i18n import t
 
 
@@ -87,14 +100,14 @@ def ask_file_type(parent_window: Any) -> str:
     """
     Dialog to ask for data file type.
     
-    Presents radio buttons with file type options (xlsx, xls, csv, Exit/Salir).
+    Presents radio buttons with file type options (xlsx, csv, txt, Exit/Salir).
     User can select one option.
     
     Args:
         parent_window: Parent Tkinter window
         
     Returns:
-        Selected file type ('csv', 'xls', 'xlsx', EXIT_SIGNAL, or '')
+        Selected file type ('csv', 'xlsx', 'txt', EXIT_SIGNAL, or '')
     """
     # Create dialog window
     call_file_level = Toplevel()
@@ -122,7 +135,7 @@ def ask_file_type(parent_window: Any) -> str:
     )
     
     # Build values tuple with translated exit option
-    file_type_values = ('xlsx', 'xls', 'csv', t('dialog.exit_option'))
+    file_type_values = ('xlsx', 'csv', 'txt', t('dialog.exit_option'))
     
     # Set default value
     call_file_level.tipo.set(file_type_values[0])
@@ -464,6 +477,47 @@ def ask_variables(parent_window: Any, variable_names: List[str]) -> Tuple[str, s
     return call_var_level.x_name.get(), call_var_level.y_name.get(), call_var_level.graf_name.get()
 
 
+# Max size for pair-plot image window so it does not resize the desktop
+_PAIR_PLOT_MAX_WIDTH = 920
+_PAIR_PLOT_MAX_HEIGHT = 720
+
+
+def _show_image_toplevel(parent: Tk | Toplevel, image_path: str, title: str) -> None:
+    """Open a Toplevel window showing an image from file (e.g. pair plot), scaled to fit max size."""
+    try:
+        from PIL import Image, ImageTk
+    except ImportError:
+        return
+    try:
+        img = Image.open(image_path).convert('RGB')
+    except OSError:
+        return
+    w, h = img.size
+    if w > _PAIR_PLOT_MAX_WIDTH or h > _PAIR_PLOT_MAX_HEIGHT:
+        ratio = min(_PAIR_PLOT_MAX_WIDTH / w, _PAIR_PLOT_MAX_HEIGHT / h)
+        new_size = (int(w * ratio), int(h * ratio))
+        img = img.resize(new_size, Image.Resampling.LANCZOS)
+    win = Toplevel(parent)
+    win.title(title)
+    win.configure(background=UI_STYLE['bg'])
+    win.resizable(False, False)
+    photo = ImageTk.PhotoImage(img)
+    label = Label(win, image=photo, bg=UI_STYLE['bg'])
+    label.image = photo
+    label.pack(padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
+    Button(
+        win,
+        text=t('dialog.accept'),
+        command=win.destroy,
+        width=UI_STYLE['button_width'],
+        bg=UI_STYLE['bg'],
+        fg=UI_STYLE['button_fg_accept'],
+        activebackground=UI_STYLE['active_bg'],
+        activeforeground=UI_STYLE['active_fg'],
+        font=(UI_STYLE['font_family'], UI_STYLE['font_size']),
+    ).pack(padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
+
+
 def show_data_dialog(parent_window: Tk | Toplevel, data: Any) -> None:
     """
     Dialog to display loaded data.
@@ -511,15 +565,46 @@ def show_data_dialog(parent_window: Tk | Toplevel, data: Any) -> None:
     scrollbar_x.config(command=text_widget.xview)
     text_widget.insert('1.0', content)
     text_widget.config(state='disabled')  # Make the text read-only
-    
+
+    def _open_pair_plots_window() -> None:
+        from config import get_output_path
+        from loaders.data_loader import get_variable_names
+        from plotting.plot_utils import create_pair_plots
+        try:
+            variables = get_variable_names(data, filter_uncertainty=True)
+            if not variables:
+                return
+            output_path = get_output_path('pair_plot')
+            create_pair_plots(data, variables, output_path=output_path)
+            _show_image_toplevel(watch_data_level, output_path, t('dialog.pair_plots_title'))
+        except Exception:
+            pass
+
+    opts_frame = Frame(watch_data_level, bg=UI_STYLE['bg'])
+    opts_frame.pack(padx=UI_STYLE['padding'], pady=4, fill='x')
+    can_show_pairs = hasattr(data, 'columns') and len(getattr(data, 'columns', [])) > 0
+    if can_show_pairs:
+        pair_btn = Button(
+            opts_frame,
+            text=t('dialog.show_pair_plots'),
+            command=_open_pair_plots_window,
+            width=min(42, max(36, UI_STYLE['button_width_wide'] + 10)),
+            bg=UI_STYLE['bg'],
+            fg=UI_STYLE['button_fg_accept'],
+            activebackground=UI_STYLE['active_bg'],
+            activeforeground=UI_STYLE['active_fg'],
+            font=(UI_STYLE['font_family'], UI_STYLE.get('font_size_large', UI_STYLE['font_size'])),
+        )
+        pair_btn.pack(anchor='w', pady=4)
+
     watch_data_level.accept_button = Button(
-        watch_data_level, 
-        text=t('dialog.accept'), 
-        command=watch_data_level.destroy, 
-        width=UI_STYLE['button_width'], 
-        bg=UI_STYLE['bg'], 
+        watch_data_level,
+        text=t('dialog.accept'),
+        command=watch_data_level.destroy,
+        width=UI_STYLE['button_width'],
+        bg=UI_STYLE['bg'],
         fg=UI_STYLE['button_fg_accept'],
-        activebackground=UI_STYLE['active_bg'], 
+        activebackground=UI_STYLE['active_bg'],
         activeforeground=UI_STYLE['active_fg'],
         font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
     )
@@ -529,60 +614,86 @@ def show_data_dialog(parent_window: Tk | Toplevel, data: Any) -> None:
     parent_window.wait_window(watch_data_level)
 
 
-def ask_equation_type(parent_window: Any) -> str:
+def _parse_opt_float(s: str) -> Optional[float]:
+    """Parse string to float; empty or invalid returns None."""
+    s = (s or "").strip()
+    if not s:
+        return None
+    try:
+        return float(s)
+    except ValueError:
+        return None
+
+
+def ask_equation_type(
+    parent_window: Any,
+) -> Tuple[str, Optional[List[Optional[float]]], Optional[Tuple[List[Optional[float]], List[Optional[float]]]]]:
     """
     Dialog to select fitting equation type.
-    
+
+    Optionally allows configuring initial values and bounds per parameter.
     Displays a grid of buttons for predefined equation types, plus options
-    for custom equations and exiting. Each button represents a mathematical
-    model that can be fitted to the data.
-    
+    for custom equations and exiting.
+
     Args:
         parent_window: Parent Tkinter window
-        
+
     Returns:
-        Selected equation type identifier, 'custom' for custom equation, or EXIT_SIGNAL to exit
+        Tuple of (equation_type, user_initial_guess, user_bounds).
+        user_initial_guess and user_bounds are None when not configured.
     """
-    # Create dialog window
+    from fitting.fitting_utils import get_equation_param_info
+
     equation_level = Toplevel()
     equation_level.title(t('dialog.equation_type'))
-    equation_level.selected_equation = ''  # Variable to store the user's selection
+    equation_level.selected_equation = ''
+    equation_level.user_initial_guess: Optional[List[Optional[float]]] = None
+    equation_level.user_bounds: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None
 
     def _on_close_equation_type() -> None:
         equation_level.selected_equation = EXIT_SIGNAL
         equation_level.destroy()
 
     equation_level.protocol("WM_DELETE_WINDOW", _on_close_equation_type)
-    
-    # Main frame with styled border
+
     equation_level.frame_custom = Frame(
-        equation_level, 
-        borderwidth=2, 
-        relief="raised", 
-        bg=UI_STYLE['bg'], 
+        equation_level,
+        borderwidth=2,
+        relief="raised",
+        bg=UI_STYLE['bg'],
         bd=UI_STYLE['border_width']
     )
-    
-    # Header label
+
     equation_level.message = Label(
-        equation_level.frame_custom, 
-        text=t('dialog.select_equation'), 
-        bg=UI_STYLE['bg'], 
+        equation_level.frame_custom,
+        text=t('dialog.select_equation'),
+        bg=UI_STYLE['bg'],
         fg=UI_STYLE['fg'],
         font=(UI_STYLE['font_family'], UI_STYLE['font_size_large'], 'bold')
     )
-    
-    # Common button styling configuration
+
+    configure_params_var: BooleanVar = BooleanVar(value=False)
+    equation_level.configure_params_cb = Checkbutton(
+        equation_level.frame_custom,
+        text=t('dialog.configure_initial_params'),
+        variable=configure_params_var,
+        bg=UI_STYLE['bg'],
+        fg=UI_STYLE['fg'],
+        selectcolor=UI_STYLE['bg'],
+        activebackground=UI_STYLE['bg'],
+        activeforeground=UI_STYLE['fg'],
+        font=(UI_STYLE['font_family'], UI_STYLE['font_size']),
+    )
+
     btn_config = {
         'width': 32,
         'bg': UI_STYLE['bg'],
-        'fg': "gold2",  # Gold color for equation buttons
+        'fg': "gold2",
         'activebackground': UI_STYLE['active_bg'],
         'activeforeground': UI_STYLE['active_fg'],
         'font': (UI_STYLE['font_family'], UI_STYLE['font_size'])
     }
-    
-    # Equation types: order by family (linear → polynomial → log → inverse → trig → hyperbolic → exp → special)
+
     equation_keys = [
         'linear_function_with_n', 'linear_function', 'quadratic_function_complete',
         'quadratic_function', 'fourth_power', 'ln_function',
@@ -593,10 +704,95 @@ def ask_equation_type(parent_window: Any) -> str:
         'gaussian_function', 'square_pulse_function', 'hermite_polynomial_3',
         'hermite_polynomial_4',
     ]
-    # Button click handlers - these set the selection and close the dialog
+
+    def _show_param_dialog(eq_type: str) -> None:
+        param_info = get_equation_param_info(eq_type)
+        if not param_info:
+            equation_level.destroy()
+            return
+        param_names, formula = param_info
+        n_params = len(param_names)
+
+        param_dlg = Toplevel(equation_level)
+        param_dlg.title(t('dialog.param_config_title'))
+        param_dlg.transient(equation_level)
+        param_dlg.grab_set()
+
+        frm = Frame(param_dlg, bg=UI_STYLE['bg'], bd=UI_STYLE['border_width'])
+        frm.pack(padx=UI_STYLE['padding'], pady=UI_STYLE['padding'], fill='both', expand=True)
+
+        lbl_style = {
+            'bg': UI_STYLE['bg'],
+            'fg': UI_STYLE['fg'],
+            'font': (UI_STYLE['font_family'], UI_STYLE['font_size']),
+        }
+        entry_style = {
+            'width': 12,
+            'fg': UI_STYLE['entry_fg'],
+            'font': (UI_STYLE['font_family'], UI_STYLE['font_size']),
+        }
+
+        # Header row
+        Label(frm, text=t('dialog.param_column_equation'), **lbl_style).grid(row=0, column=0, padx=4, pady=2)
+        Label(frm, text=t('dialog.param_column_name'), **lbl_style).grid(row=0, column=1, padx=4, pady=2)
+        Label(frm, text=t('dialog.param_column_initial'), **lbl_style).grid(row=0, column=2, padx=4, pady=2)
+        Label(frm, text=t('dialog.param_column_range_start'), **lbl_style).grid(row=0, column=3, padx=4, pady=2)
+        Label(frm, text=t('dialog.param_column_range_end'), **lbl_style).grid(row=0, column=4, padx=4, pady=2)
+
+        initial_entries: List[Entry] = []
+        lower_entries: List[Entry] = []
+        upper_entries: List[Entry] = []
+
+        for i, pname in enumerate(param_names):
+            r = i + 1
+            Label(frm, text=formula, **lbl_style).grid(row=r, column=0, padx=4, pady=2, sticky='w')
+            Label(frm, text=pname, **lbl_style).grid(row=r, column=1, padx=4, pady=2, sticky='w')
+            e_init = Entry(frm, **entry_style)
+            e_init.grid(row=r, column=2, padx=4, pady=2)
+            initial_entries.append(e_init)
+            e_lo = Entry(frm, **entry_style)
+            e_lo.grid(row=r, column=3, padx=4, pady=2)
+            lower_entries.append(e_lo)
+            e_hi = Entry(frm, **entry_style)
+            e_hi.grid(row=r, column=4, padx=4, pady=2)
+            upper_entries.append(e_hi)
+
+        def on_accept() -> None:
+            initial_guess: List[Optional[float]] = [
+                _parse_opt_float(e.get()) for e in initial_entries
+            ]
+            lower_list: List[Optional[float]] = [
+                _parse_opt_float(e.get()) for e in lower_entries
+            ]
+            upper_list: List[Optional[float]] = [
+                _parse_opt_float(e.get()) for e in upper_entries
+            ]
+            equation_level.user_initial_guess = initial_guess
+            equation_level.user_bounds = (lower_list, upper_list)
+            param_dlg.destroy()
+
+        btn_accept = Button(
+            frm,
+            text=t('dialog.accept'),
+            command=on_accept,
+            width=UI_STYLE['button_width'],
+            bg=UI_STYLE['bg'],
+            fg=UI_STYLE['button_fg_accept'],
+            activebackground=UI_STYLE['active_bg'],
+            activeforeground=UI_STYLE['active_fg'],
+            font=(UI_STYLE['font_family'], UI_STYLE['font_size']),
+        )
+        btn_accept.grid(row=len(param_names) + 1, column=2, columnspan=2, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
+        param_dlg.resizable(True, False)
+        equation_level.wait_window(param_dlg)
+
     def handle_equation_click(eq_type: str) -> None:
         """Handle predefined equation button click."""
         equation_level.selected_equation = eq_type
+        if not configure_params_var.get():
+            equation_level.destroy()
+            return
+        _show_param_dialog(eq_type)
         equation_level.destroy()
 
     def handle_custom_click() -> None:
@@ -644,24 +840,32 @@ def ask_equation_type(parent_window: Any) -> str:
         font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
     )
 
-    # Grid layout: 3 columns, equation buttons in order (row = 1 + i//3, col = i%3)
+    # Grid layout: row 0 message, row 1 checkbox, then equation buttons (3 cols), custom, exit
     equation_level.frame_custom.grid(column=0, row=0)
     equation_level.message.grid(
         column=0, row=0, columnspan=3, padx=UI_STYLE['padding'], pady=6
     )
+    equation_level.configure_params_cb.grid(
+        column=0, row=1, columnspan=3, padx=UI_STYLE['padding'], pady=4, sticky='w'
+    )
     _pad = UI_STYLE['padding']
+    _start_row = 2
     for i, attr_name in enumerate(equation_keys):
         getattr(equation_level, attr_name).grid(
-            column=i % 3, row=1 + i // 3, padx=_pad, pady=_pad
+            column=i % 3, row=_start_row + i // 3, padx=_pad, pady=_pad
         )
-    equation_level.custom.grid(column=0, row=1 + (len(equation_keys) + 2) // 3, columnspan=3, padx=_pad, pady=_pad)
-    _last_row = 1 + (len(equation_keys) + 2) // 3
+    _last_row = _start_row + (len(equation_keys) + 2) // 3
+    equation_level.custom.grid(column=0, row=_last_row, columnspan=3, padx=_pad, pady=_pad)
     equation_level.accept_button.grid(column=2, row=_last_row + 1, padx=_pad, pady=_pad)
 
     equation_level.linear_function_with_n.focus_set()
     parent_window.wait_window(equation_level)
-    
-    return equation_level.selected_equation
+
+    return (
+        equation_level.selected_equation,
+        getattr(equation_level, 'user_initial_guess', None),
+        getattr(equation_level, 'user_bounds', None),
+    )
 
 
 def ask_num_parameters(parent_window: Any) -> Optional[int]:
@@ -1190,6 +1394,261 @@ def show_help_dialog(parent_window: Tk | Toplevel) -> None:
     
     accept_button.focus_set()
     parent_window.wait_window(help_level)
+
+
+def _config_section_for_key(key: str) -> str:
+    """Return section key for grouping env vars in config dialog."""
+    if key == 'LANGUAGE':
+        return 'language'
+    if key.startswith('UI_'):
+        return 'ui'
+    if key.startswith('PLOT_') or key == 'DPI':
+        return 'plot'
+    if key.startswith('FONT_'):
+        return 'font'
+    if key.startswith('FILE_'):
+        return 'paths'
+    if key == 'DONATIONS_URL':
+        return 'links'
+    if key.startswith('LOG_'):
+        return 'logging'
+    return 'other'
+
+
+def show_config_dialog(parent_window: Any) -> bool:
+    """
+    Show configuration dialog to edit .env fields.
+    Pre-fills with current env values (or defaults). On Accept, writes .env
+    and returns True so the caller can restart the app. On Cancel returns False.
+
+    Args:
+        parent_window: Parent Tkinter window.
+
+    Returns:
+        True if user accepted and .env was written (caller should restart).
+        False if user cancelled.
+    """
+    config_level = Toplevel(parent_window)
+    config_level.title(t('config.title'))
+    config_level.configure(background=UI_STYLE['bg'])
+    config_level.transient(parent_window)
+    config_level.grab_set()
+
+    current = get_current_env_values()
+    result_var: List[bool] = [False]
+
+    # Scrollable area: Canvas + Scrollbar + inner Frame
+    main_frame = Frame(
+        config_level,
+        borderwidth=2,
+        relief='raised',
+        bg=UI_STYLE['bg'],
+        bd=UI_STYLE['border_width'],
+    )
+    main_frame.pack(padx=UI_STYLE['padding'], pady=6, fill='both', expand=True)
+
+    canvas = Canvas(
+        main_frame,
+        bg=UI_STYLE['bg'],
+        highlightthickness=0,
+    )
+    scrollbar = Scrollbar(main_frame, orient='vertical', command=canvas.yview)
+    inner = Frame(canvas, bg=UI_STYLE['bg'])
+
+    inner.bind(
+        '<Configure>',
+        lambda e: canvas.configure(scrollregion=canvas.bbox('all')),
+    )
+    canvas_window = canvas.create_window((0, 0), window=inner, anchor='nw')
+    canvas.configure(yscrollcommand=scrollbar.set)
+
+    def _on_frame_configure(_event: Any) -> None:
+        canvas.configure(scrollregion=canvas.bbox('all'))
+
+    def _on_canvas_configure(event: Any) -> None:
+        canvas.itemconfig(canvas_window, width=event.width)
+
+    inner.bind('<Configure>', _on_frame_configure)
+    canvas.bind('<Configure>', _on_canvas_configure)
+
+    def _on_mousewheel(event: Any) -> str:
+        """Scroll canvas with mouse wheel (Windows: delta; Linux: Button4/5)."""
+        if hasattr(event, 'delta') and event.delta != 0:
+            canvas.yview_scroll(int(-1 * (event.delta / 120)), 'units')
+        elif event.num == 5:
+            canvas.yview_scroll(1, 'units')
+        elif event.num == 4:
+            canvas.yview_scroll(-1, 'units')
+        return 'break'
+
+    canvas.bind('<MouseWheel>', _on_mousewheel)
+    inner.bind('<MouseWheel>', _on_mousewheel)
+    inner.bind('<Button-4>', _on_mousewheel)
+    inner.bind('<Button-5>', _on_mousewheel)
+
+    scrollbar.pack(side='right', fill='y')
+    canvas.pack(side='left', fill='both', expand=True)
+
+    lbl_style = {
+        'bg': UI_STYLE['bg'],
+        'fg': UI_STYLE['fg'],
+        'font': (UI_STYLE['font_family'], UI_STYLE['font_size']),
+    }
+    desc_style = {
+        'bg': UI_STYLE['bg'],
+        'fg': UI_STYLE['fg'],
+        'font': (UI_STYLE['font_family'], max(8, UI_STYLE['font_size'] - 2)),
+    }
+    entry_style = {
+        'width': UI_STYLE['entry_width'],
+        'fg': UI_STYLE['entry_fg'],
+        'font': (UI_STYLE['font_family'], UI_STYLE['font_size']),
+    }
+
+    entries: dict[str, Tuple[str, Union[BooleanVar, StringVar]]] = {}
+    row_index = 0
+    last_section: Optional[str] = None
+
+    # All keys in ENV_SCHEMA are shown (language, UI, plot, font, paths including FILE_PLOT_FORMAT, links, logging)
+    for item in ENV_SCHEMA:
+        key = item['key']
+        default = item['default']
+        cast_type = item['cast_type']
+        section = _config_section_for_key(key)
+
+        if section != last_section:
+            section_label = Label(
+                inner,
+                text=t(f'config.section_{section}'),
+                bg=UI_STYLE['bg'],
+                fg=UI_STYLE['fg'],
+                font=(UI_STYLE['font_family'], UI_STYLE['font_size'], 'bold'),
+            )
+            section_label.grid(row=row_index, column=0, columnspan=2, sticky='w', padx=4, pady=(12, 4))
+            row_index += 1
+            last_section = section
+
+        label_text = t(f'config.label_{key}')
+        Label(inner, text=label_text, **lbl_style).grid(row=row_index, column=0, sticky='w', padx=4, pady=2)
+        desc_text = t(f'config.desc_{key}')
+        desc_lbl = Label(inner, text=desc_text, **desc_style, wraplength=400, justify='left')
+        desc_lbl.grid(row=row_index + 1, column=0, columnspan=2, sticky='w', padx=12, pady=(0, 6))
+        row_index += 2
+
+        if cast_type == bool:
+            var = BooleanVar(value=current.get(key, 'false').lower() in ('true', '1', 'yes'))
+            cb = Checkbutton(inner, variable=var, **lbl_style, selectcolor=UI_STYLE['bg'])
+            cb.grid(row=row_index, column=0, columnspan=2, sticky='w', padx=4, pady=2)
+            entries[key] = ('check', var)
+        else:
+            raw_val = current.get(key, str(default))
+            opts = item.get('options')
+            if opts:
+                # Ensure initial value is in the dropdown (e.g. env may have lowercase)
+                opts_list = list(opts)
+                if raw_val in opts_list:
+                    sv = StringVar(value=raw_val)
+                else:
+                    normalized = str(raw_val).upper() if key == 'LOG_LEVEL' else str(raw_val).lower()
+                    sv = StringVar(value=normalized if normalized in opts_list else str(default))
+                combo = ttk.Combobox(
+                    inner,
+                    textvariable=sv,
+                    values=opts_list,
+                    state='readonly',
+                    width=entry_style['width'],
+                )
+                combo.grid(row=row_index, column=0, columnspan=2, sticky='ew', padx=4, pady=2)
+                entries[key] = ('entry', sv)
+            else:
+                sv = StringVar(value=current.get(key, str(default)))
+                ent = Entry(inner, textvariable=sv, **entry_style)
+                ent.grid(row=row_index, column=0, columnspan=2, sticky='ew', padx=4, pady=2)
+                entries[key] = ('entry', sv)
+        row_index += 1
+
+    inner.columnconfigure(0, weight=1)
+
+    def on_accept() -> None:
+        values: dict[str, str] = {}
+        for item in ENV_SCHEMA:
+            key = item['key']
+            cast_type = item['cast_type']
+            default = item['default']
+            w = entries.get(key)
+            if w is None:
+                continue
+            if cast_type == bool:
+                _, var = w
+                values[key] = 'true' if var.get() else 'false'
+            else:
+                _, sv = w
+                raw = sv.get().strip()
+                if not raw:
+                    values[key] = str(default)
+                else:
+                    try:
+                        if cast_type == int:
+                            int(raw)
+                        elif cast_type == float:
+                            float(raw)
+                    except ValueError:
+                        values[key] = str(default)
+                    else:
+                        values[key] = raw
+        env_path = get_project_root() / '.env'
+        try:
+            write_env_file(env_path, values)
+            result_var[0] = True
+        except OSError:
+            from tkinter import messagebox
+            messagebox.showerror(
+                t('error.critical_error'),
+                t('config.save_error', path=str(env_path)),
+            )
+            return
+        config_level.destroy()
+
+    def on_cancel() -> None:
+        config_level.destroy()
+
+    btn_frame = Frame(config_level, bg=UI_STYLE['bg'])
+    btn_frame.pack(padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
+
+    Button(
+        btn_frame,
+        text=t('dialog.accept'),
+        command=on_accept,
+        width=UI_STYLE['button_width'],
+        bg=UI_STYLE['bg'],
+        fg=UI_STYLE['button_fg_accept'],
+        activebackground=UI_STYLE['active_bg'],
+        activeforeground=UI_STYLE['active_fg'],
+        font=(UI_STYLE['font_family'], UI_STYLE['font_size']),
+    ).pack(side='left', padx=(0, UI_STYLE['padding']))
+
+    Button(
+        btn_frame,
+        text=t('dialog.cancel'),
+        command=on_cancel,
+        width=UI_STYLE['button_width'],
+        bg=UI_STYLE['bg'],
+        fg=UI_STYLE['button_fg_cancel'],
+        activebackground=UI_STYLE['active_bg'],
+        activeforeground=UI_STYLE['active_fg'],
+        font=(UI_STYLE['font_family'], UI_STYLE['font_size']),
+    ).pack(side='left')
+
+    screen_width = config_level.winfo_screenwidth()
+    screen_height = config_level.winfo_screenheight()
+    dialog_width = min(760, int(screen_width * 0.58))
+    dialog_height = min(800, int(screen_height * 0.85))
+    config_level.geometry(f'{dialog_width}x{dialog_height}+{max(0, (screen_width - dialog_width) // 2)}+{max(0, (screen_height - dialog_height) // 2)}')
+    config_level.resizable(True, True)
+
+    config_level.protocol('WM_DELETE_WINDOW', on_cancel)
+    parent_window.wait_window(config_level)
+    return result_var[0]
 
 
 def create_result_window(

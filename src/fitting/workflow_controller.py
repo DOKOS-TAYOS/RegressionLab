@@ -20,7 +20,7 @@ from loaders.data_loader import (
     get_variable_names,
     load_data_workflow,
 )
-from loaders.loading_utils import csv_reader, excel_reader, get_file_names
+from loaders.loading_utils import csv_reader, excel_reader, get_file_names, txt_reader
 from utils.exceptions import DataLoadError
 from utils.logger import get_logger
 
@@ -41,7 +41,7 @@ def reload_data_by_type(file_path: str, file_type: str) -> pd.DataFrame:
     
     Args:
         file_path: Path to the data file
-        file_type: Type of file ('csv', 'xls', 'xlsx')
+        file_type: Type of file ('csv', 'xlsx', 'txt')
         
     Returns:
         Loaded data as DataFrame
@@ -54,8 +54,10 @@ def reload_data_by_type(file_path: str, file_type: str) -> pd.DataFrame:
     try:
         if file_type == 'csv':
             data = csv_reader(file_path)
-        elif file_type in ('xls', 'xlsx'):
+        elif file_type == 'xlsx':
             data = excel_reader(file_path)
+        elif file_type == 'txt':
+            data = txt_reader(file_path)
         else:
             logger.error(t('log.unsupported_file_type', file_type=file_type))
             raise DataLoadError(t('error.unsupported_file_type', file_type=file_type))
@@ -102,7 +104,7 @@ def single_fit_with_loop(
         y_name: Y variable column name
         plot_name: Plot name for window titles and filename
         data_file_path: Path to data file for reloading
-        data_file_type: File type ('csv', 'xls', 'xlsx')
+        data_file_type: File type ('csv', 'xlsx', 'txt')
     """
     logger.info(f"Starting single fit with loop: {plot_name}")
     
@@ -174,7 +176,7 @@ def multiple_fit_with_loop(
                   - 'y_name': Y variable column name
                   - 'plot_name': plot name for display and filename
                   - 'data_file_path': path to data file for reloading
-                  - 'data_file_type': file type ('csv', 'xls', 'xlsx')
+                  - 'data_file_type': file type ('csv', 'xlsx', 'txt')
     """
     continue_flags: List[bool] = []
 
@@ -294,8 +296,8 @@ def coordinate_data_loading(
     
     try:
         # Backend: Get available files
-        csv, xls, xlsx = get_file_names()
-        logger.debug(f"Available files - CSV: {len(csv)}, XLS: {len(xls)}, XLSX: {len(xlsx)}")
+        csv, xlsx, txt = get_file_names()
+        logger.debug(f"Available files - CSV: {len(csv)}, XLSX: {len(xlsx)}, TXT: {len(txt)}")
     except Exception as e:
         logger.error(f"Failed to get available files: {str(e)}", exc_info=True)
         messagebox.showerror(
@@ -315,7 +317,7 @@ def coordinate_data_loading(
     
     try:
         # Backend: Get file list for selected type
-        file_list = get_file_list_by_type(file_type, csv, xls, xlsx)
+        file_list = get_file_list_by_type(file_type, csv, xlsx, txt)
         
         # Check if files are available
         if not file_list:
@@ -395,7 +397,7 @@ def coordinate_data_viewing(
         show_data_func: Function to display data.
     """
     try:
-        csv, xls, xlsx = get_file_names()
+        csv, xlsx, txt = get_file_names()
     except Exception as e:
         logger.error(f"Failed to get available files: {str(e)}", exc_info=True)
         messagebox.showerror(
@@ -409,7 +411,7 @@ def coordinate_data_viewing(
 
     if file_type != EXIT_SIGNAL and file_type != '':
         # Backend: Get file list for selected type
-        file_list = get_file_list_by_type(file_type, csv, xls, xlsx)
+        file_list = get_file_list_by_type(file_type, csv, xlsx, txt)
         
         # Check if files are available
         if not file_list:
@@ -462,9 +464,15 @@ def coordinate_equation_selection(
     Returns:
         Tuple of (equation_name, fitter_function)
     """
-    # Ask user for equation type
-    selected = ask_equation_type_func(parent_window)
-    
+    # Ask user for equation type (may return tuple with optional initial/bounds overrides)
+    result = ask_equation_type_func(parent_window)
+    if isinstance(result, tuple) and len(result) == 3:
+        selected, user_initial_guess, user_bounds = result
+    else:
+        selected = result if isinstance(result, str) else EXIT_SIGNAL
+        user_initial_guess = None
+        user_bounds = None
+
     # Handle custom equation
     if selected == 'custom':
         return coordinate_custom_equation(
@@ -473,12 +481,14 @@ def coordinate_equation_selection(
             ask_parameter_names_func,
             ask_custom_formula_func
         )
-    
+
     # Handle predefined equations
     if selected != EXIT_SIGNAL and selected != '':
-        fitter_function = get_fitting_function_func(selected)
+        fitter_function = get_fitting_function_func(
+            selected, user_initial_guess, user_bounds
+        )
         return selected, fitter_function
-    
+
     # User wants to exit
     return EXIT_SIGNAL, None
 

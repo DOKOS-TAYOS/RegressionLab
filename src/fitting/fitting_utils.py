@@ -6,7 +6,12 @@ from typing import Any, Callable, List, Optional, Sequence, Tuple
 import numpy as np
 
 # Local imports (heavy numerical libraries are imported lazily inside functions)
-from config import EQUATION_FUNCTION_MAP, EXIT_SIGNAL
+from config import (
+    EQUATION_FORMULAS,
+    EQUATION_FUNCTION_MAP,
+    EQUATION_PARAM_NAMES,
+    EXIT_SIGNAL,
+)
 from i18n import t
 from utils.exceptions import FittingError
 from utils.logger import get_logger
@@ -270,47 +275,123 @@ def generic_fit(
     return text, y_fitted, equation_str
 
 
-def get_fitting_function(equation_name: str) -> Optional[Callable]:
+def get_equation_param_info(
+    equation_name: str,
+) -> Optional[Tuple[List[str], str]]:
+    """
+    Return parameter names and display formula for an equation type.
+
+    Args:
+        equation_name: String identifier for the equation type.
+
+    Returns:
+        (param_names, formula_str) or None if equation is unknown.
+    """
+    if equation_name not in EQUATION_PARAM_NAMES or equation_name not in EQUATION_FORMULAS:
+        return None
+    return (
+        list(EQUATION_PARAM_NAMES[equation_name]),
+        EQUATION_FORMULAS[equation_name],
+    )
+
+
+def merge_initial_guess(
+    computed: List[float],
+    override: Optional[List[Optional[float]]],
+) -> List[float]:
+    """Use override values where not None; otherwise keep computed."""
+    if override is None or len(override) != len(computed):
+        return list(computed)
+    return [
+        float(override[i]) if override[i] is not None else computed[i]
+        for i in range(len(computed))
+    ]
+
+
+def merge_bounds(
+    computed_bounds: Optional[Tuple[Sequence[float], Sequence[float]]],
+    override_lower: Optional[List[Optional[float]]],
+    override_upper: Optional[List[Optional[float]]],
+    n_params: int,
+) -> Optional[Tuple[Tuple[float, ...], Tuple[float, ...]]]:
+    """Build (lower, upper) using overrides where not None; else computed or ±inf."""
+    if override_lower is None and override_upper is None:
+        return computed_bounds
+    inf = float('-inf')
+    pos_inf = float('inf')
+    if computed_bounds is not None:
+        base_lower = list(computed_bounds[0])
+        base_upper = list(computed_bounds[1])
+    else:
+        base_lower = [inf] * n_params
+        base_upper = [pos_inf] * n_params
+    if override_lower is not None:
+        for i, v in enumerate(override_lower):
+            if i < n_params and v is not None:
+                base_lower[i] = float(v)
+    if override_upper is not None:
+        for i, v in enumerate(override_upper):
+            if i < n_params and v is not None:
+                base_upper[i] = float(v)
+    return (tuple(base_lower), tuple(base_upper))
+
+
+def get_fitting_function(
+    equation_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
+) -> Optional[Callable]:
     """
     Get the fitting function corresponding to the equation name.
-    
-    Returns the base fitting function that only performs calculations
-    (without visualization). The function returns (text, y_fitted, equation).
-    Uses the EQUATION_FUNCTION_MAP from config to resolve equation names
-    to their implementation functions.
-    
+
+    Returns a function (data, x_name, y_name, plot_name) that performs the fit.
+    If initial_guess_override or bounds_override are provided, they are passed
+    to the underlying fit (None in a slot means use estimator value).
+
     Args:
-        equation_name: String identifier for the equation type
-        
+        equation_name: String identifier for the equation type.
+        initial_guess_override: Optional list of initial values (None = use estimator).
+        bounds_override: Optional (lower_list, upper_list) (None in slot = use estimator).
+
     Returns:
-        The corresponding fitting function, or None if not found or error occurs
+        The corresponding fitting function, or None if not found or error occurs.
     """
     logger.debug(t('log.getting_fitting_function', equation=equation_name))
-    
+
     if equation_name == EXIT_SIGNAL:
         logger.debug(t('log.exit_signal_received'))
         return None
-    
-    # Import and return the appropriate fitting function
-    if equation_name in EQUATION_FUNCTION_MAP:
-        function_name = EQUATION_FUNCTION_MAP[equation_name]
-        logger.debug(
-            t('log.equation_maps_to_function', equation=equation_name, function=function_name)
-        )
-        
-        try:
-            from fitting import fitting_functions
-            fit_function = getattr(fitting_functions, function_name)
-            logger.info(t('log.successfully_loaded_fitting_function', function=function_name))
-            return fit_function
-        except (ImportError, AttributeError) as e:
-            # Handle import errors gracefully
-            logger.error(
-                t('log.error_importing_fitting_function', function=function_name, error=str(e)),
-                exc_info=True
-            )
-            return None
-    else:
-        # Unknown equation type
+
+    if equation_name not in EQUATION_FUNCTION_MAP:
         logger.warning(t('log.unknown_equation_type', equation=equation_name))
         return None
+
+    function_name = EQUATION_FUNCTION_MAP[equation_name]
+    logger.debug(
+        t('log.equation_maps_to_function', equation=equation_name, function=function_name)
+    )
+
+    try:
+        from fitting import fitting_functions
+        base_fit = getattr(fitting_functions, function_name)
+    except (ImportError, AttributeError) as e:
+        logger.error(
+            t('log.error_importing_fitting_function', function=function_name, error=str(e)),
+            exc_info=True,
+        )
+        return None
+
+    logger.info(t('log.successfully_loaded_fitting_function', function=function_name))
+
+    def fit_with_overrides(
+        data: Any, x_name: str, y_name: str
+    ) -> Tuple[str, Any, str]:
+        return base_fit(
+            data,
+            x_name,
+            y_name,
+            initial_guess_override=initial_guess_override,
+            bounds_override=bounds_override,
+        )
+
+    return fit_with_overrides

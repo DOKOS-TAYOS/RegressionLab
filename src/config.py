@@ -216,6 +216,20 @@ def setup_fonts() -> tuple:
 # FILE PATH CONFIGURATION
 # ============================================================================
 
+# Allowed plot output formats (matplotlib savefig)
+PLOT_FORMATS = ('png', 'jpg', 'jpeg', 'pdf')
+
+
+def _normalize_plot_format(value: str) -> str:
+    """Return a valid plot format extension (png, jpg, or pdf)."""
+    v = (value or 'png').strip().lower()
+    if v in ('jpg', 'jpeg'):
+        return 'jpg'
+    if v in ('png', 'pdf'):
+        return v
+    return 'png'
+
+
 FILE_CONFIG = {
     # Input directory for data files (relative to project root)
     'input_dir': get_env('FILE_INPUT_DIR', 'input'),
@@ -225,6 +239,9 @@ FILE_CONFIG = {
     
     # Filename template (use {} as placeholder for fit name)
     'filename_template': get_env('FILE_FILENAME_TEMPLATE', 'fit_{}.png'),
+    
+    # Plot output format: png, jpg, or pdf (used when building output path)
+    'plot_format': _normalize_plot_format(get_env('FILE_PLOT_FORMAT', 'png')),
 }
 
 
@@ -234,6 +251,107 @@ FILE_CONFIG = {
 
 # Donations URL shown in the Help window. If empty, the donations button is hidden.
 DONATIONS_URL = get_env('DONATIONS_URL', '').strip()
+
+
+# ============================================================================
+# ENV SCHEMA FOR CONFIGURATION DIALOG
+# ============================================================================
+
+ENV_SCHEMA: list[dict[str, Any]] = [
+    # Language
+    {'key': 'LANGUAGE', 'default': 'es', 'cast_type': str, 'options': ('es', 'en', 'de')},
+    # UI theme
+    {'key': 'UI_BACKGROUND', 'default': 'midnight blue', 'cast_type': str},
+    {'key': 'UI_FOREGROUND', 'default': 'snow', 'cast_type': str},
+    {'key': 'UI_BUTTON_FG', 'default': 'lime green', 'cast_type': str},
+    {'key': 'UI_BUTTON_FG_CANCEL', 'default': 'red2', 'cast_type': str},
+    {'key': 'UI_BUTTON_FG_CYAN', 'default': 'cyan2', 'cast_type': str},
+    {'key': 'UI_ACTIVE_BG', 'default': 'navy', 'cast_type': str},
+    {'key': 'UI_ACTIVE_FG', 'default': 'snow', 'cast_type': str},
+    {'key': 'UI_BORDER_WIDTH', 'default': 8, 'cast_type': int},
+    {'key': 'UI_RELIEF', 'default': 'ridge', 'cast_type': str, 'options': ('flat', 'raised', 'sunken', 'groove', 'ridge')},
+    {'key': 'UI_PADDING_X', 'default': 8, 'cast_type': int},
+    {'key': 'UI_PADDING_Y', 'default': 8, 'cast_type': int},
+    {'key': 'UI_BUTTON_WIDTH', 'default': 12, 'cast_type': int},
+    {'key': 'UI_BUTTON_WIDTH_WIDE', 'default': 28, 'cast_type': int},
+    {'key': 'UI_FONT_SIZE', 'default': 16, 'cast_type': int},
+    {'key': 'UI_FONT_SIZE_LARGE', 'default': 20, 'cast_type': int},
+    {'key': 'UI_FONT_FAMILY', 'default': 'Menlo', 'cast_type': str},
+    {'key': 'UI_SPINBOX_WIDTH', 'default': 10, 'cast_type': int},
+    {'key': 'UI_ENTRY_WIDTH', 'default': 25, 'cast_type': int},
+    # Plot
+    {'key': 'PLOT_FIGSIZE_WIDTH', 'default': 12, 'cast_type': int},
+    {'key': 'PLOT_FIGSIZE_HEIGHT', 'default': 6, 'cast_type': int},
+    {'key': 'DPI', 'default': 100, 'cast_type': int},
+    {'key': 'PLOT_SHOW_TITLE', 'default': False, 'cast_type': bool},
+    {'key': 'PLOT_LINE_COLOR', 'default': 'black', 'cast_type': str},
+    {'key': 'PLOT_LINE_WIDTH', 'default': 1.0, 'cast_type': float},
+    {'key': 'PLOT_LINE_STYLE', 'default': '-', 'cast_type': str, 'options': ('-', '--', '-.', ':')},
+    {'key': 'PLOT_MARKER_FORMAT', 'default': 'o', 'cast_type': str, 'options': ('o', 's', '^', 'd', '*')},
+    {'key': 'PLOT_MARKER_SIZE', 'default': 5, 'cast_type': int},
+    {'key': 'PLOT_ERROR_COLOR', 'default': 'crimson', 'cast_type': str},
+    {'key': 'PLOT_MARKER_FACE_COLOR', 'default': 'crimson', 'cast_type': str},
+    {'key': 'PLOT_MARKER_EDGE_COLOR', 'default': 'crimson', 'cast_type': str},
+    # Font (plots)
+    {'key': 'FONT_FAMILY', 'default': 'serif', 'cast_type': str, 'options': ('serif', 'sans-serif', 'monospace', 'cursive', 'fantasy')},
+    {'key': 'FONT_TITLE_SIZE', 'default': 'xx-large', 'cast_type': str, 'options': ('xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large')},
+    {'key': 'FONT_TITLE_WEIGHT', 'default': 'semibold', 'cast_type': str, 'options': ('normal', 'bold', 'light', 'semibold', 'heavy')},
+    {'key': 'FONT_AXIS_SIZE', 'default': 30, 'cast_type': int},
+    {'key': 'FONT_AXIS_STYLE', 'default': 'italic', 'cast_type': str, 'options': ('normal', 'italic', 'oblique')},
+    {'key': 'FONT_TICK_SIZE', 'default': 16, 'cast_type': int},
+    {'key': 'FONT_PARAM_FAMILY', 'default': 'Courier', 'cast_type': str},
+    {'key': 'FONT_PARAM_SIZE', 'default': 10, 'cast_type': int},
+    # File paths and output format
+    {'key': 'FILE_INPUT_DIR', 'default': 'input', 'cast_type': str},
+    {'key': 'FILE_OUTPUT_DIR', 'default': 'output', 'cast_type': str},
+    {'key': 'FILE_FILENAME_TEMPLATE', 'default': 'fit_{}.png', 'cast_type': str},
+    {'key': 'FILE_PLOT_FORMAT', 'default': 'png', 'cast_type': str, 'options': ('png', 'jpg', 'pdf')},
+    # Links
+    {'key': 'DONATIONS_URL', 'default': '', 'cast_type': str},
+    # Logging
+    {'key': 'LOG_LEVEL', 'default': 'INFO', 'cast_type': str, 'options': ('DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL')},
+    {'key': 'LOG_FILE', 'default': 'regressionlab.log', 'cast_type': str},
+    {'key': 'LOG_CONSOLE', 'default': False, 'cast_type': bool},
+]
+
+
+def get_current_env_values() -> dict[str, str]:
+    """
+    Return current env values for all keys in ENV_SCHEMA.
+    Uses os.getenv so values already loaded from .env are used.
+    """
+    result: dict[str, str] = {}
+    for item in ENV_SCHEMA:
+        key = item['key']
+        default = item['default']
+        cast_type = item['cast_type']
+        val = get_env(key, default, cast_type)
+        if cast_type == bool:
+            result[key] = 'true' if val else 'false'
+        else:
+            result[key] = str(val)
+    return result
+
+
+def write_env_file(env_path: Path, values: dict[str, str]) -> None:
+    """
+    Write a .env file with the given key=value pairs.
+    Only includes keys present in ENV_SCHEMA.
+    """
+    lines = [
+        '# RegressionLab Configuration - generated by the application',
+        '# Edit this file or use the configuration dialog from the main menu.',
+        '',
+    ]
+    for item in ENV_SCHEMA:
+        key = item['key']
+        if key not in values:
+            continue
+        value = values[key].strip()
+        if ' ' in value or '#' in value or '\n' in value:
+            value = f'"{value}"'
+        lines.append(f'{key}={value}')
+    env_path.write_text('\n'.join(lines) + '\n', encoding='utf-8')
 
 
 def get_project_root() -> Path:
@@ -278,6 +396,10 @@ def get_output_path(fit_name: str, output_dir: Optional[str] = None) -> str:
     """
     Get the full output path for a plot.
 
+    The filename is built from the template; the extension is forced to
+    the configured plot format (png, jpg, or pdf) so plots can be saved
+    in the chosen format.
+
     Args:
         fit_name: Name of the fit/adjustment (used in filename).
         output_dir: Optional directory path. If None, uses FILE_CONFIG['output_dir'].
@@ -291,8 +413,11 @@ def get_output_path(fit_name: str, output_dir: Optional[str] = None) -> str:
     # Ensure output directory exists and get absolute path
     output_path = ensure_output_directory(output_dir)
     
-    # Create filename
+    # Create base filename from template, then apply configured format
     filename = FILE_CONFIG['filename_template'].format(fit_name)
+    base, _ = os.path.splitext(filename)
+    fmt = FILE_CONFIG.get('plot_format', 'png')
+    filename = f"{base}.{fmt}"
     
     return os.path.join(output_path, filename)
 
@@ -390,6 +515,34 @@ EQUATION_FORMULAS: dict[str, str] = {
 }
 """
 Display formulas for each equation type (for tooltips and UI).
+"""
+
+EQUATION_PARAM_NAMES: dict[str, list[str]] = {
+    'linear_function_with_n': ['n', 'm'],
+    'linear_function': ['m'],
+    'quadratic_function_complete': ['a', 'b', 'c'],
+    'quadratic_function': ['a'],
+    'fourth_power': ['a'],
+    'sin_function': ['a', 'b'],
+    'sin_function_with_c': ['a', 'b', 'c'],
+    'cos_function': ['a', 'b'],
+    'cos_function_with_c': ['a', 'b', 'c'],
+    'sinh_function': ['a', 'b'],
+    'cosh_function': ['a', 'b'],
+    'ln_function': ['a'],
+    'inverse_function': ['a'],
+    'inverse_square_function': ['a'],
+    'gaussian_function': ['A', 'mu', 'sigma'],
+    'exponential_function': ['a', 'b'],
+    'binomial_function': ['a', 'b', 'c'],
+    'tan_function': ['a', 'b'],
+    'tan_function_with_c': ['a', 'b', 'c'],
+    'square_pulse_function': ['A', 't0', 'w'],
+    'hermite_polynomial_3': ['c0', 'c1', 'c2', 'c3'],
+    'hermite_polynomial_4': ['c0', 'c1', 'c2', 'c3', 'c4'],
+}
+"""
+Parameter names per equation type (for initial/bounds UI and overrides).
 """
 
 

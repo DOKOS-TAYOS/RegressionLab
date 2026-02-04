@@ -60,13 +60,13 @@ def validate_file_type(
 
     Args:
         file_type: File extension (e.g., 'csv', 'xlsx').
-        allowed_types: List of allowed file types. Defaults to ['csv', 'xls', 'xlsx'].
+        allowed_types: List of allowed file types. Defaults to ['csv', 'xlsx', 'txt'].
 
     Raises:
         InvalidFileTypeError: If file type is not supported.
     """
     if allowed_types is None:
-        allowed_types = ['csv', 'xls', 'xlsx']
+        allowed_types = ['csv', 'xlsx', 'txt']
     
     if file_type not in allowed_types:
         allowed_str = ', '.join(allowed_types)

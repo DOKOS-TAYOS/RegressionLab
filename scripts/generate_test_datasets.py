@@ -2,8 +2,14 @@
 # -*- coding: utf-8 -*-
 """
 Test dataset generator for RegressionLab.
-Creates Excel files with simulated experimental data following the structure
-of Ejemplo.xlsx and Exper1.xlsx.
+
+Creates datasets in multiple formats (Excel .xlsx, CSV, TXT) with simulated
+experimental data. Each dataset targets one or more equation types used by the
+application (linear, quadratic, logarithmic, trigonometric, hyperbolic, inverse,
+exponential, Gaussian, logistic, tangent, square pulse, Hermite polynomials).
+Datasets are documented with a short description and, where relevant, the
+physical phenomenon they represent (e.g. Ohm's law, Boyle's law, projectile
+motion).
 """
 
 # Standard library
@@ -13,6 +19,7 @@ from typing import Tuple
 # Third-party packages
 import numpy as np
 import pandas as pd
+from scipy.special import eval_hermite
 
 
 def generate_linear_data(
@@ -347,6 +354,131 @@ def generate_fourth_power_data(
     return pd.DataFrame({'x': x, 'ux': ux, 'y': y, 'uy': uy})
 
 
+def generate_gaussian_data(
+    n_points: int,
+    x_range: Tuple[float, float],
+    A: float,
+    mu: float,
+    sigma: float,
+    noise: float = 0.1,
+    x_uncertainty: float = 0.1,
+    y_uncertainty: float = 0.2
+) -> pd.DataFrame:
+    """
+    Generate data following a Gaussian (normal) distribution with noise.
+    y = A * exp(-(x-mu)^2 / (2*sigma^2)).
+
+    Returns:
+        DataFrame with columns x, ux, y, uy
+    """
+    x = np.linspace(x_range[0], x_range[1], n_points)
+    y = A * np.exp(-((x - mu) ** 2) / (2.0 * sigma**2)) + np.random.normal(0, noise, n_points)
+    ux = np.random.uniform(x_uncertainty * 0.5, x_uncertainty * 1.5, n_points)
+    uy = np.random.uniform(y_uncertainty * 0.5, y_uncertainty * 1.5, n_points)
+    return pd.DataFrame({'x': x, 'ux': ux, 'y': y, 'uy': uy})
+
+
+def generate_logistic_data(
+    n_points: int,
+    x_range: Tuple[float, float],
+    a: float,
+    b: float,
+    c: float,
+    noise: float = 0.1,
+    x_uncertainty: float = 0.1,
+    y_uncertainty: float = 0.2
+) -> pd.DataFrame:
+    """
+    Generate data following a logistic (S-shaped) curve with noise.
+    y = a / (1 + exp(-b*(x-c))).
+
+    Returns:
+        DataFrame with columns x, ux, y, uy
+    """
+    x = np.linspace(x_range[0], x_range[1], n_points)
+    y = a / (1.0 + np.exp(-b * (x - c))) + np.random.normal(0, noise, n_points)
+    ux = np.random.uniform(x_uncertainty * 0.5, x_uncertainty * 1.5, n_points)
+    uy = np.random.uniform(y_uncertainty * 0.5, y_uncertainty * 1.5, n_points)
+    return pd.DataFrame({'x': x, 'ux': ux, 'y': y, 'uy': uy})
+
+
+def generate_tan_data(
+    n_points: int,
+    x_range: Tuple[float, float],
+    amplitude: float,
+    frequency: float,
+    phase: float = 0.0,
+    noise: float = 0.1,
+    x_uncertainty: float = 0.1,
+    y_uncertainty: float = 0.2
+) -> pd.DataFrame:
+    """
+    Generate data following a tangent relationship with noise.
+    y = a*tan(b*x) or y = a*tan(b*x + c). x_range must avoid asymptotes (e.g. ±π/2).
+
+    Returns:
+        DataFrame with columns x, ux, y, uy
+    """
+    x = np.linspace(x_range[0], x_range[1], n_points)
+    y = amplitude * np.tan(frequency * x + phase) + np.random.normal(0, noise, n_points)
+    ux = np.random.uniform(x_uncertainty * 0.5, x_uncertainty * 1.5, n_points)
+    uy = np.random.uniform(y_uncertainty * 0.5, y_uncertainty * 1.5, n_points)
+    return pd.DataFrame({'x': x, 'ux': ux, 'y': y, 'uy': uy})
+
+
+def generate_square_pulse_data(
+    n_points: int,
+    x_range: Tuple[float, float],
+    A: float,
+    t0: float,
+    w: float,
+    noise: float = 0.1,
+    x_uncertainty: float = 0.1,
+    y_uncertainty: float = 0.2
+) -> pd.DataFrame:
+    """
+    Generate data following a smooth square pulse (tanh-based).
+    Same model as fitting_functions.square_pulse_function: pulse amplitude A,
+    center t0, width w.
+
+    Returns:
+        DataFrame with columns x, ux, y, uy
+    """
+    k = 50.0
+    x = np.linspace(x_range[0], x_range[1], n_points)
+    y = A * 0.5 * (
+        np.tanh(k * (x - (t0 - w / 2.0))) - np.tanh(k * (x - (t0 + w / 2.0)))
+    ) + np.random.normal(0, noise, n_points)
+    ux = np.random.uniform(x_uncertainty * 0.5, x_uncertainty * 1.5, n_points)
+    uy = np.random.uniform(y_uncertainty * 0.5, y_uncertainty * 1.5, n_points)
+    return pd.DataFrame({'x': x, 'ux': ux, 'y': y, 'uy': uy})
+
+
+def generate_hermite_data(
+    n_points: int,
+    x_range: Tuple[float, float],
+    coeffs: Tuple[float, ...],
+    noise: float = 0.1,
+    x_uncertainty: float = 0.1,
+    y_uncertainty: float = 0.2
+) -> pd.DataFrame:
+    """
+    Generate data as a sum of physicist's Hermite polynomials with noise.
+    y = c0*H_0(x) + c1*H_1(x) + ... (length of coeffs defines degree).
+
+    Returns:
+        DataFrame with columns x, ux, y, uy
+    """
+    x = np.linspace(x_range[0], x_range[1], n_points)
+    y = np.zeros_like(x)
+    for i, c in enumerate(coeffs):
+        y = y + c * eval_hermite(i, x)
+    y = y + np.random.normal(0, noise, n_points)
+    ux = np.random.uniform(x_uncertainty * 0.5, x_uncertainty * 1.5, n_points)
+    uy = np.random.uniform(y_uncertainty * 0.5, y_uncertainty * 1.5, n_points)
+    return pd.DataFrame({'x': x, 'ux': ux, 'y': y, 'uy': uy})
+
+
 def rename_columns_simple(
     df: pd.DataFrame,
     x_var: str,
@@ -563,8 +695,8 @@ def generate_3var_quadratic_data(
 
 def save_dataset(df: pd.DataFrame, filename: str, output_dir: str = 'input') -> None:
     """
-    Save dataset in Excel format.
-    
+    Save dataset in Excel (.xlsx), CSV and TXT formats.
+
     Args:
         df: DataFrame to save
         filename: File name (without extension)
@@ -574,45 +706,42 @@ def save_dataset(df: pd.DataFrame, filename: str, output_dir: str = 'input') -> 
     project_root = Path(__file__).parent.parent
     output_path = project_root / output_dir
     output_path.mkdir(exist_ok=True)
-    
-    filepath = output_path / f'{filename}.xlsx'
-    df.to_excel(filepath, index=False)
-    print(f'Generated: {filepath}')
+
+    # .xlsx
+    xlsx_path = output_path / f'{filename}.xlsx'
+    df.to_excel(xlsx_path, index=False)
+    print(f'Generated: {xlsx_path}')
+
+    # .csv (comma-separated, UTF-8)
+    csv_path = output_path / f'{filename}.csv'
+    df.to_csv(csv_path, index=False, encoding='utf-8')
+    print(f'Generated: {csv_path}')
+
+    # .txt (tab-separated for compatibility with loading_utils.txt_reader)
+    txt_path = output_path / f'{filename}.txt'
+    df.to_csv(txt_path, index=False, sep='\t', encoding='utf-8')
+    print(f'Generated: {txt_path}')
 
 
 def main() -> None:
     """
-    Generate all test datasets.
-    
-    Creates comprehensive test datasets with different mathematical relationships
-    to test ALL fitting capabilities of the RegressionLab application.
-    Each dataset simulates realistic experimental data with:
-    - Realistic noise levels
-    - Measurement uncertainties
-    - Various units and variable names
-    - Both simple and LaTeX notation
-    - Some datasets with 3 magnitudes (x, y, z)
-    
-    Function types covered:
-    - Linear: linear_function, linear_function_with_n
-    - Logarithmic: ln_function
-    - Polynomial: quadratic_function, quadratic_function_complete, fourth_power
-    - Trigonometric: sin_function, sin_function_with_c, cos_function, cos_function_with_c
-    - Hyperbolic: sinh_function, cosh_function
-    - Inverse: inverse_function, inverse_square_function
+    Generate all test datasets for every equation type supported by RegressionLab.
+
+    Each dataset is documented with: equation type, short description, and
+    physical phenomenon when applicable. Output: .xlsx, .csv, .txt per dataset.
     """
-    
     print("=" * 80)
     print("Test Dataset Generator - RegressionLab")
     print("=" * 80)
     print()
-    
+
     # ========================================================================
     # LINEAR FUNCTIONS
     # ========================================================================
-    
-    # Dataset 1: Linear through origin - y = mx
-    print("Generating Linear1.xlsx (proportional relationship)...")
+    # Equation: linear_function (y = mx). Proportional relationship.
+    # Physical: Force vs acceleration (F = ma), or any y ∝ x.
+    # ------------------------------------------------------------------------
+    print("Generating Linear1 (linear_function: y = mx, proportional)...")
     df1 = generate_linear_data(
         n_points=15,
         x_range=(1.0, 10.0),
@@ -624,9 +753,11 @@ def main() -> None:
     )
     df1 = rename_columns_simple(df1, 'F', 'a', 'N', 'm/s^2')
     save_dataset(df1, 'Linear1')
-    
-    # Dataset 2: Linear with intercept - y = mx + n
-    print("Generating Linear2.xlsx (uniform motion)...")
+
+    # Equation: linear_function_with_n (y = mx + n). Linear with intercept.
+    # Physical: Uniform rectilinear motion (position = v*t + x0), calibration lines.
+    # ------------------------------------------------------------------------
+    print("Generating Linear2 (linear_function_with_n: y = mx + n, uniform motion)...")
     df2 = generate_linear_data(
         n_points=20,
         x_range=(0.5, 10.0),
@@ -638,9 +769,11 @@ def main() -> None:
     )
     df2 = rename_columns_simple(df2, 't', 'v', 's', 'm/s')
     save_dataset(df2, 'Linear2')
-    
-    # Dataset 3: Linear with LaTeX notation - Ohm's Law
-    print("Generating Linear3_Ohm.xlsx (Ohm's law)...")
+
+    # Equation: linear_function_with_n. Ohm's law: V = R*I + offset.
+    # Physical: Voltage vs current in a resistor (Ohm's law).
+    # ------------------------------------------------------------------------
+    print("Generating Linear3_Ohm (Ohm's law: V = R*I + offset)...")
     df3 = generate_linear_data(
         n_points=15,
         x_range=(0.1, 5.0),
@@ -652,13 +785,33 @@ def main() -> None:
     )
     df3 = rename_columns_latex(df3, 'I', 'V', 'A', 'V')
     save_dataset(df3, 'Linear3_Ohm')
-    
+
+    # ========================================================================
+    # EXPONENTIAL FUNCTION
+    # ========================================================================
+    # Equation: exponential_function (y = a*exp(b*x)). Here b < 0 (decay).
+    # Physical: Radioactive decay, Newton cooling, RC discharge.
+    # ------------------------------------------------------------------------
+    print("Generating Exponential1 (exponential_function: decay, y = a*exp(b*x), b<0)...")
+    df_exp = generate_exponential_data(
+        n_points=20,
+        x_range=(0.0, 5.0),
+        amplitude=100.0,
+        decay=0.5,
+        noise=2.0,
+        x_uncertainty=0.05,
+        y_uncertainty=1.0
+    )
+    df_exp = rename_columns_simple(df_exp, 't', 'N', 's', '')
+    save_dataset(df_exp, 'Exponential1')
+
     # ========================================================================
     # LOGARITHMIC FUNCTIONS
     # ========================================================================
-    
-    # Dataset 4: Logarithmic - y = a*ln(x)
-    print("Generating Logarithmic1.xlsx (pH scale)...")
+    # Equation: ln_function (y = a*ln(x)).
+    # Physical: pH vs concentration (log scale), sound level (dB) vs intensity.
+    # ------------------------------------------------------------------------
+    print("Generating Logarithmic1 (ln_function: y = a*ln(x), pH/concentration)...")
     df4 = generate_ln_data(
         n_points=20,
         x_range=(0.5, 50.0),
@@ -669,9 +822,10 @@ def main() -> None:
     )
     df4 = rename_columns_simple(df4, 'C', 'pH', 'mol/L', '')
     save_dataset(df4, 'Logarithmic1')
-    
-    # Dataset 5: Logarithmic with LaTeX
-    print("Generating Logarithmic2.xlsx (sound intensity)...")
+
+    # ln_function. Sound intensity level (dB) vs intensity I.
+    # ------------------------------------------------------------------------
+    print("Generating Logarithmic2 (ln_function: sound intensity / dB)...")
     df5 = generate_ln_data(
         n_points=15,
         x_range=(1.0, 100.0),
@@ -682,13 +836,14 @@ def main() -> None:
     )
     df5 = rename_columns_latex(df5, 'I', 'L', 'W/m^2', 'dB')
     save_dataset(df5, 'Logarithmic2')
-    
+
     # ========================================================================
     # QUADRATIC FUNCTIONS
     # ========================================================================
-    
-    # Dataset 6: Quadratic through origin - y = ax^2
-    print("Generating Quadratic1.xlsx (kinetic energy)...")
+    # Equation: quadratic_function (y = ax^2). Parabola through origin.
+    # Physical: Kinetic energy E = (1/2)mv^2, power in resistor P = I^2*R.
+    # ------------------------------------------------------------------------
+    print("Generating Quadratic1 (quadratic_function: y = ax^2, kinetic energy)...")
     df6 = generate_quadratic_data(
         n_points=18,
         x_range=(0, 10.0),
@@ -701,9 +856,11 @@ def main() -> None:
     )
     df6 = rename_columns_simple(df6, 'v', 'E', 'm/s', 'J')
     save_dataset(df6, 'Quadratic1')
-    
-    # Dataset 7: Quadratic complete - y = ax^2 + bx + c
-    print("Generating Quadratic2_Complete.xlsx (projectile motion)...")
+
+    # Equation: quadratic_function_complete (y = ax^2 + bx + c).
+    # Physical: Projectile height h(t) = h0 + v0*t - (g/2)*t^2.
+    # ------------------------------------------------------------------------
+    print("Generating Quadratic2_Complete (quadratic_function_complete: projectile motion)...")
     df7 = generate_quadratic_data(
         n_points=25,
         x_range=(0, 5.0),
@@ -716,9 +873,10 @@ def main() -> None:
     )
     df7 = rename_columns_latex(df7, 't', 'h', 's', 'm')
     save_dataset(df7, 'Quadratic2_Complete')
-    
-    # Dataset 8: Quadratic - Fluid flow
-    print("Generating Quadratic3_Fluid.xlsx (Bernoulli)...")
+
+    # quadratic_function_complete. Bernoulli-type pressure vs velocity (quadratic in v).
+    # ------------------------------------------------------------------------
+    print("Generating Quadratic3_Fluid (quadratic_function_complete: Bernoulli)...")
     df8 = generate_quadratic_data(
         n_points=20,
         x_range=(0.5, 5.0),
@@ -731,13 +889,14 @@ def main() -> None:
     )
     df8 = rename_columns_latex(df8, 'v', 'P', '\\frac{m}{s}', 'kPa')
     save_dataset(df8, 'Quadratic3_Fluid')
-    
+
     # ========================================================================
     # FOURTH POWER FUNCTION
     # ========================================================================
-    
-    # Dataset 9: Fourth power - y = ax^4 (Stefan-Boltzmann law)
-    print("Generating FourthPower1.xlsx (Stefan-Boltzmann)...")
+    # Equation: fourth_power (y = ax^4).
+    # Physical: Stefan–Boltzmann law: radiant power P ∝ T^4.
+    # ------------------------------------------------------------------------
+    print("Generating FourthPower1 (fourth_power: Stefan-Boltzmann, P ~ T^4)...")
     df9 = generate_fourth_power_data(
         n_points=12,
         x_range=(1.0, 5.0),
@@ -748,13 +907,14 @@ def main() -> None:
     )
     df9 = rename_columns_latex(df9, 'T', 'P', 'K', 'W/m^2')
     save_dataset(df9, 'FourthPower1')
-    
+
     # ========================================================================
     # SINE FUNCTIONS
     # ========================================================================
-    
-    # Dataset 10: Sine - y = a*sin(bx)
-    print("Generating Sine1.xlsx (simple harmonic motion)...")
+    # Equation: sin_function (y = a*sin(b*x)).
+    # Physical: Simple harmonic motion (position vs time), AC signal without phase.
+    # ------------------------------------------------------------------------
+    print("Generating Sine1 (sin_function: y = a*sin(bx), harmonic motion)...")
     df10 = generate_sin_data(
         n_points=30,
         x_range=(0, 4*np.pi),
@@ -767,9 +927,11 @@ def main() -> None:
     )
     df10 = rename_columns_simple(df10, 't', 'x', 's', 'm')
     save_dataset(df10, 'Sine1')
-    
-    # Dataset 11: Sine with phase - y = a*sin(bx + c)
-    print("Generating Sine2_Phase.xlsx (AC voltage)...")
+
+    # Equation: sin_function_with_c (y = a*sin(b*x + c)).
+    # Physical: AC voltage/current with phase shift, waves.
+    # ------------------------------------------------------------------------
+    print("Generating Sine2_Phase (sin_function_with_c: AC voltage with phase)...")
     df11 = generate_sin_data(
         n_points=25,
         x_range=(0, 2*np.pi),
@@ -782,13 +944,14 @@ def main() -> None:
     )
     df11 = rename_columns_latex(df11, 't', 'V', 's', 'V')
     save_dataset(df11, 'Sine2_Phase')
-    
+
     # ========================================================================
     # COSINE FUNCTIONS
     # ========================================================================
-    
-    # Dataset 12: Cosine - y = a*cos(bx)
-    print("Generating Cosine1.xlsx (oscillation)...")
+    # Equation: cos_function (y = a*cos(b*x)).
+    # Physical: Oscillation starting at maximum (e.g. spring at t=0).
+    # ------------------------------------------------------------------------
+    print("Generating Cosine1 (cos_function: y = a*cos(bx), oscillation)...")
     df12 = generate_cos_data(
         n_points=30,
         x_range=(0, 4*np.pi),
@@ -801,9 +964,11 @@ def main() -> None:
     )
     df12 = rename_columns_simple(df12, 't', 'y', 's', 'cm')
     save_dataset(df12, 'Cosine1')
-    
-    # Dataset 13: Cosine with phase - y = a*cos(bx + c)
-    print("Generating Cosine2_Phase.xlsx (wave motion)...")
+
+    # Equation: cos_function_with_c (y = a*cos(b*x + c)).
+    # Physical: Wave displacement vs position with phase.
+    # ------------------------------------------------------------------------
+    print("Generating Cosine2_Phase (cos_function_with_c: wave motion)...")
     df13 = generate_cos_data(
         n_points=40,
         x_range=(0, 3*np.pi),
@@ -816,13 +981,50 @@ def main() -> None:
     )
     df13 = rename_columns_latex(df13, 'x', 'A', 'm', 'mm')
     save_dataset(df13, 'Cosine2_Phase')
-    
+
+    # ========================================================================
+    # TANGENT FUNCTIONS
+    # ========================================================================
+    # Equation: tan_function (y = a*tan(b*x)). Domain chosen to avoid asymptotes.
+    # Physical: Refraction angle vs incidence (within a branch), some optical relations.
+    # ------------------------------------------------------------------------
+    print("Generating Tan1 (tan_function: y = a*tan(bx))...")
+    df_tan1 = generate_tan_data(
+        n_points=25,
+        x_range=(-0.8, 0.8),
+        amplitude=2.0,
+        frequency=1.0,
+        phase=0.0,
+        noise=0.1,
+        x_uncertainty=0.02,
+        y_uncertainty=0.15
+    )
+    df_tan1 = rename_columns_simple(df_tan1, 'x', 'y', 'rad', '')
+    save_dataset(df_tan1, 'Tan1')
+
+    # Equation: tan_function_with_c (y = a*tan(b*x + c)).
+    # ------------------------------------------------------------------------
+    print("Generating Tan2_Phase (tan_function_with_c: y = a*tan(bx+c))...")
+    df_tan2 = generate_tan_data(
+        n_points=25,
+        x_range=(-0.6, 0.6),
+        amplitude=1.5,
+        frequency=1.2,
+        phase=0.3,
+        noise=0.08,
+        x_uncertainty=0.02,
+        y_uncertainty=0.1
+    )
+    df_tan2 = rename_columns_simple(df_tan2, 'x', 'y', 'rad', '')
+    save_dataset(df_tan2, 'Tan2_Phase')
+
     # ========================================================================
     # HYPERBOLIC FUNCTIONS
     # ========================================================================
-    
-    # Dataset 14: Hyperbolic sine - y = a*sinh(bx)
-    print("Generating HyperbolicSine1.xlsx (catenary)...")
+    # Equation: sinh_function (y = a*sinh(b*x)).
+    # Physical: Catenary (ideal hanging chain), some growth models.
+    # ------------------------------------------------------------------------
+    print("Generating HyperbolicSine1 (sinh_function: catenary)...")
     df14 = generate_sinh_data(
         n_points=20,
         x_range=(-2.0, 2.0),
@@ -834,9 +1036,11 @@ def main() -> None:
     )
     df14 = rename_columns_simple(df14, 'x', 'y', 'm', 'm')
     save_dataset(df14, 'HyperbolicSine1')
-    
-    # Dataset 15: Hyperbolic cosine - y = a*cosh(bx)
-    print("Generating HyperbolicCosine1.xlsx (hanging cable)...")
+
+    # Equation: cosh_function (y = a*cosh(b*x)).
+    # Physical: Catenary (hanging cable), arch shape.
+    # ------------------------------------------------------------------------
+    print("Generating HyperbolicCosine1 (cosh_function: hanging cable)...")
     df15 = generate_cosh_data(
         n_points=25,
         x_range=(-3.0, 3.0),
@@ -848,13 +1052,14 @@ def main() -> None:
     )
     df15 = rename_columns_latex(df15, 'x', 'h', 'm', 'm')
     save_dataset(df15, 'HyperbolicCosine1')
-    
+
     # ========================================================================
     # INVERSE FUNCTIONS
     # ========================================================================
-    
-    # Dataset 16: Inverse - y = a/x (Boyle's law)
-    print("Generating Inverse1_Boyle.xlsx (Boyle's law)...")
+    # Equation: inverse_function (y = a/x).
+    # Physical: Boyle's law (ideal gas): P*V = constant → P = k/V.
+    # ------------------------------------------------------------------------
+    print("Generating Inverse1_Boyle (inverse_function: Boyle's law P ~ 1/V)...")
     df16 = generate_power_law_data(
         n_points=15,
         x_range=(1.0, 10.0),
@@ -866,9 +1071,11 @@ def main() -> None:
     )
     df16 = rename_columns_latex(df16, 'V', 'P', 'L', 'kPa')
     save_dataset(df16, 'Inverse1_Boyle')
-    
-    # Dataset 17: Inverse square - y = a/x^2 (Radiation intensity)
-    print("Generating Inverse2_Radiation.xlsx (inverse square law)...")
+
+    # Equation: inverse_square_function (y = a/x^2).
+    # Physical: Intensity of radiation vs distance (inverse square law).
+    # ------------------------------------------------------------------------
+    print("Generating Inverse2_Radiation (inverse_square_function: intensity vs distance)...")
     df17 = generate_power_law_data(
         n_points=12,
         x_range=(1.0, 5.0),
@@ -880,9 +1087,10 @@ def main() -> None:
     )
     df17 = rename_columns_simple(df17, 'd', 'I', 'm', 'W/m^2')
     save_dataset(df17, 'Inverse2_Radiation')
-    
-    # Dataset 18: Inverse square (Gravitational force)
-    print("Generating Inverse3_Gravity.xlsx (gravitational force)...")
+
+    # inverse_square_function. Gravitational force F ∝ 1/r^2.
+    # ------------------------------------------------------------------------
+    print("Generating Inverse3_Gravity (inverse_square_function: gravity F ~ 1/r^2)...")
     df18 = generate_power_law_data(
         n_points=10,
         x_range=(1.0, 10.0),
@@ -894,13 +1102,105 @@ def main() -> None:
     )
     df18 = rename_columns_latex(df18, 'r', 'F', 'm', 'N')
     save_dataset(df18, 'Inverse3_Gravity')
-    
+
+    # ========================================================================
+    # GAUSSIAN FUNCTION
+    # ========================================================================
+    # Equation: gaussian_function (y = A*exp(-(x-mu)^2/(2*sigma^2))).
+    # Physical: Normal distribution, spectral lines, beam intensity profile.
+    # ------------------------------------------------------------------------
+    print("Generating Gaussian1 (gaussian_function: bell curve / spectral line)...")
+    df_gauss = generate_gaussian_data(
+        n_points=40,
+        x_range=(0.0, 10.0),
+        A=5.0,
+        mu=5.0,
+        sigma=1.2,
+        noise=0.1,
+        x_uncertainty=0.1,
+        y_uncertainty=0.12
+    )
+    df_gauss = rename_columns_simple(df_gauss, 'x', 'I', 'mm', 'a.u.')
+    save_dataset(df_gauss, 'Gaussian1')
+
+    # ========================================================================
+    # LOGISTIC (BINOMIAL) FUNCTION
+    # ========================================================================
+    # Equation: binomial_function (y = a/(1+exp(-b*(x-c)))). S-shaped curve.
+    # Physical: Population growth with saturation, dose-response, activation curves.
+    # ------------------------------------------------------------------------
+    print("Generating Logistic1 (binomial_function: logistic / dose-response)...")
+    df_log = generate_logistic_data(
+        n_points=30,
+        x_range=(-2.0, 8.0),
+        a=1.0,
+        b=0.8,
+        c=3.0,
+        noise=0.03,
+        x_uncertainty=0.1,
+        y_uncertainty=0.02
+    )
+    df_log = rename_columns_simple(df_log, 'dose', 'response', 'mg', '')
+    save_dataset(df_log, 'Logistic1')
+
+    # ========================================================================
+    # SQUARE PULSE FUNCTION
+    # ========================================================================
+    # Equation: square_pulse_function (smooth pulse: A, center t0, width w).
+    # Physical: Gate signal, rectangular pulse approximation, detector response.
+    # ------------------------------------------------------------------------
+    print("Generating SquarePulse1 (square_pulse_function: smooth rectangular pulse)...")
+    df_pulse = generate_square_pulse_data(
+        n_points=50,
+        x_range=(0.0, 10.0),
+        A=2.0,
+        t0=5.0,
+        w=2.0,
+        noise=0.05,
+        x_uncertainty=0.05,
+        y_uncertainty=0.06
+    )
+    df_pulse = rename_columns_simple(df_pulse, 't', 'V', 's', 'V')
+    save_dataset(df_pulse, 'SquarePulse1')
+
+    # ========================================================================
+    # HERMITE POLYNOMIALS
+    # ========================================================================
+    # Equation: hermite_polynomial_3 (y = c0*H_0(x) + ... + c3*H_3(x)).
+    # Physical: Quantum oscillator wavefunctions, orthogonal basis fits.
+    # ------------------------------------------------------------------------
+    print("Generating Hermite3_1 (hermite_polynomial_3: sum of H_0..H_3)...")
+    df_h3 = generate_hermite_data(
+        n_points=35,
+        x_range=(-2.0, 2.0),
+        coeffs=(1.0, 0.5, -0.3, 0.2),
+        noise=0.08,
+        x_uncertainty=0.05,
+        y_uncertainty=0.06
+    )
+    df_h3 = rename_columns_simple(df_h3, 'x', 'y', '', '')
+    save_dataset(df_h3, 'Hermite3_1')
+
+    # Equation: hermite_polynomial_4 (y = c0*H_0(x) + ... + c4*H_4(x)).
+    # ------------------------------------------------------------------------
+    print("Generating Hermite4_1 (hermite_polynomial_4: sum of H_0..H_4)...")
+    df_h4 = generate_hermite_data(
+        n_points=40,
+        x_range=(-2.0, 2.0),
+        coeffs=(1.0, 0.4, -0.2, 0.1, 0.05),
+        noise=0.06,
+        x_uncertainty=0.05,
+        y_uncertainty=0.05
+    )
+    df_h4 = rename_columns_simple(df_h4, 'x', 'y', '', '')
+    save_dataset(df_h4, 'Hermite4_1')
+
     # ========================================================================
     # 3-VARIABLE DATASETS (More than 2 magnitudes)
     # ========================================================================
-    
-    # Dataset 19: 3-variable linear - z = m1*x + m2*y + n
-    print("Generating 3Var_Linear1.xlsx (3 magnitudes - linear)...")
+    # Multi-magnitude datasets (x, y, z). For workflows that support 3 variables.
+    # ------------------------------------------------------------------------
+    print("Generating 3Var_Linear1 (3 magnitudes, linear z = m1*x + m2*y + n)...")
     df19 = generate_3var_linear_data(
         n_points=20,
         x_range=(0, 10.0),
@@ -915,9 +1215,10 @@ def main() -> None:
     )
     df19 = rename_columns_simple_3var(df19, 'x', 'y', 'z', 'm', 'm', 'm')
     save_dataset(df19, '3Var_Linear1')
-    
-    # Dataset 20: 3-variable quadratic - z = a*x^2 + b*y^2 + c
-    print("Generating 3Var_Quadratic1.xlsx (3 magnitudes - quadratic)...")
+
+    # 3-variable quadratic: z = a*x^2 + b*y^2 + c (e.g. energy surface).
+    # ------------------------------------------------------------------------
+    print("Generating 3Var_Quadratic1 (3 magnitudes, quadratic z = a*x^2 + b*y^2 + c)...")
     df20 = generate_3var_quadratic_data(
         n_points=25,
         x_range=(0, 5.0),
@@ -932,9 +1233,10 @@ def main() -> None:
     )
     df20 = rename_columns_latex_3var(df20, 'x', 'y', 'E', 'm', 'm', 'J')
     save_dataset(df20, '3Var_Quadratic1')
-    
-    # Dataset 21: 3-variable mixed (using existing generation)
-    print("Generating 3Var_Mixed1.xlsx (3 magnitudes - combined)...")
+
+    # 3-variable mixed: z = a/x + b*y (combined inverse and linear).
+    # ------------------------------------------------------------------------
+    print("Generating 3Var_Mixed1 (3 magnitudes, mixed z = a/x + b*y)...")
     n = 20
     x = np.linspace(1.0, 10.0, n)
     y = np.linspace(0.5, 5.0, n)
@@ -952,49 +1254,61 @@ def main() -> None:
     
     print()
     print("=" * 80)
-    print(f"Generated 21 test datasets in 'input' directory")
+    print("Generated 30 test datasets in 'input' (xlsx, csv, txt each)")
     print("=" * 80)
     print()
-    print("Generated datasets by function type:")
+    print("Datasets by equation type (description / physical phenomenon):")
     print()
-    print("LINEAR FUNCTIONS (3 datasets):")
-    print("  - Linear1.xlsx: Proportional (y = mx)")
-    print("  - Linear2.xlsx: With intercept (y = mx + n)")
-    print("  - Linear3_Ohm.xlsx: Ohm's law (LaTeX)")
+    print("LINEAR:")
+    print("  - Linear1: linear_function (y = mx) - Force vs acceleration, proportionality")
+    print("  - Linear2: linear_function_with_n (y = mx + n) - Uniform motion, calibration")
+    print("  - Linear3_Ohm: linear_function_with_n - Ohm's law (V vs I)")
     print()
-    print("LOGARITHMIC FUNCTIONS (2 datasets):")
-    print("  - Logarithmic1.xlsx: pH scale")
-    print("  - Logarithmic2.xlsx: Sound intensity (LaTeX)")
+    print("EXPONENTIAL:")
+    print("  - Exponential1: exponential_function (y = a*exp(b*x), b<0) - Decay, cooling, RC")
     print()
-    print("QUADRATIC FUNCTIONS (3 datasets):")
-    print("  - Quadratic1.xlsx: Through origin (y = ax^2)")
-    print("  - Quadratic2_Complete.xlsx: Complete (y = ax^2 + bx + c)")
-    print("  - Quadratic3_Fluid.xlsx: Bernoulli equation")
+    print("LOGARITHMIC:")
+    print("  - Logarithmic1: ln_function (y = a*ln(x)) - pH vs concentration")
+    print("  - Logarithmic2: ln_function - Sound level (dB) vs intensity")
     print()
-    print("FOURTH POWER FUNCTION (1 dataset):")
-    print("  - FourthPower1.xlsx: Stefan-Boltzmann law")
+    print("QUADRATIC:")
+    print("  - Quadratic1: quadratic_function (y = ax^2) - Kinetic energy E ~ v^2")
+    print("  - Quadratic2_Complete: quadratic_function_complete - Projectile height h(t)")
+    print("  - Quadratic3_Fluid: quadratic_function_complete - Bernoulli (P vs v)")
     print()
-    print("SINE FUNCTIONS (2 datasets):")
-    print("  - Sine1.xlsx: Simple harmonic (y = a*sin(bx))")
-    print("  - Sine2_Phase.xlsx: With phase (y = a*sin(bx + c))")
+    print("FOURTH POWER:")
+    print("  - FourthPower1: fourth_power (y = ax^4) - Stefan-Boltzmann P ~ T^4")
     print()
-    print("COSINE FUNCTIONS (2 datasets):")
-    print("  - Cosine1.xlsx: Simple (y = a*cos(bx))")
-    print("  - Cosine2_Phase.xlsx: With phase (y = a*cos(bx + c))")
+    print("SINE / COSINE:")
+    print("  - Sine1: sin_function - Harmonic motion, AC without phase")
+    print("  - Sine2_Phase: sin_function_with_c - AC voltage with phase")
+    print("  - Cosine1: cos_function - Oscillation from maximum")
+    print("  - Cosine2_Phase: cos_function_with_c - Wave with phase")
     print()
-    print("HYPERBOLIC FUNCTIONS (2 datasets):")
-    print("  - HyperbolicSine1.xlsx: Catenary (y = a*sinh(bx))")
-    print("  - HyperbolicCosine1.xlsx: Hanging cable (y = a*cosh(bx))")
+    print("TANGENT:")
+    print("  - Tan1: tan_function (y = a*tan(bx))")
+    print("  - Tan2_Phase: tan_function_with_c (y = a*tan(bx+c))")
     print()
-    print("INVERSE FUNCTIONS (3 datasets):")
-    print("  - Inverse1_Boyle.xlsx: Boyle's law (y = a/x)")
-    print("  - Inverse2_Radiation.xlsx: Inverse square (y = a/x^2)")
-    print("  - Inverse3_Gravity.xlsx: Gravitational force (y = a/x^2)")
+    print("HYPERBOLIC:")
+    print("  - HyperbolicSine1: sinh_function - Catenary")
+    print("  - HyperbolicCosine1: cosh_function - Hanging cable / arch")
     print()
-    print("3-VARIABLE DATASETS (3 datasets with more than 2 magnitudes):")
-    print("  - 3Var_Linear1.xlsx: Linear (z = m1*x + m2*y + n)")
-    print("  - 3Var_Quadratic1.xlsx: Quadratic (z = a*x^2 + b*y^2 + c)")
-    print("  - 3Var_Mixed1.xlsx: Mixed (z = a/x + b*y)")
+    print("INVERSE:")
+    print("  - Inverse1_Boyle: inverse_function (y = a/x) - Boyle's law P*V = const")
+    print("  - Inverse2_Radiation: inverse_square_function - Intensity vs distance")
+    print("  - Inverse3_Gravity: inverse_square_function - Gravitational force F ~ 1/r^2")
+    print()
+    print("GAUSSIAN / LOGISTIC / PULSE / HERMITE:")
+    print("  - Gaussian1: gaussian_function - Bell curve, spectral line")
+    print("  - Logistic1: binomial_function - Logistic / dose-response S-curve")
+    print("  - SquarePulse1: square_pulse_function - Smooth rectangular pulse")
+    print("  - Hermite3_1: hermite_polynomial_3 - Sum H_0..H_3")
+    print("  - Hermite4_1: hermite_polynomial_4 - Sum H_0..H_4")
+    print()
+    print("3-VARIABLE (multi-magnitude):")
+    print("  - 3Var_Linear1: z = m1*x + m2*y + n")
+    print("  - 3Var_Quadratic1: z = a*x^2 + b*y^2 + c")
+    print("  - 3Var_Mixed1: z = a/x + b*y")
     print()
 
 

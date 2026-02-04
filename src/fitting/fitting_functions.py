@@ -9,7 +9,7 @@ This module provides:
 """
 
 # Standard library
-from typing import Callable, Tuple, Union
+from typing import Callable, List, Optional, Tuple, Union
 
 # Third-party packages
 import numpy as np
@@ -29,7 +29,7 @@ from fitting.estimators import (
     estimate_single_power_parameter,
     estimate_trigonometric_parameters,
 )
-from fitting.fitting_utils import generic_fit
+from fitting.fitting_utils import generic_fit, merge_bounds, merge_initial_guess
 
 
 # Type alias for numeric inputs that can be scalars or arrays
@@ -320,190 +320,318 @@ def hermite_polynomial_4(
 
 
 def fit_linear_function_with_n(
-    data: DataLike, x_name: str, y_name: str
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
     """Linear fit: y = mx + n
-    
+
     Returns:
         Tuple of (text, y_fitted, equation)
     """
     x = data[x_name]
     y = data[y_name]
     n_0, m_0 = estimate_linear_parameters(x, y)
+    initial_guess = merge_initial_guess([n_0, m_0], initial_guess_override)
+    bounds = (
+        merge_bounds(None, bounds_override[0], bounds_override[1], 2)
+        if bounds_override is not None
+        else None
+    )
     return generic_fit(
-        data, x_name, y_name,
+        data,
+        x_name,
+        y_name,
         fit_func=linear_function_with_n,
         param_names=['n', 'm'],
         equation_template='y={m}x+{n}',
-        initial_guess=[n_0, m_0]
+        initial_guess=initial_guess,
+        bounds=bounds,
     )
 
 
 def fit_linear_function(
-    data: DataLike, x_name: str, y_name: str
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
     """Linear fit through origin: y = mx
-    
+
     Returns:
         Tuple of (text, y_fitted, equation)
     """
     x = data[x_name]
     y = data[y_name]
     m_0 = estimate_single_power_parameter(x, y, 1)
+    initial_guess = merge_initial_guess([m_0], initial_guess_override)
+    bounds = (
+        merge_bounds(None, bounds_override[0], bounds_override[1], 1)
+        if bounds_override is not None
+        else None
+    )
     return generic_fit(
-        data, x_name, y_name,
+        data,
+        x_name,
+        y_name,
         fit_func=linear_function,
         param_names=['m'],
         equation_template='y={m}x',
-        initial_guess=[m_0]
+        initial_guess=initial_guess,
+        bounds=bounds,
     )
 
 
 def fit_quadratic_function_complete(
-    data: DataLike, x_name: str, y_name: str
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
     """Quadratic fit: y = ax^2 + bx + c
-    
+
     Returns:
         Tuple of (text, y_fitted, equation)
     """
     x = data[x_name]
     y = data[y_name]
-    initial_guess = estimate_polynomial_parameters(x, y, 2)
+    initial_guess = merge_initial_guess(
+        estimate_polynomial_parameters(x, y, 2), initial_guess_override
+    )
+    bounds = (
+        merge_bounds(None, bounds_override[0], bounds_override[1], 3)
+        if bounds_override is not None
+        else None
+    )
     return generic_fit(
-        data, x_name, y_name,
+        data,
+        x_name,
+        y_name,
         fit_func=quadratic_function_complete,
         param_names=['a', 'b', 'c'],
         equation_template='y={c}x^2+{b}x+{a}',
-        initial_guess=initial_guess
+        initial_guess=initial_guess,
+        bounds=bounds,
     )
 
 
 def fit_quadratic_function(
-    data: DataLike, x_name: str, y_name: str
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
     """Quadratic fit through origin: y = ax^2
-    
+
     Returns:
         Tuple of (text, y_fitted, equation)
     """
     x = data[x_name]
     y = data[y_name]
     a_0 = estimate_single_power_parameter(x, y, 2)
+    initial_guess = merge_initial_guess([a_0], initial_guess_override)
+    bounds = (
+        merge_bounds(None, bounds_override[0], bounds_override[1], 1)
+        if bounds_override is not None
+        else None
+    )
     return generic_fit(
-        data, x_name, y_name,
+        data,
+        x_name,
+        y_name,
         fit_func=quadratic_function,
         param_names=['a'],
         equation_template='y={a}x^2',
-        initial_guess=[a_0]
+        initial_guess=initial_guess,
+        bounds=bounds,
     )
 
 
 def fit_fourth_power(
-    data: DataLike, x_name: str, y_name: str
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
     """Quartic fit through origin: y = ax^4
-    
+
     Returns:
         Tuple of (text, y_fitted, equation)
     """
     x = data[x_name]
     y = data[y_name]
     a_0 = estimate_single_power_parameter(x, y, 4)
+    initial_guess = merge_initial_guess([a_0], initial_guess_override)
+    bounds = (
+        merge_bounds(None, bounds_override[0], bounds_override[1], 1)
+        if bounds_override is not None
+        else None
+    )
     return generic_fit(
-        data, x_name, y_name,
+        data,
+        x_name,
+        y_name,
         fit_func=fourth_power,
         param_names=['a'],
         equation_template='y={a}x^4',
-        initial_guess=[a_0]
+        initial_guess=initial_guess,
+        bounds=bounds,
     )
 
     
-def fit_sin_function(data: DataLike, x_name: str, y_name: str) -> Tuple[str, NDArray, str]:
+def fit_sin_function(
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
+) -> Tuple[str, NDArray, str]:
     """Sine fit: y = a sin(bx)
-    
+
     Returns:
         Tuple of (text, y_fitted, equation)
     """
-    # Estimate initial parameters for better convergence
     x = data[x_name]
     y = data[y_name]
     amplitude, frequency = estimate_trigonometric_parameters(x, y)
-    
+    initial_guess = merge_initial_guess([amplitude, frequency], initial_guess_override)
+    bounds = (
+        merge_bounds(None, bounds_override[0], bounds_override[1], 2)
+        if bounds_override is not None
+        else None
+    )
     return generic_fit(
-        data, x_name, y_name,
+        data,
+        x_name,
+        y_name,
         fit_func=sin_function,
         param_names=['a', 'b'],
         equation_template='y={a} sin({b}x)',
-        initial_guess=[amplitude, frequency]
+        initial_guess=initial_guess,
+        bounds=bounds,
     )
 
 
-def fit_sin_function_with_c(data: DataLike, x_name: str, y_name: str) -> Tuple[str, NDArray, str]:
+def fit_sin_function_with_c(
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
+) -> Tuple[str, NDArray, str]:
     """Sine fit with phase: y = a sin(bx + c)
-    
+
     Returns:
         Tuple of (text, y_fitted, equation)
     """
-    # Estimate initial parameters for better convergence
     x = data[x_name]
     y = data[y_name]
     amplitude, frequency = estimate_trigonometric_parameters(x, y)
     phase = estimate_phase_shift(x, y, amplitude, frequency)
-    
+    initial_guess = merge_initial_guess(
+        [amplitude, frequency, phase], initial_guess_override
+    )
+    bounds = (
+        merge_bounds(None, bounds_override[0], bounds_override[1], 3)
+        if bounds_override is not None
+        else None
+    )
     return generic_fit(
-        data, x_name, y_name,
+        data,
+        x_name,
+        y_name,
         fit_func=sin_function_with_c,
         param_names=['a', 'b', 'c'],
         equation_template='y={a} sin({b}x+{c})',
-        initial_guess=[amplitude, frequency, phase]
+        initial_guess=initial_guess,
+        bounds=bounds,
     )
 
 
-def fit_cos_function(data: DataLike, x_name: str, y_name: str) -> Tuple[str, NDArray, str]:
+def fit_cos_function(
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
+) -> Tuple[str, NDArray, str]:
     """Cosine fit: y = a cos(bx)
-    
+
     Returns:
         Tuple of (text, y_fitted, equation)
     """
-    # Estimate initial parameters for better convergence
     x = data[x_name]
     y = data[y_name]
     amplitude, frequency = estimate_trigonometric_parameters(x, y)
-    
+    initial_guess = merge_initial_guess([amplitude, frequency], initial_guess_override)
+    bounds = (
+        merge_bounds(None, bounds_override[0], bounds_override[1], 2)
+        if bounds_override is not None
+        else None
+    )
     return generic_fit(
-        data, x_name, y_name,
+        data,
+        x_name,
+        y_name,
         fit_func=cos_function,
         param_names=['a', 'b'],
         equation_template='y={a} cos({b}x)',
-        initial_guess=[amplitude, frequency]
+        initial_guess=initial_guess,
+        bounds=bounds,
     )
 
 
-def fit_cos_function_with_c(data: DataLike, x_name: str, y_name: str) -> Tuple[str, NDArray, str]:
+def fit_cos_function_with_c(
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
+) -> Tuple[str, NDArray, str]:
     """Cosine fit with phase: y = a cos(bx + c)
-    
+
     Returns:
         Tuple of (text, y_fitted, equation)
     """
-    # Estimate initial parameters for better convergence
     x = data[x_name]
     y = data[y_name]
     amplitude, frequency = estimate_trigonometric_parameters(x, y)
     phase = estimate_phase_shift(x, y, amplitude, frequency)
-    
+    initial_guess = merge_initial_guess(
+        [amplitude, frequency, phase], initial_guess_override
+    )
+    bounds = (
+        merge_bounds(None, bounds_override[0], bounds_override[1], 3)
+        if bounds_override is not None
+        else None
+    )
     return generic_fit(
-        data, x_name, y_name,
+        data,
+        x_name,
+        y_name,
         fit_func=cos_function_with_c,
         param_names=['a', 'b', 'c'],
         equation_template='y={a} cos({b}x+{c})',
-        initial_guess=[amplitude, frequency, phase]
+        initial_guess=initial_guess,
+        bounds=bounds,
     )
 
 
-def fit_sinh_function(data: DataLike, x_name: str, y_name: str) -> Tuple[str, NDArray, str]:
+def fit_sinh_function(
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
+) -> Tuple[str, NDArray, str]:
     """Hyperbolic sine fit: y = a sinh(bx)
-    
+
     Returns:
         Tuple of (text, y_fitted, equation)
     """
@@ -513,22 +641,35 @@ def fit_sinh_function(data: DataLike, x_name: str, y_name: str) -> Tuple[str, ND
     amplitude = y_range / 2.0 if y_range > 0 else 1.0
     x_range = float(np.ptp(x))
     frequency = 1.0 / x_range if x_range > 1e-30 else 1.0
-    # Limit b to avoid overflow: sinh(b*x) grows fast; keep b*x_max < ~700
     b_max = 700.0 / (np.max(np.abs(x)) + 1e-30)
-    bounds = ([-np.inf, 1e-9], [np.inf, min(b_max, 1e3)])
+    computed_bounds = ([-np.inf, 1e-9], [np.inf, min(b_max, 1e3)])
+    initial_guess = merge_initial_guess([amplitude, frequency], initial_guess_override)
+    bounds = (
+        merge_bounds(computed_bounds, bounds_override[0], bounds_override[1], 2)
+        if bounds_override is not None
+        else computed_bounds
+    )
     return generic_fit(
-        data, x_name, y_name,
+        data,
+        x_name,
+        y_name,
         fit_func=sinh_function,
         param_names=['a', 'b'],
         equation_template='y={a} sinh({b}x)',
-        initial_guess=[amplitude, frequency],
-        bounds=bounds
+        initial_guess=initial_guess,
+        bounds=bounds,
     )
 
 
-def fit_cosh_function(data: DataLike, x_name: str, y_name: str) -> Tuple[str, NDArray, str]:
+def fit_cosh_function(
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
+) -> Tuple[str, NDArray, str]:
     """Hyperbolic cosine fit: y = a cosh(bx)
-    
+
     Returns:
         Tuple of (text, y_fitted, equation)
     """
@@ -540,95 +681,169 @@ def fit_cosh_function(data: DataLike, x_name: str, y_name: str) -> Tuple[str, ND
     x_range = float(np.ptp(x))
     frequency = 1.0 / x_range if x_range > 1e-30 else 1.0
     b_max = 700.0 / (np.max(np.abs(x)) + 1e-30)
-    bounds = ([-np.inf, 1e-9], [np.inf, min(b_max, 1e3)])
+    computed_bounds = ([-np.inf, 1e-9], [np.inf, min(b_max, 1e3)])
+    initial_guess = merge_initial_guess([amplitude, frequency], initial_guess_override)
+    bounds = (
+        merge_bounds(computed_bounds, bounds_override[0], bounds_override[1], 2)
+        if bounds_override is not None
+        else computed_bounds
+    )
     return generic_fit(
-        data, x_name, y_name,
+        data,
+        x_name,
+        y_name,
         fit_func=cosh_function,
         param_names=['a', 'b'],
         equation_template='y={a} cosh({b}x)',
-        initial_guess=[amplitude, frequency],
-        bounds=bounds
+        initial_guess=initial_guess,
+        bounds=bounds,
     )
 
 
-def fit_ln_function(data: DataLike, x_name: str, y_name: str) -> Tuple[str, NDArray, str]:
+def fit_ln_function(
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
+) -> Tuple[str, NDArray, str]:
     """Logarithmic fit: y = a ln(x)
-    
+
     Returns:
         Tuple of (text, y_fitted, equation)
     """
     x = data[x_name]
     y = data[y_name]
     a_0 = estimate_ln_parameter(x, y)
+    initial_guess = merge_initial_guess([a_0], initial_guess_override)
+    bounds = (
+        merge_bounds(None, bounds_override[0], bounds_override[1], 1)
+        if bounds_override is not None
+        else None
+    )
     return generic_fit(
-        data, x_name, y_name,
+        data,
+        x_name,
+        y_name,
         fit_func=ln_function,
         param_names=['a'],
         equation_template='y={a} ln(x)',
-        initial_guess=[a_0]
+        initial_guess=initial_guess,
+        bounds=bounds,
     )
 
 
-def fit_inverse_function(data: DataLike, x_name: str, y_name: str) -> Tuple[str, NDArray, str]:
+def fit_inverse_function(
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
+) -> Tuple[str, NDArray, str]:
     """Inverse fit: y = a/x
-    
+
     Returns:
         Tuple of (text, y_fitted, equation)
     """
     x = data[x_name]
     y = data[y_name]
     a_0 = estimate_inverse_parameter(x, y, 1)
+    initial_guess = merge_initial_guess([a_0], initial_guess_override)
+    bounds = (
+        merge_bounds(None, bounds_override[0], bounds_override[1], 1)
+        if bounds_override is not None
+        else None
+    )
     return generic_fit(
-        data, x_name, y_name,
+        data,
+        x_name,
+        y_name,
         fit_func=inverse_function,
         param_names=['a'],
         equation_template='y={a}/x',
-        initial_guess=[a_0]
+        initial_guess=initial_guess,
+        bounds=bounds,
     )
 
 
-def fit_inverse_square_function(data: DataLike, x_name: str, y_name: str) -> Tuple[str, NDArray, str]:
+def fit_inverse_square_function(
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
+) -> Tuple[str, NDArray, str]:
     """Inverse quadratic fit: y = a/x^2
-    
+
     Returns:
         Tuple of (text, y_fitted, equation)
     """
     x = data[x_name]
     y = data[y_name]
     a_0 = estimate_inverse_parameter(x, y, 2)
+    initial_guess = merge_initial_guess([a_0], initial_guess_override)
+    bounds = (
+        merge_bounds(None, bounds_override[0], bounds_override[1], 1)
+        if bounds_override is not None
+        else None
+    )
     return generic_fit(
-        data, x_name, y_name,
+        data,
+        x_name,
+        y_name,
         fit_func=inverse_square_function,
         param_names=['a'],
         equation_template='y={a}/x^2',
-        initial_guess=[a_0]
+        initial_guess=initial_guess,
+        bounds=bounds,
     )
 
 
-def fit_gaussian_function(data: DataLike, x_name: str, y_name: str) -> Tuple[str, NDArray, str]:
+def fit_gaussian_function(
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
+) -> Tuple[str, NDArray, str]:
     """Gaussian fit: y = A * exp(-(x-mu)^2 / (2*sigma^2))
-    
+
     Returns:
         Tuple of (text, y_fitted, equation)
     """
     x = data[x_name]
     y = data[y_name]
     A_0, mu_0, sigma_0 = estimate_gaussian_parameters(x, y)
-    # Bounds: A > 0 (peak height), sigma > 0 (width)
-    bounds = ([0.0, -np.inf, 1e-9], [np.inf, np.inf, np.inf])
+    computed_bounds = ([0.0, -np.inf, 1e-9], [np.inf, np.inf, np.inf])
+    initial_guess = merge_initial_guess(
+        [A_0, mu_0, sigma_0], initial_guess_override
+    )
+    bounds = (
+        merge_bounds(computed_bounds, bounds_override[0], bounds_override[1], 3)
+        if bounds_override is not None
+        else computed_bounds
+    )
     return generic_fit(
-        data, x_name, y_name,
+        data,
+        x_name,
+        y_name,
         fit_func=gaussian_function,
         param_names=['A', 'mu', 'sigma'],
         equation_template='y={A} exp(-(x-{mu})^2/(2*{sigma}^2))',
-        initial_guess=[A_0, mu_0, sigma_0],
-        bounds=bounds
+        initial_guess=initial_guess,
+        bounds=bounds,
     )
 
 
-def fit_exponential_function(data: DataLike, x_name: str, y_name: str) -> Tuple[str, NDArray, str]:
+def fit_exponential_function(
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
+) -> Tuple[str, NDArray, str]:
     """Exponential fit: y = a * exp(b*x)
-    
+
     Uses linear regression on log(y) for initial guess when y > 0, and bounds
     on b to avoid exp(b*x) overflow. Returns (text, y_fitted, equation).
     """
@@ -637,19 +852,14 @@ def fit_exponential_function(data: DataLike, x_name: str, y_name: str) -> Tuple[
     x_range = float(np.ptp(x))
     if x_range < 1e-12:
         x_range = 1.0
-    # Limit |b| so that exp(b * x_range) does not overflow (~exp(700))
     b_max = 700.0 / x_range
-    bounds = ([-np.inf, -b_max], [np.inf, b_max])
-
-    # Robust initial guess: log(y) = log(a) + b*x => linear regression when y > 0
+    computed_bounds = ([-np.inf, -b_max], [np.inf, b_max])
     y_min = float(np.min(y))
     if np.all(y > 1e-15):
         log_y = np.log(y)
-        # np.polyfit(x, log_y, 1) => [b, log(a)] so a = exp(log(a))
         slope, intercept = np.polyfit(x, log_y, 1)
         b_0 = float(slope)
         a_0 = float(np.exp(intercept))
-        # Clamp b_0 to bounds to avoid bad starting point
         b_0 = np.clip(b_0, -b_max + 0.01, b_max - 0.01)
     else:
         a_0 = float(y[0]) if np.abs(y[0]) > 1e-12 else 1.0
@@ -657,59 +867,100 @@ def fit_exponential_function(data: DataLike, x_name: str, y_name: str) -> Tuple[
             np.log(np.abs(y[-1]) / np.abs(y[0]) + 1e-12) / (x[-1] - x[0] + 1e-12),
             -b_max + 0.01, b_max - 0.01
         )
-
+    initial_guess = merge_initial_guess([a_0, b_0], initial_guess_override)
+    bounds = (
+        merge_bounds(computed_bounds, bounds_override[0], bounds_override[1], 2)
+        if bounds_override is not None
+        else computed_bounds
+    )
     return generic_fit(
-        data, x_name, y_name,
+        data,
+        x_name,
+        y_name,
         fit_func=exponential_function,
         param_names=['a', 'b'],
         equation_template='y={a} exp({b}x)',
-        initial_guess=[a_0, b_0],
-        bounds=bounds
+        initial_guess=initial_guess,
+        bounds=bounds,
     )
 
 
-def fit_binomial_function(data: DataLike, x_name: str, y_name: str) -> Tuple[str, NDArray, str]:
+def fit_binomial_function(
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
+) -> Tuple[str, NDArray, str]:
     """Logistic (binomial-type) fit: y = a / (1 + exp(-b*(x-c)))
-    
+
     Returns:
         Tuple of (text, y_fitted, equation)
     """
     x = data[x_name]
     y = data[y_name]
     a_0, b_0, c_0 = estimate_binomial_parameters(x, y)
-    # Bounds: a > 0 (saturation range), b > 0 (steepness)
-    bounds = ([1e-9, 1e-9, -np.inf], [np.inf, np.inf, np.inf])
+    computed_bounds = ([1e-9, 1e-9, -np.inf], [np.inf, np.inf, np.inf])
+    initial_guess = merge_initial_guess([a_0, b_0, c_0], initial_guess_override)
+    bounds = (
+        merge_bounds(computed_bounds, bounds_override[0], bounds_override[1], 3)
+        if bounds_override is not None
+        else computed_bounds
+    )
     return generic_fit(
-        data, x_name, y_name,
+        data,
+        x_name,
+        y_name,
         fit_func=binomial_function,
         param_names=['a', 'b', 'c'],
         equation_template='y={a}/(1+exp(-{b}(x-{c})))',
-        initial_guess=[a_0, b_0, c_0],
-        bounds=bounds
+        initial_guess=initial_guess,
+        bounds=bounds,
     )
 
 
-def fit_tan_function(data: DataLike, x_name: str, y_name: str) -> Tuple[str, NDArray, str]:
+def fit_tan_function(
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
+) -> Tuple[str, NDArray, str]:
     """Tangent fit: y = a * tan(b*x)
-    
+
     Returns:
         Tuple of (text, y_fitted, equation)
     """
     x = data[x_name]
     y = data[y_name]
     amplitude, frequency = estimate_trigonometric_parameters(x, y)
+    initial_guess = merge_initial_guess([amplitude, frequency], initial_guess_override)
+    bounds = (
+        merge_bounds(None, bounds_override[0], bounds_override[1], 2)
+        if bounds_override is not None
+        else None
+    )
     return generic_fit(
-        data, x_name, y_name,
+        data,
+        x_name,
+        y_name,
         fit_func=tan_function,
         param_names=['a', 'b'],
         equation_template='y={a} tan({b}x)',
-        initial_guess=[amplitude, frequency]
+        initial_guess=initial_guess,
+        bounds=bounds,
     )
 
 
-def fit_tan_function_with_c(data: DataLike, x_name: str, y_name: str) -> Tuple[str, NDArray, str]:
+def fit_tan_function_with_c(
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
+) -> Tuple[str, NDArray, str]:
     """Tangent fit with phase: y = a * tan(b*x + c)
-    
+
     Returns:
         Tuple of (text, y_fitted, equation)
     """
@@ -717,18 +968,35 @@ def fit_tan_function_with_c(data: DataLike, x_name: str, y_name: str) -> Tuple[s
     y = data[y_name]
     amplitude, frequency = estimate_trigonometric_parameters(x, y)
     phase = estimate_phase_shift(x, y, amplitude, frequency)
+    initial_guess = merge_initial_guess(
+        [amplitude, frequency, phase], initial_guess_override
+    )
+    bounds = (
+        merge_bounds(None, bounds_override[0], bounds_override[1], 3)
+        if bounds_override is not None
+        else None
+    )
     return generic_fit(
-        data, x_name, y_name,
+        data,
+        x_name,
+        y_name,
         fit_func=tan_function_with_c,
         param_names=['a', 'b', 'c'],
         equation_template='y={a} tan({b}x+{c})',
-        initial_guess=[amplitude, frequency, phase]
+        initial_guess=initial_guess,
+        bounds=bounds,
     )
 
 
-def fit_square_pulse_function(data: DataLike, x_name: str, y_name: str) -> Tuple[str, NDArray, str]:
+def fit_square_pulse_function(
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
+) -> Tuple[str, NDArray, str]:
     """Smooth square pulse fit: amplitude A, center t0, width w.
-    
+
     Returns:
         Tuple of (text, y_fitted, equation)
     """
@@ -738,53 +1006,94 @@ def fit_square_pulse_function(data: DataLike, x_name: str, y_name: str) -> Tuple
     t0_0 = float(x[np.argmax(y)])
     x_range = float(np.ptp(x))
     w_0 = x_range / 5.0 if x_range > 0 else 1.0
-    # Bounds: A > 0, w > 0; t0 within data range with margin
     x_min, x_max = float(np.min(x)), float(np.max(x))
-    bounds = ([1e-9, x_min - x_range, 1e-9], [np.inf, x_max + x_range, x_range * 2])
+    computed_bounds = (
+        [1e-9, x_min - x_range, 1e-9],
+        [np.inf, x_max + x_range, x_range * 2],
+    )
+    initial_guess = merge_initial_guess([A_0, t0_0, w_0], initial_guess_override)
+    bounds = (
+        merge_bounds(computed_bounds, bounds_override[0], bounds_override[1], 3)
+        if bounds_override is not None
+        else computed_bounds
+    )
     return generic_fit(
-        data, x_name, y_name,
+        data,
+        x_name,
+        y_name,
         fit_func=square_pulse_function,
         param_names=['A', 't0', 'w'],
         equation_template='y=pulso(A={A}, t0={t0}, w={w})',
-        initial_guess=[A_0, t0_0, w_0],
-        bounds=bounds
+        initial_guess=initial_guess,
+        bounds=bounds,
     )
 
 
-def fit_hermite_polynomial_3(data: DataLike, x_name: str, y_name: str) -> Tuple[str, NDArray, str]:
+def fit_hermite_polynomial_3(
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
+) -> Tuple[str, NDArray, str]:
     """Hermite polynomial fit (degree 0..3): y = c0*H_0(x) + c1*H_1(x) + c2*H_2(x) + c3*H_3(x)
-    
+
     Returns:
         Tuple of (text, y_fitted, equation)
     """
     x = data[x_name]
     y = data[y_name]
-    # H_0(x)=1; start with mean as constant term and zeros for higher orders
     y_mean = float(np.mean(y))
-    initial_guess = [y_mean, 0.0, 0.0, 0.0]
+    initial_guess = merge_initial_guess(
+        [y_mean, 0.0, 0.0, 0.0], initial_guess_override
+    )
+    bounds = (
+        merge_bounds(None, bounds_override[0], bounds_override[1], 4)
+        if bounds_override is not None
+        else None
+    )
     return generic_fit(
-        data, x_name, y_name,
+        data,
+        x_name,
+        y_name,
         fit_func=hermite_polynomial_3,
         param_names=['c0', 'c1', 'c2', 'c3'],
         equation_template='y={c0}*H_0(x)+{c1}*H_1(x)+{c2}*H_2(x)+{c3}*H_3(x)',
-        initial_guess=initial_guess
+        initial_guess=initial_guess,
+        bounds=bounds,
     )
 
 
-def fit_hermite_polynomial_4(data: DataLike, x_name: str, y_name: str) -> Tuple[str, NDArray, str]:
+def fit_hermite_polynomial_4(
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
+) -> Tuple[str, NDArray, str]:
     """Hermite polynomial fit (degree 0..4): y = c0*H_0(x) + ... + c4*H_4(x)
-    
+
     Returns:
         Tuple of (text, y_fitted, equation)
     """
     x = data[x_name]
     y = data[y_name]
     y_mean = float(np.mean(y))
-    initial_guess = [y_mean, 0.0, 0.0, 0.0, 0.0]
+    initial_guess = merge_initial_guess(
+        [y_mean, 0.0, 0.0, 0.0, 0.0], initial_guess_override
+    )
+    bounds = (
+        merge_bounds(None, bounds_override[0], bounds_override[1], 5)
+        if bounds_override is not None
+        else None
+    )
     return generic_fit(
-        data, x_name, y_name,
+        data,
+        x_name,
+        y_name,
         fit_func=hermite_polynomial_4,
         param_names=['c0', 'c1', 'c2', 'c3', 'c4'],
         equation_template='y={c0}*H_0(x)+{c1}*H_1(x)+{c2}*H_2(x)+{c3}*H_3(x)+{c4}*H_4(x)',
-        initial_guess=initial_guess
+        initial_guess=initial_guess,
+        bounds=bounds,
     )
