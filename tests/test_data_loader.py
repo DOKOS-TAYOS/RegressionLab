@@ -4,15 +4,9 @@
 Tests for data_loader module.
 """
 
-import unittest
-import sys
-from pathlib import Path
-import tempfile
+import pytest
 import pandas as pd
-
-# Add src to path
-src_path = Path(__file__).parent.parent / 'src'
-sys.path.insert(0, str(src_path))
+from pathlib import Path
 
 from loaders.data_loader import (
     get_project_root,
@@ -23,59 +17,46 @@ from loaders.data_loader import (
 from utils.exceptions import InvalidFileTypeError
 
 
-class TestGetProjectRoot(unittest.TestCase):
+class TestGetProjectRoot:
     """Tests for get_project_root function."""
     
     def test_returns_path(self) -> None:
         """Test that function returns a Path object."""
         root = get_project_root()
-        self.assertIsInstance(root, Path)
-    
-    def test_path_exists(self) -> None:
-        """Test that returned path exists."""
-        root = get_project_root()
-        self.assertTrue(root.exists())
-    
-    def test_has_src_directory(self) -> None:
-        """Test that project root contains src directory."""
-        root = get_project_root()
-        self.assertTrue((root / 'src').exists())
+        assert isinstance(root, Path)
+        assert root.exists()
+        assert (root / 'src').exists()
 
 
-class TestPrepareDataPath(unittest.TestCase):
+class TestPrepareDataPath:
     """Tests for prepare_data_path function."""
     
-    def test_csv_path(self) -> None:
-        """Test preparing path for CSV file."""
-        path = prepare_data_path('test_file', 'csv')
-        self.assertIsInstance(path, str)
-        self.assertTrue(path.endswith('.csv'))
-        self.assertIn('test_file', path)
-    
-    def test_xlsx_path(self) -> None:
-        """Test preparing path for XLSX file."""
-        path = prepare_data_path('test_file', 'xlsx')
-        self.assertTrue(path.endswith('.xlsx'))
+    @pytest.mark.parametrize("file_type,expected_ext", [
+        ('csv', '.csv'),
+        ('xlsx', '.xlsx'),
+    ])
+    def test_file_paths(self, file_type: str, expected_ext: str) -> None:
+        """Test preparing paths for different file types."""
+        path = prepare_data_path('test_file', file_type)
+        assert isinstance(path, str)
+        assert path.endswith(expected_ext)
+        assert 'test_file' in path
+        assert Path(path).is_absolute()
     
     def test_custom_base_dir(self) -> None:
         """Test preparing path with custom base directory."""
         path = prepare_data_path('test_file', 'csv', base_dir='custom_dir')
-        self.assertIn('custom_dir', path)
-    
-    def test_absolute_path(self) -> None:
-        """Test that returned path is absolute."""
-        path = prepare_data_path('test_file', 'csv')
-        self.assertTrue(Path(path).is_absolute())
+        assert 'custom_dir' in path
 
 
-class TestGetVariableNames(unittest.TestCase):
+class TestGetVariableNames:
     """Tests for get_variable_names function."""
     
     def test_simple_dataframe(self) -> None:
         """Test getting variable names from simple DataFrame."""
         df = pd.DataFrame({'x': [1, 2, 3], 'y': [4, 5, 6]})
         names = get_variable_names(df)
-        self.assertEqual(names, ['x', 'y'])
+        assert names == ['x', 'y']
     
     def test_with_uncertainties(self) -> None:
         """Test getting variable names including uncertainties."""
@@ -86,75 +67,47 @@ class TestGetVariableNames(unittest.TestCase):
             'uy': [0.2, 0.2, 0.2]
         })
         names = get_variable_names(df)
-        self.assertEqual(set(names), {'x', 'ux', 'y', 'uy'})
+        assert set(names) == {'x', 'ux', 'y', 'uy'}
     
     def test_empty_dataframe(self) -> None:
         """Test getting variable names from empty DataFrame."""
         df = pd.DataFrame()
-        names = get_variable_names(df)
-        self.assertEqual(names, [])
-    
-    def test_returns_list(self) -> None:
-        """Test that function returns a list."""
-        df = pd.DataFrame({'a': [1], 'b': [2]})
-        names = get_variable_names(df)
-        self.assertIsInstance(names, list)
+        assert get_variable_names(df) == []
 
 
-class TestGetFileListByType(unittest.TestCase):
+class TestGetFileListByType:
     """Tests for get_file_list_by_type function."""
     
-    def setUp(self) -> None:
-        """Set up test file lists."""
-        self.csv_files = ['file1', 'file2']
-        self.xlsx_files = ['file4', 'file5', 'file6']
-        self.txt_files = ['file7']
+    @pytest.fixture
+    def file_lists(self) -> dict[str, list[str]]:
+        """Fixture providing test file lists."""
+        return {
+            'csv': ['file1', 'file2'],
+            'xlsx': ['file4', 'file5', 'file6'],
+            'txt': ['file7']
+        }
     
-    def test_get_csv_files(self) -> None:
-        """Test getting CSV file list."""
+    @pytest.mark.parametrize("file_type", ['csv', 'xlsx', 'txt'])
+    def test_get_files_by_type(self, file_type: str, file_lists: dict[str, list[str]]) -> None:
+        """Test getting file list by type."""
         result = get_file_list_by_type(
-            'csv',
-            self.csv_files,
-            self.xlsx_files,
-            self.txt_files
+            file_type,
+            file_lists['csv'],
+            file_lists['xlsx'],
+            file_lists['txt']
         )
-        self.assertEqual(result, self.csv_files)
+        assert result == file_lists[file_type]
     
-    def test_get_xlsx_files(self) -> None:
-        """Test getting XLSX file list."""
-        result = get_file_list_by_type(
-            'xlsx',
-            self.csv_files,
-            self.xlsx_files,
-            self.txt_files
-        )
-        self.assertEqual(result, self.xlsx_files)
-    
-    def test_get_txt_files(self) -> None:
-        """Test getting TXT file list."""
-        result = get_file_list_by_type(
-            'txt',
-            self.csv_files,
-            self.xlsx_files,
-            self.txt_files
-        )
-        self.assertEqual(result, self.txt_files)
-    
-    def test_invalid_file_type(self) -> None:
+    def test_invalid_file_type(self, file_lists: dict[str, list[str]]) -> None:
         """Test invalid file type raises error."""
-        with self.assertRaises(InvalidFileTypeError):
+        with pytest.raises(InvalidFileTypeError):
             get_file_list_by_type(
                 'pdf',
-                self.csv_files,
-                self.xlsx_files,
-                self.txt_files
+                file_lists['csv'],
+                file_lists['xlsx'],
+                file_lists['txt']
             )
     
     def test_empty_lists(self) -> None:
         """Test with empty file lists."""
-        result = get_file_list_by_type('csv', [], [], [])
-        self.assertEqual(result, [])
-
-
-if __name__ == '__main__':
-    unittest.main()
+        assert get_file_list_by_type('csv', [], [], []) == []

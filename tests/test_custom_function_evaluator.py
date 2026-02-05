@@ -4,216 +4,155 @@
 Tests for custom_function_evaluator module.
 """
 
-import unittest
-import sys
-from pathlib import Path
+import pytest
 import numpy as np
 import pandas as pd
-
-# Add src to path
-src_path = Path(__file__).parent.parent / 'src'
-sys.path.insert(0, str(src_path))
 
 from fitting.custom_function_evaluator import CustomFunctionEvaluator
 from utils.exceptions import EquationError, ValidationError
 
 
-class TestCustomFunctionEvaluatorInit(unittest.TestCase):
+class TestCustomFunctionEvaluatorInit:
     """Tests for CustomFunctionEvaluator initialization."""
     
-    def test_simple_linear_function(self) -> None:
-        """Test creating evaluator with simple linear function."""
-        evaluator = CustomFunctionEvaluator("a*x + b", ["a", "b"])
-        self.assertIsNotNone(evaluator)
-        self.assertEqual(evaluator.parameter_names, ["a", "b"])
+    @pytest.mark.parametrize("equation,params", [
+        ("a*x + b", ["a", "b"]),
+        ("a*x**2 + b*x + c", ["a", "b", "c"]),
+    ])
+    def test_valid_initialization(self, equation: str, params: list[str]) -> None:
+        """Test creating evaluator with valid equations."""
+        evaluator = CustomFunctionEvaluator(equation, params)
+        assert evaluator is not None
+        assert evaluator.parameter_names == params
     
-    def test_quadratic_function(self) -> None:
-        """Test creating evaluator with quadratic function."""
-        evaluator = CustomFunctionEvaluator("a*x**2 + b*x + c", ["a", "b", "c"])
-        self.assertIsNotNone(evaluator)
-        self.assertEqual(len(evaluator.parameter_names), 3)
-    
-    def test_empty_equation(self) -> None:
+    @pytest.mark.parametrize("equation,params", [
+        ("", ["a"]),
+        ("   ", ["a"]),
+    ])
+    def test_empty_equation(self, equation: str, params: list[str]) -> None:
         """Test that empty equation raises ValidationError."""
-        with self.assertRaises(ValidationError):
-            CustomFunctionEvaluator("", ["a"])
-    
-    def test_whitespace_only_equation(self) -> None:
-        """Test that whitespace-only equation raises ValidationError."""
-        with self.assertRaises(ValidationError):
-            CustomFunctionEvaluator("   ", ["a"])
+        with pytest.raises(ValidationError):
+            CustomFunctionEvaluator(equation, params)
     
     def test_invalid_parameter_names(self) -> None:
         """Test that invalid parameter names raise ValidationError."""
-        with self.assertRaises(ValidationError):
+        with pytest.raises(ValidationError):
             CustomFunctionEvaluator("a*x", ["123invalid"])
     
     def test_duplicate_parameter_names(self) -> None:
         """Test that duplicate parameter names raise ValidationError."""
-        with self.assertRaises(ValidationError):
+        with pytest.raises(ValidationError):
             CustomFunctionEvaluator("a*x + a", ["a", "a"])
 
 
-class TestPrepareFormula(unittest.TestCase):
+class TestPrepareFormula:
     """Tests for formula preparation."""
     
-    def test_ln_function_replacement(self) -> None:
-        """Test that ln is replaced with np.log."""
-        evaluator = CustomFunctionEvaluator("a*ln(x)", ["a"])
-        self.assertIn("np.log", evaluator.equation_str)
-    
-    def test_sin_function_replacement(self) -> None:
-        """Test that sin is replaced with np.sin."""
-        evaluator = CustomFunctionEvaluator("a*sin(x)", ["a"])
-        self.assertIn("np.sin", evaluator.equation_str)
-    
-    def test_cos_function_replacement(self) -> None:
-        """Test that cos is replaced with np.cos."""
-        evaluator = CustomFunctionEvaluator("a*cos(x)", ["a"])
-        self.assertIn("np.cos", evaluator.equation_str)
-    
-    def test_exp_function_replacement(self) -> None:
-        """Test that exp is replaced with np.exp."""
-        evaluator = CustomFunctionEvaluator("a*exp(x)", ["a"])
-        self.assertIn("np.exp", evaluator.equation_str)
+    @pytest.mark.parametrize("equation,replacement", [
+        ("a*ln(x)", "np.log"),
+        ("a*sin(x)", "np.sin"),
+        ("a*cos(x)", "np.cos"),
+        ("a*exp(x)", "np.exp"),
+    ])
+    def test_function_replacements(self, equation: str, replacement: str) -> None:
+        """Test that math functions are replaced with numpy equivalents."""
+        evaluator = CustomFunctionEvaluator(equation, ["a"])
+        assert replacement in evaluator.equation_str
     
     def test_multiple_replacements(self) -> None:
         """Test multiple function replacements."""
         evaluator = CustomFunctionEvaluator("a*sin(x) + b*cos(x)", ["a", "b"])
-        self.assertIn("np.sin", evaluator.equation_str)
-        self.assertIn("np.cos", evaluator.equation_str)
+        assert "np.sin" in evaluator.equation_str
+        assert "np.cos" in evaluator.equation_str
 
 
-class TestFunctionCreation(unittest.TestCase):
+class TestFunctionCreation:
     """Tests for function creation."""
     
-    def test_linear_function_evaluation(self) -> None:
-        """Test that created function evaluates correctly for linear case."""
-        evaluator = CustomFunctionEvaluator("a*x + b", ["a", "b"])
+    @pytest.mark.parametrize("equation,params,x,param_values,expected", [
+        ("a*x + b", ["a", "b"], np.array([1.0, 2.0, 3.0]), (2.0, 3.0), lambda x: 2.0 * x + 3.0),
+        ("a*x**2", ["a"], np.array([1.0, 2.0, 3.0]), (2.0,), lambda x: 2.0 * x**2),
+        ("a*exp(b*x)", ["a", "b"], np.array([0.0, 1.0, 2.0]), (1.0, 0.5), lambda x: 1.0 * np.exp(0.5 * x)),
+        ("a*sin(b*x)", ["a", "b"], np.array([0.0, np.pi/2, np.pi]), (2.0, 1.0), lambda x: 2.0 * np.sin(1.0 * x)),
+    ])
+    def test_function_evaluation(self, equation: str, params: list[str], x: np.ndarray, 
+                                 param_values: tuple, expected: callable) -> None:
+        """Test that created function evaluates correctly."""
+        evaluator = CustomFunctionEvaluator(equation, params)
         func = evaluator.get_function()
-        
-        x = np.array([1.0, 2.0, 3.0])
-        result = func(x, 2.0, 3.0)
-        expected = 2.0 * x + 3.0
-        
-        np.testing.assert_array_almost_equal(result, expected)
-    
-    def test_quadratic_function_evaluation(self) -> None:
-        """Test that created function evaluates correctly for quadratic case."""
-        evaluator = CustomFunctionEvaluator("a*x**2", ["a"])
-        func = evaluator.get_function()
-        
-        x = np.array([1.0, 2.0, 3.0])
-        result = func(x, 2.0)
-        expected = 2.0 * x**2
-        
-        np.testing.assert_array_almost_equal(result, expected)
-    
-    def test_exponential_function_evaluation(self) -> None:
-        """Test evaluation with exponential function."""
-        evaluator = CustomFunctionEvaluator("a*exp(b*x)", ["a", "b"])
-        func = evaluator.get_function()
-        
-        x = np.array([0.0, 1.0, 2.0])
-        result = func(x, 1.0, 0.5)
-        expected = 1.0 * np.exp(0.5 * x)
-        
-        np.testing.assert_array_almost_equal(result, expected)
-    
-    def test_trigonometric_function_evaluation(self) -> None:
-        """Test evaluation with trigonometric function."""
-        evaluator = CustomFunctionEvaluator("a*sin(b*x)", ["a", "b"])
-        func = evaluator.get_function()
-        
-        x = np.array([0.0, np.pi/2, np.pi])
-        result = func(x, 2.0, 1.0)
-        expected = 2.0 * np.sin(1.0 * x)
-        
-        np.testing.assert_array_almost_equal(result, expected)
+        result = func(x, *param_values)
+        expected_result = expected(x)
+        np.testing.assert_array_almost_equal(result, expected_result)
     
     def test_wrong_parameter_count(self) -> None:
         """Test that wrong number of parameters raises error."""
         evaluator = CustomFunctionEvaluator("a*x + b", ["a", "b"])
         func = evaluator.get_function()
-        
         x = np.array([1.0, 2.0, 3.0])
-        with self.assertRaises(EquationError):
+        with pytest.raises(EquationError):
             func(x, 2.0)  # Missing one parameter
     
     def test_division_by_zero(self) -> None:
         """Test that division by zero produces inf/nan values."""
         evaluator = CustomFunctionEvaluator("a/x", ["a"])
         func = evaluator.get_function()
-        
         x = np.array([0.0, 1.0, 2.0])
-        # Suppress the division by zero warning from NumPy
         with np.errstate(divide='ignore', invalid='ignore'):
             result = func(x, 1.0)
-        self.assertTrue(np.isinf(result[0]) or np.isnan(result[0]))
+        assert np.isinf(result[0]) or np.isnan(result[0])
 
 
-class TestEquationTemplate(unittest.TestCase):
+class TestEquationTemplate:
     """Tests for equation template generation."""
     
-    def test_simple_template(self) -> None:
-        """Test template generation for simple equation."""
-        evaluator = CustomFunctionEvaluator("a*x + b", ["a", "b"])
+    @pytest.mark.parametrize("equation,params", [
+        ("a*x + b", ["a", "b"]),
+        ("a*sin(b*x + c)", ["a", "b", "c"]),
+    ])
+    def test_template_generation(self, equation: str, params: list[str]) -> None:
+        """Test template generation for equations."""
+        evaluator = CustomFunctionEvaluator(equation, params)
         template = evaluator._generate_equation_template()
         
-        self.assertIn("{a}", template)
-        self.assertIn("{b}", template)
-        self.assertTrue(template.startswith("y="))
-    
-    def test_complex_template(self) -> None:
-        """Test template generation for complex equation."""
-        evaluator = CustomFunctionEvaluator("a*sin(b*x + c)", ["a", "b", "c"])
-        template = evaluator._generate_equation_template()
-        
-        self.assertIn("{a}", template)
-        self.assertIn("{b}", template)
-        self.assertIn("{c}", template)
-        self.assertTrue(template.startswith("y="))
+        for param in params:
+            assert f"{{{param}}}" in template
+        assert template.startswith("y=")
 
 
-class TestFitMethod(unittest.TestCase):
+class TestFitMethod:
     """Tests for the fit method."""
     
-    def setUp(self) -> None:
-        """Set up test data."""
-        self.x = np.array([1.0, 2.0, 3.0, 4.0, 5.0])
-        self.y = 2.0 * self.x + 1.0
-        self.ux = np.ones_like(self.x) * 0.1
-        self.uy = np.ones_like(self.y) * 0.2
-        
-        self.data = pd.DataFrame({
-            'x': self.x,
-            'ux': self.ux,
-            'y': self.y,
-            'uy': self.uy
+    @pytest.fixture
+    def test_data(self) -> pd.DataFrame:
+        """Fixture for test data."""
+        x = np.array([1.0, 2.0, 3.0, 4.0, 5.0])
+        return pd.DataFrame({
+            'x': x,
+            'ux': np.ones_like(x) * 0.1,
+            'y': 2.0 * x + 1.0,
+            'uy': np.ones_like(x) * 0.2
         })
     
     def test_fit_initialization(self) -> None:
         """Test that CustomFunctionEvaluator initializes correctly for fitting."""
         evaluator = CustomFunctionEvaluator("a*x + b", ["a", "b"])
-        
-        self.assertIsNotNone(evaluator.function)
-        self.assertEqual(evaluator.parameter_names, ["a", "b"])
-        self.assertEqual(evaluator.original_equation_str, "a*x + b")
+        assert evaluator.function is not None
+        assert evaluator.parameter_names == ["a", "b"]
+        assert evaluator.original_equation_str == "a*x + b"
     
     def test_get_function_callable(self) -> None:
         """Test that get_function returns a callable."""
         evaluator = CustomFunctionEvaluator("a*x", ["a"])
         func = evaluator.get_function()
+        assert callable(func)
         
-        self.assertTrue(callable(func))
-        # Test that function can be called
         x = np.array([1.0, 2.0, 3.0])
         result = func(x, 2.0)
         expected = 2.0 * x
         np.testing.assert_array_almost_equal(result, expected)
 
 
-class TestReprMethod(unittest.TestCase):
+class TestReprMethod:
     """Tests for string representation."""
     
     def test_repr(self) -> None:
@@ -221,11 +160,7 @@ class TestReprMethod(unittest.TestCase):
         evaluator = CustomFunctionEvaluator("a*x + b", ["a", "b"])
         repr_str = repr(evaluator)
         
-        self.assertIn("CustomFunctionEvaluator", repr_str)
-        self.assertIn("a*x + b", repr_str)
-        self.assertIn("a", repr_str)
-        self.assertIn("b", repr_str)
-
-
-if __name__ == '__main__':
-    unittest.main()
+        assert "CustomFunctionEvaluator" in repr_str
+        assert "a*x + b" in repr_str
+        assert "a" in repr_str
+        assert "b" in repr_str

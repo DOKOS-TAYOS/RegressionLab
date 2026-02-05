@@ -4,151 +4,127 @@
 Tests for i18n module.
 """
 
-import unittest
 import os
-import sys
-from pathlib import Path
-
-# Add src to path
-src_path = Path(__file__).parent.parent / 'src'
-sys.path.insert(0, str(src_path))
+import pytest
 
 from i18n import initialize_i18n, t, _get_language_from_env, DEFAULT_LANGUAGE
 
 
-class TestI18nLanguageDetection(unittest.TestCase):
+@pytest.fixture(autouse=True)
+def reset_i18n() -> None:
+    """Reset i18n after each test."""
+    yield
+    initialize_i18n()
+
+
+class TestI18nLanguageDetection:
     """Tests for language detection."""
     
-    def setUp(self) -> None:
-        """Save original language."""
-        self.original_lang = os.getenv('LANGUAGE')
-    
-    def tearDown(self) -> None:
-        """Restore original language."""
-        if self.original_lang:
-            os.environ['LANGUAGE'] = self.original_lang
+    @pytest.fixture(autouse=True)
+    def cleanup_env(self) -> None:
+        """Clean up LANGUAGE env var after each test."""
+        original_lang = os.getenv('LANGUAGE')
+        yield
+        if original_lang:
+            os.environ['LANGUAGE'] = original_lang
         elif 'LANGUAGE' in os.environ:
             del os.environ['LANGUAGE']
-        # Reinitialize with original settings
         initialize_i18n()
     
     def test_default_language(self) -> None:
         """Test default language is Spanish."""
-        self.assertEqual(DEFAULT_LANGUAGE, 'es')
+        assert DEFAULT_LANGUAGE == 'es'
     
-    def test_get_language_spanish(self) -> None:
+    @pytest.mark.parametrize("lang_value,expected", [
+        ('es', 'es'),
+        ('español', 'es'),
+        ('spanish', 'es'),
+        ('ESP', 'es'),
+    ])
+    def test_get_language_spanish(self, lang_value: str, expected: str) -> None:
         """Test getting Spanish language from env."""
-        for lang_value in ['es', 'español', 'spanish', 'ESP']:
-            os.environ['LANGUAGE'] = lang_value
-            result = _get_language_from_env()
-            self.assertEqual(result, 'es', f"Failed for: {lang_value}")
+        os.environ['LANGUAGE'] = lang_value
+        assert _get_language_from_env() == expected
     
-    def test_get_language_english(self) -> None:
+    @pytest.mark.parametrize("lang_value,expected", [
+        ('en', 'en'),
+        ('english', 'en'),
+        ('inglés', 'en'),
+        ('ENG', 'en'),
+    ])
+    def test_get_language_english(self, lang_value: str, expected: str) -> None:
         """Test getting English language from env."""
-        for lang_value in ['en', 'english', 'inglés', 'ENG']:
-            os.environ['LANGUAGE'] = lang_value
-            result = _get_language_from_env()
-            self.assertEqual(result, 'en', f"Failed for: {lang_value}")
+        os.environ['LANGUAGE'] = lang_value
+        assert _get_language_from_env() == expected
     
     def test_get_language_unknown(self) -> None:
         """Test unknown language defaults to Spanish."""
         os.environ['LANGUAGE'] = 'unknown'
-        result = _get_language_from_env()
-        self.assertEqual(result, 'es')
+        assert _get_language_from_env() == 'es'
 
 
-class TestI18nInitialization(unittest.TestCase):
+class TestI18nInitialization:
     """Tests for i18n initialization."""
     
-    def test_initialize_spanish(self) -> None:
-        """Test initializing with Spanish."""
-        initialize_i18n('es')
+    @pytest.mark.parametrize("lang", ['es', 'en'])
+    def test_initialize_language(self, lang: str) -> None:
+        """Test initializing with supported languages."""
+        initialize_i18n(lang)
         result = t('menu.welcome')
-        self.assertIsInstance(result, str)
-        self.assertNotEqual(result, 'menu.welcome')
-    
-    def test_initialize_english(self) -> None:
-        """Test initializing with English."""
-        initialize_i18n('en')
-        result = t('menu.welcome')
-        self.assertIsInstance(result, str)
-        self.assertNotEqual(result, 'menu.welcome')
+        assert isinstance(result, str)
+        assert result != 'menu.welcome'
     
     def test_initialize_invalid_language(self) -> None:
         """Test initializing with invalid language falls back."""
         initialize_i18n('invalid')
         result = t('menu.welcome')
-        self.assertIsInstance(result, str)
+        assert isinstance(result, str)
 
 
-class TestI18nTranslation(unittest.TestCase):
+class TestI18nTranslation:
     """Tests for translation function."""
     
-    def setUp(self) -> None:
+    def setup_method(self) -> None:
         """Initialize i18n with Spanish."""
         initialize_i18n('es')
     
     def test_simple_translation(self) -> None:
         """Test simple translation."""
         result = t('menu.welcome')
-        self.assertIsInstance(result, str)
-        self.assertGreater(len(result), 0)
+        assert isinstance(result, str)
+        assert len(result) > 0
     
     def test_nested_translation(self) -> None:
         """Test nested translation with dot notation."""
         result = t('error.title')
-        self.assertIsInstance(result, str)
-        self.assertGreater(len(result), 0)
+        assert isinstance(result, str)
+        assert len(result) > 0
     
     def test_missing_key(self) -> None:
         """Test missing translation key returns key itself."""
-        result = t('nonexistent.key.path')
-        self.assertEqual(result, 'nonexistent.key.path')
+        assert t('nonexistent.key.path') == 'nonexistent.key.path'
     
     def test_translation_with_params(self) -> None:
         """Test translation with format parameters."""
         result = t('log.version', version='1.0.0')
-        self.assertIsInstance(result, str)
-        self.assertIn('1.0.0', result)
-    
-    def test_translation_with_missing_params(self) -> None:
-        """Test translation with missing format parameters."""
-        result = t('log.version')
-        self.assertIsInstance(result, str)
+        assert isinstance(result, str)
+        assert '1.0.0' in result
     
     def test_incomplete_path(self) -> None:
         """Test incomplete translation path."""
-        result = t('menu')
-        self.assertEqual(result, 'menu')
+        assert t('menu') == 'menu'
 
 
-class TestI18nBothLanguages(unittest.TestCase):
+class TestI18nBothLanguages:
     """Tests to verify both language files work."""
     
-    def test_spanish_translations(self) -> None:
-        """Test Spanish translations are loaded."""
-        initialize_i18n('es')
-        keys_to_test = [
-            'menu.welcome',
-            'error.title',
-            'dialog.exit_option'
-        ]
-        for key in keys_to_test:
+    @pytest.mark.parametrize("lang,keys", [
+        ('es', ['menu.welcome', 'error.title', 'dialog.exit_option']),
+        ('en', ['menu.welcome', 'error.title', 'dialog.exit_option']),
+    ])
+    def test_translations_loaded(self, lang: str, keys: list[str]) -> None:
+        """Test translations are loaded for both languages."""
+        initialize_i18n(lang)
+        for key in keys:
             result = t(key)
-            self.assertNotEqual(result, key, f"Missing Spanish translation for: {key}")
-    
-    def test_english_translations(self) -> None:
-        """Test English translations are loaded."""
-        initialize_i18n('en')
-        keys_to_test = [
-            'menu.welcome',
-            'error.title',
-            'dialog.exit_option'
-        ]
-        for key in keys_to_test:
-            result = t(key)
-            self.assertNotEqual(result, key, f"Missing English translation for: {key}")
-
-
-if __name__ == '__main__':
-    unittest.main()
+            assert result != key, f"Missing {lang} translation for: {key}"

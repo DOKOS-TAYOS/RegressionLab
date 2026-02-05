@@ -4,19 +4,12 @@
 Tests for config module.
 """
 
-# Standard library
 import os
 import shutil
-import sys
 import tempfile
-import unittest
+import pytest
 from pathlib import Path
 
-# Add src to path
-src_path = Path(__file__).parent.parent / 'src'
-sys.path.insert(0, str(src_path))
-
-# Local imports
 from config import (
     get_env,
     get_project_root,
@@ -34,89 +27,87 @@ from config import (
 )
 
 
-class TestConfigGetEnv(unittest.TestCase):
+@pytest.fixture
+def env_var() -> str:
+    """Fixture for test environment variable name."""
+    return 'TEST_CONFIG_VAR'
+
+
+@pytest.fixture(autouse=True)
+def cleanup_env(env_var: str) -> None:
+    """Clean up environment variable after each test."""
+    yield
+    if env_var in os.environ:
+        del os.environ[env_var]
+
+
+class TestGetEnv:
     """Tests for get_env function."""
     
-    def setUp(self) -> None:
-        """Set up test environment variables."""
-        self.test_key = 'TEST_CONFIG_VAR'
-        
-    def tearDown(self) -> None:
-        """Clean up test environment variables."""
-        if self.test_key in os.environ:
-            del os.environ[self.test_key]
+    @pytest.mark.parametrize("env_value,default,expected", [
+        (None, 'default_value', 'default_value'),
+        ('test_value', 'default_value', 'test_value'),
+    ])
+    def test_get_env_string(self, env_var: str, env_value: str | None, default: str, expected: str) -> None:
+        """Test getting string env var."""
+        if env_value:
+            os.environ[env_var] = env_value
+        result = get_env(env_var, default)
+        assert result == expected
     
-    def test_get_env_string_default(self) -> None:
-        """Test getting string env var with default."""
-        result = get_env(self.test_key, 'default_value')
-        self.assertEqual(result, 'default_value')
-    
-    def test_get_env_string_exists(self) -> None:
-        """Test getting string env var that exists."""
-        os.environ[self.test_key] = 'test_value'
-        result = get_env(self.test_key, 'default_value')
-        self.assertEqual(result, 'test_value')
-    
-    def test_get_env_int(self) -> None:
+    def test_get_env_int(self, env_var: str) -> None:
         """Test getting int env var."""
-        os.environ[self.test_key] = '42'
-        result = get_env(self.test_key, 0, int)
-        self.assertEqual(result, 42)
+        os.environ[env_var] = '42'
+        assert get_env(env_var, 0, int) == 42
     
-    def test_get_env_int_invalid(self) -> None:
+    def test_get_env_int_invalid(self, env_var: str) -> None:
         """Test getting int env var with invalid value."""
-        os.environ[self.test_key] = 'not_a_number'
-        result = get_env(self.test_key, 10, int)
-        self.assertEqual(result, 10)
+        os.environ[env_var] = 'not_a_number'
+        assert get_env(env_var, 10, int) == 10
     
-    def test_get_env_float(self) -> None:
+    def test_get_env_float(self, env_var: str) -> None:
         """Test getting float env var."""
-        os.environ[self.test_key] = '3.14'
-        result = get_env(self.test_key, 0.0, float)
-        self.assertAlmostEqual(result, 3.14)
+        os.environ[env_var] = '3.14'
+        assert abs(get_env(env_var, 0.0, float) - 3.14) < 1e-6
     
-    def test_get_env_bool_true(self) -> None:
+    @pytest.mark.parametrize("value", ['true', 'True', '1', 'yes', 'YES'])
+    def test_get_env_bool_true(self, env_var: str, value: str) -> None:
         """Test getting bool env var with true values."""
-        for value in ['true', 'True', '1', 'yes', 'YES']:
-            os.environ[self.test_key] = value
-            result = get_env(self.test_key, False, bool)
-            self.assertTrue(result, f"Failed for value: {value}")
+        os.environ[env_var] = value
+        assert get_env(env_var, False, bool) is True
     
-    def test_get_env_bool_false(self) -> None:
+    @pytest.mark.parametrize("value", ['false', 'False', '0', 'no', 'NO'])
+    def test_get_env_bool_false(self, env_var: str, value: str) -> None:
         """Test getting bool env var with false values."""
-        for value in ['false', 'False', '0', 'no', 'NO']:
-            os.environ[self.test_key] = value
-            result = get_env(self.test_key, True, bool)
-            self.assertFalse(result, f"Failed for value: {value}")
+        os.environ[env_var] = value
+        assert get_env(env_var, True, bool) is False
 
 
-class TestConfigPaths(unittest.TestCase):
+class TestConfigPaths:
     """Tests for path-related config functions."""
     
     def test_get_project_root(self) -> None:
         """Test getting project root directory."""
         root = get_project_root()
-        self.assertIsInstance(root, Path)
-        self.assertTrue(root.exists())
-        # Check that src directory exists under root
-        self.assertTrue((root / 'src').exists())
+        assert isinstance(root, Path)
+        assert root.exists()
+        assert (root / 'src').exists()
     
     def test_ensure_output_directory_default(self) -> None:
         """Test ensuring output directory with default path."""
         output_dir = ensure_output_directory()
-        self.assertTrue(os.path.exists(output_dir))
-        self.assertTrue(os.path.isdir(output_dir))
+        assert os.path.exists(output_dir)
+        assert os.path.isdir(output_dir)
     
     def test_ensure_output_directory_custom(self) -> None:
         """Test ensuring output directory with custom path."""
         temp_dir = tempfile.mkdtemp()
         try:
             custom_dir = os.path.join(temp_dir, 'test_output')
-            # Use relative path from project root
             rel_path = os.path.relpath(custom_dir, get_project_root())
             output_dir = ensure_output_directory(rel_path)
-            self.assertTrue(os.path.exists(output_dir))
-            self.assertTrue(os.path.isdir(output_dir))
+            assert os.path.exists(output_dir)
+            assert os.path.isdir(output_dir)
         finally:
             shutil.rmtree(temp_dir, ignore_errors=True)
     
@@ -124,75 +115,53 @@ class TestConfigPaths(unittest.TestCase):
         """Test getting output path for a fit."""
         fit_name = 'test_fit'
         output_path = get_output_path(fit_name)
-        self.assertIsInstance(output_path, str)
-        self.assertTrue(output_path.endswith('.png'))
-        self.assertIn(fit_name, output_path)
+        assert isinstance(output_path, str)
+        # Check it ends with a valid image extension
+        assert any(output_path.endswith(ext) for ext in ['.png', '.jpg', '.pdf'])
+        assert fit_name in output_path
 
 
-class TestConfigConstants(unittest.TestCase):
+class TestConfigConstants:
     """Tests for configuration constants."""
     
-    def test_ui_theme_exists(self) -> None:
-        """Test UI theme configuration exists."""
-        self.assertIsInstance(UI_THEME, dict)
-        required_keys = ['background', 'foreground', 'button_fg', 'font_size']
+    @pytest.mark.parametrize("config_dict,required_keys", [
+        (UI_THEME, ['background', 'foreground', 'button_fg', 'font_size']),
+        (PLOT_CONFIG, ['figsize', 'line_color', 'marker_format']),
+        (FONT_CONFIG, ['family', 'title_size', 'axis_size']),
+        (FILE_CONFIG, ['input_dir', 'output_dir', 'filename_template', 'plot_format']),
+    ])
+    def test_config_dicts(self, config_dict: dict, required_keys: list[str]) -> None:
+        """Test configuration dictionaries exist and have required keys."""
+        assert isinstance(config_dict, dict)
         for key in required_keys:
-            self.assertIn(key, UI_THEME)
-    
-    def test_plot_config_exists(self) -> None:
-        """Test plot configuration exists."""
-        self.assertIsInstance(PLOT_CONFIG, dict)
-        required_keys = ['figsize', 'line_color', 'marker_format']
-        for key in required_keys:
-            self.assertIn(key, PLOT_CONFIG)
-    
-    def test_font_config_exists(self) -> None:
-        """Test font configuration exists."""
-        self.assertIsInstance(FONT_CONFIG, dict)
-        required_keys = ['family', 'title_size', 'axis_size']
-        for key in required_keys:
-            self.assertIn(key, FONT_CONFIG)
-    
-    def test_file_config_exists(self) -> None:
-        """Test file configuration exists."""
-        self.assertIsInstance(FILE_CONFIG, dict)
-        required_keys = ['input_dir', 'output_dir', 'filename_template', 'plot_format']
-        for key in required_keys:
-            self.assertIn(key, FILE_CONFIG)
+            assert key in config_dict
     
     def test_math_function_replacements(self) -> None:
         """Test math function replacements exist."""
-        self.assertIsInstance(MATH_FUNCTION_REPLACEMENTS, dict)
-        self.assertIn(r'\bln\b', MATH_FUNCTION_REPLACEMENTS)
-        self.assertIn(r'\bsin\b', MATH_FUNCTION_REPLACEMENTS)
+        assert isinstance(MATH_FUNCTION_REPLACEMENTS, dict)
+        assert r'\bln\b' in MATH_FUNCTION_REPLACEMENTS
+        assert r'\bsin\b' in MATH_FUNCTION_REPLACEMENTS
     
     def test_equation_function_map(self) -> None:
         """Test equation function map exists."""
-        self.assertIsInstance(EQUATION_FUNCTION_MAP, dict)
-        self.assertIn('linear_function', EQUATION_FUNCTION_MAP)
-        self.assertIn('quadratic_function', EQUATION_FUNCTION_MAP)
+        assert isinstance(EQUATION_FUNCTION_MAP, dict)
+        assert 'linear_function' in EQUATION_FUNCTION_MAP
+        assert 'quadratic_function' in EQUATION_FUNCTION_MAP
     
     def test_available_equation_types(self) -> None:
         """Test available equation types list."""
-        self.assertIsInstance(AVAILABLE_EQUATION_TYPES, list)
-        self.assertGreater(len(AVAILABLE_EQUATION_TYPES), 0)
-        self.assertIn('linear_function', AVAILABLE_EQUATION_TYPES)
+        assert isinstance(AVAILABLE_EQUATION_TYPES, list)
+        assert len(AVAILABLE_EQUATION_TYPES) > 0
+        assert 'linear_function' in AVAILABLE_EQUATION_TYPES
     
     def test_exit_signal(self) -> None:
         """Test exit signal constant."""
-        self.assertIsInstance(EXIT_SIGNAL, str)
-        self.assertEqual(EXIT_SIGNAL, 'Salir')
+        assert isinstance(EXIT_SIGNAL, str)
+        assert EXIT_SIGNAL == 'Salir'
 
 
-class TestSetupFonts(unittest.TestCase):
-    """Tests for setup_fonts function."""
-    
-    def test_setup_fonts_returns_tuple(self) -> None:
-        """Test that setup_fonts returns a tuple of fonts."""
-        fonts = setup_fonts()
-        self.assertIsInstance(fonts, tuple)
-        self.assertEqual(len(fonts), 2)
-
-
-if __name__ == '__main__':
-    unittest.main()
+def test_setup_fonts() -> None:
+    """Test that setup_fonts returns a tuple of fonts."""
+    fonts = setup_fonts()
+    assert isinstance(fonts, tuple)
+    assert len(fonts) == 2

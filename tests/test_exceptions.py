@@ -4,13 +4,7 @@
 Tests for custom exceptions.
 """
 
-import unittest
-import sys
-from pathlib import Path
-
-# Add src to path
-src_path = Path(__file__).parent.parent / 'src'
-sys.path.insert(0, str(src_path))
+import pytest
 
 from utils.exceptions import (
     RegressionLabError,
@@ -25,79 +19,43 @@ from utils.exceptions import (
 )
 
 
-class TestExceptionHierarchy(unittest.TestCase):
-    """Tests for exception class hierarchy."""
-    
-    def test_regressionlab_error_base(self) -> None:
-        """Test RegressionLabError is base exception."""
-        self.assertTrue(issubclass(RegressionLabError, Exception))
-    
-    def test_data_load_error(self) -> None:
-        """Test DataLoadError inherits from RegressionLabError."""
-        self.assertTrue(issubclass(DataLoadError, RegressionLabError))
-    
-    def test_data_validation_error(self) -> None:
-        """Test DataValidationError inherits from RegressionLabError."""
-        self.assertTrue(issubclass(DataValidationError, RegressionLabError))
-    
-    def test_file_not_found_error(self) -> None:
-        """Test FileNotFoundError inherits from DataLoadError."""
-        self.assertTrue(issubclass(FileNotFoundError, DataLoadError))
-    
-    def test_invalid_file_type_error(self) -> None:
-        """Test InvalidFileTypeError inherits from DataLoadError."""
-        self.assertTrue(issubclass(InvalidFileTypeError, DataLoadError))
-    
-    def test_fitting_error(self) -> None:
-        """Test FittingError inherits from RegressionLabError."""
-        self.assertTrue(issubclass(FittingError, RegressionLabError))
-    
-    def test_equation_error(self) -> None:
-        """Test EquationError inherits from RegressionLabError."""
-        self.assertTrue(issubclass(EquationError, RegressionLabError))
-    
-    def test_configuration_error(self) -> None:
-        """Test ConfigurationError inherits from RegressionLabError."""
-        self.assertTrue(issubclass(ConfigurationError, RegressionLabError))
-    
-    def test_validation_error(self) -> None:
-        """Test ValidationError inherits from RegressionLabError."""
-        self.assertTrue(issubclass(ValidationError, RegressionLabError))
+@pytest.mark.parametrize("exception_class,parent_class", [
+    (RegressionLabError, Exception),
+    (DataLoadError, RegressionLabError),
+    (DataValidationError, RegressionLabError),
+    (FileNotFoundError, DataLoadError),
+    (InvalidFileTypeError, DataLoadError),
+    (FittingError, RegressionLabError),
+    (EquationError, RegressionLabError),
+    (ConfigurationError, RegressionLabError),
+    (ValidationError, RegressionLabError),
+])
+def test_exception_hierarchy(exception_class: type, parent_class: type) -> None:
+    """Test exception class hierarchy."""
+    assert issubclass(exception_class, parent_class)
 
 
-class TestExceptionRaising(unittest.TestCase):
-    """Tests for raising and catching exceptions."""
-    
-    def test_raise_regressionlab_error(self) -> None:
-        """Test raising RegressionLabError."""
-        with self.assertRaises(RegressionLabError):
-            raise RegressionLabError("Test error")
-    
-    def test_raise_data_load_error(self) -> None:
-        """Test raising DataLoadError."""
-        with self.assertRaises(DataLoadError):
-            raise DataLoadError("Test error")
-    
-    def test_raise_fitting_error(self) -> None:
-        """Test raising FittingError."""
-        with self.assertRaises(FittingError):
-            raise FittingError("Test error")
-    
-    def test_catch_specific_as_base(self) -> None:
-        """Test catching specific error as base class."""
-        try:
-            raise FittingError("Test error")
-        except RegressionLabError as e:
-            self.assertIsInstance(e, FittingError)
-    
-    def test_error_message(self) -> None:
-        """Test error message is preserved."""
-        test_message = "This is a test error message"
-        try:
-            raise DataValidationError(test_message)
-        except DataValidationError as e:
-            self.assertEqual(str(e), test_message)
+@pytest.mark.parametrize("exception_class", [
+    RegressionLabError,
+    DataLoadError,
+    FittingError,
+])
+def test_exception_raising(exception_class: type) -> None:
+    """Test raising exceptions."""
+    with pytest.raises(exception_class):
+        raise exception_class("Test error")
 
 
-if __name__ == '__main__':
-    unittest.main()
+def test_catch_specific_as_base() -> None:
+    """Test catching specific error as base class."""
+    with pytest.raises(RegressionLabError) as exc_info:
+        raise FittingError("Test error")
+    assert isinstance(exc_info.value, FittingError)
+
+
+def test_error_message() -> None:
+    """Test error message is preserved."""
+    test_message = "This is a test error message"
+    with pytest.raises(DataValidationError) as exc_info:
+        raise DataValidationError(test_message)
+    assert str(exc_info.value) == test_message
