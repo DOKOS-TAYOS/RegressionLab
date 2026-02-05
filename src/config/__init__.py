@@ -28,6 +28,7 @@ from .paths import (
 )
 from .constants import (
     AVAILABLE_EQUATION_TYPES,
+    DATA_FILE_TYPES,
     EQUATION_FORMULAS,
     EQUATION_FUNCTION_MAP,
     EQUATION_PARAM_NAMES,
@@ -59,4 +60,5 @@ __all__ = [
     'EQUATION_PARAM_NAMES',
     '__version__',
     'EXIT_SIGNAL',
+    'DATA_FILE_TYPES',
 ]

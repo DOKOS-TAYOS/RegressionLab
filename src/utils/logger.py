@@ -9,13 +9,13 @@ It supports both file and console logging with customizable log levels.
 
 # Standard library
 import logging
-import os
 from pathlib import Path
 from typing import Optional
 
 # Third-party packages
 try:
     from colorama import Fore, Style, init as colorama_init
+
     # Initialize colorama for Windows
     colorama_init(autoreset=True)
     COLORAMA_AVAILABLE = True
@@ -23,9 +23,10 @@ except ImportError:
     COLORAMA_AVAILABLE = False
 
 # Local imports
+from config import get_env
 from i18n import t
 
-# Default logging configuration
+# Default logging configuration (kept in sync with ``config.env.ENV_SCHEMA``)
 DEFAULT_LOG_LEVEL = 'INFO'
 DEFAULT_LOG_FILE = 'regressionlab.log'
 DEFAULT_LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -93,8 +94,10 @@ def get_log_level_from_env() -> int:
     Returns:
         Logging level constant (e.g., logging.INFO)
     """
-    level_name = os.getenv('LOG_LEVEL', DEFAULT_LOG_LEVEL).upper()
-    
+    # Use central configuration helper so values and defaults always
+    # match those defined in ``.env`` / ``config.env.ENV_SCHEMA``.
+    level_name = str(get_env('LOG_LEVEL', DEFAULT_LOG_LEVEL)).upper()
+
     level_map = {
         'DEBUG': logging.DEBUG,
         'INFO': logging.INFO,
@@ -113,7 +116,7 @@ def get_log_file_from_env() -> str:
     Returns:
         Path to log file
     """
-    return os.getenv('LOG_FILE', DEFAULT_LOG_FILE)
+    return str(get_env('LOG_FILE', DEFAULT_LOG_FILE))
 
 
 def should_log_to_console() -> bool:
@@ -123,8 +126,9 @@ def should_log_to_console() -> bool:
     Returns:
         True if console logging should be enabled
     """
-    console_logging = os.getenv('LOG_CONSOLE', 'true').lower()
-    return console_logging in ('true', '1', 'yes', 'on')
+    # Default and casting are controlled by ``config.env`` so that GUI
+    # and Streamlit apps share the exact same behaviour.
+    return bool(get_env('LOG_CONSOLE', False, bool))
 
 
 def setup_logging(

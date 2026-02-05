@@ -283,7 +283,7 @@ def fit_hermite_polynomial_3(
         data, x_name, y_name,
         fit_func=_hermite_polynomial_3,
         param_names=['c0', 'c1', 'c2', 'c3'],
-        equation_template='y={c0}*H_0(x)+{c1}*H_1(x)+{c2}*H_2(x)+{c3}*H_3(x)',
+        equation_template='y={c0}*H₀(x)+{c1}*H₁(x)+{c2}*H₂(x)+{c3}*H₃(x)',
         initial_guess=initial_guess,
         bounds=bounds,
     )
@@ -327,7 +327,7 @@ def fit_hermite_polynomial_4(
         data, x_name, y_name,
         fit_func=_hermite_polynomial_4,
         param_names=['c0', 'c1', 'c2', 'c3', 'c4'],
-        equation_template='y={c0}*H_0(x)+{c1}*H_1(x)+{c2}*H_2(x)+{c3}*H_3(x)+{c4}*H_4(x)',
+        equation_template='y={c0}*H₀(x)+{c1}*H₁(x)+{c2}*H₂(x)+{c3}*H₃(x)+{c4}*H₄(x)',
         initial_guess=initial_guess,
         bounds=bounds,
     )

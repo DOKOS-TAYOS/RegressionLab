@@ -27,7 +27,7 @@ EQUATION_FUNCTION_MAP = {
 
 AVAILABLE_EQUATION_TYPES = list(EQUATION_FUNCTION_MAP.keys())
 
-EQUATION_FORMULAS: dict[str, str] = {
+EQUATION_FORMULAS = {
     'linear_function_with_n': 'y = mx + n',
     'linear_function': 'y = mx',
     'quadratic_function_complete': 'y = ax² + bx + c',
@@ -52,7 +52,7 @@ EQUATION_FORMULAS: dict[str, str] = {
     'hermite_polynomial_4': 'y = Σ cᵢ·Hᵢ(x) (grado 0-4)',
 }
 
-EQUATION_PARAM_NAMES: dict[str, list[str]] = {
+EQUATION_PARAM_NAMES = {
     'linear_function_with_n': ['n', 'm'],
     'linear_function': ['m'],
     'quadratic_function_complete': ['a', 'b', 'c'],
@@ -91,6 +91,11 @@ MATH_FUNCTION_REPLACEMENTS = {
     r'\bpi\b': 'np.pi',
     r'\be\b': 'np.e',
 }
+
+# Central list of supported data file types (extensions without dot).
+# All parts of the application (validators, loaders, frontends) should
+# reference this constant instead of hardcoding ['csv', 'xlsx', 'txt'].
+DATA_FILE_TYPES = ('csv', 'xlsx', 'txt')
 
 __version__ = "0.8.2"
 

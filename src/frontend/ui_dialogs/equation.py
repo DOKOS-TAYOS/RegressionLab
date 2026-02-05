@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Equation and parameter dialogs for fitting."""
 
-from typing import Any, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 from tkinter import (
     Toplevel,
     Frame,
@@ -14,6 +14,7 @@ from tkinter import (
     BooleanVar,
     Spinbox,
     Checkbutton,
+    Text,
 )
 
 from config import EQUATION_FORMULAS, EXIT_SIGNAL, UI_STYLE
@@ -21,6 +22,48 @@ from i18n import t
 from utils.validators import parse_optional_float
 
 from .tooltip import _bind_tooltip
+
+
+UNICODE_PARAM_MAP: Dict[str, str] = {
+    r"\u03B1": "α",
+    r"\u03B2": "β",
+    r"\u03B3": "γ",
+    r"\u03B4": "δ",
+    r"\u03B5": "ε",
+    r"\u03B6": "ζ",
+    r"\u03B7": "η",
+    r"\u03B8": "θ",
+    r"\u03BB": "λ",
+    r"\u03BC": "μ",
+    r"\u03BE": "ξ",
+    r"\u03C0": "π",
+    r"\u03C1": "ρ",
+    r"\u03C3": "σ",
+    r"\u03C6": "φ",
+    r"\u03C9": "ω",
+    r"\u0394": "Δ",
+    r"\u03A3": "Σ",
+    r"\u03A6": "Φ",
+    r"\u03A9": "Ω",
+}
+
+
+def _normalize_unicode_text(text: str) -> str:
+    """
+    Replace explicit Unicode escape sequences like '\\u03B1' with their
+    corresponding Greek letters in arbitrary text (names, formulas, etc.).
+    """
+    for code, char in UNICODE_PARAM_MAP.items():
+        text = text.replace(code, char)
+    return text
+
+
+def _normalize_param_name(name: str) -> str:
+    """
+    Normalize parameter names replacing explicit Unicode escape sequences
+    like '\\u03B1' with their corresponding Greek letters.
+    """
+    return _normalize_unicode_text(name.strip())
 
 
 def ask_equation_type(
@@ -334,10 +377,11 @@ def ask_parameter_names(parent_window: Any, num_params: int) -> List[str]:
     Returns:
         List of parameter names
     """
-    cod1 = '\\u03B1=α, \\u03B2=β, \\u03B3=γ\n\\u03B4=δ, \\u03B5=ε, \\u03B6=ζ\n\\u03B7=η'
-    cod2 = ', \\u03B8=θ, \\u03BB=λ\n\\u03BC=μ, \\u03BE=ξ, \\u03C0=π\n\\u03C1=ρ, \\u03C3=σ'
-    cod3 = ', \\u03C6=φ\n\\u03C9=ω, \\u0394=Δ, \\u03A3=Σ\n\\u03A6=Φ, \\u03A9=Ω, \\u03B1=α'
-    cod = cod1 + cod2 + cod3
+    cod1 = '\\u03B1=α, \\u03B2=β, \\u03B3=γ, \\u03B4=δ, \\u03B5=ε\n'
+    cod2 = '\\u03B6=ζ, \\u03B7=η, \\u03B8=θ, \\u03BB=λ, \\u03BC=μ\n'
+    cod3 = '\\u03BE=ξ, \\u03C0=π, \\u03C1=ρ, \\u03C3=σ, \\u03C6=φ\n'
+    cod4 = '\\u03C9=ω, \\u0394=Δ, \\u03A3=Σ, \\u03A6=Φ, \\u03A9=Ω'
+    cod = cod1 + cod2 + cod3 + cod4
     exit_instruction = f'\n"{t("dialog.exit_option")}" {t("dialog.exit_instruction")}'
 
     parameter_names_list: List[str] = []
@@ -366,13 +410,20 @@ def ask_parameter_names(parent_window: Any, num_params: int) -> List[str]:
             fg=UI_STYLE['fg'],
             font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
         )
-        parameter_asker_leve.codes = Label(
+        parameter_asker_leve.codes = Text(
             parameter_asker_leve.frame_custom,
-            text=cod + exit_instruction,
             bg=UI_STYLE['bg'],
             fg=UI_STYLE['fg'],
-            font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
+            font=(UI_STYLE['font_family'], UI_STYLE['font_size']),
+            height=10,
+            width=UI_STYLE['entry_width']*2,
+            wrap='word',
+            borderwidth=0,
+            highlightthickness=0,
         )
+        unicode_hint: str = t('dialog.custom_formula_unicode_hint')
+        parameter_asker_leve.codes.insert('1.0', cod + exit_instruction + '\n\n' + unicode_hint)
+        parameter_asker_leve.codes.config(state='disabled')
         parameter_asker_leve.name_entry = Entry(
             parameter_asker_leve.frame_custom,
             textvariable=parameter_asker_leve.name_parame,
@@ -407,7 +458,10 @@ def ask_parameter_names(parent_window: Any, num_params: int) -> List[str]:
 
         if getattr(parameter_asker_leve, 'cancelled', False):
             return [EXIT_SIGNAL]
-        parameter_names_list.append(parameter_asker_leve.name_parame.get())
+        raw_name: str = parameter_asker_leve.name_parame.get()
+        if not raw_name.strip():
+            return [EXIT_SIGNAL]
+        parameter_names_list.append(_normalize_param_name(raw_name))
 
     return parameter_names_list
 
@@ -442,14 +496,26 @@ def ask_custom_formula(parent_window: Any, parameter_names: List[str]) -> str:
         bg=UI_STYLE['bg'],
         bd=UI_STYLE['border_width']
     )
-    syntax_hint_text = t('dialog.custom_formula_syntax_hint') + '\n' + t('dialog.formula_example')
-    formulator_level.syntax_hint = Label(
+    syntax_hint_text = (
+        t('dialog.custom_formula_syntax_hint')
+        + '\n'
+        + t('dialog.custom_formula_unicode_hint')
+        + '\n'
+        + t('dialog.formula_example')
+    )
+    formulator_level.syntax_hint = Text(
         formulator_level.frame_custom,
-        text=syntax_hint_text,
         bg=UI_STYLE['bg'],
         fg=UI_STYLE['fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
+        font=(UI_STYLE['font_family'], UI_STYLE['font_size']),
+        height=3,
+        width=UI_STYLE['entry_width'] + 10,
+        wrap='word',
+        borderwidth=0,
+        highlightthickness=0,
     )
+    formulator_level.syntax_hint.insert('1.0', syntax_hint_text)
+    formulator_level.syntax_hint.config(state='disabled')
     formulator_level.message = Label(
         formulator_level.frame_custom,
         text='y(x)= ',
@@ -458,13 +524,19 @@ def ask_custom_formula(parent_window: Any, parameter_names: List[str]) -> str:
         fg=UI_STYLE['fg'],
         font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
     )
-    formulator_level.codes = Label(
+    formulator_level.codes = Text(
         formulator_level.frame_custom,
-        text=cod + exit_instruction,
         bg=UI_STYLE['bg'],
         fg=UI_STYLE['fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
+        font=(UI_STYLE['font_family'], UI_STYLE['font_size']),
+        height=8,
+        width=UI_STYLE['entry_width'] + 10,
+        wrap='word',
+        borderwidth=0,
+        highlightthickness=0,
     )
+    formulator_level.codes.insert('1.0', cod + exit_instruction)
+    formulator_level.codes.config(state='disabled')
     params_display = t('dialog.parameters_defined', params=', '.join(parameter_names))
     formulator_level.parametros = Label(
         formulator_level.frame_custom,
@@ -513,7 +585,8 @@ def ask_custom_formula(parent_window: Any, parameter_names: List[str]) -> str:
 
     if getattr(formulator_level, 'cancelled', False):
         return EXIT_SIGNAL
-    return formulator_level.formule.get()
+    user_formula: str = _normalize_unicode_text(formulator_level.formule.get())
+    return user_formula
 
 
 def ask_num_fits(parent_window: Any, min_val: int = 2, max_val: int = 10) -> Optional[int]:

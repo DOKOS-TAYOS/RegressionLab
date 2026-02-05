@@ -16,6 +16,7 @@ import numpy as np
 import pandas as pd
 
 # Local imports
+from config import DATA_FILE_TYPES
 from utils.exceptions import (
     DataValidationError,
     FileNotFoundError,
@@ -60,16 +61,18 @@ def validate_file_type(
 
     Args:
         file_type: File extension (e.g., 'csv', 'xlsx').
-        allowed_types: List of allowed file types. Defaults to ['csv', 'xlsx', 'txt'].
+        allowed_types: List of allowed file types. If None, uses the
+            central list from :data:`config.DATA_FILE_TYPES`.
 
     Raises:
         InvalidFileTypeError: If file type is not supported.
     """
-    if allowed_types is None:
-        allowed_types = ['csv', 'xlsx', 'txt']
-    
-    if file_type not in allowed_types:
-        allowed_str = ', '.join(allowed_types)
+    effective_types = allowed_types if allowed_types is not None else list(
+        DATA_FILE_TYPES
+    )
+
+    if file_type not in effective_types:
+        allowed_str = ', '.join(effective_types)
         logger.error(
             t('log.invalid_file_type', file_type=file_type, allowed_types=allowed_str)
         )

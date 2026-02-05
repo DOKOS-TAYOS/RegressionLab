@@ -41,6 +41,7 @@
     "parameter_name": "Name des Parameters {index}: ",
     "custom_formula_title": "Benutzerdefinierte Formel",
     "custom_formula_syntax_hint": "Verwenden Sie Python-Syntax. Die unabhängige Variable muss x sein.",
+    "custom_formula_unicode_hint": "Sie können Unicode-Codes (z. B. \\u03BC, \\u03B1) oder direkt die griechischen Symbole (μ, α usw.) sowohl bei der Definition der Parameter als auch beim Schreiben der Formel verwenden.",
     "parameters_defined": "Definierte Parameter: {params}",
     "custom_formula_prompt": "Geben Sie Ihre Formel ein (verwenden Sie 'x' für die unabhängige Variable):",
     "formula_example": "Beispiel: a*x**2 + b*x + c.",

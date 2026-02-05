@@ -4,6 +4,7 @@ from typing import List
 
 import streamlit as st
 
+from config import DATA_FILE_TYPES
 from i18n import t
 
 from .data import load_uploaded_file, show_data_with_pair_plots
@@ -21,7 +22,9 @@ def mode_normal_fitting(equation_types: List[str]) -> None:
     st.subheader(t('menu.normal_fitting'))
 
     uploaded_file = st.file_uploader(
-        t('dialog.upload_file'), type=['csv', 'xlsx', 'txt'], key='single_file'
+        t('dialog.upload_file'),
+        type=list(DATA_FILE_TYPES),
+        key='single_file',
     )
 
     if uploaded_file is not None:
@@ -61,8 +64,10 @@ def mode_multiple_datasets(equation_types: List[str]) -> None:
     equation_name, custom_formula, parameter_names = show_equation_selector(equation_types)
 
     uploaded_files = st.file_uploader(
-        t('dialog.upload_file'), type=['csv', 'xlsx', 'txt'],
-        accept_multiple_files=True, key='multiple_files'
+        t('dialog.upload_file'),
+        type=list(DATA_FILE_TYPES),
+        accept_multiple_files=True,
+        key='multiple_files',
     )
 
     if uploaded_files:
@@ -137,7 +142,9 @@ def mode_checker_fitting(equation_types: List[str]) -> None:
     st.subheader(t('menu.checker_fitting'))
 
     uploaded_file = st.file_uploader(
-        t('dialog.upload_file'), type=['csv', 'xlsx', 'txt'], key='checker_file'
+        t('dialog.upload_file'),
+        type=list(DATA_FILE_TYPES),
+        key='checker_file',
     )
 
     if uploaded_file is not None:
@@ -196,7 +203,9 @@ def mode_total_fitting(equation_types: List[str]) -> None:
     st.subheader(t('menu.total_fitting'))
 
     uploaded_file = st.file_uploader(
-        t('dialog.upload_file'), type=['csv', 'xlsx', 'txt'], key='total_file'
+        t('dialog.upload_file'),
+        type=list(DATA_FILE_TYPES),
+        key='total_file',
     )
 
     if uploaded_file is not None:

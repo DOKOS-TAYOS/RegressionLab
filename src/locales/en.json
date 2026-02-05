@@ -41,6 +41,7 @@
     "parameter_name": "Parameter {index} name: ",
     "custom_formula_title": "Custom formula",
     "custom_formula_syntax_hint": "Use Python syntax. The independent variable must be x.",
+    "custom_formula_unicode_hint": "You can use Unicode codes (for example \\u03BC, \\u03B1) or the Greek symbols directly (μ, α, etc.) both when defining parameters and when writing the formula.",
     "parameters_defined": "Parameters defined: {params}",
     "custom_formula_prompt": "Enter your formula (use 'x' for the independent variable):",
     "formula_example": "Example: a*x**2 + b*x + c.",

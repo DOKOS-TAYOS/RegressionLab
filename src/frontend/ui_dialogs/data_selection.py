@@ -5,7 +5,7 @@
 from typing import Any, List, Tuple
 from tkinter import Tk, Toplevel, Frame, Label, Button, Entry, StringVar, Radiobutton, Scrollbar, Text, ttk
 
-from config import EXIT_SIGNAL, UI_STYLE
+from config import DATA_FILE_TYPES, EXIT_SIGNAL, UI_STYLE
 from i18n import t
 
 # Max size for pair-plot image window so it does not resize the desktop
@@ -24,7 +24,7 @@ def ask_file_type(parent_window: Any) -> str:
         parent_window: Parent Tkinter window
 
     Returns:
-        Selected file type ('csv', 'xlsx', 'txt', EXIT_SIGNAL, or '')
+        Selected file type (one of config.DATA_FILE_TYPES, EXIT_SIGNAL, or '')
     """
     call_file_level = Toplevel()
     call_file_level.title(t('dialog.data'))
@@ -46,7 +46,7 @@ def ask_file_type(parent_window: Any) -> str:
         font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
     )
 
-    file_type_values = ('xlsx', 'csv', 'txt', t('dialog.exit_option'))
+    file_type_values = tuple(DATA_FILE_TYPES) + (t('dialog.exit_option'),)
     call_file_level.tipo.set(file_type_values[0])
     call_file_level.cancelled = False
 

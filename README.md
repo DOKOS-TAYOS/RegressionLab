@@ -174,6 +174,9 @@ Contributions are welcome! Please read the [Contributing Guidelines](docs/contri
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+For information about third-party libraries and their licenses, see
+`THIRD_PARTY_LICENSES.md`.
+
 ## 👨‍💻 Author
 
 <div align="center">
