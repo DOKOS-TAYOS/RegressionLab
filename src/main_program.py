@@ -106,8 +106,16 @@ def _get_menu_window() -> Optional[Any]:
     return getattr(__main__, 'menu', None)
 
 
-# Helper function to set equation and get fitter with visualization
 def _set_equation_helper(equation_name: str) -> None:
+    """
+    Set the current equation and create a fitter with visualization.
+    
+    This helper retrieves the backend fitting function for the given equation,
+    wraps it with frontend visualization, and stores both in the application state.
+    
+    Args:
+        equation_name: Internal name of the equation (e.g., 'linear_function')
+    """
     # Get backend fitting function
     base_fit = get_fitting_function(equation_name)
     if base_fit:

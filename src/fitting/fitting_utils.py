@@ -20,14 +20,23 @@ logger = get_logger(__name__)
 
 def format_parameter(value: float, sigma: float) -> Tuple[float, str]:
     """
-    Format a parameter and its uncertainty using scientific notation.
-    
+    Format a parameter value and its uncertainty using scientific notation.
+
+    The function chooses a sensible number of decimals for ``value`` based on
+    the exponent of ``sigma`` and returns both the rounded value and the
+    formatted uncertainty.
+
     Args:
-        value: Parameter value
-        sigma: Uncertainty in the parameter
-        
+        value: Parameter value.
+        sigma: Uncertainty in the parameter.
+
     Returns:
-        Tuple of (rounded_value, formatted_sigma_string)
+        Tuple ``(rounded_value, sigma_str)`` where ``sigma_str`` is in
+        scientific notation (for example ``'1.2E-03'``).
+
+    Example:
+        >>> format_parameter(1.234567, 0.0123)
+        (1.23, '1.2E-02')
     """
     # Check if sigma is infinite or NaN
     if not np.isfinite(sigma):
@@ -279,13 +288,23 @@ def get_equation_param_info(
     equation_name: str,
 ) -> Optional[Tuple[List[str], str]]:
     """
-    Return parameter names and display formula for an equation type.
+    Get parameter names and display formula for a given equation type.
 
     Args:
-        equation_name: String identifier for the equation type.
+        equation_name: Identifier of the equation (for example
+            ``'linear_function_with_n'`` or ``'gaussian_function'``).
 
     Returns:
-        (param_names, formula_str) or None if equation is unknown.
+        Tuple ``(param_names, formula_str)`` where ``param_names`` is a list
+        of parameter names in order and ``formula_str`` is a human‑readable
+        equation, or ``None`` if the equation is unknown.
+
+    Example:
+        >>> names, formula = get_equation_param_info("linear_function_with_n")
+        >>> names
+        ['n', 'm']
+        >>> formula
+        'y = mx + n'
     """
     if equation_name not in EQUATION_PARAM_NAMES or equation_name not in EQUATION_FORMULAS:
         return None
@@ -299,7 +318,20 @@ def merge_initial_guess(
     computed: List[float],
     override: Optional[List[Optional[float]]],
 ) -> List[float]:
-    """Use override values where not None; otherwise keep computed."""
+    """
+    Merge automatically computed initial guesses with user overrides.
+
+    For each index, if the override list has a non-``None`` value it replaces
+    the computed one; otherwise the original computed value is kept.
+
+    Args:
+        computed: List of automatically estimated parameter values.
+        override: Optional list of user‑provided overrides (same length as
+            ``computed``); ``None`` entries mean “keep computed”.
+
+    Returns:
+        New list with the effective initial guess for each parameter.
+    """
     if override is None or len(override) != len(computed):
         return list(computed)
     return [
@@ -314,7 +346,25 @@ def merge_bounds(
     override_upper: Optional[List[Optional[float]]],
     n_params: int,
 ) -> Optional[Tuple[Tuple[float, ...], Tuple[float, ...]]]:
-    """Build (lower, upper) using overrides where not None; else computed or ±inf."""
+    """
+    Merge automatically computed parameter bounds with user overrides.
+
+    Bounds are given as a pair ``(lower, upper)``. For each parameter index,
+    non‑``None`` values in ``override_lower`` or ``override_upper`` replace
+    the corresponding computed bound. Missing computed bounds default to
+    ``(-inf, +inf)``.
+
+    Args:
+        computed_bounds: Optional pair of sequences with base lower and upper
+            bounds as produced by estimators, or ``None``.
+        override_lower: Optional list of lower bound overrides.
+        override_upper: Optional list of upper bound overrides.
+        n_params: Total number of parameters in the model.
+
+    Returns:
+        Tuple ``(lower_bounds, upper_bounds)`` as tuples of floats, or
+        ``computed_bounds`` unchanged if no overrides are provided.
+    """
     if override_lower is None and override_upper is None:
         return computed_bounds
     inf = float('-inf')

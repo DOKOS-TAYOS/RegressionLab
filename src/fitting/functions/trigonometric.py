@@ -74,6 +74,19 @@ def fit_sin_function(
     initial_guess_override: Optional[List[Optional[float]]] = None,
     bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
+    """
+    Fit a sine model without phase, :math:`y = a \\sin(b x)`.
+
+    Args:
+        data: Data source with ``x``, ``y`` and uncertainties.
+        x_name: Name of the independent variable column.
+        y_name: Name of the dependent variable column.
+        initial_guess_override: Optional overrides for ``[a, b]``.
+        bounds_override: Optional bounds for ``[a, b]``.
+
+    Returns:
+        Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
+    """
     x = data[x_name]
     y = data[y_name]
     amplitude, frequency = estimate_trigonometric_parameters(x, y)
@@ -100,6 +113,19 @@ def fit_sin_function_with_c(
     initial_guess_override: Optional[List[Optional[float]]] = None,
     bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
+    """
+    Fit a sine model with phase, :math:`y = a \\sin(b x + c)`.
+
+    Args:
+        data: Data source with ``x``, ``y`` and uncertainties.
+        x_name: Name of the independent variable column.
+        y_name: Name of the dependent variable column.
+        initial_guess_override: Optional overrides for ``[a, b, c]``.
+        bounds_override: Optional bounds for ``[a, b, c]``.
+
+    Returns:
+        Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
+    """
     x = data[x_name]
     y = data[y_name]
     amplitude, frequency = estimate_trigonometric_parameters(x, y)
@@ -129,6 +155,19 @@ def fit_cos_function(
     initial_guess_override: Optional[List[Optional[float]]] = None,
     bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
+    """
+    Fit a cosine model without phase, :math:`y = a \\cos(b x)`.
+
+    Args:
+        data: Data source with ``x``, ``y`` and uncertainties.
+        x_name: Name of the independent variable column.
+        y_name: Name of the dependent variable column.
+        initial_guess_override: Optional overrides for ``[a, b]``.
+        bounds_override: Optional bounds for ``[a, b]``.
+
+    Returns:
+        Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
+    """
     x = data[x_name]
     y = data[y_name]
     amplitude, frequency = estimate_trigonometric_parameters(x, y)
@@ -155,6 +194,19 @@ def fit_cos_function_with_c(
     initial_guess_override: Optional[List[Optional[float]]] = None,
     bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
+    """
+    Fit a cosine model with phase, :math:`y = a \\cos(b x + c)`.
+
+    Args:
+        data: Data source with ``x``, ``y`` and uncertainties.
+        x_name: Name of the independent variable column.
+        y_name: Name of the dependent variable column.
+        initial_guess_override: Optional overrides for ``[a, b, c]``.
+        bounds_override: Optional bounds for ``[a, b, c]``.
+
+    Returns:
+        Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
+    """
     x = data[x_name]
     y = data[y_name]
     amplitude, frequency = estimate_trigonometric_parameters(x, y)
@@ -184,6 +236,19 @@ def fit_sinh_function(
     initial_guess_override: Optional[List[Optional[float]]] = None,
     bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
+    """
+    Fit a hyperbolic sine model, :math:`y = a \\sinh(b x)`.
+
+    Args:
+        data: Data source with ``x``, ``y`` and uncertainties.
+        x_name: Name of the independent variable column.
+        y_name: Name of the dependent variable column.
+        initial_guess_override: Optional overrides for ``[a, b]``.
+        bounds_override: Optional bounds for ``[a, b]``.
+
+    Returns:
+        Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
+    """
     x = data[x_name]
     y = data[y_name]
     y_range = np.max(y) - np.min(y)
@@ -215,6 +280,19 @@ def fit_cosh_function(
     initial_guess_override: Optional[List[Optional[float]]] = None,
     bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
+    """
+    Fit a hyperbolic cosine model, :math:`y = a \\cosh(b x)`.
+
+    Args:
+        data: Data source with ``x``, ``y`` and uncertainties.
+        x_name: Name of the independent variable column.
+        y_name: Name of the dependent variable column.
+        initial_guess_override: Optional overrides for ``[a, b]``.
+        bounds_override: Optional bounds for ``[a, b]``.
+
+    Returns:
+        Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
+    """
     x = data[x_name]
     y = data[y_name]
     y_min = np.min(y)
@@ -247,6 +325,19 @@ def fit_tan_function(
     initial_guess_override: Optional[List[Optional[float]]] = None,
     bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
+    """
+    Fit a tangent model without phase, :math:`y = a \\tan(b x)`.
+
+    Args:
+        data: Data source with ``x``, ``y`` and uncertainties.
+        x_name: Name of the independent variable column.
+        y_name: Name of the dependent variable column.
+        initial_guess_override: Optional overrides for ``[a, b]``.
+        bounds_override: Optional bounds for ``[a, b]``.
+
+    Returns:
+        Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
+    """
     x = data[x_name]
     y = data[y_name]
     amplitude, frequency = estimate_trigonometric_parameters(x, y)
@@ -273,6 +364,19 @@ def fit_tan_function_with_c(
     initial_guess_override: Optional[List[Optional[float]]] = None,
     bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
+    """
+    Fit a tangent model with phase, :math:`y = a \\tan(b x + c)`.
+
+    Args:
+        data: Data source with ``x``, ``y`` and uncertainties.
+        x_name: Name of the independent variable column.
+        y_name: Name of the dependent variable column.
+        initial_guess_override: Optional overrides for ``[a, b, c]``.
+        bounds_override: Optional bounds for ``[a, b, c]``.
+
+    Returns:
+        Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
+    """
     x = data[x_name]
     y = data[y_name]
     amplitude, frequency = estimate_trigonometric_parameters(x, y)

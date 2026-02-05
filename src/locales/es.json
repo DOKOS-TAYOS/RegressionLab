@@ -55,6 +55,7 @@
     "exit_option": "Salir",
     "exit_instruction": "para salir",
     "download": "Descargar",
+    "plot_preview_unavailable": "Vista previa no disponible. Use Descargar para ver.",
     "donations": "Si quieres, apoya al canal"
   },
   "workflow": {

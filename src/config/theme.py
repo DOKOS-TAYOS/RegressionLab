@@ -77,7 +77,16 @@ _font_cache = None
 
 
 def setup_fonts() -> tuple:
-    """Setup and return font properties for plots. Uses caching."""
+    """
+    Configure and cache font properties for plot titles and axes.
+
+    This function reads values from :data:`FONT_CONFIG`, builds the
+    corresponding :class:`matplotlib.font_manager.FontProperties` objects
+    and caches them so subsequent calls are inexpensive.
+
+    Returns:
+        Tuple ``(title_font, axis_font)`` with font properties for titles and axes.
+    """
     global _font_cache
     if _font_cache is not None:
         return _font_cache

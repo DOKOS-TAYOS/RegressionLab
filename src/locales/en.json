@@ -55,6 +55,7 @@
     "exit_option": "Exit",
     "exit_instruction": "to exit",
     "download": "Download",
+    "plot_preview_unavailable": "Preview not available. Use Download to view.",
     "donations": "If you wish, support the project"
   },
   "workflow": {

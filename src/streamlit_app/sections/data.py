@@ -82,7 +82,7 @@ def show_data_with_pair_plots(data: Any) -> None:
                 from plotting.plot_utils import create_pair_plots
                 fig = create_pair_plots(data, variables, output_path=None)
                 st.subheader(t('dialog.pair_plots_title'))
-                st.pyplot(fig)
+                st.pyplot(fig, width="stretch")
                 if hasattr(fig, 'close'):
                     fig.close()
 

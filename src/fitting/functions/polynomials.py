@@ -108,6 +108,23 @@ def fit_linear_function_with_n(
     initial_guess_override: Optional[List[Optional[float]]] = None,
     bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
+    """
+    Fit a linear model with intercept, :math:`y = m x + n`.
+
+    Args:
+        data: Data source (dictionary or DataFrame) containing ``x``, ``y`` and
+            their uncertainties (``ux``, ``uy``).
+        x_name: Name of the independent variable column.
+        y_name: Name of the dependent variable column.
+        initial_guess_override: Optional list overriding the automatically
+            estimated ``[n, m]``; ``None`` entries keep the estimate.
+        bounds_override: Optional pair ``(lower, upper)`` with bounds for
+            ``[n, m]``; ``None`` entries keep the estimator bounds.
+
+    Returns:
+        Tuple ``(text, y_fitted, equation)`` as produced by
+        :func:`fitting.fitting_utils.generic_fit`.
+    """
     x = data[x_name]
     y = data[y_name]
     n_0, m_0 = estimate_linear_parameters(x, y)
@@ -134,6 +151,20 @@ def fit_linear_function(
     initial_guess_override: Optional[List[Optional[float]]] = None,
     bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
+    """
+    Fit a linear model through the origin, :math:`y = m x`.
+
+    Args:
+        data: Data source with columns for ``x``, ``y`` and their uncertainties.
+        x_name: Name of the independent variable column.
+        y_name: Name of the dependent variable column.
+        initial_guess_override: Optional list overriding the estimated slope
+            ``[m]``; ``None`` keeps the estimate.
+        bounds_override: Optional pair ``(lower, upper)`` with bounds for ``[m]``.
+
+    Returns:
+        Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
+    """
     x = data[x_name]
     y = data[y_name]
     m_0 = estimate_single_power_parameter(x, y, 1)
@@ -160,6 +191,19 @@ def fit_quadratic_function_complete(
     initial_guess_override: Optional[List[Optional[float]]] = None,
     bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
+    """
+    Fit a full quadratic model :math:`y = a x^2 + b x + c`.
+
+    Args:
+        data: Data source with ``x``, ``y`` and their uncertainties.
+        x_name: Name of the independent variable column.
+        y_name: Name of the dependent variable column.
+        initial_guess_override: Optional overrides for ``[a, b, c]``.
+        bounds_override: Optional bounds for ``[a, b, c]``.
+
+    Returns:
+        Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
+    """
     x = data[x_name]
     y = data[y_name]
     initial_guess = merge_initial_guess(
@@ -187,6 +231,19 @@ def fit_quadratic_function(
     initial_guess_override: Optional[List[Optional[float]]] = None,
     bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
+    """
+    Fit a pure quadratic model through the origin, :math:`y = a x^2`.
+
+    Args:
+        data: Data source with ``x``, ``y`` and their uncertainties.
+        x_name: Name of the independent variable column.
+        y_name: Name of the dependent variable column.
+        initial_guess_override: Optional override for ``[a]``.
+        bounds_override: Optional bounds for ``[a]``.
+
+    Returns:
+        Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
+    """
     x = data[x_name]
     y = data[y_name]
     a_0 = estimate_single_power_parameter(x, y, 2)
@@ -213,6 +270,19 @@ def fit_fourth_power(
     initial_guess_override: Optional[List[Optional[float]]] = None,
     bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
+    """
+    Fit a fourth‑power model through the origin, :math:`y = a x^4`.
+
+    Args:
+        data: Data source with ``x``, ``y`` and their uncertainties.
+        x_name: Name of the independent variable column.
+        y_name: Name of the dependent variable column.
+        initial_guess_override: Optional override for ``[a]``.
+        bounds_override: Optional bounds for ``[a]``.
+
+    Returns:
+        Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
+    """
     x = data[x_name]
     y = data[y_name]
     a_0 = estimate_single_power_parameter(x, y, 4)

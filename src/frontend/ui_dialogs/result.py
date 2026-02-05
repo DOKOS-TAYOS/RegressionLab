@@ -2,10 +2,20 @@
 # -*- coding: utf-8 -*-
 """Result window for displaying fitting results and plot."""
 
+from pathlib import Path
 from tkinter import Toplevel, Frame, Label, Button, Text, PhotoImage
 
 from config import UI_THEME
+from frontend.image_utils import (
+    load_image_scaled,
+    plot_display_path,
+    preview_path_to_remove_after_display,
+)
 from i18n import t
+
+# Max size for result plot image so it fits in the window
+_RESULT_PLOT_MAX_WIDTH = 920
+_RESULT_PLOT_MAX_HEIGHT = 720
 
 
 def create_result_window(
@@ -27,7 +37,25 @@ def create_result_window(
     plot_level.title(fit_name)
     plot_level.configure(background=UI_THEME['background'])
 
-    plot_level.imagen = PhotoImage(file=output_path)
+    display_path = plot_display_path(output_path)
+    preview_to_remove = preview_path_to_remove_after_display(display_path, output_path)
+
+    def _on_close() -> None:
+        if preview_to_remove:
+            try:
+                Path(preview_to_remove).unlink(missing_ok=True)
+            except OSError:
+                pass
+        plot_level.destroy()
+
+    plot_level.imagen = load_image_scaled(
+        display_path, _RESULT_PLOT_MAX_WIDTH, _RESULT_PLOT_MAX_HEIGHT
+    )
+    if plot_level.imagen is None and Path(display_path).exists():
+        try:
+            plot_level.imagen = PhotoImage(file=display_path)
+        except Exception:
+            plot_level.imagen = None
 
     equation_width = len(equation_str) + 2
     plot_level.equation_text = Text(
@@ -65,19 +93,30 @@ def create_result_window(
     plot_level.label_parameters.insert('1.0', text)
     plot_level.label_parameters.config(state='disabled')
 
-    plot_level.image = Label(
-        plot_level.middle_frame,
-        image=plot_level.imagen,
-        relief=UI_THEME['relief'],
-        borderwidth=UI_THEME['border_width'],
-        bg=UI_THEME['background'],
-        fg=UI_THEME['foreground']
-    )
+    if plot_level.imagen is not None:
+        plot_level.image = Label(
+            plot_level.middle_frame,
+            image=plot_level.imagen,
+            relief=UI_THEME['relief'],
+            borderwidth=UI_THEME['border_width'],
+            bg=UI_THEME['background'],
+            fg=UI_THEME['foreground']
+        )
+    else:
+        plot_level.image = Label(
+            plot_level.middle_frame,
+            text=t('dialog.plot_preview_unavailable'),
+            relief=UI_THEME['relief'],
+            borderwidth=UI_THEME['border_width'],
+            bg=UI_THEME['background'],
+            fg=UI_THEME['foreground'],
+            font=(UI_THEME['font_family'], UI_THEME['font_size'])
+        )
 
     plot_level.accept_button = Button(
         plot_level,
         text=t('dialog.accept'),
-        command=plot_level.destroy,
+        command=_on_close,
         width=UI_THEME['button_width'],
         bg=UI_THEME['background'],
         fg=UI_THEME['button_fg'],
@@ -97,5 +136,6 @@ def create_result_window(
     )
     plot_level.accept_button.pack(padx=UI_THEME['padding_x'], pady=UI_THEME['padding_y'])
     plot_level.accept_button.focus_set()
+    plot_level.protocol("WM_DELETE_WINDOW", _on_close)
 
     return plot_level

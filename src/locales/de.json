@@ -55,6 +55,7 @@
     "exit_option": "Beenden",
     "exit_instruction": "zum Beenden",
     "download": "Herunterladen",
+    "plot_preview_unavailable": "Vorschau nicht verfügbar. Zum Anzeigen herunterladen.",
     "donations": "Wenn du möchtest, unterstütze das Projekt"
   },
   "workflow": {

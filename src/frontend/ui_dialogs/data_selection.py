@@ -346,31 +346,41 @@ def ask_variables(parent_window: Any, variable_names: List[str]) -> Tuple[str, s
 
 def _show_image_toplevel(parent: Tk | Toplevel, image_path: str, title: str) -> None:
     """Open a Toplevel window showing an image from file (e.g. pair plot), scaled to fit max size."""
-    try:
-        from PIL import Image, ImageTk
-    except ImportError:
+    from pathlib import Path
+
+    from frontend.image_utils import (
+        load_image_scaled,
+        plot_display_path,
+        preview_path_to_remove_after_display,
+    )
+
+    display_path = plot_display_path(image_path)
+    preview_to_remove = preview_path_to_remove_after_display(display_path, image_path)
+    photo = load_image_scaled(
+        display_path, _PAIR_PLOT_MAX_WIDTH, _PAIR_PLOT_MAX_HEIGHT
+    )
+    if not photo:
         return
-    try:
-        img = Image.open(image_path).convert('RGB')
-    except OSError:
-        return
-    w, h = img.size
-    if w > _PAIR_PLOT_MAX_WIDTH or h > _PAIR_PLOT_MAX_HEIGHT:
-        ratio = min(_PAIR_PLOT_MAX_WIDTH / w, _PAIR_PLOT_MAX_HEIGHT / h)
-        new_size = (int(w * ratio), int(h * ratio))
-        img = img.resize(new_size, Image.Resampling.LANCZOS)
     win = Toplevel(parent)
     win.title(title)
     win.configure(background=UI_STYLE['bg'])
     win.resizable(False, False)
-    photo = ImageTk.PhotoImage(img)
+
+    def _on_close() -> None:
+        if preview_to_remove:
+            try:
+                Path(preview_to_remove).unlink(missing_ok=True)
+            except OSError:
+                pass
+        win.destroy()
+
     label = Label(win, image=photo, bg=UI_STYLE['bg'])
     label.image = photo
     label.pack(padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
     Button(
         win,
         text=t('dialog.accept'),
-        command=win.destroy,
+        command=_on_close,
         width=UI_STYLE['button_width'],
         bg=UI_STYLE['bg'],
         fg=UI_STYLE['button_fg_accept'],
@@ -378,6 +388,7 @@ def _show_image_toplevel(parent: Tk | Toplevel, image_path: str, title: str) -> 
         activeforeground=UI_STYLE['active_fg'],
         font=(UI_STYLE['font_family'], UI_STYLE['font_size']),
     ).pack(padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
+    win.protocol("WM_DELETE_WINDOW", _on_close)
 
 
 def show_data_dialog(parent_window: Tk | Toplevel, data: Any) -> None:

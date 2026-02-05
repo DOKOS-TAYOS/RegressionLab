@@ -132,6 +132,15 @@ def create_pair_plots(
         output_path = Path(output_path)
         output_path.parent.mkdir(parents=True, exist_ok=True)
         plt.savefig(output_path, bbox_inches='tight', dpi=plot_config.get('dpi', 150))
+        if output_path.suffix.lower() == '.pdf':
+            preview_path = output_path.parent / (output_path.stem + '_preview.png')
+            plt.savefig(
+                str(preview_path),
+                bbox_inches='tight',
+                dpi=plot_config.get('dpi', 150),
+                format='png',
+            )
+            logger.debug(f"Preview image saved for GUI: {preview_path}")
         plt.close(fig)
         logger.info(f"Pair plot saved to {output_path}")
         return str(output_path)
@@ -225,6 +234,15 @@ def create_plot(
 
         logger.debug(f"Saving plot to: {save_path}")
         plt.savefig(save_path, bbox_inches='tight', dpi=plot_config['dpi'])
+        if Path(save_path).suffix.lower() == '.pdf':
+            preview_path = Path(save_path).parent / (Path(save_path).stem + '_preview.png')
+            plt.savefig(
+                str(preview_path),
+                bbox_inches='tight',
+                dpi=plot_config['dpi'],
+                format='png',
+            )
+            logger.debug(f"Preview image saved for GUI: {preview_path}")
         plt.close(fig)
 
         logger.info(f"Plot saved successfully: {save_path}")

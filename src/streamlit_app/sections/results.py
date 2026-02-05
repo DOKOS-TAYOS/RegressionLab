@@ -44,7 +44,7 @@ def show_results(results: List[Dict[str, Any]]) -> None:
                         )
 
                 if plot_ext in ('.png', '.jpg', '.jpeg'):
-                    st.image(plot_path, width='stretch')
+                    st.image(plot_path, use_container_width=True)
                 else:
                     st.caption(f"Plot saved as {plot_ext}. Download to view.")
             else:

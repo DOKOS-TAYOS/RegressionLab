@@ -19,10 +19,28 @@ def perform_fit(
     parameter_names: Optional[List[str]] = None,
 ) -> Optional[Dict[str, Any]]:
     """
-    Perform curve fitting and return results.
+    Perform curve fitting for the given dataset and equation selection.
+
+    This helper wraps the core fitting logic used by the Streamlit UI:
+    it resolves either a predefined fitting function or a custom
+    :class:`~fitting.custom_function_evaluator.CustomFunctionEvaluator`,
+    computes the fit and generates the corresponding plot.
+
+    Args:
+        data: Dataset with columns ``x_name``, ``y_name`` and optionally
+            their uncertainties ``u{x_name}``, ``u{y_name}``.
+        x_name: Name of the independent variable column.
+        y_name: Name of the dependent variable column.
+        equation_name: Internal equation identifier or ``'custom_formula'``.
+        plot_name: Base name used for the generated plot.
+        custom_formula: Custom formula string when ``equation_name`` is
+            ``'custom_formula'``.
+        parameter_names: List of parameter names used in ``custom_formula``.
 
     Returns:
-        Dictionary with equation_name, parameters, equation, plot_path, plot_name, or None.
+        Dictionary with keys ``equation_name``, ``parameters``, ``equation``,
+        ``plot_path`` and ``plot_name`` when the fit succeeds, or ``None``
+        if the operation fails or is not supported.
     """
     from fitting.fitting_utils import get_fitting_function
     from fitting.custom_function_evaluator import CustomFunctionEvaluator
@@ -80,7 +98,16 @@ def perform_fit(
 
 
 def _create_equation_options(equation_types: List[str]) -> Dict[str, str]:
-    """Create equation options mapping display name to equation key."""
+    """
+    Build a mapping from translated equation labels to internal keys.
+
+    Args:
+        equation_types: List of internal equation identifiers.
+
+    Returns:
+        Dictionary mapping human‑readable labels to equation keys,
+        including a ``'custom_formula'`` entry.
+    """
     equation_options: Dict[str, str] = {}
     for eq in equation_types:
         eq_name = t(f'equations.{eq}')
@@ -91,10 +118,14 @@ def _create_equation_options(equation_types: List[str]) -> Dict[str, str]:
 
 def select_variables(data: Any, key_prefix: str = '') -> Tuple[str, str, str]:
     """
-    Show variable selection widgets and return selected values.
+    Show variable selection widgets and return the chosen variables and plot name.
+
+    Args:
+        data: Dataset from which variables are extracted.
+        key_prefix: Optional prefix for Streamlit widget keys to avoid clashes.
 
     Returns:
-        Tuple of (x_name, y_name, plot_name)
+        Tuple ``(x_name, y_name, plot_name)`` selected by the user.
     """
     variables = get_variable_names(data, filter_uncertainty=True)
     x_default_idx = 0 if len(variables) > 0 else None
@@ -123,7 +154,17 @@ def select_variables(data: Any, key_prefix: str = '') -> Tuple[str, str, str]:
 def show_equation_selector(
     equation_types: List[str]
 ) -> Tuple[str, Optional[str], Optional[List[str]]]:
-    """Show equation type selector and return selection (equation, custom_formula, parameter_names)."""
+    """
+    Show equation type selector in the sidebar/content area.
+
+    Args:
+        equation_types: List of available equation identifiers.
+
+    Returns:
+        Tuple ``(equation_key, custom_formula, parameter_names)`` where
+        ``custom_formula`` and ``parameter_names`` are only populated
+        when the custom‑formula option is selected.
+    """
     from config import EQUATION_FORMULAS
 
     equation_options = _create_equation_options(equation_types)
@@ -174,5 +215,10 @@ def show_equation_selector(
 
 
 def create_equation_options(equation_types: List[str]) -> Dict[str, str]:
-    """Public alias for _create_equation_options (used by modes)."""
+    """
+    Public wrapper around :func:`_create_equation_options`.
+
+    This function is imported by the modes module to build the mapping
+    from translated labels to equation identifiers.
+    """
     return _create_equation_options(equation_types)

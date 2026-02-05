@@ -17,22 +17,22 @@ from ._base import (
 )
 
 
-def gaussian_function(t: Numeric, A: float, mu: float, sigma: float) -> Numeric:
+def _gaussian_function(t: Numeric, A: float, mu: float, sigma: float) -> Numeric:
     """Gaussian (normal) function: y = A * exp(-(t-mu)^2 / (2*sigma^2))"""
     return A * np.exp(-((t - mu) ** 2) / (2.0 * sigma**2))
 
 
-def exponential_function(t: Numeric, a: float, b: float) -> Numeric:
+def _exponential_function(t: Numeric, a: float, b: float) -> Numeric:
     """Exponential function: y = a * exp(b*t)"""
     return a * np.exp(b * t)
 
 
-def binomial_function(t: Numeric, a: float, b: float, c: float) -> Numeric:
+def _binomial_function(t: Numeric, a: float, b: float, c: float) -> Numeric:
     """Logistic (S-shaped, binomial-type) function: y = a / (1 + exp(-b*(t-c)))"""
     return a / (1.0 + np.exp(-b * (t - c)))
 
 
-def square_pulse_function(t: Numeric, A: float, t0: float, w: float) -> Numeric:
+def _square_pulse_function(t: Numeric, A: float, t0: float, w: float) -> Numeric:
     """
     Smooth square pulse (approximation): y = A * (f(t - (t0-w/2)) - f(t - (t0+w/2)))/2
     with f(s) = tanh(k*s), k=50.
@@ -41,18 +41,18 @@ def square_pulse_function(t: Numeric, A: float, t0: float, w: float) -> Numeric:
     return A * 0.5 * (np.tanh(k * (t - (t0 - w / 2.0))) - np.tanh(k * (t - (t0 + w / 2.0))))
 
 
-def hermite_polynomial_3(t: Numeric, c0: float, c1: float, c2: float, c3: float) -> Numeric:
+def _hermite_polynomial_3(t: Numeric, c0: float, c1: float, c2: float, c3: float) -> Numeric:
     """Sum of physicist's Hermite polynomials up to degree 3."""
     out = c0 * eval_hermite(0, t) + c1 * eval_hermite(1, t)
     out = out + c2 * eval_hermite(2, t) + c3 * eval_hermite(3, t)
     return out
 
 
-def hermite_polynomial_4(
+def _hermite_polynomial_4(
     t: Numeric, c0: float, c1: float, c2: float, c3: float, c4: float
 ) -> Numeric:
     """Sum of physicist's Hermite polynomials up to degree 4."""
-    out = hermite_polynomial_3(t, c0, c1, c2, c3) + c4 * eval_hermite(4, t)
+    out = _hermite_polynomial_3(t, c0, c1, c2, c3) + c4 * eval_hermite(4, t)
     return out
 
 
@@ -63,6 +63,20 @@ def fit_gaussian_function(
     initial_guess_override: Optional[List[Optional[float]]] = None,
     bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
+    """
+    Fit a Gaussian (normal) model
+    :math:`y = A \\exp(-(x-\\mu)^2 / (2\\sigma^2))`.
+
+    Args:
+        data: Data source with ``x``, ``y`` and uncertainties.
+        x_name: Name of the independent variable column.
+        y_name: Name of the dependent variable column.
+        initial_guess_override: Optional overrides for ``[A, mu, sigma]``.
+        bounds_override: Optional bounds for ``[A, mu, sigma]``.
+
+    Returns:
+        Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
+    """
     x = data[x_name]
     y = data[y_name]
     A_0, mu_0, sigma_0 = estimate_gaussian_parameters(x, y)
@@ -77,7 +91,7 @@ def fit_gaussian_function(
     )
     return generic_fit(
         data, x_name, y_name,
-        fit_func=gaussian_function,
+        fit_func=_gaussian_function,
         param_names=['A', 'mu', 'sigma'],
         equation_template='y={A} exp(-(x-{mu})^2/(2*{sigma}^2))',
         initial_guess=initial_guess,
@@ -111,6 +125,19 @@ def fit_exponential_function(
             np.log(np.abs(y[-1]) / np.abs(y[0]) + 1e-12) / (x[-1] - x[0] + 1e-12),
             -b_max + 0.01, b_max - 0.01
         )
+    """
+    Fit an exponential model :math:`y = a \\exp(b x)`.
+
+    Args:
+        data: Data source with ``x``, ``y`` and uncertainties.
+        x_name: Name of the independent variable column.
+        y_name: Name of the dependent variable column.
+        initial_guess_override: Optional overrides for ``[a, b]``.
+        bounds_override: Optional bounds for ``[a, b]``.
+
+    Returns:
+        Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
+    """
     initial_guess = merge_initial_guess([a_0, b_0], initial_guess_override)
     bounds = (
         merge_bounds(computed_bounds, bounds_override[0], bounds_override[1], 2)
@@ -119,7 +146,7 @@ def fit_exponential_function(
     )
     return generic_fit(
         data, x_name, y_name,
-        fit_func=exponential_function,
+        fit_func=_exponential_function,
         param_names=['a', 'b'],
         equation_template='y={a} exp({b}x)',
         initial_guess=initial_guess,
@@ -134,6 +161,20 @@ def fit_binomial_function(
     initial_guess_override: Optional[List[Optional[float]]] = None,
     bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
+    """
+    Fit a logistic (binomial‑type) model
+    :math:`y = a / (1 + \\exp(-b (x - c)))`.
+
+    Args:
+        data: Data source with ``x``, ``y`` and uncertainties.
+        x_name: Name of the independent variable column.
+        y_name: Name of the dependent variable column.
+        initial_guess_override: Optional overrides for ``[a, b, c]``.
+        bounds_override: Optional bounds for ``[a, b, c]``.
+
+    Returns:
+        Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
+    """
     x = data[x_name]
     y = data[y_name]
     a_0, b_0, c_0 = estimate_binomial_parameters(x, y)
@@ -146,7 +187,7 @@ def fit_binomial_function(
     )
     return generic_fit(
         data, x_name, y_name,
-        fit_func=binomial_function,
+        fit_func=_binomial_function,
         param_names=['a', 'b', 'c'],
         equation_template='y={a}/(1+exp(-{b}(x-{c})))',
         initial_guess=initial_guess,
@@ -161,6 +202,22 @@ def fit_square_pulse_function(
     initial_guess_override: Optional[List[Optional[float]]] = None,
     bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
+    """
+    Fit a smooth square‑pulse model in time.
+
+    The underlying function approximates a finite‑width pulse centered at
+    ``t0`` with width ``w`` and amplitude ``A`` using hyperbolic tangents.
+
+    Args:
+        data: Data source with ``x``, ``y`` and uncertainties.
+        x_name: Name of the independent variable column.
+        y_name: Name of the dependent variable column.
+        initial_guess_override: Optional overrides for ``[A, t0, w]``.
+        bounds_override: Optional bounds for ``[A, t0, w]``.
+
+    Returns:
+        Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
+    """
     x = data[x_name]
     y = data[y_name]
     A_0 = float(np.max(y) - np.min(y)) or 1.0
@@ -180,7 +237,7 @@ def fit_square_pulse_function(
     )
     return generic_fit(
         data, x_name, y_name,
-        fit_func=square_pulse_function,
+        fit_func=_square_pulse_function,
         param_names=['A', 't0', 'w'],
         equation_template='y=pulso(A={A}, t0={t0}, w={w})',
         initial_guess=initial_guess,
@@ -195,6 +252,22 @@ def fit_hermite_polynomial_3(
     initial_guess_override: Optional[List[Optional[float]]] = None,
     bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
+    """
+    Fit a Hermite polynomial expansion up to degree 3.
+
+    The model is :math:`y = c_0 H_0(x) + c_1 H_1(x) + c_2 H_2(x) + c_3 H_3(x)`,
+    where :math:`H_k` are physicists’ Hermite polynomials.
+
+    Args:
+        data: Data source with ``x``, ``y`` and uncertainties.
+        x_name: Name of the independent variable column.
+        y_name: Name of the dependent variable column.
+        initial_guess_override: Optional overrides for ``[c0, c1, c2, c3]``.
+        bounds_override: Optional bounds for ``[c0, c1, c2, c3]``.
+
+    Returns:
+        Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
+    """
     x = data[x_name]
     y = data[y_name]
     y_mean = float(np.mean(y))
@@ -208,7 +281,7 @@ def fit_hermite_polynomial_3(
     )
     return generic_fit(
         data, x_name, y_name,
-        fit_func=hermite_polynomial_3,
+        fit_func=_hermite_polynomial_3,
         param_names=['c0', 'c1', 'c2', 'c3'],
         equation_template='y={c0}*H_0(x)+{c1}*H_1(x)+{c2}*H_2(x)+{c3}*H_3(x)',
         initial_guess=initial_guess,
@@ -226,6 +299,22 @@ def fit_hermite_polynomial_4(
     x = data[x_name]
     y = data[y_name]
     y_mean = float(np.mean(y))
+    """
+    Fit a Hermite polynomial expansion up to degree 4.
+
+    The model extends :func:`fit_hermite_polynomial_3` with an additional
+    :math:`c_4 H_4(x)` term.
+
+    Args:
+        data: Data source with ``x``, ``y`` and uncertainties.
+        x_name: Name of the independent variable column.
+        y_name: Name of the dependent variable column.
+        initial_guess_override: Optional overrides for ``[c0, c1, c2, c3, c4]``.
+        bounds_override: Optional bounds for ``[c0, c1, c2, c3, c4]``.
+
+    Returns:
+        Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
+    """
     initial_guess = merge_initial_guess(
         [y_mean, 0.0, 0.0, 0.0, 0.0], initial_guess_override
     )
@@ -236,7 +325,7 @@ def fit_hermite_polynomial_4(
     )
     return generic_fit(
         data, x_name, y_name,
-        fit_func=hermite_polynomial_4,
+        fit_func=_hermite_polynomial_4,
         param_names=['c0', 'c1', 'c2', 'c3', 'c4'],
         equation_template='y={c0}*H_0(x)+{c1}*H_1(x)+{c2}*H_2(x)+{c3}*H_3(x)+{c4}*H_4(x)',
         initial_guess=initial_guess,

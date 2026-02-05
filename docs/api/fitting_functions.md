@@ -183,7 +183,7 @@ Hyperbolic cosine function: y = a·cosh(bx)
 **Returns:**
 - Calculated y values
 
-### Logarithmic Functions
+### Logarithmic and Inverse Functions
 
 #### `ln_function(t: Numeric, a: float) -> Numeric`
 
@@ -197,8 +197,6 @@ Natural logarithm function: y = a·ln(x)
 - Calculated y values
 
 **Note:** Input values must be positive (x > 0)
-
-### Inverse Functions
 
 #### `inverse_function(t: Numeric, a: float) -> Numeric`
 

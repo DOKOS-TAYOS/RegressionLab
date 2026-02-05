@@ -47,6 +47,19 @@ def fit_ln_function(
     initial_guess_override: Optional[List[Optional[float]]] = None,
     bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
+    """
+    Fit a logarithmic model :math:`y = a \\ln(x)`.
+
+    Args:
+        data: Data source with positive ``x`` values, ``y`` and uncertainties.
+        x_name: Name of the independent variable column.
+        y_name: Name of the dependent variable column.
+        initial_guess_override: Optional override for the coefficient ``[a]``.
+        bounds_override: Optional bounds for ``[a]``.
+
+    Returns:
+        Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
+    """
     x = data[x_name]
     y = data[y_name]
     a_0 = estimate_ln_parameter(x, y)
@@ -73,6 +86,19 @@ def fit_inverse_function(
     initial_guess_override: Optional[List[Optional[float]]] = None,
     bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
+    """
+    Fit an inverse model :math:`y = a / x`.
+
+    Args:
+        data: Data source with non‑zero ``x`` values, ``y`` and uncertainties.
+        x_name: Name of the independent variable column.
+        y_name: Name of the dependent variable column.
+        initial_guess_override: Optional override for ``[a]``.
+        bounds_override: Optional bounds for ``[a]``.
+
+    Returns:
+        Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
+    """
     x = data[x_name]
     y = data[y_name]
     a_0 = estimate_inverse_parameter(x, y, 1)
@@ -99,6 +125,19 @@ def fit_inverse_square_function(
     initial_guess_override: Optional[List[Optional[float]]] = None,
     bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
+    """
+    Fit an inverse‑square model :math:`y = a / x^2`.
+
+    Args:
+        data: Data source with non‑zero ``x`` values, ``y`` and uncertainties.
+        x_name: Name of the independent variable column.
+        y_name: Name of the dependent variable column.
+        initial_guess_override: Optional override for ``[a]``.
+        bounds_override: Optional bounds for ``[a]``.
+
+    Returns:
+        Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
+    """
     x = data[x_name]
     y = data[y_name]
     a_0 = estimate_inverse_parameter(x, y, 2)
