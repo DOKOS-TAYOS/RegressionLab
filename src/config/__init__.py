@@ -10,6 +10,8 @@ from .env import (
     ENV_SCHEMA,
     get_current_env_values,
     get_env,
+    initialize_and_validate_config,
+    validate_all_env_values,
     write_env_file,
 )
 from .theme import (
@@ -42,6 +44,8 @@ __all__ = [
     'ENV_SCHEMA',
     'get_current_env_values',
     'write_env_file',
+    'validate_all_env_values',
+    'initialize_and_validate_config',
     'DONATIONS_URL',
     'UI_THEME',
     'UI_STYLE',

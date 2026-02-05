@@ -13,31 +13,161 @@ except ImportError:
     pass
 
 
+def _validate_env_value(
+    key: str,
+    value: Any,
+    schema_item: dict[str, Any]
+) -> tuple[bool, Any]:
+    """
+    Validate an environment variable value according to its schema.
+
+    Args:
+        key: Environment variable name.
+        value: The value to validate (already cast to the correct type).
+        schema_item: Schema item from ENV_SCHEMA containing validation rules.
+
+    Returns:
+        Tuple of (is_valid, corrected_value). If valid, corrected_value is the
+        original value. If invalid, corrected_value is the default.
+    """
+    default = schema_item['default']
+    cast_type = schema_item['cast_type']
+
+    # Check if value is None or empty string (for non-empty required strings)
+    if value is None:
+        return False, default
+
+    # Special validation for LANGUAGE (must be done before options check)
+    if key == 'LANGUAGE' and cast_type == str:
+        str_value = str(value).strip()
+        lang_lower = str_value.lower()
+        valid_languages = ('es', 'en', 'de', 'español', 'esp', 'english', 'ingles', 'inglés', 'eng')
+        if lang_lower not in valid_languages:
+            return False, default
+        # Normalize to standard codes
+        if lang_lower in ('español', 'esp'):
+            return True, 'es'
+        elif lang_lower in ('english', 'ingles', 'inglés', 'eng'):
+            return True, 'en'
+        elif lang_lower == 'de':
+            return True, 'de'
+        # Already in standard format
+        return True, lang_lower
+
+    # Special validation for LOG_LEVEL (must be done before options check)
+    if key == 'LOG_LEVEL' and cast_type == str:
+        str_value = str(value).strip()
+        if str_value.upper() not in ('DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'):
+            return False, default
+        return True, str_value.upper()
+
+    # Validate options if specified
+    if 'options' in schema_item:
+        options = schema_item['options']
+        if cast_type == str:
+            if str(value).lower() not in [opt.lower() for opt in options]:
+                return False, default
+        else:
+            if value not in options:
+                return False, default
+
+    # Validate numeric ranges
+    if cast_type == int:
+        int_value = int(value)
+        # Validate positive integers for sizes, widths, etc.
+        if key in (
+            'UI_BORDER_WIDTH', 'UI_PADDING_X', 'UI_PADDING_Y',
+            'UI_BUTTON_WIDTH', 'UI_BUTTON_WIDTH_WIDE',
+            'UI_FONT_SIZE', 'UI_FONT_SIZE_LARGE',
+            'UI_SPINBOX_WIDTH', 'UI_ENTRY_WIDTH',
+            'PLOT_FIGSIZE_WIDTH', 'PLOT_FIGSIZE_HEIGHT',
+            'DPI', 'PLOT_MARKER_SIZE',
+            'FONT_AXIS_SIZE', 'FONT_TICK_SIZE', 'FONT_PARAM_SIZE'
+        ):
+            if int_value <= 0:
+                return False, default
+            # Reasonable upper bounds
+            if 'FONT' in key or 'SIZE' in key:
+                if int_value > 200:
+                    return False, default
+            elif 'WIDTH' in key or 'HEIGHT' in key:
+                if int_value > 1000:
+                    return False, default
+            elif key == 'DPI':
+                if int_value < 50 or int_value > 1000:
+                    return False, default
+
+    elif cast_type == float:
+        float_value = float(value)
+        # Validate positive floats for widths, sizes, etc.
+        if key in ('PLOT_LINE_WIDTH',):
+            if float_value <= 0:
+                return False, default
+            if float_value > 20:
+                return False, default
+
+    # Validate strings (non-empty for required fields)
+    elif cast_type == str:
+        str_value = str(value).strip()
+        # Allow empty strings only for optional fields like DONATIONS_URL
+        if not str_value and key not in ('DONATIONS_URL',):
+            return False, default
+
+    return True, value
+
+
 def get_env(
     key: str,
     default: Any,
     cast_type: Type[Union[str, int, float, bool]] = str
 ) -> Union[str, int, float, bool]:
     """
-    Get environment variable with type casting and default value.
+    Get environment variable with type casting, validation, and default value.
+
+    This function validates the value according to ENV_SCHEMA rules. If validation
+    fails, the default value is returned.
 
     Args:
         key: Environment variable name.
-        default: Default value if variable not found.
+        default: Default value if variable not found or invalid.
         cast_type: Type to cast the value to (str, int, float, bool).
 
     Returns:
-        The environment variable value cast to the specified type, or default.
+        The environment variable value cast to the specified type, validated,
+        or default if invalid or missing.
     """
     value = os.getenv(key)
     if value is None:
         return default
+
+    # Find schema item for this key
+    schema_item = None
+    for item in ENV_SCHEMA:
+        if item['key'] == key:
+            schema_item = item
+            break
+
+    # If no schema found, use basic casting without validation
+    if schema_item is None:
+        try:
+            if cast_type == bool:
+                return value.lower() in ('true', '1', 'yes')
+            return cast_type(value)
+        except (ValueError, TypeError):
+            return default
+
+    # Cast the value first
     try:
         if cast_type == bool:
-            return value.lower() in ('true', '1', 'yes')
-        return cast_type(value)
+            casted_value = value.lower() in ('true', '1', 'yes')
+        else:
+            casted_value = cast_type(value)
     except (ValueError, TypeError):
         return default
+
+    # Validate the casted value
+    is_valid, corrected_value = _validate_env_value(key, casted_value, schema_item)
+    return corrected_value
 
 
 ENV_SCHEMA: list[dict[str, Any]] = [
@@ -89,6 +219,58 @@ ENV_SCHEMA: list[dict[str, Any]] = [
     {'key': 'LOG_FILE', 'default': 'regressionlab.log', 'cast_type': str},
     {'key': 'LOG_CONSOLE', 'default': False, 'cast_type': bool},
 ]
+
+
+def validate_all_env_values() -> dict[str, tuple[Any, bool]]:
+    """
+    Validate all environment values according to ENV_SCHEMA and return
+    validation results.
+
+    This function checks all environment variables defined in ENV_SCHEMA,
+    validates them, and returns information about which values were corrected.
+
+    Returns:
+        Dictionary mapping environment keys to tuples of (corrected_value, was_corrected).
+        was_corrected is True if the value was invalid and had to be corrected.
+
+    Example:
+        >>> results = validate_all_env_values()
+        >>> results["LANGUAGE"]
+        ('es', False)  # Value was valid
+        >>> results["DPI"]
+        (100, True)  # Value was invalid and corrected to default
+    """
+    results: dict[str, tuple[Any, bool]] = {}
+    for item in ENV_SCHEMA:
+        key = item['key']
+        default = item['default']
+        cast_type = item['cast_type']
+
+        # Get current value using get_env (which already validates)
+        current_value = get_env(key, default, cast_type)
+
+        # Check if original value exists and was different
+        original_value = os.getenv(key)
+        was_corrected = False
+
+        if original_value is not None:
+            try:
+                if cast_type == bool:
+                    original_casted = original_value.lower() in ('true', '1', 'yes')
+                else:
+                    original_casted = cast_type(original_value)
+            except (ValueError, TypeError):
+                was_corrected = True
+            else:
+                is_valid, _ = _validate_env_value(key, original_casted, item)
+                was_corrected = not is_valid or original_casted != current_value
+        else:
+            # Value was missing, so we used default (not really "corrected")
+            was_corrected = False
+
+        results[key] = (current_value, was_corrected)
+
+    return results
 
 
 def get_current_env_values() -> dict[str, str]:
@@ -151,6 +333,39 @@ def write_env_file(env_path: Path, values: dict[str, str]) -> None:
             value = f'"{value}"'
         lines.append(f'{key}={value}')
     env_path.write_text('\n'.join(lines) + '\n', encoding='utf-8')
+
+
+def initialize_and_validate_config() -> None:
+    """
+    Initialize configuration and validate all environment values.
+
+    This function should be called at application startup to ensure all
+    configuration values are valid. Invalid values are automatically corrected
+    to their defaults, and warnings are logged if any corrections were made.
+
+    Example:
+        >>> initialize_and_validate_config()
+        # All config values are now validated and corrected if needed
+    """
+    try:
+        from utils.logger import get_logger
+        logger = get_logger(__name__)
+    except ImportError:
+        # Logger not available, skip logging
+        logger = None
+
+    validation_results = validate_all_env_values()
+    corrected_keys = [key for key, (_, was_corrected) in validation_results.items() if was_corrected]
+
+    if corrected_keys and logger:
+        logger.warning(
+            f"Found {len(corrected_keys)} invalid environment variable(s) that were corrected to defaults: "
+            f"{', '.join(corrected_keys)}"
+        )
+        for key in corrected_keys:
+            original = os.getenv(key, '<missing>')
+            corrected = validation_results[key][0]
+            logger.info(f"  {key}: '{original}' -> '{corrected}' (default)")
 
 
 DONATIONS_URL = get_env('DONATIONS_URL', '').strip()

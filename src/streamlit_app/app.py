@@ -19,9 +19,11 @@ import streamlit as st
 
 # Local imports (lightweight at startup)
 try:
+    from config import initialize_and_validate_config
     from i18n import initialize_i18n, t
     from utils.logger import setup_logging, get_logger
 
+    initialize_and_validate_config()
     initialize_i18n('es')
     setup_logging()
     logger = get_logger(__name__)

@@ -23,14 +23,15 @@ if str(src_dir) not in sys.path:
     sys.path.insert(0, str(src_dir))
 
 # Local imports (kept lightweight at startup; heavy modules are loaded lazily)
-from config import AVAILABLE_EQUATION_TYPES, EXIT_SIGNAL, __version__
+from config import AVAILABLE_EQUATION_TYPES, EXIT_SIGNAL, __version__, initialize_and_validate_config
 from i18n import t, initialize_i18n
 from frontend.ui_main_menu import start_main_menu
 from fitting.fitting_utils import get_fitting_function
 from utils.exceptions import FittingError
 from utils.logger import setup_logging, get_logger
 
-# Initialize i18n and logging at module level
+# Initialize configuration validation, i18n and logging at module level
+initialize_and_validate_config()
 initialize_i18n()
 setup_logging()
 logger = get_logger(__name__)
