@@ -72,9 +72,10 @@ Save time by:
 
 ### 7. **Internationalization**
 Full support for multiple languages:
+- Spanish (es) – default
 - English (en)
-- Spanish (es)
-- Easy to add more languages via JSON files
+- German (de)
+- Easy to add more languages via JSON files in `src/locales/`
 
 ### 8. **Highly Configurable**
 Customize every aspect through the `.env` file:

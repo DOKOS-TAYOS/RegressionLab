@@ -39,7 +39,7 @@
 - **📊 Professional Visualization**: Publication-ready plots with error bars and customizable styles
 - **📏 Uncertainty Handling**: Automatic detection and visualization of measurement uncertainties
 - **🔄 Batch Processing**: Fit multiple datasets or test all equations simultaneously
-- **🌍 Internationalization**: Full support for English and Spanish (easily extensible)
+- **🌍 Internationalization**: Full support for English, Spanish, and German (easily extensible)
 - **⚙️ Highly Configurable**: Customize every aspect through the `.env` file
 
 
@@ -112,10 +112,12 @@ chmod +x install.sh
 4. Run the application:
    ```bash
    # Desktop version (Tkinter)
-   python -m src.main_program
+   python src/main_program.py
+   # Or use the launcher: bin\run.bat (Windows) / ./bin/run.sh (Linux/macOS)
 
    # Web version (Streamlit)
    streamlit run src/streamlit_app/app.py
+   # Or use: bin\run_streamlit.bat (Windows) / ./bin/run_streamlit.sh (Linux/macOS)
    ```
 
 
@@ -206,7 +208,7 @@ For information about third-party libraries and their licenses, see
 
 <div align="center">
 
-**Version**: 0.9.0 • **Last Updated**: January 2026
+**Version**: 0.9.0 • **Last Updated**: February 2026
 
 Made with ❤️ by [Alejandro Mata Ali](https://github.com/DOKOS-TAYOS)
 

@@ -10,7 +10,9 @@ from fitting.functions._base import (
     DataLike,
     Numeric,
     estimate_binomial_parameters,
+    estimate_exponential_parameters,
     estimate_gaussian_parameters,
+    estimate_square_pulse_parameters,
     generic_fit,
     merge_bounds,
     merge_initial_guess,
@@ -71,8 +73,8 @@ def fit_gaussian_function(
         data: Data source with ``x``, ``y`` and uncertainties.
         x_name: Name of the independent variable column.
         y_name: Name of the dependent variable column.
-        initial_guess_override: Optional overrides for ``[A, mu, sigma]``.
-        bounds_override: Optional bounds for ``[A, mu, sigma]``.
+        initial_guess_override: Optional overrides for ``[A, μ, σ]``.
+        bounds_override: Optional bounds for ``[A, μ, σ]``.
 
     Returns:
         Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
@@ -92,8 +94,8 @@ def fit_gaussian_function(
     return generic_fit(
         data, x_name, y_name,
         fit_func=_gaussian_function,
-        param_names=['A', 'mu', 'sigma'],
-        equation_template='y={A} exp(-(x-{mu})^2/(2*{sigma}^2))',
+        param_names=['A', 'μ', 'σ'],
+        equation_template='y={A} exp(-(x-{μ})^2/(2*{σ}^2))',
         initial_guess=initial_guess,
         bounds=bounds,
     )
@@ -106,25 +108,6 @@ def fit_exponential_function(
     initial_guess_override: Optional[List[Optional[float]]] = None,
     bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
-    x = np.asarray(data[x_name], dtype=float)
-    y = np.asarray(data[y_name], dtype=float)
-    x_range = float(np.ptp(x))
-    if x_range < 1e-12:
-        x_range = 1.0
-    b_max = 700.0 / x_range
-    computed_bounds = ([-np.inf, -b_max], [np.inf, b_max])
-    if np.all(y > 1e-15):
-        log_y = np.log(y)
-        slope, intercept = np.polyfit(x, log_y, 1)
-        b_0 = float(slope)
-        a_0 = float(np.exp(intercept))
-        b_0 = np.clip(b_0, -b_max + 0.01, b_max - 0.01)
-    else:
-        a_0 = float(y[0]) if np.abs(y[0]) > 1e-12 else 1.0
-        b_0 = 0.0 if np.abs(a_0) < 1e-12 else np.clip(
-            np.log(np.abs(y[-1]) / np.abs(y[0]) + 1e-12) / (x[-1] - x[0] + 1e-12),
-            -b_max + 0.01, b_max - 0.01
-        )
     """
     Fit an exponential model :math:`y = a \\exp(b x)`.
 
@@ -138,6 +121,14 @@ def fit_exponential_function(
     Returns:
         Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
     """
+    x = np.asarray(data[x_name], dtype=float)
+    y = np.asarray(data[y_name], dtype=float)
+    x_range = float(np.ptp(x))
+    if x_range < 1e-12:
+        x_range = 1.0
+    b_max = 700.0 / x_range
+    computed_bounds = ([-np.inf, -b_max], [np.inf, b_max])
+    a_0, b_0 = estimate_exponential_parameters(x, y)
     initial_guess = merge_initial_guess([a_0, b_0], initial_guess_override)
     bounds = (
         merge_bounds(computed_bounds, bounds_override[0], bounds_override[1], 2)
@@ -220,10 +211,8 @@ def fit_square_pulse_function(
     """
     x = data[x_name]
     y = data[y_name]
-    A_0 = float(np.max(y) - np.min(y)) or 1.0
-    t0_0 = float(x[np.argmax(y)])
+    A_0, t0_0, w_0 = estimate_square_pulse_parameters(x, y)
     x_range = float(np.ptp(x))
-    w_0 = x_range / 5.0 if x_range > 0 else 1.0
     x_min, x_max = float(np.min(x)), float(np.max(x))
     computed_bounds = (
         [1e-9, x_min - x_range, 1e-9],

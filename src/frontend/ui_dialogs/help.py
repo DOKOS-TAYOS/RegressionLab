@@ -2,7 +2,7 @@
 
 import re
 import webbrowser
-from tkinter import Tk, Toplevel, Frame, Label, Button, Scrollbar, Text
+from tkinter import Tk, Toplevel, Frame, Button, Scrollbar, Text
 
 from config import DONATIONS_URL, UI_STYLE
 from i18n import t

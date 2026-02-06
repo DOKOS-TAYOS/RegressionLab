@@ -34,6 +34,8 @@ from .estimators import (
     estimate_inverse_parameter,
     estimate_gaussian_parameters,
     estimate_binomial_parameters,
+    estimate_exponential_parameters,
+    estimate_square_pulse_parameters,
 )
 
 __all__ = [
@@ -63,4 +65,6 @@ __all__ = [
     'estimate_inverse_parameter',
     'estimate_gaussian_parameters',
     'estimate_binomial_parameters',
+    'estimate_exponential_parameters',
+    'estimate_square_pulse_parameters',
 ]

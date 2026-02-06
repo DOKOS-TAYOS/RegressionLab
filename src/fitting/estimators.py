@@ -1,9 +1,10 @@
 """
 Initial parameter estimators for curve fitting.
 
+Inputs (x, y) are assumed to be finite and already validated/cleaned by the caller.
 This module provides functions to estimate initial parameter values and
 ranges for various model types (linear, polynomial, trigonometric,
-gaussian, logistic, etc.) to improve fitting convergence.
+gaussian, logistic, exponential, etc.) to improve fitting convergence.
 """
 
 # Standard library
@@ -18,89 +19,119 @@ from utils import get_logger
 
 logger = get_logger(__name__)
 
+# Minimum amplitude to avoid division by zero in phase estimation
+_MIN_AMPLITUDE = 1e-10
+# Minimum denominator to avoid singularities in least-squares
+_EPS_DENOM = 1e-30
+# Maximum number of lags for autocorrelation period estimation
+_MAX_AUTOCORR_LAG = 200
+
 
 def estimate_trigonometric_parameters(x: Any, y: Any) -> Tuple[float, float]:
     """
     Estimate initial parameters for trigonometric functions (sin/cos).
 
-    This function estimates the amplitude (a) and angular frequency (b)
-    for functions of the form: y = a * sin(b*x) or y = a * cos(b*x)
+    Estimates amplitude (a) and angular frequency (b) for
+    y = a * sin(b*x) or y = a * cos(b*x). Uses peak detection first,
+    with autocorrelation fallback when peaks are insufficient.
 
     Args:
         x: Independent variable array
         y: Dependent variable array
 
     Returns:
-        Tuple of (amplitude, frequency):
-            - amplitude: Estimated amplitude parameter (a)
-            - frequency: Estimated angular frequency parameter (b)
+        Tuple (amplitude, frequency).
     """
     from scipy.signal import find_peaks
 
-    y_range = np.max(y) - np.min(y)
+    x = np.asarray(x, dtype=float)
+    y = np.asarray(y, dtype=float)
+    y_centered = y - np.mean(y)
+    y_range = float(np.ptp(y))
     amplitude = y_range / 2.0
-
-    if np.abs(amplitude) < 1e-10:
+    if np.abs(amplitude) < _MIN_AMPLITUDE:
         amplitude = 1.0
 
-    try:
-        peaks, _ = find_peaks(np.abs(y - np.mean(y)), distance=max(1, len(x) // 10))
+    frequency = 1.0
+    x_range = float(np.ptp(x))
+    if x_range < _EPS_DENOM:
+        # No range in x: cannot estimate period; avoid division by zero below
+        logger.debug(
+            t('log.estimated_trig_parameters', amplitude=f"{amplitude:.3f}", frequency=f"{frequency:.3f}")
+        )
+        return amplitude, frequency
 
+    # 1) Try peak-based period
+    try:
+        min_dist = max(1, len(x) // 10)
+        peaks, _ = find_peaks(np.abs(y_centered), distance=min_dist)
         if len(peaks) >= 2:
             peak_distances = np.diff(x[peaks])
-            avg_peak_distance = np.mean(peak_distances)
-            estimated_period = 2.0 * avg_peak_distance
-            frequency = 2.0 * np.pi / estimated_period
-        else:
-            x_range = np.max(x) - np.min(x)
-            estimated_period = x_range
-            frequency = 2.0 * np.pi / estimated_period
+            if len(peak_distances) > 0 and np.median(peak_distances) > 0:
+                estimated_period = 2.0 * float(np.median(peak_distances))
+                if estimated_period > _EPS_DENOM:
+                    frequency = 2.0 * np.pi / estimated_period
+            else:
+                frequency = 2.0 * np.pi / x_range
     except Exception as e:
         logger.warning(t('log.peak_detection_failed', error=str(e)))
-        x_range = np.max(x) - np.min(x)
-        if x_range > 0:
+
+    # 2) Fallback: autocorrelation to estimate period
+    if frequency <= 0 or frequency > 1e8:
+        try:
+            n = min(len(y_centered), _MAX_AUTOCORR_LAG)
+            acf = np.correlate(y_centered[:n], y_centered[:n], mode='full')
+            acf = acf[len(acf) // 2:]
+            if len(acf) > 2:
+                peaks_acf, _ = find_peaks(acf, distance=max(1, n // 10))
+                if len(peaks_acf) >= 2:
+                    lag_diff = np.diff(peaks_acf)
+                    if len(lag_diff) > 0 and np.median(lag_diff) > 0:
+                        dx = float(np.median(np.diff(x))) if len(x) > 1 else x_range / max(1, len(x))
+                        period = float(np.median(lag_diff)) * dx
+                        if period > _EPS_DENOM:
+                            frequency = 2.0 * np.pi / period
+            if not (0 < frequency <= 1e8):
+                frequency = 2.0 * np.pi / x_range
+        except Exception as e:
+            logger.warning(t('log.peak_detection_failed', error=str(e)))
             frequency = 2.0 * np.pi / x_range
-        else:
-            frequency = 1.0
 
-    if frequency <= 0 or not np.isfinite(frequency):
-        frequency = 1.0
-
+    frequency = np.clip(float(frequency), 1e-8, 1e8)
     logger.debug(
-        t(
-            'log.estimated_trig_parameters',
-            amplitude=f"{amplitude:.3f}",
-            frequency=f"{frequency:.3f}"
-        )
+        t('log.estimated_trig_parameters', amplitude=f"{amplitude:.3f}", frequency=f"{frequency:.3f}")
     )
     return amplitude, frequency
 
 
 def estimate_phase_shift(x: Any, y: Any, amplitude: float, frequency: float) -> float:
     """
-    Estimate initial phase shift for trigonometric functions with phase.
-
-    For functions of the form: y = a * sin(b*x + c) or y = a * cos(b*x + c)
+    Estimate initial phase shift for y = a * sin(b*x + c) or y = a * cos(b*x + c).
 
     Args:
         x: Independent variable array
         y: Dependent variable array
-        amplitude: Estimated amplitude parameter
-        frequency: Estimated frequency parameter
+        amplitude: Estimated amplitude (a)
+        frequency: Estimated angular frequency (b)
 
     Returns:
-        Estimated phase shift (c)
+        Estimated phase shift (c).
     """
+    x = np.asarray(x, dtype=float)
+    y = np.asarray(y, dtype=float)
+    if np.abs(amplitude) < _MIN_AMPLITUDE:
+        return 0.0
     try:
-        y_normalized = y / (amplitude if amplitude != 0 else 1.0)
-        first_max_idx = np.argmax(y_normalized)
-        x_at_max = x[first_max_idx]
-        phase = np.pi / 4.0 - frequency * x_at_max
-        phase = np.arctan2(np.sin(phase), np.cos(phase))
+        y_normalized = y / amplitude
+        y_normalized = np.clip(y_normalized, -1.0, 1.0)
+        first_max_idx = int(np.argmax(y_normalized))
+        x_at_max = float(x[first_max_idx])
+        # Phase such that at x_at_max the sine is at its max: b*x + c = pi/2
+        phase = np.pi / 2.0 - frequency * x_at_max
+        phase = float(np.arctan2(np.sin(phase), np.cos(phase)))
     except Exception as e:
         logger.warning(t('log.phase_estimation_failed', error=str(e)))
         phase = 0.0
-
     logger.debug(t('log.estimated_phase_shift', phase=f"{phase:.3f}"))
     return phase
 
@@ -140,7 +171,9 @@ def estimate_polynomial_parameters(x: Any, y: Any, degree: int) -> List[float]:
     x = np.asarray(x, dtype=float)
     y = np.asarray(y, dtype=float)
     if len(x) <= degree:
-        return [0.0] * (degree + 1)
+        out = [0.0] * (degree + 1)
+        out[0] = float(np.mean(y))
+        return out
     coefs = np.polyfit(x, y, degree)
     return list(reversed(coefs))
 
@@ -153,7 +186,7 @@ def estimate_single_power_parameter(x: Any, y: Any, power: int) -> float:
     Args:
         x: Independent variable array
         y: Dependent variable array
-        power: Exponent (e.g. 2 for quadratic through origin, 4 for fourth power)
+        power: Exponent (e.g. 2 for quadratic through origin)
 
     Returns:
         Estimated coefficient a.
@@ -162,7 +195,7 @@ def estimate_single_power_parameter(x: Any, y: Any, power: int) -> float:
     y = np.asarray(y, dtype=float)
     xp = x ** power
     denom = np.sum(xp * xp)
-    if denom < 1e-30:
+    if denom < _EPS_DENOM:
         return 1.0
     return float(np.sum(y * xp) / denom)
 
@@ -170,10 +203,10 @@ def estimate_single_power_parameter(x: Any, y: Any, power: int) -> float:
 def estimate_ln_parameter(x: Any, y: Any) -> float:
     """
     Estimate initial parameter a for y = a * ln(x).
-    Uses a = sum(y * ln(x)) / sum(ln(x)^2) (least squares with no intercept).
+    Least squares with no intercept; positive x only.
 
     Args:
-        x: Independent variable array (must be positive)
+        x: Independent variable array (positive)
         y: Dependent variable array
 
     Returns:
@@ -181,22 +214,17 @@ def estimate_ln_parameter(x: Any, y: Any) -> float:
     """
     x = np.asarray(x, dtype=float)
     y = np.asarray(y, dtype=float)
-    x = np.where(x <= 0, np.nan, x)
-    valid = np.isfinite(x) & np.isfinite(y)
-    if not np.any(valid):
-        return 1.0
-    ln_x = np.log(x[valid])
-    y_v = y[valid]
+    ln_x = np.log(x)
     denom = np.sum(ln_x * ln_x)
-    if denom < 1e-30:
-        return float(np.mean(y_v) / (np.mean(ln_x) + 1e-30))
-    return float(np.sum(y_v * ln_x) / denom)
+    if denom < _EPS_DENOM:
+        return float(np.mean(y) / (np.mean(ln_x) + _EPS_DENOM))
+    return float(np.sum(y * ln_x) / denom)
 
 
 def estimate_inverse_parameter(x: Any, y: Any, power: int) -> float:
     """
     Estimate coefficient a for y = a / x^power.
-    From y*x^power = a, use median of (y * x^power) for robustness.
+    Uses median of (y * x^power) for robustness to outliers.
 
     Args:
         x: Independent variable array (avoid zeros)
@@ -208,18 +236,13 @@ def estimate_inverse_parameter(x: Any, y: Any, power: int) -> float:
     """
     x = np.asarray(x, dtype=float)
     y = np.asarray(y, dtype=float)
-    x_safe = np.where(np.abs(x) < 1e-30, np.nan, x)
-    valid = np.isfinite(x_safe) & np.isfinite(y)
-    if not np.any(valid):
-        return 1.0
-    a_vals = y[valid] * (x_safe[valid] ** power)
-    return float(np.median(a_vals))
+    return float(np.median(y * (x ** power)))
 
 
 def estimate_gaussian_parameters(x: Any, y: Any) -> Tuple[float, float, float]:
     """
     Estimate initial (A, mu, sigma) for y = A * exp(-(x-mu)^2 / (2*sigma^2)).
-    A from max(y), mu from x at max, sigma from FWHM-style.
+    A from max(y), mu from x at max, sigma from FWHM (half-max crossings).
 
     Args:
         x: Independent variable array
@@ -233,19 +256,24 @@ def estimate_gaussian_parameters(x: Any, y: Any) -> Tuple[float, float, float]:
     idx_max = int(np.argmax(y))
     A_0 = float(y[idx_max])
     mu_0 = float(x[idx_max])
-    y_range = np.max(y) - np.min(y)
-    if y_range < 1e-30:
-        return A_0, mu_0, 1.0
-    half = A_0 - 0.5 * (A_0 - np.min(y))
-    above = np.where(y >= half)[0]
+    y_min = float(np.min(y))
+    y_range = A_0 - y_min
+    if y_range < _EPS_DENOM:
+        x_range = float(np.ptp(x))
+        return A_0, mu_0, max(x_range / 4.0, 1.0) if x_range > 0 else 1.0
+
+    half_max = y_min + 0.5 * y_range
+    above = np.where(y >= half_max)[0]
     if len(above) >= 2:
-        x_half = x[above]
-        width = np.max(x_half) - np.min(x_half)
+        # FWHM ≈ 2*sqrt(2*ln(2))*sigma => sigma = FWHM / (2*sqrt(2*ln(2)))
+        x_above = x[above]
+        width = float(np.max(x_above) - np.min(x_above))
         sigma_0 = width / (2.0 * np.sqrt(2.0 * np.log(2.0)))
     else:
         x_range = float(np.ptp(x))
         sigma_0 = x_range / 4.0 if x_range > 0 else 1.0
-    if sigma_0 <= 0 or not np.isfinite(sigma_0):
+
+    if sigma_0 <= 0:
         sigma_0 = 1.0
     return A_0, mu_0, sigma_0
 
@@ -253,7 +281,7 @@ def estimate_gaussian_parameters(x: Any, y: Any) -> Tuple[float, float, float]:
 def estimate_binomial_parameters(x: Any, y: Any) -> Tuple[float, float, float]:
     """
     Estimate (a, b, c) for logistic y = a / (1 + exp(-b*(x-c))).
-    a = range, c near midpoint of transition, b from inverse width.
+    a = range, c = midpoint of transition, b from inverse of transition width.
 
     Args:
         x: Independent variable array
@@ -266,18 +294,93 @@ def estimate_binomial_parameters(x: Any, y: Any) -> Tuple[float, float, float]:
     y = np.asarray(y, dtype=float)
     y_min = float(np.min(y))
     y_max = float(np.max(y))
-    a_0 = y_max - y_min if (y_max - y_min) > 1e-30 else 1.0
+    a_0 = (y_max - y_min) if (y_max - y_min) > _EPS_DENOM else 1.0
     mid_level = y_min + 0.5 * (y_max - y_min)
-    idx = np.searchsorted(y, mid_level)
+    idx = np.searchsorted(np.sort(y), mid_level)
     if idx <= 0:
         c_0 = float(x[0])
     elif idx >= len(x):
         c_0 = float(x[-1])
     else:
-        t_val = (mid_level - y[idx - 1]) / (y[idx] - y[idx - 1] + 1e-30)
-        c_0 = float((1 - t_val) * x[idx - 1] + t_val * x[idx])
+        order = np.argsort(x)
+        x_s = x[order]
+        y_s = y[order]
+        i = np.searchsorted(y_s, mid_level)
+        if i <= 0:
+            c_0 = float(x_s[0])
+        elif i >= len(x_s):
+            c_0 = float(x_s[-1])
+        else:
+            t_val = (mid_level - y_s[i - 1]) / (y_s[i] - y_s[i - 1] + _EPS_DENOM)
+            c_0 = float((1.0 - t_val) * x_s[i - 1] + t_val * x_s[i])
     x_range = float(np.ptp(x))
-    if x_range < 1e-30:
+    if x_range < _EPS_DENOM:
         x_range = 1.0
     b_0 = 4.0 / x_range
     return a_0, b_0, c_0
+
+
+def estimate_exponential_parameters(x: Any, y: Any) -> Tuple[float, float]:
+    """
+    Estimate (a, b) for y = a * exp(b*x).
+    Uses log(y) = log(a) + b*x when y > 0; otherwise fallback from endpoints.
+
+    Args:
+        x: Independent variable array
+        y: Dependent variable array
+
+    Returns:
+        Tuple (a, b).
+    """
+    x = np.asarray(x, dtype=float)
+    y = np.asarray(y, dtype=float)
+    x_range = float(np.ptp(x))
+    if x_range < 1e-12:
+        x_range = 1.0
+    b_max = 700.0 / x_range
+
+    if np.all(y > 1e-15):
+        log_y = np.log(np.maximum(y, 1e-300))
+        slope, intercept = np.polyfit(x, log_y, 1)
+        b_0 = float(np.clip(slope, -b_max + 0.01, b_max - 0.01))
+        a_0 = float(np.exp(intercept))
+    else:
+        a_0 = float(y[0]) if np.abs(y[0]) > 1e-12 else 1.0
+        if np.abs(a_0) < 1e-12:
+            a_0 = 1.0
+        dx = x[-1] - x[0]
+        if np.abs(dx) > 1e-12:
+            end_ratio = np.abs(y[-1]) / (np.abs(y[0]) + 1e-300)
+            b_0 = float(np.clip(np.log(end_ratio + 1e-12) / dx, -b_max + 0.01, b_max - 0.01))
+        else:
+            b_0 = 0.0
+    return a_0, b_0
+
+
+def estimate_square_pulse_parameters(x: Any, y: Any) -> Tuple[float, float, float]:
+    """
+    Estimate (A, t0, w) for a smooth square pulse: amplitude, center time, width.
+    A from peak-to-peak, t0 from center of mass of |y|, w from support of elevated region.
+
+    Args:
+        x: Independent variable array (e.g. time)
+        y: Dependent variable array
+
+    Returns:
+        Tuple (A, t0, w).
+    """
+    x = np.asarray(x, dtype=float)
+    y = np.asarray(y, dtype=float)
+    A_0 = float(np.ptp(y)) or 1.0
+    idx_max = int(np.argmax(y))
+    t0_0 = float(x[idx_max])
+    x_range = float(np.ptp(x))
+    half = np.min(y) + 0.5 * (np.max(y) - np.min(y))
+    above = np.where(y >= half)[0]
+    if len(above) >= 2:
+        w_0 = float(np.ptp(x[above]))
+    else:
+        w_0 = x_range / 5.0 if x_range > 0 else 1.0
+    if w_0 <= 0:
+        w_0 = 1.0
+    return A_0, t0_0, w_0

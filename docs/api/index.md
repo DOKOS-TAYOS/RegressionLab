@@ -13,23 +13,27 @@ RegressionLab/
 │   │   ├── env.py             # Environment and .env
 │   │   ├── theme.py           # UI theme and plot style
 │   │   ├── paths.py           # Paths and output
-│   │   └── constants.py       # Equations, version, signals
+│   │   ├── constants.py       # Version, signals, EQUATIONS (from YAML)
+│   │   └── equations.yaml     # Equation definitions (function, formula, param_names)
 │   ├── i18n.py                # Internationalization
 │   ├── main_program.py        # Entry point for Tkinter app
 │   │
 │   ├── fitting/               # Curve fitting core
 │   │   ├── functions/         # Mathematical and fit_* functions
+│   │   │   ├── _base.py
 │   │   │   ├── polynomials.py
 │   │   │   ├── trigonometric.py
 │   │   │   ├── inverse.py
 │   │   │   └── special.py
 │   │   ├── fitting_functions/ # Re-exports (fitting.fitting_functions)
 │   │   ├── fitting_utils.py
+│   │   ├── estimators.py
 │   │   ├── workflow_controller.py
 │   │   └── custom_function_evaluator.py
 │   │
 │   ├── frontend/              # User interface (Tkinter)
 │   │   ├── ui_main_menu.py
+│   │   ├── image_utils.py
 │   │   └── ui_dialogs/        # Dialog package
 │   │       ├── data_selection.py
 │   │       ├── equation.py
@@ -54,6 +58,8 @@ RegressionLab/
 │   │       ├── results.py
 │   │       ├── help_section.py
 │   │       └── modes.py
+│   │
+│   ├── locales/               # Translation JSON (en, es, de)
 │   │
 │   └── utils/                 # Utilities
 │       ├── exceptions.py
@@ -122,11 +128,14 @@ pytest tests/ --cov=src --cov-report=html
 ### Running the Application
 
 ```bash
+# From project root (activate .venv first if using setup scripts)
 # Tkinter (desktop)
 python src/main_program.py
+# Or: bin\run.bat (Windows) / ./bin/run.sh (Linux/macOS)
 
 # Streamlit (web)
 streamlit run src/streamlit_app/app.py
+# Or: bin\run_streamlit.bat (Windows) / ./bin/run_streamlit.sh (Linux/macOS)
 ```
 
 ### Code Style
@@ -182,9 +191,8 @@ See [Extending RegressionLab](../extending.md) for detailed instructions.
 Quick summary:
 1. Add mathematical function in `fitting/functions/` (e.g. `polynomials.py`, `special.py`)
 2. Create fitting wrapper function
-3. Register in `config/constants.py` (EQUATION_FUNCTION_MAP, AVAILABLE_EQUATION_TYPES) and add translations
-4. Add translations to locales
-5. Test thoroughly
+3. Register in `config/equations.yaml` (add entry with `function`, `formula`, `param_names`) and add translations in `src/locales/`
+4. Test thoroughly
 
 ### Modifying the UI
 
@@ -218,13 +226,22 @@ Quick summary:
 ```
 tests/
 ├── __init__.py
-├── run_tests.py              # Test runner
-├── test_config.py            # Test configuration
-├── test_fitting_functions.py # Test curve fitting
-├── test_data_loader.py       # Test data loading
-├── test_validators.py        # Test validation
-└── ...
+├── conftest.py               # Pytest fixtures
+├── run_tests.py              # Test runner (invokes pytest)
+├── test_config.py            # Configuration
+├── test_custom_function_evaluator.py
+├── test_data_loader.py       # Data loading
+├── test_exceptions.py
+├── test_fitting_functions.py  # Curve fitting
+├── test_fitting_utils.py
+├── test_i18n.py
+├── test_loading_utils.py
+├── test_logger.py
+├── test_validators.py        # Validation
+└── test_workflow_controller.py
 ```
+
+Run tests via `pytest tests/` or `python tests/run_tests.py`, or use `bin/run_tests.bat` (Windows) / `bin/run_tests.sh` (Linux/macOS).
 
 ### Running Tests
 

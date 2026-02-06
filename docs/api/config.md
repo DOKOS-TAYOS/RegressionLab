@@ -9,8 +9,9 @@ The `config` package centralizes all application configuration, constants, and s
 **Package structure:**
 - **`config/env.py`** – Environment variables, `.env` loading, `get_env`, `get_current_env_values`, `write_env_file`
 - **`config/theme.py`** – `UI_THEME`, `UI_STYLE`, `PLOT_CONFIG`, `FONT_CONFIG`, `setup_fonts`
-- **`config/paths.py`** – `PLOT_FORMATS`, `FILE_CONFIG`, `get_project_root`, `ensure_output_directory`, `get_output_path`
-- **`config/constants.py`** – `__version__`, `AVAILABLE_EQUATION_TYPES`, `EQUATION_FUNCTION_MAP`, `EQUATION_FORMULAS`, `EQUATION_PARAM_NAMES`, `EXIT_SIGNAL`, `MATH_FUNCTION_REPLACEMENTS`
+- **`config/paths.py`** – `FILE_CONFIG`, `get_project_root`, `ensure_output_directory`, `get_output_path`
+- **`config/constants.py`** – `__version__`, `EQUATIONS`, `AVAILABLE_EQUATION_TYPES`, `EXIT_SIGNAL`, `MATH_FUNCTION_REPLACEMENTS`, `SUPPORTED_LANGUAGE_CODES`, `LANGUAGE_ALIASES`, `DATA_FILE_TYPES`
+- **`config/equations.yaml`** – Single source of truth for equation definitions (function name, formula, param_names). Loaded by `constants.py` into `EQUATIONS`.
 
 Usage remains the same: import from `config` (e.g. `from config import PLOT_CONFIG, get_project_root`).
 
@@ -24,28 +25,30 @@ __author__ = "Alejandro Mata Ali"
 __email__ = "alejandro.mata.ali@gmail.com"
 ```
 
-### Available Equations
+### Equations Configuration
+
+Equations are defined in **`config/equations.yaml`**. Each entry has:
+- **`function`**: Name of the fitting function (e.g. `fit_linear_function_with_n`)
+- **`formula`**: Display formula for the UI (e.g. `"y = mx + n"`)
+- **`param_names`**: List of parameter names for the fit
+
+`constants.py` loads this file into the **`EQUATIONS`** dictionary. The keys of `EQUATIONS` are the equation IDs; **`AVAILABLE_EQUATION_TYPES`** is the list of those keys (order matches the YAML file).
 
 ```python
-AVAILABLE_EQUATION_TYPES = [
-    'linear_function',
-    'linear_function_with_n',
-    'quadratic_function_complete',
-    'quadratic_function',
-    'fourth_power',
-    'sin_function',
-    'sin_function_with_c',
-    'cos_function',
-    'cos_function_with_c',
-    'sinh_function',
-    'cosh_function',
-    'ln_function',
-    'inverse_function',
-    'inverse_square_function',
-]
+# EQUATIONS structure (from equations.yaml)
+EQUATIONS = {
+    'linear_function_with_n': {
+        'function': 'fit_linear_function_with_n',
+        'formula': 'y = mx + n',
+        'param_names': ['n', 'm'],
+    },
+    'linear_function': { 'function': 'fit_linear_function', 'formula': 'y = mx', 'param_names': ['m'] },
+    # ...
+}
+AVAILABLE_EQUATION_TYPES = list(EQUATIONS.keys())  # Same order as in YAML
 ```
 
-This list defines which equations appear in the UI and are available for fitting.
+This defines which equations appear in the UI and how they are invoked.
 
 ### Configuration Dictionaries
 
@@ -252,22 +255,13 @@ EXIT_SIGNAL = "Exit"  # Returned when user cancels operation
 FILE_CONFIG = {
     'input_dir': 'input',           # Input directory for data files
     'output_dir': 'output',         # Output directory for plots
-    'filename_template': 'fit_{}.png'  # Filename template for plots
+    'filename_template': 'fit_{}', # Filename template ({} replaced by fit name)
+    'plot_format': 'png'            # Output plot format (png, jpg, or pdf)
 }
 ```
+Values are read from `.env` (e.g. `FILE_INPUT_DIR`, `FILE_OUTPUT_DIR`, `FILE_FILENAME_TEMPLATE`, `FILE_PLOT_FORMAT`).
 
-### Equation Mapping
-
-```python
-EQUATION_FUNCTION_MAP = {
-    'linear_function_with_n': 'fit_linear_function_with_n',
-    'linear_function': 'fit_linear_function',
-    'ln_function': 'fit_ln_function',
-    # ... and more
-}
-```
-
-Maps equation type names to their corresponding fitting function names.
+Equation-to-function mapping is provided by the **`function`** field of each entry in **`EQUATIONS`** (loaded from `equations.yaml`). The workflow controller and UI use `EQUATIONS[eq_id]['function']` to resolve the fitting function name.
 
 ## Usage Examples
 
@@ -298,12 +292,13 @@ print(f"Project root: {root}")
 ### Checking Available Equations
 
 ```python
-from config import AVAILABLE_EQUATION_TYPES
+from config import AVAILABLE_EQUATION_TYPES, EQUATIONS
 
 # List all equations
 print(f"Available equations: {len(AVAILABLE_EQUATION_TYPES)}")
-for eq in AVAILABLE_EQUATION_TYPES:
-    print(f"  - {eq}")
+for eq_id in AVAILABLE_EQUATION_TYPES:
+    info = EQUATIONS[eq_id]
+    print(f"  - {eq_id}: {info['formula']} -> {info['function']}")
 
 # Check if equation exists
 if 'linear_function' in AVAILABLE_EQUATION_TYPES:
@@ -314,10 +309,9 @@ if 'linear_function' in AVAILABLE_EQUATION_TYPES:
 
 To add a new equation to the system:
 
-1. Implement the function in the appropriate module under `fitting/functions/` (e.g. `special.py`, `polynomials.py`)
-2. Add to `AVAILABLE_EQUATION_TYPES` and `EQUATION_FUNCTION_MAP` in `config/constants.py`
-3. Add translations in `locales/en.json` and `locales/es.json`
-4. Optionally add formula string to `EQUATION_FORMULAS` in `config/constants.py` for the UI
+1. Implement the mathematical and fitting functions in the appropriate module under `fitting/functions/` (e.g. `special.py`, `polynomials.py`).
+2. Add an entry to **`config/equations.yaml`** with `function`, `formula`, and `param_names`. The key is the equation ID (e.g. `my_equation`).
+3. Add translations for the equation ID in `src/locales/en.json`, `src/locales/es.json`, and `src/locales/de.json` under the `equations` key.
 
 ## Configuration Best Practices
 

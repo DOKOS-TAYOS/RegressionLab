@@ -306,6 +306,8 @@ class TestAjlineal:
 ```bash
 # Run all tests
 pytest tests/
+# Or: python tests/run_tests.py
+# Or use launcher: bin\run_tests.bat (Windows) / bin/run_tests.sh (Linux/macOS)
 
 # Run specific test file
 pytest tests/test_fitting_functions.py
@@ -319,7 +321,7 @@ pytest tests/ --cov=src --cov-report=html
 # Run with verbose output
 pytest tests/ -v
 
-# Run tests in parallel
+# Run tests in parallel (requires pytest-xdist)
 pytest tests/ -n auto
 ```
 
@@ -333,12 +335,11 @@ pytest tests/ --cov=src --cov-report=term-missing
 See [Extending RegressionLab](extending.md) for detailed guide.
 
 Summary:
-1. Add function in `src/fitting/functions/` (e.g. `special.py`, `polynomials.py`)
-2. Register in `src/config/constants.py` (AVAILABLE_EQUATION_TYPES, EQUATION_FUNCTION_MAP)
-3. Add to `src/fitting/fitting_utils.py`
-4. Add translations to `src/locales/`
-5. Write tests in `tests/test_fitting_functions.py`
-6. Update documentation
+1. Add mathematical and fitting functions in `src/fitting/functions/` (e.g. `special.py`, `polynomials.py`)
+2. Register in `src/config/equations.yaml` (add entry with `function`, `formula`, `param_names`)
+3. Add translations to `src/locales/` (en.json, es.json, de.json)
+4. Write tests in `tests/test_fitting_functions.py`
+5. Update documentation
 
 ### Adding Translations
 
@@ -361,7 +362,7 @@ To add a new language:
 }
 ```
 
-2. **Update i18n.py**: Add language code to `initialize_i18n`
+2. **Update config**: Add the language code to `SUPPORTED_LANGUAGE_CODES` and `LANGUAGE_ALIASES` in `src/config/constants.py`
 
 3. **Test thoroughly**: Check all UI elements in both interfaces
 
@@ -521,22 +522,23 @@ Understanding the codebase:
 ```
 RegressionLab/
 ├── src/                          # Source code
-│   ├── config/                  # Configuration package (env, theme, paths, constants)
-│   ├── i18n.py                  # Internationalization functions
-│   ├── main_program.py          # Tkinter main entry point
-│   ├── fitting/                 # Curve fitting logic and models
-│   ├── frontend/                # Tkinter UI
-│   ├── loaders/                 # Data loaders, CSV/Excel importers
-│   ├── plotting/                # Visualization and plotting utilities
-│   ├── streamlit_app/           # Streamlit web app frontend
-│   └── utils/                   # Miscellaneous utilities
-├── tests/                       # Automated test suite (pytest)
+│   ├── config/                  # Configuration (env, theme, paths, constants, equations.yaml)
+│   ├── i18n.py                  # Internationalization
+│   ├── main_program.py          # Tkinter entry point
+│   ├── fitting/                 # Curve fitting (functions/, fitting_utils, workflow_controller)
+│   ├── frontend/                # Tkinter UI (ui_main_menu, image_utils, ui_dialogs/)
+│   ├── loaders/                 # Data loaders, CSV/Excel
+│   ├── plotting/                # Plot utilities
+│   ├── streamlit_app/           # Streamlit web app (app.py, sections/)
+│   ├── locales/                 # Translation JSON (en, es, de)
+│   └── utils/                   # Exceptions, logger, validators
+├── tests/                       # Pytest suite (run_tests.py, conftest.py, test_*.py)
 ├── docs/                        # User documentation (Markdown)
-├── sphinx-docs/                 # Sphinx documentation sources (reStructuredText)
-├── input/                       # Sample datasets for testing/demo
-├── output/                      # Generated plots and output files
-├── bin/                         # Command line/launcher scripts
-├── scripts/                     # Helper scripts (install, setup, maintenance, data prep)
+├── sphinx-docs/                 # Sphinx sources and build scripts
+├── input/                       # Sample datasets
+├── output/                      # Generated plots
+├── bin/                         # Launchers (run, run_streamlit, run_tests)
+├── scripts/                     # Helper scripts (clean, generate_test_datasets)
 ├── install.bat                  # Windows installation script
 ├── install.sh                   # Linux/macOS installation script
 ├── setup.bat                    # Windows setup script
@@ -614,8 +616,8 @@ By contributing to RegressionLab, you agree that your contributions will be lice
 
 ## Recognition
 
-Contributors are recognized in:
-- `CONTRIBUTORS.md` file
+Contributors may be recognized in:
+- A `CONTRIBUTORS.md` file (if added to the project)
 - Release notes
 - Documentation credits
 

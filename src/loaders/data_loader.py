@@ -8,7 +8,7 @@ user interface (frontend).
 Key features:
 
     - Path construction for data files
-    - Loading from CSV and Excel formats
+    - Loading from CSV, TXT and Excel formats
     - Variable name extraction from datasets
     - File categorization by type
 

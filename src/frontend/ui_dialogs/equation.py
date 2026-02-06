@@ -19,7 +19,7 @@ from config import EQUATIONS, EXIT_SIGNAL, UI_STYLE
 from i18n import t
 from utils import parse_optional_float
 
-from frontend.ui_dialogs.tooltip import _bind_tooltip
+from frontend.ui_dialogs.tooltip import bind_tooltip
 
 
 UNICODE_PARAM_MAP: Dict[str, str] = {
@@ -251,7 +251,7 @@ def ask_equation_type(
             command=lambda eq_type=attr_name: handle_equation_click(eq_type),
             **btn_config
         )
-        _bind_tooltip(btn, tooltip_text)
+        bind_tooltip(btn, tooltip_text)
         setattr(equation_level, attr_name, btn)
 
     equation_level.custom = Button(
@@ -335,7 +335,7 @@ def ask_num_parameters(parent_window: Any) -> Optional[int]:
         num_parameter_level.frame_custom,
         textvariable=num_parameter_level.numparam,
         from_=1,
-        to=12,
+        to=12, # If you want more parameters, change this
         wrap=True,
         state='readonly',
         width=UI_STYLE['spinbox_width'],
@@ -471,10 +471,11 @@ def ask_custom_formula(parent_window: Any, parameter_names: List[str]) -> str:
     Returns:
         Formula entered by the user
     """
-    cod1 = '\\u03B1=α, \\u03B2=β, \\u03B3=γ\n\\u03B4=δ, \\u03B5=ε, \\u03B6=ζ\n\\u03B7=η'
-    cod2 = ', \\u03B8=θ, \\u03BB=λ\n\\u03BC=μ, \\u03BE=ξ, \\u03C0=π\n\\u03C1=ρ, \\u03C3=σ'
-    cod3 = ', \\u03C6=φ\n\\u03C9=ω, \\u0394=Δ, \\u03A3=Σ\n\\u03A6=Φ, \\u03A9=Ω, \\u03B1=α'
-    cod = cod1 + cod2 + cod3
+    cod1 = '\\u03B1=α, \\u03B2=β, \\u03B3=γ, \\u03B4=δ, \\u03B5=ε\n'
+    cod2 = '\\u03B6=ζ, \\u03B7=η, \\u03B8=θ, \\u03BB=λ, \\u03BC=μ\n'
+    cod3 = '\\u03BE=ξ, \\u03C0=π, \\u03C1=ρ, \\u03C3=σ, \\u03C6=φ\n'
+    cod4 = '\\u03C9=ω, \\u0394=Δ, \\u03A3=Σ, \\u03A6=Φ, \\u03A9=Ω'
+    cod = cod1 + cod2 + cod3 + cod4
     exit_instruction = f'\n"{t("dialog.exit_option")}" {t("dialog.exit_instruction")}'
 
     formulator_level = Toplevel()

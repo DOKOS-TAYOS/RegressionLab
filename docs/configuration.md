@@ -53,16 +53,20 @@ LANGUAGE="es"
 ```
 
 **Available Languages**:
-- `es`, `español`, `esp` → Spanish (default)
+- `es`, `español`, `spanish`, `esp` → Spanish (default)
 - `en`, `english`, `ingles`, `inglés`, `eng` → English
+- `de`, `german`, `deutsch`, `ger` → German
 
 **Example**:
 ```ini
-# Use Spanish
+# Use Spanish (default)
 LANGUAGE="es"
 
 # Use English
 LANGUAGE="en"
+
+# Use German
+LANGUAGE="de"
 ```
 
 **Effect**:
@@ -182,6 +186,25 @@ UI_ENTRY_WIDTH=25
 
 - **UI_SPINBOX_WIDTH**: Width of spinbox widgets (characters)
 - **UI_ENTRY_WIDTH**: Width of text entry fields (characters)
+
+#### Data Preview (Text Widget)
+
+The data preview window uses a separate style so you can keep a terminal-like or readable font/size:
+
+```ini
+UI_TEXT_BG="gray15"
+UI_TEXT_FG="light cyan"
+UI_TEXT_FONT_FAMILY="Consolas"
+UI_TEXT_FONT_SIZE=11
+UI_TEXT_INSERT_BG="spring green"
+UI_TEXT_SELECT_BG="steel blue"
+UI_TEXT_SELECT_FG="white"
+```
+
+- **UI_TEXT_BG** / **UI_TEXT_FG**: Background and text color for the data preview
+- **UI_TEXT_FONT_FAMILY** / **UI_TEXT_FONT_SIZE**: Font for the preview (e.g. monospace, smaller size)
+- **UI_TEXT_INSERT_BG**: Cursor color
+- **UI_TEXT_SELECT_BG** / **UI_TEXT_SELECT_FG**: Selection highlight colors
 
 ### Example Themes
 

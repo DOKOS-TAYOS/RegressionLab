@@ -229,14 +229,16 @@ See the [Configuration Guide](configuration.md) for details on available options
 
 #### Step 5: Verify Installation
 
-Test that everything is working:
+Test that everything is working (from the project root, with virtual environment activated if you use one):
 
 ```bash
-# Run the desktop application
+# Desktop application (Tkinter)
 python src/main_program.py
+# Or: bin\run.bat (Windows) / ./bin/run.sh (Linux/macOS)
 
-# Or run the web version
+# Web version (Streamlit)
 streamlit run src/streamlit_app/app.py
+# Or: bin\run_streamlit.bat (Windows) / ./bin/run_streamlit.sh (Linux/macOS)
 ```
 
 ## Running RegressionLab
