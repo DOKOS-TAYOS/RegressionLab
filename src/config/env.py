@@ -39,80 +39,148 @@ def _validate_env_value(
     default = schema_item['default']
     cast_type = schema_item['cast_type']
 
-    # Check if value is None or empty string (for non-empty required strings)
+    # Check if value is None
     if value is None:
         return False, default
 
-    # Special validation for LANGUAGE (must be done before options check)
+    # Special validation for LANGUAGE
     if key == 'LANGUAGE' and cast_type == str:
-        str_value = str(value).strip()
-        lang_lower = str_value.lower()
-        if lang_lower not in VALID_LANGUAGE_INPUTS:
+        try:
+            str_value = str(value).strip()
+            lang_lower = str_value.lower()
+            if lang_lower not in VALID_LANGUAGE_INPUTS:
+                return False, default
+            # Normalize to canonical code
+            normalized = LANGUAGE_ALIASES.get(lang_lower, lang_lower)
+            return True, normalized
+        except (AttributeError, TypeError, ValueError):
             return False, default
-        # Normalize to canonical code
-        normalized = LANGUAGE_ALIASES.get(lang_lower, lang_lower)
-        return True, normalized
 
-    # Special validation for LOG_LEVEL (must be done before options check)
+    # Special validation for LOG_LEVEL
     if key == 'LOG_LEVEL' and cast_type == str:
-        str_value = str(value).strip()
-        if str_value.upper() not in ('DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'):
+        try:
+            str_value = str(value).strip()
+            if str_value.upper() not in ('DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'):
+                return False, default
+            return True, str_value.upper()
+        except (AttributeError, TypeError, ValueError):
             return False, default
-        return True, str_value.upper()
 
     # Validate options if specified
     if 'options' in schema_item:
         options = schema_item['options']
-        if cast_type == str:
-            if str(value).lower() not in [opt.lower() for opt in options]:
-                return False, default
-        else:
-            if value not in options:
-                return False, default
+        try:
+            if cast_type == str:
+                if str(value).lower() not in [opt.lower() for opt in options]:
+                    return False, default
+            else:
+                if value not in options:
+                    return False, default
+        except (AttributeError, TypeError, ValueError):
+            return False, default
 
-    # Validate numeric ranges
+    # Validate integer ranges
     if cast_type == int:
-        int_value = int(value)
-        # Validate positive integers for sizes, widths, etc.
-        if key in (
+        try:
+            int_value = int(value)
+        except (TypeError, ValueError, OverflowError):
+            return False, default
+            
+        # Define validation rules for integer fields
+        size_fields = {
             'UI_BORDER_WIDTH', 'UI_PADDING_X', 'UI_PADDING_Y',
             'UI_BUTTON_WIDTH', 'UI_BUTTON_WIDTH_WIDE',
             'UI_FONT_SIZE', 'UI_FONT_SIZE_LARGE',
             'UI_SPINBOX_WIDTH', 'UI_ENTRY_WIDTH',
             'PLOT_FIGSIZE_WIDTH', 'PLOT_FIGSIZE_HEIGHT',
-            'DPI', 'PLOT_MARKER_SIZE',
+            'PLOT_MARKER_SIZE',
             'FONT_AXIS_SIZE', 'FONT_TICK_SIZE', 'FONT_PARAM_SIZE'
-        ):
+        }
+        
+        if key in size_fields:
+            # All size fields must be positive
             if int_value <= 0:
                 return False, default
-            # Reasonable upper bounds
-            if 'FONT' in key or 'SIZE' in key:
+            
+            # Apply specific upper bounds
+            if 'FONT' in key or key.endswith('_SIZE'):
                 if int_value > 200:
                     return False, default
             elif 'WIDTH' in key or 'HEIGHT' in key:
                 if int_value > 1000:
                     return False, default
-            elif key == 'DPI':
-                if int_value < 50 or int_value > 1000:
-                    return False, default
+        
+        # Special validation for DPI
+        if key == 'DPI':
+            if int_value < 50 or int_value > 1000:
+                return False, default
 
+    # Validate float ranges
     elif cast_type == float:
-        float_value = float(value)
-        # Validate positive floats for widths, sizes, etc.
-        if key in ('PLOT_LINE_WIDTH',):
-            if float_value <= 0:
-                return False, default
-            if float_value > 20:
+        try:
+            float_value = float(value)
+        except (TypeError, ValueError, OverflowError):
+            return False, default
+            
+        # Validate line width
+        if key == 'PLOT_LINE_WIDTH':
+            if float_value <= 0 or float_value > 20:
                 return False, default
 
-    # Validate strings (non-empty for required fields)
+    # Validate strings
     elif cast_type == str:
-        str_value = str(value).strip()
-        # Allow empty strings only for optional fields like DONATIONS_URL
-        if not str_value and key not in ('DONATIONS_URL',):
+        try:
+            str_value = str(value).strip()
+        except (AttributeError, TypeError):
+            return False, default
+            
+        # Optional fields that can be empty
+        optional_fields = {'DONATIONS_URL'}
+        
+        # Require non-empty strings for all other fields
+        if not str_value and key not in optional_fields:
             return False, default
 
     return True, value
+
+
+def _was_value_corrected(
+    key: str,
+    current_value: Any,
+    cast_type: type,
+    schema_item: dict[str, Any]
+) -> bool:
+    """
+    Check if an environment value was corrected during validation.
+
+    Args:
+        key: Environment variable name.
+        current_value: The validated/corrected value.
+        cast_type: Type to cast the value to.
+        schema_item: Schema definition for this environment variable.
+
+    Returns:
+        True if the original value was invalid or different from current_value.
+    """
+    original_value = os.getenv(key)
+    
+    # If no original value exists, it wasn't corrected (just defaulted)
+    if original_value is None:
+        return False
+
+    # Try to cast and validate the original value
+    try:
+        if cast_type == bool:
+            original_casted = original_value.lower() in ('true', '1', 'yes')
+        else:
+            original_casted = cast_type(original_value)
+    except (ValueError, TypeError):
+        # Casting failed, so it was corrected
+        return True
+
+    # Check if validation would have failed or changed the value
+    is_valid, validated_value = _validate_env_value(key, original_casted, schema_item)
+    return not is_valid or validated_value != current_value
 
 
 ENV_SCHEMA: list[dict[str, Any]] = [
@@ -215,9 +283,8 @@ def get_env(
         return default
 
     # Validate the casted value
-    is_valid, corrected_value = _validate_env_value(key, casted_value, schema_item)
+    _, corrected_value = _validate_env_value(key, casted_value, schema_item)
     return corrected_value
-
 
 
 def validate_all_env_values() -> dict[str, tuple[Any, bool]]:
@@ -240,33 +307,18 @@ def validate_all_env_values() -> dict[str, tuple[Any, bool]]:
         (100, True)  # Value was invalid and corrected to default
     """
     results: dict[str, tuple[Any, bool]] = {}
+    
     for item in ENV_SCHEMA:
         key = item['key']
         default = item['default']
         cast_type = item['cast_type']
 
-        # Get current value using get_env (which already validates)
+        # Get validated current value
         current_value = get_env(key, default, cast_type)
 
-        # Check if original value exists and was different
-        original_value = os.getenv(key)
-        was_corrected = False
-
-        if original_value is not None:
-            try:
-                if cast_type == bool:
-                    original_casted = original_value.lower() in ('true', '1', 'yes')
-                else:
-                    original_casted = cast_type(original_value)
-            except (ValueError, TypeError):
-                was_corrected = True
-            else:
-                is_valid, _ = _validate_env_value(key, original_casted, item)
-                was_corrected = not is_valid or original_casted != current_value
-        else:
-            # Value was missing, so we used default (not really "corrected")
-            was_corrected = False
-
+        # Determine if the original value was corrected
+        was_corrected = _was_value_corrected(key, current_value, cast_type, item)
+        
         results[key] = (current_value, was_corrected)
 
     return results
