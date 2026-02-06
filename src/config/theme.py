@@ -66,11 +66,7 @@ FONT_CONFIG = {
     'title_weight': get_env('FONT_TITLE_WEIGHT', 'semibold'),
     'axis_size': get_env('FONT_AXIS_SIZE', 30, int),
     'axis_style': get_env('FONT_AXIS_STYLE', 'italic'),
-    'tick_size': get_env('FONT_TICK_SIZE', 16, int),
-    'param_font': (
-        get_env('FONT_PARAM_FAMILY', 'Courier'),
-        get_env('FONT_PARAM_SIZE', 10, int)
-    ),
+    'tick_size': get_env('FONT_TICK_SIZE', 16, int)
 }
 
 _font_cache = None
@@ -84,21 +80,48 @@ def setup_fonts() -> tuple:
     corresponding :class:`matplotlib.font_manager.FontProperties` objects
     and caches them so subsequent calls are inexpensive.
 
+    If any font property is incompatible with Matplotlib, it falls back to
+    safe defaults and logs a warning.
+
     Returns:
         Tuple ``(title_font, axis_font)`` with font properties for titles and axes.
     """
     global _font_cache
     if _font_cache is not None:
         return _font_cache
+    
     from matplotlib.font_manager import FontProperties
+    
+    try:
+        from utils import get_logger
+        logger = get_logger(__name__)
+    except ImportError:
+        logger = None
+    
+    def _set_font_property(setter_method, value, property_name, default_value):
+        """Helper to set a font property with error handling."""
+        try:
+            setter_method(value)
+        except (ValueError, KeyError) as e:
+            if logger:
+                logger.warning(
+                    f"Invalid {property_name} '{value}': {e}. Using default '{default_value}'."
+                )
+            setter_method(default_value)
+    
     font0 = FontProperties()
     fontt = font0.copy()
-    fontt.set_family(FONT_CONFIG['family'])
-    fontt.set_size(FONT_CONFIG['title_size'])
-    fontt.set_weight(FONT_CONFIG['title_weight'])
     fonta = font0.copy()
-    fonta.set_family(FONT_CONFIG['family'])
-    fonta.set_size(FONT_CONFIG['axis_size'])
-    fonta.set_style(FONT_CONFIG['axis_style'])
+    
+    # Configure title font
+    _set_font_property(fontt.set_family, FONT_CONFIG['family'], 'font family', 'serif')
+    _set_font_property(fontt.set_size, FONT_CONFIG['title_size'], 'title size', 'xx-large')
+    _set_font_property(fontt.set_weight, FONT_CONFIG['title_weight'], 'title weight', 'semibold')
+    
+    # Configure axis font
+    _set_font_property(fonta.set_family, FONT_CONFIG['family'], 'font family', 'serif')
+    _set_font_property(fonta.set_size, FONT_CONFIG['axis_size'], 'axis size', 30)
+    _set_font_property(fonta.set_style, FONT_CONFIG['axis_style'], 'axis style', 'italic')
+    
     _font_cache = (fontt, fonta)
     return _font_cache

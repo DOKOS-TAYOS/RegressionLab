@@ -94,7 +94,7 @@ def _validate_env_value(
             'UI_SPINBOX_WIDTH', 'UI_ENTRY_WIDTH',
             'PLOT_FIGSIZE_WIDTH', 'PLOT_FIGSIZE_HEIGHT',
             'PLOT_MARKER_SIZE',
-            'FONT_AXIS_SIZE', 'FONT_TICK_SIZE', 'FONT_PARAM_SIZE'
+            'FONT_AXIS_SIZE', 'FONT_TICK_SIZE'
         }
         
         if key in size_fields:
@@ -221,8 +221,6 @@ ENV_SCHEMA: list[dict[str, Any]] = [
     {'key': 'FONT_AXIS_SIZE', 'default': 30, 'cast_type': int},
     {'key': 'FONT_AXIS_STYLE', 'default': 'italic', 'cast_type': str, 'options': ('normal', 'italic', 'oblique')},
     {'key': 'FONT_TICK_SIZE', 'default': 16, 'cast_type': int},
-    {'key': 'FONT_PARAM_FAMILY', 'default': 'Courier', 'cast_type': str},
-    {'key': 'FONT_PARAM_SIZE', 'default': 10, 'cast_type': int},
     {'key': 'FILE_INPUT_DIR', 'default': 'input', 'cast_type': str},
     {'key': 'FILE_OUTPUT_DIR', 'default': 'output', 'cast_type': str},
     {'key': 'FILE_FILENAME_TEMPLATE', 'default': 'fit_{}.png', 'cast_type': str},

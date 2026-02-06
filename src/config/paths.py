@@ -20,16 +20,27 @@ def _normalize_plot_format(value: str) -> str:
 
     Returns:
         Normalized extension without leading dot.
+
+    Example:
+        >>> _normalize_plot_format('PNG')
+        'png'
+        >>> _normalize_plot_format('jpeg')
+        'jpg'
+        >>> _normalize_plot_format('unknown')
+        'png'
     """
-    v = (value or 'png').strip().lower()
-    if v in ('jpg', 'jpeg'):
-        return 'jpg'
-    if v in ('png', 'pdf'):
-        return v
-    return 'png'
+    normalized = (value or 'png').strip().lower()
+    
+    # Map common variants to canonical formats
+    format_mapping = {
+        'jpg': 'jpg',
+        'jpeg': 'jpg',
+        'png': 'png',
+        'pdf': 'pdf',
+    }
+    
+    return format_mapping.get(normalized, 'png')
 
-
-_PLOT_FORMATS = ('png', 'jpg', 'jpeg', 'pdf')
 
 FILE_CONFIG = {
     'input_dir': get_env('FILE_INPUT_DIR', 'input'),

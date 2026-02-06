@@ -396,16 +396,6 @@ FONT_TICK_SIZE=16
 
 - **FONT_TICK_SIZE**: Font size for axis tick numbers (points)
 
-### Parameter Display
-
-```ini
-FONT_PARAM_FAMILY="Courier"
-FONT_PARAM_SIZE=10
-```
-
-- **FONT_PARAM_FAMILY**: Font for parameter text
-- **FONT_PARAM_SIZE**: Size for parameter text (points)
-
 ### Example Font Configurations
 
 #### Academic Publication
