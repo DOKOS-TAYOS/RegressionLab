@@ -30,57 +30,70 @@ AVAILABLE_EQUATION_TYPES: list[str] = list(EQUATIONS.keys())
 # Mathematical function replacements
 # ---------------------------------------------------------------------------
 # Regex patterns for converting user-friendly math notation to NumPy equivalents
-# when parsing custom formulas (e.g., 'ln(x)' becomes 'np.log(x)')
+# when parsing custom formulas (e.g., 'ln(x)' becomes 'np.log(x)').
+# The (?<!np\.) lookbehind prevents re-matching names already inside "np.xxx".
 MATH_FUNCTION_REPLACEMENTS: dict[str, str] = {
     # Logarithmic functions
     r'\bln\b': 'np.log',
-    r'\blog\b': 'np.log10',
-    r'\blog10\b': 'np.log10',
-    r'\blog2\b': 'np.log2',
+    r'(?<!np\.)\blog\b': 'np.log10',
+    r'(?<!np\.)\blog10\b': 'np.log10',
+    r'(?<!np\.)\blog2\b': 'np.log2',
     
     # Trigonometric functions
-    r'\bsin\b': 'np.sin',
-    r'\bcos\b': 'np.cos',
-    r'\btan\b': 'np.tan',
-    r'\basin\b': 'np.arcsin',
-    r'\bacos\b': 'np.arccos',
-    r'\batan\b': 'np.arctan',
-    r'\barcsin\b': 'np.arcsin',
-    r'\barccos\b': 'np.arccos',
-    r'\barctan\b': 'np.arctan',
+    r'(?<!np\.)\bsin\b': 'np.sin',
+    r'(?<!np\.)\bcos\b': 'np.cos',
+    r'(?<!np\.)\btan\b': 'np.tan',
+    r'(?<!np\.)\basin\b': 'np.arcsin',
+    r'(?<!np\.)\bacos\b': 'np.arccos',
+    r'(?<!np\.)\batan\b': 'np.arctan',
+    r'(?<!np\.)\barcsin\b': 'np.arcsin',
+    r'(?<!np\.)\barccos\b': 'np.arccos',
+    r'(?<!np\.)\barctan\b': 'np.arctan',
+    
+    # Trigonometric functions (Spanish variants)
+    r'(?<!np\.)\bsen\b': 'np.sin',  # Spanish: seno
+    r'(?<!np\.)\btg\b': 'np.tan',  # Spanish: tangente
+    r'(?<!np\.)\barcsen\b': 'np.arcsin',  # Spanish: arcoseno
+    r'(?<!np\.)\barctg\b': 'np.arctan',  # Spanish: arcotangente
     
     # Hyperbolic functions
-    r'\bsinh\b': 'np.sinh',
-    r'\bcosh\b': 'np.cosh',
-    r'\btanh\b': 'np.tanh',
-    r'\basinh\b': 'np.arcsinh',
-    r'\bacosh\b': 'np.arccosh',
-    r'\batanh\b': 'np.arctanh',
-    r'\barcsinh\b': 'np.arcsinh',
-    r'\barccosh\b': 'np.arccosh',
-    r'\barctanh\b': 'np.arctanh',
+    r'(?<!np\.)\bsinh\b': 'np.sinh',
+    r'(?<!np\.)\bcosh\b': 'np.cosh',
+    r'(?<!np\.)\btanh\b': 'np.tanh',
+    r'(?<!np\.)\basinh\b': 'np.arcsinh',
+    r'(?<!np\.)\bacosh\b': 'np.arccosh',
+    r'(?<!np\.)\batanh\b': 'np.arctanh',
+    r'(?<!np\.)\barcsinh\b': 'np.arcsinh',
+    r'(?<!np\.)\barccosh\b': 'np.arccosh',
+    r'(?<!np\.)\barctanh\b': 'np.arctanh',
+    
+    # Hyperbolic functions (Spanish variants)
+    r'(?<!np\.)\bsenh\b': 'np.sinh',  # Spanish: seno hiperbólico
+    r'(?<!np\.)\btgh\b': 'np.tanh',  # Spanish: tangente hiperbólica
+    r'(?<!np\.)\barcsenh\b': 'np.arcsinh',  # Spanish: arcoseno hiperbólico
+    r'(?<!np\.)\barctgh\b': 'np.arctanh',  # Spanish: arcotangente hiperbólica
     
     # Exponential and power functions
-    r'\bexp\b': 'np.exp',
-    r'\bsqrt\b': 'np.sqrt',
-    r'\bcbrt\b': 'np.cbrt',
-    r'\bpower\b': 'np.power',
+    r'(?<!np\.)\bexp\b': 'np.exp',
+    r'(?<!np\.)\bsqrt\b': 'np.sqrt',
+    r'(?<!np\.)\bcbrt\b': 'np.cbrt',
+    r'(?<!np\.)\bpower\b': 'np.power',
     
     # Rounding and absolute value
-    r'\babs\b': 'np.abs',
-    r'\bfloor\b': 'np.floor',
-    r'\bceil\b': 'np.ceil',
-    r'\bround\b': 'np.round',
+    r'(?<!np\.)\babs\b': 'np.abs',
+    r'(?<!np\.)\bfloor\b': 'np.floor',
+    r'(?<!np\.)\bceil\b': 'np.ceil',
+    r'(?<!np\.)\bround\b': 'np.round',
     
     # Statistical functions
-    r'\bmax\b': 'np.max',
-    r'\bmin\b': 'np.min',
-    r'\bmean\b': 'np.mean',
-    r'\bsum\b': 'np.sum',
+    r'(?<!np\.)\bmax\b': 'np.max',
+    r'(?<!np\.)\bmin\b': 'np.min',
+    r'(?<!np\.)\bmean\b': 'np.mean',
+    r'(?<!np\.)\bsum\b': 'np.sum',
     
     # Constants
-    r'\bpi\b': 'np.pi',
-    r'\be\b': 'np.e',
+    r'(?<!np\.)\bpi\b': 'np.pi',
+    r'(?<!np\.)\be\b': 'np.e',
 }
 
 # ---------------------------------------------------------------------------
