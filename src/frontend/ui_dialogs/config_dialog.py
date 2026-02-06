@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """Configuration dialog for editing .env settings."""
 
 from typing import Any, List, Tuple, Union

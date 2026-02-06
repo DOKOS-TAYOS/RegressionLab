@@ -1,0 +1,1 @@
+"""RegressionLab application package."""

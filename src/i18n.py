@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 Internationalization (i18n) module for the RegressionLab application.
 
@@ -174,8 +172,3 @@ def t(key: str, **kwargs) -> str:
             return str(value)
     
     return str(value)
-
-# Initialize on module import - COMMENTED OUT for performance optimization
-# Apps should call initialize_i18n() explicitly when needed
-# This reduces startup time by deferring translation loading
-# initialize_i18n()

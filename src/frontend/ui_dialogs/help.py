@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """Help dialog and text utilities for Tkinter display."""
 
 import re

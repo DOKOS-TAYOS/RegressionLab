@@ -1,3 +1,10 @@
+"""
+Fitting utilities for RegressionLab.
+
+This module provides parameter formatting, equation resolution, and integration
+with the fitting_functions package (initial guesses, bounds, fit execution).
+"""
+
 # Standard library
 from decimal import Decimal
 from typing import Any, Callable, List, Optional, Sequence, Tuple

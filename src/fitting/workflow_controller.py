@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 Workflow controller for fitting operations.
 Contains coordination functions and workflow patterns for the fitting application.

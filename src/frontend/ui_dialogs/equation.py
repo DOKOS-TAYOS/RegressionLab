@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """Equation and parameter dialogs for fitting."""
 
 from typing import Any, Dict, List, Optional, Tuple

@@ -1,3 +1,10 @@
+"""
+Plotting utilities for RegressionLab.
+
+This module provides functions to create pair plots (scatter matrices) and
+save fitted data plots with error bars, using configuration from config (fonts, style).
+"""
+
 # Standard library
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Union

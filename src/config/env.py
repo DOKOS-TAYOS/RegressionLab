@@ -183,6 +183,10 @@ def _was_value_corrected(
     return not is_valid or validated_value != current_value
 
 
+# Logging defaults (single source of truth for ENV_SCHEMA and utils.logger)
+DEFAULT_LOG_LEVEL = 'INFO'
+DEFAULT_LOG_FILE = 'regressionlab.log'
+
 ENV_SCHEMA: list[dict[str, Any]] = [
     {'key': 'LANGUAGE', 'default': 'es', 'cast_type': str, 'options': SUPPORTED_LANGUAGE_CODES},
     {'key': 'UI_BACKGROUND', 'default': 'midnight blue', 'cast_type': str},
@@ -226,8 +230,8 @@ ENV_SCHEMA: list[dict[str, Any]] = [
     {'key': 'FILE_FILENAME_TEMPLATE', 'default': 'fit_{}.png', 'cast_type': str},
     {'key': 'FILE_PLOT_FORMAT', 'default': 'png', 'cast_type': str, 'options': ('png', 'jpg', 'pdf')},
     {'key': 'DONATIONS_URL', 'default': '', 'cast_type': str},
-    {'key': 'LOG_LEVEL', 'default': 'INFO', 'cast_type': str, 'options': ('DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL')},
-    {'key': 'LOG_FILE', 'default': 'regressionlab.log', 'cast_type': str},
+    {'key': 'LOG_LEVEL', 'default': DEFAULT_LOG_LEVEL, 'cast_type': str, 'options': ('DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL')},
+    {'key': 'LOG_FILE', 'default': DEFAULT_LOG_FILE, 'cast_type': str},
     {'key': 'LOG_CONSOLE', 'default': False, 'cast_type': bool},
 ]
 

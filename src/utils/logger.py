@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 Logging configuration for RegressionLab.
 
@@ -23,12 +21,10 @@ except ImportError:
     COLORAMA_AVAILABLE = False
 
 # Local imports
-from config import get_env
+from config import DEFAULT_LOG_FILE, DEFAULT_LOG_LEVEL, get_env
 from i18n import t
 
-# Default logging configuration (kept in sync with ``config.env.ENV_SCHEMA``)
-DEFAULT_LOG_LEVEL = 'INFO'
-DEFAULT_LOG_FILE = 'regressionlab.log'
+# Format defaults
 DEFAULT_LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 DEFAULT_DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
 
@@ -262,32 +258,3 @@ def log_exception(
         logger.error(f"{context}: {type(exception).__name__}: {exception}", exc_info=True)
     else:
         logger.error(f"{type(exception).__name__}: {exception}", exc_info=True)
-
-
-# Example usage in module docstring
-"""
-Usage Example:
---------------
-
-In your main program (main_program.py):
-
-    from utils.logger import setup_logging
-    
-    # Initialize logging at startup
-    setup_logging()
-
-In any module:
-
-    from utils.logger import get_logger
-    
-    logger = get_logger(__name__)
-    
-    def my_function():
-        logger.info("Starting operation")
-        try:
-            # do something
-            logger.debug("Operation successful")
-        except Exception as e:
-            logger.error("Operation failed", exc_info=True)
-            raise
-"""

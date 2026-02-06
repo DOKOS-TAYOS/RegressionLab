@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 UI Dialogs package.
 Contains all Tkinter dialog windows for user interaction, split by concern.

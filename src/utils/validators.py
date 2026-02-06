@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 Data validation utilities for the RegressionLab application.
 
@@ -12,7 +10,6 @@ from pathlib import Path
 from typing import Any, List, Optional, Union
 
 # Third-party packages
-import numpy as np
 import pandas as pd
 
 # Local imports
@@ -146,6 +143,7 @@ def _validate_numeric_data(data: pd.Series, column_name: str) -> None:
     Raises:
         DataValidationError: If data is not numeric or contains NaN
     """
+    import numpy as np
     if not pd.api.types.is_numeric_dtype(data):
         logger.error(t('log.column_not_numeric', column=column_name, dtype=str(data.dtype)))
         raise DataValidationError(

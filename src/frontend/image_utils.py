@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """Shared image loading and scaling for the Tkinter frontend."""
 
 from pathlib import Path

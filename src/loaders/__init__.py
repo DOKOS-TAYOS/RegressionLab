@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 Loaders module.
 Contains all data loading functionality for different file formats.

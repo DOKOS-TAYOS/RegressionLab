@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 Main Program - Data Fitting Application
 Entry point for the curve fitting application with GUI interface.

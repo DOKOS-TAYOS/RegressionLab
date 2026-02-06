@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """Result window for displaying fitting results and plot."""
 
 from pathlib import Path

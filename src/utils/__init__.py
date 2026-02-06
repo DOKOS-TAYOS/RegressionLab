@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 Utils module.
 Contains utility functions including exceptions, logging, and validation.

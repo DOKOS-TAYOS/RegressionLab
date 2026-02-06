@@ -6,6 +6,8 @@ Re-exports all configuration from submodules so that
 """
 
 from .env import (
+    DEFAULT_LOG_FILE,
+    DEFAULT_LOG_LEVEL,
     DONATIONS_URL,
     ENV_SCHEMA,
     get_current_env_values,
@@ -41,6 +43,8 @@ from .constants import (
 
 __all__ = [
     # From env
+    'DEFAULT_LOG_FILE',
+    'DEFAULT_LOG_LEVEL',
     'DONATIONS_URL',
     'ENV_SCHEMA',
     'get_current_env_values',

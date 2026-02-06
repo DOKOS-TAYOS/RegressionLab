@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 Streamlit Application for RegressionLab
 Web-based interface for curve fitting operations.

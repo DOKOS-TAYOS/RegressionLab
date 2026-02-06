@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 Frontend module.
 Contains all UI-related functionality including dialogs, main menu, and utilities.

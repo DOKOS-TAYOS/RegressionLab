@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 Plotting module.
 Contains all plotting and visualization functionality.

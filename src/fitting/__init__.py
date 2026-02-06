@@ -1,3 +1,10 @@
+"""
+Fitting package for RegressionLab.
+
+Re-exports fitting utilities, custom function evaluator, workflow controller,
+and parameter estimators. Used by main_program and streamlit for curve fitting.
+"""
+
 # Import modules as attributes for backward compatibility
 # These are needed for backward compatibility (e.g., fitting/functions/_base.py)
 from .fitting_utils import (

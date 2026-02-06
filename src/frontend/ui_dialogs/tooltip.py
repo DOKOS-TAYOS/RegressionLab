@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """Tooltip binding for Tkinter widgets."""
 
 from typing import Any, Optional

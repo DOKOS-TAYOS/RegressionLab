@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 Main menu module.
 Contains the main application window and exit confirmation dialog.

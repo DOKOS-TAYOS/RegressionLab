@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """Data selection dialogs: file type, file name, variables, and data preview."""
 
 from typing import Any, List, Tuple
