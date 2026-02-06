@@ -11,6 +11,8 @@ from ._base import (
     estimate_inverse_parameter,
     estimate_ln_parameter,
     generic_fit,
+    get_equation_format_for_function,
+    get_equation_param_names_for_function,
     merge_bounds,
     merge_initial_guess,
 )
@@ -72,8 +74,8 @@ def fit_ln_function(
     return generic_fit(
         data, x_name, y_name,
         fit_func=ln_function,
-        param_names=['a'],
-        equation_template='y={a} ln(x)',
+        param_names=get_equation_param_names_for_function('fit_ln_function'),
+        equation_template=get_equation_format_for_function('fit_ln_function'),
         initial_guess=initial_guess,
         bounds=bounds,
     )
@@ -111,8 +113,8 @@ def fit_inverse_function(
     return generic_fit(
         data, x_name, y_name,
         fit_func=inverse_function,
-        param_names=['a'],
-        equation_template='y={a}/x',
+        param_names=get_equation_param_names_for_function('fit_inverse_function'),
+        equation_template=get_equation_format_for_function('fit_inverse_function'),
         initial_guess=initial_guess,
         bounds=bounds,
     )
@@ -150,8 +152,8 @@ def fit_inverse_square_function(
     return generic_fit(
         data, x_name, y_name,
         fit_func=inverse_square_function,
-        param_names=['a'],
-        equation_template='y={a}/x^2',
+        param_names=get_equation_param_names_for_function('fit_inverse_square_function'),
+        equation_template=get_equation_format_for_function('fit_inverse_square_function'),
         initial_guess=initial_guess,
         bounds=bounds,
     )

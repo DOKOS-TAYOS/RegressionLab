@@ -12,6 +12,8 @@ from ._base import (
     estimate_polynomial_parameters,
     estimate_single_power_parameter,
     generic_fit,
+    get_equation_format_for_function,
+    get_equation_param_names_for_function,
     merge_bounds,
     merge_initial_guess,
 )
@@ -137,8 +139,8 @@ def fit_linear_function_with_n(
     return generic_fit(
         data, x_name, y_name,
         fit_func=linear_function_with_n,
-        param_names=['n', 'm'],
-        equation_template='y={m}x+{n}',
+        param_names=get_equation_param_names_for_function('fit_linear_function_with_n'),
+        equation_template=get_equation_format_for_function('fit_linear_function_with_n'),
         initial_guess=initial_guess,
         bounds=bounds,
     )
@@ -177,8 +179,8 @@ def fit_linear_function(
     return generic_fit(
         data, x_name, y_name,
         fit_func=linear_function,
-        param_names=['m'],
-        equation_template='y={m}x',
+        param_names=get_equation_param_names_for_function('fit_linear_function'),
+        equation_template=get_equation_format_for_function('fit_linear_function'),
         initial_guess=initial_guess,
         bounds=bounds,
     )
@@ -192,7 +194,7 @@ def fit_quadratic_function_complete(
     bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
     """
-    Fit a full quadratic model :math:`y = a x^2 + b x + c`.
+    Fit a full quadratic model :math:`y = c x^2 + b x + a`.
 
     Args:
         data: Data source with ``x``, ``y`` and their uncertainties.
@@ -217,8 +219,8 @@ def fit_quadratic_function_complete(
     return generic_fit(
         data, x_name, y_name,
         fit_func=quadratic_function_complete,
-        param_names=['a', 'b', 'c'],
-        equation_template='y={c}x^2+{b}x+{a}',
+        param_names=get_equation_param_names_for_function('fit_quadratic_function_complete'),
+        equation_template=get_equation_format_for_function('fit_quadratic_function_complete'),
         initial_guess=initial_guess,
         bounds=bounds,
     )
@@ -256,8 +258,8 @@ def fit_quadratic_function(
     return generic_fit(
         data, x_name, y_name,
         fit_func=quadratic_function,
-        param_names=['a'],
-        equation_template='y={a}x^2',
+        param_names=get_equation_param_names_for_function('fit_quadratic_function'),
+        equation_template=get_equation_format_for_function('fit_quadratic_function'),
         initial_guess=initial_guess,
         bounds=bounds,
     )
@@ -295,8 +297,8 @@ def fit_fourth_power(
     return generic_fit(
         data, x_name, y_name,
         fit_func=fourth_power,
-        param_names=['a'],
-        equation_template='y={a}x^4',
+        param_names=get_equation_param_names_for_function('fit_fourth_power'),
+        equation_template=get_equation_format_for_function('fit_fourth_power'),
         initial_guess=initial_guess,
         bounds=bounds,
     )

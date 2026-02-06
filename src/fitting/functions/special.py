@@ -14,6 +14,8 @@ from fitting.functions._base import (
     estimate_gaussian_parameters,
     estimate_square_pulse_parameters,
     generic_fit,
+    get_equation_format_for_function,
+    get_equation_param_names_for_function,
     merge_bounds,
     merge_initial_guess,
 )
@@ -94,8 +96,8 @@ def fit_gaussian_function(
     return generic_fit(
         data, x_name, y_name,
         fit_func=_gaussian_function,
-        param_names=['A', 'μ', 'σ'],
-        equation_template='y={A} exp(-(x-{μ})^2/(2*{σ}^2))',
+        param_names=get_equation_param_names_for_function('fit_gaussian_function'),
+        equation_template=get_equation_format_for_function('fit_gaussian_function'),
         initial_guess=initial_guess,
         bounds=bounds,
     )
@@ -138,8 +140,8 @@ def fit_exponential_function(
     return generic_fit(
         data, x_name, y_name,
         fit_func=_exponential_function,
-        param_names=['a', 'b'],
-        equation_template='y={a} exp({b}x)',
+        param_names=get_equation_param_names_for_function('fit_exponential_function'),
+        equation_template=get_equation_format_for_function('fit_exponential_function'),
         initial_guess=initial_guess,
         bounds=bounds,
     )
@@ -179,8 +181,8 @@ def fit_binomial_function(
     return generic_fit(
         data, x_name, y_name,
         fit_func=_binomial_function,
-        param_names=['a', 'b', 'c'],
-        equation_template='y={a}/(1+exp(-{b}(x-{c})))',
+        param_names=get_equation_param_names_for_function('fit_binomial_function'),
+        equation_template=get_equation_format_for_function('fit_binomial_function'),
         initial_guess=initial_guess,
         bounds=bounds,
     )
@@ -227,8 +229,8 @@ def fit_square_pulse_function(
     return generic_fit(
         data, x_name, y_name,
         fit_func=_square_pulse_function,
-        param_names=['A', 't0', 'w'],
-        equation_template='y=pulso(A={A}, t0={t0}, w={w})',
+        param_names=get_equation_param_names_for_function('fit_square_pulse_function'),
+        equation_template=get_equation_format_for_function('fit_square_pulse_function'),
         initial_guess=initial_guess,
         bounds=bounds,
     )
@@ -271,8 +273,8 @@ def fit_hermite_polynomial_3(
     return generic_fit(
         data, x_name, y_name,
         fit_func=_hermite_polynomial_3,
-        param_names=['c0', 'c1', 'c2', 'c3'],
-        equation_template='y={c0}*H₀(x)+{c1}*H₁(x)+{c2}*H₂(x)+{c3}*H₃(x)',
+        param_names=get_equation_param_names_for_function('fit_hermite_polynomial_3'),
+        equation_template=get_equation_format_for_function('fit_hermite_polynomial_3'),
         initial_guess=initial_guess,
         bounds=bounds,
     )
@@ -315,8 +317,8 @@ def fit_hermite_polynomial_4(
     return generic_fit(
         data, x_name, y_name,
         fit_func=_hermite_polynomial_4,
-        param_names=['c0', 'c1', 'c2', 'c3', 'c4'],
-        equation_template='y={c0}*H₀(x)+{c1}*H₁(x)+{c2}*H₂(x)+{c3}*H₃(x)+{c4}*H₄(x)',
+        param_names=get_equation_param_names_for_function('fit_hermite_polynomial_4'),
+        equation_template=get_equation_format_for_function('fit_hermite_polynomial_4'),
         initial_guess=initial_guess,
         bounds=bounds,
     )

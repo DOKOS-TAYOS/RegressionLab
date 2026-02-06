@@ -11,6 +11,8 @@ from fitting.functions._base import (
     estimate_phase_shift,
     estimate_trigonometric_parameters,
     generic_fit,
+    get_equation_format_for_function,
+    get_equation_param_names_for_function,
     merge_bounds,
     merge_initial_guess,
 )
@@ -99,8 +101,8 @@ def fit_sin_function(
     return generic_fit(
         data, x_name, y_name,
         fit_func=sin_function,
-        param_names=['a', 'b'],
-        equation_template='y={a} sin({b}x)',
+        param_names=get_equation_param_names_for_function('fit_sin_function'),
+        equation_template=get_equation_format_for_function('fit_sin_function'),
         initial_guess=initial_guess,
         bounds=bounds,
     )
@@ -141,8 +143,8 @@ def fit_sin_function_with_c(
     return generic_fit(
         data, x_name, y_name,
         fit_func=sin_function_with_c,
-        param_names=['a', 'b', 'c'],
-        equation_template='y={a} sin({b}x+{c})',
+        param_names=get_equation_param_names_for_function('fit_sin_function_with_c'),
+        equation_template=get_equation_format_for_function('fit_sin_function_with_c'),
         initial_guess=initial_guess,
         bounds=bounds,
     )
@@ -180,8 +182,8 @@ def fit_cos_function(
     return generic_fit(
         data, x_name, y_name,
         fit_func=cos_function,
-        param_names=['a', 'b'],
-        equation_template='y={a} cos({b}x)',
+        param_names=get_equation_param_names_for_function('fit_cos_function'),
+        equation_template=get_equation_format_for_function('fit_cos_function'),
         initial_guess=initial_guess,
         bounds=bounds,
     )
@@ -222,8 +224,8 @@ def fit_cos_function_with_c(
     return generic_fit(
         data, x_name, y_name,
         fit_func=cos_function_with_c,
-        param_names=['a', 'b', 'c'],
-        equation_template='y={a} cos({b}x+{c})',
+        param_names=get_equation_param_names_for_function('fit_cos_function_with_c'),
+        equation_template=get_equation_format_for_function('fit_cos_function_with_c'),
         initial_guess=initial_guess,
         bounds=bounds,
     )
@@ -266,8 +268,8 @@ def fit_sinh_function(
     return generic_fit(
         data, x_name, y_name,
         fit_func=sinh_function,
-        param_names=['a', 'b'],
-        equation_template='y={a} sinh({b}x)',
+        param_names=get_equation_param_names_for_function('fit_sinh_function'),
+        equation_template=get_equation_format_for_function('fit_sinh_function'),
         initial_guess=initial_guess,
         bounds=bounds,
     )
@@ -311,8 +313,8 @@ def fit_cosh_function(
     return generic_fit(
         data, x_name, y_name,
         fit_func=cosh_function,
-        param_names=['a', 'b'],
-        equation_template='y={a} cosh({b}x)',
+        param_names=get_equation_param_names_for_function('fit_cosh_function'),
+        equation_template=get_equation_format_for_function('fit_cosh_function'),
         initial_guess=initial_guess,
         bounds=bounds,
     )
@@ -350,8 +352,8 @@ def fit_tan_function(
     return generic_fit(
         data, x_name, y_name,
         fit_func=tan_function,
-        param_names=['a', 'b'],
-        equation_template='y={a} tan({b}x)',
+        param_names=get_equation_param_names_for_function('fit_tan_function'),
+        equation_template=get_equation_format_for_function('fit_tan_function'),
         initial_guess=initial_guess,
         bounds=bounds,
     )
@@ -392,8 +394,8 @@ def fit_tan_function_with_c(
     return generic_fit(
         data, x_name, y_name,
         fit_func=tan_function_with_c,
-        param_names=['a', 'b', 'c'],
-        equation_template='y={a} tan({b}x+{c})',
+        param_names=get_equation_param_names_for_function('fit_tan_function_with_c'),
+        equation_template=get_equation_format_for_function('fit_tan_function_with_c'),
         initial_guess=initial_guess,
         bounds=bounds,
     )

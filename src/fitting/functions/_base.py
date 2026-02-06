@@ -9,6 +9,8 @@ from numpy.typing import NDArray
 from fitting import fitting_utils, estimators
 
 generic_fit = fitting_utils.generic_fit
+get_equation_format_for_function = fitting_utils.get_equation_format_for_function
+get_equation_param_names_for_function = fitting_utils.get_equation_param_names_for_function
 merge_bounds = fitting_utils.merge_bounds
 merge_initial_guess = fitting_utils.merge_initial_guess
 
@@ -45,6 +47,8 @@ __all__ = [
     'Numeric',
     'DataLike',
     'generic_fit',
+    'get_equation_format_for_function',
+    'get_equation_param_names_for_function',
     'merge_bounds',
     'merge_initial_guess',
     'estimate_binomial_parameters',

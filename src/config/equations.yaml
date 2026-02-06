@@ -1,113 +1,136 @@
 # Definición de tipos de ecuación para el ajuste.
-# Cada entrada tiene: function (nombre de la función de fit), formula (fórmula legible), param_names (parámetros).
+# Cada entrada tiene: function (nombre de la función de fit), formula (fórmula legible),
+# format (plantilla con placeholders {param} para formatear resultado), param_names (parámetros).
 # El orden aquí define el orden en AVAILABLE_EQUATION_TYPES.
 
 linear_function_with_n:
   function: fit_linear_function_with_n
   formula: "y = mx + n"
+  format: "y={m}x+{n}"
   param_names: [n, m]
 
 linear_function:
   function: fit_linear_function
   formula: "y = mx"
+  format: "y={m}x"
   param_names: [m]
 
 quadratic_function_complete:
   function: fit_quadratic_function_complete
-  formula: "y = ax² + bx + c"
+  formula: "y = cx² + bx + a"
+  format: "y={c}x^2+{b}x+{a}"
   param_names: [a, b, c]
 
 quadratic_function:
   function: fit_quadratic_function
   formula: "y = ax²"
+  format: "y={a}x^2"
   param_names: [a]
 
 fourth_power:
   function: fit_fourth_power
   formula: "y = ax⁴"
+  format: "y={a}x^4"
   param_names: [a]
 
 ln_function:
   function: fit_ln_function
-  formula: "y = a·ln(x)"
+  formula: "y = a ln(x)"
+  format: "y={a} ln(x)"
   param_names: [a]
 
 inverse_function:
   function: fit_inverse_function
   formula: "y = a/x"
+  format: "y={a}/x"
   param_names: [a]
 
 inverse_square_function:
   function: fit_inverse_square_function
   formula: "y = a/x²"
+  format: "y={a}/x^2"
   param_names: [a]
 
 sin_function:
   function: fit_sin_function
-  formula: "y = a·sin(bx)"
+  formula: "y = a sin(bx)"
+  format: "y={a} sin({b}x)"
   param_names: [a, b]
 
 sin_function_with_c:
   function: fit_sin_function_with_c
-  formula: "y = a·sin(bx + c)"
+  formula: "y = a sin(bx + c)"
+  format: "y={a} sin({b}x+{c})"
   param_names: [a, b, c]
 
 cos_function:
   function: fit_cos_function
-  formula: "y = a·cos(bx)"
+  formula: "y = a cos(bx)"
+  format: "y={a} cos({b}x)"
   param_names: [a, b]
 
 cos_function_with_c:
   function: fit_cos_function_with_c
-  formula: "y = a·cos(bx + c)"
+  formula: "y = a cos(bx + c)"
+  format: "y={a} cos({b}x+{c})"
   param_names: [a, b, c]
 
 tan_function:
   function: fit_tan_function
-  formula: "y = a·tan(bx)"
+  formula: "y = a tan(bx)"
+  format: "y={a} tan({b}x)"
   param_names: [a, b]
 
 tan_function_with_c:
   function: fit_tan_function_with_c
-  formula: "y = a·tan(bx + c)"
+  formula: "y = a tan(bx + c)"
+  format: "y={a} tan({b}x+{c})"
   param_names: [a, b, c]
 
 sinh_function:
   function: fit_sinh_function
-  formula: "y = a·sinh(bx)"
+  formula: "y = a sinh(bx)"
+  format: "y={a} sinh({b}x)"
   param_names: [a, b]
 
 cosh_function:
   function: fit_cosh_function
-  formula: "y = a·cosh(bx)"
+  formula: "y = a cosh(bx)"
+  format: "y={a} cosh({b}x)"
   param_names: [a, b]
 
 exponential_function:
   function: fit_exponential_function
-  formula: "y = a·exp(bx)"
+  formula: "y = a exp(bx)"
+  format: "y={a} exp({b}x)"
   param_names: [a, b]
 
 binomial_function:
   function: fit_binomial_function
-  formula: "y = L/(1 + exp(-k(x-x₀)))"
+  formula: "y = a/(1 + exp(-b(x-c)))"
+  format: "y={a}/(1+exp(-{b}(x-{c})))"
   param_names: [a, b, c]
 
 gaussian_function:
   function: fit_gaussian_function
-  formula: "y = a·exp(-(x-μ)²/(2σ²))"
-  param_names: [A, mu, sigma]
+  formula: "y = A exp(-(x-μ)²/(2σ²))"
+  format: "y={A} exp(-(x-{μ})^2/(2*{σ}^2))"
+  param_names: [A, μ, σ]
 
 square_pulse_function:
   function: fit_square_pulse_function
-  formula: "y = a si |x-x₀| ≤ w/2, else 0"
+  formula: "y = A if |x-t0| ≤ w/2, else 0"
+  format: "y=pulse(A={A}, t0={t0}, w={w})"
   param_names: [A, t0, w]
 
 hermite_polynomial_3:
   function: fit_hermite_polynomial_3
-  formula: "y = Σ cᵢ·Hᵢ(x) (grado 0-3)"
+  formula: "y = c₀H₀(x)+c₁H₁(x)+c₂H₂(x)+c₃H₃(x)"
+  format: "y={c0}*H₀(x)+{c1}*H₁(x)+{c2}*H₂(x)+{c3}*H₃(x)"
   param_names: [c0, c1, c2, c3]
 
 hermite_polynomial_4:
   function: fit_hermite_polynomial_4
-  formula: "y = Σ cᵢ·Hᵢ(x) (grado 0-4)"
+  formula: "y = c₀H₀(x)+c₁H₁(x)+c₂H₂(x)+c₃H₃(x)+c₄H₄(x)"
+  format: "y={c0}*H₀(x)+{c1}*H₁(x)+{c2}*H₂(x)+{c3}*H₃(x)+{c4}*H₄(x)"
   param_names: [c0, c1, c2, c3, c4]

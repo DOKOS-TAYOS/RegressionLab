@@ -15,6 +15,7 @@ __version__ = "0.9.0"
 # Each entry contains:
 #   - function: name of the fitting function to call
 #   - formula: LaTeX or display string for the equation
+#   - format: template with {param} placeholders for formatting the result equation
 #   - param_names: list of parameter names used in the fit
 
 _EQUATIONS_PATH = Path(__file__).resolve().parent / "equations.yaml"

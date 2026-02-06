@@ -76,7 +76,7 @@ def generic_fit(
     y_name: str,
     fit_func: Callable[..., Any],
     param_names: List[str],
-    equation_template: str,
+    equation_template: Optional[str],
     initial_guess: Optional[List[float]] = None,
     bounds: Optional[Tuple[Sequence[float], Sequence[float]]] = None
 ) -> Tuple[str, Any, str]:
@@ -112,6 +112,9 @@ def generic_fit(
     from utils import validate_fitting_data
 
     logger.info(t('log.starting_generic_fit', x=x_name, y=y_name, params=str(param_names)))
+
+    if equation_template is None:
+        raise FittingError("Equation format template is missing in config (equations.yaml 'format' key).")
 
     # Validate fitting data
     try:
@@ -320,6 +323,48 @@ def get_equation_param_info(
     if meta is None:
         return None
     return (list(meta["param_names"]), meta["formula"])
+
+
+def get_equation_format_for_function(function_name: str) -> Optional[str]:
+    """
+    Return the format template (with placeholders) for the given fit function name.
+
+    Args:
+        function_name: Name of the fitting function (e.g. ``'fit_linear_function_with_n'``).
+
+    Returns:
+        Format string (e.g. ``'y={m}x+{n}'``) or ``None`` if not found or no format key.
+    """
+    for _eq_id, meta in EQUATIONS.items():
+        if meta.get("function") == function_name:
+            return meta.get("format")
+    return None
+
+
+def get_equation_param_names_for_function(function_name: str) -> List[str]:
+    """
+    Return the parameter names for the given fit function from equations config.
+
+    Args:
+        function_name: Name of the fitting function (e.g. ``'fit_linear_function_with_n'``).
+
+    Returns:
+        List of parameter names in the order expected by the fit function.
+
+    Raises:
+        FittingError: If no equation config is found or param_names is missing.
+    """
+    for _eq_id, meta in EQUATIONS.items():
+        if meta.get("function") == function_name:
+            names = meta.get("param_names")
+            if not names:
+                raise FittingError(
+                    f"Missing param_names in equations config for {function_name!r}"
+                )
+            return list(names)
+    raise FittingError(
+        f"No equation config found for function {function_name!r}"
+    )
 
 
 def merge_initial_guess(
