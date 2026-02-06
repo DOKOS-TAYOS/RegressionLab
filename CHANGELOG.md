@@ -22,6 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Documentation**: Docs submodules updated.
 - **Imports**: Improved relative imports across the project.
 - **Fitting functions**: Reference to existing functions moved to a `.yaml` file for better maintainability.
+- **Environment variables**: When invalid values are set in the environment variables, the system now detects them and applies the default values at the conflicting points.
+- **Style and architecture**: Minor style and architecture changes.
 
 ---
 
