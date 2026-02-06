@@ -370,7 +370,7 @@ type regressionlab.log
 
 ```bash
 # Verify Python version
-python --version  # Should be 3.10+
+python --version  # Should be 3.12+
 
 # Check virtual environment is activated
 which python  # Should point to .venv

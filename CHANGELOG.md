@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Python**: Project requirement updated from Python 3.10+ to Python 3.12 only. All config (pyproject.toml, setup scripts, docs, installers) now require Python 3.12 or higher.
 - **Tests**: Tests updated to reflect recent changes and new validations.
 - **Documentation**: Docs submodules updated.
 - **Imports**: Improved relative imports across the project.

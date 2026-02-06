@@ -12,7 +12,7 @@ Before installing RegressionLab, ensure you have:
   - macOS: Install via Homebrew `brew install git` or download from [git-scm.com](https://git-scm.com/install/mac)
   - Linux: `sudo apt-get install git` (Debian/Ubuntu) or `sudo dnf install git` (Fedora)
 
-- **Python**: Version 3.10 or higher
+- **Python**: Version 3.12 or higher
   - Download from [python.org](https://www.python.org/downloads/)
   - Verify installation: `python --version` or `python3 --version`
 

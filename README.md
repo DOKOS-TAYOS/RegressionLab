@@ -6,7 +6,7 @@
 
 **A powerful and user-friendly curve fitting application for scientists, engineers, students, and data analysts**
 
-[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.12+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
 [![Version](https://img.shields.io/badge/version-0.9.0-blue.svg?style=for-the-badge)](https://github.com/DOKOS-TAYOS/RegressionLab)
 [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://regressionlab.streamlit.app/)
@@ -131,7 +131,7 @@ chmod +x install.sh
 
 ## 🛠️ Requirements
 
-- Python 3.10 or higher
+- Python 3.12 or higher
 - Windows 10/11, macOS 10.14+, or Linux
 - 4 GB RAM minimum (8 GB recommended)
 

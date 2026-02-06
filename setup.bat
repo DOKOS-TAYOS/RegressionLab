@@ -15,8 +15,7 @@ REM Check if Python is installed
 python --version >nul 2>&1
 if errorlevel 1 (
     echo ERROR: Python is not installed or not in PATH
-    echo Please install Python 3.10 or higher from https://www.python.org/
-    echo Python 3.12 is recommended for best performance
+    echo Please install Python 3.12 or higher from https://www.python.org/
     pause
     exit /b 1
 )
@@ -24,23 +23,14 @@ if errorlevel 1 (
 echo [1/7] Checking Python version...
 python --version
 
-REM Check Python version is 3.10 or higher
-python -c "import sys; exit(0 if sys.version_info >= (3, 10) else 1)" >nul 2>&1
+REM Check Python version is 3.12 or higher
+python -c "import sys; exit(0 if sys.version_info >= (3, 12) else 1)" >nul 2>&1
 if errorlevel 1 (
-    echo ERROR: Python 3.10 or higher is required
-    echo Python 3.12 is recommended for best performance
+    echo ERROR: Python 3.12 or higher is required
     pause
     exit /b 1
 )
-
-REM Check if Python version is 3.12 or higher (recommended)
-python -c "import sys; exit(0 if sys.version_info >= (3, 12) else 1)" >nul 2>&1
-if errorlevel 1 (
-    echo WARNING: Python 3.12 or higher is recommended for best performance
-    echo       Current version will work, but 3.12+ is preferred
-) else (
-    echo       Python version OK ^(recommended version^)
-)
+echo       Python version OK
 
 echo.
 echo [2/7] Creating virtual environment...

@@ -488,7 +488,7 @@ Before submitting, ensure:
 
 - **IDE**: Visual Studio Code, PyCharm, or your preference
 - **Git Client**: Command line, GitKraken, or GitHub Desktop
-- **Python Version**: 3.10 or higher
+- **Python Version**: 3.12 or higher
 - **Virtual Environment**: Always use virtual environments
 
 ### VS Code Setup
