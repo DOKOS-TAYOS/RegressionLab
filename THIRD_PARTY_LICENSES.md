@@ -22,6 +22,7 @@ These libraries are used at application runtime.
 | **openpyxl**     | `>=3.1,<4.0`               | MIT                                          |
 | **python-dotenv**| `>=1.0,<2.0`               | BSD-3-Clause                                 |
 | **colorama**     | `>=0.4,<1.0`               | BSD-3-Clause                                 |
+| **PyYAML**       | `>=6.0,<7.0`               | MIT                                          |
 | **Pillow**       | `>=10.0,<11.0`             | PIL License / HPND (permissive, MIT-like)     |
 | **streamlit**    | `>=1.31,<2.0`              | Apache License 2.0                           |
 
@@ -58,7 +59,43 @@ are not distributed in final binaries, although they may be present if you publi
 
 ---
 
-### 4. License Compliance Notes
+### 4. Full License Texts (Selected)
+
+The following third-party components are used for YAML configuration (e.g. `equations.yaml`). Full license text is included for compliance when redistributing.
+
+#### PyYAML (MIT)
+
+PyYAML is used for loading equation and configuration files in YAML format.
+
+```
+Copyright (c) 2017-2021 Ingy döt Net
+Copyright (c) 2006-2016 Kirill Simonov
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+For the full, up-to-date license and list of all third-party licenses, see the
+respective project repositories (e.g. <https://github.com/yaml/pyyaml> for PyYAML).
+
+---
+
+### 5. License Compliance Notes
 
 - **MIT / BSD / PIL (HPND)**  
   - Allow commercial use, modification, integration, and redistribution, including in proprietary software.  

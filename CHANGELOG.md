@@ -5,6 +5,26 @@ All notable changes to RegressionLab are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.3] - 2026-02-06
+
+### Fixed
+
+- **Languages**: Minor language fixes in translations and UI messages.
+
+### Added
+
+- **.env validations**: New validations for `.env` values to ensure correct configuration.
+- **RMSE**: Added RMSE (Root Mean Square Error) to fit results and statistics.
+
+### Changed
+
+- **Tests**: Tests updated to reflect recent changes and new validations.
+- **Documentation**: Docs submodules updated.
+- **Imports**: Improved relative imports across the project.
+- **Fitting functions**: Reference to existing functions moved to a `.yaml` file for better maintainability.
+
+---
+
 ## [0.8.2] - 2026-02-04
 
 ### Fixed
@@ -59,6 +79,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial 0.8.x release. See repository history and documentation for features and changes prior to 0.8.1.
 
+[0.8.3]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v0.8.2...v0.8.3
 [0.8.2]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v0.8.1...v0.8.2
 [0.8.1]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/DOKOS-TAYOS/RegressionLab/releases/tag/v0.8.0
