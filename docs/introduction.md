@@ -20,9 +20,9 @@ You don't need to be a programmer or mathematician to use RegressionLab - the in
 
 RegressionLab is a Python-based scientific application that implements curve fitting using non-linear least squares optimization (via SciPy's `curve_fit`). It provides:
 
-- **Multiple fitting algorithms**: Linear, polynomial, trigonometric, logarithmic, inverse, hyperbolic, and custom functions
-- **Statistical analysis**: Automatic calculation of fit quality metrics (R²), parameter uncertainties, and covariance matrices
-- **Flexible data formats**: Support for CSV and Excel files with automatic uncertainty column detection
+- **Multiple fitting functions**: Linear, polynomial, trigonometric (including tangent), logarithmic, exponential, inverse, hyperbolic, Gaussian, sigmoid, and custom formulas
+- **Statistical analysis**: Automatic calculation of R², RMSE, chi-squared, reduced chi-squared, degrees of freedom, parameter uncertainties (from the fit covariance), and 95% confidence intervals for parameters
+- **Flexible data formats**: Support for CSV, TXT (whitespace or tab-separated), and Excel (.xlsx) files with automatic uncertainty column detection
 - **Batch processing**: Fit multiple datasets or equations simultaneously
 - **Extensible architecture**: Easy to add new fitting functions or replace the optimization backend
 
@@ -45,10 +45,11 @@ RegressionLab offers four different fitting modes to match your workflow:
 Built-in support for:
 - Linear functions (with and without intercept)
 - Polynomial functions (quadratic, quartic, complete polynomials)
-- Trigonometric functions (sine, cosine, with phase shifts)
+- Trigonometric functions (sine, cosine, tangent, with phase shifts)
 - Hyperbolic functions (sinh, cosh)
-- Logarithmic functions
+- Logarithmic and exponential functions
 - Inverse functions (1/x, 1/x²)
+- Additional models: Gaussian, sigmoid (logistic), square pulse, Hermite polynomials
 - **Custom formulas**: Define your own mathematical expressions
 
 ### 4. **Professional Visualization**
@@ -56,7 +57,7 @@ Built-in support for:
 - Error bars for measurement uncertainties
 - Customizable plot styles and themes
 - Automatic equation and parameter display
-- Export plots as PNG images
+- Export plots as PNG, JPG, or PDF (configurable)
 
 ### 5. **Uncertainty Handling**
 Automatic detection and visualization of measurement uncertainties:
@@ -149,7 +150,7 @@ See the [Installation Guide](installation) for detailed instructions.
 
 By using RegressionLab, you'll gain experience with:
 - **Curve fitting techniques**: Understanding how to match mathematical models to data
-- **Statistical analysis**: Interpreting R² values and parameter uncertainties
+- **Statistical analysis**: Interpreting R², RMSE, chi-squared, and parameter uncertainties
 - **Data visualization**: Creating publication-quality plots
 - **Scientific computing**: Working with numerical analysis tools
 - **Best practices**: Proper data formatting and uncertainty handling

@@ -4,12 +4,80 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
 # Standard library
+import logging
 import os
 import sys
+import warnings
 
 # -- Path setup --------------------------------------------------------------
 # Add the project root directory to sys.path
 sys.path.insert(0, os.path.abspath('../../src'))
+
+# Silence Streamlit "No runtime found" when autodoc imports streamlit_app (no server running).
+# Set level before any streamlit import so the warning is never emitted.
+logging.getLogger('streamlit').setLevel(logging.ERROR)
+logging.getLogger('streamlit.runtime').setLevel(logging.ERROR)
+logging.getLogger('streamlit.runtime.caching').setLevel(logging.ERROR)
+logging.getLogger('streamlit.runtime.caching.cache_data_api').setLevel(logging.ERROR)
+
+
+class _DuplicateObjectFilter(logging.Filter):
+    """Hide Sphinx "duplicate object description" warnings (no type/subtype set by Python domain)."""
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        if getattr(record, 'levelno', 0) != logging.WARNING:
+            return True
+        try:
+            msg = record.getMessage()
+        except Exception:
+            msg = str(getattr(record, 'msg', ''))
+        if 'duplicate object description' in msg and 'use :no-index:' in msg:
+            return False
+        return True
+
+
+def _skip_imported_member(app, what: str, name: str, obj: object, skip: bool, options: dict) -> bool:
+    """Skip members that are not defined in the module being documented.
+
+    Only the module that *defines* a symbol should document it. So we skip:
+    - Imports from other packages (e.g. Path from pathlib)
+    - Re-exports from other modules of the same project (e.g. t from utils in main_program)
+    """
+    if skip:
+        return True
+    if what != 'module':
+        return skip
+    # Current module being documented (set by ModuleDocumenter.document_members)
+    current_module = getattr(
+        getattr(app.env, 'current_document', None), 'autodoc_module', None
+    )
+    if current_module is None:
+        return skip
+    obj_module = getattr(obj, '__module__', None)
+    if obj_module is None:
+        return skip
+    # Skip if the object is defined in a different module (external or same project)
+    if obj_module != current_module:
+        return True
+    return skip
+
+
+def setup(app):  # noqa: D103
+    """Register filter to suppress duplicate object description warnings."""
+    def add_filters(_app):
+        # Attach at source so duplicate-object warnings from Python domain never reach handlers
+        logging.getLogger('sphinx.domains.python').addFilter(_DuplicateObjectFilter())
+        # Also on sphinx handlers in case propagation path differs
+        for handler in logging.getLogger('sphinx').handlers:
+            handler.addFilter(_DuplicateObjectFilter())
+
+    app.connect('builder-inited', add_filters)
+    app.connect('autodoc-skip-member', _skip_imported_member)
+    return {'version': '0.1', 'parallel_read_safe': True}
+
+
+# Silence deprecation from myst_parser (RemovedInSphinx10Warning) until they fix it
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='myst_parser')
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -46,6 +114,7 @@ extensions = [
 ]
 
 # MyST Parser configuration
+myst_heading_anchors = 2  # Generate anchors for h1 and h2 for in-doc links
 myst_enable_extensions = [
     "colon_fence",      # ::: fences for directives
     "deflist",          # Definition lists
@@ -69,6 +138,14 @@ source_suffix = {
 
 templates_path = ['_templates']
 exclude_patterns = ['README.md']  # Exclude README.md from docs if present
+
+# Reduce noise: ambiguous cross-refs, missing file refs (duplicate object is filtered in setup())
+suppress_warnings = [
+    'ref.python',
+    'ref.doc',
+    'myst.xref_missing',  # e.g. THIRD_PARTY_LICENSES.md (file outside doc tree)
+    'myst.iref_ambiguous',  # extending/contributing matched by intersphinx (numpy, pandas, etc.)
+]
 
 language = 'en'
 
@@ -168,6 +245,10 @@ napoleon_use_rtype = True
 napoleon_preprocess_types = False
 napoleon_type_aliases = None
 napoleon_attr_annotations = True
+
+# Use legacy class-based autodoc so autodoc-skip-member is applied to module members
+# (Sphinx 5+ uses a new implementation that may not emit skip-member for all members)
+autodoc_use_legacy_class_based = True
 
 # Autodoc settings
 autodoc_default_options = {
