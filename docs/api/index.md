@@ -14,7 +14,7 @@ RegressionLab/
 │   │   ├── theme.py           # UI theme and plot style
 │   │   ├── paths.py           # Paths and output
 │   │   ├── constants.py       # Version, signals, EQUATIONS (from YAML)
-│   │   └── equations.yaml     # Equation definitions (function, formula, param_names)
+│   │   └── equations.yaml     # Equation definitions (function, formula, format, param_names)
 │   ├── i18n.py                # Internationalization
 │   ├── main_program.py        # Entry point for Tkinter app
 │   │
@@ -191,7 +191,7 @@ See [Extending RegressionLab](../extending.md) for detailed instructions.
 Quick summary:
 1. Add mathematical function in `fitting/functions/` (e.g. `polynomials.py`, `special.py`)
 2. Create fitting wrapper function
-3. Register in `config/equations.yaml` (add entry with `function`, `formula`, `param_names`) and add translations in `src/locales/`
+3. Export the fit function from `src/fitting/functions/__init__.py`, then register in `config/equations.yaml` (add entry with `function`, `formula`, `format`, `param_names`) and add translations in `src/locales/`
 4. Test thoroughly
 
 ### Modifying the UI

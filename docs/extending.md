@@ -4,11 +4,14 @@ This guide explains how to add new fitting functions to RegressionLab. Whether y
 
 ## Overview
 
-Adding a new fitting function involves three main steps:
+Adding a new fitting function involves four main steps:
 
-1. **Define the mathematical function**: Write the Python function that calculates y from x and parameters
-2. **Create the fitting wrapper**: Write a function that performs the curve fitting
-3. **Register the function**: Add it to the configuration so it appears in the UI
+1. **Implement the model and fit function**: In the right module under `src/fitting/functions/`, add the mathematical function and a fitting wrapper that uses `generic_fit` (or `curve_fit` directly for advanced cases).
+2. **Export the fit function**: Add the new `fit_*` to the exports in `src/fitting/functions/__init__.py` so the app can resolve it by name.
+3. **Register in configuration**: Add an entry in `src/config/equations.yaml` (with `function`, `formula`, `format`, `param_names`) and add translations in `src/locales/`.
+4. **Test**: Run the app (Tkinter or Streamlit) and optionally add tests.
+
+The app resolves fit functions by name: it reads the `function` key from `equations.yaml` (e.g. `fit_exponential_function`) and does `getattr(fitting_functions, function_name)`. The `fitting_functions` package re-exports everything from `fitting.functions`, so any new `fit_*` must be implemented in one of the modules under `fitting/functions/` and re-exported from `fitting/functions/__init__.py`.
 
 ## Prerequisites
 
@@ -23,25 +26,28 @@ Adding a new fitting function involves three main steps:
 ```
 src/
 ├── config/
-│   └── equations.yaml                # Add equation entry (function, formula, param_names)
+│   └── equations.yaml                # Add entry: function, formula, format, param_names
 ├── fitting/
-│   ├── functions/                    # Add mathematical and fit_* in appropriate module
-│   │   ├── polynomials.py
-│   │   ├── trigonometric.py
-│   │   ├── inverse.py
-│   │   └── special.py
-│   └── fitting_utils.py              # (optional) factory / get_fitting_function
+│   └── functions/
+│       ├── __init__.py               # Export new fit_* (add to imports and __all__)
+│       ├── _base.py                  # (optional) add estimator here if needed
+│       ├── polynomials.py
+│       ├── trigonometric.py
+│       ├── inverse.py
+│       └── special.py
+├── fitting/
+│   └── estimators.py                 # (optional) add estimator for initial guess/bounds
 └── locales/
-    ├── en.json                       # Add translation for equation name
+    ├── en.json                       # Add translation for equation ID
     ├── es.json
     └── de.json
 ```
 
 ## Step-by-Step Guide
 
-### Step 1: Define the Mathematical Function
+### Step 1: Implement the Model and Fit Function
 
-Open the appropriate module under `src/fitting/functions/` (e.g. `special.py` for exponential/Gaussian, `polynomials.py` for polynomial models) and add your mathematical function.
+Open the appropriate module under `src/fitting/functions/` (e.g. `special.py` for exponential/Gaussian, `polynomials.py` for polynomial models). Add the mathematical model (e.g. `_my_function`) and the fitting wrapper (`fit_my_function`). The model can be a private function (e.g. `_gaussian_function`) if it is only used inside that module.
 
 #### Example: Adding an Exponential Function
 
@@ -89,65 +95,105 @@ def hyperbola_function(t: Numeric, a: float, b: float) -> Numeric:
 
 ### Step 2: Create the Fitting Wrapper
 
-In the same module under `fitting/functions/`, create a wrapper function that performs the fitting.
+In the same module under `fitting/functions/`, create a fitting wrapper. The wrapper must have this signature and return type:
+
+- **Signature**: `(data, x_name, y_name, initial_guess_override=None, bounds_override=None)`
+- **Return**: `Tuple[str, NDArray, str]` — `(text, y_fitted, equation)`. R² is included in `text`; `generic_fit` does not return it as a fourth value.
+
+Use `get_equation_param_names_for_function('fit_<name>')` and `get_equation_format_for_function('fit_<name>')` so parameter names and the equation format live only in `equations.yaml`. That way you define them once in config.
 
 #### Basic Template
 
 ```python
-def fit_exponential(data: dict, x_name: str, y_name: str) -> Tuple[str, NDArray, str, float]:
-    """Exponential fit: y = a·exp(b·x)
+from fitting.functions._base import (
+    DataLike,
+    Numeric,
+    generic_fit,
+    get_equation_format_for_function,
+    get_equation_param_names_for_function,
+)
+
+def fit_my_function(
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
+) -> Tuple[str, NDArray, str]:
+    """Fit my model: y = a·exp(b·x).
     
     Returns:
-        Tuple of (text, y_fitted, equation, r_squared)
+        Tuple (text, y_fitted, equation) from generic_fit.
     """
-    from fitting.fitting_utils import generic_fit
-    
     return generic_fit(
         data, x_name, y_name,
-        fit_func=exponential_function,
-        param_names=['a', 'b'],
-        equation_template='y={a}·exp({b}·x)'
+        fit_func=my_model_function,
+        param_names=get_equation_param_names_for_function('fit_my_function'),
+        equation_template=get_equation_format_for_function('fit_my_function'),
     )
 ```
 
 **Key Points**:
-- **Function signature**: `data` is a `dict`, not a DataFrame
-- **Parameter names**: List of strings matching the function parameters
-- **Equation template**: String with placeholders like `{a}`, `{b}`, etc.
-- **Return value**: `generic_fit` handles everything and returns the tuple
-- Add the fitting wrapper in the same module as the mathematical function (under `fitting/functions/`).
+- **Signature**: Include `initial_guess_override` and `bounds_override` so the workflow can pass user overrides; they can be `None` if you do not use them.
+- **Config-driven params**: Prefer `get_equation_param_names_for_function` and `get_equation_format_for_function` so the equation is defined once in `equations.yaml`.
+- **Return**: `generic_fit` returns `(text, y_fitted, equation)` (three values).
 
-#### Advanced: With Initial Parameter Guess
+#### With Initial Guess and Bounds
 
-For complex functions, providing initial guesses improves convergence:
+For complex functions, use estimators (from `_base` or `estimators`) and merge helpers:
 
 ```python
-def fit_gaussian(data: dict, x_name: str, y_name: str) -> Tuple[str, NDArray, str, float]:
-    """Gaussian fit: y = a·exp(-(x-mu)²/(2·sigma²))
-    
-    Returns:
-        Tuple of (text, y_fitted, equation, r_squared)
-    """
-    from fitting.fitting_utils import generic_fit
-    
-    # Estimate initial parameters
+from fitting.functions._base import (
+    DataLike,
+    Numeric,
+    estimate_gaussian_parameters,
+    generic_fit,
+    get_equation_format_for_function,
+    get_equation_param_names_for_function,
+    merge_bounds,
+    merge_initial_guess,
+)
+
+def fit_gaussian_function(
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
+) -> Tuple[str, NDArray, str]:
+    """Gaussian fit: y = A·exp(-(x-μ)²/(2σ²))."""
     x = data[x_name]
     y = data[y_name]
-    a0 = np.max(y)  # Amplitude: max y value
-    mu0 = x[np.argmax(y)]  # Mean: x at max y
-    sigma0 = (np.max(x) - np.min(x)) / 4  # Spread: quarter of x range
-    initial_guess = [a0, mu0, sigma0]
-    
+    A_0, mu_0, sigma_0 = estimate_gaussian_parameters(x, y)
+    computed_bounds = ([0.0, -np.inf, 1e-9], [np.inf, np.inf, np.inf])
+    initial_guess = merge_initial_guess(
+        [A_0, mu_0, sigma_0], initial_guess_override
+    )
+    bounds = (
+        merge_bounds(computed_bounds, bounds_override[0], bounds_override[1], 3)
+        if bounds_override is not None
+        else computed_bounds
+    )
     return generic_fit(
         data, x_name, y_name,
-        fit_func=gaussian_function,
-        param_names=['a', 'mu', 'sigma'],
-        equation_template='y={a}·exp(-(x-{mu})²/(2·{sigma}²))',
-        initial_guess=initial_guess
+        fit_func=_gaussian_function,
+        param_names=get_equation_param_names_for_function('fit_gaussian_function'),
+        equation_template=get_equation_format_for_function('fit_gaussian_function'),
+        initial_guess=initial_guess,
+        bounds=bounds,
     )
 ```
 
-### Step 3: Register the Function
+### Step 3: Export the Fit Function
+
+The app resolves the fit function by name with `getattr(fitting_functions, function_name)`. The `fitting_functions` package re-exports from `fitting.functions`, so you must export your new `fit_*` from `src/fitting/functions/__init__.py`.
+
+1. Add your fit function to the appropriate `from .<module> import ...` (e.g. `from .special import ..., fit_my_function`).
+2. Add the same name to the `__all__` list in that file.
+
+If you omit this step, the app will raise `AttributeError` when the user selects your equation.
+
+### Step 4: Register in Configuration
 
 #### Add to equations.yaml
 
@@ -156,14 +202,16 @@ Open `src/config/equations.yaml` and add a new entry. The key is the equation ID
 ```yaml
 # Add at the desired position (order matters for AVAILABLE_EQUATION_TYPES)
 exponential_function:
-  function: fit_exponential
-  formula: "y = a·exp(b·x)"
+  function: fit_exponential_function
+  formula: "y = a exp(bx)"
+  format: "y={a} exp({b}x)"
   param_names: [a, b]
 ```
 
-- **`function`**: Must match the name of your fitting function (e.g. `fit_exponential`).
+- **`function`**: Exact name of your fitting function (e.g. `fit_exponential_function`). Must match the name exported from `fitting.functions`.
 - **`formula`**: Display string for the UI (Tkinter and Streamlit).
-- **`param_names`**: List of parameter names in the order expected by your mathematical function.
+- **`format`**: Template with `{param}` placeholders used to build the fitted equation string (e.g. `y={a} exp({b}x)`). Required by `generic_fit` when using `get_equation_format_for_function`.
+- **`param_names`**: List of parameter names in the order expected by your mathematical function (same order as in the model signature after the independent variable).
 
 The application loads this file at startup; `AVAILABLE_EQUATION_TYPES` and `EQUATIONS` in `config.constants` are built from it, so you do not need to edit `constants.py`.
 
@@ -198,7 +246,7 @@ Add translations for the equation ID in the `equations` section of each locale f
 }
 ```
 
-### Step 4: Test Your Function
+### Step 5: Test Your Function
 
 #### Create Test Data
 
@@ -254,77 +302,11 @@ python generate_exponential_test.py
 
 ### Parameter Bounds
 
-Constrain parameters to valid ranges. Note: `generic_fit` doesn't support bounds directly, so you'll need to use `curve_fit` directly:
-
-```python
-def fit_positive_exponential(data: dict, x_name: str, y_name: str) -> Tuple[str, NDArray, str, float]:
-    """Exponential fit with positive parameters only: y = a·exp(b·x), a>0, b>0
-    
-    Returns:
-        Tuple of (text, y_fitted, equation, r_squared)
-    """
-    from scipy.optimize import curve_fit
-    from fitting.fitting_utils import format_parameter
-    
-    x = data[x_name]
-    y = data[y_name]
-    uy = data[f'u{y_name}']
-    
-    # Set parameter bounds: a > 0, b > 0
-    bounds = ([0, 0], [np.inf, np.inf])
-    
-    # Perform fit with bounds
-    params, cov = curve_fit(
-        exponential_function,
-        x, y,
-        sigma=uy,
-        bounds=bounds,
-        absolute_sigma=True
-    )
-    
-    # Calculate fitted values and R²
-    y_fitted = exponential_function(x, *params)
-    ss_res = np.sum((y - y_fitted) ** 2)
-    ss_tot = np.sum((y - np.mean(y)) ** 2)
-    r_squared = 1.0 - (ss_res / ss_tot) if ss_tot != 0 else 0.0
-    
-    # Format parameters
-    uncertainties = np.sqrt(np.diag(cov))
-    a, b = params
-    a_formatted, a_unc = format_parameter(a, uncertainties[0])
-    b_formatted, b_unc = format_parameter(b, uncertainties[1])
-    
-    param_text = f"a={a_formatted}, σ(a)={a_unc}\nb={b_formatted}, σ(b)={b_unc}\nR²={r_squared:.6f}"
-    equation = f"y={a_formatted}·exp({b_formatted}·x)"
-    
-    return param_text, y_fitted, equation, r_squared
-```
+`generic_fit` accepts a `bounds` argument. Pass `(lower_bounds, upper_bounds)` when building your fit (see "With Initial Guess and Bounds" above). For full control (e.g. custom formatting), use `curve_fit` directly and then build the same return tuple `(text, y_fitted, equation)` that `generic_fit` returns, including R² in the text.
 
 ### Fixed Parameters
 
-Fit with some parameters fixed:
-
-```python
-def fit_exponential_fixed_b(data: dict, x_name: str, y_name: str, b_fixed: float = 1.0) -> Tuple[str, NDArray, str, float]:
-    """Exponential fit with fixed b parameter: y = a·exp(b_fixed·x)
-    
-    Returns:
-        Tuple of (text, y_fitted, equation, r_squared)
-    """
-    from fitting.fitting_utils import generic_fit
-    
-    # Define function with b fixed
-    def exponential_fixed_b_function(t: Numeric, a: float) -> Numeric:
-        """Exponential function with fixed b: y = a·exp(b_fixed·t)"""
-        return a * np.exp(b_fixed * t)
-    
-    return generic_fit(
-        data, x_name, y_name,
-        fit_func=exponential_fixed_b_function,
-        param_names=['a'],
-        equation_template=f'y={{a}}·exp({b_fixed}·x)'
-    )
-```
+Fit with some parameters fixed: define a reduced model that takes only the free parameters and pass the corresponding `param_names` and `equation_template` (or register a separate equation in `equations.yaml` with its own `format` and `param_names`).
 
 ### Multi-Dimensional Functions
 
@@ -337,11 +319,11 @@ def plane_3d_function(data: NDArray, a: float, b: float, c: float) -> Numeric:
     y = data[:, 1]  # Second column
     return a * x + b * y + c
 
-def fit_plane_3d(data: dict, x_name: str, y_name: str, z_name: str) -> Tuple[str, NDArray, str, float]:
+def fit_plane_3d(data: dict, x_name: str, y_name: str, z_name: str) -> Tuple[str, NDArray, str]:
     """3D plane fit: z = a·x + b·y + c
     
     Returns:
-        Tuple of (text, z_fitted, equation, r_squared)
+        Tuple of (text, z_fitted, equation)
     """
     from scipy.optimize import curve_fit
     from fitting.fitting_utils import format_parameter
@@ -376,8 +358,7 @@ def fit_plane_3d(data: dict, x_name: str, y_name: str, z_name: str) -> Tuple[str
         f"R²={r_squared:.6f}"
     )
     equation = f"z={a_formatted}·x+{b_formatted}·y+{c_formatted}"
-    
-    return param_text, z_fitted, equation, r_squared
+    return param_text, z_fitted, equation
 ```
 
 ### Piecewise Functions
@@ -408,13 +389,17 @@ def piecewise_linear_function(t: Numeric, a: float, b: float, t_break: float,
 2. **Type Hints**:
    ```python
    from numpy.typing import NDArray
-   from typing import Tuple
+   from typing import List, Optional, Tuple
    
    def my_function(t: Numeric, a: float) -> Numeric:
        """Function description: y = ..."""
        ...
    
-   def my_fit(data: dict, x_name: str, y_name: str) -> Tuple[str, NDArray, str, float]:
+   def my_fit(
+       data: DataLike, x_name: str, y_name: str,
+       initial_guess_override: Optional[List[Optional[float]]] = None,
+       bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
+   ) -> Tuple[str, NDArray, str]:
        ...
    ```
 
@@ -427,44 +412,16 @@ def piecewise_linear_function(t: Numeric, a: float, b: float, t_break: float,
    
    For fitting wrapper functions:
    ```python
-   def fit_example(data: dict, x_name: str, y_name: str) -> Tuple[str, NDArray, str, float]:
+   def fit_example(...) -> Tuple[str, NDArray, str]:
        """Example fit: y = a·exp(b·x)
        
        Returns:
-           Tuple of (text, y_fitted, equation, r_squared)
+           Tuple (text, y_fitted, equation) from generic_fit.
        """
        ...
    ```
 
-4. **Error Handling**:
-   ```python
-   def fit_example(data: dict, x_name: str, y_name: str) -> Tuple[str, NDArray, str, float]:
-       """Example fit: y = a·x + b
-       
-       Returns:
-           Tuple of (text, y_fitted, equation, r_squared)
-       """
-       # generic_fit handles errors internally, but you can wrap it if needed
-       from fitting.fitting_utils import generic_fit
-       from utils.exceptions import FittingError
-       
-       try:
-           return generic_fit(
-               data, x_name, y_name,
-               fit_func=example_function,
-               param_names=['a', 'b'],
-               equation_template='y={a}·x+{b}'
-           )
-       except FittingError:
-           # Re-raise fitting errors
-           raise
-       except Exception as e:
-           # Unexpected error
-           from utils.logger import get_logger
-           logger = get_logger(__name__)
-           logger.error(f"Unexpected error in fitting: {e}", exc_info=True)
-           raise FittingError(f"Unexpected error: {str(e)}")
-   ```
+4. **Error Handling**: `generic_fit` raises `FittingError` on failure. You can wrap your fit in try/except to log or re-raise; the workflow controller already handles errors from the fit function.
 
 ### Testing
 
@@ -474,17 +431,17 @@ Create a test file in `tests/` directory:
 # tests/test_exponential_function.py
 import numpy as np
 import pytest
-from fitting.fitting_functions import exponential_function, fit_exponential
+from fitting.functions import fit_exponential_function
+from fitting.functions.special import _exponential_function as exponential_function
 
 def test_exponential_function():
-    """Test exponential function calculation."""
+    """Test exponential model calculation."""
     t = np.array([0, 1, 2])
     a, b = 2.0, 0.5
-    
     expected = np.array([2.0, 2.0 * np.exp(0.5), 2.0 * np.exp(1.0)])
     result = exponential_function(t, a, b)
-    
     np.testing.assert_array_almost_equal(result, expected)
+
 
 def test_fit_exponential():
     """Test exponential fitting."""
@@ -500,10 +457,10 @@ def test_fit_exponential():
         'uy': np.zeros_like(y)
     }
     
-    param_text, y_fitted, equation, r_squared = fit_exponential(data, 'x', 'y')
+    param_text, y_fitted, equation = fit_exponential_function(data, 'x', 'y')
     
-    # Check R² is very high for perfect data
-    assert r_squared > 0.999
+    # Check R² is in the text and fitted values are close
+    assert 'R²' in param_text
     
     # Check fitted values are close
     np.testing.assert_array_almost_equal(y_fitted, y, decimal=6)
@@ -521,192 +478,127 @@ pytest tests/test_exponential_function.py -v
 For straightforward equations without special requirements:
 
 ```python
-# 1. Define function
+# 1. Define model (in the right module under fitting/functions/)
 def power_function(t: Numeric, a: float, n: float) -> Numeric:
     """Power function: y = a * t^n"""
     return a * (t ** n)
 
-# 2. Create fitting wrapper
-def fit_power(data: dict, x_name: str, y_name: str) -> Tuple[str, NDArray, str, float]:
-    """Power fit: y = a·x^n
-    
-    Returns:
-        Tuple of (text, y_fitted, equation, r_squared)
-    """
-    from fitting.fitting_utils import generic_fit
-    
+# 2. Create fitting wrapper (same module)
+def fit_power(
+    data: DataLike, x_name: str, y_name: str,
+    initial_guess_override=None, bounds_override=None,
+) -> Tuple[str, NDArray, str]:
+    """Power fit: y = a·x^n. Returns (text, y_fitted, equation)."""
+    from fitting.functions._base import (
+        generic_fit,
+        get_equation_format_for_function,
+        get_equation_param_names_for_function,
+    )
     return generic_fit(
         data, x_name, y_name,
         fit_func=power_function,
-        param_names=['a', 'n'],
-        equation_template='y={a}·x^{n}'
+        param_names=get_equation_param_names_for_function('fit_power'),
+        equation_template=get_equation_format_for_function('fit_power'),
     )
 
-# 3. Register in config/equations.yaml (function, formula, param_names)
-# 4. Add translations in src/locales/ (en, es, de)
+# 3. Export fit_power in fitting/functions/__init__.py
+# 4. Register in config/equations.yaml (function, formula, format, param_names)
+# 5. Add translations in src/locales/ (en, es, de)
 ```
 
 ### Pattern 2: Function with Estimation
 
-For complex functions needing initial guesses:
+For complex functions needing initial guesses, use estimators from `_base` (or add one in `estimators.py` and re-export from `_base`) and `merge_initial_guess` / `merge_bounds`:
 
 ```python
-# Provide smart initial guesses
+from fitting.functions._base import (
+    estimate_trigonometric_parameters,
+    generic_fit,
+    get_equation_format_for_function,
+    get_equation_param_names_for_function,
+    merge_initial_guess,
+)
+
 def damped_sine_function(t: Numeric, a: float, b: float, c: float) -> Numeric:
-    """Damped sine function: y = a·exp(-c·t)·sin(b·t)"""
+    """Damped sine: y = a·exp(-c·t)·sin(b·t)"""
     return a * np.exp(-c * t) * np.sin(b * t)
 
-def fit_damped_sine(data: dict, x_name: str, y_name: str) -> Tuple[str, NDArray, str, float]:
-    """Damped sine fit: y = a·exp(-c·x)·sin(b·x)
-    
-    Returns:
-        Tuple of (text, y_fitted, equation, r_squared)
-    """
-    from fitting.fitting_utils import generic_fit, estimate_trigonometric_parameters
-    
-    x = data[x_name]
-    y = data[y_name]
-    
-    # Estimate initial parameters
+def fit_damped_sine(
+    data: DataLike, x_name: str, y_name: str,
+    initial_guess_override=None, bounds_override=None,
+) -> Tuple[str, NDArray, str]:
+    """Damped sine fit. Returns (text, y_fitted, equation)."""
+    x, y = data[x_name], data[y_name]
     a0, b0 = estimate_trigonometric_parameters(x, y)
-    c0 = 0.1  # Small damping factor
-    initial_guess = [a0, b0, c0]
-    
+    c0 = 0.1
+    initial_guess = merge_initial_guess([a0, b0, c0], initial_guess_override)
     return generic_fit(
         data, x_name, y_name,
         fit_func=damped_sine_function,
-        param_names=['a', 'b', 'c'],
-        equation_template='y={a}·exp(-{c}·x)·sin({b}·x)',
-        initial_guess=initial_guess
+        param_names=get_equation_param_names_for_function('fit_damped_sine'),
+        equation_template=get_equation_format_for_function('fit_damped_sine'),
+        initial_guess=initial_guess,
     )
 ```
 
 ### Pattern 3: Specialized Function
 
-For functions with constraints or special handling, use `curve_fit` directly:
-
-```python
-# Use custom fitting logic
-def bounded_growth_function(t: Numeric, L: float, k: float) -> Numeric:
-    """Bounded growth function: y = L / (1 + exp(-k*t))"""
-    return L / (1 + np.exp(-k * t))
-
-def fit_bounded_growth(data: dict, x_name: str, y_name: str) -> Tuple[str, NDArray, str, float]:
-    """Bounded growth fit with constraints: y = L / (1 + exp(-k*x))
-    
-    Returns:
-        Tuple of (text, y_fitted, equation, r_squared)
-    """
-    from scipy.optimize import curve_fit
-    from fitting.fitting_utils import format_parameter
-    
-    x = data[x_name]
-    y = data[y_name]
-    uy = data[f'u{y_name}']
-    
-    # Constrain growth rate to positive and limit below max(y)
-    bounds = ([0, 0], [np.max(y) * 1.5, np.inf])
-    
-    params, cov = curve_fit(
-        bounded_growth_function, x, y, 
-        sigma=uy, 
-        bounds=bounds,
-        absolute_sigma=True
-    )
-    
-    # Calculate fitted values and R²
-    y_fitted = bounded_growth_function(x, *params)
-    ss_res = np.sum((y - y_fitted) ** 2)
-    ss_tot = np.sum((y - np.mean(y)) ** 2)
-    r_squared = 1.0 - (ss_res / ss_tot) if ss_tot != 0 else 0.0
-    
-    # Format parameters (similar to generic_fit)
-    uncertainties = np.sqrt(np.diag(cov))
-    # ... format and return
-```
+For functions with constraints or special handling, use `curve_fit` directly and build the same return tuple `(text, y_fitted, equation)` that `generic_fit` returns (include R² in the text). See existing implementations in `fitting/functions/special.py` for examples with bounds and custom estimators.
 
 ## Example: Complete Implementation
 
-Here's a complete example adding a Stretched Exponential function:
+Here's a complete example adding a Stretched Exponential function.
 
-**1. Add to `fitting/functions/` (e.g. `special.py`):**
+**1. Add to `fitting/functions/special.py`:**
 
 ```python
-def stretched_exponential_function(t: Numeric, a: float, tau: float, beta: float) -> Numeric:
-    """Stretched exponential (Kohlrausch) function: y = a * exp(-(t/tau)^beta)"""
+def _stretched_exponential_function(t: Numeric, a: float, tau: float, beta: float) -> Numeric:
+    """Stretched exponential (Kohlrausch): y = a * exp(-(t/tau)^beta)"""
     return a * np.exp(-(t / tau) ** beta)
 
-def fit_stretched_exponential(data: dict, x_name: str, y_name: str) -> Tuple[str, NDArray, str, float]:
-    """Stretched exponential fit: y = a·exp(-(x/tau)^beta)
-    
-    Returns:
-        Tuple of (text, y_fitted, equation, r_squared)
-    """
-    from fitting.fitting_utils import generic_fit
-    
-    # Extract data for initial parameter estimation
+def fit_stretched_exponential(
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    initial_guess_override: Optional[List[Optional[float]]] = None,
+    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
+) -> Tuple[str, NDArray, str]:
+    """Stretched exponential fit. Returns (text, y_fitted, equation)."""
     x = data[x_name]
     y = data[y_name]
-    
-    # Estimate initial parameters
-    a0 = y[0]  # Initial amplitude
-    tau0 = x[len(x)//2]  # Half-time as estimate
-    beta0 = 1.0  # Start with pure exponential
-    initial_guess = [a0, tau0, beta0]
-    
+    a0 = float(y[0])
+    tau0 = float(x[len(x) // 2])
+    beta0 = 1.0
+    initial_guess = merge_initial_guess([a0, tau0, beta0], initial_guess_override)
     return generic_fit(
         data, x_name, y_name,
-        fit_func=stretched_exponential_function,
-        param_names=['a', 'tau', 'beta'],
-        equation_template='y={a}·exp(-(x/{tau})^{beta})',
-        initial_guess=initial_guess
+        fit_func=_stretched_exponential_function,
+        param_names=get_equation_param_names_for_function('fit_stretched_exponential'),
+        equation_template=get_equation_format_for_function('fit_stretched_exponential'),
+        initial_guess=initial_guess,
     )
 ```
 
-**2. Add to `config/equations.yaml`:**
+**2. Export in `fitting/functions/__init__.py`:**  
+Add `fit_stretched_exponential` to the `from .special import ...` list and to `__all__`.
+
+**3. Add to `config/equations.yaml`:**
 
 ```yaml
 stretched_exponential_function:
   function: fit_stretched_exponential
   formula: "y = a·exp(-(x/τ)^β)"
+  format: "y={a} exp(-(x/{tau})^{beta})"
   param_names: [a, tau, beta]
 ```
 
-**3. Add to `src/locales/en.json`:**
+**4. Add translations** in `src/locales/en.json`, `es.json`, and `de.json` under the `equations` key:
 
 ```json
-{
-  "equations": {
-    "stretched_exponential_function": "Stretched Exponential (Kohlrausch)"
-  }
-}
+"stretched_exponential_function": "Stretched Exponential (Kohlrausch)"
 ```
 
-**4. Add to `src/locales/es.json`** and **`src/locales/de.json`** (under the `equations` key).
-
-```json
-{
-  "equations": {
-    "stretched_exponential_function": "Exponencial Estirada (Kohlrausch)"
-  }
-}
-```
-
-**5. Test:**
-
-```python
-# Create test data
-import numpy as np
-import pandas as pd
-
-t = np.linspace(0, 10, 100)
-y = 5.0 * np.exp(-(t/2.5)**0.7) + np.random.normal(0, 0.1, 100)
-
-data = pd.DataFrame({'t': t, 'y': y, 'ut': 0.1, 'uy': 0.1})
-data.to_csv('input/stretched_exp_test.csv', index=False)
-```
-
-Then test in both interfaces!
+**5. Test:** Create test data (e.g. in `input/stretched_exp_test.csv`) and run the app (Tkinter or Streamlit) to verify the new equation appears and fits correctly.
 
 ## Next Steps
 

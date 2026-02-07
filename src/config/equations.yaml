@@ -1,7 +1,7 @@
-# Definición de tipos de ecuación para el ajuste.
-# Cada entrada tiene: function (nombre de la función de fit), formula (fórmula legible),
-# format (plantilla con placeholders {param} para formatear resultado), param_names (parámetros).
-# El orden aquí define el orden en AVAILABLE_EQUATION_TYPES.
+# Equation type definitions for fitting.
+# Each entry has: function (fit function name), formula (readable formula),
+# format (template with {param} placeholders for result), param_names (parameters).
+# Order here defines the order in AVAILABLE_EQUATION_TYPES.
 
 linear_function_with_n:
   function: fit_linear_function_with_n

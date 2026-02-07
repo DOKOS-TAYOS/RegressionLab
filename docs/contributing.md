@@ -336,7 +336,7 @@ See [Extending RegressionLab](extending.md) for detailed guide.
 
 Summary:
 1. Add mathematical and fitting functions in `src/fitting/functions/` (e.g. `special.py`, `polynomials.py`)
-2. Register in `src/config/equations.yaml` (add entry with `function`, `formula`, `param_names`)
+2. Export the fit function from `src/fitting/functions/__init__.py`, then register in `src/config/equations.yaml` (add entry with `function`, `formula`, `format`, `param_names`)
 3. Add translations to `src/locales/` (en.json, es.json, de.json)
 4. Write tests in `tests/test_fitting_functions.py`
 5. Update documentation

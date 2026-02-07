@@ -55,7 +55,9 @@ def create_result_window(
         except Exception:
             plot_level.imagen = None
 
-    equation_width = len(equation_str) + 2
+    equation_lines = equation_str.split('\n')
+    equation_height = max(1, len(equation_lines))
+    equation_width = max(len(line) for line in equation_lines) + 2 if equation_lines else 2
     plot_level.equation_text = Text(
         plot_level,
         relief=UI_THEME['relief'],
@@ -63,7 +65,7 @@ def create_result_window(
         bg=UI_THEME['background'],
         fg=UI_THEME['foreground'],
         font=(UI_THEME['font_family'], UI_THEME['font_size_large'], 'bold'),
-        height=1,
+        height=equation_height,
         width=equation_width,
         wrap='none',
         cursor='arrow'

@@ -11,7 +11,7 @@ The `config` package centralizes all application configuration, constants, and s
 - **`config/theme.py`** – `UI_THEME`, `UI_STYLE`, `PLOT_CONFIG`, `FONT_CONFIG`, `setup_fonts`
 - **`config/paths.py`** – `FILE_CONFIG`, `get_project_root`, `ensure_output_directory`, `get_output_path`
 - **`config/constants.py`** – `__version__`, `EQUATIONS`, `AVAILABLE_EQUATION_TYPES`, `EXIT_SIGNAL`, `MATH_FUNCTION_REPLACEMENTS`, `SUPPORTED_LANGUAGE_CODES`, `LANGUAGE_ALIASES`, `DATA_FILE_TYPES`
-- **`config/equations.yaml`** – Single source of truth for equation definitions (function name, formula, param_names). Loaded by `constants.py` into `EQUATIONS`.
+- **`config/equations.yaml`** – Single source of truth for equation definitions (function name, formula, format, param_names). Loaded by `constants.py` into `EQUATIONS`.
 
 Usage remains the same: import from `config` (e.g. `from config import PLOT_CONFIG, get_project_root`).
 
@@ -30,6 +30,7 @@ __email__ = "alejandro.mata.ali@gmail.com"
 Equations are defined in **`config/equations.yaml`**. Each entry has:
 - **`function`**: Name of the fitting function (e.g. `fit_linear_function_with_n`)
 - **`formula`**: Display formula for the UI (e.g. `"y = mx + n"`)
+- **`format`**: Template with `{param}` placeholders for the fitted equation string (e.g. `"y={m}x+{n}"`)
 - **`param_names`**: List of parameter names for the fit
 
 `constants.py` loads this file into the **`EQUATIONS`** dictionary. The keys of `EQUATIONS` are the equation IDs; **`AVAILABLE_EQUATION_TYPES`** is the list of those keys (order matches the YAML file).
@@ -40,9 +41,10 @@ EQUATIONS = {
     'linear_function_with_n': {
         'function': 'fit_linear_function_with_n',
         'formula': 'y = mx + n',
+        'format': 'y={m}x+{n}',
         'param_names': ['n', 'm'],
     },
-    'linear_function': { 'function': 'fit_linear_function', 'formula': 'y = mx', 'param_names': ['m'] },
+    'linear_function': { 'function': 'fit_linear_function', 'formula': 'y = mx', 'format': 'y={m}x', 'param_names': ['m'] },
     # ...
 }
 AVAILABLE_EQUATION_TYPES = list(EQUATIONS.keys())  # Same order as in YAML
@@ -310,7 +312,7 @@ if 'linear_function' in AVAILABLE_EQUATION_TYPES:
 To add a new equation to the system:
 
 1. Implement the mathematical and fitting functions in the appropriate module under `fitting/functions/` (e.g. `special.py`, `polynomials.py`).
-2. Add an entry to **`config/equations.yaml`** with `function`, `formula`, and `param_names`. The key is the equation ID (e.g. `my_equation`).
+2. Add an entry to **`config/equations.yaml`** with `function`, `formula`, `format`, and `param_names`. The key is the equation ID (e.g. `my_equation`).
 3. Add translations for the equation ID in `src/locales/en.json`, `src/locales/es.json`, and `src/locales/de.json` under the `equations` key.
 
 ## Configuration Best Practices

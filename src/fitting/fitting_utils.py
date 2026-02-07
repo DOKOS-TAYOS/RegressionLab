@@ -78,7 +78,8 @@ def generic_fit(
     param_names: List[str],
     equation_template: Optional[str],
     initial_guess: Optional[List[float]] = None,
-    bounds: Optional[Tuple[Sequence[float], Sequence[float]]] = None
+    bounds: Optional[Tuple[Sequence[float], Sequence[float]]] = None,
+    equation_formula: Optional[str] = None,
 ) -> Tuple[str, Any, str]:
     """
     Generic fitting function that performs curve fitting with any function.
@@ -96,12 +97,14 @@ def generic_fit(
         initial_guess: Optional initial parameter values for fitting (improves convergence)
         bounds: Optional (lower_bounds, upper_bounds) for parameters;
             avoids overflow in exponentials
+        equation_formula: Optional original formula string (e.g. "y = mx + n");
+            used for custom fits; predefined fits use EQUATIONS config lookup.
     
     Returns:
         Tuple of (text, y_fitted, equation):
             - text: Formatted text with parameters, uncertainties, R² and statistics
             - y_fitted: Array with fitted y values
-            - equation: Formatted equation with parameter values
+            - equation: Original formula (if known), newline, and formatted equation with parameter values
             
     Raises:
         FittingError: If fitting fails or data is invalid
@@ -291,8 +294,19 @@ def generic_fit(
     text = '\n'.join(text_lines)
     
     # Format equation with parameter values
-    equation_str = equation_template.format(**formatted_params)
-    logger.info(t('log.fit_completed_successfully', equation=equation_str))
+    formatted_equation = equation_template.format(**formatted_params)
+    logger.info(t('log.fit_completed_successfully', equation=formatted_equation))
+
+    # Prepend original formula from config if available (or equation_formula for custom fits)
+    if equation_formula is None:
+        for _eq_id, meta in EQUATIONS.items():
+            if meta.get("format") == equation_template:
+                equation_formula = meta.get("formula")
+                break
+    if equation_formula:
+        equation_str = equation_formula + "\n" + formatted_equation
+    else:
+        equation_str = formatted_equation
 
     return text, y_fitted, equation_str
 

@@ -231,7 +231,8 @@ class CustomFunctionEvaluator:
                 y_name=y_name,
                 fit_func=self.function,
                 param_names=self.parameter_names,
-                equation_template=equation_template
+                equation_template=equation_template,
+                equation_formula=self.original_equation_str,
             )
             
             logger.info("Custom fit completed successfully")
