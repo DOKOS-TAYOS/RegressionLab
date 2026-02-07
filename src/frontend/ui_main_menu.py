@@ -13,7 +13,14 @@ from typing import Callable
 from PIL import Image, ImageTk
 
 # Local imports
-from config import UI_STYLE, __version__
+from config import (
+    BUTTON_STYLE_ACCENT,
+    BUTTON_STYLE_DANGER,
+    BUTTON_STYLE_PRIMARY,
+    BUTTON_STYLE_SECONDARY,
+    UI_STYLE,
+    __version__,
+)
 from i18n import t
 
 
@@ -104,83 +111,61 @@ def create_main_menu(
         font=(UI_STYLE['font_family'], max(8, UI_STYLE['font_size'] - 2))
     )
     
-    # Button configuration
-    btn_config = {
-        'width': UI_STYLE['button_width_wide'],
-        'bg': UI_STYLE['bg'],
-        'fg': UI_STYLE['fg'],
-        'activebackground': UI_STYLE['active_bg'],
-        'activeforeground': UI_STYLE['active_fg'],
-        'font': (UI_STYLE['font_family'], UI_STYLE['font_size'])
-    }
-    
-    # Create buttons
+    # Primary actions: main fitting and data options (green, bordered)
+    btn_primary = {**BUTTON_STYLE_PRIMARY, 'width': UI_STYLE['button_width_wide']}
     normal_fitting_button = Button(
         main_frame,
         text=t('menu.normal_fitting'),
         command=normal_fitting_callback,
-        **btn_config
+        **btn_primary
     )
-    
     multiple_datasets_button = Button(
         main_frame,
         text=t('menu.multiple_datasets'),
         command=single_fit_multiple_datasets_callback,
-        **btn_config
+        **btn_primary
     )
-    
-    help_button = Button(
-        main_frame,
-        text=t('menu.information'),
-        command=help_callback,
-        **btn_config
-    )
-    
     multiple_fits_button = Button(
         main_frame,
         text=t('menu.checker_fitting'),
         command=multiple_fits_single_dataset_callback,
-        **btn_config
+        **btn_primary
     )
-    
-    view_data_button = Button(
-        main_frame,
-        text=t('menu.view_data'),
-        command=watch_data_callback,
-        **btn_config
-    )
-    
     all_fits_button = Button(
         main_frame,
         text=t('menu.total_fitting'),
         command=all_fits_single_dataset_callback,
-        **btn_config
+        **btn_primary
     )
-    
-    # Config button (next to exit)
+    view_data_button = Button(
+        main_frame,
+        text=t('menu.view_data'),
+        command=watch_data_callback,
+        **btn_primary
+    )
+    help_button = Button(
+        main_frame,
+        text=t('menu.information'),
+        command=help_callback,
+        **btn_primary
+    )
+
+    # Secondary: config (neutral, bordered)
     config_button = Button(
         main_frame,
         text=t('menu.config'),
         command=lambda: _handle_config(menu),
         width=UI_STYLE['button_width'],
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['fg'],
-        activebackground=UI_STYLE['active_bg'],
-        activeforeground=UI_STYLE['active_fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
+        **BUTTON_STYLE_SECONDARY
     )
-    
-    # Exit button with different styling
+
+    # Danger: exit (red, bordered)
     exit_button = Button(
         main_frame,
         text=t('menu.exit'),
         command=lambda: show_exit_confirmation(menu),
         width=UI_STYLE['button_width'],
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['button_fg_cancel'],
-        activebackground=UI_STYLE['active_bg'],
-        activeforeground=UI_STYLE['active_fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
+        **BUTTON_STYLE_DANGER
     )
     
     # Layout
@@ -244,29 +229,20 @@ def show_exit_confirmation(parent_menu: Tk) -> None:
         font=(UI_STYLE['font_family'], UI_STYLE['font_size_large'])
     )
     
-    # Buttons
+    # Buttons: confirm exit = danger, cancel = accent
     close_button = Button(
         exit_level,
         text=t('menu.yes'),
         command=lambda: _close_application(parent_menu),
         width=UI_STYLE['button_width'],
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['button_fg_cancel'],
-        activebackground=UI_STYLE['active_bg'],
-        activeforeground=UI_STYLE['active_fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
+        **BUTTON_STYLE_DANGER
     )
-    
     abort_button = Button(
         exit_level,
         text=t('menu.no'),
         command=exit_level.destroy,
         width=UI_STYLE['button_width'],
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['button_fg_cyan'],
-        activebackground=UI_STYLE['active_bg'],
-        activeforeground=UI_STYLE['active_fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
+        **BUTTON_STYLE_ACCENT
     )
     
     # Layout

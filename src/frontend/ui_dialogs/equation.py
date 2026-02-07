@@ -15,7 +15,7 @@ from tkinter import (
     Text,
 )
 
-from config import EQUATIONS, EXIT_SIGNAL, UI_STYLE
+from config import BUTTON_STYLE_DANGER, BUTTON_STYLE_PRIMARY, EQUATIONS, EXIT_SIGNAL, UI_STYLE
 from i18n import t
 from utils import parse_optional_float
 
@@ -124,13 +124,17 @@ def ask_equation_type(
         font=(UI_STYLE['font_family'], UI_STYLE['font_size']),
     )
 
+    # Equation type buttons: distinct color (gold), with borders
     btn_config = {
         'width': 32,
+        'relief': UI_STYLE['button_relief'],
+        'bd': UI_STYLE['button_borderwidth'],
+        'highlightthickness': 0,
         'bg': UI_STYLE['bg'],
-        'fg': "gold2",
+        'fg': 'gold2',
         'activebackground': UI_STYLE['active_bg'],
         'activeforeground': UI_STYLE['active_fg'],
-        'font': (UI_STYLE['font_family'], UI_STYLE['font_size'])
+        'font': (UI_STYLE['font_family'], UI_STYLE['font_size']),
     }
 
     equation_keys = [
@@ -214,11 +218,7 @@ def ask_equation_type(
             text=t('dialog.accept'),
             command=on_accept,
             width=UI_STYLE['button_width'],
-            bg=UI_STYLE['bg'],
-            fg=UI_STYLE['button_fg_accept'],
-            activebackground=UI_STYLE['active_bg'],
-            activeforeground=UI_STYLE['active_fg'],
-            font=(UI_STYLE['font_family'], UI_STYLE['font_size']),
+            **BUTTON_STYLE_PRIMARY,
         )
         btn_accept.grid(row=len(param_names) + 2, column=1, columnspan=2, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
         param_dlg.resizable(True, False)
@@ -266,11 +266,7 @@ def ask_equation_type(
         text=t('dialog.exit_option'),
         command=handle_exit_click,
         width=UI_STYLE['button_width'],
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['button_fg_cancel'],
-        activebackground=UI_STYLE['active_bg'],
-        activeforeground=UI_STYLE['active_fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
+        **BUTTON_STYLE_DANGER,
     )
 
     equation_level.frame_custom.grid(column=0, row=0)
@@ -347,11 +343,7 @@ def ask_num_parameters(parent_window: Any) -> Optional[int]:
         text=t('dialog.accept'),
         command=num_parameter_level.destroy,
         width=UI_STYLE['button_width'],
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['button_fg_accept'],
-        activebackground=UI_STYLE['active_bg'],
-        activeforeground=UI_STYLE['active_fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
+        **BUTTON_STYLE_PRIMARY,
     )
 
     _pad = UI_STYLE['padding']
@@ -435,11 +427,7 @@ def ask_parameter_names(parent_window: Any, num_params: int) -> List[str]:
             text=t('dialog.accept'),
             command=parameter_asker_leve.destroy,
             width=UI_STYLE['button_width'],
-            bg=UI_STYLE['bg'],
-            fg=UI_STYLE['button_fg_accept'],
-            activebackground=UI_STYLE['active_bg'],
-            activeforeground=UI_STYLE['active_fg'],
-            font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
+            **BUTTON_STYLE_PRIMARY,
         )
 
         _pad = UI_STYLE['padding']
@@ -557,11 +545,7 @@ def ask_custom_formula(parent_window: Any, parameter_names: List[str]) -> str:
         text=t('dialog.accept'),
         command=formulator_level.destroy,
         width=UI_STYLE['button_width'],
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['button_fg_accept'],
-        activebackground=UI_STYLE['active_bg'],
-        activeforeground=UI_STYLE['active_fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
+        **BUTTON_STYLE_PRIMARY,
     )
 
     _pad = UI_STYLE['padding']
@@ -635,11 +619,7 @@ def ask_num_fits(parent_window: Any, min_val: int = 2, max_val: int = 10) -> Opt
         text=t('dialog.accept'),
         command=number_fits_level.destroy,
         width=UI_STYLE['button_width'],
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['button_fg_accept'],
-        activebackground=UI_STYLE['active_bg'],
-        activeforeground=UI_STYLE['active_fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
+        **BUTTON_STYLE_PRIMARY,
     )
 
     _pad = UI_STYLE['padding']

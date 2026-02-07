@@ -92,7 +92,7 @@ def _validate_env_value(
         # Define validation rules for integer fields
         size_fields = {
             'UI_BORDER_WIDTH', 'UI_PADDING_X', 'UI_PADDING_Y',
-            'UI_BUTTON_WIDTH', 'UI_BUTTON_WIDTH_WIDE',
+            'UI_BUTTON_BORDERWIDTH', 'UI_BUTTON_WIDTH', 'UI_BUTTON_WIDTH_WIDE',
             'UI_FONT_SIZE', 'UI_FONT_SIZE_LARGE',
             'UI_SPINBOX_WIDTH', 'UI_ENTRY_WIDTH',
             'UI_TEXT_FONT_SIZE',
@@ -202,6 +202,8 @@ ENV_SCHEMA: list[dict[str, Any]] = [
     {'key': 'UI_ACTIVE_FG', 'default': 'snow', 'cast_type': str},
     {'key': 'UI_BORDER_WIDTH', 'default': 8, 'cast_type': int},
     {'key': 'UI_RELIEF', 'default': 'ridge', 'cast_type': str, 'options': ('flat', 'raised', 'sunken', 'groove', 'ridge')},
+    {'key': 'UI_BUTTON_RELIEF', 'default': 'ridge', 'cast_type': str, 'options': ('flat', 'raised', 'sunken', 'groove', 'ridge')},
+    {'key': 'UI_BUTTON_BORDERWIDTH', 'default': 2, 'cast_type': int},
     {'key': 'UI_PADDING_X', 'default': 8, 'cast_type': int},
     {'key': 'UI_PADDING_Y', 'default': 8, 'cast_type': int},
     {'key': 'UI_BUTTON_WIDTH', 'default': 12, 'cast_type': int},

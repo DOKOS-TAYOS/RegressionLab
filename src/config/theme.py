@@ -14,6 +14,8 @@ UI_THEME = {
     'active_fg': get_env('UI_ACTIVE_FG', 'snow'),
     'border_width': get_env('UI_BORDER_WIDTH', 8, int),
     'relief': get_env('UI_RELIEF', 'ridge'),
+    'button_relief': get_env('UI_BUTTON_RELIEF', 'ridge'),
+    'button_borderwidth': get_env('UI_BUTTON_BORDERWIDTH', 2, int),
     'padding_x': get_env('UI_PADDING_X', 8, int),
     'padding_y': get_env('UI_PADDING_Y', 8, int),
     'button_width': get_env('UI_BUTTON_WIDTH', 12, int),
@@ -42,6 +44,8 @@ UI_STYLE = {
     'active_fg': UI_THEME['active_fg'],
     'entry_fg': UI_THEME['background'],
     'border_width': UI_THEME['border_width'],
+    'button_relief': UI_THEME['button_relief'],
+    'button_borderwidth': UI_THEME['button_borderwidth'],
     'button_width': UI_THEME['button_width'],
     'button_width_wide': UI_THEME['button_width_wide'],
     'padding': UI_THEME['padding_x'],
@@ -57,6 +61,36 @@ UI_STYLE = {
     'text_insert_bg': UI_THEME['text_insert_bg'],
     'text_select_bg': UI_THEME['text_select_bg'],
     'text_select_fg': UI_THEME['text_select_fg'],
+}
+
+# Button style presets: borders and relief for visibility; different roles use different colors.
+_BASE_BUTTON = {
+    'relief': UI_STYLE['button_relief'],
+    'bd': UI_STYLE['button_borderwidth'],
+    'highlightthickness': 0,
+    'activebackground': UI_STYLE['active_bg'],
+    'activeforeground': UI_STYLE['active_fg'],
+    'font': (UI_STYLE['font_family'], UI_STYLE['font_size']),
+}
+BUTTON_STYLE_PRIMARY = {
+    **_BASE_BUTTON,
+    'bg': UI_STYLE['bg'],
+    'fg': UI_STYLE['button_fg_accept'],
+}
+BUTTON_STYLE_SECONDARY = {
+    **_BASE_BUTTON,
+    'bg': UI_STYLE['bg'],
+    'fg': UI_STYLE['fg'],
+}
+BUTTON_STYLE_DANGER = {
+    **_BASE_BUTTON,
+    'bg': UI_STYLE['bg'],
+    'fg': UI_STYLE['button_fg_cancel'],
+}
+BUTTON_STYLE_ACCENT = {
+    **_BASE_BUTTON,
+    'bg': UI_STYLE['bg'],
+    'fg': UI_STYLE['button_fg_cyan'],
 }
 
 PLOT_CONFIG = {

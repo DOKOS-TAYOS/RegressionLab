@@ -3,7 +3,7 @@
 from pathlib import Path
 from tkinter import Toplevel, Frame, Label, Button, Text, PhotoImage
 
-from config import UI_THEME
+from config import BUTTON_STYLE_PRIMARY, UI_THEME
 from frontend.image_utils import (
     load_image_scaled,
     plot_display_path,
@@ -118,11 +118,7 @@ def create_result_window(
         text=t('dialog.accept'),
         command=_on_close,
         width=UI_THEME['button_width'],
-        bg=UI_THEME['background'],
-        fg=UI_THEME['button_fg'],
-        activebackground=UI_THEME['active_bg'],
-        activeforeground=UI_THEME['active_fg'],
-        font=(UI_THEME['font_family'], UI_THEME['font_size'])
+        **BUTTON_STYLE_PRIMARY,
     )
 
     plot_level.equation_text.pack(padx=UI_THEME['padding_x'], pady=UI_THEME['padding_y'])

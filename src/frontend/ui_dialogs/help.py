@@ -4,7 +4,7 @@ import re
 import webbrowser
 from tkinter import Tk, Toplevel, Frame, Button, Scrollbar, Text
 
-from config import DONATIONS_URL, UI_STYLE
+from config import BUTTON_STYLE_PRIMARY, DONATIONS_URL, UI_STYLE
 from i18n import t
 
 
@@ -173,11 +173,7 @@ def show_help_dialog(parent_window: Tk | Toplevel) -> None:
             text=t('dialog.donations'),
             command=lambda: webbrowser.open(DONATIONS_URL),
             width=UI_STYLE['button_width_wide'],
-            bg=UI_STYLE['bg'],
-            fg=UI_STYLE['button_fg_accept'],
-            activebackground=UI_STYLE['active_bg'],
-            activeforeground=UI_STYLE['active_fg'],
-            font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
+            **BUTTON_STYLE_PRIMARY,
         )
         donations_button.pack(side='left', padx=(0, UI_STYLE['padding']))
 
@@ -186,11 +182,7 @@ def show_help_dialog(parent_window: Tk | Toplevel) -> None:
         text=t('dialog.accept'),
         command=help_level.destroy,
         width=UI_STYLE['button_width'],
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['button_fg_accept'],
-        activebackground=UI_STYLE['active_bg'],
-        activeforeground=UI_STYLE['active_fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
+        **BUTTON_STYLE_PRIMARY,
     )
     accept_button.pack(side='left')
 

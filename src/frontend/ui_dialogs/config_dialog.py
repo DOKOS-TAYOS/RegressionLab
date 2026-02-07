@@ -17,6 +17,8 @@ from tkinter import (
 )
 
 from config import (
+    BUTTON_STYLE_DANGER,
+    BUTTON_STYLE_PRIMARY,
     ENV_SCHEMA,
     UI_STYLE,
     get_current_env_values,
@@ -330,11 +332,7 @@ def show_config_dialog(parent_window: Any) -> bool:
         text=t('dialog.accept'),
         command=on_accept,
         width=UI_STYLE['button_width'],
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['button_fg_accept'],
-        activebackground=UI_STYLE['active_bg'],
-        activeforeground=UI_STYLE['active_fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size']),
+        **BUTTON_STYLE_PRIMARY,
     ).pack(side='left', padx=(0, UI_STYLE['padding']))
 
     Button(
@@ -342,11 +340,7 @@ def show_config_dialog(parent_window: Any) -> bool:
         text=t('dialog.cancel'),
         command=on_cancel,
         width=UI_STYLE['button_width'],
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['button_fg_cancel'],
-        activebackground=UI_STYLE['active_bg'],
-        activeforeground=UI_STYLE['active_fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size']),
+        **BUTTON_STYLE_DANGER,
     ).pack(side='left')
 
     screen_width = config_level.winfo_screenwidth()

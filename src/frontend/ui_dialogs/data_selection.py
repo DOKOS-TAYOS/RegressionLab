@@ -3,7 +3,7 @@
 from typing import Any, List, Tuple
 from tkinter import Tk, Toplevel, Frame, Label, Button, Entry, StringVar, Radiobutton, Scrollbar, Text, ttk
 
-from config import DATA_FILE_TYPES, EXIT_SIGNAL, UI_STYLE
+from config import BUTTON_STYLE_PRIMARY, DATA_FILE_TYPES, EXIT_SIGNAL, UI_STYLE
 from i18n import t
 
 # Max size for pair-plot image window so it does not resize the desktop
@@ -77,11 +77,7 @@ def ask_file_type(parent_window: Any) -> str:
         text=t('dialog.accept'),
         command=call_file_level.destroy,
         width=UI_STYLE['button_width'],
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['button_fg_accept'],
-        activebackground=UI_STYLE['active_bg'],
-        activeforeground=UI_STYLE['active_fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
+        **BUTTON_STYLE_PRIMARY,
     )
 
     call_file_level.frame.grid(column=0, row=0)
@@ -158,11 +154,7 @@ def ask_file_name(parent_window: Any, file_list: List[str]) -> str:
         text=t('dialog.accept'),
         command=call_data_level.destroy,
         width=UI_STYLE['button_width'],
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['button_fg_accept'],
-        activebackground=UI_STYLE['active_bg'],
-        activeforeground=UI_STYLE['active_fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
+        **BUTTON_STYLE_PRIMARY,
     )
 
     call_data_level.frame_custom.grid(column=0, row=0)
@@ -286,11 +278,7 @@ def ask_variables(parent_window: Any, variable_names: List[str]) -> Tuple[str, s
         text=t('dialog.accept'),
         command=call_var_level.destroy,
         width=UI_STYLE['button_width'],
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['button_fg_accept'],
-        activebackground=UI_STYLE['active_bg'],
-        activeforeground=UI_STYLE['active_fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
+        **BUTTON_STYLE_PRIMARY,
     )
     call_var_level.label_message_plot = Label(
         call_var_level.frame_custom,
@@ -380,11 +368,7 @@ def _show_image_toplevel(parent: Tk | Toplevel, image_path: str, title: str) -> 
         text=t('dialog.accept'),
         command=_on_close,
         width=UI_STYLE['button_width'],
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['button_fg_accept'],
-        activebackground=UI_STYLE['active_bg'],
-        activeforeground=UI_STYLE['active_fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size']),
+        **BUTTON_STYLE_PRIMARY,
     ).pack(padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
     win.protocol("WM_DELETE_WINDOW", _on_close)
 
@@ -460,11 +444,7 @@ def show_data_dialog(parent_window: Tk | Toplevel, data: Any) -> None:
             text=t('dialog.show_pair_plots'),
             command=_open_pair_plots_window,
             width=min(42, max(36, UI_STYLE['button_width_wide'] + 10)),
-            bg=UI_STYLE['bg'],
-            fg=UI_STYLE['button_fg_accept'],
-            activebackground=UI_STYLE['active_bg'],
-            activeforeground=UI_STYLE['active_fg'],
-            font=(UI_STYLE['font_family'], UI_STYLE.get('font_size_large', UI_STYLE['font_size'])),
+            **{**BUTTON_STYLE_PRIMARY, 'font': (UI_STYLE['font_family'], UI_STYLE.get('font_size_large', UI_STYLE['font_size']))},
         )
         pair_btn.pack(anchor='w', pady=4)
 
@@ -473,11 +453,7 @@ def show_data_dialog(parent_window: Tk | Toplevel, data: Any) -> None:
         text=t('dialog.accept'),
         command=watch_data_level.destroy,
         width=UI_STYLE['button_width'],
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['button_fg_accept'],
-        activebackground=UI_STYLE['active_bg'],
-        activeforeground=UI_STYLE['active_fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
+        **BUTTON_STYLE_PRIMARY,
     )
     watch_data_level.accept_button.pack(padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
 
