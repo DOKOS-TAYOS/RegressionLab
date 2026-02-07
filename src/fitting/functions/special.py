@@ -287,9 +287,6 @@ def fit_hermite_polynomial_4(
     initial_guess_override: Optional[List[Optional[float]]] = None,
     bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
 ) -> Tuple[str, NDArray, str]:
-    x = data[x_name]
-    y = data[y_name]
-    y_mean = float(np.mean(y))
     """
     Fit a Hermite polynomial expansion up to degree 4.
 
@@ -306,6 +303,9 @@ def fit_hermite_polynomial_4(
     Returns:
         Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`.
     """
+    x = data[x_name]
+    y = data[y_name]
+    y_mean = float(np.mean(y))
     initial_guess = merge_initial_guess(
         [y_mean, 0.0, 0.0, 0.0, 0.0], initial_guess_override
     )

@@ -1,5 +1,7 @@
 """UI theme, plot style, and font configuration."""
 
+from typing import Any
+
 from config.env import get_env
 
 UI_THEME = {
@@ -86,7 +88,7 @@ FONT_CONFIG = {
 _font_cache = None
 
 
-def setup_fonts() -> tuple:
+def setup_fonts() -> tuple[Any, Any]:
     """
     Configure and cache font properties for plot titles and axes.
 

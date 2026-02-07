@@ -1,6 +1,6 @@
 """Inverse and logarithmic fitting functions."""
 
-from typing import Callable, List, Optional, Tuple
+from typing import Callable, Optional
 
 import numpy as np
 from numpy.typing import NDArray
@@ -46,9 +46,9 @@ def fit_ln_function(
     data: DataLike,
     x_name: str,
     y_name: str,
-    initial_guess_override: Optional[List[Optional[float]]] = None,
-    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
-) -> Tuple[str, NDArray, str]:
+    initial_guess_override: Optional[list[Optional[float]]] = None,
+    bounds_override: Optional[tuple[list[Optional[float]], list[Optional[float]]]] = None,
+) -> tuple[str, NDArray, str]:
     """
     Fit a logarithmic model :math:`y = a \\ln(x)`.
 
@@ -85,9 +85,9 @@ def fit_inverse_function(
     data: DataLike,
     x_name: str,
     y_name: str,
-    initial_guess_override: Optional[List[Optional[float]]] = None,
-    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
-) -> Tuple[str, NDArray, str]:
+    initial_guess_override: Optional[list[Optional[float]]] = None,
+    bounds_override: Optional[tuple[list[Optional[float]], list[Optional[float]]]] = None,
+) -> tuple[str, NDArray, str]:
     """
     Fit an inverse model :math:`y = a / x`.
 
@@ -124,9 +124,9 @@ def fit_inverse_square_function(
     data: DataLike,
     x_name: str,
     y_name: str,
-    initial_guess_override: Optional[List[Optional[float]]] = None,
-    bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None,
-) -> Tuple[str, NDArray, str]:
+    initial_guess_override: Optional[list[Optional[float]]] = None,
+    bounds_override: Optional[tuple[list[Optional[float]], list[Optional[float]]]] = None,
+) -> tuple[str, NDArray, str]:
     """
     Fit an inverse‑square model :math:`y = a / x^2`.
 

@@ -4,6 +4,9 @@ import os
 from pathlib import Path
 from typing import Any, Type, Union
 
+# Type for env schema cast_type (str, int, float, bool)
+_EnvCastType = Type[Union[str, int, float, bool]]
+
 from config.constants import (
     LANGUAGE_ALIASES,
     SUPPORTED_LANGUAGE_CODES,
@@ -148,7 +151,7 @@ def _validate_env_value(
 def _was_value_corrected(
     key: str,
     current_value: Any,
-    cast_type: type,
+    cast_type: _EnvCastType,
     schema_item: dict[str, Any]
 ) -> bool:
     """
@@ -243,6 +246,10 @@ ENV_SCHEMA: list[dict[str, Any]] = [
     {'key': 'LOG_CONSOLE', 'default': False, 'cast_type': bool},
 ]
 
+# O(1) lookup by key for get_env and related functions
+_ENV_SCHEMA_BY_KEY: dict[str, dict[str, Any]] = {item['key']: item for item in ENV_SCHEMA}
+
+
 def get_env(
     key: str,
     default: Any,
@@ -267,12 +274,7 @@ def get_env(
     if value is None:
         return default
 
-    # Find schema item for this key
-    schema_item = None
-    for item in ENV_SCHEMA:
-        if item['key'] == key:
-            schema_item = item
-            break
+    schema_item = _ENV_SCHEMA_BY_KEY.get(key)
 
     # If no schema found, use basic casting without validation
     if schema_item is None:

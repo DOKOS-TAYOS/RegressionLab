@@ -124,7 +124,7 @@ def get_variable_names(data: pd.DataFrame, filter_uncertainty: bool = False) -> 
         return variable_names
 
     filtered: List[str] = []
-    excluded: set = set()
+    excluded: set[str] = set()
 
     for var in variable_names:
         if var in excluded:

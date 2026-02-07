@@ -49,9 +49,9 @@ def format_parameter(value: float, sigma: float) -> Tuple[float, str]:
     
     try:
         sigma_str = '%.1E' % Decimal(sigma)
-        # Try to extract exponent part (format: X.XE+YY or X.XE-YY)
-        if 'E' in sigma_str or 'e' in sigma_str:
-            exp_part = sigma_str.split('E')[-1] if 'E' in sigma_str else sigma_str.split('e')[-1]
+        # Try to extract exponent part (format: X.XE+YY or X.XE-YY; %E uses uppercase)
+        if 'E' in sigma_str:
+            exp_part = sigma_str.split('E')[-1]
             if exp_part:  # Check if exp_part is not empty
                 exp_value = int(exp_part)
                 rounded_value = round(value, 1 - exp_value)
