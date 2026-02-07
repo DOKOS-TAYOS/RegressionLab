@@ -21,7 +21,7 @@ def _normalize_plot_format(value: str) -> str:
     Returns:
         Normalized extension without leading dot.
 
-    Example:
+    Examples:
         >>> _normalize_plot_format('PNG')
         'png'
         >>> _normalize_plot_format('jpeg')
@@ -107,7 +107,7 @@ def get_output_path(fit_name: str, output_dir: Optional[str] = None) -> str:
     Returns:
         Absolute path to the image file as a string.
 
-    Example:
+    Examples:
         >>> get_output_path("linear_fit")
         '.../output/fit_linear_fit.png'
     """

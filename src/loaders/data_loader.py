@@ -110,9 +110,9 @@ def get_variable_names(data: pd.DataFrame, filter_uncertainty: bool = False) -> 
         filter_uncertainty: If True, exclude uncertainty columns from the result
 
     Returns:
-        List of column names as strings
+        List of column names as strings.
 
-    Example:
+    Examples:
         >>> df = pd.DataFrame({'x': [1,2], 'ux': [0.1, 0.1], 'y': [2,4], 'uy': [0.2, 0.2]})
         >>> get_variable_names(df)
         ['x', 'ux', 'y', 'uy']

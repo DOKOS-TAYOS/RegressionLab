@@ -34,12 +34,12 @@ Choose the interface that works best for you:
 - **Desktop version** (Tkinter): Full-featured native application with advanced options
 
 ### 2. **Multiple Operation Modes**
-RegressionLab offers four different fitting modes to match your workflow:
+RegressionLab offers four fitting modes plus an optional loop, so you can match the workflow to your task:
 
-- **Normal Fitting**: Fit one equation to one dataset (with optional loop mode for iterative refinement)
-- **Multiple Datasets**: Apply the same equation to multiple datasets simultaneously
-- **Checker Mode**: Test multiple equations on the same dataset to find the best fit
-- **Total Fitting**: Automatically try all available equations on your data
+- **Normal fitting**: Fits one equation to one dataset. Ideal when you already know the model and want a single, precise fit. Optionally use **loop mode** to add data progressively to your file and refit without reconfiguring—useful for incremental experiments or validating as you go.
+- **Fit multiple datasets**: Applies the *same* equation to several datasets at once. Use it when you want to test the same hypothesis on different data series (e.g., the same experiment on different days) and compare results systematically.
+- **Fit multiple functions**: Tests *different* equations on the *same* dataset. Lets you explore which model (e.g., linear vs. quadratic vs. exponential) best describes your data.
+- **Fit all functions**: Applies every available equation to one dataset. Use it for hypothesis exploration when you want to see which built-in or custom function fits best in one go.
 
 ### 3. **Wide Range of Fitting Functions**
 Built-in support for:
@@ -67,9 +67,9 @@ Automatic detection and visualization of measurement uncertainties:
 
 ### 6. **Batch Processing**
 Save time by:
-- Fitting multiple datasets with one click
-- Testing all available equations automatically
-- Loop mode for iterative data refinement
+- Fitting multiple datasets with one click (same equation, many files)
+- Testing all available equations on one dataset automatically (fit all functions)
+- Loop mode for iterative data refinement (add data, refit, repeat without reconfiguring)
 
 ### 7. **Internationalization**
 Full support for multiple languages:

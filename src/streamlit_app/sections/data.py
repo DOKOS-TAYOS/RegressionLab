@@ -21,7 +21,10 @@ def _get_variable_names(data: Any, filter_uncertainty: bool = True) -> List[str]
 
 def load_uploaded_file(uploaded_file: Any) -> Optional[Any]:
     """
-    Load data from uploaded file.
+    Load data from an uploaded file (CSV, XLSX, or TXT).
+
+    Args:
+        uploaded_file: Streamlit UploadedFile object (e.g. from st.file_uploader).
 
     Returns:
         DataFrame with loaded data, or None if loading fails.

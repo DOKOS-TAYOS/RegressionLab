@@ -12,7 +12,13 @@ def remove_markdown_bold(text: str) -> str:
     """Remove Markdown bold markers (**) from text for Tkinter display.
 
     Only strips ** when the content between them has no asterisk, so
-    exponentiation in code (e.g. x**2) is preserved.
+    exponentiation in code (e.g. ``x**2``) is preserved.
+
+    Args:
+        text: String that may contain Markdown bold markers.
+
+    Returns:
+        String with ``**...**`` removed (content preserved).
     """
     return re.sub(r'\*\*([^*]*)\*\*', r'\1', text)
 
@@ -30,7 +36,10 @@ def show_help_dialog(parent_window: Tk | Toplevel) -> None:
         - Where output plots are saved
 
     Args:
-        parent_window: Parent Tkinter window
+        parent_window: Parent Tkinter window (Tk or Toplevel).
+
+    Returns:
+        None.
     """
     help_level = Toplevel()
     help_level.title(t('dialog.help_title'))

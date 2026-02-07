@@ -158,15 +158,14 @@ def estimate_linear_parameters(x: Any, y: Any) -> Tuple[float, float]:
 def estimate_polynomial_parameters(x: Any, y: Any, degree: int) -> List[float]:
     """
     Estimate initial parameters for polynomial y = c0 + c1*x + ... + c_degree*x^degree.
-    Returns list [c0, c1, ..., c_degree] (constant term first).
 
     Args:
-        x: Independent variable array
-        y: Dependent variable array
-        degree: Polynomial degree
+        x: Independent variable array.
+        y: Dependent variable array.
+        degree: Polynomial degree.
 
     Returns:
-        List of coefficients from constant to highest order.
+        List of coefficients [c0, c1, ..., c_degree] (constant term first).
     """
     x = np.asarray(x, dtype=float)
     y = np.asarray(y, dtype=float)

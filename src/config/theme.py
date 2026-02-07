@@ -115,7 +115,14 @@ def setup_fonts() -> tuple[Any, Any]:
         logger = None
     
     def _set_font_property(setter_method, value, property_name, default_value):
-        """Helper to set a font property with error handling."""
+        """Set a font property with error handling; fall back to default on failure.
+
+        Args:
+            setter_method: Method to call to set the property (e.g. set_family).
+            value: Value to set.
+            property_name: Name of the property (for log messages).
+            default_value: Fallback value if setting fails.
+        """
         try:
             setter_method(value)
         except (ValueError, KeyError) as e:

@@ -84,10 +84,13 @@ def toggle_language() -> None:
 
 def setup_sidebar(version: str) -> str:
     """
-    Setup and render sidebar with language selector and mode options.
+    Setup and render the sidebar with language selector and mode options.
+
+    Args:
+        version: Application version string to display in the sidebar.
 
     Returns:
-        Selected operation mode
+        Selected operation mode (e.g. 'normal_fitting', 'watch_data').
     """
     with st.sidebar:
         st.markdown(_SIDEBAR_CSS, unsafe_allow_html=True)

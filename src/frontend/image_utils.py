@@ -6,9 +6,16 @@ from typing import Any, Optional
 
 def plot_display_path(output_path: str) -> str:
     """
-    Path to use for displaying a plot in the GUI.
-    When the saved file is PDF, returns the _preview.png path if it exists,
+    Return the path to use for displaying a plot in the GUI.
+
+    When the saved file is PDF, returns the ``_preview.png`` path if it exists,
     so Tkinter can show the image without breaking.
+
+    Args:
+        output_path: Full path to the saved plot file (e.g. PDF or PNG).
+
+    Returns:
+        Path to the image file to display (preview PNG for PDFs when available).
     """
     p = Path(output_path)
     if p.suffix.lower() == '.pdf':
@@ -22,8 +29,17 @@ def preview_path_to_remove_after_display(
     display_path: str, original_output_path: str
 ) -> Optional[str]:
     """
-    If the displayed image is an auxiliary preview file (_preview.png), return its path
-    so the caller can delete it after the window is closed.
+    Return the path of an auxiliary preview file to remove after display.
+
+    If the displayed image is an auxiliary preview file (``_preview.png``),
+    return its path so the caller can delete it after the window is closed.
+
+    Args:
+        display_path: Path actually used for display (may be preview PNG).
+        original_output_path: Original output path (e.g. PDF path).
+
+    Returns:
+        Path to the preview file to delete, or None if no cleanup needed.
     """
     if display_path == original_output_path:
         return None

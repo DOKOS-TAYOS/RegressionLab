@@ -234,8 +234,8 @@ def apply_all_equations(
         data: Dataset to fit (pandas DataFrame)
         x_name: Independent variable column name
         y_name: Dependent variable column name
-        plot_name: Plot name for display and filename (optional)
-        
+        plot_name: Plot name for display and filename (optional).
+
     Example:
         >>> from config import AVAILABLE_EQUATION_TYPES
         >>> apply_all_equations(

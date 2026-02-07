@@ -250,9 +250,9 @@ def log_exception(
 
     Example:
         >>> try:
-        >>>     # some code
-        >>> except Exception as e:
-        >>>     log_exception(logger, e, "Failed to load data")
+        ...     risky_operation()
+        ... except Exception as e:
+        ...     log_exception(logger, e, "Failed to load data")
     """
     if context:
         logger.error(f"{context}: {type(exception).__name__}: {exception}", exc_info=True)

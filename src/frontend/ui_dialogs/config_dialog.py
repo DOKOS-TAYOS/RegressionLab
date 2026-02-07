@@ -64,8 +64,12 @@ def _build_config_sections() -> List[Tuple[str, List[dict]]]:
 def show_config_dialog(parent_window: Any) -> bool:
     """
     Show configuration dialog to edit .env fields.
+
     Pre-fills with current env values (or defaults). On Accept, writes .env
     and returns True so the caller can restart the app. On Cancel returns False.
+
+    Args:
+        parent_window: Parent Tkinter window (Tk or Toplevel).
 
     Returns:
         True if user accepted and .env was written (caller should restart).
