@@ -239,6 +239,27 @@ ENV_SCHEMA: list[dict[str, Any]] = [
 _ENV_SCHEMA_BY_KEY: dict[str, dict[str, Any]] = {item['key']: item for item in ENV_SCHEMA}
 
 
+def get_env_from_schema(key: str) -> Any:
+    """
+    Get environment variable using ENV_SCHEMA: default and cast_type come from
+    the schema. Use this when the key is defined in ENV_SCHEMA to avoid
+    duplicating defaults.
+
+    Args:
+        key: Environment variable name (must exist in ENV_SCHEMA).
+
+    Returns:
+        The validated value from get_env(key, default, cast_type).
+
+    Raises:
+        KeyError: If key is not in ENV_SCHEMA.
+    """
+    item = _ENV_SCHEMA_BY_KEY.get(key)
+    if item is None:
+        raise KeyError(f"Unknown env key: {key}")
+    return get_env(key, item['default'], item['cast_type'])
+
+
 def get_env(
     key: str,
     default: Any,

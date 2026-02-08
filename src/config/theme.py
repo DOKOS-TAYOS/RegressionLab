@@ -1,88 +1,163 @@
 """UI theme, plot style, and font configuration.
 
 All UI appearance is controlled by a single set of env vars. Fonts, sizes,
-colors, relief and spacing are unified for consistency.
+colors, relief and spacing are unified for consistency. Values are read from
+ENV_SCHEMA in config.env (single source of truth for defaults and types).
 """
 
 import tkinter
-from typing import Any, Type, Union
+from typing import Any
 
 from tkinter import ttk
 
-from config.env import get_env
+from config.env import get_env_from_schema
 
 # -----------------------------------------------------------------------------
-# Single source: env vars (reduced set) + derived constants (same default look)
+# Single source: ENV_SCHEMA (env.py) + derived constants (same default look)
 # -----------------------------------------------------------------------------
-
-def _e(key: str, default: Any, cast_type: Type[Union[str, int, float, bool]] = str) -> Any:
-    """Read env with default and type (str, int, float, bool)."""
-    return get_env(key, default, cast_type)
-
 
 def _darken_bg(color: str) -> str:
-    """Return a slightly darker shade for backgrounds (button active, widget hover)."""
-    key = color.lower() if isinstance(color, str) else ''
-    m = {
-        'navy': 'midnight blue',
-        'midnight blue': 'dark slate blue',
-        'gray15': 'gray10',
-        'gray20': 'gray12',
-        'gray25': 'gray20',
-    }
-    return m.get(key, 'gray12')
+    """Return a slightly darker shade for backgrounds (button active, widget hover).
+    
+    Uses algorithmic color transformation instead of lookup tables.
+    
+    Args:
+        color: Named color string (e.g., 'navy', 'gray15')
+        
+    Returns:
+        Darker shade as hex color string
+    """
+    if not isinstance(color, str) or not color.strip():
+        return '#1e1e1e'
+    
+    try:
+        root = tkinter.Tk()
+        root.withdraw()
+        r, g, b = root.winfo_rgb(color)
+        root.destroy()
+    except (tkinter.TclError, Exception):
+        return '#1e1e1e'
+    
+    # winfo_rgb returns 0..65535; darken by reducing each channel by 15%
+    factor = 0.85
+    r = int(r * factor)
+    g = int(g * factor)
+    b = int(b * factor)
+    
+    return f'#{r // 256:02x}{g // 256:02x}{b // 256:02x}'
 
 
 def _lighten_fg(color: str) -> str:
-    """Return a slightly lighter shade for foreground (button text when active/pressed)."""
-    key = color.lower() if isinstance(color, str) else ''
-    m = {
-        'snow': 'white',
-        'lime green': 'pale green',
-        'red2': 'indian red',
-        'cyan2': 'light cyan',
-        'yellow': 'light yellow',
-        'white': 'white',
-        'forest green': 'lime green',
-    }
-    return m.get(key, 'white')
+    """Return a slightly lighter shade for foreground (button text when active/pressed).
+    
+    Uses algorithmic color transformation instead of lookup tables.
+    
+    Args:
+        color: Named color string (e.g., 'snow', 'lime green')
+        
+    Returns:
+        Lighter shade as hex color string
+    """
+    if not isinstance(color, str) or not color.strip():
+        return '#ffffff'
+    
+    try:
+        root = tkinter.Tk()
+        root.withdraw()
+        r, g, b = root.winfo_rgb(color)
+        root.destroy()
+    except (tkinter.TclError, Exception):
+        return '#ffffff'
+    
+    # winfo_rgb returns 0..65535; lighten by moving 20% toward white
+    factor = 0.20
+    r = min(65535, int(r + (65535 - r) * factor))
+    g = min(65535, int(g + (65535 - g) * factor))
+    b = min(65535, int(b + (65535 - b) * factor))
+    
+    return f'#{r // 256:02x}{g // 256:02x}{b // 256:02x}'
 
 
 def _tooltip_bg_from_ui(ui_bg: str) -> str:
-    """UI background -> tooltip background: more grayish and slightly lighter."""
-    key = ui_bg.lower() if isinstance(ui_bg, str) else ''
-    m = {
-        'navy': 'gray30',
-        'midnight blue': 'gray30',
-        'gray15': 'gray25',
-        'gray20': 'gray28',
-    }
-    return m.get(key, 'gray30')
+    """Convert UI background to tooltip background: more grayish and slightly lighter.
+    
+    Uses algorithmic color transformation to desaturate and lighten.
+    
+    Args:
+        ui_bg: UI background color name
+        
+    Returns:
+        Tooltip background as hex color string
+    """
+    if not isinstance(ui_bg, str) or not ui_bg.strip():
+        return '#4d4d4d'
+    
+    try:
+        root = tkinter.Tk()
+        root.withdraw()
+        r, g, b = root.winfo_rgb(ui_bg)
+        root.destroy()
+    except (tkinter.TclError, Exception):
+        return '#4d4d4d'
+    
+    # winfo_rgb returns 0..65535
+    # Desaturate by moving toward average (grayscale) by 60%
+    avg = (r + g + b) // 3
+    desat_factor = 0.60
+    r = int(r + (avg - r) * desat_factor)
+    g = int(g + (avg - g) * desat_factor)
+    b = int(b + (avg - b) * desat_factor)
+    
+    # Then lighten by moving 25% toward white
+    lighten_factor = 0.25
+    r = min(65535, int(r + (65535 - r) * lighten_factor))
+    g = min(65535, int(g + (65535 - g) * lighten_factor))
+    b = min(65535, int(b + (65535 - b) * lighten_factor))
+    
+    return f'#{r // 256:02x}{g // 256:02x}{b // 256:02x}'
+
+
+def _lighten_bg_hex(color: str, factor: float = 0.06) -> str:
+    """Return a very slightly lighter shade of color as #rrggbb, calculated from RGB."""
+    if not isinstance(color, str) or not color.strip():
+        return '#2e2e2e'
+    try:
+        root = tkinter.Tk()
+        root.withdraw()
+        r, g, b = root.winfo_rgb(color)
+        root.destroy()
+    except (tkinter.TclError, Exception):
+        return '#2e2e2e'
+    # winfo_rgb returns 0..65535; move each channel slightly toward white
+    r = min(65535, int(r + (65535 - r) * factor))
+    g = min(65535, int(g + (65535 - g) * factor))
+    b = min(65535, int(b + (65535 - b) * factor))
+    return f'#{r // 256:02x}{g // 256:02x}{b // 256:02x}'
 
 
 # Colors (only main knobs; rest derived where used)
-_bg = _e('UI_BACKGROUND', 'navy')
-_fg = _e('UI_FOREGROUND', 'snow')
-_btn_bg = _e('UI_BUTTON_BG', 'midnight blue')
-_btn_fg_primary = _e('UI_BUTTON_FG', 'lime green')
-_btn_fg_cancel = _e('UI_BUTTON_FG_CANCEL', 'red2')
-_btn_fg_accent = _e('UI_BUTTON_FG_CYAN', 'cyan2')
-_btn_fg_accent2 = _e('UI_BUTTON_FG_ACCENT2', 'yellow')
-_text_bg = _e('UI_TEXT_BG', 'gray15')
-_text_fg = _e('UI_TEXT_FG', 'light cyan')
-_text_select_bg = _e('UI_TEXT_SELECT_BG', 'steel blue')
-_text_select_fg = _e('UI_TEXT_SELECT_FG', 'white')
+_bg = get_env_from_schema('UI_BACKGROUND')
+_fg = get_env_from_schema('UI_FOREGROUND')
+_btn_bg = get_env_from_schema('UI_BUTTON_BG')
+_btn_fg_primary = get_env_from_schema('UI_BUTTON_FG')
+_btn_fg_cancel = get_env_from_schema('UI_BUTTON_FG_CANCEL')
+_btn_fg_accent = get_env_from_schema('UI_BUTTON_FG_CYAN')
+_btn_fg_accent2 = get_env_from_schema('UI_BUTTON_FG_ACCENT2')
+_text_bg = get_env_from_schema('UI_TEXT_BG')
+_text_fg = get_env_from_schema('UI_TEXT_FG')
+_text_select_bg = get_env_from_schema('UI_TEXT_SELECT_BG')
+_text_select_fg = get_env_from_schema('UI_TEXT_SELECT_FG')
 
 # Layout and sizes (fixed or derived)
 _border = 8
 _relief = 'raised'
-_padding = _e('UI_PADDING', 8, int)
-_btn_w = _e('UI_BUTTON_WIDTH', 12, int)
+_padding = get_env_from_schema('UI_PADDING')
+_btn_w = get_env_from_schema('UI_BUTTON_WIDTH')
 _btn_wide = int(2.5 * _btn_w)
-_spin_w = _e('UI_SPINBOX_WIDTH', 10, int)
-_entry_w = _e('UI_ENTRY_WIDTH', 25, int)
-_font_family = _e('UI_FONT_FAMILY', 'Menlo')
-_font_size = _e('UI_FONT_SIZE', 16, int)
+_spin_w = get_env_from_schema('UI_SPINBOX_WIDTH')
+_entry_w = get_env_from_schema('UI_ENTRY_WIDTH')
+_font_family = get_env_from_schema('UI_FONT_FAMILY')
+_font_size = get_env_from_schema('UI_FONT_SIZE')
 _font_size_large = int(1.25 * _font_size)
 
 # -----------------------------------------------------------------------------
@@ -93,6 +168,7 @@ _font_size_large = int(1.25 * _font_size)
 _active_bg = _darken_bg(_btn_bg)
 _hover_bg = _darken_bg(_bg)
 _tooltip_bg = _tooltip_bg_from_ui(_bg)
+_field_bg = _lighten_bg_hex(_bg, factor=0.14)
 
 UI_STYLE = {
     # Core colors
@@ -106,6 +182,8 @@ UI_STYLE = {
     'button_fg_cancel': _btn_fg_cancel,
     'button_fg_cyan': _btn_fg_accent,
     'button_fg_accent2': _btn_fg_accent2,
+    # Entry/Combobox/Spinbox: very slightly lighter than main bg (calculated from _bg)
+    'field_bg': _field_bg,
     # Hover/focus: element bg darkened (entry, combobox, check, radio use _bg)
     'widget_hover_bg': _hover_bg,
     'checkbutton_hover_bg': _hover_bg,
@@ -146,12 +224,12 @@ UI_STYLE = {
 # Backward compatibility: UI_THEME is the same source
 UI_THEME = UI_STYLE
 
-# tk Spinbox options so it matches ttk Combobox (same bg, fg, font, relief).
+# tk Spinbox options so it matches ttk Combobox (same field_bg, fg, font, relief).
 # readonlybackground: needed so readonly state uses theme bg on Windows.
 SPINBOX_STYLE: dict[str, Any] = {
-    'bg': _bg,
+    'bg': _field_bg,
     'fg': _fg,
-    'readonlybackground': _bg,
+    'readonlybackground': _field_bg,
     'font': (_font_family, _font_size),
     'relief': 'sunken',
     'bd': 2,
@@ -186,28 +264,28 @@ BUTTON_STYLE_ACCENT = {**_BASE_BUTTON, 'bg': UI_STYLE['button_bg'], 'fg': UI_STY
 
 PLOT_CONFIG = {
     'figsize': (
-        get_env('PLOT_FIGSIZE_WIDTH', 12, int),
-        get_env('PLOT_FIGSIZE_HEIGHT', 6, int)
+        get_env_from_schema('PLOT_FIGSIZE_WIDTH'),
+        get_env_from_schema('PLOT_FIGSIZE_HEIGHT'),
     ),
-    'dpi': get_env('DPI', 100, int),
-    'show_title': get_env('PLOT_SHOW_TITLE', False, bool),
-    'line_color': get_env('PLOT_LINE_COLOR', 'black'),
-    'line_width': get_env('PLOT_LINE_WIDTH', 1.00, float),
-    'line_style': get_env('PLOT_LINE_STYLE', '-'),
-    'marker_format': get_env('PLOT_MARKER_FORMAT', 'o'),
-    'marker_size': get_env('PLOT_MARKER_SIZE', 5, int),
-    'error_color': get_env('PLOT_ERROR_COLOR', 'crimson'),
-    'marker_face_color': get_env('PLOT_MARKER_FACE_COLOR', 'crimson'),
-    'marker_edge_color': get_env('PLOT_MARKER_EDGE_COLOR', 'crimson'),
+    'dpi': get_env_from_schema('DPI'),
+    'show_title': get_env_from_schema('PLOT_SHOW_TITLE'),
+    'line_color': get_env_from_schema('PLOT_LINE_COLOR'),
+    'line_width': get_env_from_schema('PLOT_LINE_WIDTH'),
+    'line_style': get_env_from_schema('PLOT_LINE_STYLE'),
+    'marker_format': get_env_from_schema('PLOT_MARKER_FORMAT'),
+    'marker_size': get_env_from_schema('PLOT_MARKER_SIZE'),
+    'error_color': get_env_from_schema('PLOT_ERROR_COLOR'),
+    'marker_face_color': get_env_from_schema('PLOT_MARKER_FACE_COLOR'),
+    'marker_edge_color': get_env_from_schema('PLOT_MARKER_EDGE_COLOR'),
 }
 
 FONT_CONFIG = {
-    'family': get_env('FONT_FAMILY', 'serif'),
-    'title_size': get_env('FONT_TITLE_SIZE', 'xx-large'),
-    'title_weight': get_env('FONT_TITLE_WEIGHT', 'semibold'),
-    'axis_size': get_env('FONT_AXIS_SIZE', 30, int),
-    'axis_style': get_env('FONT_AXIS_STYLE', 'italic'),
-    'tick_size': get_env('FONT_TICK_SIZE', 16, int)
+    'family': get_env_from_schema('FONT_FAMILY'),
+    'title_size': get_env_from_schema('FONT_TITLE_SIZE'),
+    'title_weight': get_env_from_schema('FONT_TITLE_WEIGHT'),
+    'axis_size': get_env_from_schema('FONT_AXIS_SIZE'),
+    'axis_style': get_env_from_schema('FONT_AXIS_STYLE'),
+    'tick_size': get_env_from_schema('FONT_TICK_SIZE'),
 }
 
 _font_cache = None
@@ -250,6 +328,7 @@ def configure_ttk_styles(root: Any) -> None:
     font_large_bold = (fam, sz_l, 'bold')
 
     bg = UI_STYLE['bg']
+    field_bg = UI_STYLE['field_bg']
     fg = UI_STYLE['fg']
     btn_bg = UI_STYLE['button_bg']
     hover_bg = UI_STYLE['widget_hover_bg']
@@ -291,10 +370,10 @@ def configure_ttk_styles(root: Any) -> None:
     _btn_style('Accent.TButton', UI_STYLE['button_fg_cyan'])
     _btn_style('Equation.TButton', UI_STYLE['button_fg_accent2'])
 
-    # Entry: same font as rest of UI
+    # Entry: same font as rest of UI; field slightly lighter than main bg
     style.configure(
         'TEntry',
-        fieldbackground=bg,
+        fieldbackground=field_bg,
         foreground=fg,
         font=font_normal,
         padding=UI_STYLE['padding'],
@@ -307,10 +386,10 @@ def configure_ttk_styles(root: Any) -> None:
         padding=UI_STYLE['padding'],
     )
 
-    # Combobox
+    # Combobox: field slightly lighter than main bg
     style.configure(
         'TCombobox',
-        fieldbackground=bg,
+        fieldbackground=field_bg,
         foreground=fg,
         background=bg,
         arrowcolor=fg,
@@ -328,7 +407,7 @@ def configure_ttk_styles(root: Any) -> None:
     )
     style.map(
         'TCombobox',
-        fieldbackground=[('readonly', bg), ('focus', hover_bg)],
+        fieldbackground=[('readonly', field_bg), ('focus', hover_bg)],
         foreground=[('readonly', fg)],
         background=[('focus', bg)],
         arrowcolor=[('focus', fg), ('readonly', fg)],

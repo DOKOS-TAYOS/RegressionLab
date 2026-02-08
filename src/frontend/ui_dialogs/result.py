@@ -1,7 +1,7 @@
 """Result window for displaying fitting results and plot."""
 
 from pathlib import Path
-from tkinter import Toplevel, Text, PhotoImage, ttk
+from tkinter import Frame, Toplevel, Text, PhotoImage, ttk
 
 from config import UI_STYLE
 from frontend.image_utils import (
@@ -14,6 +14,9 @@ from i18n import t
 # Max size for result plot image so it fits in the window
 _RESULT_PLOT_MAX_WIDTH = 920
 _RESULT_PLOT_MAX_HEIGHT = 720
+# Thin raised border for result frames
+_RESULT_FRAME_BORDER = 1
+_RESULT_FRAME_RELIEF = 'raised'
 
 
 def create_result_window(
@@ -60,15 +63,15 @@ def create_result_window(
     equation_width = max(len(line) for line in equation_lines) + 2 if equation_lines else 2
     plot_level.equation_text = Text(
         plot_level,
-        relief=UI_STYLE['relief'],
-        borderwidth=UI_STYLE['border_width'],
+        relief=_RESULT_FRAME_RELIEF,
+        borderwidth=_RESULT_FRAME_BORDER,
         bg=UI_STYLE['bg'],
         fg=UI_STYLE['fg'],
         font=(UI_STYLE['font_family'], UI_STYLE['font_size_large'], 'bold'),
         height=equation_height,
         width=equation_width,
         wrap='none',
-        cursor='arrow'
+        cursor='arrow',
     )
     plot_level.equation_text.insert('1.0', equation_str)
     plot_level.equation_text.config(state='disabled')
@@ -77,18 +80,23 @@ def create_result_window(
     num_lines = len(text_lines)
     max_line_length = max(len(line) for line in text_lines) if text_lines else 0
     param_width = max_line_length + 2
-    plot_level.middle_frame = ttk.Frame(plot_level)
+    plot_level.middle_frame = Frame(
+        plot_level,
+        relief=_RESULT_FRAME_RELIEF,
+        borderwidth=_RESULT_FRAME_BORDER,
+        bg=UI_STYLE['bg'],
+    )
     plot_level.label_parameters = Text(
         plot_level.middle_frame,
-        relief=UI_STYLE['relief'],
-        borderwidth=UI_STYLE['border_width'],
+        relief=_RESULT_FRAME_RELIEF,
+        borderwidth=_RESULT_FRAME_BORDER,
         bg=UI_STYLE['bg'],
         fg=UI_STYLE['fg'],
         font=(UI_STYLE['font_family'], UI_STYLE['font_size']),
         height=num_lines,
         width=param_width,
         wrap='none',
-        cursor='arrow'
+        cursor='arrow',
     )
     plot_level.label_parameters.insert('1.0', text)
     plot_level.label_parameters.config(state='disabled')
