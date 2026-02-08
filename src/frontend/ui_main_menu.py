@@ -6,7 +6,7 @@ Contains the main application window and exit confirmation dialog.
 # Standard library
 import os
 import sys
-from tkinter import Tk, Toplevel, Frame, TOP, LEFT, RIGHT
+from tkinter import Tk, Toplevel, TOP, LEFT, RIGHT
 from tkinter import ttk
 from typing import Callable
 
@@ -53,14 +53,10 @@ def create_main_menu(
     # Closing with X: same as Exit button (show confirmation, then close app)
     menu.protocol("WM_DELETE_WINDOW", lambda: show_exit_confirmation(menu))
 
-    # Create main frame (tk.Frame for raised relief and border_width)
-    main_frame = Frame(
-        menu,
-        relief='raised',
-        bd=UI_STYLE['border_width'],
-        bg=UI_STYLE['bg'],
-    )
-    
+    # Main frame: ttk with Raised.TFrame (lighter border) and inner content frame
+    outer_frame = ttk.Frame(menu, style='Raised.TFrame')
+    main_frame = ttk.Frame(outer_frame, padding=UI_STYLE['border_width'])
+
     # Load and display logo
     logo_label = None
     try:
@@ -156,7 +152,8 @@ def create_main_menu(
     )
     
     # Layout
-    main_frame.grid(column=0, row=0)
+    outer_frame.grid(column=0, row=0)
+    main_frame.pack(fill='both', expand=True)
     
     # Place logo if it was loaded successfully
     _pad = UI_STYLE['padding']

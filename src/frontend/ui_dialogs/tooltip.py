@@ -1,14 +1,9 @@
 """Tooltip binding for Tkinter widgets."""
 
 from typing import Any, Optional
-from tkinter import Toplevel, Label
+from tkinter import Toplevel, ttk
 
 from config import UI_STYLE
-
-# Colores del tooltip: distintos del fondo y de los botones, con borde visible
-TOOLTIP_BG = "#fffacd"   # lemon chiffon
-TOOLTIP_FG = "black"
-TOOLTIP_BORDER = "gray40"
 
 
 def bind_tooltip(widget: Any, text: str, delay_ms: int = 500) -> None:
@@ -26,20 +21,11 @@ def bind_tooltip(widget: Any, text: str, delay_ms: int = 500) -> None:
         tooltip_window = Toplevel(widget)
         tooltip_window.wm_overrideredirect(True)
         tooltip_window.wm_geometry("+0+0")
-        tooltip_window.configure(background=TOOLTIP_BORDER)
-        label = Label(
+        tooltip_window.configure(background=UI_STYLE['tooltip_border'])
+        label = ttk.Label(
             tooltip_window,
             text=text,
-            justify="left",
-            bg=TOOLTIP_BG,
-            fg=TOOLTIP_FG,
-            relief="solid",
-            borderwidth=1,
-            highlightbackground=TOOLTIP_BORDER,
-            highlightthickness=1,
-            font=(UI_STYLE['font_family'], max(8, UI_STYLE['font_size'] - 2)),
-            padx=6,
-            pady=4,
+            style='Tooltip.TLabel',
         )
         label.pack(padx=1, pady=1)
         widget.update_idletasks()

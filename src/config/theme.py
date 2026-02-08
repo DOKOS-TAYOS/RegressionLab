@@ -35,6 +35,9 @@ UI_THEME = {
     'text_insert_bg': get_env('UI_TEXT_INSERT_BG', 'spring green'),
     'text_select_bg': get_env('UI_TEXT_SELECT_BG', 'steel blue'),
     'text_select_fg': get_env('UI_TEXT_SELECT_FG', 'white'),
+    'tooltip_bg': get_env('UI_TOOLTIP_BG', '#fffacd'),
+    'tooltip_fg': get_env('UI_TOOLTIP_FG', 'black'),
+    'tooltip_border': get_env('UI_TOOLTIP_BORDER', 'gray40'),
 }
 
 UI_STYLE = {
@@ -64,6 +67,9 @@ UI_STYLE = {
     'text_insert_bg': UI_THEME['text_insert_bg'],
     'text_select_bg': UI_THEME['text_select_bg'],
     'text_select_fg': UI_THEME['text_select_fg'],
+    'tooltip_bg': UI_THEME['tooltip_bg'],
+    'tooltip_fg': UI_THEME['tooltip_fg'],
+    'tooltip_border': UI_THEME['tooltip_border'],
 }
 
 # Button style presets: borders and relief for visibility; different roles use different colors.
@@ -187,6 +193,14 @@ def configure_ttk_styles(root: Any) -> None:
         foreground=fg,
         font=font_large_bold,
     )
+    style.configure(
+        'Tooltip.TLabel',
+        background=UI_THEME['tooltip_bg'],
+        foreground=UI_THEME['tooltip_fg'],
+        font=(UI_STYLE['font_family'], max(8, UI_STYLE['font_size'] - 2)),
+        padding=(6, 4),
+    )
+    style.configure('Raised.TFrame', background=_lighter_color(bg))
 
     # Base button: 3D effect via lightcolor/darkcolor (clam), padding, hover/pressed
     _btn_pad = (UI_STYLE['padding'], UI_STYLE['padding'])

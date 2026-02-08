@@ -1,7 +1,7 @@
 """Result window for displaying fitting results and plot."""
 
 from pathlib import Path
-from tkinter import Toplevel, Label, Text, PhotoImage, ttk
+from tkinter import Toplevel, Text, PhotoImage, ttk
 
 from config import UI_THEME
 from frontend.image_utils import (
