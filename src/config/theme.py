@@ -1,6 +1,9 @@
 """UI theme, plot style, and font configuration."""
 
+import tkinter
 from typing import Any
+
+from tkinter import ttk
 
 from config.env import get_env
 
@@ -120,6 +123,219 @@ FONT_CONFIG = {
 }
 
 _font_cache = None
+
+
+def _lighter_color(bg_color: str) -> str:
+    """Return a lighter shade for 3D button highlight (clam theme lightcolor)."""
+    # Map common theme backgrounds to a slightly lighter border highlight
+    lighter = {
+        'midnight blue': 'steel blue',
+        'navy': 'steel blue',
+        'gray15': 'gray30',
+        'gray20': 'gray35',
+    }
+    return lighter.get(bg_color.lower() if isinstance(bg_color, str) else '', 'steel blue')
+
+
+def configure_ttk_styles(root: Any) -> None:
+    """
+    Configure ttk styles so all themed widgets use UI_THEME/UI_STYLE colors and fonts.
+    Call once after creating the Tk root (e.g. in create_main_menu).
+    Ensures entries/combos are readable (light text on dark field, no white-on-gray at rest).
+    Uses 'clam' theme so style options (e.g. fieldbackground) apply consistently.
+    """
+    style = ttk.Style(root)
+    try:
+        style.theme_use('clam')
+    except tkinter.TclError:
+        pass  # use default theme if clam not available
+    font_normal = (UI_STYLE['font_family'], UI_STYLE['font_size'])
+    font_large = (UI_STYLE['font_family'], UI_STYLE['font_size_large'])
+    font_bold = (UI_STYLE['font_family'], UI_STYLE['font_size'], 'bold')
+    font_large_bold = (UI_STYLE['font_family'], UI_STYLE['font_size_large'], 'bold')
+    bg = UI_STYLE['bg']
+    fg = UI_STYLE['fg']
+    # 3D effect for buttons (clam: lightcolor/darkcolor; borderwidth ignored in clam)
+    btn_light = _lighter_color(bg)
+    btn_dark = UI_STYLE['active_bg']
+    # Entry/Combobox: dark field, light text (no black on dark blue, no white on gray at rest)
+    field_bg = UI_THEME['background']
+    field_fg = UI_THEME['foreground']
+
+    style.configure('TFrame', background=bg)
+    style.configure(
+        'TLabel',
+        background=bg,
+        foreground=fg,
+        font=font_normal,
+    )
+    style.configure(
+        'Bold.TLabel',
+        background=bg,
+        foreground=fg,
+        font=font_bold,
+    )
+    style.configure(
+        'Large.TLabel',
+        background=bg,
+        foreground=fg,
+        font=font_large,
+    )
+    style.configure(
+        'LargeBold.TLabel',
+        background=bg,
+        foreground=fg,
+        font=font_large_bold,
+    )
+
+    # Base button: 3D effect via lightcolor/darkcolor (clam), padding, hover/pressed
+    _btn_pad = (UI_STYLE['padding'], UI_STYLE['padding'])
+    _btn_common = {
+        'font': font_normal,
+        'padding': _btn_pad,
+        'lightcolor': btn_light,
+        'darkcolor': btn_dark,
+    }
+
+    style.configure(
+        'TButton',
+        background=bg,
+        foreground=fg,
+        **_btn_common,
+    )
+    style.map(
+        'TButton',
+        background=[('active', UI_STYLE['active_bg']), ('pressed', UI_STYLE['active_bg'])],
+        foreground=[('active', UI_STYLE['active_fg']), ('pressed', UI_STYLE['active_fg'])],
+        lightcolor=[('pressed', btn_dark)],
+        darkcolor=[('pressed', btn_light)],
+    )
+
+    # Primary (accept, main actions) - green
+    style.configure(
+        'Primary.TButton',
+        background=bg,
+        foreground=UI_STYLE['button_fg_accept'],
+        **_btn_common,
+    )
+    style.map(
+        'Primary.TButton',
+        background=[('active', UI_STYLE['active_bg']), ('pressed', UI_STYLE['active_bg'])],
+        foreground=[('active', UI_STYLE['active_fg']), ('pressed', UI_STYLE['active_fg'])],
+        lightcolor=[('pressed', btn_dark)],
+        darkcolor=[('pressed', btn_light)],
+    )
+
+    # Secondary (neutral)
+    style.configure(
+        'Secondary.TButton',
+        background=bg,
+        foreground=fg,
+        **_btn_common,
+    )
+    style.map(
+        'Secondary.TButton',
+        background=[('active', UI_STYLE['active_bg']), ('pressed', UI_STYLE['active_bg'])],
+        foreground=[('active', UI_STYLE['active_fg']), ('pressed', UI_STYLE['active_fg'])],
+        lightcolor=[('pressed', btn_dark)],
+        darkcolor=[('pressed', btn_light)],
+    )
+
+    # Danger (exit, cancel) - red
+    style.configure(
+        'Danger.TButton',
+        background=bg,
+        foreground=UI_STYLE['button_fg_cancel'],
+        **_btn_common,
+    )
+    style.map(
+        'Danger.TButton',
+        background=[('active', UI_STYLE['active_bg']), ('pressed', UI_STYLE['active_bg'])],
+        foreground=[('active', UI_STYLE['active_fg']), ('pressed', UI_STYLE['active_fg'])],
+        lightcolor=[('pressed', btn_dark)],
+        darkcolor=[('pressed', btn_light)],
+    )
+
+    # Accent (cyan)
+    style.configure(
+        'Accent.TButton',
+        background=bg,
+        foreground=UI_STYLE['button_fg_cyan'],
+        **_btn_common,
+    )
+    style.map(
+        'Accent.TButton',
+        background=[('active', UI_STYLE['active_bg']), ('pressed', UI_STYLE['active_bg'])],
+        foreground=[('active', UI_STYLE['active_fg']), ('pressed', UI_STYLE['active_fg'])],
+        lightcolor=[('pressed', btn_dark)],
+        darkcolor=[('pressed', btn_light)],
+    )
+
+    # Equation type buttons (gold)
+    style.configure(
+        'Equation.TButton',
+        background=bg,
+        foreground='yellow',
+        **_btn_common,
+    )
+    style.map(
+        'Equation.TButton',
+        background=[('active', UI_STYLE['active_bg']), ('pressed', UI_STYLE['active_bg'])],
+        foreground=[('active', UI_STYLE['active_fg']), ('pressed', UI_STYLE['active_fg'])],
+        lightcolor=[('pressed', btn_dark)],
+        darkcolor=[('pressed', btn_light)],
+    )
+
+    # Entry: readable text on dark field
+    style.configure(
+        'TEntry',
+        fieldbackground=field_bg,
+        foreground=field_fg,
+        font=font_normal,
+        padding=UI_STYLE['padding'],
+    )
+
+    # Combobox: same as entry so dropdown field and selection are readable
+    style.configure(
+        'TCombobox',
+        fieldbackground=field_bg,
+        foreground=field_fg,
+        background=bg,
+        arrowcolor=fg,
+        font=font_normal,
+        padding=UI_STYLE['padding'],
+    )
+    style.map('TCombobox', fieldbackground=[('readonly', field_bg)], foreground=[('readonly', field_fg)])
+
+    # Radiobutton and Checkbutton
+    style.configure(
+        'TRadiobutton',
+        background=bg,
+        foreground=fg,
+        font=font_normal,
+    )
+    style.map('TRadiobutton', background=[('active', bg)], foreground=[('active', fg)])
+    style.configure(
+        'TCheckbutton',
+        background=bg,
+        foreground=fg,
+        font=font_normal,
+    )
+    style.map('TCheckbutton', background=[('active', bg)], foreground=[('active', fg)])
+
+    # Scrollbars
+    style.configure(
+        'Vertical.TScrollbar',
+        background=bg,
+        troughcolor=bg,
+        arrowcolor=fg,
+    )
+    style.configure(
+        'Horizontal.TScrollbar',
+        background=bg,
+        troughcolor=bg,
+        arrowcolor=fg,
+    )
 
 
 def setup_fonts() -> tuple[Any, Any]:

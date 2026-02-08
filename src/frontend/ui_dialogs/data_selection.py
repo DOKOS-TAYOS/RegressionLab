@@ -1,9 +1,9 @@
 """Data selection dialogs: file type, file name, variables, and data preview."""
 
 from typing import Any, List, Tuple
-from tkinter import Tk, Toplevel, Frame, Label, Button, Entry, StringVar, Radiobutton, Scrollbar, Text, ttk
+from tkinter import Tk, Toplevel, StringVar, Text, ttk
 
-from config import BUTTON_STYLE_PRIMARY, DATA_FILE_TYPES, EXIT_SIGNAL, UI_STYLE
+from config import DATA_FILE_TYPES, EXIT_SIGNAL, UI_STYLE
 from i18n import t
 
 # Max size for pair-plot image window so it does not resize the desktop
@@ -27,21 +27,12 @@ def ask_file_type(parent_window: Any) -> str:
     call_file_level = Toplevel()
     call_file_level.title(t('dialog.data'))
 
-    call_file_level.frame = Frame(
-        call_file_level,
-        borderwidth=2,
-        relief="raised",
-        bg=UI_STYLE['bg'],
-        bd=UI_STYLE['border_width']
-    )
+    call_file_level.frame = ttk.Frame(call_file_level, padding=UI_STYLE['border_width'])
 
     call_file_level.tipo = StringVar()
-    call_file_level.label_message = Label(
+    call_file_level.label_message = ttk.Label(
         call_file_level.frame,
         text=t('dialog.file_type'),
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
     )
 
     file_type_values = tuple(DATA_FILE_TYPES) + (t('dialog.exit_option'),)
@@ -54,30 +45,24 @@ def ask_file_type(parent_window: Any) -> str:
 
     call_file_level.protocol("WM_DELETE_WINDOW", _on_close_file_type)
 
-    call_file_level.radio_frame = Frame(call_file_level.frame, bg=UI_STYLE['bg'])
+    call_file_level.radio_frame = ttk.Frame(call_file_level.frame)
     call_file_level.radiobuttons = []
     for i, value in enumerate(file_type_values):
-        rb = Radiobutton(
+        rb = ttk.Radiobutton(
             call_file_level.radio_frame,
             text=value,
             variable=call_file_level.tipo,
             value=value,
-            bg=UI_STYLE['bg'],
-            fg=UI_STYLE['fg'],
-            activebackground=UI_STYLE['active_bg'],
-            activeforeground=UI_STYLE['active_fg'],
-            selectcolor=UI_STYLE['bg'],
-            font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
         )
         rb.grid(row=i, column=0, sticky='w', padx=UI_STYLE['padding'], pady=2)
         call_file_level.radiobuttons.append(rb)
 
-    call_file_level.accept_button = Button(
+    call_file_level.accept_button = ttk.Button(
         call_file_level.frame,
         text=t('dialog.accept'),
         command=call_file_level.destroy,
+        style='Primary.TButton',
         width=UI_STYLE['button_width'],
-        **BUTTON_STYLE_PRIMARY,
     )
 
     call_file_level.frame.grid(column=0, row=0)
@@ -122,21 +107,12 @@ def ask_file_name(parent_window: Any, file_list: List[str]) -> str:
         call_data_level.destroy()
 
     call_data_level.protocol("WM_DELETE_WINDOW", _on_close_file_name)
-    call_data_level.frame_custom = Frame(
-        call_data_level,
-        borderwidth=2,
-        relief="raised",
-        bg=UI_STYLE['bg'],
-        bd=UI_STYLE['border_width']
-    )
+    call_data_level.frame_custom = ttk.Frame(call_data_level, padding=UI_STYLE['border_width'])
     call_data_level.arch = StringVar()
 
-    call_data_level.label_message = Label(
+    call_data_level.label_message = ttk.Label(
         call_data_level.frame_custom,
         text=t('dialog.file_name'),
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
     )
     call_data_level.name_entry = ttk.Combobox(
         call_data_level.frame_custom,
@@ -144,17 +120,16 @@ def ask_file_name(parent_window: Any, file_list: List[str]) -> str:
         values=file_list,
         state='readonly',
         width=UI_STYLE['entry_width'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
     )
     if file_list:
         call_data_level.name_entry.current(0)
 
-    call_data_level.accept_button = Button(
+    call_data_level.accept_button = ttk.Button(
         call_data_level.frame_custom,
         text=t('dialog.accept'),
         command=call_data_level.destroy,
+        style='Primary.TButton',
         width=UI_STYLE['button_width'],
-        **BUTTON_STYLE_PRIMARY,
     )
 
     call_data_level.frame_custom.grid(column=0, row=0)
@@ -198,31 +173,20 @@ def ask_variables(parent_window: Any, variable_names: List[str]) -> Tuple[str, s
 
     call_var_level.protocol("WM_DELETE_WINDOW", _on_close_variables)
 
-    call_var_level.frame_custom = Frame(
-        call_var_level,
-        borderwidth=2,
-        relief="raised",
-        bg=UI_STYLE['bg'],
-        bd=UI_STYLE['border_width']
-    )
+    call_var_level.frame_custom = ttk.Frame(call_var_level, padding=UI_STYLE['border_width'])
 
     call_var_level.x_name = StringVar()
     call_var_level.y_name = StringVar()
     call_var_level.graf_name = StringVar()
 
-    call_var_level.label_message = Label(
+    call_var_level.label_message = ttk.Label(
         call_var_level.frame_custom,
         text=t('dialog.variable_names'),
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size_large'], 'bold')
+        style='LargeBold.TLabel',
     )
-    call_var_level.label_message_x = Label(
+    call_var_level.label_message_x = ttk.Label(
         call_var_level.frame_custom,
         text=t('dialog.independent_variable'),
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
     )
 
     filtered_variable_names = []
@@ -249,17 +213,13 @@ def ask_variables(parent_window: Any, variable_names: List[str]) -> Tuple[str, s
         values=variable_names,
         state='readonly',
         width=UI_STYLE['spinbox_width'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
     )
     if variable_names:
         call_var_level.x_nom.current(0)
 
-    call_var_level.label_message_y = Label(
+    call_var_level.label_message_y = ttk.Label(
         call_var_level.frame_custom,
         text=t('dialog.dependent_variable'),
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
     )
     call_var_level.y_nom = ttk.Combobox(
         call_var_level.frame_custom,
@@ -267,33 +227,26 @@ def ask_variables(parent_window: Any, variable_names: List[str]) -> Tuple[str, s
         values=variable_names,
         state='readonly',
         width=UI_STYLE['spinbox_width'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
     )
     if len(variable_names) > 1:
         call_var_level.y_nom.current(1)
     elif variable_names:
         call_var_level.y_nom.current(0)
-    call_var_level.accept_button = Button(
+    call_var_level.accept_button = ttk.Button(
         call_var_level.frame_custom,
         text=t('dialog.accept'),
         command=call_var_level.destroy,
+        style='Primary.TButton',
         width=UI_STYLE['button_width'],
-        **BUTTON_STYLE_PRIMARY,
     )
-    call_var_level.label_message_plot = Label(
+    call_var_level.label_message_plot = ttk.Label(
         call_var_level.frame_custom,
         text=t('dialog.plot_name'),
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
     )
-    call_var_level.graf_nom = Entry(
+    call_var_level.graf_nom = ttk.Entry(
         call_var_level.frame_custom,
         textvariable=call_var_level.graf_name,
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['fg'],
         width=UI_STYLE['entry_width'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size'])
     )
 
     call_var_level.frame_custom.grid(column=0, row=0)
@@ -360,15 +313,15 @@ def _show_image_toplevel(parent: Tk | Toplevel, image_path: str, title: str) -> 
                 pass
         win.destroy()
 
-    label = Label(win, image=photo, bg=UI_STYLE['bg'])
+    label = ttk.Label(win, image=photo)
     label.image = photo
     label.pack(padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    Button(
+    ttk.Button(
         win,
         text=t('dialog.accept'),
         command=_on_close,
+        style='Primary.TButton',
         width=UI_STYLE['button_width'],
-        **BUTTON_STYLE_PRIMARY,
     ).pack(padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
     win.protocol("WM_DELETE_WINDOW", _on_close)
 
@@ -391,12 +344,12 @@ def show_data_dialog(parent_window: Tk | Toplevel, data: Any) -> None:
     watch_data_level.configure(background=UI_STYLE['bg'])
     watch_data_level.minsize(800, 600)
 
-    text_frame = Frame(watch_data_level, bg=UI_STYLE['bg'])
+    text_frame = ttk.Frame(watch_data_level)
     text_frame.pack(padx=UI_STYLE['padding'], pady=6, fill='both', expand=True)
 
-    scrollbar_y = Scrollbar(text_frame, orient='vertical')
+    scrollbar_y = ttk.Scrollbar(text_frame, orient='vertical')
     scrollbar_y.pack(side='right', fill='y')
-    scrollbar_x = Scrollbar(text_frame, orient='horizontal')
+    scrollbar_x = ttk.Scrollbar(text_frame, orient='horizontal')
     scrollbar_x.pack(side='bottom', fill='x')
 
     text_widget = Text(
@@ -435,25 +388,25 @@ def show_data_dialog(parent_window: Tk | Toplevel, data: Any) -> None:
         except Exception:
             pass
 
-    opts_frame = Frame(watch_data_level, bg=UI_STYLE['bg'])
+    opts_frame = ttk.Frame(watch_data_level)
     opts_frame.pack(padx=UI_STYLE['padding'], pady=4, fill='x')
     can_show_pairs = hasattr(data, 'columns') and len(getattr(data, 'columns', [])) > 0
     if can_show_pairs:
-        pair_btn = Button(
+        pair_btn = ttk.Button(
             opts_frame,
             text=t('dialog.show_pair_plots'),
             command=_open_pair_plots_window,
+            style='Primary.TButton',
             width=min(42, max(36, UI_STYLE['button_width_wide'] + 10)),
-            **{**BUTTON_STYLE_PRIMARY, 'font': (UI_STYLE['font_family'], UI_STYLE.get('font_size_large', UI_STYLE['font_size']))},
         )
         pair_btn.pack(anchor='w', pady=4)
 
-    watch_data_level.accept_button = Button(
+    watch_data_level.accept_button = ttk.Button(
         watch_data_level,
         text=t('dialog.accept'),
         command=watch_data_level.destroy,
+        style='Primary.TButton',
         width=UI_STYLE['button_width'],
-        **BUTTON_STYLE_PRIMARY,
     )
     watch_data_level.accept_button.pack(padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
 

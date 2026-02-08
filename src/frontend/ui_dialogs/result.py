@@ -1,9 +1,9 @@
 """Result window for displaying fitting results and plot."""
 
 from pathlib import Path
-from tkinter import Toplevel, Frame, Label, Button, Text, PhotoImage
+from tkinter import Toplevel, Label, Text, PhotoImage, ttk
 
-from config import BUTTON_STYLE_PRIMARY, UI_THEME
+from config import UI_THEME
 from frontend.image_utils import (
     load_image_scaled,
     plot_display_path,
@@ -77,7 +77,7 @@ def create_result_window(
     num_lines = len(text_lines)
     max_line_length = max(len(line) for line in text_lines) if text_lines else 0
     param_width = max_line_length + 2
-    plot_level.middle_frame = Frame(plot_level, bg=UI_THEME['background'])
+    plot_level.middle_frame = ttk.Frame(plot_level)
     plot_level.label_parameters = Text(
         plot_level.middle_frame,
         relief=UI_THEME['relief'],
@@ -94,31 +94,23 @@ def create_result_window(
     plot_level.label_parameters.config(state='disabled')
 
     if plot_level.imagen is not None:
-        plot_level.image = Label(
+        plot_level.image = ttk.Label(
             plot_level.middle_frame,
             image=plot_level.imagen,
-            relief=UI_THEME['relief'],
-            borderwidth=UI_THEME['border_width'],
-            bg=UI_THEME['background'],
-            fg=UI_THEME['foreground']
         )
+        plot_level.image.image = plot_level.imagen  # keep reference
     else:
-        plot_level.image = Label(
+        plot_level.image = ttk.Label(
             plot_level.middle_frame,
             text=t('dialog.plot_preview_unavailable'),
-            relief=UI_THEME['relief'],
-            borderwidth=UI_THEME['border_width'],
-            bg=UI_THEME['background'],
-            fg=UI_THEME['foreground'],
-            font=(UI_THEME['font_family'], UI_THEME['font_size'])
         )
 
-    plot_level.accept_button = Button(
+    plot_level.accept_button = ttk.Button(
         plot_level,
         text=t('dialog.accept'),
         command=_on_close,
+        style='Primary.TButton',
         width=UI_THEME['button_width'],
-        **BUTTON_STYLE_PRIMARY,
     )
 
     plot_level.equation_text.pack(padx=UI_THEME['padding_x'], pady=UI_THEME['padding_y'])

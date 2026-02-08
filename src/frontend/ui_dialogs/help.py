@@ -2,9 +2,9 @@
 
 import re
 import webbrowser
-from tkinter import Tk, Toplevel, Frame, Button, Scrollbar, Text
+from tkinter import Tk, Toplevel, Text, ttk
 
-from config import BUTTON_STYLE_PRIMARY, DONATIONS_URL, UI_STYLE
+from config import DONATIONS_URL, UI_STYLE
 from i18n import t
 
 
@@ -54,19 +54,13 @@ def show_help_dialog(parent_window: Tk | Toplevel) -> None:
     offset_y = max(0, (screen_height - dialog_height) // 2)
     help_level.geometry(f"{dialog_width}x{dialog_height}+{offset_x}+{offset_y}")
 
-    main_frame = Frame(
-        help_level,
-        borderwidth=2,
-        relief="raised",
-        bg=UI_STYLE['bg'],
-        bd=UI_STYLE['border_width']
-    )
+    main_frame = ttk.Frame(help_level, padding=UI_STYLE['border_width'])
     main_frame.pack(padx=UI_STYLE['padding'], pady=6, fill='both', expand=True)
 
-    text_frame = Frame(main_frame, bg=UI_STYLE['bg'])
+    text_frame = ttk.Frame(main_frame)
     text_frame.pack(padx=UI_STYLE['padding'], pady=6, fill='both', expand=True)
 
-    scrollbar = Scrollbar(text_frame)
+    scrollbar = ttk.Scrollbar(text_frame)
     scrollbar.pack(side='right', fill='y')
 
     help_text = Text(
@@ -164,25 +158,25 @@ def show_help_dialog(parent_window: Tk | Toplevel) -> None:
     help_text.insert('1.0', help_content)
     help_text.config(state='disabled')
 
-    button_frame = Frame(main_frame, bg=UI_STYLE['bg'])
+    button_frame = ttk.Frame(main_frame)
     button_frame.pack(padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
 
     if DONATIONS_URL:
-        donations_button = Button(
+        donations_button = ttk.Button(
             button_frame,
             text=t('dialog.donations'),
             command=lambda: webbrowser.open(DONATIONS_URL),
+            style='Primary.TButton',
             width=UI_STYLE['button_width_wide'],
-            **BUTTON_STYLE_PRIMARY,
         )
         donations_button.pack(side='left', padx=(0, UI_STYLE['padding']))
 
-    accept_button = Button(
+    accept_button = ttk.Button(
         button_frame,
         text=t('dialog.accept'),
         command=help_level.destroy,
+        style='Primary.TButton',
         width=UI_STYLE['button_width'],
-        **BUTTON_STYLE_PRIMARY,
     )
     accept_button.pack(side='left')
 
