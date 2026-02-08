@@ -123,7 +123,7 @@ class TestConfigConstants:
     """Tests for configuration constants."""
     
     @pytest.mark.parametrize("config_dict,required_keys", [
-        (UI_THEME, ['background', 'foreground', 'button_fg', 'font_size']),
+        (UI_THEME, ['background', 'foreground', 'button_fg_accept', 'font_size']),
         (PLOT_CONFIG, ['figsize', 'line_color', 'marker_format']),
         (FONT_CONFIG, ['family', 'title_size', 'axis_size']),
         (FILE_CONFIG, ['input_dir', 'output_dir', 'filename_template', 'plot_format']),

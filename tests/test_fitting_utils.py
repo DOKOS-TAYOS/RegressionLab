@@ -148,14 +148,14 @@ class TestGenericFit:
             )
     
     def test_non_convergent_fit(self) -> None:
-        """Test handling of non-convergent fit."""
+        """Test handling of non-convergent fit (linear data with sin model)."""
         bad_data = pd.DataFrame({
             'x': np.array([1.0, 2.0, 3.0]),
             'ux': np.array([0.1, 0.1, 0.1]),
             'y': np.array([100.0, 200.0, 300.0]),
             'uy': np.array([1.0, 1.0, 1.0])
         })
-        # This might raise FittingError if it can't converge
+        # Fit may converge to a poor solution or raise FittingError; both are acceptable.
         try:
             generic_fit(
                 bad_data,
@@ -166,7 +166,7 @@ class TestGenericFit:
                 'y={a}sin({b}x)'
             )
         except FittingError:
-            pass  # Expected for non-convergent fits
+            pass  # Expected when optimizer does not converge
 
 
 class TestGetFittingFunction:

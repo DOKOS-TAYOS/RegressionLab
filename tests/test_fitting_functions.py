@@ -2,6 +2,8 @@
 Tests for fitting_functions module.
 """
 
+from typing import Callable
+
 import pytest
 import numpy as np
 from numpy.typing import NDArray
@@ -133,7 +135,7 @@ class TestPredefinedFunctions:
         (inverse_function, (4.0, 12.0), 3.0),
         (inverse_square_function, (2.0, 8.0), 2.0),
     ])
-    def test_function_evaluation(self, func: callable, args: tuple, expected: float) -> None:
+    def test_function_evaluation(self, func: Callable[..., float], args: tuple, expected: float) -> None:
         """Test predefined functions evaluate correctly."""
         result = func(*args)
         assert abs(result - expected) < 1e-5
@@ -147,7 +149,7 @@ class TestFunctionsWithArrays:
         (sin_function, (np.array([0.0, np.pi/2, np.pi]), 1.0, 1.0), np.array([0.0, 1.0, 0.0])),
         (ln_function, (np.array([1.0, np.e, np.e**2]), 1.0), np.array([0.0, 1.0, 2.0])),
     ])
-    def test_array_inputs(self, func: callable, args: tuple, expected: NDArray) -> None:
+    def test_array_inputs(self, func: Callable[..., NDArray], args: tuple, expected: NDArray) -> None:
         """Test functions with array input."""
         result = func(*args)
         np.testing.assert_array_almost_equal(result, expected, decimal=5)

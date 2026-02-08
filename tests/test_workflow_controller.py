@@ -2,6 +2,7 @@
 Tests for workflow_controller module.
 """
 
+import csv
 import pytest
 import tempfile
 import pandas as pd
@@ -15,11 +16,25 @@ from utils import DataLoadError
 
 
 @pytest.fixture
+def csv_file() -> str:
+    """Create temporary CSV file for testing."""
+    temp_file = tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.csv')
+    writer = csv.writer(temp_file)
+    writer.writerow(['x', 'y'])
+    writer.writerow([1.0, 2.0])
+    writer.writerow([2.0, 4.0])
+    writer.writerow([3.0, 6.0])
+    temp_file.close()
+    yield temp_file.name
+    Path(temp_file.name).unlink(missing_ok=True)
+
+
+@pytest.fixture
 def excel_file() -> str:
     """Create temporary Excel file for testing."""
     temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.xlsx')
     temp_file.close()
-    
+
     df = pd.DataFrame({
         'x': [1.0, 2.0, 3.0],
         'y': [2.0, 4.0, 6.0]
@@ -42,7 +57,14 @@ def test_data() -> pd.DataFrame:
 
 class TestReloadDataByType:
     """Tests for reload_data_by_type function."""
-    
+
+    def test_reload_csv(self, csv_file: str) -> None:
+        """Test reloading CSV file."""
+        df = reload_data_by_type(csv_file, 'csv')
+        assert isinstance(df, pd.DataFrame)
+        assert len(df) == 3
+        assert list(df.columns) == ['x', 'y']
+
     def test_reload_xlsx(self, excel_file: str) -> None:
         """Test reloading XLSX file."""
         df = reload_data_by_type(excel_file, 'xlsx')
@@ -56,7 +78,7 @@ class TestReloadDataByType:
     
     def test_nonexistent_file(self) -> None:
         """Test reloading nonexistent file raises error."""
-        with pytest.raises(Exception):
+        with pytest.raises(DataLoadError):
             reload_data_by_type('/nonexistent/file.xlsx', 'xlsx')
 
 
