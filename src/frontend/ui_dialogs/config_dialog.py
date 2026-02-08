@@ -136,6 +136,7 @@ def show_config_dialog(parent_window: Any) -> bool:
 
     entries: dict[str, Tuple[str, Union[BooleanVar, StringVar]]] = {}
     config_desc_labels: List[ttk.Label] = []
+    first_section_ref: List[Tuple[Any, Any, int]] = []
     row_index = 0
 
     for section, section_items in _build_config_sections():
@@ -159,6 +160,8 @@ def show_config_dialog(parent_window: Any) -> bool:
         content_wrapper = ttk.Frame(inner, style='ConfigSectionContent.TFrame')
         content_wrapper.grid(row=row_index, column=0, columnspan=2, sticky='ew', padx=0, pady=0)
         content_wrapper.grid_remove()
+        if not first_section_ref:
+            first_section_ref.append((content_wrapper, arrow_var, row_index))
         row_index += 1
 
         accent_line = Frame(
@@ -258,6 +261,11 @@ def show_config_dialog(parent_window: Any) -> bool:
 
         _make_toggle(content_wrapper, arrow_var, header_frame, arrow_lbl, title_lbl)
 
+    if first_section_ref:
+        first_content, first_arrow, first_row = first_section_ref[0]
+        first_content.grid(row=first_row, column=0, columnspan=2, sticky='ew', padx=0, pady=0)
+        first_arrow.set(_CONFIG_EXPANDED)
+
     inner.columnconfigure(0, weight=1)
     _bind_mousewheel_recursive(inner)
     apply_hover_to_children(inner)
@@ -312,6 +320,13 @@ def show_config_dialog(parent_window: Any) -> bool:
 
     def on_cancel() -> None:
         config_level.destroy()
+
+    restart_hint = ttk.Label(
+        config_level,
+        text=t('config.restart_hint'),
+        justify='center',
+    )
+    restart_hint.pack(pady=(0, 4))
 
     btn_frame = ttk.Frame(config_level)
     btn_frame.pack(padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])

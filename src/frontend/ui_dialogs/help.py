@@ -2,10 +2,65 @@
 
 import re
 import webbrowser
-from tkinter import Tk, Toplevel, Text, ttk
+from typing import Any, List, Tuple
+from tkinter import Tk, Toplevel, Frame, Canvas, StringVar, ttk
 
-from config import DONATIONS_URL, UI_STYLE
+from config import DONATIONS_URL, UI_STYLE, apply_hover_to_children
 from i18n import t
+
+
+_HELP_COLLAPSED = '\u25b6'
+_HELP_EXPANDED = '\u25bc'
+
+# (section_key for header + t('help.section_*')), (content keys for body)
+_HELP_SECTIONS: List[Tuple[str, List[str]]] = [
+    ('objective', ['objective_title', 'objective_description']),
+    (
+        'advantages',
+        ['advantages_title'] + [f'advantage_{i}' for i in range(1, 10)],
+    ),
+    (
+        'fitting_modes',
+        [
+            'fitting_modes',
+            'normal_fitting',
+            'multiple_datasets',
+            'checker_fitting',
+            'total_fitting',
+            'loop_mode',
+        ],
+    ),
+    ('custom_functions', ['custom_functions_title', 'custom_functions_how']),
+    (
+        'data_format',
+        [
+            'data_format_title',
+            'data_format_named',
+            'data_format_u_prefix',
+            'data_format_non_negative',
+        ],
+    ),
+    ('data_location', ['data_location', 'data_input', 'data_formats']),
+    ('output_location', ['output_location', 'output_plots', 'output_logs']),
+    (
+        'stats',
+        [
+            'stats_title',
+            'r_squared_desc',
+            'r_squared_formula',
+            'rmse_desc',
+            'rmse_formula',
+            'chi_squared_desc',
+            'chi_squared_formula',
+            'reduced_chi_squared_desc',
+            'reduced_chi_squared_formula',
+            'dof_desc',
+            'dof_formula',
+            'param_ci_95_desc',
+            'param_ci_95_formula',
+        ],
+    ),
+]
 
 
 def remove_markdown_bold(text: str) -> str:
@@ -23,17 +78,20 @@ def remove_markdown_bold(text: str) -> str:
     return re.sub(r'\*\*([^*]*)\*\*', r'\1', text)
 
 
+def _help_section_content(content_keys: List[str]) -> str:
+    """Build section body from locale keys."""
+    return '\n\n'.join(
+        remove_markdown_bold(t(f'help.{k}')) for k in content_keys
+    )
+
+
 def show_help_dialog(parent_window: Tk | Toplevel) -> None:
     """
     Display help and information dialog about the application.
 
-    Shows information about:
-        - Application objective and purpose
-        - Key advantages and features
-        - What each fitting mode does
-        - How to navigate the application
-        - Where data files should be located
-        - Where output plots are saved
+    Shows information in collapsible sections (like the config dialog):
+    objective, advantages, fitting modes, custom functions, data format,
+    data location, output location, and statistics.
 
     Args:
         parent_window: Parent Tkinter window (Tk or Toplevel).
@@ -41,10 +99,11 @@ def show_help_dialog(parent_window: Tk | Toplevel) -> None:
     Returns:
         None.
     """
-    help_level = Toplevel()
+    help_level = Toplevel(parent_window)
     help_level.title(t('dialog.help_title'))
     help_level.configure(background=UI_STYLE['bg'])
-    help_level.resizable(width=False, height=False)
+    help_level.transient(parent_window)
+    help_level.grab_set()
 
     screen_width = help_level.winfo_screenwidth()
     screen_height = help_level.winfo_screenheight()
@@ -53,112 +112,194 @@ def show_help_dialog(parent_window: Tk | Toplevel) -> None:
     offset_x = max(0, (screen_width - dialog_width) // 2)
     offset_y = max(0, (screen_height - dialog_height) // 2)
     help_level.geometry(f"{dialog_width}x{dialog_height}+{offset_x}+{offset_y}")
+    help_level.resizable(width=False, height=False)
 
     main_frame = ttk.Frame(help_level, padding=UI_STYLE['border_width'])
     main_frame.pack(padx=UI_STYLE['padding'], pady=6, fill='both', expand=True)
 
-    text_frame = ttk.Frame(main_frame)
-    text_frame.pack(padx=UI_STYLE['padding'], pady=6, fill='both', expand=True)
-
-    scrollbar = ttk.Scrollbar(text_frame)
-    scrollbar.pack(side='right', fill='y')
-
-    help_text = Text(
-        text_frame,
-        bg=UI_STYLE['bg'],
-        fg=UI_STYLE['fg'],
-        font=(UI_STYLE['font_family'], UI_STYLE['font_size']),
-        wrap='word',
-        yscrollcommand=scrollbar.set,
-        width=80,
-        height=22
+    hint_lbl = ttk.Label(
+        main_frame,
+        text=t('help.sections_hint'),
+        justify='left',
     )
-    help_text.pack(side='left', fill='both', expand=True)
-    scrollbar.config(command=help_text.yview)
+    hint_lbl.pack(anchor='w', padx=4, pady=(0, 6))
 
-    help_content = f"""
-════════════════════════════════════════════════
-    {remove_markdown_bold(t('help.title')).upper()}
-════════════════════════════════════════════════
+    canvas = Canvas(
+        main_frame,
+        bg=UI_STYLE['bg'],
+        highlightthickness=0,
+    )
+    scrollbar = ttk.Scrollbar(
+        main_frame, orient='vertical', command=canvas.yview
+    )
+    inner = ttk.Frame(canvas)
 
-{remove_markdown_bold(t('help.objective_title'))}
-──────────────────────────────────────────────────
+    def _on_frame_configure(_event: Any) -> None:
+        canvas.configure(scrollregion=canvas.bbox('all'))
 
-{remove_markdown_bold(t('help.objective_description'))}
+    def _on_canvas_configure(event: Any) -> None:
+        canvas.itemconfig(canvas_window, width=event.width)
 
-{remove_markdown_bold(t('help.advantages_title'))}
-──────────────────────────────────────────────────
+    inner.bind('<Configure>', _on_frame_configure)
+    canvas.bind('<Configure>', _on_canvas_configure)
 
-{('\n\n').join([remove_markdown_bold(t(f'help.advantage_{i}')) for i in range(1, 10)])}
+    canvas_window = canvas.create_window((0, 0), window=inner, anchor='nw')
+    canvas.configure(yscrollcommand=scrollbar.set)
 
-{remove_markdown_bold(t('help.fitting_modes'))}
-──────────────────────────────────────────────────
+    def _on_mousewheel(event: Any) -> str:
+        if hasattr(event, 'delta') and event.delta != 0:
+            canvas.yview_scroll(int(-1 * (event.delta / 120)), 'units')
+        elif event.num == 5:
+            canvas.yview_scroll(1, 'units')
+        elif event.num == 4:
+            canvas.yview_scroll(-1, 'units')
+        return 'break'
 
-{remove_markdown_bold(t('help.normal_fitting'))}
+    def _bind_mousewheel_recursive(widget: Any) -> None:
+        widget.bind('<MouseWheel>', _on_mousewheel)
+        widget.bind('<Button-4>', _on_mousewheel)
+        widget.bind('<Button-5>', _on_mousewheel)
+        for child in widget.winfo_children():
+            _bind_mousewheel_recursive(child)
 
-{remove_markdown_bold(t('help.multiple_datasets'))}
+    canvas.bind('<MouseWheel>', _on_mousewheel)
+    canvas.bind('<Button-4>', _on_mousewheel)
+    canvas.bind('<Button-5>', _on_mousewheel)
+    inner.bind('<MouseWheel>', _on_mousewheel)
+    inner.bind('<Button-4>', _on_mousewheel)
+    inner.bind('<Button-5>', _on_mousewheel)
 
-{remove_markdown_bold(t('help.checker_fitting'))}
+    scrollbar.pack(side='right', fill='y')
+    canvas.pack(side='left', fill='both', expand=True)
 
-{remove_markdown_bold(t('help.total_fitting'))}
+    content_labels: List[ttk.Label] = []
+    first_section_ref: List[Tuple[Any, Any, int]] = []
+    row_index = 0
 
-{remove_markdown_bold(t('help.loop_mode'))}
+    for section_key, content_keys in _HELP_SECTIONS:
+        header_frame = ttk.Frame(inner, style='ConfigSectionHeader.TFrame')
+        header_frame.bind(
+            '<Enter>', lambda e: header_frame.configure(cursor='hand2')
+        )
+        header_frame.bind('<Leave>', lambda e: header_frame.configure(cursor=''))
+        arrow_var = StringVar(value=_HELP_COLLAPSED)
+        arrow_lbl = ttk.Label(
+            header_frame,
+            textvariable=arrow_var,
+            style='ConfigSectionHeader.TLabel',
+        )
+        arrow_lbl.pack(side='left', padx=(10, 6), pady=8)
+        header_text = remove_markdown_bold(t(f'help.{content_keys[0]}')).strip()
+        title_lbl = ttk.Label(
+            header_frame,
+            text=header_text,
+            style='ConfigSectionHeader.TLabel',
+        )
+        title_lbl.pack(side='left', pady=8)
+        header_frame.grid(
+            row=row_index,
+            column=0,
+            columnspan=2,
+            sticky='ew',
+            padx=0,
+            pady=(14, 0),
+        )
+        row_index += 1
 
-{remove_markdown_bold(t('help.custom_functions_title'))}
-──────────────────────────────────────────────────
+        content_wrapper = ttk.Frame(
+            inner, style='ConfigSectionContent.TFrame'
+        )
+        content_wrapper.grid(
+            row=row_index,
+            column=0,
+            columnspan=2,
+            sticky='ew',
+            padx=0,
+            pady=0,
+        )
+        content_wrapper.grid_remove()
+        if not first_section_ref:
+            first_section_ref.append((content_wrapper, arrow_var, row_index))
+        row_index += 1
 
-{remove_markdown_bold(t('help.custom_functions_how'))}
+        accent_line = Frame(
+            content_wrapper,
+            width=4,
+            bg=UI_STYLE['widget_hover_bg'],
+            highlightthickness=0,
+        )
+        accent_line.pack(side='left', fill='y')
+        accent_line.pack_propagate(False)
+        section_frame = ttk.Frame(content_wrapper)
+        section_frame.pack(
+            side='left', fill='both', expand=True, padx=(6, 0), pady=(4, 12)
+        )
 
-{remove_markdown_bold(t('help.data_format_title'))}
-──────────────────────────────────────────────────
+        body_text = _help_section_content(content_keys[1:])
+        body_lbl = ttk.Label(
+            section_frame,
+            text=body_text,
+            wraplength=600,
+            justify='left',
+        )
+        body_lbl.pack(anchor='w', padx=4, pady=4)
+        content_labels.append(body_lbl)
 
-{remove_markdown_bold(t('help.data_format_named'))}
+        section_frame.columnconfigure(0, weight=1)
 
-{remove_markdown_bold(t('help.data_format_u_prefix'))}
+        def _make_toggle(
+            content: ttk.Frame,
+            arrow: StringVar,
+            header_fr: ttk.Frame,
+            arrow_label: ttk.Label,
+            title_label: ttk.Label,
+        ) -> None:
+            def toggle() -> None:
+                if content.winfo_viewable():
+                    content.grid_remove()
+                    arrow.set(_HELP_COLLAPSED)
+                else:
+                    content.grid()
+                    arrow.set(_HELP_EXPANDED)
+                help_level.update_idletasks()
+                canvas.configure(scrollregion=canvas.bbox('all'))
+                help_level.after_idle(
+                    lambda: canvas.configure(scrollregion=canvas.bbox('all'))
+                )
 
-{remove_markdown_bold(t('help.data_format_non_negative'))}
+            for w in (header_fr, arrow_label, title_label):
+                w.bind('<Button-1>', lambda e: toggle())
 
-{remove_markdown_bold(t('help.data_location'))}
-──────────────────────────────────────────────────
+        _make_toggle(
+            content_wrapper, arrow_var, header_frame, arrow_lbl, title_lbl
+        )
 
-{remove_markdown_bold(t('help.data_input'))}
+    if first_section_ref:
+        first_content, first_arrow, first_row = first_section_ref[0]
+        first_content.grid(
+            row=first_row,
+            column=0,
+            columnspan=2,
+            sticky='ew',
+            padx=0,
+            pady=0,
+        )
+        first_arrow.set(_HELP_EXPANDED)
 
-{remove_markdown_bold(t('help.data_formats'))}
+    inner.columnconfigure(0, weight=1)
+    _bind_mousewheel_recursive(inner)
+    apply_hover_to_children(inner)
 
-{remove_markdown_bold(t('help.output_location'))}
-──────────────────────────────────────────────────
+    def _update_help_wraplength(_e: Any = None) -> None:
+        w = inner.winfo_width()
+        if w > 80:
+            wrap = max(120, w - 48)
+            for lbl in content_labels:
+                lbl.configure(wraplength=wrap)
 
-{remove_markdown_bold(t('help.output_plots'))}
+    inner.bind('<Configure>', _update_help_wraplength)
 
-{remove_markdown_bold(t('help.output_logs'))}
-
-{remove_markdown_bold(t('help.stats_title'))}
-──────────────────────────────────────────────────
-
-{remove_markdown_bold(t('help.r_squared_desc'))}
-{remove_markdown_bold(t('help.r_squared_formula'))}
-
-{remove_markdown_bold(t('help.rmse_desc'))}
-{remove_markdown_bold(t('help.rmse_formula'))}
-
-{remove_markdown_bold(t('help.chi_squared_desc'))}
-{remove_markdown_bold(t('help.chi_squared_formula'))}
-
-{remove_markdown_bold(t('help.reduced_chi_squared_desc'))}
-{remove_markdown_bold(t('help.reduced_chi_squared_formula'))}
-
-{remove_markdown_bold(t('help.dof_desc'))}
-{remove_markdown_bold(t('help.dof_formula'))}
-
-{remove_markdown_bold(t('help.param_ci_95_desc'))}
-{remove_markdown_bold(t('help.param_ci_95_formula'))}
-
-═════════════════════════════════════════════════
-"""
-    help_text.insert('1.0', help_content)
-    help_text.config(state='disabled')
-
-    button_frame = ttk.Frame(main_frame)
+    button_frame = ttk.Frame(help_level)
     button_frame.pack(padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
 
     if DONATIONS_URL:
@@ -181,4 +322,6 @@ def show_help_dialog(parent_window: Tk | Toplevel) -> None:
     accept_button.pack(side='left')
 
     accept_button.focus_set()
+    help_level.update_idletasks()
+    _update_help_wraplength()
     parent_window.wait_window(help_level)

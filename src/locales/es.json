@@ -259,8 +259,9 @@
     "hermite_polynomial_4": "Combinación de polinomios de Hermite hasta grado 4."
   },
   "help": {
-    "title": "                               Información de la Aplicación",
-    "objective_title": "🎯 Objetivo de la Aplicación",
+    "title": "Información de la aplicación",
+    "sections_hint": "Haz clic en un encabezado para desplegar o colapsar la sección.",
+    "objective_title": "🎯 Objetivo de la aplicación",
     "objective_description": "RegressionLab es una aplicación diseñada para realizar ajustes de datos experimentales de manera cómoda, precisa y rápida. Permite trabajar con incertidumbres experimentales y formateo correcto, ideal para física experimental, ciencias experimentales, ingenierías y Computer Science. Especialmente útil para estudiantes que necesitan ajustar datos sin complejidades de programación, o como herramienta de validación de resultados.",
     "advantages_title": "\n✨ Ventajas Principales",
     "advantage_1": "• **Fácil configuración y uso**: Coloca tus datos (Excel, CSV o TXT) en una carpeta, ejecuta la aplicación, y obtén gráficas profesionales y resultados con formato correcto listos para copiar.",
@@ -314,6 +315,7 @@
     "section_links": "Enlaces",
     "section_logging": "Registro (log)",
     "save_error": "No se pudo guardar el archivo de configuración:\n{path}",
+    "restart_hint": "Los cambios se aplican al reiniciar la aplicación.",
     "label_LANGUAGE": "Idioma",
     "desc_LANGUAGE": "Código de idioma de la aplicación: es (español), en (inglés), de (alemán).",
     "label_UI_BACKGROUND": "Fondo de ventana",
