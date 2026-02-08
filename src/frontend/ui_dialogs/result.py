@@ -3,7 +3,7 @@
 from pathlib import Path
 from tkinter import Toplevel, Text, PhotoImage, ttk
 
-from config import UI_THEME
+from config import UI_STYLE
 from frontend.image_utils import (
     load_image_scaled,
     plot_display_path,
@@ -33,7 +33,7 @@ def create_result_window(
     """
     plot_level = Toplevel()
     plot_level.title(fit_name)
-    plot_level.configure(background=UI_THEME['background'])
+    plot_level.configure(background=UI_STYLE['bg'])
 
     display_path = plot_display_path(output_path)
     preview_to_remove = preview_path_to_remove_after_display(display_path, output_path)
@@ -60,11 +60,11 @@ def create_result_window(
     equation_width = max(len(line) for line in equation_lines) + 2 if equation_lines else 2
     plot_level.equation_text = Text(
         plot_level,
-        relief=UI_THEME['relief'],
-        borderwidth=UI_THEME['border_width'],
-        bg=UI_THEME['background'],
-        fg=UI_THEME['foreground'],
-        font=(UI_THEME['font_family'], UI_THEME['font_size_large'], 'bold'),
+        relief=UI_STYLE['relief'],
+        borderwidth=UI_STYLE['border_width'],
+        bg=UI_STYLE['bg'],
+        fg=UI_STYLE['fg'],
+        font=(UI_STYLE['font_family'], UI_STYLE['font_size_large'], 'bold'),
         height=equation_height,
         width=equation_width,
         wrap='none',
@@ -80,11 +80,11 @@ def create_result_window(
     plot_level.middle_frame = ttk.Frame(plot_level)
     plot_level.label_parameters = Text(
         plot_level.middle_frame,
-        relief=UI_THEME['relief'],
-        borderwidth=UI_THEME['border_width'],
-        bg=UI_THEME['background'],
-        fg=UI_THEME['foreground'],
-        font=(UI_THEME['font_family'], UI_THEME['font_size']),
+        relief=UI_STYLE['relief'],
+        borderwidth=UI_STYLE['border_width'],
+        bg=UI_STYLE['bg'],
+        fg=UI_STYLE['fg'],
+        font=(UI_STYLE['font_family'], UI_STYLE['font_size']),
         height=num_lines,
         width=param_width,
         wrap='none',
@@ -110,19 +110,19 @@ def create_result_window(
         text=t('dialog.accept'),
         command=_on_close,
         style='Primary.TButton',
-        width=UI_THEME['button_width'],
+        width=UI_STYLE['button_width'],
     )
 
-    plot_level.equation_text.pack(padx=UI_THEME['padding_x'], pady=UI_THEME['padding_y'])
-    plot_level.middle_frame.pack(padx=UI_THEME['padding_x'], pady=UI_THEME['padding_y'])
-    _px, _py = UI_THEME['padding_x'], UI_THEME['padding_y']
+    _pad = UI_STYLE['padding']
+    plot_level.equation_text.pack(padx=_pad, pady=_pad)
+    plot_level.middle_frame.pack(padx=_pad, pady=_pad)
     plot_level.label_parameters.pack(
-        in_=plot_level.middle_frame, side='left', padx=_px, pady=_py
+        in_=plot_level.middle_frame, side='left', padx=_pad, pady=_pad
     )
     plot_level.image.pack(
-        in_=plot_level.middle_frame, side='left', padx=_px, pady=_py
+        in_=plot_level.middle_frame, side='left', padx=_pad, pady=_pad
     )
-    plot_level.accept_button.pack(padx=UI_THEME['padding_x'], pady=UI_THEME['padding_y'])
+    plot_level.accept_button.pack(padx=_pad, pady=_pad)
     plot_level.accept_button.focus_set()
     plot_level.protocol("WM_DELETE_WINDOW", _on_close)
 

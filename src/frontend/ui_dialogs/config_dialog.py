@@ -164,7 +164,7 @@ def show_config_dialog(parent_window: Any) -> bool:
         accent_line = Frame(
             content_wrapper,
             width=4,
-            bg=UI_STYLE['combobox_focus_bg'],
+            bg=UI_STYLE['widget_hover_bg'],
             highlightthickness=0,
         )
         accent_line.pack(side='left', fill='y')
