@@ -6,11 +6,15 @@ ENV_SCHEMA in config.env (single source of truth for defaults and types).
 """
 
 import tkinter
+import tkinter.font as tkfont
 from typing import Any
 
 from tkinter import ttk
 
 from config.env import get_env_from_schema
+
+# Fallback UI font families if the configured font is not available on this OS
+_UI_FONT_FALLBACKS = ('Bahnschrift', 'SF Pro Text', 'Inter')
 
 # -----------------------------------------------------------------------------
 # Single source: ENV_SCHEMA (env.py) + derived constants (same default look)
@@ -141,12 +145,8 @@ _fg = get_env_from_schema('UI_FOREGROUND')
 _btn_bg = get_env_from_schema('UI_BUTTON_BG')
 _btn_fg_primary = get_env_from_schema('UI_BUTTON_FG')
 _btn_fg_cancel = get_env_from_schema('UI_BUTTON_FG_CANCEL')
-_btn_fg_accent = get_env_from_schema('UI_BUTTON_FG_CYAN')
 _btn_fg_accent2 = get_env_from_schema('UI_BUTTON_FG_ACCENT2')
-_text_bg = get_env_from_schema('UI_TEXT_BG')
-_text_fg = get_env_from_schema('UI_TEXT_FG')
 _text_select_bg = get_env_from_schema('UI_TEXT_SELECT_BG')
-_text_select_fg = get_env_from_schema('UI_TEXT_SELECT_FG')
 
 # Layout and sizes (fixed or derived)
 _border = 8
@@ -156,7 +156,49 @@ _btn_w = get_env_from_schema('UI_BUTTON_WIDTH')
 _btn_wide = int(2.5 * _btn_w)
 _spin_w = get_env_from_schema('UI_SPINBOX_WIDTH')
 _entry_w = get_env_from_schema('UI_ENTRY_WIDTH')
-_font_family = get_env_from_schema('UI_FONT_FAMILY')
+
+
+def _resolve_ui_font_family(preferred: str) -> str:
+    """Resolve UI font family: if preferred is not available on this OS, try fallbacks.
+
+    Uses a temporary Tk instance to query font.families(). The preferred font is
+    matched exactly (case-insensitive) or as a prefix of a system name (e.g. "Palatino"
+    matches "Palatino Linotype" on Windows). Fallbacks use exact match only.
+
+    Returns the first available of: preferred (or a system family that starts with it),
+    Bahnschrift, SF Pro Text, Inter; otherwise the preferred string as-is.
+    """
+    if not (preferred and preferred.strip()):
+        preferred = 'TkDefaultFont'
+    try:
+        root = tkinter.Tk()
+        root.withdraw()
+        # Map lowercase name -> actual name as returned by the system
+        available = {f.lower(): f for f in tkfont.families()}
+        root.destroy()
+    except (tkinter.TclError, Exception):
+        return preferred.strip()
+    preferred_clean = preferred.strip()
+    preferred_lower = preferred_clean.lower()
+    # Preferred: exact match or system name that starts with preferred (e.g. "Palatino" -> "Palatino Linotype", "Menlo" -> "Menlo Mono")
+    if preferred_lower in available:
+        return available[preferred_lower]
+    for key, actual_name in available.items():
+        # Space (e.g. "Menlo Regular") or hyphen (e.g. "Menlo-Regular") after preferred name
+        if key.startswith(preferred_lower + ' ') or key.startswith(preferred_lower + '-'):
+            return actual_name
+    for key, actual_name in available.items():
+        # Any family that starts with preferred name (e.g. "MenloMono" when preferred is "Menlo")
+        if len(key) > len(preferred_lower) and key.startswith(preferred_lower):
+            return actual_name
+    # Fallbacks: exact match only
+    for name in _UI_FONT_FALLBACKS:
+        if name and name.lower() in available:
+            return available[name.lower()]
+    return preferred_clean
+
+
+_font_family = _resolve_ui_font_family(get_env_from_schema('UI_FONT_FAMILY'))
 _font_size = get_env_from_schema('UI_FONT_SIZE')
 _font_size_large = int(1.25 * _font_size)
 
@@ -167,6 +209,7 @@ _font_size_large = int(1.25 * _font_size)
 # Computed once for UI_STYLE (derived from base colors)
 _active_bg = _darken_bg(_btn_bg)
 _hover_bg = _darken_bg(_bg)
+_text_bg = _darken_bg(_bg)
 _tooltip_bg = _tooltip_bg_from_ui(_bg)
 _field_bg = _lighten_bg_hex(_bg, factor=0.14)
 
@@ -180,7 +223,6 @@ UI_STYLE = {
     'active_bg': _active_bg,
     'button_fg_accept': _btn_fg_primary,
     'button_fg_cancel': _btn_fg_cancel,
-    'button_fg_cyan': _btn_fg_accent,
     'button_fg_accent2': _btn_fg_accent2,
     # Entry/Combobox/Spinbox: very slightly lighter than main bg (calculated from _bg)
     'field_bg': _field_bg,
@@ -188,12 +230,12 @@ UI_STYLE = {
     'widget_hover_bg': _hover_bg,
     'checkbutton_hover_bg': _hover_bg,
     'combobox_focus_bg': _hover_bg,
-    # Text widget (cursor = text colour)
+    # Text widget (cursor and text = UI foreground)
     'text_bg': _text_bg,
-    'text_fg': _text_fg,
-    'text_insert_bg': _text_fg,
+    'text_fg': _fg,
+    'text_insert_bg': _fg,
     'text_select_bg': _text_select_bg,
-    'text_select_fg': _text_select_fg,
+    'text_select_fg': _fg,
     # Tooltip: UI bg grayish+lighter, text = UI fg
     'tooltip_bg': _tooltip_bg,
     'tooltip_fg': _fg,
@@ -256,7 +298,7 @@ _BASE_BUTTON = _tk_button_base()
 BUTTON_STYLE_PRIMARY = {**_BASE_BUTTON, 'bg': UI_STYLE['button_bg'], 'fg': UI_STYLE['button_fg_accept'], 'activeforeground': _lighten_fg(UI_STYLE['button_fg_accept'])}
 BUTTON_STYLE_SECONDARY = {**_BASE_BUTTON, 'bg': UI_STYLE['button_bg'], 'fg': UI_STYLE['fg'], 'activeforeground': _lighten_fg(UI_STYLE['fg'])}
 BUTTON_STYLE_DANGER = {**_BASE_BUTTON, 'bg': UI_STYLE['button_bg'], 'fg': UI_STYLE['button_fg_cancel'], 'activeforeground': _lighten_fg(UI_STYLE['button_fg_cancel'])}
-BUTTON_STYLE_ACCENT = {**_BASE_BUTTON, 'bg': UI_STYLE['button_bg'], 'fg': UI_STYLE['button_fg_cyan'], 'activeforeground': _lighten_fg(UI_STYLE['button_fg_cyan'])}
+BUTTON_STYLE_ACCENT = {**_BASE_BUTTON, 'bg': UI_STYLE['button_bg'], 'fg': UI_STYLE['button_fg_accept'], 'activeforeground': _lighten_fg(UI_STYLE['button_fg_accept'])}
 
 # -----------------------------------------------------------------------------
 # Plot config (unchanged)
@@ -367,7 +409,7 @@ def configure_ttk_styles(root: Any) -> None:
     _btn_style('Primary.TButton', UI_STYLE['button_fg_accept'])
     _btn_style('Secondary.TButton', fg)
     _btn_style('Danger.TButton', UI_STYLE['button_fg_cancel'])
-    _btn_style('Accent.TButton', UI_STYLE['button_fg_cyan'])
+    _btn_style('Accent.TButton', UI_STYLE['button_fg_accept'])
     _btn_style('Equation.TButton', UI_STYLE['button_fg_accent2'])
 
     # Entry: same font as rest of UI; field slightly lighter than main bg
@@ -438,6 +480,8 @@ def configure_ttk_styles(root: Any) -> None:
     style.configure('ConfigSectionHeader.TFrame', background=btn_light)
     style.configure('ConfigSectionHeader.TLabel', background=btn_light, foreground=fg, font=font_bold)
     style.configure('ConfigSectionContent.TFrame', background=bg)
+    font_desc = (fam, max(8, int(sz * 0.7)))
+    style.configure('ConfigOptionDesc.TLabel', background=bg, foreground=fg, font=font_desc)
 
 
 def apply_hover_to_children(parent: Any) -> None:

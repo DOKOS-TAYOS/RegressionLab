@@ -188,48 +188,57 @@ def _was_value_corrected(
 DEFAULT_LOG_LEVEL = 'INFO'
 DEFAULT_LOG_FILE = 'regressionlab.log'
 
+# Order defines display order in config dialog. Within each section (ui, plot, font, etc.)
+# related options are grouped (e.g. all button settings together).
 ENV_SCHEMA: list[dict[str, Any]] = [
+    # --- language ---
     {'key': 'LANGUAGE', 'default': 'es', 'cast_type': str, 'options': SUPPORTED_LANGUAGE_CODES},
-    {'key': 'UI_BACKGROUND', 'default': 'black', 'cast_type': str},
-    {'key': 'UI_FOREGROUND', 'default': 'snow', 'cast_type': str},
+    # --- ui: general window / background ---
+    {'key': 'UI_BACKGROUND', 'default': '#181818', 'cast_type': str},
+    {'key': 'UI_FOREGROUND', 'default': '#CCCCCC', 'cast_type': str},
+    # --- ui: buttons (all together) ---
+    {'key': 'UI_BUTTON_BG', 'default': '#1F1F1F', 'cast_type': str},
+    {'key': 'UI_BUTTON_WIDTH', 'default': 12, 'cast_type': int},
     {'key': 'UI_BUTTON_FG', 'default': 'lime green', 'cast_type': str},
     {'key': 'UI_BUTTON_FG_CANCEL', 'default': 'red2', 'cast_type': str},
-    {'key': 'UI_BUTTON_FG_CYAN', 'default': 'cyan2', 'cast_type': str},
+    {'key': 'UI_BUTTON_FG_ACCENT2', 'default': 'yellow', 'cast_type': str},
+    # --- ui: text / inputs ---
+    {'key': 'UI_TEXT_SELECT_BG', 'default': 'steel blue', 'cast_type': str},
+    {'key': 'UI_FONT_SIZE', 'default': 18, 'cast_type': int},
+    {'key': 'UI_FONT_FAMILY', 'default': 'Bahnschrift', 'cast_type': str},
     {'key': 'UI_PADDING', 'default': 8, 'cast_type': int},
-    {'key': 'UI_BUTTON_WIDTH', 'default': 12, 'cast_type': int},
-    {'key': 'UI_FONT_SIZE', 'default': 16, 'cast_type': int},
-    {'key': 'UI_FONT_FAMILY', 'default': 'Menlo', 'cast_type': str},
     {'key': 'UI_SPINBOX_WIDTH', 'default': 10, 'cast_type': int},
     {'key': 'UI_ENTRY_WIDTH', 'default': 25, 'cast_type': int},
-    {'key': 'UI_BUTTON_BG', 'default': 'gray10', 'cast_type': str},
-    {'key': 'UI_BUTTON_FG_ACCENT2', 'default': 'yellow', 'cast_type': str},
-    {'key': 'UI_TEXT_BG', 'default': 'gray5', 'cast_type': str},
-    {'key': 'UI_TEXT_FG', 'default': 'light cyan', 'cast_type': str},
-    {'key': 'UI_TEXT_SELECT_BG', 'default': 'steel blue', 'cast_type': str},
-    {'key': 'UI_TEXT_SELECT_FG', 'default': 'white', 'cast_type': str},
+    # --- plot: size ---
     {'key': 'PLOT_FIGSIZE_WIDTH', 'default': 12, 'cast_type': int},
     {'key': 'PLOT_FIGSIZE_HEIGHT', 'default': 6, 'cast_type': int},
     {'key': 'DPI', 'default': 100, 'cast_type': int},
     {'key': 'PLOT_SHOW_TITLE', 'default': False, 'cast_type': bool},
+    # --- plot: line ---
     {'key': 'PLOT_LINE_COLOR', 'default': 'black', 'cast_type': str},
     {'key': 'PLOT_LINE_WIDTH', 'default': 1.0, 'cast_type': float},
-    {'key': 'PLOT_LINE_STYLE', 'default': '-', 'cast_type': str, 'options': ('-', '--', '-.', ':')},
+    {'key': 'PLOT_LINE_STYLE', 'default': '-.', 'cast_type': str, 'options': ('-', '--', '-.', ':')},
+    # --- plot: markers ---
     {'key': 'PLOT_MARKER_FORMAT', 'default': 'o', 'cast_type': str, 'options': ('o', 's', '^', 'd', '*')},
     {'key': 'PLOT_MARKER_SIZE', 'default': 5, 'cast_type': int},
-    {'key': 'PLOT_ERROR_COLOR', 'default': 'crimson', 'cast_type': str},
     {'key': 'PLOT_MARKER_FACE_COLOR', 'default': 'crimson', 'cast_type': str},
     {'key': 'PLOT_MARKER_EDGE_COLOR', 'default': 'crimson', 'cast_type': str},
+    {'key': 'PLOT_ERROR_COLOR', 'default': 'crimson', 'cast_type': str},
+    # --- font (plots) ---
     {'key': 'FONT_FAMILY', 'default': 'serif', 'cast_type': str, 'options': ('serif', 'sans-serif', 'monospace', 'cursive', 'fantasy')},
     {'key': 'FONT_TITLE_SIZE', 'default': 'xx-large', 'cast_type': str, 'options': ('xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large')},
     {'key': 'FONT_TITLE_WEIGHT', 'default': 'semibold', 'cast_type': str, 'options': ('normal', 'bold', 'light', 'semibold', 'heavy')},
     {'key': 'FONT_AXIS_SIZE', 'default': 30, 'cast_type': int},
     {'key': 'FONT_AXIS_STYLE', 'default': 'italic', 'cast_type': str, 'options': ('normal', 'italic', 'oblique')},
     {'key': 'FONT_TICK_SIZE', 'default': 16, 'cast_type': int},
+    # --- paths ---
     {'key': 'FILE_INPUT_DIR', 'default': 'input', 'cast_type': str},
     {'key': 'FILE_OUTPUT_DIR', 'default': 'output', 'cast_type': str},
     {'key': 'FILE_FILENAME_TEMPLATE', 'default': 'fit_{}', 'cast_type': str},
     {'key': 'FILE_PLOT_FORMAT', 'default': 'png', 'cast_type': str, 'options': ('png', 'jpg', 'pdf')},
+    # --- links ---
     {'key': 'DONATIONS_URL', 'default': 'https://www.youtube.com/@whenphysics', 'cast_type': str},
+    # --- logging ---
     {'key': 'LOG_LEVEL', 'default': DEFAULT_LOG_LEVEL, 'cast_type': str, 'options': ('DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL')},
     {'key': 'LOG_FILE', 'default': DEFAULT_LOG_FILE, 'cast_type': str},
     {'key': 'LOG_CONSOLE', 'default': False, 'cast_type': bool},

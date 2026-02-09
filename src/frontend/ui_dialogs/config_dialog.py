@@ -186,7 +186,13 @@ def show_config_dialog(parent_window: Any) -> bool:
                 row=sub_row, column=0, sticky='w', padx=4, pady=2
             )
             desc_text = t(f'config.desc_{key}')
-            desc_lbl = ttk.Label(section_frame, text=desc_text, wraplength=600, justify='left')
+            desc_lbl = ttk.Label(
+                section_frame,
+                text=desc_text,
+                wraplength=600,
+                justify='left',
+                style='ConfigOptionDesc.TLabel',
+            )
             desc_lbl.grid(row=sub_row + 1, column=0, columnspan=2, sticky='w', padx=12, pady=(0, 6))
             config_desc_labels.append(desc_lbl)
             sub_row += 2
