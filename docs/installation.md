@@ -7,30 +7,33 @@ This guide will help you install RegressionLab on your computer. There are multi
 Before installing RegressionLab, ensure you have:
 
 ### Required Software
-- **Git**: Version control system for cloning the repository
-  - Windows: Download from [git-scm.com](https://git-scm.com/install/windows)
-  - macOS: Install via Homebrew `brew install git` or download from [git-scm.com](https://git-scm.com/install/mac)
-  - Linux: `sudo apt-get install git` (Debian/Ubuntu) or `sudo dnf install git` (Fedora)
+- **Git**: Version control system for cloning the repository.
+  - Windows: Download from [git-scm.com](https://git-scm.com/install/windows).
+  - macOS: Install via Homebrew `brew install git` or download from [git-scm.com](https://git-scm.com/install/mac).
+  - Linux: `sudo apt-get install git` (Debian/Ubuntu) or `sudo dnf install git` (Fedora).
 
-- **Python**: Version 3.12 or higher
-  - Download from [python.org](https://www.python.org/downloads/)
-  - Verify installation: `python --version` or `python3 --version`
+- **Python**: Version 3.12 or higher.
+  - Download from [python.org](https://www.python.org/downloads/).
+  - Verify installation: `python --version` or `python3 --version`.
 
 ### System Requirements
-- **Operating System**: Windows 10/11, macOS 10.14+, or Linux
-- **RAM**: 4 GB minimum, 8 GB recommended
-- **Disk Space**: 1 GB minimum, 2 GB recommended for application and dependencies
-- **Display**: 1280x720 minimum resolution recommended
+- **Operating System**: Windows 10/11, macOS 10.14+, or Linux.
+- **RAM**: 4 GB minimum, 8 GB recommended.
+- **Disk Space**: 1 GB minimum, 2 GB recommended for application and dependencies.
+- **Display**: 1280x720 minimum resolution recommended.
 
 ## Installation Methods
 
 ### Method 1: Quick Installation (Recommended)
 
 This is the fastest and easiest way to install RegressionLab. The installation script will:
-- Clone the repository
-- Create a virtual environment
-- Install all dependencies
-- Create a desktop shortcut
+- Clone the repository.
+- Create a virtual environment.
+- Install all dependencies.
+- Create a desktop shortcut.
+
+
+
 
 #### Windows
 
@@ -42,19 +45,24 @@ This is the fastest and easiest way to install RegressionLab. The installation s
 
 3. Run the installation script:
    - Double-click `install.bat`
+![Windows Installer](../images/en_documentation/tkinter_docs/installer.png)
    - Or open Command Prompt/PowerShell in the folder and run:
      ```batch
      install.bat
      ```
 
+
 4. Wait for the installation to complete. The script will:
-   - Clone the repository into a `RegressionLab` folder
-   - Set up a Python virtual environment
-   - Install all required dependencies
-   - Create a desktop shortcut named "RegressionLab"
+   - Clone the repository into a `RegressionLab` folder.
+   - Set up a Python virtual environment.
+   - Install all required dependencies.
+   - Create a desktop shortcut named "RegressionLab".
+
+![Installation Process](../images/en_documentation/tkinter_docs/install.png)
 
 5. Launch RegressionLab:
    - Double-click the desktop shortcut
+   ![Desktop Shortcut](../images/en_documentation/tkinter_docs/shortcut.png)
    - Or run `bin\run.bat` from the installation folder
 
 #### macOS / Linux
@@ -79,7 +87,7 @@ This is the fastest and easiest way to install RegressionLab. The installation s
    ./install.sh
    ```
 
-4. Wait for the installation to complete
+4. Wait for the installation to complete.
 
 5. Launch RegressionLab:
    - Double-click the desktop shortcut (if supported)
@@ -116,10 +124,10 @@ chmod +x setup.sh
 ```
 
 This will:
-- Create a virtual environment in `.venv`
-- Install all dependencies
-- Create a desktop shortcut
-- Copy `.env.example` to `.env`
+- Create a virtual environment in `.venv`.
+- Install all dependencies.
+- Create a desktop shortcut.
+- Copy `.env.example` to `.env`.
 
 ##### Option B: Manual Virtual Environment Setup
 
@@ -226,7 +234,7 @@ cp .env.example .env
 nano .env  # or vim, code, notepad, etc.
 ```
 
-See the [Configuration Guide](configuration) for details on available options.
+See the [Configuration Guide](configuration.md) for details on available options.
 
 #### Step 5: Verify Installation
 
@@ -250,6 +258,7 @@ After installation, you can run RegressionLab in several ways:
 
 **Method 1: Desktop Shortcut**
 - Double-click the "RegressionLab" shortcut on your desktop
+![Desktop Shortcut](../images/en_documentation/tkinter_docs/shortcut.png)
 
 **Method 2: Shell Scripts**
 
@@ -317,9 +326,9 @@ Download the latest version and repeat the installation process, or switch to th
 **Error**: `'python' is not recognized as an internal or external command`
 
 **Solution**: 
-- Ensure Python is installed and added to PATH
-- Try using `python3` instead of `python`
-- Reinstall Python and check "Add Python to PATH" during installation
+- Ensure Python is installed and added to PATH.
+- Try using `python3` instead of `python`.
+- Reinstall Python and check "Add Python to PATH" during installation.
 
 ### Permission Denied (macOS/Linux)
 
@@ -338,9 +347,9 @@ chmod +x bin/run_streamlit.sh
 **Error**: `ModuleNotFoundError: No module named 'numpy'` (or other modules)
 
 **Solution**:
-- Ensure virtual environment is activated
-- Reinstall dependencies: `pip install -r requirements.txt`
-- Check that you're using the correct Python interpreter
+- Ensure virtual environment is activated.
+- Reinstall dependencies: `pip install -r requirements.txt`.
+- Check that you're using the correct Python interpreter.
 
 ### Virtual Environment Issues
 
@@ -360,17 +369,17 @@ chmod +x bin/run_streamlit.sh
 **Error**: `fatal: unable to access 'https://github.com/...'`
 
 **Solution**:
-- Check internet connection
-- Verify Git is installed: `git --version`
-- Try using HTTPS instead of SSH or vice versa
+- Check internet connection.
+- Verify Git is installed: `git --version`.
+- Try using HTTPS instead of SSH or vice versa.
 
 ## Uninstalling RegressionLab
 
 To remove RegressionLab from your system:
 
-1. Delete the RegressionLab folder
-2. Delete the desktop shortcut (if created)
-3. Remove the virtual environment (if created separately)
+1. Delete the RegressionLab folder.
+2. Delete the desktop shortcut (if created).
+3. Remove the virtual environment (if created separately).
 
 ```bash
 # macOS/Linux
@@ -386,10 +395,10 @@ del %USERPROFILE%\Desktop\RegressionLab.lnk
 
 Now that RegressionLab is installed:
 
-1. **Configure**: Customize your settings in the [Configuration Guide](configuration)
-2. **Learn**: Read the [User Guide](usage) to understand how to use RegressionLab
-3. **Explore**: Try the different operation modes with sample datasets in the `input/` folder
+1. **Configure**: Customize your settings in the [Configuration Guide](configuration.md).
+2. **Learn**: Read the [User Guide](usage.md) to understand how to use RegressionLab.
+3. **Explore**: Try the different operation modes with sample datasets in the `input/` folder.
 
 ---
 
-*Having issues? Check the [Troubleshooting Guide](troubleshooting) or open an issue on GitHub.*
+*Having issues? Check the [Troubleshooting Guide](troubleshooting.md) or open an issue on GitHub.*

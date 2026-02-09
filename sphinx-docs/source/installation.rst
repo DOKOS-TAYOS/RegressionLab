@@ -1,2 +1,2 @@
-.. include:: ../../docs/installation.md
+.. relativeinclude:: ../../docs/installation.md
    :parser: myst_parser.sphinx_

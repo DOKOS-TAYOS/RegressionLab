@@ -186,7 +186,7 @@ def example_function(data: NDArray, threshold: float = 0.5) -> Tuple[NDArray, fl
 
 ### Adding a New Fitting Function
 
-See [Extending RegressionLab](extending) for detailed instructions.
+See [Extending RegressionLab](../extending.md) for detailed instructions.
 
 Quick summary:
 1. Add mathematical function in `fitting/functions/` (e.g. `polynomials.py`, `special.py`)
@@ -497,7 +497,7 @@ For detailed documentation of each module, see the individual module pages:
 
 ## Contributing
 
-See [Contributing Guide](contributing) for:
+See [Contributing Guide](../contributing.md) for:
 - Code style guidelines
 - Pull request process
 - Development workflow

@@ -5,11 +5,13 @@ This guide covers the web-based interface of RegressionLab built with Streamlit.
 ## Overview
 
 The Streamlit interface offers:
-- **Modern UI**: Clean, intuitive design
-- **Accessibility**: Works on any device with a browser
-- **No installation**: Use the online version instantly
-- **Visual feedback**: Real-time updates and progress indicators
-- **Easy sharing**: Share results by downloading plots
+- **Modern UI**: Clean, intuitive design.
+- **Accessibility**: Works on any device with a browser.
+- **No installation**: Use the online version instantly.
+- **Visual feedback**: Real-time updates and progress indicators.
+- **Easy sharing**: Share results by downloading plots.
+
+Configuration (language, plot style, paths, etc.) is done by editing the `.env` file; the web version has no in-app configuration dialog (unlike the Tkinter **Configure** menu).
 
 ## Accessing Streamlit
 
@@ -18,10 +20,10 @@ The Streamlit interface offers:
 Visit: [https://regressionlab.streamlit.app/](https://regressionlab.streamlit.app/)
 
 **First-time access**:
-1. Open the URL in your browser
-2. If you see "App is sleeping", click "Start"
-3. Wait 30-60 seconds for the app to wake up
-4. The app will load and be ready to use
+1. Open the URL in your browser.
+2. If you see "App is sleeping", click "Start".
+3. Wait 30-60 seconds for the app to wake up.
+4. The app will load and be ready to use.
 
 ### Local Version
 
@@ -49,93 +51,100 @@ The app will open automatically in your default browser at `http://localhost:850
 The Streamlit interface consists of three main areas:
 
 ### 1. Sidebar (Left)
-- **Language Toggle**: Switch between English and Spanish
-- **Mode Selection**: Choose your operation mode
-  - Normal Fitting
-  - Multiple Datasets
-  - Checker Fitting
-  - Total Fitting
+- **Language Toggle**: Switch between English and Spanish.
+- **Mode Selection**: Choose your operation mode:
+  - Normal Fitting.
+  - Multiple Datasets.
+  - Checker Fitting.
+  - Total Fitting.
+  - View Data.
 
 ### 2. Main Area (Center)
-- **Logo and Title**: RegressionLab branding
-- **Help Section**: Expandable information about the app
-- **Operation Controls**: File upload, variable selection, equation selection
-- **Results Display**: Plots and fitting results
+- **Logo and Title**: RegressionLab branding.
+- **Help Section**: Expandable information about the app.
+- **Operation Controls**: File upload, variable selection, equation selection.
+- **Results Display**: Plots and fitting results.
 
 ### 3. Results Section (Bottom)
-- **Plot Display**: Visualization of fitted curves
-- **Parameter Values**: Fitted parameters with uncertainties
-- **Download Buttons**: Save plots to your computer
+- **Three columns**: Equation (formula and formatted equation, left), Parameters (fit parameters with uncertainties and IC 95%, center), Statistics (R², RMSE, χ², etc., right).
+- **Plot Display**: Visualization of fitted curves below the columns.
+- **Download Button**: Below each plot; save as PNG, JPG, or PDF (when configured).
 
 ## Language Selection
 
 ### Changing the Language
 
-1. Look at the sidebar (left side)
+1. Look at the sidebar (left side).
 2. Click the language toggle button:
-   - "English 🇬🇧" to switch to English
-   - "Español 🇪🇸" to switch to Spanish
-3. The entire interface updates immediately
+   - "English 🇬🇧" to switch to English.
+   - "Español 🇪🇸" to switch to Spanish.
+3. The entire interface updates immediately.
 
 **Available Languages**:
-- Spanish (Español) - Default
-- English
+- Spanish (Español) - Default.
+- English.
+- German (Deutsch).
 
 ## Operation Modes
 
 ### Mode 1: Normal Fitting
 
-**Purpose**: Fit one equation to one dataset
+**Purpose**: Fit one equation to one dataset.
 
 **Steps**:
 
 1. **Select Mode**:
-   - In the sidebar, ensure "Normal Fitting" is selected
+   - In the sidebar, ensure "Normal Fitting" is selected.
 
-2. **Upload Data**:
-   - Click "Browse files" or drag and drop your file
-   - Supported formats: CSV, XLSX, TXT
-   - Wait for the file to upload and process
+2. **Optional: Loop fitting**:
+   - Check "Do you want loop fitting?" if you plan to fit another file with the same equation later.
+   - When enabled, after the first fit an expander lets you upload another file and click "Fit again" without changing the equation.
 
-3. **View Data** (Optional):
-   - Expand "Show Data" to preview your dataset
-   - Verify columns are loaded correctly
+3. **Upload Data**:
+   - Click "Browse files" or drag and drop your file.
+   - Supported formats: CSV, XLSX, TXT.
+   - Wait for the file to upload and process.
 
-4. **Select Variables**:
-   - **Independent Variable (X)**: Choose from dropdown (e.g., "time")
-   - **Dependent Variable (Y)**: Choose from dropdown (e.g., "temperature")
-   - **Plot Name**: Enter a name for the output file (e.g., "experiment1")
+4. **View Data** (Optional):
+   - Expand "Show Data" to preview your dataset.
+   - Verify columns are loaded correctly.
 
-5. **Select Equation**:
-   - Choose an equation type from the dropdown
+5. **Select Variables**:
+   - **Independent Variable (X)**: Choose from dropdown (e.g., "time").
+   - **Dependent Variable (Y)**: Choose from dropdown (e.g., "temperature").
+   - **Plot Name**: Enter a name for the output file (e.g., "experiment1").
+
+6. **Select Equation**:
+   - Choose an equation type from the dropdown.
    - Options include Linear, Quadratic, Sine, Cosine, Logarithmic, etc.
-   - Formula shown next to each option (e.g., "Linear with intercept - y=mx+n")
+   - Formula shown next to each option (e.g., "Linear with intercept - y=mx+n").
 
-6. **Fit the Curve**:
-   - Click "Normal Fitting" button (blue button)
-   - Wait for processing (spinner appears)
-   - Results appear below
+7. **Fit the Curve**:
+   - Click "Normal Fitting" button (blue button).
+   - Wait for processing (spinner appears).
+   - Results appear below.
 
-7. **Review Results**:
-   - **Equation**: Mathematical formula with fitted parameters
-   - **Parameters**: Values with uncertainties (e.g., "m = 5.12 ± 0.05")
-   - **Plot**: Visualization with your data points and fitted curve
-   - **R² value**: Goodness of fit measure
+8. **Review Results** (three columns + plot):
+   - **Equation** (left): Formula and formatted equation with fitted values.
+   - **Parameters** (center): Fit parameters (e.g. a, b, c) with uncertainties and IC 95%.
+   - **Statistics** (right): R², RMSE, χ², χ²_red, degrees of freedom.
+   - **Plot**: Data points and fitted curve below the columns.
+   - **Download**: Button below the plot (PNG/JPG/PDF depending on configuration).
 
-8. **Download Plot**:
-   - Click the "📥 Download" button
-   - Plot saved as PNG image to your downloads folder
+9. **Download Plot**:
+   - Click the "📥 Download" button below the plot.
+   - File format is that configured for the app (default PNG); if PDF is configured, the in-app preview is PNG but the download is PDF.
 
 **Custom Formula**:
 
 If "Custom Formula" is selected:
 
-1. **Enter Number of Parameters**: Use the number input (1-10)
-2. **Name Parameters**: Enter names in the input boxes (e.g., "a", "b", "c")
-3. **Enter Formula**: Type your formula using Python syntax
-   - Example: `a*x**2 + b*x + c`
-   - Use `x` as the independent variable
-   - Use parameter names defined above
+1. **Enter Number of Parameters**: Use the number input (1-10).
+2. **Name Parameters**: Enter names in the input boxes (e.g., "a", "b", "c").
+3. **Enter Formula**: Type your formula using Python syntax.
+   - Example: `a*x**2 + b*x + c`.
+   - Use `x` as the independent variable.
+   - Use parameter names defined above.
    - Supported: `+`, `-`, `*`, `/`, `**` (power), `np.sin()`, `np.cos()`, `np.exp()`, `np.log()`, etc.
 
 **Example Workflow**:
@@ -151,48 +160,49 @@ If "Custom Formula" is selected:
 
 ### Mode 2: Multiple Datasets
 
-**Purpose**: Apply the same equation to multiple different files
+**Purpose**: Apply the same equation to multiple different files.
 
 **Steps**:
 
 1. **Select Mode**:
-   - In sidebar, click "Multiple Datasets"
+   - In sidebar, click "Multiple Datasets".
 
 2. **Select Equation First**:
-   - Choose the equation type you'll use for all datasets
-   - If using custom formula, define it here
+   - Choose the equation type you'll use for all datasets.
+   - If using custom formula, define it here.
 
 3. **Upload Multiple Files**:
-   - Click "Browse files"
-   - **Hold Ctrl (Windows/Linux) or Cmd (Mac)** to select multiple files
-   - Or use drag-and-drop for multiple files
-   - All files upload simultaneously
+   - Click "Browse files".
+   - **Hold Ctrl (Windows/Linux) or Cmd (Mac)** to select multiple files.
+   - Or use drag-and-drop for multiple files.
+   - All files upload simultaneously.
 
 4. **Configure Each Dataset**:
    - For each uploaded file:
-     - File name shown as heading
-     - Select X variable
-     - Select Y variable
-     - Enter plot name (defaults to filename)
+     - File name shown as heading.
+     - Select X variable.
+     - Select Y variable.
+     - Enter plot name (defaults to filename).
 
 5. **Fit All Datasets**:
-   - Click the "Multiple Datasets" button (centered, blue)
-   - All datasets are fitted sequentially
-   - Progress indicators shown
+   - Click the "Multiple Datasets" button (centered, blue).
+   - All datasets are fitted sequentially.
+   - Progress indicators shown.
 
 6. **Review All Results**:
-   - Results displayed for each dataset
+   - Results displayed for each dataset.
    - Each has its own:
-     - Equation
-     - Parameters
-     - Plot
-     - Download button
-   - Scroll through results to compare
+     - Equation.
+     - Parameters.
+     - Plot.
+     - Download button.
+   - Scroll through results to compare.
 
 **Tips**:
-- All files should have similar column names
-- X and Y variables can be different for each file if needed
-- Results appear in upload order
+- All files should have similar column names.
+- X and Y variables can be different for each file if needed.
+- Results appear in upload order.
+- You can upload another set of files and click the button again for another round of fits with the same equation.
 
 **Example Workflow**:
 ```
@@ -211,39 +221,39 @@ If "Custom Formula" is selected:
 
 ### Mode 3: Checker Fitting
 
-**Purpose**: Test multiple equations on the same dataset to find the best fit
+**Purpose**: Test multiple equations on the same dataset to find the best fit.
 
 **Steps**:
 
 1. **Select Mode**:
-   - In sidebar, click "Checker Fitting"
+   - In sidebar, click "Checker Fitting".
 
 2. **Upload Data**:
-   - Upload your single data file
+   - Upload your single data file.
 
 3. **Select Variables**:
-   - Choose X and Y variables
-   - Enter plot name
+   - Choose X and Y variables.
+   - Enter plot name.
 
 4. **Select Multiple Equations**:
-   - Click in the "Select equation" dropdown
-   - **Select multiple options** by clicking each one
-   - Options remain in the dropdown (multi-select)
-   - Default: First 3 equations pre-selected
-   - Custom formulas not available in this mode
+   - Click in the "Select equation" dropdown.
+   - **Select multiple options** by clicking each one.
+   - Options remain in the dropdown (multi-select).
+   - Default: First 3 equations pre-selected.
+   - Custom formulas not available in this mode.
 
 5. **Run Checker Fitting**:
-   - Click "Checker Fitting" button
-   - Progress bar shows completion
-   - Each equation fitted sequentially
+   - Click "Checker Fitting" button.
+   - Progress bar shows completion.
+   - Each equation fitted sequentially.
 
 6. **Compare Results**:
-   - All results displayed vertically
+   - All results displayed vertically.
    - Compare:
-     - R² values (higher is better)
-     - Visual fit quality in plots
-     - Parameter values
-   - Identify the best-fitting equation
+     - R² values (higher is better).
+     - Visual fit quality in plots.
+     - Parameter values.
+   - Identify the best-fitting equation.
 
 **Example Workflow**:
 ```
@@ -263,39 +273,58 @@ If "Custom Formula" is selected:
 6. Conclusion: Use inverse function
 ```
 
-### Mode 4: Total Fitting
+### Mode 4: View Data
 
-**Purpose**: Automatically test ALL available equations on your dataset
+**Purpose**: View data from a file without performing any fitting.
 
 **Steps**:
 
 1. **Select Mode**:
-   - In sidebar, click "Total Fitting"
+   - In the sidebar, select "View Data" (or "Mirar datos" in Spanish).
 
 2. **Upload Data**:
-   - Upload your data file
+   - Click "Browse files" or drag and drop your file.
+   - Supported formats: CSV, XLSX, TXT.
+
+3. **View Data**:
+   - Expand "Show Data" to see the table and optional pair plots.
+   - No equation selection or fitting is performed.
+
+**Use case**: Inspect columns, check data quality, or visualize variable pairs before deciding on a fitting mode.
+
+### Mode 5: Total Fitting
+
+**Purpose**: Automatically test ALL available equations on your dataset.
+
+**Steps**:
+
+1. **Select Mode**:
+   - In sidebar, click "Total Fitting".
+
+2. **Upload Data**:
+   - Upload your data file.
 
 3. **Select Variables**:
-   - Choose X and Y variables
-   - Enter plot name
+   - Choose X and Y variables.
+   - Enter plot name.
 
 4. **Run Total Fitting**:
-   - Info message shows: "Total Fitting: [N] equations"
-   - Click "Total Fitting" button
-   - Progress bar shows completion
-   - **All** predefined equations fitted automatically
-   - Takes longer than other modes
+   - Info message shows: "Total Fitting: [N] equations".
+   - Click "Total Fitting" button.
+   - Progress bar shows completion.
+   - **All** predefined equations fitted automatically.
+   - Takes longer than other modes.
 
 5. **Review All Results**:
-   - Comprehensive results for all equation types
-   - Scroll through to find the best fit
-   - Look for highest R² value
+   - Comprehensive results for all equation types.
+   - Scroll through to find the best fit.
+   - Look for highest R² value.
 
 **Use Cases**:
-- Exploratory data analysis
-- No prior knowledge of expected relationship
-- Creating comprehensive reports
-- Educational purposes (see all function types)
+- Exploratory data analysis.
+- No prior knowledge of expected relationship.
+- Creating comprehensive reports.
+- Educational purposes (see all function types).
 
 **Example Workflow**:
 ```
@@ -317,262 +346,271 @@ If "Custom Formula" is selected:
 
 ### Supported Formats
 
-- **CSV** (`.csv`): Comma-separated values
-- **Excel** (`.xlsx`): Microsoft Excel files
-- **TXT** (`.txt`): Tab-separated or space-separated text files
+- **CSV** (`.csv`): Comma-separated values.
+- **Excel** (`.xlsx`): Microsoft Excel files.
+- **TXT** (`.txt`): Tab-separated or space-separated text files.
 
 ### File Size Limits
 
-- **Online version**: Limited by Streamlit Cloud (typically 200 MB)
-- **Local version**: Limited by your computer's memory
+- **Online version**: Limited by Streamlit Cloud (typically 200 MB).
+- **Local version**: Limited by your computer's memory.
 
 ### Upload Methods
 
-1. **Click "Browse files"**: Opens file picker dialog
-2. **Drag and drop**: Drag files from your file manager into the upload area
+1. **Click "Browse files"**: Opens file picker dialog.
+2. **Drag and drop**: Drag files from your file manager into the upload area.
+
 
 ### Multiple File Upload
 
-- Hold **Ctrl** (Windows/Linux) or **Cmd** (Mac) while selecting
-- Or drag multiple files at once
-- Only available in "Multiple Datasets" mode
+- Hold **Ctrl** (Windows/Linux) or **Cmd** (Mac) while selecting.
+- Or drag multiple files at once.
+- Only available in "Multiple Datasets" mode.
+
 
 ### Data Preview
 
 After upload, expand "Show Data" to see:
-- First and last rows
-- All columns
-- Data types
-- Verify data loaded correctly
+- First and last rows.
+- All columns.
+- Data types.
+- Verify data loaded correctly.
 
 ## Understanding Results
 
-### Equation Display
+Results are shown in three columns, then the plot, then the download button.
 
-The fitted equation is shown in mathematical notation:
+### Column 1: Equation
 
-```
-y = 5.123·x + 2.456
-```
+- **Formula** (if available): The generic equation form (e.g. *y = mx + n*).
+- **Formatted equation**: The equation with fitted parameter values (e.g. *y = 5.123·x + 2.456*).
+- Uses standard mathematical symbols (·, ², etc.).
 
-- Parameters replaced with fitted values
-- Uses standard mathematical symbols (·, ², etc.)
+### Column 2: Parameters
 
-### Parameter Display
+Fit parameters (e.g. a, b, c or m, n) with uncertainties and confidence intervals:
 
-Parameters shown with uncertainties:
+- Each parameter: value and uncertainty (e.g. *m = 5.123 , σ(m) = 0.045*).
+- IC 95%: 95% confidence interval for each parameter.
 
-```
-Parameter Results:
-m = 5.123 ± 0.045
-n = 2.456 ± 0.123
-```
+### Column 3: Statistics
 
-- Each parameter on its own line
-- ± indicates uncertainty (standard error)
+- **R²**: Coefficient of determination.
+- **RMSE**: Root mean square error.
+- **χ²**: Chi-squared.
+- **χ²_red**: Reduced chi-squared.
+- **ν (g.l.)**: Degrees of freedom.
 
 ### Plot Components
 
 **Data Points**:
-- Red circles (or other markers)
-- Error bars if uncertainties provided
-- Your original measurements
+- Red circles (or other markers).
+- Error bars if uncertainties provided.
+- Your original measurements.
 
 **Fitted Curve**:
-- Black line (or configured color)
-- Smooth curve through data
-- Based on fitted equation
+- Black line (or configured color).
+- Smooth curve through data.
+- Based on fitted equation.
 
 **Axis Labels**:
-- X-axis: Your X variable name
-- Y-axis: Your Y variable name
+- X-axis: Your X variable name.
+- Y-axis: Your Y variable name.
 
 **Legend** (if shown):
-- Equation with parameters
-- R² value
+- Equation with parameters.
+- R² value.
 
 ### R² Value (Coefficient of Determination)
 
 **Interpretation**:
-- **R² = 1.0**: Perfect fit (rare in real data)
-- **R² > 0.95**: Excellent fit ✓
-- **R² > 0.85**: Good fit ✓
-- **R² > 0.70**: Acceptable fit ⚠️
-- **R² < 0.70**: Poor fit - try different equation ✗
+- **R² = 1.0**: Perfect fit (rare in real data).
+- **R² > 0.95**: Excellent fit ✓.
+- **R² > 0.85**: Good fit ✓.
+- **R² > 0.70**: Acceptable fit ⚠️.
+- **R² < 0.70**: Poor fit - try different equation ✗.
 
 **What it means**:
-- Percentage of variance explained by the model
-- R² = 0.95 means 95% of variance explained
-- Higher is better
+- Percentage of variance explained by the model.
+- R² = 0.95 means 95% of variance explained.
+- Higher is better.
 
 ### Downloading Plots
 
-1. Scroll to the result you want
-2. Click "📥 Download" button
-3. Plot saved as PNG image
-4. Default filename: `[plot_name].png`
+1. Scroll to the result you want (plot is above the download button).
+2. Click the "📥 Download" button below the plot.
+3. File is saved with the configured format (default PNG); filename: `[plot_name].png` (or `.pdf` if configured).
 
 **Download Tips**:
-- Download all plots you need before closing browser
-- Plots are high-resolution (configured DPI)
-- PNG format preserves quality
+- Download all plots you need before closing the browser.
+- Plots are high-resolution (configured DPI).
+- If the app is configured for PDF output, the in-app preview is shown as PNG but the downloaded file is PDF.
 
 ## Tips and Best Practices
 
 ### Performance Tips
 
-1. **Use local version for large datasets**: Faster than online
-2. **Close unused browser tabs**: Frees memory
-3. **One mode at a time**: Don't switch modes mid-analysis
-4. **Clear results**: Refresh page to clear old results and free memory
+1. **Use local version for large datasets**: Faster than online.
+2. **Close unused browser tabs**: Frees memory.
+3. **One mode at a time**: Don't switch modes mid-analysis.
+4. **Clear results**: Refresh page to clear old results and free memory.
+
 
 ### Data Tips
 
-1. **Check data preview**: Always expand "Show Data" to verify upload
-2. **Name columns clearly**: Use descriptive names like "time_s", "voltage_V"
-3. **Remove headers in Excel**: Only column names in first row, data starts row 2
-4. **Consistent units**: Ensure all data uses the same units
+1. **Check data preview**: Always expand "Show Data" to verify upload.
+2. **Name columns clearly**: Use descriptive names like "time_s", "voltage_V".
+3. **Remove headers in Excel**: Only column names in first row, data starts row 2.
+4. **Consistent units**: Ensure all data uses the same units.
+
 
 ### Workflow Tips
 
-1. **Start with Normal Fitting**: Test single equation first
-2. **Use Checker for exploration**: When uncertain about best equation
-3. **Use Total for comprehensive analysis**: When time permits
-4. **Document your results**: Download all relevant plots
+1. **Start with Normal Fitting**: Test single equation first.
+2. **Use Checker for exploration**: When uncertain about best equation.
+3. **Use Total for comprehensive analysis**: When time permits.
+4. **Document your results**: Download all relevant plots.
+
 
 ### Uncertainty Handling
 
 If your data has uncertainties:
-- Name columns `ux`, `uy` (lowercase 'u' + variable name)
-- Example: for variable `time`, uncertainty column is `utime`
-- Error bars appear automatically in plots
-- Fitting is weighted by uncertainties
+- Name columns `ux`, `uy` (lowercase 'u' + variable name).
+- Example: for variable `time`, uncertainty column is `utime`.
+- Error bars appear automatically in plots.
+- Fitting is weighted by uncertainties.
 
 ### Custom Formula Tips
 
-1. **Test simple formulas first**: Try `a*x` before complex expressions
-2. **Use parentheses**: `a/(1+b*x)` not `a/1+b*x`
-3. **Available functions**: `np.sin()`, `np.cos()`, `np.exp()`, `np.log()`, `np.sqrt()`
-4. **Check parameter count**: Must match number of parameters defined
+1. **Test simple formulas first**: Try `a*x` before complex expressions.
+2. **Use parentheses**: `a/(1+b*x)` not `a/1+b*x`.
+3. **Available functions**: `np.sin()`, `np.cos()`, `np.exp()`, `np.log()`, `np.sqrt()`.
+4. **Check parameter count**: Must match number of parameters defined.
+
 
 ## Troubleshooting
 
 ### Upload Issues
 
-**Problem**: File won't upload
+**Problem**: File won't upload.
 
 **Solutions**:
-- Check file format (CSV, XLSX, TXT only)
-- Try smaller file
-- Check internet connection (online version)
-- Refresh page and try again
+- Check file format (CSV, XLSX, TXT only).
+- Try smaller file.
+- Check internet connection (online version).
+- Refresh page and try again.
+
 
 ### Fitting Fails
 
-**Problem**: "Fitting error" message appears
+**Problem**: "Fitting error" message appears.
 
 **Possible causes**:
-- Not enough data points (need at least 5-10)
-- Data doesn't match equation type
-- Infinite or NaN values in data
-- All Y values are the same
+- Not enough data points (need at least 5-10).
+- Data doesn't match equation type.
+- Infinite or NaN values in data.
+- All Y values are the same.
 
 **Solutions**:
-- Check data for errors
-- Try different equation type
-- Ensure sufficient data points
-- Remove outliers or bad data
+- Check data for errors.
+- Try different equation type.
+- Ensure sufficient data points.
+- Remove outliers or bad data.
 
 ### Results Not Showing
 
-**Problem**: Clicked fit button but no results appear
+**Problem**: Clicked fit button but no results appear.
 
 **Solutions**:
-- Wait for processing (check for spinner)
-- Scroll down (results may be below viewport)
-- Check browser console for errors (F12)
-- Refresh page and try again
+- Wait for processing (check for spinner).
+- Scroll down (results may be below viewport).
+- Check browser console for errors (F12).
+- Refresh page and try again.
 
 ### App is Slow
 
-**Problem**: App responds slowly or freezes
+**Problem**: App responds slowly or freezes.
 
 **Solutions**:
-- Use local version instead of online
-- Reduce dataset size
-- Close other browser tabs
-- Clear browser cache
-- Refresh the app
+- Use local version instead of online.
+- Reduce dataset size.
+- Close other browser tabs.
+- Clear browser cache.
+- Refresh the app.
 
 ### Download Doesn't Work
 
-**Problem**: Can't download plots
+**Problem**: Can't download plots.
 
 **Solutions**:
-- Check browser's download settings
-- Allow downloads from streamlit.app domain
-- Try right-click → "Save image as"
-- Use different browser
+- Check browser's download settings.
+- Allow downloads from streamlit.app domain.
+- Try right-click → "Save image as".
+- Use different browser.
 
 ## Keyboard Shortcuts
 
 While Streamlit doesn't have extensive keyboard shortcuts, these work:
 
-- **Ctrl+R / Cmd+R**: Refresh the app
-- **F5**: Refresh the page
-- **F11**: Full screen mode
-- **Ctrl+Plus / Cmd+Plus**: Zoom in
-- **Ctrl+Minus / Cmd+Minus**: Zoom out
+- **Ctrl+R / Cmd+R**: Refresh the app.
+- **F5**: Refresh the page.
+- **F11**: Full screen mode.
+- **Ctrl+Plus / Cmd+Plus**: Zoom in.
+- **Ctrl+Minus / Cmd+Minus**: Zoom out.
+
 
 ## Mobile and Tablet Usage
 
 The Streamlit interface is responsive and works on mobile devices:
 
 **Recommendations**:
-- Use landscape orientation for better plot viewing
-- Tap and pinch to zoom plots
-- Use tablet or larger for easier interaction
-- Desktop recommended for serious work
+- Use landscape orientation for better plot viewing.
+- Tap and pinch to zoom plots.
+- Use tablet or larger for easier interaction.
+- Desktop recommended for serious work.
 
 ## Advanced Features
 
 ### Session Persistence
 
-- Results persist during your browser session
-- Refresh clears all results
-- Online version: sessions timeout after inactivity
+- Results persist during your browser session.
+- Refresh clears all results.
+- Online version: sessions timeout after inactivity.
 
 ### Multiple Tabs
 
 You can open multiple browser tabs with RegressionLab:
-- Each tab is independent
-- Useful for comparing different analyses
-- Be mindful of memory usage
+- Each tab is independent.
+- Useful for comparing different analyses.
+- Be mindful of memory usage.
 
 ## Differences from Tkinter Version
 
 **Streamlit has**:
-- ✓ Modern, web-based interface
-- ✓ Easy sharing via URL
-- ✓ Mobile/tablet support
-- ✓ No installation needed (online)
+- ✓ Modern, web-based interface.
+- ✓ Easy sharing via URL.
+- ✓ Mobile/tablet support.
+- ✓ No installation needed (online).
+- ✓ View Data mode (inspect data without fitting).
+- ✓ Loop-like workflow: in Normal Fitting you can enable "loop fitting" and then fit another file with the same equation without changing mode; in Multiple Datasets you can upload another set of files and run again.
 
-**Streamlit lacks**:
-- ✗ Loop mode for iterative fitting
-- ✗ Advanced customization options
-- ✗ Some keyboard shortcuts
-- ✗ Local file browsing (must upload)
+**Streamlit differs**:
+- File input is by upload only (no local file browser).
+- No configuration panel in the sidebar (language and mode only).
+- Results layout: three columns (Equation, Parameters, Statistics), plot, then download button.
+- If output format is PDF, the in-app preview is PNG and the download is PDF.
 
 **When to use each**:
-- **Streamlit**: Quick analysis, sharing, accessibility
-- **Tkinter**: Advanced features, offline, customization
+- **Streamlit**: Quick analysis, sharing, accessibility, View Data.
+- **Tkinter**: Offline, local file browsing, full configuration dialog.
 
 ## Next Steps
 
-- **Learn Tkinter**: See [Tkinter Guide](tkinter-guide) for desktop version.
-- **Customize**: Configure appearance in [Configuration Guide](configuration).
-- **Extend**: Learn to add functions in [Extending RegressionLab](extending).
+- **Learn Tkinter**: See [Tkinter Guide](tkinter-guide.md) for desktop version.
+- **Customize**: Configure appearance in [Configuration Guide](configuration.md).
+- **Extend**: Learn to add functions in [Extending RegressionLab](extending.md).
+
 
 ---
 
-*Happy fitting! If you encounter issues, check the [Troubleshooting Guide](troubleshooting).*
+*Happy fitting! If you encounter issues, check the [Troubleshooting Guide](troubleshooting.md).*

@@ -6,15 +6,15 @@ Thank you for your interest in contributing to RegressionLab! This guide will he
 
 There are many ways to contribute to RegressionLab:
 
-- 🐛 **Report bugs**: Help us identify issues
-- 💡 **Suggest features**: Share your ideas for improvements
-- 📝 **Improve documentation**: Fix typos, add examples, clarify explanations
-- 🔧 **Fix bugs**: Submit patches for known issues
-- ✨ **Add features**: Implement new functionality
-- 🧪 **Write tests**: Improve code coverage
-- 🌍 **Add translations**: Support more languages
-- 📊 **Add equations**: Contribute new fitting functions
-- 🎨 **Improve UI/UX**: Enhance user experience
+- 🐛 **Report bugs**: Help us identify issues.
+- 💡 **Suggest features**: Share your ideas for improvements.
+- 📝 **Improve documentation**: Fix typos, add examples, clarify explanations.
+- 🔧 **Fix bugs**: Submit patches for known issues.
+- ✨ **Add features**: Implement new functionality.
+- 🧪 **Write tests**: Improve code coverage.
+- 🌍 **Add translations**: Support more languages.
+- 📊 **Add equations**: Contribute new fitting functions.
+- 🎨 **Improve UI/UX**: Enhance user experience.
 
 ## Getting Started
 
@@ -62,11 +62,11 @@ git checkout -b fix/issue-description
 ```
 
 **Branch Naming Conventions**:
-- `feature/` - New features
-- `fix/` - Bug fixes
-- `docs/` - Documentation updates
-- `refactor/` - Code refactoring
-- `test/` - Adding or updating tests
+- `feature/` - New features.
+- `fix/` - Bug fixes.
+- `docs/` - Documentation updates.
+- `refactor/` - Code refactoring.
+- `test/` - Adding or updating tests.
 
 ## Development Guidelines
 
@@ -75,8 +75,8 @@ git checkout -b fix/issue-description
 RegressionLab follows PEP 8 with some project-specific conventions:
 
 #### 1. Line Length
-- Maximum 100 characters per line
-- For long strings, use implicit concatenation or `textwrap`
+- Maximum 100 characters per line.
+- For long strings, use implicit concatenation or `textwrap`.
 
 ```python
 # Good
@@ -332,7 +332,7 @@ pytest tests/ --cov=src --cov-report=term-missing
 
 ### Adding New Fitting Functions
 
-See [Extending RegressionLab](extending) for detailed guide.
+See [Extending RegressionLab](extending.md) for detailed guide.
 
 Summary:
 1. Add mathematical and fitting functions in `src/fitting/functions/` (e.g. `special.py`, `polynomials.py`)
@@ -420,13 +420,13 @@ git commit -m "WIP"
 ```
 
 **Types**:
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation changes
-- `style`: Code style changes (formatting, no logic change)
-- `refactor`: Code refactoring
-- `test`: Adding or updating tests
-- `chore`: Maintenance tasks
+- `feat`: New feature.
+- `fix`: Bug fix.
+- `docs`: Documentation changes.
+- `style`: Code style changes (formatting, no logic change).
+- `refactor`: Code refactoring.
+- `test`: Adding or updating tests.
+- `chore`: Maintenance tasks.
 
 **Example**:
 ```
@@ -585,25 +585,25 @@ Use the GitHub feature request template:
 
 ### Our Standards
 
-- **Be respectful**: Treat everyone with respect
-- **Be constructive**: Provide helpful feedback
-- **Be patient**: Everyone is learning
-- **Be professional**: Keep discussions on-topic
+- **Be respectful**: Treat everyone with respect.
+- **Be constructive**: Provide helpful feedback.
+- **Be patient**: Everyone is learning.
+- **Be professional**: Keep discussions on-topic.
 
 ### Unacceptable Behavior
 
-- Harassment or discriminatory language
-- Personal attacks
-- Trolling or inflammatory comments
-- Publishing private information
-- Other unprofessional conduct
+- Harassment or discriminatory language.
+- Personal attacks.
+- Trolling or inflammatory comments.
+- Publishing private information.
+- Other unprofessional conduct.
 
 ### Enforcement
 
 Violations may result in:
-1. Warning
-2. Temporary ban
-3. Permanent ban
+1. Warning.
+2. Temporary ban.
+3. Permanent ban.
 
 Report issues to: alejandro.mata.ali@gmail.com
 
@@ -614,9 +614,9 @@ By contributing to RegressionLab, you agree that your contributions will be lice
 ## Recognition
 
 Contributors may be recognized in:
-- A `CONTRIBUTORS.md` file (if added to the project)
-- Release notes
-- Documentation credits
+- A `CONTRIBUTORS.md` file (if added to the project).
+- Release notes.
+- Documentation credits.
 
 Thank you for contributing to RegressionLab! 🎉
 

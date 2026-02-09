@@ -174,7 +174,7 @@ By contributing to RegressionLab, you agree that:
 3. **Your contribution** will be licensed under the MIT License
 4. **You understand** your contribution may be used commercially
 
-See [Contributing Guide](contributing) for details.
+See [Contributing Guide](contributing.md) for details.
 
 ## Trademark
 
@@ -240,7 +240,7 @@ Please report it on GitHub or via email. While the license disclaims warranty, w
 
 ### What if I want to contribute code back?
 
-**Great!** See the [Contributing Guide](contributing). Your contributions will also be under the MIT License.
+**Great!** See the [Contributing Guide](contributing.md). Your contributions will also be under the MIT License.
 
 ---
 

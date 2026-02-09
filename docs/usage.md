@@ -5,26 +5,28 @@ This guide explains how to use RegressionLab to fit curves to your data. Whether
 ## Overview
 
 RegressionLab provides two interfaces for curve fitting:
-- **Web Version (Streamlit)**: Browser-based, easy to use, accessible from anywhere
-- **Desktop Version (Tkinter)**: Native application with full features and advanced options
+
+- **Web Version (Streamlit)**: Browser-based, easy to use, accessible from anywhere. The sidebar lets you choose language and operation mode; the main area handles file upload, variable and equation selection, and results. Configuration is done by editing the `.env` file (no in-app config dialog).
+
+- **Desktop Version (Tkinter)**: Native application with full features and advanced options. The main menu offers mode buttons (Normal Fitting, Multiple Datasets, Checker Fitting, Total Fitting, Watch Data), **Information** (help with collapsible sections and optional Donations link), **Configure** (edit .env options in a dialog; saving restarts the app), and Exit.
 
 Both versions share the same core functionality but have different user interfaces optimized for their platform.
 
 ## Choosing Your Version
 
 ### Use the Web Version (Streamlit) if:
-- You want quick access without installation
-- You're working from different computers
-- You prefer a modern, streamlined interface
-- You're new to curve fitting
-- You need to share the tool with others easily
+- You want quick access without installation.
+- You're working from different computers.
+- You prefer a modern, streamlined interface.
+- You're new to curve fitting.
+- You need to share the tool with others easily.
 
 ### Use the Desktop Version (Tkinter) if:
-- You need offline access
-- You want faster performance with large datasets
-- You prefer a traditional desktop application
-- You need advanced customization options
-- You're working with sensitive data that can't be uploaded
+- You need offline access.
+- You want faster performance with large datasets.
+- You prefer a traditional desktop application.
+- You need advanced customization options.
+- You're working with sensitive data that can't be uploaded.
 
 ## Getting Started
 
@@ -33,22 +35,24 @@ Both versions share the same core functionality but have different user interfac
 #### Option 1: Online (Recommended for Quick Start)
 
 1. **Access the Application**
-   - Open your web browser
-   - Navigate to: [https://regressionlab.streamlit.app/](https://regressionlab.streamlit.app/)
-   - If the app is sleeping, click "Start" and wait a moment for it to wake up
+   - Open your web browser.
+   - Navigate to: [https://regressionlab.streamlit.app/](https://regressionlab.streamlit.app/).
+   - If the app is sleeping, click "Start" and wait a moment for it to wake up.
 
-2. **Upload Your Data**
-   - Click "Browse files" or drag and drop your file
-   - Supported formats: CSV, XLSX, TXT
+2. **Upload Your Data** (or choose "View Data" in the sidebar to only inspect data without fitting)
+   - Click "Browse files" or drag and drop your file.
+   - Supported formats: CSV, XLSX, TXT.
 
 3. **Select Variables and Equation**
-   - Choose your X (independent) variable
-   - Choose your Y (dependent) variable
-   - Select the equation type to fit
+   - Choose your X (independent) variable.
+   - Choose your Y (dependent) variable.
+   - Select the equation type to fit.
+   - In Normal Fitting you can enable "loop fitting" to fit another file with the same equation later.
 
 4. **Run the Fitting**
-   - Click the fitting button
-   - View results and download the plot
+   - Click the fitting button.
+   - Results show in three columns (Equation, Parameters, Statistics), then the plot, then the download button.
+   - Download the plot (PNG/JPG or PDF if configured; when PDF is used, the in-app preview is PNG).
 
 #### Option 2: Local Streamlit
 
@@ -104,16 +108,16 @@ RegressionLab offers four different operation modes to match your workflow. Each
 **Use when**: You want to fit one equation to one dataset.
 
 **How it works**:
-1. Select an equation type (or define a custom formula)
-2. Choose whether to enable loop mode
-3. Load your data file
-4. Select X and Y variables
-5. View the fitting results
+1. Select an equation type (or define a custom formula).
+2. Choose whether to enable loop mode.
+3. Load your data file.
+4. Select X and Y variables.
+5. View the fitting results.
 
 **Loop Mode**: 
-- Allows you to modify the data file and refit without restarting
-- Useful for iterative data cleaning or exploring different data subsets
-- After each fit, you can edit the file and reload it
+- Allows you to modify the data file and refit without restarting.
+- Useful for iterative data cleaning or exploring different data subsets.
+- After each fit, you can edit the file and reload it.
 
 **Example workflow**:
 ```
@@ -132,16 +136,16 @@ RegressionLab offers four different operation modes to match your workflow. Each
 **Use when**: You want to apply the same equation to multiple different datasets.
 
 **How it works**:
-1. Select an equation type once
-2. Specify how many datasets you want to fit
-3. Load each dataset one by one
-4. Choose variables for each dataset
-5. All fits are performed and results displayed
+1. Select an equation type once.
+2. Specify how many datasets you want to fit.
+3. Load each dataset one by one.
+4. Choose variables for each dataset.
+5. All fits are performed and results displayed.
 
 **Example use case**:
-- Fitting the same calibration curve to data from different instruments
-- Analyzing similar experiments performed on different days
-- Comparing the same relationship across different samples
+- Fitting the same calibration curve to data from different instruments.
+- Analyzing similar experiments performed on different days.
+- Comparing the same relationship across different samples.
 
 **Example workflow**:
 ```
@@ -158,16 +162,16 @@ RegressionLab offers four different operation modes to match your workflow. Each
 **Use when**: You want to try multiple equations on the same dataset to find the best fit.
 
 **How it works**:
-1. Load your dataset once
-2. Select variables once
-3. Choose multiple equation types to test
-4. All selected equations are fitted sequentially
-5. Compare results to find the best model
+1. Load your dataset once.
+2. Select variables once.
+3. Choose multiple equation types to test.
+4. All selected equations are fitted sequentially.
+5. Compare results to find the best model.
 
 **Example use case**:
-- Exploratory data analysis when you're not sure which model fits best
-- Model selection based on R² values
-- Understanding which mathematical relationships might describe your data
+- Exploratory data analysis when you're not sure which model fits best.
+- Model selection based on R² values.
+- Understanding which mathematical relationships might describe your data.
 
 **Example workflow**:
 ```
@@ -187,16 +191,16 @@ RegressionLab offers four different operation modes to match your workflow. Each
 **Use when**: You want to automatically try ALL available equations on your dataset.
 
 **How it works**:
-1. Load your dataset
-2. Select variables
-3. Click "Total Fitting"
-4. All predefined equations are fitted automatically
-5. Review all results to find the best fit
+1. Load your dataset.
+2. Select variables.
+3. Click "Total Fitting".
+4. All predefined equations are fitted automatically.
+5. Review all results to find the best fit.
 
 **Example use case**:
-- Comprehensive analysis when you have no prior model expectations
-- Creating a complete fitting report
-- Teaching/learning about different function types
+- Comprehensive analysis when you have no prior model expectations.
+- Creating a complete fitting report.
+- Teaching/learning about different function types.
 
 **Example workflow**:
 ```
@@ -219,9 +223,9 @@ RegressionLab expects data in a specific format for optimal results.
 ### Required Format
 
 Your data file should contain:
-- **Column headers**: Each column must have a name (e.g., "time", "voltage", "temperature")
-- **Numeric data**: All data values should be numbers
-- **Consistent units**: Use the same units throughout each column
+- **Column headers**: Each column must have a name (e.g., "time", "voltage", "temperature"). You can use LaTeX with `$` for variable names (e.g. `$\alpha$`, `$\sigma$`) if you need Greek letters or other symbols.
+- **Numeric data**: All data values should be numbers.
+- **Consistent units**: Use the same units throughout each column.
 
 ### Basic Example (CSV)
 
@@ -251,22 +255,22 @@ time,utime,temperature,utemperature
 - `utemperature`: Uncertainty in temperature measurements
 
 **Rules for uncertainty columns**:
-- Uncertainties must be non-negative
-- If present, they will be used for weighted fitting
-- They will be displayed as error bars in plots
+- Uncertainties must be non-negative.
+- If present, they will be used for weighted fitting.
+- They will be displayed as error bars in plots.
 
 ### Supported File Formats
-- **CSV** (`.csv`): Comma-separated values
-  - Can use comma, semicolon, or tab as delimiters
-  - UTF-8 encoding recommended
+- **CSV** (`.csv`): Comma-separated values.
+  - Can use comma, semicolon, or tab as delimiters.
+  - UTF-8 encoding recommended.
 
-- **Excel** (`.xlsx`): Microsoft Excel files
-  - Data should be in the first sheet
-  - Column headers in the first row
+- **Excel** (`.xlsx`): Microsoft Excel files.
+  - Data should be in the first sheet.
+  - Column headers in the first row.
 
-- **TXT** (`.txt`): Tab-separated or space-separated text files
-  - Plain text format
-  - UTF-8 encoding recommended
+- **TXT** (`.txt`): Tab-separated or space-separated text files.
+  - Plain text format.
+  - UTF-8 encoding recommended.
 
 ## Interpreting Results
 
@@ -284,13 +288,17 @@ n = 2.456 ± 0.123
 
 ### 2. Equation
 
-The mathematical equation with your fitted parameters:
+The mathematical equation with your fitted parameters. Variable names (e.g. in your data columns or in the equation) can use LaTeX format with `$` for mathematical symbols such as Greek letters (e.g. `$\alpha$`, `$\sigma$`):
 
 ```
 y = 5.123·x + 2.456
 ```
 
-### 3. R² Value (Coefficient of Determination)
+### 3. Statistical Measures
+
+RegressionLab provides comprehensive statistical information about your fit:
+
+#### R² (Coefficient of Determination)
 
 A statistical measure of how well the fit matches the data:
 - **R² = 1.0**: Perfect fit
@@ -299,17 +307,37 @@ A statistical measure of how well the fit matches the data:
 - **R² > 0.70**: Acceptable fit
 - **R² < 0.70**: Poor fit - consider trying a different equation
 
+#### RMSE (Root Mean Square Error)
+
+The average magnitude of residuals. Lower values indicate better fit; expressed in the same units as the dependent variable.
+
+#### χ² (Chi-squared)
+
+Sum of squared residuals weighted by uncertainties. Lower values indicate better fit when uncertainties are well estimated. Only calculated when uncertainty data is available.
+
+#### χ²_red (Reduced Chi-squared)
+
+Chi-squared divided by degrees of freedom. A value close to 1 suggests uncertainties are consistent with the fit.
+
+#### ν (Degrees of Freedom)
+
+Number of data points minus the number of fitted parameters. Used in statistical calculations and confidence intervals.
+
+#### 95% Confidence Intervals (IC 95%)
+
+For each fitted parameter, the range within which the true value is expected with 95% confidence, calculated using the t-distribution. These intervals help assess the reliability of your parameter estimates.
+
 ### 4. Plot
 
 A visualization showing:
-- **Red points with error bars**: Your original data
-- **Black line**: The fitted curve
-- **Axis labels**: Your variable names
-- **Legend**: Equation and R² value
+- **Red points with error bars**: Your original data (error bars appear if uncertainties are provided).
+- **Black line**: The fitted curve.
+- **Axis labels**: Your variable names.
+- **Legend**: Equation and R² value.
 
 ### 5. Output File
 
-The plot is automatically saved as a PNG image in the output directory (default: `output/`).
+The plot is automatically saved as a PNG image (or JPG/PDF if configured) in the output directory (default: `output/`).
 
 ## Tips for Better Results
 
@@ -339,15 +367,15 @@ The plot is automatically saved as a PNG image in the output directory (default:
 
 If none of the predefined equations work, you can define your own:
 
-1. Select "Custom Formula" as the equation type
-2. Specify the number of parameters
-3. Name your parameters (e.g., `a`, `b`, `c`)
-4. Enter your formula using Python syntax:
-   - `a*x**2 + b*x + c` (quadratic)
-   - `a*np.exp(-b*x)` (exponential decay)
-   - `a/(1 + b*x)` (hyperbola)
+1. Select "Custom Formula" as the equation type.
+2. Specify the number of parameters.
+3. Name your parameters (e.g., `a`, `b`, `c`).
+4. Enter your formula using Python syntax.
+   - `a*x**2 + b*x + c` (quadratic).
+   - `a*np.exp(-b*x)` (exponential decay).
+   - `a/(1 + b*x)` (hyperbola).
 
-**Note**: Custom formulas currently have some limitations. See [Troubleshooting](troubleshooting) for details.
+**Note**: Custom formulas currently have some limitations. See [Troubleshooting](troubleshooting.md) for details.
 
 ## Common Workflows
 
@@ -408,11 +436,11 @@ Goal: Remove outliers and improve fit quality
 
 Now that you understand the basics:
 
-- **Streamlit Guide**: For detailed information on the web interface, see [Streamlit Guide](streamlit-guide).
-- **Tkinter Guide**: For detailed information on the desktop interface, see [Tkinter Guide](tkinter-guide).
-- **Configuration**: Customize appearance and behavior in the [Configuration Guide](configuration).
-- **Advanced Usage**: Learn how to add custom functions in [Extending RegressionLab](extending).
+- **Streamlit Guide**: For detailed information on the web interface, see [Streamlit Guide](streamlit-guide.md).
+- **Tkinter Guide**: For detailed information on the desktop interface, see [Tkinter Guide](tkinter-guide.md).
+- **Configuration**: Customize appearance and behavior in the [Configuration Guide](configuration.md).
+- **Advanced Usage**: Learn how to add custom functions in [Extending RegressionLab](extending.md).
 
 ---
 
-*Need help? Check the [Troubleshooting Guide](troubleshooting) for common issues and solutions.*
+*Need help? Check the [Troubleshooting Guide](troubleshooting.md) for common issues and solutions.*

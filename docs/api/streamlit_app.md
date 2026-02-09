@@ -11,7 +11,7 @@ The `streamlit_app.app` module is the entry point for the web interface; the mai
 - **`sections/fitting.py`** – `perform_fit`, `show_equation_selector`, `select_variables`, `create_equation_options`
 - **`sections/results.py`** – `show_results`
 - **`sections/help_section.py`** – `show_help_section`
-- **`sections/modes.py`** – `mode_normal_fitting`, `mode_multiple_datasets`, `mode_checker_fitting`, `mode_total_fitting`
+- **`sections/modes.py`** – `mode_normal_fitting`, `mode_multiple_datasets`, `mode_checker_fitting`, `mode_total_fitting`, `mode_view_data`
 
 Imports such as `from streamlit_app.app import main, mode_normal_fitting` or `from streamlit_app.sections import perform_fit, load_uploaded_file` work as before. The application offers the same functionality as the Tkinter desktop version but in a web browser.
 
@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
 ## Operation Modes
 
-The application supports four operation modes, matching the desktop version:
+The application supports five operation modes, aligned with the desktop version:
 
 ### Normal Fitting
 
@@ -41,11 +41,12 @@ Single file, single equation fitting.
 **Function:** `mode_normal_fitting(equation_types: List[str]) -> None`
 
 **Features:**
+- Optional loop fitting: checkbox to fit another file with the same equation without changing mode
 - File upload (CSV, XLSX, TXT)
 - Variable selection
 - Equation selection (including custom)
 - Single fit execution
-- Result display with plot
+- Result display (equation, parameters, statistics in three columns; plot; download below)
 
 **Example Usage:**
 ```python
@@ -115,6 +116,24 @@ from streamlit_app.app import mode_total_fitting
 mode_total_fitting(AVAILABLE_EQUATION_TYPES)
 ```
 
+### View Data
+
+View data from a file without fitting.
+
+**Function:** `mode_view_data(equation_types: List[str]) -> None`
+
+**Features:**
+- File upload (CSV, XLSX, TXT)
+- Data table and optional pair plots
+- No equation selection or fitting
+
+**Example Usage:**
+```python
+from streamlit_app.sections import mode_view_data
+
+mode_view_data(AVAILABLE_EQUATION_TYPES)
+```
+
 ## Key Functions
 
 ### Data Loading
@@ -159,12 +178,12 @@ Perform curve fitting and return results.
 **Result Dictionary:**
 ```python
 {
-    'equation_name': str,      # Display name
-    'parameters': str,         # Formatted parameters
-    'equation': str,           # Formatted equation
-    'r_squared': float,        # R² value
-    'plot_path': str,          # Path to plot image
-    'plot_name': str           # Plot name
+    'equation_name': str,       # Display name
+    'parameters': str,          # Formatted parameters and statistics (plain text)
+    'equation': str,             # Formula and formatted equation
+    'plot_path': str,           # Path to saved plot (PNG/JPG/PDF)
+    'plot_name': str,           # Plot name
+    'plot_path_display': str    # Optional: path to PNG preview when plot_path is PDF
 }
 ```
 
@@ -194,7 +213,7 @@ Setup the application sidebar.
 The sidebar contains:
 - **Brand header**: Application name and version
 - **Language selector**: Toggle between Spanish and English
-- **Operation mode selector**: Radio buttons for mode selection
+- **Operation mode selector**: Radio for Normal Fitting, Multiple Datasets, Checker Fitting, Total Fitting, View Data
 
 **Parameters:**
 - `version`: Application version string
@@ -245,12 +264,12 @@ Display fitting results.
 **Parameters:**
 - `results`: List of result dictionaries from `perform_fit()`
 
-Displays:
-- Equation display
-- Parameter values
-- R² value
-- Plot image
-- Download button for plot
+**Layout:** Three columns (equation left, parameters center, statistics right), then the plot image, then the download button below the plot.
+- **Column 1 – Equation**: Formula and formatted equation with fitted values
+- **Column 2 – Parameters**: Fit parameters with uncertainties and IC 95%
+- **Column 3 – Statistics**: R², RMSE, χ², χ²_red, degrees of freedom
+- **Plot**: Full-width below the columns
+- **Download**: Button below the plot (saves PNG/JPG/PDF; when output format is PDF, in-app preview uses PNG)
 
 ## Session State Management
 

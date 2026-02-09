@@ -7,7 +7,15 @@
 import logging
 import os
 import sys
+import urllib.parse
 import warnings
+
+from docutils import nodes
+
+try:
+    from sphinx.addnodes import pending_xref
+except ImportError:
+    pending_xref = None
 
 # -- Path setup --------------------------------------------------------------
 # Add the project root directory to sys.path
@@ -62,8 +70,85 @@ def _skip_imported_member(app, what: str, name: str, obj: object, skip: bool, op
     return skip
 
 
+# Map .md link targets (from docs/*.md) to Sphinx document names (output .html)
+_DOC_MD_TO_HTML = {
+    'introduction.md': 'introduction.html',
+    'installation.md': 'installation.html',
+    'usage.md': 'usage.html',
+    'configuration.md': 'configuration.html',
+    'streamlit-guide.md': 'streamlit-guide.html',
+    'tkinter-guide.md': 'tkinter-guide.html',
+    'extending.md': 'extending.html',
+    'customization.md': 'customization.html',
+    'troubleshooting.md': 'troubleshooting.html',
+    'contributing.md': 'contributing.html',
+    'license.md': 'license.html',
+}
+
+
+def _norm_base(raw: str) -> str:
+    path_part = raw[1:] if raw.startswith('#') else raw.split('#')[0]
+    path_part = urllib.parse.unquote(path_part).replace('\\', '/')
+    return os.path.basename(path_part)
+
+
+# Docname (no extension) for each .md key, for get_relative_uri
+_DOC_HTML_TO_DOCNAME = {v: v.replace('.html', '') for v in _DOC_MD_TO_HTML.values()}
+
+
+def _rewrite_doc_md_links(app, doctree, docname):
+    """Rewrite links to docs/*.md so they point to the built .html (works in both .md and Sphinx)."""
+    builder = getattr(app, 'builder', None)
+    get_uri = getattr(builder, 'get_relative_uri', None) if builder else None
+
+    def refuri_for(base: str) -> str:
+        html = _DOC_MD_TO_HTML.get(base)
+        if not html or not get_uri:
+            return html or ''
+        target_doc = _DOC_HTML_TO_DOCNAME.get(html)
+        if target_doc:
+            return get_uri(docname, target_doc)
+        return html
+
+    # Fix reference nodes (resolved or failed refs that became reference with wrong refuri/refid)
+    for node in doctree.traverse(nodes.reference):
+        for attr in ('refuri', 'refid'):
+            raw = node.get(attr, '')
+            if not raw:
+                continue
+            base = _norm_base(raw)
+            if base in _DOC_MD_TO_HTML:
+                node['refuri'] = refuri_for(base)
+                if attr == 'refid' and 'refid' in node:
+                    del node['refid']
+                break
+    # Replace unresolved pending_xref that point to our .md docs with a proper reference node
+    if pending_xref is not None:
+        doc_to_html = {
+            **_DOC_MD_TO_HTML,
+            'configuration': 'configuration.html', 'usage': 'usage.html',
+            'installation': 'installation.html', 'troubleshooting': 'troubleshooting.html',
+            'introduction': 'introduction.html', 'streamlit-guide': 'streamlit-guide.html',
+            'tkinter-guide': 'tkinter-guide.html', 'extending': 'extending.html',
+            'customization': 'customization.html', 'contributing': 'contributing.html',
+            'license': 'license.html',
+        }
+        for node in list(doctree.traverse(pending_xref)):
+            reftarget = node.get('reftarget', '')
+            base = _norm_base(reftarget) if reftarget else (str(reftarget).strip() or '')
+            if base in doc_to_html:
+                html = doc_to_html[base]
+                target_doc = html.replace('.html', '')
+                uri = get_uri(docname, target_doc) if get_uri else html
+                ref = nodes.reference(
+                    '', '', *node.children, refuri=uri, internal=True
+                )
+                ref['classes'] = node.get('classes', [])
+                node.replace_self(ref)
+
+
 def setup(app):  # noqa: D103
-    """Register filter to suppress duplicate object description warnings."""
+    """Register filter to suppress duplicate object description warnings and rewrite doc links."""
     def add_filters(_app):
         # Attach at source so duplicate-object warnings from Python domain never reach handlers
         logging.getLogger('sphinx.domains.python').addFilter(_DuplicateObjectFilter())
@@ -73,6 +158,7 @@ def setup(app):  # noqa: D103
 
     app.connect('builder-inited', add_filters)
     app.connect('autodoc-skip-member', _skip_imported_member)
+    app.connect('doctree-resolved', _rewrite_doc_md_links)
     return {'version': '0.1', 'parallel_read_safe': True}
 
 
@@ -110,6 +196,7 @@ extensions = [
     'sphinx.ext.coverage',         # Check documentation coverage
     'sphinx.ext.mathjax',          # Math support via MathJax
     'myst_parser',                 # Markdown support
+    'sphinxcontrib.relativeinclude',  # Resolve image paths relative to included file (e.g. docs/)
     # 'sphinx_autodoc_typehints' disabled: hide types for cleaner documentation
 ]
 

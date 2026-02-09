@@ -118,14 +118,17 @@ The main menu displays:
 
 1. **Logo**: Application logo (if available)
 2. **Welcome Message**: Translated welcome text
-3. **Action Buttons**:
+3. **Action Buttons** (in order):
    - Normal Fitting
-   - Multiple Datasets
+   - Single Fit Multiple Datasets
    - Checker Fitting (Multiple fits on single dataset)
    - Total Fitting (All fits on single dataset)
-   - Information (Help)
-   - View Data
-4. **Exit Button**: Closes the application
+   - Watch Data (View Data)
+   - Information (Help dialog with collapsible sections; optional Donations button)
+   - Configure (Configuration dialog to edit .env; saving restarts the app)
+   - Exit
+4. **Tooltips**: Information and Configure buttons have tooltips (from `menu.tooltip_information`, `menu.tooltip_config`).
+5. **Exit**: Closes the application (with confirmation dialog when using the window close button or Exit).
 
 ## UI Styling
 
@@ -275,10 +278,10 @@ start_main_menu(
 ### Internationalization
 
 All text is translated using the `i18n` module:
-- Menu title
-- Welcome message
-- Button labels
-- Exit confirmation
+- Menu title.
+- Welcome message.
+- Button labels.
+- Exit confirmation.
 
 ---
 

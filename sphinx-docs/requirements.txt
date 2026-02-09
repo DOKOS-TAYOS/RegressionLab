@@ -2,6 +2,7 @@
 sphinx>=9.0.0
 sphinx-rtd-theme>=3.0.0
 myst-parser>=5.0.0
+sphinxcontrib-relativeinclude>=0.0.5
 sphinx-autodoc-typehints>=3.0.0
 linkify-it-py>=2.0.0
 docutils>=0.17

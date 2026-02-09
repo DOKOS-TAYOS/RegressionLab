@@ -89,9 +89,9 @@ if x_name and y_name:
 ```
 
 **Notes:**
-- Uncertainty columns (starting with 'u') are automatically filtered out
-- First variable is default for X, second for Y
-- Plot name is optional
+- Uncertainty columns (starting with 'u') are automatically filtered out.
+- First variable is default for X, second for Y.
+- Plot name is optional.
 
 ## Data Display Dialog
 
@@ -113,10 +113,10 @@ show_data_dialog(root, data)
 ```
 
 **Features:**
-- Scrollable text widget
-- Monospaced font for alignment
-- Read-only display
-- Terminal-style appearance (dark background, green text)
+- Scrollable text widget.
+- Monospaced font for alignment.
+- Read-only display.
+- Terminal-style appearance (dark background, green text).
 
 ## Equation Selection Dialog
 
@@ -145,14 +145,14 @@ elif selected and selected != EXIT_SIGNAL:
 ```
 
 **Available Equations:**
-- Linear: `y=mx+n`, `y=mx`
-- Quadratic: `y=cx²+bx+a`, `y=ax²`
-- Fourth power: `y=ax⁴`
-- Trigonometric: `y=a sin(bx)`, `y=a sin(bx+c)`, `y=a cos(bx)`, `y=a cos(bx+c)`
-- Hyperbolic: `y=a sinh(bx)`, `y=a cosh(bx)`
-- Logarithmic: `y=a ln(x)`
-- Inverse: `y=a/x`, `y=a/x²`
-- Custom formula
+- Linear: `y=mx+n`, `y=mx`.
+- Quadratic: `y=cx²+bx+a`, `y=ax²`.
+- Fourth power: `y=ax⁴`.
+- Trigonometric: `y=a sin(bx)`, `y=a sin(bx+c)`, `y=a cos(bx)`, `y=a cos(bx+c)`.
+- Hyperbolic: `y=a sinh(bx)`, `y=a cosh(bx)`.
+- Logarithmic: `y=a ln(x)`.
+- Inverse: `y=a/x`, `y=a/x²`.
+- Custom formula.
 
 ## Custom Equation Dialogs
 
@@ -197,9 +197,9 @@ print(f"Parameters: {param_names}")
 ```
 
 **Features:**
-- Greek letter reference guide
-- Exit option available
-- Validates parameter names
+- Greek letter reference guide.
+- Exit option available.
+- Validates parameter names.
 
 #### `ask_custom_formula(parent_window, parameter_names: List[str]) -> str`
 
@@ -223,9 +223,9 @@ print(f"Formula: {formula}")
 ```
 
 **Features:**
-- Greek letter reference guide
-- Shows parameter names for reference
-- Exit option available
+- Greek letter reference guide.
+- Shows parameter names for reference.
+- Exit option available.
 
 ## Multiple Fits Dialog
 
@@ -255,16 +255,25 @@ print(f"Number of fits: {num_fits}")
 
 Display help and information dialog about the application.
 
-Shows information about:
-- Application objective and purpose
-- Key advantages and features
-- What each fitting mode does
-- How to navigate the application
-- Where data files should be located
-- Where output plots are saved
-
 **Parameters:**
 - `parent_window`: Parent Tkinter window
+
+**Content (collapsible sections):**
+- **Objective**: What RegressionLab does
+- **Advantages**: Key benefits (9 points)
+- **Fitting Modes**: Normal, Multiple Datasets, Checker, Total, Loop mode
+- **Custom Functions**: How to define custom formulas
+- **Data Format**: Column names, uncertainty prefix (`u`), non-negative uncertainties
+- **Data Location**: Input directory, supported file formats
+- **Output Location**: Where plots and logs are saved
+- **Statistics**: R², RMSE, χ², reduced χ², DoF, 95% parameter confidence intervals
+
+**Features:**
+- Collapsible sections (click header to expand/collapse); first two sections expanded by default.
+- Scrollable content with mouse wheel.
+- Sizing: up to 70% of screen width/height (max 900×650).
+- Optional **Donations** button at bottom if `DONATIONS_URL` is set in config.
+- **Accept** button closes the dialog.
 
 **Example:**
 ```python
@@ -273,10 +282,37 @@ from frontend.ui_dialogs import show_help_dialog
 show_help_dialog(root)
 ```
 
-**Features:**
-- Scrollable content
-- Formatted text display
-- Responsive sizing (70% of screen)
+## Configuration Dialog
+
+#### `show_config_dialog(parent_window: Any) -> bool`
+
+Show the configuration dialog to edit `.env` settings (same options as in the Configuration Guide).
+
+**Parameters:**
+- `parent_window`: Parent Tkinter window (Tk or Toplevel)
+
+**Returns:**
+- `True` if the user clicked **Accept** and the `.env` file was written successfully (caller should restart the application).
+- `False` if the user clicked **Cancel** or closed the window.
+
+**Behavior:**
+- Dialog is modal and grouped by **collapsible sections** derived from `ENV_SCHEMA`: Language, UI, Plot, Font, Paths, Links, Logging. Click a section header to expand or collapse.
+- Each option shows a label and description (from i18n keys `config.label_*`, `config.desc_*`). Values are edited via:
+  - **Checkboxes** for boolean keys (e.g. `PLOT_SHOW_TITLE`, `LOG_CONSOLE`).
+  - **Dropdowns** (read-only combobox) for keys with `options` in the schema (e.g. `LANGUAGE`, `FILE_PLOT_FORMAT`, `LOG_LEVEL`).
+  - **Text entries** for other keys.
+- **Accept**: Validates and writes all schema keys to `.env` (via `write_env_file`), then closes the dialog and returns `True`. On write error, shows an error message and keeps the dialog open.
+- **Cancel** (or WM_DELETE_WINDOW): Closes the dialog and returns `False`.
+- A hint at the bottom reminds the user that the application will restart after saving.
+
+**Example:**
+```python
+from frontend.ui_dialogs import show_config_dialog
+
+if show_config_dialog(root):
+    # User saved; restart the app (e.g. os.execv or relaunch main)
+    pass
+```
 
 ## Result Display Dialog
 
@@ -314,9 +350,9 @@ result_window = create_result_window(
 ```
 
 **Layout:**
-- **Top**: Equation (selectable text)
-- **Middle**: Parameters (left) and plot image (right)
-- **Bottom**: Accept button
+- **Top**: Equation (selectable text).
+- **Middle**: Parameters (left) and plot image (right).
+- **Bottom**: Accept button.
 
 ## Usage Examples
 
@@ -398,26 +434,26 @@ result_window = create_result_window(
 
 ### Dialog Behavior
 
-- **Modal**: All dialogs are modal (block parent window)
-- **Focus**: First input widget receives focus
-- **Keyboard**: Enter key typically accepts, Escape cancels
-- **Styling**: Uses `config.UI_STYLE` for consistent appearance
+- **Modal**: All dialogs are modal (block parent window).
+- **Focus**: First input widget receives focus.
+- **Keyboard**: Enter key typically accepts, Escape cancels.
+- **Styling**: Uses `config.UI_STYLE` for consistent appearance.
 
 ### Internationalization
 
 All dialog text is translated using the `i18n` module:
-- Dialog titles
-- Labels and messages
-- Button text
-- Help content
+- Dialog titles.
+- Labels and messages.
+- Button text.
+- Help content.
 
 ### Widget Types
 
-- **RadioButtons**: File type selection
-- **Combobox**: File and variable selection
-- **Entry**: Text input (plot name, formula, parameters)
-- **Spinbox**: Numeric input (number of parameters, fits)
-- **Text**: Multi-line display (data, help, results)
+- **RadioButtons**: File type selection.
+- **Combobox**: File and variable selection.
+- **Entry**: Text input (plot name, formula, parameters).
+- **Spinbox**: Numeric input (number of parameters, fits).
+- **Text**: Multi-line display (data, help, results).
 
 ---
 

@@ -607,7 +607,7 @@ stretched_exponential_function:
 - **Document well**: Write clear docstrings and comments
 - **Contribute**: Submit your functions as pull requests to help others!
 
-For more advanced customization, see [Customizing the Fitting Core](customization).
+For more advanced customization, see [Customizing the Fitting Core](customization.md).
 
 ---
 
