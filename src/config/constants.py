@@ -1,5 +1,6 @@
 """Application constants, equation mappings, and version."""
 
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -20,10 +21,91 @@ __version__ = "0.9.0"
 
 _EQUATIONS_PATH = Path(__file__).resolve().parent / "equations.yaml"
 
-with open(_EQUATIONS_PATH, encoding="utf-8") as _f:
-    _raw_equations: dict[str, Any] = yaml.safe_load(_f)
 
-# Main equations dictionary: eq_id -> { function, formula, param_names }
+def _load_equations() -> dict[str, dict[str, Any]]:
+    """
+    Load equations configuration from equations.yaml file.
+    
+    Returns:
+        Dictionary mapping equation IDs to their configuration.
+        
+    Raises:
+        FileNotFoundError: If equations.yaml file doesn't exist
+        yaml.YAMLError: If the YAML file is malformed
+        ValueError: If the loaded data doesn't have the expected structure
+    """
+    if not _EQUATIONS_PATH.exists():
+        raise FileNotFoundError(
+            f"Equations configuration file not found: {_EQUATIONS_PATH}\n"
+            f"Please ensure the file exists in the config directory."
+        )
+    
+    try:
+        with open(_EQUATIONS_PATH, encoding="utf-8") as f:
+            raw_data = yaml.safe_load(f)
+    except yaml.YAMLError as e:
+        raise yaml.YAMLError(
+            f"Error parsing equations.yaml: {e}\n"
+            f"Please check the YAML syntax in: {_EQUATIONS_PATH}"
+        ) from e
+    except Exception as e:
+        raise RuntimeError(
+            f"Unexpected error reading equations.yaml: {e}\n"
+            f"File path: {_EQUATIONS_PATH}"
+        ) from e
+    
+    # Validate structure
+    if raw_data is None:
+        raise ValueError(
+            f"equations.yaml is empty or contains no data.\n"
+            f"File path: {_EQUATIONS_PATH}"
+        )
+    
+    if not isinstance(raw_data, dict):
+        raise ValueError(
+            f"equations.yaml must contain a dictionary (mapping equation IDs to configurations).\n"
+            f"Found type: {type(raw_data).__name__}\n"
+            f"File path: {_EQUATIONS_PATH}"
+        )
+    
+    # Validate each equation entry has required fields
+    required_fields = {'function', 'formula', 'format', 'param_names'}
+    for eq_id, eq_config in raw_data.items():
+        if not isinstance(eq_config, dict):
+            raise ValueError(
+                f"Equation '{eq_id}' must be a dictionary with keys: {required_fields}.\n"
+                f"Found type: {type(eq_config).__name__}\n"
+                f"File path: {_EQUATIONS_PATH}"
+            )
+        
+        missing_fields = required_fields - set(eq_config.keys())
+        if missing_fields:
+            raise ValueError(
+                f"Equation '{eq_id}' is missing required fields: {missing_fields}.\n"
+                f"Required fields: {required_fields}\n"
+                f"File path: {_EQUATIONS_PATH}"
+            )
+    
+    return raw_data
+
+
+# Load equations with error handling
+try:
+    _raw_equations = _load_equations()
+except (FileNotFoundError, yaml.YAMLError, ValueError, RuntimeError) as e:
+    # Log error if logger is available, otherwise print
+    try:
+        from utils import get_logger
+        logger = get_logger(__name__)
+        logger.critical(f"Failed to load equations.yaml: {e}", exc_info=True)
+    except ImportError:
+        # Logger not available, print to stderr
+        print(f"CRITICAL ERROR: Failed to load equations.yaml: {e}", file=sys.stderr)
+    
+    # Re-raise to prevent application from starting with invalid configuration
+    raise
+
+# Main equations dictionary: eq_id -> { function, formula, format, param_names }
 EQUATIONS: dict[str, dict[str, Any]] = _raw_equations
 AVAILABLE_EQUATION_TYPES: list[str] = list(EQUATIONS.keys())
 
