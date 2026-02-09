@@ -1,2 +1,2 @@
-.. include:: ../../docs/streamlit-guide.md
+.. relativeinclude:: ../../docs/streamlit-guide.md
    :parser: myst_parser.sphinx_

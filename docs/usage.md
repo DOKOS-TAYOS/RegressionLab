@@ -82,6 +82,9 @@ The application will open in your default browser, usually at `http://localhost:
 **Method 1: Desktop Shortcut**
 - Double-click the "RegressionLab" shortcut created during installation
 
+![Desktop Shortcut](../images/en_documentation/tkinter_docs/shortcut.png)
+
+
 **Method 2: Shell Scripts**
 
 Windows:
@@ -288,7 +291,7 @@ n = 2.456 ± 0.123
 
 ### 2. Equation
 
-The mathematical equation with your fitted parameters. Variable names (e.g. in your data columns or in the equation) can use LaTeX format with `$` for mathematical symbols such as Greek letters (e.g. `$\alpha$`, `$\sigma$`):
+The mathematical equation with your fitted parameters. Always x is the independent variable and y the dependent one.
 
 ```
 y = 5.123·x + 2.456
@@ -301,6 +304,15 @@ RegressionLab provides comprehensive statistical information about your fit:
 #### R² (Coefficient of Determination)
 
 A statistical measure of how well the fit matches the data:
+
+$$
+R^2 = 1 - \frac{SS_{\mathrm{res}}}{SS_{\mathrm{tot}}}, \qquad
+SS_{\mathrm{res}} = \sum_{i=1}^{n}(y_i - \hat{y}_i)^2, \qquad
+SS_{\mathrm{tot}} = \sum_{i=1}^{n}(y_i - \bar{y})^2
+$$
+
+Where $y_i$ = observed values, $\hat{y}_i$ = fitted values, $\bar{y}$ = mean of $y$.
+
 - **R² = 1.0**: Perfect fit
 - **R² > 0.95**: Excellent fit
 - **R² > 0.85**: Good fit
@@ -311,21 +323,47 @@ A statistical measure of how well the fit matches the data:
 
 The average magnitude of residuals. Lower values indicate better fit; expressed in the same units as the dependent variable.
 
+$$
+\mathrm{RMSE} = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}
+$$
+
 #### χ² (Chi-squared)
 
 Sum of squared residuals weighted by uncertainties. Lower values indicate better fit when uncertainties are well estimated. Only calculated when uncertainty data is available.
+
+$$
+\chi^2 = \sum_{i=1}^{n} \frac{(y_i - \hat{y}_i)^2}{\sigma_i^2}
+$$
+
+Where $\sigma_i$ = uncertainty (standard deviation) of the $i$-th measurement.
 
 #### χ²_red (Reduced Chi-squared)
 
 Chi-squared divided by degrees of freedom. A value close to 1 suggests uncertainties are consistent with the fit.
 
+$$
+\chi^2_{\mathrm{red}} = \frac{\chi^2}{\nu}
+$$
+
 #### ν (Degrees of Freedom)
 
 Number of data points minus the number of fitted parameters. Used in statistical calculations and confidence intervals.
 
+$$
+\nu = n - p
+$$
+
+Where $n$ = number of data points, $p$ = number of fitted parameters.
+
 #### 95% Confidence Intervals (IC 95%)
 
 For each fitted parameter, the range within which the true value is expected with 95% confidence, calculated using the t-distribution. These intervals help assess the reliability of your parameter estimates.
+
+$$
+\theta_k \pm t_{0.975,\,\nu} \cdot \sigma_{\theta_k}
+$$
+
+Where $\theta_k$ = estimated parameter, $\sigma_{\theta_k}$ = its standard error (from the fit covariance matrix), $t_{0.975,\,\nu}$ = critical value of the t-distribution for 97.5% (two-tailed 95%) with $\nu$ degrees of freedom.
 
 ### 4. Plot
 
@@ -369,13 +407,11 @@ If none of the predefined equations work, you can define your own:
 
 1. Select "Custom Formula" as the equation type.
 2. Specify the number of parameters.
-3. Name your parameters (e.g., `a`, `b`, `c`).
+3. Name your parameters (e.g., `a`, `b`, `c`). You can also use special characters.
 4. Enter your formula using Python syntax.
    - `a*x**2 + b*x + c` (quadratic).
    - `a*np.exp(-b*x)` (exponential decay).
    - `a/(1 + b*x)` (hyperbola).
-
-**Note**: Custom formulas currently have some limitations. See [Troubleshooting](troubleshooting.md) for details.
 
 ## Common Workflows
 

@@ -1,2 +1,2 @@
-.. include:: ../../docs/tkinter-guide.md
+.. relativeinclude:: ../../docs/tkinter-guide.md
    :parser: myst_parser.sphinx_

@@ -352,11 +352,13 @@ def show_data_dialog(parent_window: Tk | Toplevel, data: Any) -> None:
     watch_data_level = Toplevel()
     watch_data_level.title(t('dialog.show_data_title'))
     watch_data_level.configure(background=UI_STYLE['bg'])
-    watch_data_level.minsize(800, 600)
+    watch_data_level.minsize(800, 400)
     watch_data_level.resizable(False, False)
 
+    # Data display area: fixed height in lines so only this part is limited; scroll for the rest
+    _data_display_lines = 22
     text_frame = ttk.Frame(watch_data_level)
-    text_frame.pack(padx=UI_STYLE['padding'], pady=6, fill='both', expand=True)
+    text_frame.pack(padx=UI_STYLE['padding'], pady=6, fill='both')
 
     scrollbar_y = ttk.Scrollbar(text_frame, orient='vertical')
     scrollbar_y.pack(side='right', fill='y')
@@ -365,6 +367,7 @@ def show_data_dialog(parent_window: Tk | Toplevel, data: Any) -> None:
 
     text_widget = Text(
         text_frame,
+        height=_data_display_lines,
         bg=UI_STYLE['text_bg'],
         fg=UI_STYLE['text_fg'],
         font=(UI_STYLE['text_font_family'], UI_STYLE['text_font_size']),

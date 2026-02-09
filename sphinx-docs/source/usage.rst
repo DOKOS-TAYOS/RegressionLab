@@ -1,2 +1,2 @@
-.. include:: ../../docs/usage.md
+.. relativeinclude:: ../../docs/usage.md
    :parser: myst_parser.sphinx_
