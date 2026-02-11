@@ -6,6 +6,7 @@ import pytest
 import numpy as np
 import pandas as pd
 
+from config import EXIT_SIGNAL
 from fitting.fitting_utils import (
     format_parameter,
     generic_fit,
@@ -194,5 +195,4 @@ class TestGetFittingFunction:
     
     def test_exit_signal(self) -> None:
         """Test exit signal returns None."""
-        from config import EXIT_SIGNAL
         assert get_fitting_function(EXIT_SIGNAL) is None

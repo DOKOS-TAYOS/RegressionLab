@@ -45,6 +45,19 @@ def excel_file() -> str:
 
 
 @pytest.fixture
+def txt_file() -> str:
+    """Create temporary TXT file for testing."""
+    temp_file = tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt')
+    temp_file.write('x\ty\n')
+    temp_file.write('1.0\t2.0\n')
+    temp_file.write('2.0\t4.0\n')
+    temp_file.write('3.0\t6.0\n')
+    temp_file.close()
+    yield temp_file.name
+    Path(temp_file.name).unlink(missing_ok=True)
+
+
+@pytest.fixture
 def test_data() -> pd.DataFrame:
     """Fixture for test data."""
     return pd.DataFrame({
@@ -70,6 +83,13 @@ class TestReloadDataByType:
         df = reload_data_by_type(excel_file, 'xlsx')
         assert isinstance(df, pd.DataFrame)
         assert len(df) == 3
+
+    def test_reload_txt(self, txt_file: str) -> None:
+        """Test reloading TXT file."""
+        df = reload_data_by_type(txt_file, 'txt')
+        assert isinstance(df, pd.DataFrame)
+        assert len(df) == 3
+        assert list(df.columns) == ['x', 'y']
     
     def test_invalid_file_type(self, excel_file: str) -> None:
         """Test reloading with invalid file type raises error."""

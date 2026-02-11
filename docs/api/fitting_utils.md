@@ -18,7 +18,7 @@ Generic curve fitting using `scipy.optimize.curve_fit`. This function handles we
 
 **Parameters:**
 - `data`: Data dictionary or DataFrame containing x, y and their uncertainties
-- `x_name`: Name of the x variable
+- `x_name`: Name of the x variable, or list of variable names for multidimensional fitting (e.g. `['x_0', 'x_1']`)
 - `y_name`: Name of the y variable
 - `fit_func`: Function to fit (e.g., `linear_function_with_n`, `sin_function`, etc.)
 - `param_names`: List of parameter names (e.g., `['m', 'n']` or `['a', 'b', 'c']`)

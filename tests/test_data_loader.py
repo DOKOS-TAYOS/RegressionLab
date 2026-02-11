@@ -6,21 +6,9 @@ import pytest
 import pandas as pd
 from pathlib import Path
 
-from config import get_project_root
 from loaders import get_variable_names, get_file_list_by_type
 from loaders.data_loader import _prepare_data_path as prepare_data_path
 from utils import InvalidFileTypeError
-
-
-class TestGetProjectRoot:
-    """Tests for get_project_root function."""
-    
-    def test_returns_path(self) -> None:
-        """Test that function returns a Path object."""
-        root = get_project_root()
-        assert isinstance(root, Path)
-        assert root.exists()
-        assert (root / 'src').exists()
 
 
 class TestPrepareDataPath:
@@ -29,6 +17,7 @@ class TestPrepareDataPath:
     @pytest.mark.parametrize("file_type,expected_ext", [
         ('csv', '.csv'),
         ('xlsx', '.xlsx'),
+        ('txt', '.txt'),
     ])
     def test_file_paths(self, file_type: str, expected_ext: str) -> None:
         """Test preparing paths for different file types."""

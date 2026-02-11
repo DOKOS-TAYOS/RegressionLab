@@ -55,7 +55,7 @@ When you launch the application, you see the main menu with buttons for each ope
 
 ```
 ┌─────────────────────────────────────┐
-│       RegressionLab v0.9.1         │
+│       RegressionLab v0.9.2         │
 ├─────────────────────────────────────┤
 │                                     │
 │   [ Normal Fitting ]                │
@@ -138,6 +138,7 @@ You can also use aliases (e.g. `spanish`, `english`, `deutsch`). Change requires
    - **Select X (independent variable)**:
      - Dropdown with all non-uncertainty columns.
      - Example: "time", "voltage", "concentration".
+   - **Multidimensional (custom formulas only)**: If the equation has 2+ independent variables, a dialog asks you to select multiple X columns (e.g. first X, second X, etc.).
    - **Select Y (dependent variable)**:
      - Dropdown with remaining columns.
      - Example: "temperature", "current", "absorbance".
@@ -150,10 +151,11 @@ You can also use aliases (e.g. `spanish`, `english`, `deutsch`). Change requires
 7. **View Results**:
    - New window opens showing:
      ![Results Window](../images/en_documentation/tkinter_docs/result.png)
-     - **Plot**: Your data with fitted curve.
+     - **Plot**: Your data with fitted curve. For 2 independent variables: interactive 3D plot (rotatable with mouse). For 3+ variables: residuals plot.
      - **Equation**: Mathematical formula with parameters.
      - **Parameters**: Values with uncertainties.
      - **R² Value**: Goodness of fit.
+     - **Prediction** button: Opens a dialog to evaluate the fitted function at user-specified x values; shows predicted y with uncertainty propagation when available.
    - Plot automatically saved to `output/` directory.
 
 8. **Loop Mode** (if enabled):
@@ -179,14 +181,19 @@ If you select "Custom Formula":
    - Enter meaningful names (e.g., "amplitude", "frequency", "phase").
    - Or use defaults (p1, p2, etc.).
 
-3. **Enter Formula**:
+3. **Number of Independent Variables** (optional):
+   - Spinbox: 1 for standard y=f(x), 2+ for multidimensional regression.
+   - Use `x_0`, `x_1`, etc. in the formula for 2+ variables.
+
+4. **Enter Formula**:
    - Text entry dialog.
    ![Custom Formula Entry](../images/en_documentation/tkinter_docs/custom_equation.png)
-   - Enter formula using parameter names and `x`.
+   - Enter formula using parameter names and `x` (or `x_0`, `x_1` for multidimensional).
    - Example: `amplitude * sin(frequency * x + phase)`.
+   - Example (2 variables): `a*x_0 + b*x_1 + c`.
    - Click "Accept".
 
-4. Continue with steps 3-8 above.
+5. Continue with steps 3-8 above.
 
 **Example Workflow**:
 ```
@@ -472,14 +479,15 @@ If you select "Custom Formula":
 ### Result Windows
 
 **Plot Window**:
-- Shows matplotlib plot.
+- Shows matplotlib plot (or interactive 3D canvas for 2-variable fits; residuals plot for 3+ variables).
 - Embedded in Tkinter window.
 - Includes:
   - Plot image.
   - Equation text (formula with fitted values).
   - Parameters with uncertainties and 95% confidence intervals.
   - Statistics: R², RMSE, χ², reduced χ², degrees of freedom.
-- Click "Close" to dismiss.
+  - **Prediction** button: Opens a dialog to evaluate the fitted function at user-specified inputs; shows predicted y with uncertainty when available.
+- Click "Close" (or "Accept") to dismiss.
 
 ## File Browsing
 
@@ -532,9 +540,7 @@ Main menu:
 ├─────────────────────────────────────────────────┤
 │                                                 │
 │  ╔═══════════════════════════════════════╗     │
-│  ║                                       ║     │
-│  ║         [Plot Image]                  ║     │
-│  ║                                       ║     │
+│  ║         [Plot Image / 3D / Residuals]║     │
 │  ╚═══════════════════════════════════════╝     │
 │                                                 │
 │  Equation: y = 5.12·x + 2.45                    │
@@ -545,6 +551,7 @@ Main menu:
 │  n = 2.456 ± 0.123   [IC 95%: 2.21, 2.70]      │
 │  R² = 0.987   RMSE = 0.12   χ² = ...           │
 │                                                 │
+│  [ Accept ]  [ Prediction ]                      │
 └─────────────────────────────────────────────────┘
 ```
 
@@ -752,6 +759,8 @@ See [Configuration Guide](configuration.md) for extensive customization:
 - ✓ Offline operation.
 - ✓ Extensive customization via `.env`.
 - ✓ Native desktop performance.
+- ✓ Prediction window (evaluate fitted function at user inputs; uncertainty propagation).
+- ✓ Multidimensional fitting (custom formulas with 2+ variables; 3D/residuals plots).
 
 **Tkinter lacks**:
 - ✗ Modern web UI.

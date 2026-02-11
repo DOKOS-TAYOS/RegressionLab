@@ -64,7 +64,7 @@ class TestI18nLanguageDetection:
 class TestI18nInitialization:
     """Tests for i18n initialization."""
     
-    @pytest.mark.parametrize("lang", ['es', 'en'])
+    @pytest.mark.parametrize("lang", ['es', 'en', 'de'])
     def test_initialize_language(self, lang: str) -> None:
         """Test initializing with supported languages."""
         initialize_i18n(lang)
@@ -119,6 +119,7 @@ class TestI18nBothLanguages:
     @pytest.mark.parametrize("lang,keys", [
         ('es', ['menu.welcome', 'error.title', 'dialog.exit_option']),
         ('en', ['menu.welcome', 'error.title', 'dialog.exit_option']),
+        ('de', ['menu.welcome', 'error.title', 'dialog.exit_option']),
     ])
     def test_translations_loaded(self, lang: str, keys: list[str]) -> None:
         """Test translations are loaded for both languages."""

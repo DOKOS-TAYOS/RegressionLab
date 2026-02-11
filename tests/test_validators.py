@@ -12,8 +12,10 @@ from utils import (
     validate_file_path,
     validate_file_type,
     validate_dataframe,
+    validate_data_format,
     validate_fitting_data,
     validate_parameter_names,
+    parse_optional_float,
     DataValidationError,
     FileNotFoundError,
     InvalidFileTypeError,
@@ -54,7 +56,7 @@ class TestValidateFilePath:
 class TestValidateFileType:
     """Tests for validate_file_type function."""
     
-    @pytest.mark.parametrize("file_type", ['csv', 'xlsx'])
+    @pytest.mark.parametrize("file_type", ['csv', 'xlsx', 'txt'])
     def test_valid_types(self, file_type: str) -> None:
         """Test validation passes for valid types."""
         validate_file_type(file_type)
@@ -216,6 +218,63 @@ class TestValidateParameterNames:
         """Test validation fails for invalid Python identifiers."""
         with pytest.raises(ValidationError):
             validate_parameter_names([invalid_name])
+
+
+class TestValidateDataFormat:
+    """Tests for validate_data_format function."""
+    
+    def test_valid_data_format(self) -> None:
+        """Test validation passes for valid DataFrame."""
+        df = pd.DataFrame({'x': [1.0, 2.0, 3.0], 'y': [4.0, 5.0, 6.0]})
+        validate_data_format(df)
+    
+    def test_none_dataframe(self) -> None:
+        """Test validation fails for None."""
+        with pytest.raises(DataValidationError):
+            validate_data_format(None)
+    
+    def test_empty_dataframe(self) -> None:
+        """Test validation fails for empty DataFrame."""
+        with pytest.raises(DataValidationError):
+            validate_data_format(pd.DataFrame())
+    
+    def test_non_numeric_columns(self) -> None:
+        """Test validation fails for non-numeric columns."""
+        df = pd.DataFrame({'x': [1, 2, 3], 'y': ['a', 'b', 'c']})
+        with pytest.raises(DataValidationError):
+            validate_data_format(df)
+    
+    def test_duplicate_column_names(self) -> None:
+        """Test validation fails for duplicate column names."""
+        df = pd.DataFrame([[1, 4], [2, 5], [3, 6]], columns=['x', 'x'])
+        with pytest.raises(DataValidationError):
+            validate_data_format(df)
+
+
+class TestParseOptionalFloat:
+    """Tests for parse_optional_float function."""
+    
+    @pytest.mark.parametrize("value,expected", [
+        ('1.5', 1.5),
+        ('0', 0.0),
+        ('-3.14', -3.14),
+        ('1e-3', 0.001),
+    ])
+    def test_valid_float_strings(self, value: str, expected: float) -> None:
+        """Test parsing valid float strings."""
+        result = parse_optional_float(value)
+        assert result is not None
+        assert abs(result - expected) < 1e-10
+    
+    @pytest.mark.parametrize("value", ['', '   '])
+    def test_empty_returns_none(self, value: str) -> None:
+        """Test empty or whitespace returns None."""
+        assert parse_optional_float(value) is None
+    
+    @pytest.mark.parametrize("value", ['abc', 'not_a_number', '1.2.3'])
+    def test_invalid_returns_none(self, value: str) -> None:
+        """Test invalid strings return None."""
+        assert parse_optional_float(value) is None
 
 
 class TestValidatePositiveInteger:

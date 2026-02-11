@@ -612,6 +612,7 @@ So changing the theme in `.env` (or in Tkinter’s configuration) affects both t
 - No configuration panel in the sidebar (language and mode only); change settings in `.env` or via Tkinter’s Configure menu.
 - Results layout: three columns (Equation, Parameters, Statistics), plot, then download button.
 - If output format is PDF, the in-app preview is PNG and the download is PDF.
+- **Prediction window** and **multidimensional fitting** (custom formulas with 2+ variables, 3D/residuals plots) are currently available in the Tkinter (desktop) version.
 
 **When to use each**:
 - **Streamlit**: Quick analysis, sharing, accessibility.

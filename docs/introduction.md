@@ -24,6 +24,8 @@ You don't need to be a programmer or mathematician to use RegressionLab - the in
 RegressionLab is a Python-based scientific application that implements curve fitting using non-linear least squares optimization (via SciPy's `curve_fit`). It provides:
 
 - **Multiple fitting functions**: Linear, polynomial, trigonometric (including tangent), logarithmic, exponential, inverse, hyperbolic, Gaussian, sigmoid, and custom formulas.
+- **Multidimensional regression**: Custom formulas can use 2 or more independent variables. With 2 independent variables, an interactive 3D plot is shown; with more than 2, a residuals plot is displayed.
+- **Prediction window**: In the desktop version, a "Prediction" button in the result window lets you evaluate the fitted function at user-specified inputs, with uncertainty propagation when parameter covariance is available.
 - **Statistical analysis**: Automatic calculation of R², RMSE, chi-squared, reduced chi-squared, degrees of freedom, parameter uncertainties (from the fit covariance), and 95% confidence intervals for parameters.
 - **Flexible data formats**: Support for CSV, TXT (whitespace or tab-separated), and Excel (.xlsx) files with automatic uncertainty column detection.
 - **Batch processing**: Fit multiple datasets or equations simultaneously.
@@ -58,7 +60,7 @@ Built-in support for:
 - Logarithmic and exponential functions.
 - Inverse functions (1/x, 1/x²).
 - Additional models: Gaussian, sigmoid (logistic), square pulse, Hermite polynomials.
-- **Custom formulas**: Define your own mathematical expressions.
+- **Custom formulas**: Define your own mathematical expressions. Custom formulas can have multiple independent variables (e.g. `x_0`, `x_1`) for multidimensional regression.
 
 ### 5. **Professional Visualization**
 - High-quality publication-ready plots.
@@ -73,20 +75,24 @@ Automatic detection and visualization of measurement uncertainties:
 - Weighted fitting based on uncertainties.
 - Error bar visualization.
 
-### 7. **Batch Processing**
+### 7. **Multidimensional Regression and Predictions**
+- **Multidimensional fitting**: Use custom formulas with 2 or more independent variables. With 2 variables you get an interactive 3D surface plot; with 3+ you get a residuals plot.
+- **Prediction window** (desktop): Evaluate the fitted function at any point. Enter values for each independent variable and see the predicted value with propagated uncertainty when available.
+
+### 8. **Batch Processing**
 Save time by:
 - Fitting multiple datasets with one click (same equation, many files).
 - Testing all available equations on one dataset automatically (fit all functions).
 - Loop mode for iterative data refinement (add data, refit, repeat without reconfiguring).
 
-### 8. **Internationalization**
+### 9. **Internationalization**
 Full support for multiple languages:
 - Spanish (es) – default.
 - English (en).
 - German (de).
 - Easy to add more languages via JSON files in `src/locales/`.
 
-### 9. **Highly Configurable**
+### 10. **Highly Configurable**
 Customize through the **Configure** dialog (Tkinter) or the `.env` file:
 - **Language**: Spanish, English, German.
 - **UI (Tkinter)**: Colors, fonts, padding, button sizes, data-preview text style.
@@ -96,13 +102,13 @@ Customize through the **Configure** dialog (Tkinter) or the `.env` file:
 - **Links**: Donations URL (optional).
 - **Logging**: Level, file path, console output.
 
-### 10. **Extensible and Open Source**
+### 11. **Extensible and Open Source**
 - MIT License - free for academic and commercial use.
 - Well-documented codebase.
 - Easy to add new fitting functions.
 - Modular architecture for customization.
 
-### 11. **Cross-Platform**
+### 12. **Cross-Platform**
 Works on:
 - Windows.
 - macOS.

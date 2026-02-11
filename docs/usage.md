@@ -223,6 +223,10 @@ RegressionLab offers four different operation modes to match your workflow. Each
 
 RegressionLab expects data in a specific format for optimal results.
 
+### Multidimensional Data
+
+For regression with 2 or more independent variables (custom formulas with `num_independent_vars > 1`), your data must have columns for each variable. During variable selection you will pick multiple X columns (e.g. `temperature`, `pressure`) and one Y column. The fitting uses all selected X columns together.
+
 ### Required Format
 
 Your data file should contain:
@@ -285,7 +289,8 @@ The results window contains:
 - **Fitted equation**: The mathematical expression with your fitted parameters.
 - **Parameter values**: Each parameter with its uncertainty.
 - **Statistical measures**: R², RMSE, χ², and reduced χ².
-- **Plot preview**: Visual representation of your data and the fitted curve.
+- **Plot preview**: Visual representation of your data and the fitted curve. For 2 independent variables: interactive 3D plot; for 3+ variables: residuals plot.
+- **Prediction button** (desktop): Opens a dialog to evaluate the fitted function at user-specified inputs, with uncertainty propagation when available.
 
 
 ### 1. Fitted Parameters
@@ -416,11 +421,25 @@ If none of the predefined equations work, you can define your own:
 
 1. Select "Custom Formula" as the equation type.
 2. Specify the number of parameters.
-3. Name your parameters (e.g., `a`, `b`, `c`). You can also use special characters.
-4. Enter your formula using Python syntax.
-   - `a*x**2 + b*x + c` (quadratic).
+3. Specify the number of independent variables (1 for standard y=f(x), 2+ for multidimensional regression).
+4. Name your parameters (e.g., `a`, `b`, `c`). You can also use special characters.
+5. Enter your formula using Python syntax.
+   - `a*x**2 + b*x + c` (quadratic, 1 variable).
    - `a*np.exp(-b*x)` (exponential decay).
    - `a/(1 + b*x)` (hyperbola).
+   - `a*x_0 + b*x_1 + c` (multidimensional, 2 variables: use `x_0`, `x_1`, etc.).
+
+For multidimensional (2+ variables), you will select multiple X columns during variable selection. With 2 variables you get an interactive 3D plot; with 3+ you get a residuals plot.
+
+### Prediction Window (Desktop)
+
+After fitting, the result window shows a **Prediction** button. Click it to open a dialog where you can:
+
+1. Enter values for each independent variable (x, x_0, x_1, etc.).
+2. See the predicted y value updated in real time.
+3. When parameter covariance is available, the predicted uncertainty is shown as well.
+
+This works for single fits, multiple datasets, checker mode, and total fitting. It supports both 1D and multidimensional fits.
 
 ## Common Workflows
 

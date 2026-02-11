@@ -7,7 +7,7 @@ UI Dialogs package containing all Tkinter dialog windows for user interaction.
 The `frontend.ui_dialogs` package provides all dialog windows used in the Tkinter interface. It is split into submodules; the package re-exports public functions so that `from frontend.ui_dialogs import ask_file_type, show_help_dialog`, etc. continue to work.
 
 **Package structure:**
-- **`ui_dialogs/data_selection.py`** – `ask_file_type`, `ask_file_name`, `ask_variables`, `show_data_dialog`, `get_variable_names`
+- **`ui_dialogs/data_selection.py`** – `ask_file_type`, `ask_file_name`, `ask_variables`, `ask_multiple_x_variables`, `show_data_dialog`, `get_variable_names`
 - **`ui_dialogs/equation.py`** – `ask_equation_type`, `ask_num_parameters`, `ask_parameter_names`, `ask_custom_formula`, `ask_num_fits`
 - **`ui_dialogs/help.py`** – `show_help_dialog`
 - **`ui_dialogs/config_dialog.py`** – `show_config_dialog`
@@ -92,6 +92,27 @@ if x_name and y_name:
 - Uncertainty columns (starting with 'u') are automatically filtered out.
 - First variable is default for X, second for Y.
 - Plot name is optional.
+
+#### `ask_multiple_x_variables(parent_window, variable_names: List[str], num_vars: int, first_x_name: str) -> List[str]`
+
+Dialog to select multiple independent (x) variables for multidimensional fitting (custom formulas with 2+ variables).
+
+**Parameters:**
+- `parent_window`: Parent Tkinter window
+- `variable_names`: List of available variable names from the dataset
+- `num_vars`: Number of independent variables to select (2 or more)
+- `first_x_name`: Name of the first x variable already selected in the main variables dialog
+
+**Returns:**
+- List of x variable names in order (`[x_0, x_1, ...]`), or empty list if user cancels
+
+**Example:**
+```python
+from frontend.ui_dialogs import ask_multiple_x_variables
+
+x_names = ask_multiple_x_variables(root, ['temp', 'pressure', 'y'], num_vars=2, first_x_name='temp')
+# User selects: ['temp', 'pressure'] -> x_names = ['temp', 'pressure']
+```
 
 ## Data Display Dialog
 
@@ -316,7 +337,7 @@ if show_config_dialog(root):
 
 ## Result Display Dialog
 
-#### `create_result_window(fit_name: str, text: str, equation_str: str, output_path: str) -> Toplevel`
+#### `create_result_window(fit_name: str, text: str, equation_str: str, output_path: str, figure_3d: Optional[Any] = None, fit_info: Optional[Dict[str, Any]] = None) -> Toplevel`
 
 Create a Tkinter window to display the fitting results.
 
@@ -325,6 +346,8 @@ Create a Tkinter window to display the fitting results.
 - `text`: Formatted text with parameters, uncertainties, R², and statistics
 - `equation_str`: Formatted equation string
 - `output_path`: Path to the plot image file
+- `figure_3d`: Optional matplotlib Figure for 3D plot (embeds interactive canvas; used for 2-variable fits)
+- `fit_info`: Optional dict with keys `fit_func`, `params`, `cov`, `x_names`; when provided, adds a **Prediction** button to evaluate the fitted function at user-specified inputs with uncertainty propagation
 
 **Returns:**
 - The created Toplevel window
@@ -340,17 +363,21 @@ result_window = create_result_window(
     output_path='output/fit.png'
 )
 
-# Window displays:
-# - Equation at top
-# - Parameters on left
-# - Plot image on right
-# - Accept button at bottom
+# With prediction support:
+result_window = create_result_window(
+    fit_name='Linear Fit',
+    text=param_text,
+    equation_str=equation,
+    output_path='output/fit.png',
+    fit_info={'fit_func': fit_func, 'params': popt, 'cov': pcov, 'x_names': ['x']}
+)
+# Window shows a Prediction button; clicking it opens a dialog to evaluate at user inputs
 ```
 
 **Layout:**
 - **Top**: Equation (selectable text).
-- **Middle**: Parameters (left) and plot image (right).
-- **Bottom**: Accept button.
+- **Middle**: Parameters (left) and plot image or 3D canvas (right).
+- **Bottom**: Accept button; optionally **Prediction** button when `fit_info` is provided.
 
 ## Usage Examples
 

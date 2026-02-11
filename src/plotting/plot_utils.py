@@ -452,13 +452,13 @@ def create_3d_plot(
         )
         
         # Create mesh for fitted surface
-        # Get unique x and y values and create a grid
-        x_unique = np.linspace(x_arr.min(), x_arr.max(), 20)
-        y_unique = np.linspace(y_arr.min(), y_arr.max(), 20)
+        # Use a regular grid covering the full bounding box of x_0 and x_1
+        x_unique = np.linspace(x_arr.min(), x_arr.max(), 25)
+        y_unique = np.linspace(y_arr.min(), y_arr.max(), 25)
         X_mesh, Y_mesh = np.meshgrid(x_unique, y_unique)
         
-        # Interpolate z_fitted values onto the mesh
-        # Use griddata; fall back to 'nearest' if 'linear' fails (e.g. coplanar points, Qhull)
+        # Interpolate z_fitted values onto the mesh.
+        # Linear interpolation leaves NaN outside the convex hull; fill those with nearest.
         Z_mesh = None
         try:
             from scipy.interpolate import griddata
@@ -471,6 +471,16 @@ def create_3d_plot(
                     method='linear',
                     fill_value=np.nan
                 )
+                # Fill NaN regions (outside convex hull) with nearest neighbor so the mesh covers the full box
+                nan_mask = np.isnan(Z_mesh)
+                if np.any(nan_mask):
+                    Z_nearest = griddata(
+                        (x_arr, y_arr),
+                        z_fitted_arr,
+                        (X_mesh, Y_mesh),
+                        method='nearest',
+                    )
+                    Z_mesh[nan_mask] = Z_nearest[nan_mask]
             except (QhullError, ValueError) as e:
                 logger.debug("Linear interpolation failed (%s), using nearest neighbor", type(e).__name__)
                 Z_mesh = griddata(
@@ -478,7 +488,6 @@ def create_3d_plot(
                     z_fitted_arr,
                     (X_mesh, Y_mesh),
                     method='nearest',
-                    fill_value=np.nan
                 )
         except ImportError:
             pass

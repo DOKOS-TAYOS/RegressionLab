@@ -35,6 +35,8 @@
 
 - **🌐 Dual Interface**: Choose between web version (Streamlit) for instant access or desktop version (Tkinter) for offline use
 - **📈 Multiple Fitting Functions**: Linear, polynomial, trigonometric, logarithmic, inverse, hyperbolic, and custom functions
+- **📐 Multidimensional Fitting**: Support for regression with 2+ independent variables via custom formulas; 3D interactive plot for 2 variables, residuals plot for 3+
+- **🔮 Prediction Window**: Evaluate fitted functions at user-specified inputs with uncertainty propagation (desktop version)
 - **⚙️ Multiple Operation Modes**: Normal fitting, multiple datasets, checker mode, and total fitting
 - **📊 Professional Visualization**: Publication-ready plots with error bars and customizable styles
 - **📏 Uncertainty Handling**: Automatic detection and visualization of measurement uncertainties
