@@ -323,7 +323,7 @@ If you can't solve the issue, please report it on GitHub with:
 
 ## Future Updates and Roadmap
 
-### Version 0.9.1 (Q1 2026) - Planned
+### Version 0.9.2 (Q1 2026) - Planned
 
 **Major Features**:
 - 📊 **Enhanced Plotting**: Interactive plots, zoom, pan.

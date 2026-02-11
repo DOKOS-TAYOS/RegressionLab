@@ -311,6 +311,127 @@ def ask_variables(parent_window: Any, variable_names: List[str]) -> Tuple[str, s
     return call_var_level.x_name.get(), call_var_level.y_name.get(), call_var_level.graf_name.get()
 
 
+def ask_multiple_x_variables(
+    parent_window: Any, variable_names: List[str], num_vars: int, first_x_name: str
+) -> List[str]:
+    """
+    Dialog to select multiple independent (x) variables for multidimensional fitting.
+
+    Args:
+        parent_window: Parent Tkinter window.
+        variable_names: List of available variable names from the dataset.
+        num_vars: Number of independent variables to select.
+        first_x_name: Name of the first x variable already selected.
+
+    Returns:
+        List of x variable names. Returns empty list if user cancels.
+    """
+    call_var_level = Toplevel()
+    call_var_level.title(t('dialog.data'))
+    call_var_level.cancelled = False
+
+    def _on_close_variables() -> None:
+        call_var_level.cancelled = True
+        call_var_level.destroy()
+
+    call_var_level.protocol("WM_DELETE_WINDOW", _on_close_variables)
+
+    call_var_level.frame_custom = ttk.Frame(call_var_level, padding=UI_STYLE['border_width'])
+
+    call_var_level.label_message = ttk.Label(
+        call_var_level.frame_custom,
+        text=t('dialog.select_multiple_x_variables', num=num_vars),
+        style='LargeBold.TLabel',
+    )
+
+    filtered_variable_names = []
+    excluded_vars = set()
+    for var in variable_names:
+        if var in excluded_vars:
+            continue
+        if var.startswith('u') and len(var) > 1:
+            base_var = var[1:]
+            if base_var in variable_names:
+                excluded_vars.add(var)
+                continue
+        u_var = f'u{var}'
+        if u_var in variable_names:
+            excluded_vars.add(u_var)
+        filtered_variable_names.append(var)
+
+    if filtered_variable_names:
+        variable_names = filtered_variable_names
+
+    # Create comboboxes for each x variable
+    x_vars = []
+    x_combos = []
+    for i in range(num_vars):
+        x_var = StringVar()
+        if i == 0:
+            x_var.set(first_x_name)  # First one is already selected
+        x_vars.append(x_var)
+        
+        label = ttk.Label(
+            call_var_level.frame_custom,
+            text=t('dialog.independent_variable_index', index=i + 1, index_minus=i),
+        )
+        combo = ttk.Combobox(
+            call_var_level.frame_custom,
+            textvariable=x_var,
+            values=variable_names,
+            state='readonly',
+            width=UI_STYLE['spinbox_width'],
+            font=get_entry_font(),
+        )
+        if variable_names and i == 0:
+            try:
+                combo.current(variable_names.index(first_x_name))
+            except ValueError:
+                combo.current(0)
+        elif variable_names:
+            combo.current(min(i, len(variable_names) - 1))
+        
+        x_combos.append((label, combo))
+
+    call_var_level.accept_button = ttk.Button(
+        call_var_level.frame_custom,
+        text=t('dialog.accept'),
+        command=call_var_level.destroy,
+        style='Primary.TButton',
+        width=UI_STYLE['button_width'],
+    )
+
+    call_var_level.frame_custom.grid(column=0, row=0)
+    call_var_level.label_message.grid(
+        column=0, row=0, columnspan=2, padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
+    )
+    
+    for i, (label, combo) in enumerate(x_combos):
+        label.grid(
+            column=0, row=i + 1, padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
+        )
+        combo.grid(
+            column=1, row=i + 1, padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
+        )
+    
+    call_var_level.accept_button.grid(
+        column=1, row=num_vars + 1, padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
+    )
+
+    bind_enter_to_accept([combo for _, combo in x_combos], call_var_level.destroy)
+    apply_hover_to_children(call_var_level.frame_custom)
+    if x_combos:
+        x_combos[0][1].focus_set()
+    call_var_level.resizable(False, False)
+    parent_window.wait_window(call_var_level)
+
+    if getattr(call_var_level, 'cancelled', False):
+        return []
+    
+    result = [x_var.get() for x_var in x_vars]
+    return result if all(result) else []
+
+
 def _show_image_toplevel(parent: Tk | Toplevel, image_path: str, title: str) -> None:
     """
     Open a Toplevel window showing an image from file.

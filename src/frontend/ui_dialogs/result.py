@@ -2,8 +2,11 @@
 
 from pathlib import Path
 from tkinter import Frame, Toplevel, Text, PhotoImage, ttk
+from typing import Any, Optional
 
-from config import UI_STYLE
+import matplotlib.pyplot as plt
+
+from config import PLOT_CONFIG, UI_STYLE
 from frontend.image_utils import (
     load_image_scaled,
     plot_display_path,
@@ -14,13 +17,18 @@ from i18n import t
 # Max size for result plot image so it fits in the window
 _RESULT_PLOT_MAX_WIDTH = 920
 _RESULT_PLOT_MAX_HEIGHT = 720
+
 # Thin raised border for result frames
 _RESULT_FRAME_BORDER = 1
 _RESULT_FRAME_RELIEF = 'raised'
 
 
 def create_result_window(
-    fit_name: str, text: str, equation_str: str, output_path: str
+    fit_name: str,
+    text: str,
+    equation_str: str,
+    output_path: str,
+    figure_3d: Optional[Any] = None,
 ) -> Toplevel:
     """
     Create a Tkinter window to display the fitting results.
@@ -33,6 +41,7 @@ def create_result_window(
         text: Formatted text with parameters, uncertainties, and statistics.
         equation_str: Formatted equation string with parameter values.
         output_path: Path to the plot image file to display.
+        figure_3d: Optional matplotlib Figure for 3D plot (embeds interactive canvas, rotatable with mouse).
 
     Returns:
         The created ``Toplevel`` window instance.
@@ -45,21 +54,30 @@ def create_result_window(
     preview_to_remove = preview_path_to_remove_after_display(display_path, output_path)
 
     def _on_close() -> None:
-        if preview_to_remove:
+        if hasattr(plot_level, 'matplotlib_canvas') and plot_level.matplotlib_canvas is not None:
+            try:
+                fig = plot_level.matplotlib_canvas.figure
+                fig.savefig(output_path, bbox_inches='tight', dpi=PLOT_CONFIG['dpi'])
+                if Path(output_path).suffix.lower() == '.pdf':
+                    preview_path = Path(output_path).parent / (Path(output_path).stem + '_preview.png')
+                    fig.savefig(
+                        str(preview_path),
+                        bbox_inches='tight',
+                        dpi=PLOT_CONFIG['dpi'],
+                        format='png',
+                    )
+                plot_level.matplotlib_canvas.get_tk_widget().destroy()
+                plt.close(fig)
+            except Exception:
+                pass
+        elif preview_to_remove:
             try:
                 Path(preview_to_remove).unlink(missing_ok=True)
             except OSError:
                 pass
         plot_level.destroy()
 
-    plot_level.imagen = load_image_scaled(
-        display_path, _RESULT_PLOT_MAX_WIDTH, _RESULT_PLOT_MAX_HEIGHT
-    )
-    if plot_level.imagen is None and Path(display_path).exists():
-        try:
-            plot_level.imagen = PhotoImage(file=display_path)
-        except Exception:
-            plot_level.imagen = None
+    _pad = UI_STYLE['padding']
 
     equation_lines = equation_str.split('\n')
     equation_height = max(1, len(equation_lines))
@@ -104,7 +122,31 @@ def create_result_window(
     plot_level.label_parameters.insert('1.0', text)
     plot_level.label_parameters.config(state='disabled')
 
-    if plot_level.imagen is not None:
+    plot_level.imagen = None
+    plot_level.matplotlib_canvas = None
+    if figure_3d is not None:
+        try:
+            from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+            plot_level.matplotlib_canvas = FigureCanvasTkAgg(
+                figure_3d, master=plot_level.middle_frame
+            )
+            plot_level.matplotlib_canvas.draw()
+            
+        except Exception:
+            plot_level.matplotlib_canvas = None
+    if plot_level.matplotlib_canvas is None:
+        plot_level.imagen = load_image_scaled(
+            display_path, _RESULT_PLOT_MAX_WIDTH, _RESULT_PLOT_MAX_HEIGHT
+        )
+        if plot_level.imagen is None and Path(display_path).exists():
+            try:
+                plot_level.imagen = PhotoImage(file=display_path)
+            except Exception:
+                plot_level.imagen = None
+
+    if plot_level.matplotlib_canvas is not None:
+        plot_level.image = plot_level.matplotlib_canvas.get_tk_widget()
+    elif plot_level.imagen is not None:
         plot_level.image = ttk.Label(
             plot_level.middle_frame,
             image=plot_level.imagen,
@@ -124,7 +166,6 @@ def create_result_window(
         width=UI_STYLE['button_width'],
     )
 
-    _pad = UI_STYLE['padding']
     plot_level.equation_text.pack(padx=_pad, pady=_pad)
     plot_level.middle_frame.pack(padx=_pad, pady=_pad)
     plot_level.label_parameters.pack(
@@ -143,6 +184,8 @@ def create_result_window(
 
     plot_level.accept_button.focus_set()
     plot_level.protocol("WM_DELETE_WINDOW", _on_close)
-    plot_level.resizable(False, False)
+    plot_level.resizable(plot_level.matplotlib_canvas is not None, plot_level.matplotlib_canvas is not None)
+    if plot_level.matplotlib_canvas is not None:
+        plot_level._figure_3d = figure_3d  # keep reference to avoid garbage collection
 
     return plot_level

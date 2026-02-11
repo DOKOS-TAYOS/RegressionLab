@@ -289,24 +289,25 @@ def ask_equation_type(
     )
 
 
-def ask_num_parameters(parent_window: Any) -> Optional[int]:
+def ask_num_parameters(parent_window: Any) -> Optional[Tuple[int, int]]:
     """
-    Dialog to ask for number of parameters in a custom function.
+    Dialog to ask for number of parameters and independent variables in a custom function.
 
-    Displays a dialog with a Spinbox allowing the user to select the number
-    of parameters (1-12) for a custom fitting function.
+    Displays a dialog with Spinboxes allowing the user to select the number
+    of parameters (1-12) and number of independent variables (1-10) for a custom fitting function.
 
     Args:
         parent_window: Parent Tkinter window.
 
     Returns:
-        Selected number of parameters (1-12), or ``None`` if the user closed
+        Tuple of (number of parameters, number of independent variables), or ``None`` if the user closed
         the window.
     """
     num_parameter_level = Toplevel()
     num_parameter_level.title(t('dialog.custom_formula_title'))
     num_parameter_level.cancelled = False
-    num_parameter_level.numparam = IntVar()
+    num_parameter_level.numparam = IntVar(value=2)
+    num_parameter_level.numindep = IntVar(value=1)
 
     def _on_close_num_parameters() -> None:
         num_parameter_level.cancelled = True
@@ -314,6 +315,8 @@ def ask_num_parameters(parent_window: Any) -> Optional[int]:
 
     num_parameter_level.protocol("WM_DELETE_WINDOW", _on_close_num_parameters)
     num_parameter_level.frame_custom = ttk.Frame(num_parameter_level, padding=UI_STYLE['border_width'])
+    
+    # Parameters label and spinbox
     num_parameter_level.message = ttk.Label(
         num_parameter_level.frame_custom,
         text=t('dialog.num_parameters'),
@@ -328,6 +331,23 @@ def ask_num_parameters(parent_window: Any) -> Optional[int]:
         width=UI_STYLE['spinbox_width'],
         **SPINBOX_STYLE,
     )
+    
+    # Independent variables label and spinbox
+    num_parameter_level.message_indep = ttk.Label(
+        num_parameter_level.frame_custom,
+        text=t('dialog.num_independent_variables'),
+    )
+    num_parameter_level.num_indep = Spinbox(
+        num_parameter_level.frame_custom,
+        textvariable=num_parameter_level.numindep,
+        from_=1,
+        to=10,
+        wrap=True,
+        state='readonly',
+        width=UI_STYLE['spinbox_width'],
+        **SPINBOX_STYLE,
+    )
+    
     num_parameter_level.accept_button = ttk.Button(
         num_parameter_level.frame_custom,
         text=t('dialog.accept'),
@@ -340,16 +360,18 @@ def ask_num_parameters(parent_window: Any) -> Optional[int]:
     num_parameter_level.frame_custom.grid(column=0, row=0)
     num_parameter_level.message.grid(column=0, row=0, padx=_pad, pady=_pad)
     num_parameter_level.num.grid(column=1, row=0, padx=_pad, pady=_pad)
-    num_parameter_level.accept_button.grid(column=1, row=1, padx=_pad, pady=_pad)
+    num_parameter_level.message_indep.grid(column=0, row=1, padx=_pad, pady=_pad)
+    num_parameter_level.num_indep.grid(column=1, row=1, padx=_pad, pady=_pad)
+    num_parameter_level.accept_button.grid(column=1, row=2, padx=_pad, pady=_pad)
 
-    bind_enter_to_accept([num_parameter_level.num], num_parameter_level.destroy)
+    bind_enter_to_accept([num_parameter_level.num, num_parameter_level.num_indep], num_parameter_level.destroy)
     num_parameter_level.num.focus_set()
     num_parameter_level.resizable(False, False)
     parent_window.wait_window(num_parameter_level)
 
     if getattr(num_parameter_level, 'cancelled', False):
         return None
-    return num_parameter_level.numparam.get()
+    return (num_parameter_level.numparam.get(), num_parameter_level.numindep.get())
 
 
 def ask_parameter_names(parent_window: Any, num_params: int) -> List[str]:
@@ -447,7 +469,7 @@ def ask_parameter_names(parent_window: Any, num_params: int) -> List[str]:
     return parameter_names_list
 
 
-def ask_custom_formula(parent_window: Any, parameter_names: List[str]) -> str:
+def ask_custom_formula(parent_window: Any, parameter_names: List[str], num_independent_vars: int = 1) -> str:
     """
     Dialog to ask for custom function formula.
 
@@ -458,6 +480,7 @@ def ask_custom_formula(parent_window: Any, parameter_names: List[str]) -> str:
     Args:
         parent_window: Parent Tkinter window.
         parameter_names: List of parameter names that can be used in the formula.
+        num_independent_vars: Number of independent variables (1 for x, >1 for x_0, x_1, etc.).
 
     Returns:
         Formula string entered by the user, with Unicode escape sequences
@@ -484,8 +507,17 @@ def ask_custom_formula(parent_window: Any, parameter_names: List[str]) -> str:
         formulator_level,
         padding=UI_STYLE['border_width'],
     )
+    # Determine variable names based on number of independent variables
+    if num_independent_vars == 1:
+        var_hint = t('dialog.custom_formula_syntax_hint')
+        var_label = 'y(x)= '
+    else:
+        var_names = ', '.join([f'x_{i}' for i in range(num_independent_vars)])
+        var_hint = t('dialog.custom_formula_multidim_hint', vars=var_names)
+        var_label = f'y({var_names})= '
+    
     syntax_hint_text = (
-        t('dialog.custom_formula_syntax_hint')
+        var_hint
         + '\n'
         + t('dialog.custom_formula_unicode_hint')
         + '\n'
@@ -506,8 +538,8 @@ def ask_custom_formula(parent_window: Any, parameter_names: List[str]) -> str:
     formulator_level.syntax_hint.config(state='disabled')
     formulator_level.message = ttk.Label(
         formulator_level.frame_custom,
-        text='y(x)= ',
-        width=8,
+        text=var_label,
+        width=max(8, len(var_label) + 2),
     )
     formulator_level.codes = Text(
         formulator_level.frame_custom,

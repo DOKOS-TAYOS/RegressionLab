@@ -8,7 +8,7 @@ Entry point for the curve fitting application with GUI interface.
 import sys
 from pathlib import Path
 from tkinter import messagebox
-from typing import Any, Callable, Optional
+from typing import Any, Callable, List, Optional, Union
 
 # Add src directory to Python path for proper imports
 src_dir = Path(__file__).parent
@@ -144,7 +144,7 @@ def _wrap_with_visualization(base_fit_function: Callable, fit_name: str) -> Call
     
     def wrapped_function(
         data: Any,
-        x_name: str,
+        x_name: Union[str, List[str]],
         y_name: str,
         plot_name: Optional[str] = None,
     ) -> None:
@@ -154,22 +154,49 @@ def _wrap_with_visualization(base_fit_function: Callable, fit_name: str) -> Call
             # Returns: parameter text, fitted y values, formatted equation
             text, y_fitted, equation = base_fit_function(data, x_name, y_name)
             
+            # Check if this is a multidimensional fit
+            num_indep = getattr(base_fit_function, 'num_independent_vars', 1)
+            if isinstance(x_name, list):
+                num_indep = len(x_name)
+            
             # Extract data arrays for plotting
-            # The application expects uncertainty columns to be named 'u<varname>'
-            x = data[x_name]
             y = data[y_name]
-            ux = data['u%s' % x_name]  # x uncertainty
-            uy = data['u%s' % y_name]  # y uncertainty
+            uy = data.get('u%s' % y_name, [0.0] * len(y))
             
             # Use plot_name for filename, fit_name for window title
             filename_base = plot_name if plot_name else fit_name
+            figure_3d = None
+
+            # Frontend: Create visualization based on number of independent variables
+            if num_indep == 1:
+                # Single variable: standard 2D plot
+                x = data[x_name] if isinstance(x_name, str) else data[x_name[0]]
+                ux = data.get('u%s' % (x_name if isinstance(x_name, str) else x_name[0]), [0.0] * len(x))
+                x_label = x_name if isinstance(x_name, str) else x_name[0]
+                output_path = create_plot(x, y, ux, uy, y_fitted, filename_base, x_label, y_name)
+            elif num_indep == 2:
+                # Two variables: 3D plot (interactive, rotatable with mouse)
+                from plotting import create_3d_plot
+                x1 = data[x_name[0]]
+                x2 = data[x_name[1]]
+                output_path, figure_3d = create_3d_plot(
+                    x1, x2, y, y_fitted, filename_base,
+                    x_name[0], x_name[1], y_name,
+                    interactive=True,
+                )
+            else:
+                # Multiple variables (>2): residual plot
+                from plotting import create_residual_plot
+                import numpy as np
+                residuals = np.array(y) - np.array(y_fitted)
+                point_indices = list(range(len(y)))
+                output_path = create_residual_plot(
+                    residuals, point_indices, filename_base
+                )
             
-            # Frontend: Create visualization
-            # 1. Create and save the plot as an image file
-            output_path = create_plot(x, y, ux, uy, y_fitted, filename_base, x_name, y_name)
-            # 2. Display the results in a Tkinter window
+            # Display the results in a Tkinter window
             window_title = plot_name if plot_name else fit_name
-            create_result_window(window_title, text, equation, output_path)
+            create_result_window(window_title, text, equation, output_path, figure_3d=figure_3d)
         except FittingError as e:
             # Show error message when fitting fails due to scipy convergence issues
             messagebox.showerror(
@@ -241,6 +268,9 @@ def normal_fitting() -> None:
         logger.info(t('log.user_cancelled_equation'))
         return
     
+    # Check if this is a multidimensional custom function
+    num_independent_vars = getattr(base_fit_function, 'num_independent_vars', 1)
+    
     # Wrap backend function with frontend visualization layer
     display_name = equation_name.replace('_', ' ').title()
     fitter_with_ui = _wrap_with_visualization(base_fit_function, display_name)
@@ -270,6 +300,30 @@ def normal_fitting() -> None:
     if isinstance(data, str):  # Empty result
         logger.info(t('log.user_cancelled_data'))
         return
+    
+    # Phase 3.5: If multidimensional, ask for additional x variables
+    if num_independent_vars > 1:
+        from frontend import ask_multiple_x_variables
+        from loaders import get_variable_names
+        
+        # Get available variable names
+        variable_names = get_variable_names(data)
+        
+        # Ask for multiple x variables
+        x_names = ask_multiple_x_variables(
+            parent_window=menu,
+            variable_names=variable_names,
+            num_vars=num_independent_vars,
+            first_x_name=x_name
+        )
+        
+        # Check if user cancelled
+        if not x_names:
+            logger.info("User cancelled multiple x variables selection")
+            return
+        
+        # Use list of x names instead of single x_name
+        x_name = x_names
     
     # Phase 4: Fitting Execution
     if loop_mode:
@@ -330,6 +384,9 @@ def single_fit_multiple_datasets() -> None:
     if equation_name == EXIT_SIGNAL or base_fit_function is None:
         return
     
+    # Check if this is a multidimensional custom function
+    num_independent_vars = getattr(base_fit_function, 'num_independent_vars', 1)
+    
     # Wrap backend function with frontend visualization
     display_name = equation_name.replace('_', ' ').title()
     fitter_with_ui = _wrap_with_visualization(base_fit_function, display_name)
@@ -351,7 +408,7 @@ def single_fit_multiple_datasets() -> None:
     datasets = []
     for i in range(num_datasets):
         # Check if user hasn't cancelled any previous load
-        if not any(ds.get('file_type') == EXIT_SIGNAL for ds in datasets):
+        if not any(ds.get('data_file_type') == EXIT_SIGNAL for ds in datasets):
             (
                 data, x_name, y_name, plot_name, data_file_path, data_file_type
             ) = coordinate_data_loading(
@@ -362,6 +419,21 @@ def single_fit_multiple_datasets() -> None:
             )
             
             if not isinstance(data, str):  # Data loaded successfully
+                # If multidimensional, ask for multiple x variables
+                if num_independent_vars > 1:
+                    from frontend import ask_multiple_x_variables
+                    from loaders import get_variable_names
+                    variable_names = get_variable_names(data, filter_uncertainty=True)
+                    x_names = ask_multiple_x_variables(
+                        parent_window=menu,
+                        variable_names=variable_names,
+                        num_vars=num_independent_vars,
+                        first_x_name=x_name
+                    )
+                    if not x_names:
+                        datasets.append({'data_file_type': EXIT_SIGNAL})
+                        continue
+                    x_name = x_names
                 datasets.append({
                     'data': data,
                     'x_name': x_name,
@@ -403,6 +475,7 @@ def multiple_fits_single_dataset() -> None:
         ask_num_parameters,
         ask_parameter_names,
         ask_custom_formula,
+        ask_multiple_x_variables,
     )
 
     menu = _get_menu_window()
@@ -440,7 +513,26 @@ def multiple_fits_single_dataset() -> None:
             fitter_with_ui = _wrap_with_visualization(base_fit_function, display_name)
             
             _app_state.set_equation(equation_name, fitter_with_ui)
-            fitter_with_ui(data, x_name, y_name, plot_name)
+            
+            # If custom multidimensional, ask for independent variables before fitting
+            # (no need to go through plot name dialog - already selected on data load)
+            num_independent_vars = getattr(base_fit_function, 'num_independent_vars', 1)
+            fit_x_name: Union[str, List[str]] = x_name
+            if num_independent_vars > 1:
+                from loaders import get_variable_names
+                variable_names = get_variable_names(data)
+                x_names = ask_multiple_x_variables(
+                    parent_window=menu,
+                    variable_names=variable_names,
+                    num_vars=num_independent_vars,
+                    first_x_name=x_name
+                )
+                if not x_names:
+                    logger.info("User cancelled multiple x variables selection")
+                    continue
+                fit_x_name = x_names
+            
+            fitter_with_ui(data, fit_x_name, y_name, plot_name)
         
         # Ask if user wants to try another equation
         continue_testing = messagebox.askyesno(

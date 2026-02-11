@@ -7,6 +7,7 @@ from .data_selection import (
     ask_file_type,
     ask_file_name,
     ask_variables,
+    ask_multiple_x_variables,
     show_data_dialog,
 )
 from .equation import (
@@ -24,6 +25,7 @@ __all__ = [
     'ask_file_type',
     'ask_file_name',
     'ask_variables',
+    'ask_multiple_x_variables',
     'show_data_dialog',
     'ask_equation_type',
     'ask_num_parameters',

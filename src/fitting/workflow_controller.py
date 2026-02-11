@@ -99,7 +99,7 @@ def reload_data_by_type(file_path: str, file_type: str) -> pd.DataFrame:
 def single_fit_with_loop(
     fitter_function: Callable,
     data: pd.DataFrame,
-    x_name: str,
+    x_name: Union[str, List[str]],
     y_name: str,
     plot_name: str,
     data_file_path: str,
@@ -122,7 +122,7 @@ def single_fit_with_loop(
     Args:
         fitter_function: Fitting function to call (must accept data, x_name, y_name, plot_name)
         data: Initial dataset (pandas DataFrame)
-        x_name: X variable column name
+        x_name: X variable column name(s) - string for single variable, list for multiple
         y_name: Y variable column name
         plot_name: Plot name for window titles and filename
         data_file_path: Path to data file for reloading
@@ -535,7 +535,7 @@ def coordinate_custom_equation(
     
     Args:
         parent_window: Parent Tkinter window
-        ask_num_parameters_func: Function to ask for number of parameters
+        ask_num_parameters_func: Function to ask for number of parameters and independent variables
         ask_parameter_names_func: Function to ask for parameter names
         ask_custom_formula_func: Function to ask for custom formula
         
@@ -544,10 +544,12 @@ def coordinate_custom_equation(
     """
     from fitting.custom_function_evaluator import CustomFunctionEvaluator
     
-    # Frontend: Get number of parameters
-    num_param = ask_num_parameters_func(parent_window)
-    if num_param is None:
+    # Frontend: Get number of parameters and independent variables
+    result = ask_num_parameters_func(parent_window)
+    if result is None:
         return EXIT_SIGNAL, None
+    
+    num_param, num_independent_vars = result
 
     # Frontend: Get parameter names
     parameter_names = ask_parameter_names_func(parent_window, num_param)
@@ -561,17 +563,26 @@ def coordinate_custom_equation(
     ):
         return EXIT_SIGNAL, None
     
-    # Frontend: Get formula
-    custom_formula = ask_custom_formula_func(parent_window, parameter_names)
+    # Frontend: Get formula (pass num_independent_vars for appropriate hints)
+    custom_formula = ask_custom_formula_func(parent_window, parameter_names, num_independent_vars)
     
     # Check if user wants to exit (check both translated and internal values)
     if custom_formula in (EXIT_SIGNAL, 'exit', 'e', exit_option):
         return EXIT_SIGNAL, None
     
     # Backend: Create custom evaluator
-    evaluator = CustomFunctionEvaluator(custom_formula, parameter_names)
+    evaluator = CustomFunctionEvaluator(custom_formula, parameter_names, num_independent_vars)
+    
+    # Create a wrapper function that stores num_independent_vars as an attribute
+    # This allows us to access it later for determining plot type
+    def fit_wrapper(data: Any, x_name: Union[str, List[str]], y_name: str) -> Tuple[str, Any, str]:
+        """Wrapper for evaluator.fit that stores num_independent_vars."""
+        return evaluator.fit(data, x_name, y_name)
+    
+    # Store num_independent_vars as attribute on wrapper function
+    fit_wrapper.num_independent_vars = num_independent_vars  # type: ignore
     
     # Return backend function (fit only, no visualization)
-    # The evaluator.fit method returns (text, y_fitted, equation)
+    # The wrapper returns (text, y_fitted, equation)
     equation_id = f"custom: {custom_formula[:30]}..."
-    return equation_id, evaluator.fit
+    return equation_id, fit_wrapper

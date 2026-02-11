@@ -7,10 +7,11 @@ save fitted data plots with error bars, using configuration from config (fonts, 
 
 # Standard library
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Sequence, Union
+from typing import Any, Dict, List, Optional, Sequence, Tuple, Union
 
 # Third-party packages
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 
 # Local imports
@@ -282,6 +283,255 @@ def create_plot(
 
     except Exception as e:
         logger.error(f"Failed to create plot: {str(e)}", exc_info=True)
+        try:
+            plt.close('all')
+        except Exception:
+            pass
+        raise
+
+
+def create_residual_plot(
+    residuals: Sequence[float],
+    point_indices: Sequence[int],
+    fit_name: str,
+    plot_config: Optional[Dict[str, Any]] = None,
+    font_config: Optional[Dict[str, Any]] = None,
+    output_path: Optional[Union[str, Path]] = None,
+) -> str:
+    """
+    Create a residual plot for multidimensional fitting.
+    
+    Shows residuals (y - y_fitted) vs point index.
+    
+    Args:
+        residuals: Residual values (y - y_fitted) for each data point.
+        point_indices: Indices of data points (0, 1, 2, ...).
+        fit_name: Name of the fit for plot title.
+        plot_config: Optional plot configuration dict. Defaults to PLOT_CONFIG.
+        font_config: Optional font configuration dict. Defaults to FONT_CONFIG.
+        output_path: Optional full path to save the plot. If None, uses get_output_path(fit_name).
+    
+    Returns:
+        Path to the saved plot file (as string).
+    """
+    if output_path is not None:
+        output_path = Path(output_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        save_path = str(output_path)
+    else:
+        save_path = get_output_path(fit_name)
+    
+    try:
+        if plot_config is None:
+            plot_config = PLOT_CONFIG
+        if font_config is None:
+            font_config = FONT_CONFIG
+        
+        fontt, fonta = setup_fonts()
+        
+        fig, ax = plt.subplots(figsize=plot_config['figsize'])
+        
+        # Plot residuals
+        ax.scatter(
+            point_indices,
+            residuals,
+            color=plot_config.get('marker_face_color', 'crimson'),
+            s=plot_config.get('marker_size', 5) * 10,
+            alpha=0.7,
+            edgecolors=plot_config.get('marker_edge_color', 'darkred'),
+            linewidths=0.5,
+        )
+        
+        # Add horizontal line at y=0
+        ax.axhline(y=0, color='black', linestyle='--', linewidth=1, alpha=0.5)
+        
+        ax.set_xlabel('Point Index', fontproperties=fonta)
+        ax.set_ylabel('Residuals (y - y_fitted)', fontproperties=fonta)
+        ax.grid(True, alpha=0.3)
+        
+        if plot_config.get('show_title', False):
+            ax.set_title(f'{fit_name} - Residuals', fontproperties=fontt)
+        
+        ax.tick_params(axis='both', which='major', labelsize=font_config['tick_size'])
+        plt.tight_layout()
+        
+        plt.savefig(save_path, bbox_inches='tight', dpi=plot_config['dpi'])
+        if Path(save_path).suffix.lower() == '.pdf':
+            preview_path = Path(save_path).parent / (Path(save_path).stem + '_preview.png')
+            plt.savefig(
+                str(preview_path),
+                bbox_inches='tight',
+                dpi=plot_config['dpi'],
+                format='png',
+            )
+        plt.close(fig)
+        
+        logger.info(f"Residual plot saved: {save_path}")
+        return save_path
+        
+    except Exception as e:
+        logger.error(f"Failed to create residual plot: {str(e)}", exc_info=True)
+        try:
+            plt.close('all')
+        except Exception:
+            pass
+        raise
+
+
+def create_3d_plot(
+    x: Sequence[float],
+    y: Sequence[float],
+    z: Sequence[float],
+    z_fitted: Sequence[float],
+    fit_name: str,
+    x_name: str,
+    y_name: str,
+    z_name: str,
+    plot_config: Optional[Dict[str, Any]] = None,
+    font_config: Optional[Dict[str, Any]] = None,
+    output_path: Optional[Union[str, Path]] = None,
+    interactive: bool = False,
+) -> Union[str, Tuple[str, Any]]:
+    """
+    Create a 3D plot for fitting with two independent variables.
+    
+    Shows data points and fitted surface mesh.
+    
+    Args:
+        x: First independent variable data.
+        y: Second independent variable data.
+        z: Dependent variable data (observed).
+        z_fitted: Fitted z values.
+        fit_name: Name of the fit for plot title.
+        x_name: Label for x-axis.
+        y_name: Label for y-axis.
+        z_name: Label for z-axis.
+        plot_config: Optional plot configuration dict. Defaults to PLOT_CONFIG.
+        font_config: Optional font configuration dict. Defaults to FONT_CONFIG.
+        output_path: Optional full path to save the plot. If None, uses get_output_path(fit_name).
+        interactive: If True, return (save_path, figure) for embedding in a window (rotatable with mouse).
+    
+    Returns:
+        If interactive=False: path to the saved plot file (str).
+        If interactive=True: tuple (save_path, figure) for embedding.
+    """
+    if output_path is not None:
+        output_path = Path(output_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        save_path = str(output_path)
+    else:
+        save_path = get_output_path(fit_name)
+    
+    try:
+        if plot_config is None:
+            plot_config = PLOT_CONFIG
+        if font_config is None:
+            font_config = FONT_CONFIG
+        
+        fontt, fonta = setup_fonts()
+        fig = plt.figure(figsize=plot_config['figsize'])
+        ax = fig.add_subplot(111, projection='3d')
+        
+        # Convert to numpy arrays
+        x_arr = np.array(x)
+        y_arr = np.array(y)
+        z_arr = np.array(z)
+        z_fitted_arr = np.array(z_fitted)
+        
+        # Plot data points
+        ax.scatter(
+            x_arr,
+            y_arr,
+            z_arr,
+            c=plot_config.get('marker_face_color', 'crimson'),
+            s=plot_config.get('marker_size', 5) * 20,
+            alpha=0.8,
+            edgecolors=plot_config.get('marker_edge_color', 'darkred'),
+            linewidths=0.5,
+            label='Data points',
+        )
+        
+        # Create mesh for fitted surface
+        # Get unique x and y values and create a grid
+        x_unique = np.linspace(x_arr.min(), x_arr.max(), 20)
+        y_unique = np.linspace(y_arr.min(), y_arr.max(), 20)
+        X_mesh, Y_mesh = np.meshgrid(x_unique, y_unique)
+        
+        # Interpolate z_fitted values onto the mesh
+        # Use griddata; fall back to 'nearest' if 'linear' fails (e.g. coplanar points, Qhull)
+        Z_mesh = None
+        try:
+            from scipy.interpolate import griddata
+            from scipy.spatial import QhullError
+            try:
+                Z_mesh = griddata(
+                    (x_arr, y_arr),
+                    z_fitted_arr,
+                    (X_mesh, Y_mesh),
+                    method='linear',
+                    fill_value=np.nan
+                )
+            except (QhullError, ValueError) as e:
+                logger.debug("Linear interpolation failed (%s), using nearest neighbor", type(e).__name__)
+                Z_mesh = griddata(
+                    (x_arr, y_arr),
+                    z_fitted_arr,
+                    (X_mesh, Y_mesh),
+                    method='nearest',
+                    fill_value=np.nan
+                )
+        except ImportError:
+            pass
+        if Z_mesh is None:
+            logger.warning("scipy not available, using simple mesh for 3D plot")
+            Z_mesh = np.full_like(X_mesh, np.nan)
+            for i in range(X_mesh.shape[0]):
+                for j in range(X_mesh.shape[1]):
+                    dists = np.sqrt((x_arr - X_mesh[i, j])**2 + (y_arr - Y_mesh[i, j])**2)
+                    nearest_idx = np.argmin(dists)
+                    Z_mesh[i, j] = z_fitted_arr[nearest_idx]
+        
+        # Plot surface mesh with colors according to height (z)
+        surf = ax.plot_surface(
+            X_mesh,
+            Y_mesh,
+            Z_mesh,
+            cmap='viridis',
+            alpha=0.7,
+            linewidth=0,
+            antialiased=True,
+            shade=True,
+        )
+        fig.colorbar(surf, ax=ax, shrink=0.5, aspect=15, label=z_name)
+        
+        ax.set_xlabel(x_name, fontproperties=fonta)
+        ax.set_ylabel(y_name, fontproperties=fonta)
+        ax.set_zlabel(z_name, fontproperties=fonta)
+        
+        if plot_config.get('show_title', False):
+            ax.set_title(f'{fit_name}', fontproperties=fontt)
+        
+        ax.legend()
+        
+        plt.tight_layout()
+        if interactive:
+            logger.info(f"3D plot prepared: {save_path} (interactive, will save on close)")
+            return (save_path, fig)
+        plt.savefig(save_path, bbox_inches='tight', dpi=plot_config['dpi'])
+        if Path(save_path).suffix.lower() == '.pdf':
+            preview_path = Path(save_path).parent / (Path(save_path).stem + '_preview.png')
+            plt.savefig(
+                str(preview_path),
+                bbox_inches='tight',
+                dpi=plot_config['dpi'],
+                format='png',
+            )
+        plt.close(fig)
+        logger.info(f"3D plot saved: {save_path}")
+        return save_path
+        
+    except Exception as e:
+        logger.error(f"Failed to create 3D plot: {str(e)}", exc_info=True)
         try:
             plt.close('all')
         except Exception:

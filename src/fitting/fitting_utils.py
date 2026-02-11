@@ -7,7 +7,7 @@ with the fitting_functions package (initial guesses, bounds, fit execution).
 
 # Standard library
 from decimal import Decimal
-from typing import Any, Callable, List, Optional, Sequence, Tuple
+from typing import Any, Callable, List, Optional, Sequence, Tuple, Union
 
 # Numerical library
 import numpy as np
@@ -72,7 +72,7 @@ def format_parameter(value: float, sigma: float) -> Tuple[float, str]:
 
 def generic_fit(
     data: Any,
-    x_name: str,
+    x_name: Union[str, List[str]],
     y_name: str,
     fit_func: Callable[..., Any],
     param_names: List[str],
@@ -89,7 +89,9 @@ def generic_fit(
     
     Args:
         data: Data dictionary containing x, y and their uncertainties
-        x_name: Name of the x variable
+        x_name: Name(s) of the x variable(s)
+            - For single variable: string (e.g., "x")
+            - For multiple variables: list of strings (e.g., ["x_0", "x_1"])
         y_name: Name of the y variable
         fit_func: Function to fit (e.g., linear_function_with_n, sin_function, etc.)
         param_names: List of parameter names (e.g., ['m', 'n'] or ['a', 'b', 'c'])
@@ -114,23 +116,44 @@ def generic_fit(
     from scipy.optimize import curve_fit
     from utils import validate_fitting_data
 
-    logger.info(t('log.starting_generic_fit', x=x_name, y=y_name, params=str(param_names)))
+    # Handle multiple x variables
+    if isinstance(x_name, list):
+        x_names = x_name
+        num_indep = len(x_names)
+    else:
+        x_names = [x_name]
+        num_indep = 1
+    
+    logger.info(t('log.starting_generic_fit', x=str(x_names), y=y_name, params=str(param_names)))
 
     if equation_template is None:
         raise FittingError("Equation format template is missing in config (equations.yaml 'format' key).")
 
-    # Validate fitting data
+    # Validate fitting data (for first x variable and y)
     try:
-        validate_fitting_data(data, x_name, y_name)
+        validate_fitting_data(data, x_names[0], y_name)
+        # Validate additional x variables if present
+        for x_n in x_names[1:]:
+            if x_n not in data.columns:
+                raise FittingError(f"Independent variable '{x_n}' not found in data")
     except Exception as e:
         logger.error(t('log.data_validation_failed', error=str(e)))
         raise FittingError(t('error.data_validation_failed', error=str(e)))
     
     # Extract data
-    x = data[x_name]
-    ux = data['u%s' % x_name]
+    if num_indep == 1:
+        # Single variable: use as before
+        x = data[x_names[0]]
+        ux = data.get('u%s' % x_names[0], np.zeros_like(x))
+    else:
+        # Multiple variables: combine into 2D array
+        x_arrays = [data[x_n].values for x_n in x_names]
+        x = np.column_stack(x_arrays)
+        # For uncertainties, use first x's uncertainty or zeros
+        ux = data.get('u%s' % x_names[0], np.zeros(len(x)))
+    
     y = data[y_name]
-    uy = data['u%s' % y_name]
+    uy = data.get('u%s' % y_name, np.zeros_like(y))
     
     logger.debug(t('log.data_points_info', 
                    points=len(x), 

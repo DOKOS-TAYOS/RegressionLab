@@ -653,8 +653,10 @@ def apply_hover_to_children(parent: Any) -> None:
     Bind hover highlight effects to ttk widgets under parent.
 
     Recursively applies hover effects (style changes on mouse enter/leave)
-    to ttk Entry, Combobox, Checkbutton, and Radiobutton widgets within
-    the parent widget hierarchy.
+    to ttk Entry and Combobox widgets within the parent widget hierarchy.
+
+    TCheckbutton and TRadiobutton are excluded to avoid text size/layout
+    shifts when hovering over options.
 
     Args:
         parent: Parent Tkinter widget to recursively search for children widgets.
@@ -662,7 +664,7 @@ def apply_hover_to_children(parent: Any) -> None:
     for w in parent.winfo_children():
         apply_hover_to_children(w)
         cls = w.winfo_class()
-        if cls not in ('TEntry', 'TCombobox', 'TCheckbutton', 'TRadiobutton'):
+        if cls not in ('TEntry', 'TCombobox'):
             continue
         hover_style = cls + '.Hover'
         normal_style = w.cget('style') or cls

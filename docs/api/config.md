@@ -20,7 +20,7 @@ Usage remains the same: import from `config` (e.g. `from config import PLOT_CONF
 ### Application Metadata
 
 ```python
-__version__ = "0.9.1"
+__version__ = "0.9.2"
 __author__ = "Alejandro Mata Ali"
 __email__ = "alejandro.mata.ali@gmail.com"
 ```
