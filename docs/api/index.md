@@ -218,7 +218,7 @@ Quick summary:
 ### Adding a New Data Format
 
 1. Create reader function in `loaders/loading_utils.py`
-2. Register it in the `_READERS` dict in `loaders/data_loader.py` (key = file type, value = reader function)
+2. Register it in the `FILE_TYPE_READERS` dict in `loaders/data_loader.py` (key = file type, value = reader function)
 3. Add file type option to `ask_file_type()` in `frontend/ui_dialogs/data_selection.py`
 4. Test with sample data
 

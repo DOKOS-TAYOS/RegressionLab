@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Hover**: Minor hover bug fixed.
 
+### Changed
+
+- **General**: Significant code optimizations across loaders, paths, and fitting modules.
+- **Loaders**: Reader registry renamed from `_READERS` to `FILE_TYPE_READERS` and exported from `loaders` for reuse.
+- **Paths**: `get_output_path` now uses `pathlib` consistently instead of `os.path`.
+- **Fitting**: Simplified `format_parameter` logic; moved `find_peaks` import to module level in estimators.
+
 ### Added
 
 - **Multidimensional fitting**: Support for multidimensional regression. With 2 independent variables, an interactive 3D plot is shown; with more than 2 independent variables, a residuals plot is displayed.

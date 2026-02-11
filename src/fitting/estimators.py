@@ -12,6 +12,7 @@ from typing import Any, List, Tuple
 
 # Numerical library
 import numpy as np
+from scipy.signal import find_peaks
 
 # Local imports
 from i18n import t
@@ -42,8 +43,6 @@ def estimate_trigonometric_parameters(x: Any, y: Any) -> Tuple[float, float]:
     Returns:
         Tuple (amplitude, frequency).
     """
-    from scipy.signal import find_peaks
-
     x = np.asarray(x, dtype=float)
     y = np.asarray(y, dtype=float)
     y_centered = y - np.mean(y)

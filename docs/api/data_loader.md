@@ -153,7 +153,7 @@ print(csv_list)  # ['data1', 'data2']
 
 ## Supported File Formats
 
-File type dispatch is done via a module-level reader registry (`_READERS`): each key is a file type (`'csv'`, `'xlsx'`, `'txt'`) and the value is the corresponding reader from `loading_utils`. To add a new format, implement the reader and register it in `_READERS`.
+File type dispatch is done via a module-level reader registry (`FILE_TYPE_READERS`): each key is a file type (`'csv'`, `'xlsx'`, `'txt'`) and the value is the corresponding reader from `loading_utils`. To add a new format, implement the reader and register it in `FILE_TYPE_READERS`.
 
 ### CSV Files
 

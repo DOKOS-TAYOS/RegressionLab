@@ -39,13 +39,8 @@ def format_parameter(value: float, sigma: float) -> Tuple[float, str]:
         >>> format_parameter(1.234567, 0.0123)
         (1.23, '1.2E-02')
     """
-    # Check if sigma is infinite or NaN
     if not np.isfinite(sigma):
-        if np.isinf(sigma):
-            # Use infinity symbol instead of INF
-            return round(value, 6), '∞'
-        else:  # NaN
-            return round(value, 6), 'NaN'
+        return round(value, 6), '∞' if np.isinf(sigma) else 'NaN'
     
     try:
         sigma_str = '%.1E' % Decimal(sigma)

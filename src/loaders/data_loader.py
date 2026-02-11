@@ -16,7 +16,7 @@ All functions are UI-independent and can be used in both GUI and CLI contexts.
 """
 
 # Standard library
-from typing import List, Optional, Tuple
+from typing import Callable, List, Optional, Tuple
 
 # Third-party packages
 import pandas as pd
@@ -61,8 +61,8 @@ def _prepare_data_path(
     return str(data_path)
 
 
-# Reader dispatch by file type (used by load_data)
-_READERS = {
+# Reader dispatch by file type (used by load_data and workflow_controller)
+FILE_TYPE_READERS: dict[str, Callable[[str], pd.DataFrame]] = {
     'csv': csv_reader,
     'xlsx': excel_reader,
     'txt': txt_reader,
@@ -89,7 +89,7 @@ def load_data(file_path: str, file_type: str) -> pd.DataFrame:
     validate_file_type(file_type)
 
     try:
-        return _READERS[file_type](file_path)
+        return FILE_TYPE_READERS[file_type](file_path)
     except Exception as e:
         logger.error(f"Failed to load data from {file_path}: {str(e)}", exc_info=True)
         raise

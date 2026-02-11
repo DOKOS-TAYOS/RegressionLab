@@ -1,6 +1,5 @@
 """File paths and output directory configuration."""
 
-import os
 from pathlib import Path
 from typing import Optional
 
@@ -114,7 +113,6 @@ def get_output_path(fit_name: str, output_dir: Optional[str] = None) -> str:
         output_dir = FILE_CONFIG['output_dir']
     output_path = ensure_output_directory(output_dir)
     filename = FILE_CONFIG['filename_template'].format(fit_name)
-    base, _ = os.path.splitext(filename)
+    base = Path(filename).stem
     fmt = FILE_CONFIG['plot_format']
-    filename = f"{base}.{fmt}"
-    return os.path.join(output_path, filename)
+    return str(Path(output_path) / f"{base}.{fmt}")

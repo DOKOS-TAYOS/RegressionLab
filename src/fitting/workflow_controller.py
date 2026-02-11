@@ -13,14 +13,12 @@ import pandas as pd
 from config import EXIT_SIGNAL
 from i18n import t
 from loaders import (
+    FILE_TYPE_READERS,
     get_file_list_by_type,
     get_variable_names,
     load_data_workflow,
-    csv_reader,
-    excel_reader,
     get_file_names,
-    txt_reader
-    )
+)
 
 from utils import DataLoadError, get_logger
 
@@ -73,13 +71,8 @@ def reload_data_by_type(file_path: str, file_type: str) -> pd.DataFrame:
     """
     logger.info(t('log.reloading_data', path=file_path, type=file_type))
 
-    _READERS: Dict[str, Callable[[str], pd.DataFrame]] = {
-        'csv': csv_reader,
-        'xlsx': excel_reader,
-        'txt': txt_reader,
-    }
     try:
-        reader = _READERS.get(file_type)
+        reader = FILE_TYPE_READERS.get(file_type)
         if reader is None:
             logger.error(t('log.unsupported_file_type', file_type=file_type))
             raise DataLoadError(t('error.unsupported_file_type', file_type=file_type))
