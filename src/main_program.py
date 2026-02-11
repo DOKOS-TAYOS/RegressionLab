@@ -151,8 +151,13 @@ def _wrap_with_visualization(base_fit_function: Callable, fit_name: str) -> Call
         """Execute fitting and display results."""
         try:
             # Backend: Perform the fitting calculation
-            # Returns: parameter text, fitted y values, formatted equation
-            text, y_fitted, equation = base_fit_function(data, x_name, y_name)
+            # Returns: parameter text, fitted y values, formatted equation, fit_info (for prediction)
+            result = base_fit_function(data, x_name, y_name)
+            if len(result) == 4:
+                text, y_fitted, equation, fit_info = result
+            else:
+                text, y_fitted, equation = result
+                fit_info = None
             
             # Check if this is a multidimensional fit
             num_indep = getattr(base_fit_function, 'num_independent_vars', 1)
@@ -196,7 +201,11 @@ def _wrap_with_visualization(base_fit_function: Callable, fit_name: str) -> Call
             
             # Display the results in a Tkinter window
             window_title = plot_name if plot_name else fit_name
-            create_result_window(window_title, text, equation, output_path, figure_3d=figure_3d)
+            create_result_window(
+                window_title, text, equation, output_path,
+                figure_3d=figure_3d,
+                fit_info=fit_info,
+            )
         except FittingError as e:
             # Show error message when fitting fails due to scipy convergence issues
             messagebox.showerror(

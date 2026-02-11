@@ -103,7 +103,7 @@ class TestGenericFit:
     
     def test_linear_fit(self, test_data: pd.DataFrame) -> None:
         """Test generic fit with linear function."""
-        text, y_fitted, equation = generic_fit(
+        text, y_fitted, equation, fit_info = generic_fit(
             test_data,
             'x',
             'y',
@@ -116,10 +116,15 @@ class TestGenericFit:
         assert isinstance(equation, str)
         assert 'm=' in text
         assert 'R²=' in text
+        assert fit_info is not None
+        assert 'fit_func' in fit_info
+        assert 'params' in fit_info
+        assert 'cov' in fit_info
+        assert 'x_names' in fit_info
     
     def test_fit_with_initial_guess(self, test_data: pd.DataFrame) -> None:
         """Test generic fit with initial parameter guess."""
-        text, y_fitted, equation = generic_fit(
+        text, y_fitted, equation, _ = generic_fit(
             test_data,
             'x',
             'y',

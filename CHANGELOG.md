@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Multidimensional fitting**: Support for multidimensional regression. With 2 independent variables, an interactive 3D plot is shown; with more than 2 independent variables, a residuals plot is displayed.
-- **Predictions window**: New window to obtain predicted values from the fitted function (evaluate the fit at arbitrary inputs).
+- **Predictions window**: New "Prediction" button in the result window opens a dialog to evaluate the fitted function at user-specified inputs. Supports one or more independent variables; displays the predicted value and propagates parameter uncertainty when available. Works for single/multiple datasets, multiple equations, and "all equations" mode.
 
 ---
 

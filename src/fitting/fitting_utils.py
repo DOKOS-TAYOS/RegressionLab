@@ -80,7 +80,7 @@ def generic_fit(
     initial_guess: Optional[List[float]] = None,
     bounds: Optional[Tuple[Sequence[float], Sequence[float]]] = None,
     equation_formula: Optional[str] = None,
-) -> Tuple[str, Any, str]:
+) -> Tuple[str, Any, str, Optional[dict]]:
     """
     Generic fitting function that performs curve fitting with any function.
     
@@ -103,10 +103,11 @@ def generic_fit(
             used for custom fits; predefined fits use EQUATIONS config lookup.
     
     Returns:
-        Tuple of (text, y_fitted, equation):
+        Tuple of (text, y_fitted, equation, fit_info):
             - text: Formatted text with parameters, uncertainties, R² and statistics
             - y_fitted: Array with fitted y values
             - equation: Original formula (if known), newline, and formatted equation with parameter values
+            - fit_info: Dict with 'fit_func', 'params', 'cov', 'x_names' for prediction; None if unavailable
             
     Raises:
         FittingError: If fitting fails or data is invalid
@@ -331,7 +332,13 @@ def generic_fit(
     else:
         equation_str = formatted_equation
 
-    return text, y_fitted, equation_str
+    fit_info: Optional[dict] = {
+        'fit_func': fit_func,
+        'params': params,
+        'cov': final_fit[1],
+        'x_names': x_names,
+    }
+    return text, y_fitted, equation_str, fit_info
 
 
 def get_equation_param_info(

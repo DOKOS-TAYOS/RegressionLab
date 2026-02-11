@@ -74,7 +74,13 @@
     "download": "Descargar",
     "plot_preview_unavailable": "Vista previa no disponible. Use Descargar para ver.",
     "plot_pdf_preview_caption": "Gráfica guardada como PDF. Vista previa arriba; use Descargar para obtener el PDF.",
-    "donations": "Si quieres, apoya al canal"
+    "donations": "Si quieres, apoya al canal",
+    "prediction": "Predicción",
+    "prediction_title": "Predicción",
+    "prediction_result_placeholder": "Introduzca valores arriba",
+    "prediction_result": "y = {y}",
+    "prediction_result_with_uncertainty": "y = {y} ± {uy}",
+    "prediction_invalid_input": "Entrada inválida"
   },
   "workflow": {
     "loop_question": "¿Quiere ajuste en bucle?",

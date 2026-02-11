@@ -74,7 +74,13 @@
     "download": "Herunterladen",
     "plot_preview_unavailable": "Vorschau nicht verfügbar. Zum Anzeigen herunterladen.",
     "plot_pdf_preview_caption": "Diagramm als PDF gespeichert. Vorschau oben; zum PDF Herunterladen verwenden.",
-    "donations": "Wenn du möchtest, unterstütze das Projekt"
+    "donations": "Wenn du möchtest, unterstütze das Projekt",
+    "prediction": "Vorhersage",
+    "prediction_title": "Vorhersage",
+    "prediction_result_placeholder": "Werte oben eingeben",
+    "prediction_result": "y = {y}",
+    "prediction_result_with_uncertainty": "y = {y} ± {uy}",
+    "prediction_invalid_input": "Ungültige Eingabe"
   },
   "workflow": {
     "loop_question": "Möchten Sie eine Schleifen-Anpassung?",

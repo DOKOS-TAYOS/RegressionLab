@@ -74,7 +74,13 @@
     "download": "Download",
     "plot_preview_unavailable": "Preview not available. Use Download to view.",
     "plot_pdf_preview_caption": "Plot saved as PDF. Preview above; use Download to get the PDF.",
-    "donations": "If you wish, support the project"
+    "donations": "If you wish, support the project",
+    "prediction": "Prediction",
+    "prediction_title": "Prediction",
+    "prediction_result_placeholder": "Enter values above",
+    "prediction_result": "y = {y}",
+    "prediction_result_with_uncertainty": "y = {y} ± {uy}",
+    "prediction_invalid_input": "Invalid input"
   },
   "workflow": {
     "loop_question": "Do you want loop fitting?",
