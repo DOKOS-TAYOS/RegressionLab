@@ -15,6 +15,7 @@ from config import EQUATIONS, EXIT_SIGNAL, UI_STYLE, SPINBOX_STYLE, apply_hover_
 from i18n import t
 from utils import parse_optional_float
 
+from frontend.keyboard_nav import bind_enter_to_accept, setup_arrow_enter_navigation
 from frontend.ui_dialogs.tooltip import bind_tooltip
 
 
@@ -248,6 +249,16 @@ def ask_equation_type(
     equation_level.custom.grid(column=0, row=_last_row, columnspan=3, padx=_pad, pady=_pad)
     equation_level.accept_button.grid(column=2, row=_last_row + 1, padx=_pad, pady=_pad)
 
+    # Arrow keys + Enter navigation: 3-column grid of equation buttons, then custom, then accept
+    eq_buttons = [getattr(equation_level, name) for name in equation_keys]
+    nav_rows: List[List[Any]] = []
+    for i in range(0, len(eq_buttons), 3):
+        row = eq_buttons[i : i + 3] + [None] * (3 - min(3, len(eq_buttons) - i))
+        nav_rows.append(row[:3])
+    nav_rows.append([equation_level.custom, None, None])
+    nav_rows.append([None, None, equation_level.accept_button])
+    setup_arrow_enter_navigation(nav_rows)
+
     apply_hover_to_children(equation_level.frame_custom)
     equation_level.linear_function_with_n.focus_set()
     parent_window.wait_window(equation_level)
@@ -305,6 +316,7 @@ def ask_num_parameters(parent_window: Any) -> Optional[int]:
     num_parameter_level.num.grid(column=1, row=0, padx=_pad, pady=_pad)
     num_parameter_level.accept_button.grid(column=1, row=1, padx=_pad, pady=_pad)
 
+    bind_enter_to_accept([num_parameter_level.num], num_parameter_level.destroy)
     num_parameter_level.num.focus_set()
     num_parameter_level.resizable(False, False)
     parent_window.wait_window(num_parameter_level)
@@ -385,6 +397,7 @@ def ask_parameter_names(parent_window: Any, num_params: int) -> List[str]:
         parameter_asker_leve.name_entry.grid(column=1, row=1, padx=_pad, pady=_pad)
         parameter_asker_leve.accept_button.grid(column=1, row=2, padx=_pad, pady=_pad)
 
+        bind_enter_to_accept([parameter_asker_leve.name_entry], parameter_asker_leve.destroy)
         apply_hover_to_children(parameter_asker_leve.frame_custom)
         parameter_asker_leve.name_entry.focus_set()
         parent_window.wait_window(parameter_asker_leve)
@@ -499,6 +512,7 @@ def ask_custom_formula(parent_window: Any, parameter_names: List[str]) -> str:
     formulator_level.name_entry.grid(column=1, row=3, padx=_pad, pady=_pad)
     formulator_level.accept_button.grid(column=1, row=4, padx=_pad, pady=_pad)
 
+    bind_enter_to_accept([formulator_level.name_entry], formulator_level.destroy)
     apply_hover_to_children(formulator_level.frame_custom)
     formulator_level.name_entry.focus_set()
     formulator_level.resizable(False, False)
@@ -559,6 +573,7 @@ def ask_num_fits(parent_window: Any, min_val: int = 2, max_val: int = 10) -> Opt
     number_fits_level.num_x.grid(column=1, row=0, padx=_pad, pady=_pad)
     number_fits_level.accept_button.grid(column=1, row=1, padx=_pad, pady=_pad)
 
+    bind_enter_to_accept([number_fits_level.num_x], number_fits_level.destroy)
     number_fits_level.num_x.focus_set()
     number_fits_level.resizable(False, False)
     parent_window.wait_window(number_fits_level)

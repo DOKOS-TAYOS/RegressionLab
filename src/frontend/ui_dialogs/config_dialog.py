@@ -72,10 +72,9 @@ def show_config_dialog(parent_window: Any) -> bool:
         True if user accepted and .env was written (caller should restart).
         False if user cancelled.
     """
-    config_level = Toplevel(parent_window)
+    config_level = Toplevel()
     config_level.title(t('config.title'))
     config_level.configure(background=UI_STYLE['bg'])
-    config_level.transient(parent_window)
     config_level.grab_set()
 
     current = get_current_env_values()
@@ -362,6 +361,18 @@ def show_config_dialog(parent_window: Any) -> bool:
     config_level.update_idletasks()
     _update_config_wraplength()
 
+    def _focus_first_focusable(widget: Any) -> bool:
+        """Set focus to the first focusable child; return True if found."""
+        c = widget.winfo_class()
+        if c in ('Entry', 'TEntry', 'TCombobox', 'TCheckbutton', 'TRadiobutton', 'TButton', 'Button'):
+            widget.focus_set()
+            return True
+        for child in widget.winfo_children():
+            if _focus_first_focusable(child):
+                return True
+        return False
+
+    config_level.after(50, lambda: _focus_first_focusable(config_level))
     config_level.protocol('WM_DELETE_WINDOW', on_cancel)
     parent_window.wait_window(config_level)
     return result_var[0]

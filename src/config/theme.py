@@ -394,13 +394,24 @@ def configure_ttk_styles(root: Any) -> None:
     pad = (UI_STYLE['padding'], UI_STYLE['padding'])
     btn_common = {'font': font_normal, 'padding': pad, 'lightcolor': btn_light, 'darkcolor': btn_dark}
 
+    # Focus highlight: same as active so keyboard-focused control is clearly visible
+    focus_bg = UI_STYLE['active_bg']
+
     def _btn_style(name: str, fg_color: str) -> None:
         active_fg = _lighten_fg(fg_color)
         style.configure(name, background=btn_bg, foreground=fg_color, **btn_common)
         style.map(
             name,
-            background=[('active', UI_STYLE['active_bg']), ('pressed', UI_STYLE['active_bg'])],
-            foreground=[('active', active_fg), ('pressed', active_fg)],
+            background=[
+                ('active', focus_bg),
+                ('pressed', focus_bg),
+                ('focus', focus_bg),
+            ],
+            foreground=[
+                ('active', active_fg),
+                ('pressed', active_fg),
+                ('focus', active_fg),
+            ],
             lightcolor=[('pressed', btn_dark)],
             darkcolor=[('pressed', btn_light)],
         )
@@ -462,15 +473,31 @@ def configure_ttk_styles(root: Any) -> None:
         arrowcolor=[('focus', fg), ('readonly', fg)],
     )
 
-    # Radiobutton and Checkbutton: same font and hover
+    # Radiobutton and Checkbutton: same font, hover and focus so current option is visible
     style.configure('TRadiobutton', background=bg, foreground=fg, font=font_normal)
     style.configure('TRadiobutton.Hover', background=hover_bg, foreground=fg, font=font_normal)
-    style.map('TRadiobutton', background=[('active', bg)], foreground=[('active', fg)])
-    style.map('TRadiobutton.Hover', background=[('active', hover_bg)], foreground=[('active', fg)])
+    style.map(
+        'TRadiobutton',
+        background=[('active', bg), ('focus', hover_bg)],
+        foreground=[('active', fg), ('focus', fg)],
+    )
+    style.map(
+        'TRadiobutton.Hover',
+        background=[('active', hover_bg), ('focus', hover_bg)],
+        foreground=[('active', fg), ('focus', fg)],
+    )
     style.configure('TCheckbutton', background=bg, foreground=fg, font=font_normal)
     style.configure('TCheckbutton.Hover', background=hover_bg, foreground=fg, font=font_normal)
-    style.map('TCheckbutton', background=[('active', bg)], foreground=[('active', fg)])
-    style.map('TCheckbutton.Hover', background=[('active', hover_bg)], foreground=[('active', fg)])
+    style.map(
+        'TCheckbutton',
+        background=[('active', bg), ('focus', hover_bg)],
+        foreground=[('active', fg), ('focus', fg)],
+    )
+    style.map(
+        'TCheckbutton.Hover',
+        background=[('active', hover_bg), ('focus', hover_bg)],
+        foreground=[('active', fg), ('focus', fg)],
+    )
 
     # Scrollbars
     style.configure('Vertical.TScrollbar', background=bg, troughcolor=bg, arrowcolor=fg)

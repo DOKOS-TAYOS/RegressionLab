@@ -6,6 +6,7 @@ from typing import Any, List, Tuple
 from tkinter import Tk, Toplevel, Frame, Canvas, StringVar, ttk
 
 from config import DONATIONS_URL, UI_STYLE, apply_hover_to_children
+from frontend.keyboard_nav import bind_enter_to_accept
 from i18n import t
 
 
@@ -99,11 +100,11 @@ def show_help_dialog(parent_window: Tk | Toplevel) -> None:
     Returns:
         None.
     """
-    help_level = Toplevel(parent_window)
+    help_level = Toplevel()
     help_level.title(t('dialog.help_title'))
     help_level.configure(background=UI_STYLE['bg'])
-    help_level.transient(parent_window)
     help_level.grab_set()
+    help_level.protocol("WM_DELETE_WINDOW", help_level.destroy)
 
     screen_width = help_level.winfo_screenwidth()
     screen_height = help_level.winfo_screenheight()
@@ -288,6 +289,24 @@ def show_help_dialog(parent_window: Tk | Toplevel) -> None:
 
     inner.columnconfigure(0, weight=1)
     _bind_mousewheel_recursive(inner)
+
+    def _on_arrow_scroll(event: Any) -> str:
+        if event.keysym == 'Up':
+            canvas.yview_scroll(-3, 'units')
+        elif event.keysym == 'Down':
+            canvas.yview_scroll(3, 'units')
+        return 'break'
+
+    def _bind_arrow_scroll_recursive(widget: Any) -> None:
+        widget.bind('<Up>', _on_arrow_scroll)
+        widget.bind('<Down>', _on_arrow_scroll)
+        for child in widget.winfo_children():
+            _bind_arrow_scroll_recursive(child)
+
+    canvas.bind('<Up>', _on_arrow_scroll)
+    canvas.bind('<Down>', _on_arrow_scroll)
+    _bind_arrow_scroll_recursive(inner)
+
     apply_hover_to_children(inner)
 
     def _update_help_wraplength(_e: Any = None) -> None:
@@ -321,6 +340,9 @@ def show_help_dialog(parent_window: Tk | Toplevel) -> None:
     )
     accept_button.pack(side='left')
 
+    bind_enter_to_accept([accept_button], help_level.destroy)
+    help_level.bind("<Return>", lambda e: help_level.destroy())
+    help_level.bind("<KP_Enter>", lambda e: help_level.destroy())
     accept_button.focus_set()
     help_level.update_idletasks()
     _update_help_wraplength()

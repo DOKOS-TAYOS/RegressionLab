@@ -131,6 +131,13 @@ def create_result_window(
         in_=plot_level.middle_frame, side='left', padx=_pad, pady=_pad
     )
     plot_level.accept_button.pack(padx=_pad, pady=_pad)
+
+    for w in (plot_level.equation_text, plot_level.label_parameters, plot_level.accept_button):
+        w.bind("<Return>", lambda e: _on_close())
+        w.bind("<KP_Enter>", lambda e: _on_close())
+    plot_level.bind("<Return>", lambda e: _on_close())
+    plot_level.bind("<KP_Enter>", lambda e: _on_close())
+
     plot_level.accept_button.focus_set()
     plot_level.protocol("WM_DELETE_WINDOW", _on_close)
     plot_level.resizable(False, False)

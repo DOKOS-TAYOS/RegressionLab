@@ -4,6 +4,7 @@ from typing import Any, List, Tuple
 from tkinter import Tk, Toplevel, StringVar, Text, ttk
 
 from config import DATA_FILE_TYPES, EXIT_SIGNAL, UI_STYLE, apply_hover_to_children, get_entry_font
+from frontend.keyboard_nav import bind_enter_to_accept, setup_arrow_enter_navigation
 from i18n import t
 
 # Max size for pair-plot image window so it does not resize the desktop
@@ -76,6 +77,16 @@ def ask_file_type(parent_window: Any) -> str:
         column=0, row=2, padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
     )
 
+    def _file_type_on_enter(widget: Any, _event: Any) -> bool:
+        if widget in call_file_level.radiobuttons:
+            widget.invoke()
+            return True
+        return False
+
+    setup_arrow_enter_navigation(
+        [[rb] for rb in call_file_level.radiobuttons] + [[call_file_level.accept_button]],
+        on_enter=_file_type_on_enter,
+    )
     apply_hover_to_children(call_file_level.frame)
     call_file_level.radiobuttons[0].focus_set()
     call_file_level.resizable(False, False)
@@ -147,6 +158,7 @@ def ask_file_name(parent_window: Any, file_list: List[str]) -> str:
         padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
     )
 
+    bind_enter_to_accept([call_data_level.name_entry], call_data_level.destroy)
     apply_hover_to_children(call_data_level.frame_custom)
     call_data_level.name_entry.focus_set()
     call_data_level.resizable(False, False)
@@ -283,8 +295,12 @@ def ask_variables(parent_window: Any, variable_names: List[str]) -> Tuple[str, s
         column=1, row=4, padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
     )
 
+    bind_enter_to_accept(
+        [call_var_level.x_nom, call_var_level.y_nom, call_var_level.graf_nom],
+        call_var_level.destroy,
+    )
     apply_hover_to_children(call_var_level.frame_custom)
-    call_var_level.x_nom.focus_set()
+    call_var_level.graf_nom.focus_set()
     call_var_level.resizable(False, False)
     parent_window.wait_window(call_var_level)
 
@@ -326,13 +342,19 @@ def _show_image_toplevel(parent: Tk | Toplevel, image_path: str, title: str) -> 
     label = ttk.Label(win, image=photo)
     label.image = photo
     label.pack(padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    ttk.Button(
+    close_btn = ttk.Button(
         win,
         text=t('dialog.accept'),
         command=_on_close,
         style='Primary.TButton',
         width=UI_STYLE['button_width'],
-    ).pack(padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
+    )
+    close_btn.pack(padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
+    close_btn.focus_set()
+    close_btn.bind("<Return>", lambda e: _on_close())
+    close_btn.bind("<KP_Enter>", lambda e: _on_close())
+    win.bind("<Return>", lambda e: _on_close())
+    win.bind("<KP_Enter>", lambda e: _on_close())
     win.protocol("WM_DELETE_WINDOW", _on_close)
 
 
@@ -423,6 +445,9 @@ def show_data_dialog(parent_window: Tk | Toplevel, data: Any) -> None:
         width=UI_STYLE['button_width'],
     )
     watch_data_level.accept_button.pack(padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
+
+    text_widget.bind("<Return>", lambda e: watch_data_level.destroy())
+    text_widget.bind("<KP_Enter>", lambda e: watch_data_level.destroy())
 
     watch_data_level.accept_button.focus_set()
     parent_window.wait_window(watch_data_level)

@@ -19,6 +19,7 @@ from config import (
     __version__,
     configure_ttk_styles,
 )
+from frontend.keyboard_nav import setup_arrow_enter_navigation
 from frontend.ui_dialogs.tooltip import bind_tooltip
 from i18n import t
 
@@ -187,9 +188,15 @@ def create_main_menu(
     current_row += 1
     config_button.grid(column=0, row=current_row, padx=_pad, pady=_pad)
     exit_button.grid(column=1, row=current_row, padx=_pad, pady=_pad)
-    
+
+    setup_arrow_enter_navigation([
+        [normal_fitting_button, multiple_datasets_button],
+        [multiple_fits_button, all_fits_button],
+        [help_button, view_data_button],
+        [config_button, exit_button],
+    ])
     normal_fitting_button.focus_set()
-    
+
     return menu
 
 
@@ -238,9 +245,9 @@ def show_exit_confirmation(parent_menu: Tk) -> None:
     message.pack(side=TOP, padx=5, pady=UI_STYLE['padding'])
     close_button.pack(side=LEFT, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
     abort_button.pack(side=RIGHT, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
-    
+
+    setup_arrow_enter_navigation([[close_button, abort_button]])
     close_button.focus_set()
-    exit_level.transient(master=parent_menu)
     # Closing with X = cancel exit (same as "No")
     exit_level.protocol("WM_DELETE_WINDOW", exit_level.destroy)
     parent_menu.wait_window(exit_level)
