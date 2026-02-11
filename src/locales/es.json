@@ -16,6 +16,7 @@
     "no": "No",
     "language_english": "English 🇬🇧",
     "language_spanish": "Español 🇪🇸",
+    "language_german": "Deutsch 🇩🇪",
     "tooltip_normal_fitting": "Ajustar una ecuación a un conjunto de datos.",
     "tooltip_multiple_datasets": "Ajustar la misma ecuación a varios conjuntos de datos.",
     "tooltip_checker_fitting": "Probar varias ecuaciones sobre el mismo conjunto de datos.",

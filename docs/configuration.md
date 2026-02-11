@@ -1,20 +1,20 @@
 # Configuration Guide
 
-RegressionLab is highly customizable through the `.env` configuration file. This guide explains all available configuration options and how to modify them.
+RegressionLab is highly customizable through a single `.env` file. This guide describes every option, where it applies (desktop, web, or both), and how to change it safely.
 
 ## Getting Started with Configuration
 
 ### Configuring from Tkinter (Desktop App)
 
-If you use the **Tkinter desktop application**, you can change settings without editing files manually: from the main menu, click **Configure** (or **Configurar** in Spanish). A configuration dialog opens with **collapsible sections** for:
+If you use the **Tkinter desktop application**, you can change settings without editing files: from the main menu, click **Configure** (or **Configurar** in Spanish). A configuration dialog opens with **collapsible sections**:
 
-- **Language**: Application language (es, en, de).
-- **UI**: Background/foreground colors, button colors (normal, cancel, accent), padding, button width, font family/size, spinbox/entry widths, data-preview selection color.
-- **Plot**: Figure size, DPI, title on/off, line/marker style and colors.
-- **Font**: Plot font family, title/axis/tick size and style.
-- **Paths**: Input/output directories, filename template, plot format (PNG, JPG, PDF).
-- **Links**: Donations URL (optional).
-- **Logging**: Log level, log file path, console output on/off.
+- **Language**: Interface language (Spanish, English, German).
+- **UI**: Window and text colors, button colors (normal, cancel, accent), spacing, button width, font family and size, spinbox/entry widths, and data-preview selection color.
+- **Plot**: Figure dimensions, DPI, title visibility, and line/marker style and colors for generated plots.
+- **Font**: Font family and sizes for plot title, axis labels, and tick labels.
+- **Paths**: Default input and output folders, filename template for saved plots, and export format (PNG, JPG, PDF).
+- **Links**: Optional URL for the “Donations” link in the Information dialog.
+- **Logging**: Log level (e.g. DEBUG, INFO), log file path, and whether messages are also printed to the console.
 
 ![Configuration Dialog](../images/en_documentation/tkinter_docs/configuration.png)
 
@@ -22,17 +22,17 @@ Each option shows a short description. When you click **Accept**, the values are
 
 ### Locating the Configuration File
 
-The configuration file is located in the root directory of RegressionLab:
+The configuration file lives in the **root directory** of the RegressionLab project:
 ```
 RegressionLab/
   .env               ← Your configuration file
   .env.example       ← Template with all options (desktop)
-  .env_mobile.example ← Optional template for mobile (e.g. Pydroid 3); copy to .env if needed
+  .env_mobile.example ← Optional template for mobile (e.g. termux); copy to .env if needed
 ```
 
-### First-Time Setup
+### First-time setup
 
-If `.env` doesn't exist:
+If `.env` does not exist yet:
 
 ```bash
 # Copy the example file
@@ -42,7 +42,7 @@ cp .env.example .env
 copy .env.example .env
 ```
 
-Then edit `.env` with your preferred text editor:
+Then open and edit `.env` with any text editor, for example:
 - **Visual Studio Code**: `code .env`.
 - **Nano** (Linux/macOS): `nano .env`.
 - **Notepad** (Windows): `notepad .env`.
@@ -50,7 +50,7 @@ Then edit `.env` with your preferred text editor:
 
 ## Configuration Sections
 
-The `.env` file is organized into logical sections (same groups as in the Tkinter **Configure** dialog):
+The `.env` file is grouped into sections that match the Tkinter **Configure** dialog:
 
 1. [Language Configuration](#1-language-configuration)
 2. [UI Theme Configuration](#2-ui-theme-configuration)
@@ -88,17 +88,15 @@ LANGUAGE="de"
 ```
 
 **Effect**:
-- Changes all UI text, dialogs, and messages.
-- Affects both Tkinter and Streamlit interfaces.
-- Does not affect data or plot labels.
-
-**Note**: Language changes require restarting the application.
+- Changes menus, buttons, dialogs, and all other interface text to the selected language.
+- Applies to both the Tkinter desktop app and the Streamlit web interface.
+- Does not change column names, file contents, or text you type (e.g. axis labels you enter yourself).
 
 ---
 
 ## 2. UI Theme Configuration
 
-These settings control the appearance of the Tkinter desktop application. They do not affect the Streamlit web version. Active (hover/click) colors are derived automatically from these values.
+These settings control the look of the Tkinter desktop app (window, buttons, fonts, spacing). The Streamlit web interface uses them where applicable; behavior may differ. Hover and active (click) colors are derived automatically from the base colors you set.
 
 ### Color Settings
 
@@ -109,10 +107,10 @@ UI_BACKGROUND="#181818"
 UI_FOREGROUND="#CCCCCC"
 ```
 
-- **UI_BACKGROUND**: Main window background color
-- **UI_FOREGROUND**: Text color
+- **UI_BACKGROUND**: Background color of the main window and most panels.
+- **UI_FOREGROUND**: Default text color for labels, entries, and other UI text.
 
-**Color Options**:
+**Color options**:
 - **Named colors**: `"white"`, `"black"`, `"navy"`, `"crimson"`, etc.
 - **Hex codes**: `"#2C3E50"`, `"#FF5733"`, etc.
 
@@ -125,10 +123,10 @@ UI_BUTTON_FG_CANCEL="red2"
 UI_BUTTON_FG_ACCENT2="yellow"
 ```
 
-- **UI_BUTTON_BG**: Background color for buttons
-- **UI_BUTTON_FG**: Text color for normal buttons
-- **UI_BUTTON_FG_CANCEL**: Text color for cancel/exit buttons
-- **UI_BUTTON_FG_ACCENT2**: Text color for secondary accent buttons (e.g. “Accept” in dialogs)
+- **UI_BUTTON_BG**: Background color of all buttons.
+- **UI_BUTTON_FG**: Text color for standard action buttons.
+- **UI_BUTTON_FG_CANCEL**: Text color for cancel, exit, or destructive buttons.
+- **UI_BUTTON_FG_ACCENT2**: Text color for secondary accent buttons (e.g. “Accept” in dialogs).
 
 ### Layout and Widget Sizes
 
@@ -139,8 +137,8 @@ UI_PADDING=8
 UI_BUTTON_WIDTH=12
 ```
 
-- **UI_PADDING**: Spacing between widgets (pixels), used for both horizontal and vertical padding
-- **UI_BUTTON_WIDTH**: Width for buttons (in characters). Wide buttons use 2.5× this value internally
+- **UI_PADDING**: Spacing in pixels between widgets, applied both horizontally and vertically.
+- **UI_BUTTON_WIDTH**: Nominal width of buttons in character units. “Wide” buttons use 2.5× this value.
 
 #### Font Settings
 
@@ -149,10 +147,10 @@ UI_FONT_FAMILY="Bahnschrift"
 UI_FONT_SIZE=18
 ```
 
-- **UI_FONT_FAMILY**: Font family for UI text
-- **UI_FONT_SIZE**: UI font size (points)
+- **UI_FONT_FAMILY**: Font used for all UI text (menus, labels, buttons).
+- **UI_FONT_SIZE**: Base font size in points for the desktop interface.
 
-**Common Font Families**:
+**Common font families**:
 - **Monospace**: `"Courier"`, `"Courier New"`, `"Menlo"`, `"Monaco"`.
 - **Sans-serif**: `"Arial"`, `"Helvetica"`, `"Verdana"`, `"Tahoma"`.
 - **Serif**: `"Times New Roman"`, `"Georgia"`, `"Palatino"`.
@@ -164,8 +162,8 @@ UI_SPINBOX_WIDTH=10
 UI_ENTRY_WIDTH=25
 ```
 
-- **UI_SPINBOX_WIDTH**: Width of spinbox widgets (characters)
-- **UI_ENTRY_WIDTH**: Width of text entry fields (characters)
+- **UI_SPINBOX_WIDTH**: Width of numeric spinbox fields in character units.
+- **UI_ENTRY_WIDTH**: Width of text entry fields in character units.
 
 #### Data Preview (Text Widget)
 
@@ -173,7 +171,7 @@ UI_ENTRY_WIDTH=25
 UI_TEXT_SELECT_BG="steel blue"
 ```
 
-- **UI_TEXT_SELECT_BG**: Background color for selected text in the data preview. Text and selection foreground use **UI_FOREGROUND**; the preview background is derived from the main UI background.
+- **UI_TEXT_SELECT_BG**: Background color of selected text in the data preview area. The preview uses **UI_FOREGROUND** for text; its background is derived from the main UI background.
 
 ### Example Themes
 
@@ -217,7 +215,7 @@ UI_BUTTON_WIDTH=12
 
 ## 3. Plot Style Configuration
 
-These settings control the appearance of generated plots (both Tkinter and Streamlit).
+These settings control the size, resolution, and visual style of the regression plots (used by both the Tkinter and Streamlit interfaces).
 
 ### Figure Dimensions
 
@@ -227,9 +225,9 @@ PLOT_FIGSIZE_HEIGHT=6
 DPI=100
 ```
 
-- **PLOT_FIGSIZE_WIDTH**: Width in inches
-- **PLOT_FIGSIZE_HEIGHT**: Height in inches
-- **DPI**: Resolution (dots per inch)
+- **PLOT_FIGSIZE_WIDTH**: Figure width in inches (for both on-screen display and saved files).
+- **PLOT_FIGSIZE_HEIGHT**: Figure height in inches.
+- **DPI**: Resolution in dots per inch; higher values give sharper output and larger file sizes.
 
 **Recommendations**:
 - **Screen display**: 100 DPI.
@@ -242,9 +240,9 @@ DPI=100
 PLOT_SHOW_TITLE=false
 ```
 
-- **PLOT_SHOW_TITLE**: Whether to show the plot title
-  - `true`: Show title (uses the plot filename)
-  - `false`: Hide title (cleaner appearance)
+- **PLOT_SHOW_TITLE**: Whether to display a title above the plot.
+  - `true`: Show title (derived from the plot/filename).
+  - `false`: No title (cleaner look for slides or publications).
 
 ### Fitted Curve Style
 
@@ -254,11 +252,11 @@ PLOT_LINE_WIDTH=1.0
 PLOT_LINE_STYLE="-"
 ```
 
-- **PLOT_LINE_COLOR**: Color of the fitted curve line
-- **PLOT_LINE_WIDTH**: Width of the fitted curve line (points)
-- **PLOT_LINE_STYLE**: Line style
+- **PLOT_LINE_COLOR**: Color of the fitted regression curve.
+- **PLOT_LINE_WIDTH**: Line width in points (e.g. 1.0 = thin, 2.0 = bold).
+- **PLOT_LINE_STYLE**: Line pattern for the fitted curve.
 
-**Line Style Options**:
+**Line style options**:
 - `"-"`: Solid line (default).
 - `"--"`: Dashed line.
 - `"-."`: Dash-dot line.
@@ -271,10 +269,10 @@ PLOT_MARKER_FORMAT="o"
 PLOT_MARKER_SIZE=5
 ```
 
-- **PLOT_MARKER_FORMAT**: Shape of data point markers
-- **PLOT_MARKER_SIZE**: Size of markers (points)
+- **PLOT_MARKER_FORMAT**: Marker shape for the measured data points.
+- **PLOT_MARKER_SIZE**: Marker size in points.
 
-**Marker Format Options** (allowed values): `"o"` (circle, default), `"s"` (square), `"^"` (triangle up), `"d"` (diamond), `"*"` (star).
+**Marker format options**: `"o"` (circle, default), `"s"` (square), `"^"` (triangle up), `"d"` (diamond), `"*"` (star).
 
 ### Colors for Data Points
 
@@ -284,11 +282,11 @@ PLOT_MARKER_FACE_COLOR="crimson"
 PLOT_MARKER_EDGE_COLOR="crimson"
 ```
 
-- **PLOT_ERROR_COLOR**: Color of error bars
-- **PLOT_MARKER_FACE_COLOR**: Fill color of markers
-- **PLOT_MARKER_EDGE_COLOR**: Edge color of markers
+- **PLOT_ERROR_COLOR**: Color of the vertical (or horizontal) error bars on data points.
+- **PLOT_MARKER_FACE_COLOR**: Fill color of the data point markers.
+- **PLOT_MARKER_EDGE_COLOR**: Outline/border color of the markers.
 
-**Common Color Names**:
+**Common color names**:
 - Basic: `"red"`, `"blue"`, `"green"`, `"black"`, `"white"`.
 - Extended: `"crimson"`, `"navy"`, `"teal"`, `"gold"`, `"orange"`.
 - Scientific: `"darkblue"`, `"darkgreen"`, `"darkred"`.
@@ -325,7 +323,7 @@ DPI=150
 
 ## 4. Font Configuration
 
-Control text appearance in plots.
+Control the font family, size, and style of all text drawn on the plots (title, axis labels, and tick numbers).
 
 ### Font Family
 
@@ -333,12 +331,12 @@ Control text appearance in plots.
 FONT_FAMILY="serif"
 ```
 
-**Options**:
-- `serif`: Times-like fonts (professional, traditional).
-- `sans-serif`: Arial-like fonts (modern, clean).
-- `monospace`: Courier-like fonts (technical).
-- `cursive`: Script-like fonts (decorative).
-- `fantasy`: Decorative fonts (artistic).
+**Options** (Matplotlib generic families; exact font depends on your system):
+- `serif`: Serif fonts (e.g. Times-like); good for formal or printed work.
+- `sans-serif`: Sans-serif fonts (e.g. Arial-like); clean and readable on screen.
+- `monospace`: Fixed-width fonts (e.g. Courier-like); useful for technical labels.
+- `cursive`: Script-like fonts; decorative use.
+- `fantasy`: Decorative/artistic fonts.
 
 ### Title Font
 
@@ -347,15 +345,13 @@ FONT_TITLE_SIZE="xx-large"
 FONT_TITLE_WEIGHT="semibold"
 ```
 
-- **FONT_TITLE_SIZE**: Size of plot title
+- **FONT_TITLE_SIZE**: Relative size of the plot title. Only used when **PLOT_SHOW_TITLE** is `true`.
 
-**Size Options**: 
-`xx-small`, `x-small`, `small`, `medium`, `large`, `x-large`, `xx-large`
+**Size options**: `xx-small`, `x-small`, `small`, `medium`, `large`, `x-large`, `xx-large`.
 
-- **FONT_TITLE_WEIGHT**: Boldness of plot title
+- **FONT_TITLE_WEIGHT**: Font weight (boldness) of the plot title.
 
-**Weight Options**:
-`normal`, `light`, `semibold`, `bold`, `heavy`
+**Weight options**: `normal`, `light`, `semibold`, `bold`, `heavy`.
 
 ### Axis Labels
 
@@ -364,13 +360,10 @@ FONT_AXIS_SIZE=30
 FONT_AXIS_STYLE="italic"
 ```
 
-- **FONT_AXIS_SIZE**: Font size for axis labels (points)
-- **FONT_AXIS_STYLE**: Font style for axis labels
+- **FONT_AXIS_SIZE**: Font size in points for the x- and y-axis labels.
+- **FONT_AXIS_STYLE**: Font style for axis labels (e.g. variable names are often italic).
 
-**Style Options**:
-- `normal`: Regular text.
-- `italic`: Slanted text (traditional for variables).
-- `oblique`: Slanted text (similar to italic).
+**Style options**: `normal`, `italic`, `oblique`.
 
 ### Tick Labels
 
@@ -378,7 +371,7 @@ FONT_AXIS_STYLE="italic"
 FONT_TICK_SIZE=16
 ```
 
-- **FONT_TICK_SIZE**: Font size for axis tick numbers (points)
+- **FONT_TICK_SIZE**: Font size in points for the numbers on the axis tick marks.
 
 ### Example Font Configurations
 
@@ -406,7 +399,7 @@ FONT_TICK_SIZE=20
 
 ## 5. File Path Configuration
 
-Control where RegressionLab looks for input data and saves output plots.
+Control the default folders for loading data and saving plots, the naming pattern for saved files, and the image format used when exporting.
 
 ```ini
 FILE_INPUT_DIR="input"
@@ -422,8 +415,8 @@ FILE_INPUT_DIR="input"
 ```
 
 **Options**:
-- Relative path (relative to RegressionLab root): `"input"`, `"data"`, `"experiments"`.
-- Absolute path: `"/home/user/data"`, `"C:\\Users\\Name\\Documents\\Data"`.
+- **Relative path** (from the RegressionLab root): e.g. `"input"`, `"data"`, `"experiments"`.
+- **Absolute path**: e.g. `"/home/user/data"` or `"C:\\Users\\Name\\Documents\\Data"`.
 
 ### Output Directory
 
@@ -432,10 +425,10 @@ FILE_OUTPUT_DIR="output"
 ```
 
 **Options**:
-- Relative path: `"output"`, `"results"`, `"plots"`.
-- Absolute path: `"/home/user/results"`, `"C:\\Users\\Name\\Documents\\Results"`.
+- **Relative path**: e.g. `"output"`, `"results"`, `"plots"` (from the RegressionLab root).
+- **Absolute path**: e.g. `"/home/user/results"` or `"C:\\Users\\Name\\Documents\\Results"`.
 
-**Note**: The directory will be created automatically if it doesn't exist.
+**Note**: The output directory is created automatically if it does not exist.
 
 ### Filename Template
 
@@ -443,7 +436,7 @@ FILE_OUTPUT_DIR="output"
 FILE_FILENAME_TEMPLATE="fit_{}"
 ```
 
-The `{}` placeholder is replaced with the plot name. The file extension is added automatically from **FILE_PLOT_FORMAT** (e.g. `.png`).
+The `{}` placeholder is replaced with the plot name (e.g. from the loaded file or dialog). The file extension is added automatically based on **FILE_PLOT_FORMAT** (e.g. `.png`).
 
 **Examples**:
 ```ini
@@ -467,9 +460,9 @@ FILE_PLOT_FORMAT="png"
 
 **Options**: `png`, `jpg`, `pdf`
 
-- **png**: Default; good balance of quality and size.
-- **jpg**: Smaller files; use when PDF is not needed.
-- **pdf**: Vector-style output for publications; in-app preview may still use PNG.
+- **png**: Default; good balance of quality and file size; supports transparency.
+- **jpg**: Smaller files; suitable for sharing or embedding when vector output is not required.
+- **pdf**: Vector output for publications and printing; in-app preview may still be raster (e.g. PNG).
 
 ---
 
@@ -479,13 +472,13 @@ FILE_PLOT_FORMAT="png"
 DONATIONS_URL="https://www.youtube.com/@whenphysics"
 ```
 
-- **DONATIONS_URL**: URL shown in the desktop app’s **Information** (help) dialog as a “Donations” button. Leave empty or set to your own link. Only affects the Tkinter interface.
+- **DONATIONS_URL**: URL displayed as a “Donations” (or similar) link in the desktop app’s **Information** / help dialog, e.g. to support the project. Leave empty to hide the link.
 
 ---
 
 ## 7. Logging Configuration
 
-Control how RegressionLab logs information, warnings, and errors.
+Control where and how much RegressionLab logs: level of detail, log file location, and whether messages are also printed to the console.
 
 ```ini
 LOG_LEVEL=INFO
@@ -500,13 +493,13 @@ LOG_LEVEL=INFO
 ```
 
 **Options** (from most to least verbose):
-- `DEBUG`: Detailed diagnostic information (for development).
-- `INFO`: General informational messages (default).
-- `WARNING`: Warning messages only.
-- `ERROR`: Error messages only.
-- `CRITICAL`: Critical errors only.
+- `DEBUG`: Very detailed messages (function flow, variable values); useful for development and debugging.
+- `INFO`: General operational messages (default); good for normal use.
+- `WARNING`: Only warnings and more severe; reduces log noise.
+- `ERROR`: Only errors and critical issues.
+- `CRITICAL`: Only critical failures.
 
-**Recommendation**: Use `INFO` for normal operation, `DEBUG` for troubleshooting.
+**Recommendation**: Use `INFO` for everyday use; switch to `DEBUG` when troubleshooting.
 
 ### Log File
 
@@ -514,9 +507,7 @@ LOG_LEVEL=INFO
 LOG_FILE=regressionlab.log
 ```
 
-- Relative or absolute path to log file
-- Logs are appended to this file
-- File is created automatically if it doesn't exist
+- Path to the log file (relative to the RegressionLab root or absolute). Logs are appended; the file is created automatically if it does not exist.
 
 **Examples**:
 ```ini
@@ -536,34 +527,34 @@ LOG_FILE=/var/log/regressionlab.log
 LOG_CONSOLE=false
 ```
 
-- `true`: Print log messages to console/terminal
-- `false`: Only write to log file (default)
+- `true`: Also print log messages to the console/terminal (useful when running from a terminal).
+- `false`: Write only to the log file (default; cleaner when using the GUI).
 
-**Recommendation**: Use `true` for development, `false` for production or when running from the GUI.
+**Recommendation**: Use `true` when debugging from the command line; use `false` when running the desktop app or for quieter operation.
 
 ---
 
 ## Applying Configuration Changes
 
-### For Tkinter (Desktop Version)
+### Tkinter (desktop)
 
-You can change configuration in either of these ways:
+You can change settings in two ways:
 
-- **From the configuration menu**: Main menu → **Configure** (Configurar). Edit the values in the dialog and save; the application will restart automatically.
-- **By editing `.env`**: Edit the `.env` file, save it, then restart the application:
+- **From the app**: Main menu → **Configure** (or **Configurar**). Adjust values in the dialog and click **Accept**; the app restarts so the new settings take effect.
+![Configuration Dialog](../images/en_documentation/tkinter_docs/configuration.png)
+- **By editing `.env`**: Edit `.env` with a text editor, save, then restart the application:
 
 ```bash
 # Restart the application
 python src/main_program.py
 ```
 
-### For Streamlit (Web Version)
+### Streamlit (web)
 
-1. Edit `.env` file
-2. Save the changes
-3. Reload the Streamlit app in your browser (usually Ctrl+R or Cmd+R)
+1. Edit the `.env` file and save.
+2. Reload the app in your browser (e.g. Ctrl+R or Cmd+R).
 
-**Note**: Some changes may require stopping and restarting the Streamlit server:
+**Note**: For some changes (e.g. paths or logging), you may need to stop and restart the Streamlit server:
 
 ```bash
 # Stop: Ctrl+C in terminal
@@ -575,10 +566,10 @@ streamlit run src/streamlit_app/app.py
 
 ## Common Configuration Scenarios
 
-### Scenario 1: Preparing Plots for Publication
+### Scenario 1: Preparing plots for publication
 
 ```ini
-# High-resolution black and white plots
+# High-resolution black-and-white plots for papers or reports
 DPI=600
 PLOT_LINE_COLOR="black"
 PLOT_LINE_WIDTH=2.0
@@ -593,10 +584,10 @@ FONT_AXIS_SIZE=28
 FONT_TICK_SIZE=20
 ```
 
-### Scenario 2: Quick Data Exploration
+### Scenario 2: Quick data exploration
 
 ```ini
-# Fast rendering, colorful display
+# Fast rendering and colorful on-screen display
 DPI=100
 PLOT_LINE_COLOR="blue"
 PLOT_LINE_WIDTH=1.5
@@ -609,21 +600,21 @@ PLOT_SHOW_TITLE=true
 LOG_LEVEL=WARNING
 ```
 
-### Scenario 3: Debugging Issues
+### Scenario 3: Debugging issues
 
 ```ini
-# Detailed logging for troubleshooting
+# Detailed logging to trace problems
 LOG_LEVEL=DEBUG
 LOG_CONSOLE=true
 LOG_FILE=debug.log
 ```
 
-(Set **LOG_CONSOLE** to `true` to see logs in the terminal.)
+Set **LOG_CONSOLE** to `true` so you can see logs in the terminal.
 
-### Scenario 4: Batch Processing
+### Scenario 4: Batch processing
 
 ```ini
-# Optimized for processing many files
+# Settings suited to processing many files in one run
 DPI=150
 FILE_OUTPUT_DIR="batch_results"
 LOG_LEVEL=WARNING
@@ -632,51 +623,51 @@ LOG_CONSOLE=false
 
 ---
 
-## Troubleshooting Configuration
+## Troubleshooting configuration
 
-### Changes Not Applied
+### Changes not applied
 
-**Problem**: Modified `.env` but see no changes
-
-**Solutions**:
-1. Ensure you saved the `.env` file.
-2. Restart the application completely.
-3. Check for syntax errors in `.env`.
-4. Verify `.env` is in the correct location (RegressionLab root).
-
-### Invalid Color Names
-
-**Problem**: Error about invalid color
+**Problem**: You edited `.env` but the app still shows old behavior.
 
 **Solutions**:
-1. Use quotes around color names: `"midnight blue"` not `midnight blue`.
-2. Use valid color names or hex codes.
-3. Check spelling of color names.
+1. Confirm the `.env` file was saved (check the timestamp).
+2. Fully quit and restart the application (not just refresh the window).
+3. Look for syntax errors: missing quotes, stray spaces, or broken lines in `.env`.
+4. Ensure `.env` is in the RegressionLab project root (same folder as `src/`, `.env.example`, etc.).
 
-### Font Not Found
+### Invalid color names
 
-**Problem**: Specified font doesn't appear
-
-**Solutions**:
-1. Verify the font is installed on your system.
-2. Use a generic font family (`serif`, `sans-serif`, `monospace`).
-3. Check font name spelling.
-
-### Path Issues
-
-**Problem**: Can't find input/output directories
+**Problem**: The app reports an invalid or unknown color.
 
 **Solutions**:
-1. Use forward slashes (`/`) even on Windows, or escape backslashes (`\\`).
-2. Ensure directories exist or will be created.
-3. Check file permissions.
-4. Use absolute paths if relative paths don't work.
+1. Put color values in double quotes: `"midnight blue"` not `midnight blue`.
+2. Use a standard color name (e.g. from [Matplotlib](https://matplotlib.org/stable/gallery/color/named_colors.html)) or a hex code like `"#2C3E50"`.
+3. Check spelling; multi-word names must be quoted.
+
+### Font not found
+
+**Problem**: The UI or plot does not show the font you configured.
+
+**Solutions**:
+1. Confirm the font is installed on your system (e.g. via Font Book, Windows Fonts).
+2. Prefer generic families (`serif`, `sans-serif`, `monospace`); the system will pick a suitable font.
+3. Check the exact font name (e.g. “Times New Roman” vs “Times”).
+
+### Path issues
+
+**Problem**: The app cannot find the input or output directory (or files in it).
+
+**Solutions**:
+1. On Windows, use forward slashes (`/`) or escaped backslashes (`\\`) in paths.
+2. For **FILE_INPUT_DIR**, the folder must exist; for **FILE_OUTPUT_DIR**, it is created if missing.
+3. Check read/write permissions for the chosen directories.
+4. If relative paths fail, try an absolute path to rule out working-directory issues.
 
 ---
 
-## Default Configuration
+## Default configuration
 
-If you want to reset to default settings, simply copy `.env.example` to `.env`:
+To restore default settings, overwrite `.env` with the example file:
 
 ```bash
 cp .env.example .env
@@ -686,11 +677,11 @@ Or delete `.env` and let RegressionLab use built-in defaults.
 
 ---
 
-## Next Steps
+## Next steps
 
-- **Customize your plots**: Try different [plot styles](#3-plot-style-configuration)
-- **Create a theme**: Design a [UI theme](#2-ui-theme-configuration) that matches your preferences
-- **Learn advanced usage**: Read the [Extending RegressionLab](extending.md) guide
+- **Customize your plots**: Experiment with [plot styles](#3-plot-style-configuration) and fonts.
+- **Create a theme**: Build a [UI theme](#2-ui-theme-configuration) that fits your workflow.
+- **Go further**: See the [Extending RegressionLab](extending.md) guide for advanced customization.
 
 ---
 

@@ -5,8 +5,16 @@ from typing import Optional
 
 import streamlit as st
 
+from config.constants import SUPPORTED_LANGUAGE_CODES
 from i18n import initialize_i18n, t
 from streamlit_app.theme import get_streamlit_theme
+
+# Key for "switch to X" button label per language code
+_LANG_MENU_KEYS: dict[str, str] = {
+    'es': 'menu.language_spanish',
+    'en': 'menu.language_english',
+    'de': 'menu.language_german',
+}
 
 # Layout-only CSS (colors come from theme via get_main_css in app)
 _SIDEBAR_LAYOUT_CSS = """
@@ -56,12 +64,15 @@ def initialize_session_state() -> None:
         st.session_state.plot_counter = 0
 
 
-def toggle_language() -> None:
-    """Toggle between Spanish and English."""
-    if st.session_state.language == 'es':
-        st.session_state.language = 'en'
-    else:
-        st.session_state.language = 'es'
+def cycle_language() -> None:
+    """Cycle to the next supported language (es -> en -> de -> es)."""
+    codes = list(SUPPORTED_LANGUAGE_CODES)
+    try:
+        idx = codes.index(st.session_state.language)
+    except ValueError:
+        idx = 0
+    next_idx = (idx + 1) % len(codes)
+    st.session_state.language = codes[next_idx]
     initialize_i18n(st.session_state.language)
 
 
@@ -84,9 +95,16 @@ def setup_sidebar(version: str) -> str:
             </div>
         """, unsafe_allow_html=True)
 
-        next_lang = t('menu.language_english') if st.session_state.language == 'es' else t('menu.language_spanish')
-        if st.button(next_lang, key="lang_toggle", width='stretch'):
-            toggle_language()
+        codes = list(SUPPORTED_LANGUAGE_CODES)
+        try:
+            current_idx = codes.index(st.session_state.language)
+        except ValueError:
+            current_idx = 0
+        next_idx = (current_idx + 1) % len(codes)
+        next_code = codes[next_idx]
+        next_lang_label = t(_LANG_MENU_KEYS[next_code])
+        if st.button(next_lang_label, key="lang_toggle", width='stretch'):
+            cycle_language()
             st.rerun()
 
         section_title = t('help.fitting_modes').replace("\n", "").strip()

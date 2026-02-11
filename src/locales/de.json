@@ -16,6 +16,7 @@
     "no": "Nein",
     "language_english": "English 🇬🇧",
     "language_spanish": "Español 🇪🇸",
+    "language_german": "Deutsch 🇩🇪",
     "tooltip_normal_fitting": "Eine Gleichung an einen Datensatz anpassen.",
     "tooltip_multiple_datasets": "Dieselbe Gleichung an mehrere Datensätze anpassen.",
     "tooltip_checker_fitting": "Mehrere Gleichungen am gleichen Datensatz ausprobieren.",

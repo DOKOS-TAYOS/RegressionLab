@@ -288,9 +288,9 @@ Initialize Streamlit session state variables.
 - `results`: List of fitting results
 - `plot_counter`: Counter for plot filenames
 
-#### `toggle_language() -> None`
+#### `cycle_language() -> None`
 
-Toggle between Spanish and English.
+Cycle to the next supported language (es → en → de → es).
 
 Updates the session state language and re-initializes the i18n system.
 
