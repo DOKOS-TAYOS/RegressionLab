@@ -5,16 +5,82 @@ colors, relief and spacing are unified for consistency. Values are read from
 ENV_SCHEMA in config.env (single source of truth for defaults and types).
 """
 
-import tkinter
-import tkinter.font as tkfont
 from typing import Any
-
-from tkinter import ttk
 
 from config.env import get_env_from_schema
 
+# Optional tkinter imports (for desktop GUI only, not available in headless environments)
+try:
+    import tkinter
+    import tkinter.font as tkfont
+    from tkinter import ttk
+    _TKINTER_AVAILABLE = True
+except ImportError:
+    tkinter = None
+    tkfont = None
+    ttk = None
+    _TKINTER_AVAILABLE = False
+
 # Fallback UI font families if the configured font is not available on this OS
 _UI_FONT_FALLBACKS = ('Bahnschrift', 'SF Pro Text', 'Inter')
+
+# -----------------------------------------------------------------------------
+# Color conversion helpers (work with or without tkinter)
+# -----------------------------------------------------------------------------
+
+def _color_name_to_rgb(color: str) -> tuple[int, int, int] | None:
+    """Convert color name to RGB tuple (0-255 range). Works with or without tkinter.
+    
+    Args:
+        color: Color name (e.g., 'navy', 'gray15') or hex string
+        
+    Returns:
+        Tuple of (r, g, b) in 0-255 range, or None if conversion fails
+    """
+    if not isinstance(color, str) or not color.strip():
+        return None
+    
+    color = color.strip()
+    
+    # If it's already hex, parse it directly
+    if color.startswith('#'):
+        try:
+            hex_color = color.lstrip('#')
+            if len(hex_color) == 6:
+                r = int(hex_color[0:2], 16)
+                g = int(hex_color[2:4], 16)
+                b = int(hex_color[4:6], 16)
+                return (r, g, b)
+            elif len(hex_color) == 3:
+                r = int(hex_color[0] * 2, 16)
+                g = int(hex_color[1] * 2, 16)
+                b = int(hex_color[2] * 2, 16)
+                return (r, g, b)
+        except ValueError:
+            pass
+    
+    # Try tkinter first (if available)
+    if _TKINTER_AVAILABLE:
+        try:
+            root = tkinter.Tk()
+            root.withdraw()
+            r, g, b = root.winfo_rgb(color)
+            root.destroy()
+            # winfo_rgb returns 0..65535, convert to 0..255
+            return (r // 256, g // 256, b // 256)
+        except (tkinter.TclError, Exception):
+            pass
+    
+    # Fallback to matplotlib
+    try:
+        from matplotlib.colors import to_rgb
+        r, g, b = to_rgb(color)
+        return (int(r * 255), int(g * 255), int(b * 255))
+    except (ValueError, TypeError, ImportError):
+        pass
+    
+    return None
+
 
 # -----------------------------------------------------------------------------
 # Single source: ENV_SCHEMA (env.py) + derived constants (same default look)
@@ -31,24 +97,18 @@ def _darken_bg(color: str) -> str:
     Returns:
         Darker shade as hex color string
     """
-    if not isinstance(color, str) or not color.strip():
+    rgb = _color_name_to_rgb(color)
+    if rgb is None:
         return '#1e1e1e'
     
-    try:
-        root = tkinter.Tk()
-        root.withdraw()
-        r, g, b = root.winfo_rgb(color)
-        root.destroy()
-    except (tkinter.TclError, Exception):
-        return '#1e1e1e'
-    
-    # winfo_rgb returns 0..65535; darken by reducing each channel by 15%
+    r, g, b = rgb
+    # Darken by reducing each channel by 15%
     factor = 0.85
     r = int(r * factor)
     g = int(g * factor)
     b = int(b * factor)
     
-    return f'#{r // 256:02x}{g // 256:02x}{b // 256:02x}'
+    return f'#{r:02x}{g:02x}{b:02x}'
 
 
 def _lighten_fg(color: str) -> str:
@@ -62,24 +122,18 @@ def _lighten_fg(color: str) -> str:
     Returns:
         Lighter shade as hex color string
     """
-    if not isinstance(color, str) or not color.strip():
+    rgb = _color_name_to_rgb(color)
+    if rgb is None:
         return '#ffffff'
     
-    try:
-        root = tkinter.Tk()
-        root.withdraw()
-        r, g, b = root.winfo_rgb(color)
-        root.destroy()
-    except (tkinter.TclError, Exception):
-        return '#ffffff'
-    
-    # winfo_rgb returns 0..65535; lighten by moving 20% toward white
+    r, g, b = rgb
+    # Lighten by moving 20% toward white
     factor = 0.20
-    r = min(65535, int(r + (65535 - r) * factor))
-    g = min(65535, int(g + (65535 - g) * factor))
-    b = min(65535, int(b + (65535 - b) * factor))
+    r = min(255, int(r + (255 - r) * factor))
+    g = min(255, int(g + (255 - g) * factor))
+    b = min(255, int(b + (255 - b) * factor))
     
-    return f'#{r // 256:02x}{g // 256:02x}{b // 256:02x}'
+    return f'#{r:02x}{g:02x}{b:02x}'
 
 
 def _tooltip_bg_from_ui(ui_bg: str) -> str:
@@ -93,18 +147,11 @@ def _tooltip_bg_from_ui(ui_bg: str) -> str:
     Returns:
         Tooltip background as hex color string
     """
-    if not isinstance(ui_bg, str) or not ui_bg.strip():
+    rgb = _color_name_to_rgb(ui_bg)
+    if rgb is None:
         return '#4d4d4d'
     
-    try:
-        root = tkinter.Tk()
-        root.withdraw()
-        r, g, b = root.winfo_rgb(ui_bg)
-        root.destroy()
-    except (tkinter.TclError, Exception):
-        return '#4d4d4d'
-    
-    # winfo_rgb returns 0..65535
+    r, g, b = rgb
     # Desaturate by moving toward average (grayscale) by 60%
     avg = (r + g + b) // 3
     desat_factor = 0.60
@@ -114,29 +161,25 @@ def _tooltip_bg_from_ui(ui_bg: str) -> str:
     
     # Then lighten by moving 25% toward white
     lighten_factor = 0.25
-    r = min(65535, int(r + (65535 - r) * lighten_factor))
-    g = min(65535, int(g + (65535 - g) * lighten_factor))
-    b = min(65535, int(b + (65535 - b) * lighten_factor))
+    r = min(255, int(r + (255 - r) * lighten_factor))
+    g = min(255, int(g + (255 - g) * lighten_factor))
+    b = min(255, int(b + (255 - b) * lighten_factor))
     
-    return f'#{r // 256:02x}{g // 256:02x}{b // 256:02x}'
+    return f'#{r:02x}{g:02x}{b:02x}'
 
 
 def _lighten_bg_hex(color: str, factor: float = 0.06) -> str:
     """Return a very slightly lighter shade of color as #rrggbb, calculated from RGB."""
-    if not isinstance(color, str) or not color.strip():
+    rgb = _color_name_to_rgb(color)
+    if rgb is None:
         return '#2e2e2e'
-    try:
-        root = tkinter.Tk()
-        root.withdraw()
-        r, g, b = root.winfo_rgb(color)
-        root.destroy()
-    except (tkinter.TclError, Exception):
-        return '#2e2e2e'
-    # winfo_rgb returns 0..65535; move each channel slightly toward white
-    r = min(65535, int(r + (65535 - r) * factor))
-    g = min(65535, int(g + (65535 - g) * factor))
-    b = min(65535, int(b + (65535 - b) * factor))
-    return f'#{r // 256:02x}{g // 256:02x}{b // 256:02x}'
+    
+    r, g, b = rgb
+    # Move each channel slightly toward white
+    r = min(255, int(r + (255 - r) * factor))
+    g = min(255, int(g + (255 - g) * factor))
+    b = min(255, int(b + (255 - b) * factor))
+    return f'#{r:02x}{g:02x}{b:02x}'
 
 
 # Colors (only main knobs; rest derived where used)
@@ -161,26 +204,50 @@ _entry_w = get_env_from_schema('UI_ENTRY_WIDTH')
 def _resolve_ui_font_family(preferred: str) -> str:
     """Resolve UI font family: if preferred is not available on this OS, try fallbacks.
 
-    Uses a temporary Tk instance to query font.families(). The preferred font is
-    matched exactly (case-insensitive) or as a prefix of a system name (e.g. "Palatino"
-    matches "Palatino Linotype" on Windows). Fallbacks use exact match only.
+    Uses tkinter font.families() if available, otherwise falls back to matplotlib font manager.
+    The preferred font is matched exactly (case-insensitive) or as a prefix of a system name
+    (e.g. "Palatino" matches "Palatino Linotype" on Windows). Fallbacks use exact match only.
 
     Returns the first available of: preferred (or a system family that starts with it),
     Bahnschrift, SF Pro Text, Inter; otherwise the preferred string as-is.
     """
     if not (preferred and preferred.strip()):
-        preferred = 'TkDefaultFont'
-    try:
-        root = tkinter.Tk()
-        root.withdraw()
-        # Map lowercase name -> actual name as returned by the system
-        available = {f.lower(): f for f in tkfont.families()}
-        root.destroy()
-    except (tkinter.TclError, Exception):
-        return preferred.strip()
+        preferred = 'sans-serif'
+    
     preferred_clean = preferred.strip()
     preferred_lower = preferred_clean.lower()
-    # Preferred: exact match or system name that starts with preferred (e.g. "Palatino" -> "Palatino Linotype", "Menlo" -> "Menlo Mono")
+    available: dict[str, str] = {}
+    
+    # Try tkinter first (if available)
+    if _TKINTER_AVAILABLE:
+        try:
+            root = tkinter.Tk()
+            root.withdraw()
+            # Map lowercase name -> actual name as returned by the system
+            available = {f.lower(): f for f in tkfont.families()}
+            root.destroy()
+        except (tkinter.TclError, Exception):
+            pass
+    
+    # Fallback to matplotlib font manager if tkinter not available or failed
+    if not available:
+        try:
+            from matplotlib.font_manager import FontManager
+            fm = FontManager()
+            # Get all font families
+            font_families = set()
+            for font in fm.ttflist:
+                if font.name:
+                    font_families.add(font.name)
+            available = {f.lower(): f for f in font_families}
+        except (ImportError, Exception):
+            pass
+    
+    # If we still don't have font list, just return preferred
+    if not available:
+        return preferred_clean
+    
+    # Preferred: exact match or system name that starts with preferred
     if preferred_lower in available:
         return available[preferred_lower]
     for key, actual_name in available.items():
