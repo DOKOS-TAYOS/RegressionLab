@@ -4,7 +4,6 @@ Contains coordination functions and workflow patterns for the fitting applicatio
 """
 
 # Standard library
-from tkinter import messagebox
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 # Third-party packages
@@ -26,6 +25,28 @@ from loaders import (
 from utils import DataLoadError, get_logger
 
 logger = get_logger(__name__)
+
+
+# ============================================================================
+# LAZY TKINTER IMPORT (for desktop GUI only, not available in headless environments)
+# ============================================================================
+
+def _get_messagebox() -> Any:
+    """
+    Lazy import of tkinter.messagebox.
+    
+    This function is only called from functions that require GUI dialogs
+    (which are not used in Streamlit). Importing here avoids import errors
+    when the module is loaded in headless environments.
+    
+    Returns:
+        tkinter.messagebox module
+        
+    Raises:
+        ImportError: If tkinter is not available
+    """
+    from tkinter import messagebox  # type: ignore[import-untyped]
+    return messagebox
 
 
 # ============================================================================
@@ -119,6 +140,7 @@ def single_fit_with_loop(
         return
     
     # Ask if user wants to continue with loop mode
+    messagebox = _get_messagebox()
     continue_fitting = messagebox.askyesno(
         message=t('workflow.continue_question'), 
         title=t('workflow.fitting_title', name=plot_name)
@@ -179,6 +201,7 @@ def multiple_fit_with_loop(
                   - 'data_file_path': path to data file for reloading
                   - 'data_file_type': file type ('csv', 'xlsx', 'txt')
     """
+    messagebox = _get_messagebox()
     continue_flags: List[bool] = []
 
     for i, ds in enumerate(datasets):
@@ -294,6 +317,7 @@ def coordinate_data_loading(
     """
     logger.info("Starting data loading workflow")
     empty_result = ('', '', '', '', '', '')
+    messagebox = _get_messagebox()
     
     try:
         # Backend: Get available files
@@ -397,6 +421,7 @@ def coordinate_data_viewing(
         ask_file_name_func: Function to ask for file name.
         show_data_func: Function to display data.
     """
+    messagebox = _get_messagebox()
     try:
         csv, xlsx, txt = get_file_names()
     except Exception as e:
