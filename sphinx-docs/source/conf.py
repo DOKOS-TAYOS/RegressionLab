@@ -71,6 +71,7 @@ def _skip_imported_member(app, what: str, name: str, obj: object, skip: bool, op
 
 
 # Map .md link targets (from docs/*.md) to Sphinx document names (output .html)
+# Top-level docs
 _DOC_MD_TO_HTML = {
     'introduction.md': 'introduction.html',
     'installation.md': 'installation.html',
@@ -84,6 +85,28 @@ _DOC_MD_TO_HTML = {
     'contributing.md': 'contributing.html',
     'license.md': 'license.html',
 }
+# API index.md links to docs/api/*.md; Sphinx builds API ref from modules/*.rst → map to module pages
+_API_MD_TO_MODULE_HTML = {
+    'config.md': 'modules/core.html',
+    'i18n.md': 'modules/core.html',
+    'fitting_functions.md': 'modules/fitting.html',
+    'fitting_utils.md': 'modules/fitting.html',
+    'workflow_controller.md': 'modules/fitting.html',
+    'custom_function_evaluator.md': 'modules/fitting.html',
+    'estimators.md': 'modules/fitting.html',
+    'data_loader.md': 'modules/loaders.html',
+    'loading_utils.md': 'modules/loaders.html',
+    'plot_utils.md': 'modules/plotting.html',
+    'ui_main_menu.md': 'modules/frontend.html',
+    'ui_dialogs.md': 'modules/frontend.html',
+    'image_utils.md': 'modules/frontend.html',
+    'keyboard_nav.md': 'modules/frontend.html',
+    'streamlit_app.md': 'modules/streamlit_app.html',
+    'exceptions.md': 'modules/utils.html',
+    'logger.md': 'modules/utils.html',
+    'validators.md': 'modules/utils.html',
+}
+_DOC_MD_TO_HTML = {**_DOC_MD_TO_HTML, **_API_MD_TO_MODULE_HTML}
 
 
 def _norm_base(raw: str) -> str:

@@ -25,14 +25,17 @@ def create_result_window(
     """
     Create a Tkinter window to display the fitting results.
 
+    Creates a new ``Toplevel`` window showing the fitting results including
+    parameter values, uncertainties, statistics, and the fitted equation plot.
+
     Args:
-        fit_name: Name of the fit for window title
-        text: Formatted text with parameters and uncertainties
-        equation_str: Formatted equation string
-        output_path: Path to the plot image file
+        fit_name: Name of the fit for window title.
+        text: Formatted text with parameters, uncertainties, and statistics.
+        equation_str: Formatted equation string with parameter values.
+        output_path: Path to the plot image file to display.
 
     Returns:
-        The created Toplevel window
+        The created ``Toplevel`` window instance.
     """
     plot_level = Toplevel()
     plot_level.title(fit_name)

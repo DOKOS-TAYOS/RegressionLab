@@ -23,7 +23,8 @@ def ask_file_type(parent_window: Any) -> str:
         parent_window: Parent Tkinter window
 
     Returns:
-        Selected file type (one of config.DATA_FILE_TYPES, EXIT_SIGNAL, or '')
+        Selected file type (one of ``config.DATA_FILE_TYPES``, ``EXIT_SIGNAL``,
+        or empty string ``''``).
     """
     call_file_level = Toplevel()
     call_file_level.title(t('dialog.data'))
@@ -105,11 +106,11 @@ def ask_file_name(parent_window: Any, file_list: List[str]) -> str:
     Dialog to select a specific file from the list.
 
     Args:
-        parent_window: Parent Tkinter window
-        file_list: List of available file names
+        parent_window: Parent Tkinter window.
+        file_list: List of available file names (without extensions).
 
     Returns:
-        Selected file name (without extension)
+        Selected file name (without extension), or empty string if cancelled.
     """
     call_data_level = Toplevel()
     call_data_level.title(t('dialog.data'))
@@ -174,11 +175,12 @@ def ask_variables(parent_window: Any, variable_names: List[str]) -> Tuple[str, s
     Dialog to select independent (x) and dependent (y) variables and plot name.
 
     Args:
-        parent_window: Parent Tkinter window
-        variable_names: List of available variable names from the dataset
+        parent_window: Parent Tkinter window.
+        variable_names: List of available variable names from the dataset.
 
     Returns:
-        Tuple of (x_name, y_name, plot_name)
+        Tuple of ``(x_name, y_name, plot_name)``. Returns ``('', '', '')``
+        if user cancels.
     """
     call_var_level = Toplevel()
     call_var_level.title(t('dialog.data'))
@@ -310,7 +312,18 @@ def ask_variables(parent_window: Any, variable_names: List[str]) -> Tuple[str, s
 
 
 def _show_image_toplevel(parent: Tk | Toplevel, image_path: str, title: str) -> None:
-    """Open a Toplevel window showing an image from file (e.g. pair plot), scaled to fit max size."""
+    """
+    Open a Toplevel window showing an image from file.
+
+    Displays an image (e.g. pair plot) in a new window, scaled to fit within
+    maximum dimensions. Handles preview PNG files for PDFs and cleans them up
+    when the window is closed.
+
+    Args:
+        parent: Parent Tkinter window (``Tk`` or ``Toplevel``).
+        image_path: Path to the image file to display (e.g., pair plot).
+        title: Window title for the image display window.
+    """
     from pathlib import Path
 
     from frontend.image_utils import (
@@ -363,8 +376,9 @@ def show_data_dialog(parent_window: Tk | Toplevel, data: Any) -> None:
     Dialog to display loaded data.
 
     Args:
-        parent_window: Parent Tkinter window.
-        data: DataFrame to display (or string). If DataFrame, converted to string for display.
+        parent_window: Parent Tkinter window (``Tk`` or ``Toplevel``).
+        data: DataFrame to display (or string). If DataFrame, converted to
+            string for display using ``to_string()`` method.
     """
     if hasattr(data, 'to_string'):
         content = data.to_string()

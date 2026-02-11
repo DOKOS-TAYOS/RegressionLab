@@ -27,7 +27,18 @@ _CONFIG_EXPANDED = '\u25bc'
 
 
 def _config_section_for_key(key: str) -> str:
-    """Return section key for grouping env vars in config dialog."""
+    """
+    Determine configuration section for an environment variable key.
+
+    Groups environment variables into logical sections (language, ui, plot,
+    font, paths, links, logging, other) based on key prefixes and names.
+
+    Args:
+        key: Environment variable key (e.g., ``'LANGUAGE'``, ``'UI_BG'``, ``'PLOT_DPI'``).
+
+    Returns:
+        Section identifier string (e.g., ``'language'``, ``'ui'``, ``'plot'``).
+    """
     if key == 'LANGUAGE':
         return 'language'
     if key.startswith('UI_'):
@@ -46,7 +57,16 @@ def _config_section_for_key(key: str) -> str:
 
 
 def _build_config_sections() -> List[Tuple[str, List[dict]]]:
-    """Group ENV_SCHEMA items by section, preserving order of first occurrence."""
+    """
+    Group ENV_SCHEMA items by section, preserving order of first occurrence.
+
+    Organizes environment variable schema items into sections based on their
+    keys, maintaining the order in which sections first appear.
+
+    Returns:
+        List of tuples ``(section_name, [schema_items])``, ordered by first
+        occurrence of each section in ``ENV_SCHEMA``.
+    """
     order: List[str] = []
     sections_dict: dict[str, List[dict]] = {}
     for item in ENV_SCHEMA:
@@ -66,11 +86,11 @@ def show_config_dialog(parent_window: Any) -> bool:
     and returns True so the caller can restart the app. On Cancel returns False.
 
     Args:
-        parent_window: Parent Tkinter window (Tk or Toplevel).
+        parent_window: Parent Tkinter window (``Tk`` or ``Toplevel``).
 
     Returns:
-        True if user accepted and .env was written (caller should restart).
-        False if user cancelled.
+        ``True`` if user accepted and ``.env`` was written (caller should restart).
+        ``False`` if user cancelled.
     """
     config_level = Toplevel()
     config_level.title(t('config.title'))

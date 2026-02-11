@@ -3,12 +3,6 @@
 Main Program - Data Fitting Application
 Entry point for the curve fitting application with GUI interface.
 """
-__author__ = "Alejandro Mata Ali"
-__copyright__ = "Public content for science use"
-__credits__ = ["Alejandro Mata Ali"]
-__maintainer__ = "Alejandro Mata Ali"
-__email__ = "alejandro.mata.ali@gmail.com"
-__status__ = "Beta"
 
 # Standard library
 import sys

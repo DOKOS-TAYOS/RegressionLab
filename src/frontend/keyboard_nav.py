@@ -9,8 +9,16 @@ def bind_enter_to_accept(
     accept_callback: Callable[[], None],
 ) -> None:
     """
-    Bind <Return> and <KP_Enter> on each widget to accept_callback, so that
-    pressing Enter from a Spinbox, Entry, Combobox, etc. triggers accept.
+    Bind Enter key events to trigger accept callback on widgets.
+
+    Binds both <Return> and <KP_Enter> events on each widget to the
+    accept_callback function, so that pressing Enter from input widgets
+    (Spinbox, Entry, Combobox, etc.) triggers the accept action.
+
+    Args:
+        widgets: Sequence of Tkinter widgets to bind events to.
+        accept_callback: Callback function with signature ``() -> None`` to call
+            when Enter is pressed.
     """
     def _on_enter(_event: Event) -> str:
         accept_callback()
@@ -26,13 +34,20 @@ def setup_arrow_enter_navigation(
     on_enter: Optional[Callable[[Any, Event], bool]] = None,
 ) -> None:
     """
-    Bind arrow keys to move focus in the given direction and Return/Enter to
-    activate the focused widget. widgets_grid is a 2D list of focusable widgets
-    (e.g. ttk.Button); use None for empty cells.
+    Set up keyboard navigation for a grid of widgets.
 
-    If on_enter is provided, it is called as on_enter(widget, event). If it
-    returns True, the default behavior (invoke button) is skipped. Use it to
-    handle Enter on non-button widgets (e.g. radiobutton -> confirm dialog).
+    Binds arrow keys to move focus between widgets in the grid and
+    Return/Enter keys to activate the focused widget. The grid is a 2D
+    list of focusable widgets (e.g. ttk.Button); use None for empty cells.
+
+    Args:
+        widgets_grid: 2D sequence of widgets arranged in a grid layout.
+            Use ``None`` for empty cells in the grid.
+        on_enter: Optional callback function called when Enter is pressed.
+            Signature: ``on_enter(widget, event) -> bool``.
+            If it returns ``True``, the default behavior (invoke button) is skipped.
+            Use this to handle Enter on non-button widgets (e.g. radiobutton
+            -> confirm dialog).
     """
     grid: dict[tuple[int, int], Any] = {}
     for r, row in enumerate(widgets_grid):

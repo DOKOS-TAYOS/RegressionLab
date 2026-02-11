@@ -9,6 +9,14 @@ import yaml
 # Application version number
 __version__ = "0.9.0"
 
+# Application metadata
+__author__ = "Alejandro Mata Ali"
+__copyright__ = "Public content for science use"
+__credits__ = ["Alejandro Mata Ali"]
+__maintainer__ = "Alejandro Mata Ali"
+__email__ = "alejandro.mata.ali@gmail.com"
+__status__ = "Beta"
+
 # ---------------------------------------------------------------------------
 # Equations configuration
 # ---------------------------------------------------------------------------

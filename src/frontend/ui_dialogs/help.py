@@ -80,7 +80,18 @@ def remove_markdown_bold(text: str) -> str:
 
 
 def _help_section_content(content_keys: List[str]) -> str:
-    """Build section body from locale keys."""
+    """
+    Build section body text from locale translation keys.
+
+    Joins translated content from multiple locale keys, removing Markdown
+    bold markers for Tkinter display.
+
+    Args:
+        content_keys: List of locale keys (e.g., ``['advantage_1', 'advantage_2']``).
+
+    Returns:
+        Formatted section body text with double newlines (``'\\n\\n'``) between items.
+    """
     return '\n\n'.join(
         remove_markdown_bold(t(f'help.{k}')) for k in content_keys
     )
@@ -95,10 +106,7 @@ def show_help_dialog(parent_window: Tk | Toplevel) -> None:
     data location, output location, and statistics.
 
     Args:
-        parent_window: Parent Tkinter window (Tk or Toplevel).
-
-    Returns:
-        None.
+        parent_window: Parent Tkinter window (``Tk`` or ``Toplevel``).
     """
     help_level = Toplevel()
     help_level.title(t('dialog.help_title'))

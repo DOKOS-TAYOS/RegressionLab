@@ -22,6 +22,15 @@ Image Utilities
    :show-inheritance:
    :imported-members:
 
+Keyboard Navigation
+===================
+
+.. automodule:: frontend.keyboard_nav
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :imported-members:
+
 Dialogs
 =========
 

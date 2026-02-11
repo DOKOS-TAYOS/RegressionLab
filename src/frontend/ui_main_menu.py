@@ -202,7 +202,13 @@ def create_main_menu(
 
 def _handle_config(menu: Tk) -> None:
     """
-    Open configuration dialog. If user saves, restart the application.
+    Open configuration dialog and restart application if user saves.
+
+    Displays the configuration dialog. If the user accepts and saves changes,
+    the application is restarted to apply the new configuration.
+
+    Args:
+        menu: The main menu Tkinter window (``Tk`` instance).
     """
     from frontend.ui_dialogs import show_config_dialog
     if show_config_dialog(menu):

@@ -8,8 +8,16 @@ from config import UI_STYLE
 
 def bind_tooltip(widget: Any, text: str, delay_ms: int = 500) -> None:
     """
-    Bind a tooltip to a widget: show after delay on Enter, hide on Leave.
-    Uses a contrasting background and border so the tooltip is visible over the UI.
+    Bind a tooltip to a Tkinter widget.
+
+    Shows a tooltip window after a delay when the mouse enters the widget,
+    and hides it when the mouse leaves. Uses a contrasting background and
+    border so the tooltip is visible over the UI.
+
+    Args:
+        widget: Tkinter widget to bind the tooltip to.
+        text: Tooltip text to display when mouse hovers over the widget.
+        delay_ms: Delay in milliseconds before showing the tooltip (default: ``500``).
     """
     tooltip_window: Optional[Toplevel] = None
     after_id: Optional[str] = None

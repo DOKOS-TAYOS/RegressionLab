@@ -45,8 +45,17 @@ UNICODE_PARAM_MAP: Dict[str, str] = {
 
 def _normalize_unicode_text(text: str) -> str:
     """
-    Replace explicit Unicode escape sequences like '\\u03B1' with their
-    corresponding Greek letters in arbitrary text (names, formulas, etc.).
+    Replace explicit Unicode escape sequences with their corresponding characters.
+
+    Converts Unicode escape sequences like '\\u03B1' to their corresponding
+    Greek letters (e.g., 'α') in arbitrary text (names, formulas, etc.).
+
+    Args:
+        text: Input text containing Unicode escape sequences (e.g., ``'\\u03B1'``).
+
+    Returns:
+        Text with escape sequences replaced by their corresponding characters
+        (e.g., ``'α'``).
     """
     for code, char in UNICODE_PARAM_MAP.items():
         text = text.replace(code, char)
@@ -55,8 +64,18 @@ def _normalize_unicode_text(text: str) -> str:
 
 def _normalize_param_name(name: str) -> str:
     """
-    Normalize parameter names replacing explicit Unicode escape sequences
-    like '\\u03B1' with their corresponding Greek letters.
+    Normalize parameter names by replacing Unicode escape sequences.
+
+    Replaces explicit Unicode escape sequences like '\\u03B1' with their
+    corresponding Greek letters and strips whitespace.
+
+    Args:
+        name: Parameter name string that may contain Unicode escape sequences
+            (e.g., ``'\\u03B1'``).
+
+    Returns:
+        Normalized parameter name with escape sequences replaced (e.g., ``'α'``)
+        and whitespace removed.
     """
     return _normalize_unicode_text(name.strip())
 
@@ -72,11 +91,11 @@ def ask_equation_type(
     for custom equations and exiting.
 
     Args:
-        parent_window: Parent Tkinter window
+        parent_window: Parent Tkinter window.
 
     Returns:
-        Tuple of (equation_type, user_initial_guess, user_bounds).
-        user_initial_guess and user_bounds are None when not configured.
+        Tuple of ``(equation_type, user_initial_guess, user_bounds)``.
+        ``user_initial_guess`` and ``user_bounds`` are ``None`` when not configured.
     """
     from fitting import get_equation_param_info
 
@@ -274,8 +293,15 @@ def ask_num_parameters(parent_window: Any) -> Optional[int]:
     """
     Dialog to ask for number of parameters in a custom function.
 
+    Displays a dialog with a Spinbox allowing the user to select the number
+    of parameters (1-12) for a custom fitting function.
+
+    Args:
+        parent_window: Parent Tkinter window.
+
     Returns:
-        Selected number of parameters, or None if the user closed the window with X.
+        Selected number of parameters (1-12), or ``None`` if the user closed
+        the window.
     """
     num_parameter_level = Toplevel()
     num_parameter_level.title(t('dialog.custom_formula_title'))
@@ -330,8 +356,17 @@ def ask_parameter_names(parent_window: Any, num_params: int) -> List[str]:
     """
     Dialog to ask for parameter names in a custom function.
 
+    Displays a series of dialogs (one per parameter) asking the user to enter
+    parameter names. Shows Unicode escape sequence hints for Greek letters.
+    Parameter names are normalized (Unicode escapes replaced, whitespace removed).
+
+    Args:
+        parent_window: Parent Tkinter window.
+        num_params: Number of parameters to collect names for.
+
     Returns:
-        List of parameter names
+        List of parameter names entered by the user. Returns ``[EXIT_SIGNAL]``
+        if user cancels at any point.
     """
     cod1 = '\\u03B1=α, \\u03B2=β, \\u03B3=γ, \\u03B4=δ, \\u03B5=ε\n'
     cod2 = '\\u03B6=ζ, \\u03B7=η, \\u03B8=θ, \\u03BB=λ, \\u03BC=μ\n'
@@ -416,8 +451,17 @@ def ask_custom_formula(parent_window: Any, parameter_names: List[str]) -> str:
     """
     Dialog to ask for custom function formula.
 
+    Displays a dialog allowing the user to enter a mathematical formula
+    using the previously defined parameter names. Shows syntax hints and
+    Unicode escape sequence reference for Greek letters.
+
+    Args:
+        parent_window: Parent Tkinter window.
+        parameter_names: List of parameter names that can be used in the formula.
+
     Returns:
-        Formula entered by the user
+        Formula string entered by the user, with Unicode escape sequences
+        normalized. Returns ``EXIT_SIGNAL`` if user cancels.
     """
     cod1 = '\\u03B1=α, \\u03B2=β, \\u03B3=γ, \\u03B4=δ, \\u03B5=ε\n'
     cod2 = '\\u03B6=ζ, \\u03B7=η, \\u03B8=θ, \\u03BB=λ, \\u03BC=μ\n'
@@ -528,8 +572,17 @@ def ask_num_fits(parent_window: Any, min_val: int = 2, max_val: int = 10) -> Opt
     """
     Dialog to ask for number of multiple fits.
 
+    Displays a dialog with a Spinbox allowing the user to select the number
+    of fits to perform (between min_val and max_val).
+
+    Args:
+        parent_window: Parent Tkinter window.
+        min_val: Minimum number of fits allowed (default: 2).
+        max_val: Maximum number of fits allowed (default: 10).
+
     Returns:
-        Selected number of fits, or None if the user closed the window with X.
+        Selected number of fits (between ``min_val`` and ``max_val``), or
+        ``None`` if the user closed the window.
     """
     number_fits_level = Toplevel()
     number_fits_level.title(t('workflow.multiple_fitting_title'))

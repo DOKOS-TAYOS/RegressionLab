@@ -334,12 +334,32 @@ _font_cache = None
 
 
 def get_entry_font() -> tuple[str, int]:
-    """Font tuple for ttk Entry and Combobox (unified with UI base font)."""
+    """
+    Get font tuple for ttk Entry and Combobox widgets.
+
+    Returns a font tuple unified with the UI base font configuration.
+
+    Returns:
+        Tuple of ``(font_family, font_size)`` from ``UI_STYLE`` configuration.
+    """
     return (UI_STYLE['font_family'], UI_STYLE['font_size'])
 
 
 def _edge_color(bg_color: str, lighter: bool) -> str:
-    """Return a lighter or darker shade for 3D button highlight/shadow."""
+    """
+    Return a lighter or darker shade for 3D button highlight/shadow.
+
+    Uses a lookup table to map background colors to appropriate edge colors
+    for 3D button effects (highlight for lighter, shadow for darker).
+
+    Args:
+        bg_color: Background color name (e.g., ``'navy'``, ``'gray15'``).
+        lighter: If ``True``, return lighter shade (highlight); if ``False``,
+            darker (shadow).
+
+    Returns:
+        Color name string for the edge color (e.g., ``'steel blue'``, ``'gray12'``).
+    """
     key = bg_color.lower() if isinstance(bg_color, str) else ''
     if lighter:
         m = {'midnight blue': 'steel blue', 'navy': 'steel blue', 'black': 'gray20', 'gray5': 'gray15', 'gray10': 'gray25', 'gray15': 'gray30', 'gray20': 'gray35'}
@@ -512,7 +532,16 @@ def configure_ttk_styles(root: Any) -> None:
 
 
 def apply_hover_to_children(parent: Any) -> None:
-    """Bind hover highlight to ttk Entry, Combobox, Checkbutton, Radiobutton under parent."""
+    """
+    Bind hover highlight effects to ttk widgets under parent.
+
+    Recursively applies hover effects (style changes on mouse enter/leave)
+    to ttk Entry, Combobox, Checkbutton, and Radiobutton widgets within
+    the parent widget hierarchy.
+
+    Args:
+        parent: Parent Tkinter widget to recursively search for children widgets.
+    """
     for w in parent.winfo_children():
         apply_hover_to_children(w)
         cls = w.winfo_class()
@@ -534,7 +563,12 @@ def apply_hover_to_children(parent: Any) -> None:
 def setup_fonts() -> tuple[Any, Any]:
     """
     Configure and cache font properties for plot titles and axes.
-    Returns (title_font, axis_font) from FONT_CONFIG.
+
+    Creates and caches font objects for matplotlib plot titles and axes
+    from FONT_CONFIG. Subsequent calls return cached fonts.
+
+    Returns:
+        Tuple of ``(title_font, axis_font)`` font objects from ``FONT_CONFIG``.
     """
     global _font_cache
     if _font_cache is not None:
