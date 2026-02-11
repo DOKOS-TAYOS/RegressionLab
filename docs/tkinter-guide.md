@@ -55,7 +55,7 @@ When you launch the application, you see the main menu with buttons for each ope
 
 ```
 ┌─────────────────────────────────────┐
-│       RegressionLab v0.9.0         │
+│       RegressionLab v0.9.1         │
 ├─────────────────────────────────────┤
 │                                     │
 │   [ Normal Fitting ]                │

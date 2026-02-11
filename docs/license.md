@@ -203,7 +203,7 @@ The complete MIT License text is also available in the `LICENSE` file in the roo
 
 ## Version History
 
-- **v0.9.0** (February 2026): Current license (MIT)
+- **v0.9.1** (February 2026): Current license (MIT)
 - License has remained MIT since project inception
 
 ---

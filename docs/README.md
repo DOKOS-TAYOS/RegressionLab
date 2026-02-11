@@ -251,6 +251,6 @@ Documentation should be reviewed and updated:
 
 ---
 
-**Documentation Version**: 0.9.0  
+**Documentation Version**: 0.9.1  
 **Last Updated**: February 2026  
 **Maintainer**: Alejandro Mata Ali
