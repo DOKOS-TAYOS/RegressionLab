@@ -4,7 +4,14 @@ Plot generation and styling utilities.
 
 ## Overview
 
-The `plot_utils.py` module provides functions to create and save plots with experimental data and fitted curves. It handles visualization of fitting results with proper styling, error bars, and formatting.
+The `plot_utils.py` module provides functions to create and save plots with experimental data and fitted curves. It handles:
+
+- **2D fit plots**: Data with error bars and fitted curve (`create_plot`)
+- **Pair plots**: Grid of scatter plots for all pairs of variables (`create_pair_plots`)
+- **Residual plots**: Residuals vs point index for multidimensional fits (`create_residual_plot`)
+- **3D plots**: Data points and fitted surface for two independent variables (`create_3d_plot`)
+
+All save functions use shared logic: the output directory is created if needed, and when saving as PDF a PNG preview is automatically generated for GUI use. Styling is driven by `config.PLOT_CONFIG` and `config.FONT_CONFIG` when not overridden.
 
 ## Key Functions
 
@@ -64,6 +71,41 @@ plot_path = create_plot(
 
 print(f"Plot saved to: {plot_path}")
 ```
+
+#### `create_pair_plots(data, variable_names, plot_config=None, font_config=None, output_path=None) -> str | Figure`
+
+Create a grid of scatter plots for all pairs of variables (pair plot / scatter matrix).
+
+**Parameters:**
+- `data`: DataFrame or dict-like with numeric columns
+- `variable_names`: List of column names to use (must exist and be numeric)
+- `plot_config`: Optional; defaults to `PLOT_CONFIG`
+- `font_config`: Optional; defaults to `FONT_CONFIG`
+- `output_path`: If given, save figure and return path (str). If `None`, return the matplotlib Figure for inline display (e.g. Streamlit)
+
+**Returns:** Path to the saved image (str) if `output_path` was set; otherwise the Figure instance.
+
+---
+
+#### `create_residual_plot(residuals, point_indices, fit_name, plot_config=None, font_config=None, output_path=None) -> str`
+
+Create a residual plot for multidimensional fitting (residuals vs point index).
+
+**Parameters:** `residuals`, `point_indices`, `fit_name`, optional `plot_config`, `font_config`, `output_path` (if `None`, uses `get_output_path(fit_name)`).
+
+**Returns:** Path to the saved plot file (str).
+
+---
+
+#### `create_3d_plot(x, y, z, z_fitted, fit_name, x_name, y_name, z_name, plot_config=None, font_config=None, output_path=None, interactive=False) -> str | tuple[str, Figure]`
+
+Create a 3D plot with data points and fitted surface mesh for two independent variables.
+
+**Parameters:** `x`, `y`, `z`, `z_fitted`, `fit_name`, `x_name`, `y_name`, `z_name`, optional config and path. If `interactive=True`, returns `(save_path, figure)` for embedding in a window (e.g. rotatable with mouse) instead of saving and closing.
+
+**Returns:** Path (str) when `interactive=False`; `(save_path, figure)` when `interactive=True`.
+
+**Note:** Surface interpolation uses `scipy.interpolate.griddata` when scipy is available; otherwise a vectorized nearest-neighbor fallback is used.
 
 ## Plot Components
 
@@ -277,7 +319,7 @@ from plotting.plot_utils import create_plot
 fit_func = get_fitting_function('linear_function')
 
 # Perform fit
-text, y_fitted, equation = fit_func(data, 'x', 'y')
+text, y_fitted, equation, *_ = fit_func(data, 'x', 'y')
 
 # Create plot
 plot_path = create_plot(
@@ -334,41 +376,43 @@ except Exception as e:
    uy = [0.0] * len(y)
    ```
 
-3. **Output Directory**: Ensure output directory exists
-   ```python
-   from pathlib import Path
-   output_dir = Path('output')
-   output_dir.mkdir(exist_ok=True)
-   ```
+3. **Output Directory**: The plotting functions create the output directory automatically when saving; you do not need to create it beforehand.
 
-4. **Resource Cleanup**: Close figures after use
-   ```python
-   import matplotlib.pyplot as plt
-   
-   plot_path = create_plot(...)
-   plt.close('all')  # Cleanup
-   ```
+4. **Resource Cleanup**: Figures are closed automatically after saving. Only call `plt.close('all')` when handling errors (e.g. in an except block) to clean up any open figures.
 
 ## Technical Details
+
+### Saving and Output
+
+- **Format**: Save format is determined by the file extension in `output_path` (e.g. PNG, PDF).
+- **PDF preview**: When the output path has a `.pdf` extension, a PNG preview file (`*_preview.png`) is automatically written in the same directory for use in GUIs.
+- **Directory creation**: The parent directory of the save path is created automatically (`parents=True`, `exist_ok=True`).
+- **Shared logic**: All plot-saving functions use an internal helper so that save behavior and preview generation are consistent.
 
 ### Matplotlib Integration
 
 - Uses `matplotlib.pyplot` for plotting
-- Creates figure with specified size and DPI
-- Saves in PNG format with tight layout
-- Automatically closes figures after saving
+- Creates figure with specified size and DPI from `plot_config`
+- Saves with `bbox_inches='tight'` and configured DPI
+- Automatically closes figures after saving (unless returning the figure for interactive use, e.g. pair plot without path or 3D with `interactive=True`)
 
 ### Font Configuration
 
 - Uses `config.setup_fonts()` for font configuration
-- Supports custom font properties
+- Supports custom font properties via `font_config`
 - Handles font fallbacks gracefully
+
+### 3D Plots and Optional SciPy
+
+- **With scipy**: 3D fitted surface uses `scipy.interpolate.griddata` (linear interpolation, with nearest-neighbor fill outside the convex hull).
+- **Without scipy**: A vectorized nearest-neighbor interpolation over the grid is used so 3D plots still work without scipy.
 
 ### Performance
 
 - Single figure creation per call
 - Efficient memory usage
 - Fast rendering for typical data sizes (< 10,000 points)
+- Pair plot and 3D fallback use vectorized operations where applicable
 
 ---
 

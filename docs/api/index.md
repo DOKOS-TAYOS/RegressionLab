@@ -91,7 +91,7 @@ RegressionLab/
 
 ### Visualization
 
-- **[plotting.plot_utils](plot_utils.md)** - Plot generation and styling
+- **[plotting.plot_utils](plot_utils.md)** - Plot generation and styling (2D fit, pair, residual, 3D)
 
 ### User Interface
 
@@ -121,7 +121,7 @@ python -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
 # Install dependencies including dev tools
-pip install -r requirements-dev.txt
+pip install -r requirements-dev.txt   # or: pip install -e ".[dev]"
 
 # Run tests
 pytest tests/ -v
@@ -134,6 +134,7 @@ pytest tests/ --cov=src --cov-report=html
 
 ```bash
 # From project root (activate .venv first if using setup scripts)
+# Bin launchers require .venv (run setup.bat / setup.sh first).
 # Tkinter (desktop)
 python src/main_program.py
 # Or: bin\run.bat (Windows) / ./bin/run.sh (Linux/macOS)
@@ -217,7 +218,7 @@ Quick summary:
 ### Adding a New Data Format
 
 1. Create reader function in `loaders/loading_utils.py`
-2. Update `load_data()` in `loaders/data_loader.py`
+2. Register it in the `_READERS` dict in `loaders/data_loader.py` (key = file type, value = reader function)
 3. Add file type option to `ask_file_type()` in `frontend/ui_dialogs/data_selection.py`
 4. Test with sample data
 
@@ -249,7 +250,7 @@ tests/
 └── test_workflow_controller.py
 ```
 
-Run tests via `pytest tests/` or `python tests/run_tests.py`, or use `bin/run_tests.bat` (Windows) / `bin/run_tests.sh` (Linux/macOS).
+Run tests via `pytest tests/` or `python tests/run_tests.py`, or use `bin/run_tests.bat` (Windows) / `bin/run_tests.sh` (Linux/macOS). The bin test launchers require `.venv` (run setup first).
 
 ### Running Tests
 
@@ -306,7 +307,7 @@ def test_ajlineal_perfect_fit():
     
     data = pd.DataFrame({'x': x, 'y': y})
     
-    text, y_fitted, equation = ajlineal(data, 'x', 'y')
+    text, y_fitted, equation, *_ = ajlineal(data, 'x', 'y')
     
     # Check R² is nearly perfect (R² is included in text output)
     assert 'R²' in text or 'R^2' in text
@@ -337,12 +338,11 @@ def test_ajlineal_various_slopes(slope, n_points):
 
 ### Return Values
 
-**Fitting functions** return a 3-tuple:
+**Fitting functions** return a 4-tuple from `generic_fit` (and from `get_fitting_function` / custom evaluator):
 ```python
-(text: str, y_fitted: NDArray, equation: str)
+(text: str, y_fitted: NDArray, equation: str, fit_info: Optional[dict])
 ```
-
-Where `text` contains formatted parameters, uncertainties, R², and statistics.
+Callers that only need the main result use the first three; `fit_info` holds fit metadata. `text` contains formatted parameters, uncertainties, R², and statistics.
 
 **Data loaders** return pandas DataFrame
 

@@ -99,6 +99,11 @@ def _get_menu_window() -> Optional[Any]:
     return getattr(__main__, 'menu', None)
 
 
+def _equation_display_name(equation_name: str) -> str:
+    """Convert internal equation name to display form (e.g. 'linear_function' -> 'Linear Function')."""
+    return equation_name.replace('_', ' ').title()
+
+
 def _set_equation_helper(equation_name: str) -> None:
     """
     Set the current equation and create a fitter with visualization.
@@ -109,12 +114,9 @@ def _set_equation_helper(equation_name: str) -> None:
     Args:
         equation_name: Internal name of the equation (e.g., 'linear_function')
     """
-    # Get backend fitting function
     base_fit = get_fitting_function(equation_name)
     if base_fit:
-        # Wrap with frontend visualization
-        display_name = equation_name.replace('_', ' ').title()
-        fitter_with_ui = _wrap_with_visualization(base_fit, display_name)
+        fitter_with_ui = _wrap_with_visualization(base_fit, _equation_display_name(equation_name))
         _app_state.set_equation(equation_name, fitter_with_ui)
 
 def _wrap_with_visualization(base_fit_function: Callable, fit_name: str) -> Callable:
@@ -158,27 +160,21 @@ def _wrap_with_visualization(base_fit_function: Callable, fit_name: str) -> Call
             else:
                 text, y_fitted, equation = result
                 fit_info = None
-            
-            # Check if this is a multidimensional fit
+
             num_indep = getattr(base_fit_function, 'num_independent_vars', 1)
             if isinstance(x_name, list):
                 num_indep = len(x_name)
-            
-            # Extract data arrays for plotting
+
+            x_key: str = x_name if isinstance(x_name, str) else x_name[0]
             y = data[y_name]
             uy = data.get('u%s' % y_name, [0.0] * len(y))
-            
-            # Use plot_name for filename, fit_name for window title
             filename_base = plot_name if plot_name else fit_name
             figure_3d = None
 
-            # Frontend: Create visualization based on number of independent variables
             if num_indep == 1:
-                # Single variable: standard 2D plot
-                x = data[x_name] if isinstance(x_name, str) else data[x_name[0]]
-                ux = data.get('u%s' % (x_name if isinstance(x_name, str) else x_name[0]), [0.0] * len(x))
-                x_label = x_name if isinstance(x_name, str) else x_name[0]
-                output_path = create_plot(x, y, ux, uy, y_fitted, filename_base, x_label, y_name)
+                x = data[x_key]
+                ux = data.get('u%s' % x_key, [0.0] * len(x))
+                output_path = create_plot(x, y, ux, uy, y_fitted, filename_base, x_key, y_name)
             elif num_indep == 2:
                 # Two variables: 3D plot (interactive, rotatable with mouse)
                 from plotting import create_3d_plot
@@ -277,12 +273,8 @@ def normal_fitting() -> None:
         logger.info(t('log.user_cancelled_equation'))
         return
     
-    # Check if this is a multidimensional custom function
     num_independent_vars = getattr(base_fit_function, 'num_independent_vars', 1)
-    
-    # Wrap backend function with frontend visualization layer
-    display_name = equation_name.replace('_', ' ').title()
-    fitter_with_ui = _wrap_with_visualization(base_fit_function, display_name)
+    fitter_with_ui = _wrap_with_visualization(base_fit_function, _equation_display_name(equation_name))
     
     # Store current equation in app state
     _app_state.set_equation(equation_name, fitter_with_ui)
@@ -392,14 +384,9 @@ def single_fit_multiple_datasets() -> None:
     
     if equation_name == EXIT_SIGNAL or base_fit_function is None:
         return
-    
-    # Check if this is a multidimensional custom function
+
     num_independent_vars = getattr(base_fit_function, 'num_independent_vars', 1)
-    
-    # Wrap backend function with frontend visualization
-    display_name = equation_name.replace('_', ' ').title()
-    fitter_with_ui = _wrap_with_visualization(base_fit_function, display_name)
-    
+    fitter_with_ui = _wrap_with_visualization(base_fit_function, _equation_display_name(equation_name))
     _app_state.set_equation(equation_name, fitter_with_ui)
     
     # Ask for number of datasets
@@ -413,46 +400,43 @@ def single_fit_multiple_datasets() -> None:
         title=t('workflow.multiple_fitting_title')
     )
     
-    # Load all datasets
-    datasets = []
-    for i in range(num_datasets):
-        # Check if user hasn't cancelled any previous load
-        if not any(ds.get('data_file_type') == EXIT_SIGNAL for ds in datasets):
-            (
-                data, x_name, y_name, plot_name, data_file_path, data_file_type
-            ) = coordinate_data_loading(
+    datasets: List[dict] = []
+    for _ in range(num_datasets):
+        if any(ds.get('data_file_type') == EXIT_SIGNAL for ds in datasets):
+            break
+        (
+            data, x_name, y_name, plot_name, data_file_path, data_file_type
+        ) = coordinate_data_loading(
+            parent_window=menu,
+            ask_file_type_func=ask_file_type,
+            ask_file_name_func=ask_file_name,
+            ask_variables_func=ask_variables
+        )
+        if isinstance(data, str):
+            datasets.append({'data_file_type': EXIT_SIGNAL})
+            break
+        if num_independent_vars > 1:
+            from frontend import ask_multiple_x_variables
+            from loaders import get_variable_names
+            variable_names = get_variable_names(data, filter_uncertainty=True)
+            x_names = ask_multiple_x_variables(
                 parent_window=menu,
-                ask_file_type_func=ask_file_type,
-                ask_file_name_func=ask_file_name,
-                ask_variables_func=ask_variables
+                variable_names=variable_names,
+                num_vars=num_independent_vars,
+                first_x_name=x_name
             )
-            
-            if not isinstance(data, str):  # Data loaded successfully
-                # If multidimensional, ask for multiple x variables
-                if num_independent_vars > 1:
-                    from frontend import ask_multiple_x_variables
-                    from loaders import get_variable_names
-                    variable_names = get_variable_names(data, filter_uncertainty=True)
-                    x_names = ask_multiple_x_variables(
-                        parent_window=menu,
-                        variable_names=variable_names,
-                        num_vars=num_independent_vars,
-                        first_x_name=x_name
-                    )
-                    if not x_names:
-                        datasets.append({'data_file_type': EXIT_SIGNAL})
-                        continue
-                    x_name = x_names
-                datasets.append({
-                    'data': data,
-                    'x_name': x_name,
-                    'y_name': y_name,
-                    'plot_name': plot_name,
-                    'data_file_path': data_file_path,
-                    'data_file_type': data_file_type
-                })
-            else:
+            if not x_names:
                 datasets.append({'data_file_type': EXIT_SIGNAL})
+                break
+            x_name = x_names
+        datasets.append({
+            'data': data,
+            'x_name': x_name,
+            'y_name': y_name,
+            'plot_name': plot_name,
+            'data_file_path': data_file_path,
+            'data_file_type': data_file_type
+        })
     
     # Only proceed if all datasets were loaded successfully
     if not any(ds.get('data_file_type') == EXIT_SIGNAL for ds in datasets):
@@ -515,11 +499,8 @@ def multiple_fits_single_dataset() -> None:
             get_fitting_function_func=get_fitting_function
         )
         
-        # Perform fit if equation was selected
         if equation_name != EXIT_SIGNAL and base_fit_function is not None:
-            # Wrap backend function with frontend visualization
-            display_name = equation_name.replace('_', ' ').title()
-            fitter_with_ui = _wrap_with_visualization(base_fit_function, display_name)
+            fitter_with_ui = _wrap_with_visualization(base_fit_function, _equation_display_name(equation_name))
             
             _app_state.set_equation(equation_name, fitter_with_ui)
             

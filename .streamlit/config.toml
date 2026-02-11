@@ -1,8 +1,9 @@
 # Streamlit Configuration for RegressionLab
-# This file configures the Streamlit app for deployment on Streamlit Cloud
+# Optimized for Streamlit Community Cloud deployment
+# Config must live at repo root: .streamlit/config.toml (only one config per repo)
 
 [theme]
-# Theme configuration - Dark Mode
+# Theme - Dark Mode
 primaryColor = "#1f77b4"
 backgroundColor = "#0e1117"
 secondaryBackgroundColor = "#262730"
@@ -10,25 +11,22 @@ textColor = "#fafafa"
 font = "sans serif"
 
 [server]
-# Server configuration
-# Note: headless should be true for Streamlit Cloud
+# Required for Community Cloud
 headless = true
 port = 8501
 enableXsrfProtection = true
-# Note: enableCORS is automatically set to true when enableXsrfProtection is enabled
+# No file watching in cloud
+runOnSave = false
 
 [browser]
-# Browser configuration
 gatherUsageStats = false
-# Note: serverAddress and serverPort are not needed for Streamlit Cloud
 
 [runner]
-# Runner configuration
 magicEnabled = true
 fastReruns = true
 postScriptGC = true
 
 [client]
-# Client configuration
-showErrorDetails = true
+# Hide full stack traces from end users in production (Community Cloud)
+showErrorDetails = false
 toolbarMode = "minimal"

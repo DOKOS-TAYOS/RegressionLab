@@ -41,7 +41,7 @@ echo ""
 if ! command -v git &> /dev/null; then
     echo "Git is not installed."
     if is_linux_with_pkg_manager; then
-        read -p "Do you want to install Git now? (y/n): " INSTALL_GIT
+        read -p "Do you want to install Git now? (y/N): " INSTALL_GIT
         if [[ "$INSTALL_GIT" =~ ^[Yy]$ ]]; then
             echo "Installing Git..."
             if install_git_linux; then
@@ -90,6 +90,7 @@ if [ -d "$REPO_NAME" ]; then
     else
         echo "      Using existing directory..."
         cd "$REPO_NAME"
+        chmod +x setup.sh
         ./setup.sh
         exit 0
     fi

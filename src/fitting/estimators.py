@@ -295,23 +295,17 @@ def estimate_binomial_parameters(x: Any, y: Any) -> Tuple[float, float, float]:
     y_max = float(np.max(y))
     a_0 = (y_max - y_min) if (y_max - y_min) > _EPS_DENOM else 1.0
     mid_level = y_min + 0.5 * (y_max - y_min)
-    idx = np.searchsorted(np.sort(y), mid_level)
-    if idx <= 0:
-        c_0 = float(x[0])
-    elif idx >= len(x):
-        c_0 = float(x[-1])
+    order = np.argsort(x)
+    x_s = x[order]
+    y_s = y[order]
+    if mid_level <= y_s[0]:
+        c_0 = float(x_s[0])
+    elif mid_level >= y_s[-1]:
+        c_0 = float(x_s[-1])
     else:
-        order = np.argsort(x)
-        x_s = x[order]
-        y_s = y[order]
         i = np.searchsorted(y_s, mid_level)
-        if i <= 0:
-            c_0 = float(x_s[0])
-        elif i >= len(x_s):
-            c_0 = float(x_s[-1])
-        else:
-            t_val = (mid_level - y_s[i - 1]) / (y_s[i] - y_s[i - 1] + _EPS_DENOM)
-            c_0 = float((1.0 - t_val) * x_s[i - 1] + t_val * x_s[i])
+        t_val = (mid_level - y_s[i - 1]) / (y_s[i] - y_s[i - 1] + _EPS_DENOM)
+        c_0 = float((1.0 - t_val) * x_s[i - 1] + t_val * x_s[i])
     x_range = float(np.ptp(x))
     if x_range < _EPS_DENOM:
         x_range = 1.0
@@ -383,3 +377,45 @@ def estimate_square_pulse_parameters(x: Any, y: Any) -> Tuple[float, float, floa
     if w_0 <= 0:
         w_0 = 1.0
     return A_0, t0_0, w_0
+
+
+def estimate_hyperbolic_parameters(x: Any, y: Any) -> Tuple[float, float]:
+    """
+    Estimate initial parameters for hyperbolic functions (sinh/cosh).
+
+    For y = a * sinh(b*x) or y = a * cosh(b*x): amplitude (a) from half the
+    y range, frequency (b) from inverse of x range.
+
+    Args:
+        x: Independent variable array
+        y: Dependent variable array
+
+    Returns:
+        Tuple (amplitude, frequency).
+    """
+    x = np.asarray(x, dtype=float)
+    y = np.asarray(y, dtype=float)
+    y_range = float(np.ptp(y))
+    amplitude = y_range / 2.0 if y_range > 0 else 1.0
+    x_range = float(np.ptp(x))
+    frequency = 1.0 / x_range if x_range > _EPS_DENOM else 1.0
+    return amplitude, frequency
+
+
+def estimate_hyperbolic_bounds(x: Any) -> Tuple[Tuple[float, float], Tuple[float, float]]:
+    """
+    Return parameter bounds for hyperbolic fits (sinh/cosh) to avoid overflow.
+
+    For y = a * sinh(b*x) or y = a * cosh(b*x): a can be any real, b must be
+    bounded so that b*max(abs(x)) does not cause overflow in exp.
+
+    Args:
+        x: Independent variable array
+
+    Returns:
+        Pair (lower_bounds, upper_bounds), each of length 2 for (a, b).
+    """
+    x = np.asarray(x, dtype=float)
+    x_max_abs = float(np.max(np.abs(x))) + _EPS_DENOM
+    b_max = min(700.0 / x_max_abs, 1e3)
+    return ([-np.inf, 1e-9], [np.inf, b_max])

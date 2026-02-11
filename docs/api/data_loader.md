@@ -153,6 +153,8 @@ print(csv_list)  # ['data1', 'data2']
 
 ## Supported File Formats
 
+File type dispatch is done via a module-level reader registry (`_READERS`): each key is a file type (`'csv'`, `'xlsx'`, `'txt'`) and the value is the corresponding reader from `loading_utils`. To add a new format, implement the reader and register it in `_READERS`.
+
 ### CSV Files
 
 **Supported delimiters:**
@@ -307,7 +309,7 @@ y_name = 'temperature'
 data_dict = {col: data[col].values for col in data.columns}
 
 # 5. Perform fitting
-text, y_fitted, equation = fit_linear_function_with_n(
+text, y_fitted, equation, *_ = fit_linear_function_with_n(
     data_dict, x_name, y_name
 )
 

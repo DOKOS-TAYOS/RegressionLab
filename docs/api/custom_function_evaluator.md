@@ -42,7 +42,7 @@ evaluator = CustomFunctionEvaluator("a*exp(-b*x)", ["a", "b"])
 
 ### Methods
 
-#### `fit(data: Union[dict, pd.DataFrame], x_name: str, y_name: str) -> Tuple[str, NDArray, str]`
+#### `fit(data: Union[dict, pd.DataFrame], x_name: str, y_name: str) -> Tuple[str, NDArray, str, Optional[dict]]`
 
 Perform curve fitting using the custom function.
 
@@ -54,10 +54,11 @@ This method uses the generic_fit function from fitting_utils to perform the actu
 - `y_name`: Name of the dependent variable
 
 **Returns:**
-- Tuple of `(text, y_fitted, equation)`:
+- Tuple of `(text, y_fitted, equation, fit_info)` (same as `generic_fit`):
   - `text`: Formatted text with parameters, uncertainties, R², and statistics
   - `y_fitted`: Array with fitted y values
   - `equation`: Formatted equation with parameter values
+  - `fit_info`: Optional dict with fit metadata (for advanced use)
 
 **Raises:**
 - `FittingError`: If fitting fails
@@ -74,8 +75,8 @@ evaluator = CustomFunctionEvaluator("a*x**2 + b", ["a", "b"])
 # Load data
 data = pd.DataFrame({'x': [1, 2, 3, 4], 'y': [2, 5, 10, 17]})
 
-# Perform fit
-text, y_fitted, equation = evaluator.fit(data, 'x', 'y')
+# Perform fit (use first three values if fit_info not needed)
+text, y_fitted, equation, *_ = evaluator.fit(data, 'x', 'y')
 
 print(f"Equation: {equation}")
 print(f"Results:\n{text}")  # R² is included in the text output
@@ -220,7 +221,7 @@ data = pd.DataFrame({
 })
 
 # Perform fit
-text, y_fitted, equation = evaluator.fit(data, 'x', 'y')
+text, y_fitted, equation, *_ = evaluator.fit(data, 'x', 'y')
 
 print(equation)  # y=a*x**2 + b*x + c
 print(f"Results:\n{text}")  # R² is included in the text output
@@ -242,7 +243,7 @@ data = pd.DataFrame({
     'uy': [0.2] * 5
 })
 
-text, y_fitted, equation = evaluator.fit(data, 'x', 'y')
+text, y_fitted, equation, *_ = evaluator.fit(data, 'x', 'y')
 ```
 
 ### Trigonometric Function
@@ -261,7 +262,7 @@ data = pd.DataFrame({
     'uy': [0.1] * 5
 })
 
-text, y_fitted, equation = evaluator.fit(data, 'x', 'y')
+text, y_fitted, equation, *_ = evaluator.fit(data, 'x', 'y')
 ```
 
 ## Integration with Workflow
@@ -283,8 +284,8 @@ eq_id, fit_func = coordinate_custom_equation(
 )
 
 if fit_func:
-    # Use like any other fitting function
-    text, y_fitted, equation = fit_func(data, 'x', 'y')
+    # Use like any other fitting function (backend returns 4-tuple)
+    text, y_fitted, equation, *_ = fit_func(data, 'x', 'y')
 ```
 
 ## Best Practices

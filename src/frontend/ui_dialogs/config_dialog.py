@@ -98,7 +98,7 @@ def show_config_dialog(parent_window: Any) -> bool:
     config_level.grab_set()
 
     current = get_current_env_values()
-    result_var: List[bool] = [False]
+    result_accepted = False
 
     main_frame = ttk.Frame(config_level, padding=UI_STYLE['border_width'])
     main_frame.pack(padx=UI_STYLE['padding'], pady=6, fill='both', expand=True)
@@ -305,6 +305,7 @@ def show_config_dialog(parent_window: Any) -> bool:
     inner.bind('<Configure>', _update_config_wraplength)
 
     def on_accept() -> None:
+        nonlocal result_accepted
         values: dict[str, str] = {}
         for item in ENV_SCHEMA:
             key = item['key']
@@ -321,20 +322,18 @@ def show_config_dialog(parent_window: Any) -> bool:
                 raw = sv.get().strip()
                 if not raw:
                     values[key] = str(default)
-                else:
+                elif cast_type in (int, float):
                     try:
-                        if cast_type == int:
-                            int(raw)
-                        elif cast_type == float:
-                            float(raw)
+                        (int if cast_type == int else float)(raw)
+                        values[key] = raw
                     except ValueError:
                         values[key] = str(default)
-                    else:
-                        values[key] = raw
+                else:
+                    values[key] = raw
         env_path = get_project_root() / '.env'
         try:
             write_env_file(env_path, values)
-            result_var[0] = True
+            result_accepted = True
         except OSError:
             messagebox.showerror(
                 t('error.critical_error'),
@@ -395,4 +394,4 @@ def show_config_dialog(parent_window: Any) -> bool:
     config_level.after(50, lambda: _focus_first_focusable(config_level))
     config_level.protocol('WM_DELETE_WINDOW', on_cancel)
     parent_window.wait_window(config_level)
-    return result_var[0]
+    return result_accepted

@@ -5,6 +5,7 @@ colors, relief and spacing are unified for consistency. Values are read from
 ENV_SCHEMA in config.env (single source of truth for defaults and types).
 """
 
+from functools import lru_cache
 from typing import Any
 
 from config.env import get_env_from_schema
@@ -40,12 +41,17 @@ def _color_name_to_rgb(color: str) -> tuple[int, int, int] | None:
     if not isinstance(color, str) or not color.strip():
         return None
     
-    # Clean the color string: remove quotes, whitespace
-    color = color.strip().strip('"').strip("'")
-    
-    if not color:
+    # Normalize before lookup so cache hits for equivalent inputs
+    normalized = color.strip().strip('"').strip("'")
+    if not normalized:
         return None
     
+    return _color_name_to_rgb_cached(normalized)
+
+
+@lru_cache(maxsize=64)
+def _color_name_to_rgb_cached(color: str) -> tuple[int, int, int] | None:
+    """Cached implementation of color-to-RGB conversion (receives normalized input)."""
     # If it's already hex, parse it directly
     if color.startswith('#'):
         try:

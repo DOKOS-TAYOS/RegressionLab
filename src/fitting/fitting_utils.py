@@ -141,20 +141,26 @@ def generic_fit(
         logger.error(t('log.data_validation_failed', error=str(e)))
         raise FittingError(t('error.data_validation_failed', error=str(e)))
     
-    # Extract data
+    # Extract data as numpy arrays for reliable curve_fit behavior
     if num_indep == 1:
-        # Single variable: use as before
-        x = data[x_names[0]]
-        ux = data.get('u%s' % x_names[0], np.zeros_like(x))
+        x = np.asarray(data[x_names[0]], dtype=float)
+        ux = np.asarray(
+            data.get('u%s' % x_names[0], np.zeros_like(x)),
+            dtype=float,
+        )
     else:
-        # Multiple variables: combine into 2D array
-        x_arrays = [data[x_n].values for x_n in x_names]
+        x_arrays = [np.asarray(data[x_n], dtype=float) for x_n in x_names]
         x = np.column_stack(x_arrays)
-        # For uncertainties, use first x's uncertainty or zeros
-        ux = data.get('u%s' % x_names[0], np.zeros(len(x)))
-    
-    y = data[y_name]
-    uy = data.get('u%s' % y_name, np.zeros_like(y))
+        ux = np.asarray(
+            data.get('u%s' % x_names[0], np.zeros(len(x))),
+            dtype=float,
+        )
+
+    y = np.asarray(data[y_name], dtype=float)
+    uy = np.asarray(
+        data.get('u%s' % y_name, np.zeros_like(y)),
+        dtype=float,
+    )
     
     logger.debug(t('log.data_points_info', 
                    points=len(x), 
@@ -170,12 +176,17 @@ def generic_fit(
         initial_guess = [1.0] * len(param_names)
         logger.debug(t('log.using_initial_guess', guess=str(initial_guess)))
 
-    # Perform curve fitting
+    # Perform curve fitting (maxfev helps polynomial/nonlinear fits converge)
     try:
         logger.debug(t('log.attempting_curve_fitting'))
         fit_kwargs: dict = dict(
-            f=fit_func, xdata=x, ydata=y, p0=initial_guess,
-            sigma=uy, absolute_sigma=True
+            f=fit_func,
+            xdata=x,
+            ydata=y,
+            p0=initial_guess,
+            sigma=uy,
+            absolute_sigma=True,
+            maxfev=10000,
         )
         if bounds is not None:
             fit_kwargs['bounds'] = bounds
@@ -199,12 +210,8 @@ def generic_fit(
     
     # Extract parameters and uncertainties
     try:
-        if len(param_names) == 1:
-            params = [final_fit[0][0]]
-            uncertainties = [np.sqrt(np.diag(final_fit[1]))[0]]
-        else:
-            params = list(final_fit[0])
-            uncertainties = list(np.sqrt(np.diag(final_fit[1])))
+        params = list(final_fit[0])
+        uncertainties = list(np.sqrt(np.diag(final_fit[1])))
         
         logger.debug(t('log.extracted_parameters', params=str(dict(zip(param_names, params)))))
         

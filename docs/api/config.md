@@ -33,7 +33,7 @@ Equations are defined in **`config/equations.yaml`**. Each entry has:
 - **`format`**: Template with `{param}` placeholders for the fitted equation string (e.g. `"y={m}x+{n}"`)
 - **`param_names`**: List of parameter names for the fit
 
-`constants.py` loads this file into the **`EQUATIONS`** dictionary. The keys of `EQUATIONS` are the equation IDs; **`AVAILABLE_EQUATION_TYPES`** is the list of those keys (order matches the YAML file).
+`constants.py` loads this file into the **`EQUATIONS`** dictionary. The keys of `EQUATIONS` are the equation IDs; **`AVAILABLE_EQUATION_TYPES`** is an immutable tuple of those keys in the same order as the YAML file.
 
 ```python
 # EQUATIONS structure (from equations.yaml)
@@ -47,7 +47,7 @@ EQUATIONS = {
     'linear_function': { 'function': 'fit_linear_function', 'formula': 'y = mx', 'format': 'y={m}x', 'param_names': ['m'] },
     # ...
 }
-AVAILABLE_EQUATION_TYPES = list(EQUATIONS.keys())  # Same order as in YAML
+AVAILABLE_EQUATION_TYPES = tuple(EQUATIONS.keys())  # Same order as in YAML; immutable
 ```
 
 This defines which equations appear in the UI and how they are invoked.
@@ -525,6 +525,7 @@ Configuration is loaded once at startup. Changes to `.env` during runtime are no
 - Configuration loaded once per module.
 - Values cached in memory.
 - No disk I/O after initial load.
+- Theme color conversion (named colors to RGB/hex) is cached via `lru_cache` so repeated lookups (e.g. same color for multiple buttons) avoid redundant Tk/matplotlib calls.
 
 ---
 

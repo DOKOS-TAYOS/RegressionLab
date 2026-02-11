@@ -1,6 +1,6 @@
 """Keyboard navigation: arrow keys to move focus, Enter to activate."""
 
-from tkinter import Event
+from tkinter import Event, TclError
 from typing import Any, Callable, Optional, Sequence
 
 
@@ -72,8 +72,12 @@ def setup_arrow_enter_navigation(
         w = event.widget
         if on_enter is not None and on_enter(w, event):
             return "break"
-        if hasattr(w, "invoke") and callable(getattr(w, "invoke")):
-            w.invoke()
+        invoke = getattr(w, "invoke", None)
+        if callable(invoke):
+            try:
+                invoke()
+            except TclError:
+                pass  # widget may be in invalid state (e.g. destroying)
         return "break"
 
     for (r, c), w in grid.items():

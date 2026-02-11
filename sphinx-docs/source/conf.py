@@ -266,11 +266,9 @@ root_doc = 'index'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'sphinx_rtd_theme'
-# Create _static directory if it doesn't exist
-import os
-static_path = os.path.join(os.path.dirname(__file__), '_static')
-if not os.path.exists(static_path):
-    os.makedirs(static_path, exist_ok=True)
+# Ensure _static exists (Sphinx does not create it)
+_static_dir = os.path.join(os.path.dirname(__file__), '_static')
+os.makedirs(_static_dir, exist_ok=True)
 html_static_path = ['_static']
 
 # Theme options
@@ -360,16 +358,21 @@ napoleon_attr_annotations = False  # Don't show type annotations in attributes
 # (Sphinx 5+ uses a new implementation that may not emit skip-member for all members)
 autodoc_use_legacy_class_based = True
 
-# Autodoc settings
+# Autodoc settings (module .rst files can omit these options for brevity)
 autodoc_default_options = {
     'members': True,
     'member-order': 'bysource',
     'special-members': '__init__',
     'undoc-members': True,
-    'exclude-members': '__weakref__'
+    'exclude-members': '__weakref__',
+    'show-inheritance': True,
+    'imported-members': True,
 }
 # Hide types in documentation for cleaner reading (docstrings are sufficient)
 autodoc_typehints = 'none'
+
+# Only link to source for directly documented modules (faster viewcode)
+viewcode_follow_imported_members = False
 
 # Todo extension
 todo_include_todos = True

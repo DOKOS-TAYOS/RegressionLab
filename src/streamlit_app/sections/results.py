@@ -1,11 +1,20 @@
 """Results display for the Streamlit app."""
 
-import os
+from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
 import streamlit as st
 
 from i18n import t
+
+# MIME types for plot download buttons
+_PLOT_MIME_BY_EXT: Dict[str, str] = {
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".pdf": "application/pdf",
+}
+_IMAGE_EXTENSIONS = (".png", ".jpg", ".jpeg")
 
 
 def _split_equation(equation_str: str) -> Tuple[str, str]:
@@ -37,6 +46,13 @@ def _split_parameters_text(text: str) -> Tuple[List[str], List[str]]:
     param_ci_lines = lines[stats_start + 5 :]  # param IC 95%: [...]
     param_lines = param_value_lines + param_ci_lines
     return stats_lines, param_lines
+
+
+def _get_plot_display_path(result: Dict[str, Any]) -> Tuple[str, str]:
+    """Return (path_for_display, path_for_download) for a result's plot."""
+    plot_path = result["plot_path"]
+    display_path = result.get("plot_path_display") or plot_path
+    return display_path, plot_path
 
 
 def show_results(results: List[Dict[str, Any]]) -> None:
@@ -75,36 +91,28 @@ def show_results(results: List[Dict[str, Any]]) -> None:
                     for line in stats_lines:
                         st.text(line)
 
-            if os.path.exists(result["plot_path"]):
-                plot_path = result["plot_path"]
-                plot_path_display = result.get("plot_path_display") or plot_path
-                plot_ext = os.path.splitext(plot_path)[1].lower() or ".png"
-                mime_map = {
-                    ".png": "image/png",
-                    ".jpg": "image/jpeg",
-                    ".jpeg": "image/jpeg",
-                    ".pdf": "application/pdf",
-                }
-                mime = mime_map.get(plot_ext, "image/png")
+            plot_path = Path(result["plot_path"])
+            if plot_path.exists():
+                display_path, download_path = _get_plot_display_path(result)
+                plot_ext = plot_path.suffix.lower() or ".png"
+                mime = _PLOT_MIME_BY_EXT.get(plot_ext, "image/png")
                 download_name = f"{result['plot_name']}{plot_ext}"
+                display_path_p = Path(display_path)
 
-                if os.path.exists(plot_path_display) and os.path.splitext(plot_path_display)[1].lower() in (
-                    ".png",
-                    ".jpg",
-                    ".jpeg",
-                ):
-                    st.image(plot_path_display, width='stretch')
+                if display_path_p.exists() and display_path_p.suffix.lower() in _IMAGE_EXTENSIONS:
+                    st.image(display_path, width='stretch')
                 elif plot_ext == ".pdf":
                     st.caption(t("dialog.plot_pdf_preview_caption"))
 
                 st.markdown("")  # spacing
-                with open(plot_path, "rb") as file:
-                    st.download_button(
-                        label=f"📥 {t('dialog.download')}",
-                        data=file,
-                        file_name=download_name,
-                        mime=mime,
-                        key=f"download_{idx}",
-                    )
+                with open(download_path, "rb") as f:
+                    plot_bytes = f.read()
+                st.download_button(
+                    label=f"📥 {t('dialog.download')}",
+                    data=plot_bytes,
+                    file_name=download_name,
+                    mime=mime,
+                    key=f"download_{idx}",
+                )
             else:
                 st.text(result["parameters"])

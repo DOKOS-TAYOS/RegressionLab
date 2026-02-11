@@ -10,11 +10,13 @@ This module provides the core fitting utilities used by all fitting functions in
 
 ### Fitting Operations
 
-#### `generic_fit(data: Any, x_name: str, y_name: str, fit_func: Callable, param_names: List[str], equation_template: Optional[str], initial_guess: Optional[List[float]] = None, bounds: Optional[Tuple[Sequence[float], Sequence[float]]] = None, equation_formula: Optional[str] = None) -> Tuple[str, NDArray, str]`
+#### `generic_fit(data: Any, x_name: str, y_name: str, fit_func: Callable, param_names: List[str], equation_template: Optional[str], initial_guess: Optional[List[float]] = None, bounds: Optional[Tuple[Sequence[float], Sequence[float]]] = None, equation_formula: Optional[str] = None) -> Tuple[str, NDArray, str, Optional[dict]]`
 
 The main fitting function used by all equation-specific fitters.
 
 Generic curve fitting using `scipy.optimize.curve_fit`. This function handles weighted fitting based on uncertainties, calculates parameter uncertainties, computes R² and additional statistics (RMSE, chi-squared, reduced chi-squared, degrees of freedom, confidence intervals).
+
+Before calling `curve_fit`, `x`, `y`, and their uncertainty arrays are converted to NumPy arrays with `dtype=float` to ensure consistent behavior (e.g., when `data` is a pandas DataFrame). The optimizer uses `maxfev=10000` to allow more iterations and improve convergence for polynomial and nonlinear models.
 
 **Parameters:**
 - `data`: Data dictionary or DataFrame containing x, y and their uncertainties
@@ -32,6 +34,7 @@ Generic curve fitting using `scipy.optimize.curve_fit`. This function handles we
   - `text`: Formatted text with parameters, uncertainties, R², and statistics
   - `y_fitted`: Array with fitted y values
   - `equation`: Formatted equation with parameter values (prefixed with original formula if available)
+  - `fit_info`: Optional dict with `fit_func`, `params`, `cov`, `x_names` (for advanced use)
 
 **Raises:**
 - `FittingError`: If `curve_fit` fails to converge or data is invalid
@@ -50,7 +53,7 @@ data = {
     'uy': np.ones(5) * 0.5
 }
 
-text, y_fitted, equation = generic_fit(
+text, y_fitted, equation, fit_info = generic_fit(
     data, 'x', 'y',
     fit_func=linear_function_with_n,
     param_names=['m', 'n'],
@@ -71,7 +74,7 @@ Factory function that returns the appropriate fitting function for a given equat
 - `bounds_override`: Optional `(lower_list, upper_list)` (None in slot = use estimator)
 
 **Returns:**
-- Fitting function that takes `(data, x_name, y_name)` and returns `(text, y_fitted, equation)`, or `None` if not found
+- Fitting function that takes `(data, x_name, y_name)` and returns `(text, y_fitted, equation, fit_info)`, or `None` if not found
 
 **Example:**
 ```python
@@ -80,8 +83,8 @@ from fitting.fitting_utils import get_fitting_function
 # Get fitting function by name
 fit_func = get_fitting_function('linear_function_with_n')
 
-# Use it to fit data
-text, y_fitted, equation = fit_func(data, 'x', 'y')
+# Use it to fit data (first three values are text, y_fitted, equation)
+text, y_fitted, equation, *_ = fit_func(data, 'x', 'y')
 
 # With parameter overrides
 fit_func_with_overrides = get_fitting_function(
@@ -89,7 +92,7 @@ fit_func_with_overrides = get_fitting_function(
     initial_guess_override=[1.0, 2.0],  # Override [n, m]
     bounds_override=([0.0, 0.0], [10.0, 10.0])  # Bounds for [n, m]
 )
-text, y_fitted, equation = fit_func_with_overrides(data, 'x', 'y')
+text, y_fitted, equation, *_ = fit_func_with_overrides(data, 'x', 'y')
 ```
 
 ## Helper Functions
@@ -179,8 +182,10 @@ Parameter estimation functions are available from the `fitting.estimators` modul
 
 See [fitting.estimators](estimators.md) for complete documentation of all available estimation functions, including:
 
-- `estimate_trigonometric_parameters(x, y)` - Estimates amplitude and frequency for trigonometric functions
+- `estimate_trigonometric_parameters(x, y)` - Estimates amplitude and frequency for sin/cos
 - `estimate_phase_shift(x, y, amplitude, frequency)` - Estimates phase shift
+- `estimate_hyperbolic_parameters(x, y)` - Estimates amplitude and frequency for sinh/cosh
+- `estimate_hyperbolic_bounds(x)` - Returns bounds for hyperbolic fits to avoid overflow
 - `estimate_linear_parameters(x, y)` - Estimates slope and intercept for linear functions
 - `estimate_polynomial_parameters(x, y, degree)` - Estimates coefficients for polynomial functions
 - `estimate_gaussian_parameters(x, y)` - Estimates amplitude, center, and width for Gaussian functions
@@ -270,7 +275,7 @@ def fit_gaussian_with_guess(data, x_name, y_name):
     
     initial_guess = [a0, mu0, sigma0]
     
-    text, y_fitted, equation = generic_fit(
+    text, y_fitted, equation, *_ = generic_fit(
         data, x_name, y_name,
         fit_func=gaussian_function,
         param_names=['a', 'mu', 'sigma'],
@@ -322,7 +327,7 @@ from fitting.fitting_utils import generic_fit
 from fitting.fitting_functions import linear_function_with_n
 
 try:
-    text, y_fitted, equation = generic_fit(
+    text, y_fitted, equation, *_ = generic_fit(
         data, 'x', 'y',
         fit_func=linear_function_with_n,
         param_names=['m', 'n'],

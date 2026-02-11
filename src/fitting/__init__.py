@@ -36,6 +36,8 @@ from .estimators import (
     estimate_binomial_parameters,
     estimate_exponential_parameters,
     estimate_square_pulse_parameters,
+    estimate_hyperbolic_parameters,
+    estimate_hyperbolic_bounds,
 )
 
 __all__ = [
@@ -67,4 +69,6 @@ __all__ = [
     'estimate_binomial_parameters',
     'estimate_exponential_parameters',
     'estimate_square_pulse_parameters',
+    'estimate_hyperbolic_parameters',
+    'estimate_hyperbolic_bounds',
 ]

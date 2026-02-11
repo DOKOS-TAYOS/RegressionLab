@@ -12,6 +12,29 @@ _PAIR_PLOT_MAX_WIDTH = 920
 _PAIR_PLOT_MAX_HEIGHT = 720
 
 
+def _filter_uncertainty_variables(variable_names: List[str]) -> List[str]:
+    """
+    Filter out uncertainty-paired variables (e.g. keep 'x', drop 'ux' when 'x' exists).
+
+    Returns a list with at most one of each base/uncertainty pair for cleaner selection.
+    """
+    filtered: List[str] = []
+    excluded: set[str] = set()
+    for var in variable_names:
+        if var in excluded:
+            continue
+        if var.startswith('u') and len(var) > 1:
+            base_var = var[1:]
+            if base_var in variable_names:
+                excluded.add(var)
+                continue
+        u_var = f'u{var}'
+        if u_var in variable_names:
+            excluded.add(u_var)
+        filtered.append(var)
+    return filtered if filtered else variable_names
+
+
 def ask_file_type(parent_window: Any) -> str:
     """
     Dialog to ask for data file type.
@@ -208,23 +231,7 @@ def ask_variables(parent_window: Any, variable_names: List[str]) -> Tuple[str, s
         text=t('dialog.independent_variable'),
     )
 
-    filtered_variable_names = []
-    excluded_vars = set()
-    for var in variable_names:
-        if var in excluded_vars:
-            continue
-        if var.startswith('u') and len(var) > 1:
-            base_var = var[1:]
-            if base_var in variable_names:
-                excluded_vars.add(var)
-                continue
-        u_var = f'u{var}'
-        if u_var in variable_names:
-            excluded_vars.add(u_var)
-        filtered_variable_names.append(var)
-
-    if filtered_variable_names:
-        variable_names = filtered_variable_names
+    variable_names = _filter_uncertainty_variables(variable_names)
 
     call_var_level.x_nom = ttk.Combobox(
         call_var_level.frame_custom,
@@ -344,23 +351,7 @@ def ask_multiple_x_variables(
         style='LargeBold.TLabel',
     )
 
-    filtered_variable_names = []
-    excluded_vars = set()
-    for var in variable_names:
-        if var in excluded_vars:
-            continue
-        if var.startswith('u') and len(var) > 1:
-            base_var = var[1:]
-            if base_var in variable_names:
-                excluded_vars.add(var)
-                continue
-        u_var = f'u{var}'
-        if u_var in variable_names:
-            excluded_vars.add(u_var)
-        filtered_variable_names.append(var)
-
-    if filtered_variable_names:
-        variable_names = filtered_variable_names
+    variable_names = _filter_uncertainty_variables(variable_names)
 
     # Create comboboxes for each x variable
     x_vars = []
@@ -485,10 +476,7 @@ def _show_image_toplevel(parent: Tk | Toplevel, image_path: str, title: str) -> 
     )
     close_btn.pack(padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
     close_btn.focus_set()
-    close_btn.bind("<Return>", lambda e: _on_close())
-    close_btn.bind("<KP_Enter>", lambda e: _on_close())
-    win.bind("<Return>", lambda e: _on_close())
-    win.bind("<KP_Enter>", lambda e: _on_close())
+    bind_enter_to_accept([close_btn, win], _on_close)
     win.protocol("WM_DELETE_WINDOW", _on_close)
 
 
@@ -581,8 +569,9 @@ def show_data_dialog(parent_window: Tk | Toplevel, data: Any) -> None:
     )
     watch_data_level.accept_button.pack(padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
 
-    text_widget.bind("<Return>", lambda e: watch_data_level.destroy())
-    text_widget.bind("<KP_Enter>", lambda e: watch_data_level.destroy())
-
+    bind_enter_to_accept(
+        [text_widget, watch_data_level.accept_button],
+        watch_data_level.destroy,
+    )
     watch_data_level.accept_button.focus_set()
     parent_window.wait_window(watch_data_level)

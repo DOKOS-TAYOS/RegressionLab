@@ -19,9 +19,10 @@ if errorlevel 1 (
 )
 echo.
 
-REM Build HTML documentation
+REM Build HTML documentation (parallel jobs for faster build)
 echo Building HTML documentation...
 echo.
+set SPHINXOPTS=-j auto
 call make.bat html
 if errorlevel 1 (
     echo.

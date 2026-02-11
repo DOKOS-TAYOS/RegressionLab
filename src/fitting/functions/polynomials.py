@@ -38,60 +38,14 @@ def generate_polynomial_function(parameters: list[bool]) -> Callable:
             return np.zeros_like(t) if isinstance(t, np.ndarray) else 0.0
         return polynomial
 
-    if num_params == 1:
-        def polynomial(t: Numeric, c0: float) -> Numeric:
-            coeffs = (c0,)
-            result = np.zeros_like(t) if isinstance(t, np.ndarray) else 0.0
-            for coeff, power in zip(coeffs, enabled_indices):
-                if power == 0:
-                    result = result + coeff
-                else:
-                    result = result + coeff * t**power
-            return result
-    elif num_params == 2:
-        def polynomial(t: Numeric, c0: float, c1: float) -> Numeric:
-            coeffs = (c0, c1)
-            result = np.zeros_like(t) if isinstance(t, np.ndarray) else 0.0
-            for coeff, power in zip(coeffs, enabled_indices):
-                if power == 0:
-                    result = result + coeff
-                else:
-                    result = result + coeff * t**power
-            return result
-    elif num_params == 3:
-        def polynomial(t: Numeric, c0: float, c1: float, c2: float) -> Numeric:
-            coeffs = (c0, c1, c2)
-            result = np.zeros_like(t) if isinstance(t, np.ndarray) else 0.0
-            for coeff, power in zip(coeffs, enabled_indices):
-                if power == 0:
-                    result = result + coeff
-                else:
-                    result = result + coeff * t**power
-            return result
-    elif num_params == 4:
-        def polynomial(t: Numeric, c0: float, c1: float, c2: float, c3: float) -> Numeric:
-            coeffs = (c0, c1, c2, c3)
-            result = np.zeros_like(t) if isinstance(t, np.ndarray) else 0.0
-            for coeff, power in zip(coeffs, enabled_indices):
-                if power == 0:
-                    result = result + coeff
-                else:
-                    result = result + coeff * t**power
-            return result
-    elif num_params == 5:
-        def polynomial(
-            t: Numeric, c0: float, c1: float, c2: float, c3: float, c4: float
-        ) -> Numeric:
-            coeffs = (c0, c1, c2, c3, c4)
-            result = np.zeros_like(t) if isinstance(t, np.ndarray) else 0.0
-            for coeff, power in zip(coeffs, enabled_indices):
-                if power == 0:
-                    result = result + coeff
-                else:
-                    result = result + coeff * t**power
-            return result
-    else:
-        raise ValueError(f"Unsupported number of parameters: {num_params}")
+    def polynomial(t: Numeric, *coeffs: float) -> Numeric:
+        result = np.zeros_like(t) if isinstance(t, np.ndarray) else 0.0
+        for coeff, power in zip(coeffs, enabled_indices):
+            if power == 0:
+                result = result + coeff
+            else:
+                result = result + coeff * (t ** power)
+        return result
 
     return polynomial
 

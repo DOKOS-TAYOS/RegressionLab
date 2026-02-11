@@ -190,23 +190,12 @@ def get_file_names(
         raise DataLoadError(t('error.path_not_directory', directory=directory))
     
     try:
-        # Get list of all files in the directory (excludes subdirectories)
-        file_list = [arch.name for arch in file_path.iterdir() if arch.is_file()]
-        
-        # Initialize empty lists for each file type
-        csv = []
-        xlsx = []
-        txt = []
+        by_ext: dict[str, List[str]] = {'.csv': [], '.xlsx': [], '.txt': []}
+        for path in file_path.iterdir():
+            if path.is_file() and path.suffix in by_ext:
+                by_ext[path.suffix].append(path.stem)
 
-        # Categorize files by extension and strip the extension from the name
-        for file in file_list:
-            if file.endswith('.csv'):
-                csv.append(file[:-4])  # Remove '.csv' (4 chars)
-            elif file.endswith('.xlsx'):
-                xlsx.append(file[:-5])  # Remove '.xlsx' (5 chars)
-            elif file.endswith('.txt'):
-                txt.append(file[:-4])  # Remove '.txt' (4 chars)
-
+        csv, xlsx, txt = by_ext['.csv'], by_ext['.xlsx'], by_ext['.txt']
         logger.info(t('log.found_files', csv=len(csv), xlsx=len(xlsx), txt=len(txt)))
         return csv, xlsx, txt
         

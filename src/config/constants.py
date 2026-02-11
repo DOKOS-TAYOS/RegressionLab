@@ -115,7 +115,7 @@ except (FileNotFoundError, yaml.YAMLError, ValueError, RuntimeError) as e:
 
 # Main equations dictionary: eq_id -> { function, formula, format, param_names }
 EQUATIONS: dict[str, dict[str, Any]] = _raw_equations
-AVAILABLE_EQUATION_TYPES: list[str] = list(EQUATIONS.keys())
+AVAILABLE_EQUATION_TYPES: tuple[str, ...] = tuple(EQUATIONS.keys())
 
 # ---------------------------------------------------------------------------
 # Mathematical function replacements

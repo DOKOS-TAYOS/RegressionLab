@@ -127,22 +127,14 @@ def generate_multi_var_dataset(
         'N': N,
     }
 
+    var_order = ['x', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N']
     if add_uncertainties:
         for key in list(data.keys()):
-            if key == 'x':
-                u = np.abs(x) * 0.01 + 0.02
-            else:
-                u = np.abs(data[key]) * 0.03 + 0.05
-            u = np.maximum(u, 1e-6)
-            data[f'u{key}'] = u
-        # Column order: x, ux, A, uA, ...
-        cols = []
-        for name in ['x', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N']:
-            cols.append(name)
-            cols.append(f'u{name}')
+            u = np.abs(x) * 0.01 + 0.02 if key == 'x' else np.abs(data[key]) * 0.03 + 0.05
+            data[f'u{key}'] = np.maximum(u, 1e-6)
+        cols = [item for name in var_order for item in (name, f'u{name}')]
     else:
-        cols = list(data.keys())
-
+        cols = var_order
     return pd.DataFrame({c: data[c] for c in cols})
 
 

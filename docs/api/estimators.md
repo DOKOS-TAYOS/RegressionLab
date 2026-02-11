@@ -138,6 +138,54 @@ phase = estimate_phase_shift(x, y, amplitude, frequency)
 print(f"Phase shift: {phase:.3f}")
 ```
 
+### Hyperbolic Functions
+
+#### `estimate_hyperbolic_parameters(x: Any, y: Any) -> Tuple[float, float]`
+
+Estimate initial parameters for hyperbolic functions `y = a * sinh(b*x)` or `y = a * cosh(b*x)`.
+
+- Amplitude (a) from half the y range
+- Frequency (b) from the inverse of the x range
+
+**Parameters:**
+- `x`: Independent variable array
+- `y`: Dependent variable array
+
+**Returns:**
+- Tuple `(amplitude, frequency)`
+
+**Example:**
+```python
+from fitting import estimate_hyperbolic_parameters
+import numpy as np
+
+x = np.linspace(0, 2, 50)
+y = 2.0 * np.sinh(1.5 * x)
+amplitude, frequency = estimate_hyperbolic_parameters(x, y)
+print(f"Amplitude: {amplitude:.3f}, Frequency: {frequency:.3f}")
+```
+
+#### `estimate_hyperbolic_bounds(x: Any) -> Tuple[Tuple[float, float], Tuple[float, float]]`
+
+Return parameter bounds for hyperbolic fits to avoid overflow in `exp`.
+
+For `y = a * sinh(b*x)` or `y = a * cosh(b*x)`: `a` can be any real; `b` is bounded so that `b * max(|x|)` does not cause overflow.
+
+**Parameters:**
+- `x`: Independent variable array
+
+**Returns:**
+- Pair `(lower_bounds, upper_bounds)`, each of length 2 for `(a, b)`
+
+**Example:**
+```python
+from fitting import estimate_hyperbolic_parameters, estimate_hyperbolic_bounds
+
+amplitude, frequency = estimate_hyperbolic_parameters(x, y)
+(lower, upper) = estimate_hyperbolic_bounds(x)
+# Use with merge_bounds when calling generic_fit
+```
+
 ### Logarithmic Functions
 
 #### `estimate_ln_parameter(x: Any, y: Any) -> float`

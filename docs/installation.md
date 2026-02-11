@@ -12,9 +12,9 @@ Before installing RegressionLab, ensure you have:
   - macOS: Install via Homebrew `brew install git` or download from [git-scm.com](https://git-scm.com/install/mac).
   - Linux: `sudo apt-get install git` (Debian/Ubuntu) or `sudo dnf install git` (Fedora).
 
-- **Python**: Version 3.12 or higher.
+- **Python**: Version 3.12 or higher (3.13 supported).
   - Download from [python.org](https://www.python.org/downloads/).
-  - Verify installation: `python --version` or `python3 --version`.
+  - Verify installation: `python --version` or `python3 --version`. On some systems (e.g. Arch Linux) the command may be `python` only; the setup script detects either.
 
 ### System Requirements
 - **Operating System**: Windows 10/11, macOS 10.14+, or Linux.
@@ -87,7 +87,7 @@ This is the fastest and easiest way to install RegressionLab. The installation s
    ./install.sh
    ```
 
-4. Wait for the installation to complete.
+4. Wait for the installation to complete. If you choose to use an existing `regressionlab` directory instead of cloning again, the script will make `setup.sh` executable and run it.
 
 5. Launch RegressionLab:
    - Double-click the desktop shortcut (if supported)
@@ -216,12 +216,13 @@ pip install -r requirements.txt
 ```bash
 pip install .
 ```
+This installs the same runtime dependencies as `requirements.txt` (including Pillow and Streamlit).
 
-**For development (with testing tools):**
+**For development (testing, linting with Ruff, formatting with Black, type checking with mypy, pre-commit):**
 ```bash
 pip install -r requirements-dev.txt
 # or
-pip install ".[dev]"
+pip install -e ".[dev]"
 ```
 
 #### Step 4: Configure Environment
@@ -262,6 +263,8 @@ After installation, you can run RegressionLab in several ways:
 
 **Method 2: Shell Scripts**
 
+The `bin/` scripts activate the project virtual environment and run the app. They require that you have run `setup.bat` (Windows) or `setup.sh` (macOS/Linux) first; otherwise they exit with "Virtual environment not found".
+
 Windows:
 ```batch
 bin\run.bat
@@ -282,6 +285,8 @@ pythonw src/main_program.py
 ### Web Version (Streamlit)
 
 **Method 1: Shell Scripts**
+
+Same as the desktop version: ensure the virtual environment exists (run setup first). Then:
 
 Windows:
 ```batch

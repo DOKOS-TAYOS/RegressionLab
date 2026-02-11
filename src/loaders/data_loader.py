@@ -61,6 +61,14 @@ def _prepare_data_path(
     return str(data_path)
 
 
+# Reader dispatch by file type (used by load_data)
+_READERS = {
+    'csv': csv_reader,
+    'xlsx': excel_reader,
+    'txt': txt_reader,
+}
+
+
 def load_data(file_path: str, file_type: str) -> pd.DataFrame:
     """
     Load data based on file type.
@@ -78,20 +86,10 @@ def load_data(file_path: str, file_type: str) -> pd.DataFrame:
         Other exceptions from csv_reader/excel_reader may propagate.
     """
     logger.debug(f"Loading data: {file_path} (type: {file_type})")
-    
-    # Validate file type
     validate_file_type(file_type)
-    
+
     try:
-        if file_type == 'csv':
-            return csv_reader(file_path)
-        elif file_type == 'xlsx':
-            return excel_reader(file_path)
-        elif file_type == 'txt':
-            return txt_reader(file_path)
-        else:
-            logger.error(f"Unsupported file type: {file_type}")
-            raise InvalidFileTypeError(f"Unsupported file type: {file_type}")
+        return _READERS[file_type](file_path)
     except Exception as e:
         logger.error(f"Failed to load data from {file_path}: {str(e)}", exc_info=True)
         raise
@@ -119,27 +117,16 @@ def get_variable_names(data: pd.DataFrame, filter_uncertainty: bool = False) -> 
         >>> get_variable_names(df, filter_uncertainty=True)
         ['x', 'y']
     """
-    variable_names = list(data.columns)
+    columns = list(data.columns)
     if not filter_uncertainty:
-        return variable_names
+        return columns
 
-    filtered: List[str] = []
-    excluded: set[str] = set()
-
-    for var in variable_names:
-        if var in excluded:
-            continue
-        if var.startswith('u') and len(var) > 1:
-            base_var = var[1:]
-            if base_var in variable_names:
-                excluded.add(var)
-                continue
-        u_var = f'u{var}'
-        if u_var in variable_names:
-            excluded.add(u_var)
-        filtered.append(var)
-
-    return filtered if filtered else variable_names
+    columns_set = set(data.columns)
+    uncertainty_cols = {
+        c for c in data.columns
+        if len(c) > 1 and c.startswith('u') and c[1:] in columns_set
+    }
+    return [c for c in columns if c not in uncertainty_cols]
 
 
 def get_file_list_by_type(
@@ -173,23 +160,13 @@ def get_file_list_by_type(
         ['data1', 'data2']
     """
     logger.debug(f"Getting file list for type: {file_type}")
-    
-    # Validate file type
     validate_file_type(file_type)
-    
-    # Dictionary mapping file types to their corresponding lists
-    file_lists = {
+
+    file_lists: dict[str, List[str]] = {
         'csv': csv,
         'xlsx': xlsx,
         'txt': txt,
     }
-    
-    # Validate file type again (redundant but safe)
-    if file_type not in file_lists:
-        logger.error(f"Invalid file type: {file_type}")
-        raise InvalidFileTypeError(f"Invalid file type: {file_type}")
-    
-    # Return the appropriate list
     file_list = file_lists[file_type]
     logger.debug(f"Found {len(file_list)} files of type {file_type}")
     return file_list

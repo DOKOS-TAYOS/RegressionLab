@@ -74,8 +74,10 @@ def main() -> None:
     except Exception as e:
         logger.warning(f"Page config already set: {e}")
 
-    # Apply theme from config (same colors/rules as tkinter app)
-    _theme = get_streamlit_theme()
+    # Apply theme from config (same colors/rules as tkinter app); cache for sections
+    if 'streamlit_theme' not in st.session_state:
+        st.session_state.streamlit_theme = get_streamlit_theme()
+    _theme = st.session_state.streamlit_theme
     st.markdown(get_main_css(_theme), unsafe_allow_html=True)
 
     try:

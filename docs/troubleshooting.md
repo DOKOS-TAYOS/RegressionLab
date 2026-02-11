@@ -19,6 +19,20 @@ This guide covers known issues, common problems, and their solutions. It also in
 4. **Important**: During installation, check "Add Python to PATH".
 5. Restart terminal after installation.
 
+#### Problem: Virtual Environment Not Found (bin launchers)
+
+```
+ERROR: Virtual environment not found
+Please run setup.bat first
+```
+(or `setup.sh` on macOS/Linux)
+
+**Solution**: The `bin/` launchers (`run.bat`, `run.sh`, `run_streamlit.bat`, `run_streamlit.sh`, `run_tests.bat`, `run_tests.sh`) require a project virtual environment. From the project root, run:
+- **Windows**: `setup.bat`
+- **macOS/Linux**: `chmod +x setup.sh` then `./setup.sh`
+
+Then run the desired launcher again.
+
 #### Problem: Permission Denied on Linux/macOS
 
 ```

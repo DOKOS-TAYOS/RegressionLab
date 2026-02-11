@@ -1,6 +1,5 @@
 """Data loading and display for the Streamlit app."""
 
-import os
 import tempfile
 from pathlib import Path
 from typing import Any, List, Optional
@@ -11,6 +10,15 @@ from i18n import t
 from utils import get_logger
 
 logger = get_logger(__name__)
+
+# Layout-only CSS for data expander (colors come from theme in app)
+_EXPANDER_BUTTON_CSS = """
+    <style>
+    div[data-testid="stExpander"] .stButton > button {
+        padding: 0.6rem 2rem; font-size: 1.15rem; min-height: 2.5rem; width: 100%%;
+    }
+    </style>
+"""
 
 
 def _get_variable_names(data: Any, filter_uncertainty: bool = True) -> List[str]:
@@ -36,21 +44,20 @@ def load_uploaded_file(uploaded_file: Any) -> Optional[Any]:
 
         with tempfile.NamedTemporaryFile(delete=False, suffix=f'.{file_extension}') as tmp_file:
             tmp_file.write(uploaded_file.getvalue())
-            tmp_path = tmp_file.name
+            tmp_path = Path(tmp_file.name)
 
         try:
             if file_extension == 'csv':
-                data = csv_reader(tmp_path)
+                data = csv_reader(str(tmp_path))
             elif file_extension == 'xlsx':
-                data = excel_reader(tmp_path)
+                data = excel_reader(str(tmp_path))
             elif file_extension == 'txt':
-                data = txt_reader(tmp_path)
+                data = txt_reader(str(tmp_path))
             else:
                 st.error(t('error.unsupported_file_type', file_type=file_extension))
                 return None
         finally:
-            if os.path.exists(tmp_path):
-                os.unlink(tmp_path)
+            tmp_path.unlink(missing_ok=True)
 
         logger.info(t('log.data_loaded', rows=len(data), cols=len(data.columns)))
         return data
@@ -65,16 +72,7 @@ def show_data_with_pair_plots(data: Any) -> None:
     """Show data in an expander with optional pair plots (scatter matrix)."""
     with st.expander(t('dialog.show_data_title'), expanded=True):
         st.dataframe(data)
-        st.markdown(
-            """
-            <style>
-            div[data-testid="stExpander"] .stButton > button {
-                padding: 0.6rem 2rem; font-size: 1.15rem; min-height: 2.5rem; width: 100%%;
-            }
-            </style>
-            """,
-            unsafe_allow_html=True,
-        )
+        st.markdown(_EXPANDER_BUTTON_CSS, unsafe_allow_html=True)
         if st.button(t('dialog.show_pair_plots'), key='btn_show_pair_plots', width='stretch'):
             st.session_state['data_show_pair_plots'] = True
         if st.session_state.get('data_show_pair_plots'):

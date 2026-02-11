@@ -265,15 +265,17 @@ start_main_menu(
 ### Window Management
 
 - **Window Type**: Tk (root window)
-- **Resizable**: Yes (width and height)
+- **Resizable**: No (width and height fixed)
 - **Fullscreen**: No (can be configured)
 - **Focus**: First button receives focus
 
 ### Logo Loading
 
-- **Path**: `images/RegressionLab_logo_app.png`
-- **Resizing**: Automatically resized to max width of 600px
-- **Fallback**: Continues without logo if file not found
+The logo is loaded with PIL (Pillow) directly so that PNG transparency is preserved (no RGB conversion). The path is resolved from the project root using `pathlib` (`project_root / 'images' / 'RegressionLab_logo_app.png'`).
+
+- **Path**: `images/RegressionLab_logo_app.png` (relative to project root)
+- **Resizing**: Scaled to max width 600px; height is proportional (aspect ratio preserved). Uses `Image.Resampling.LANCZOS`.
+- **Fallback**: Menu is shown without logo if the file is missing or loading fails (exception is caught).
 
 ### Internationalization
 

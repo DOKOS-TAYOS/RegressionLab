@@ -4,8 +4,8 @@ RegressionLab (`regressionlab`) is distributed under the **MIT** license (see `L
 
 This document lists the third-party libraries used and their licenses, to facilitate compliance with their terms when redistributing RegressionLab (as source code, installable package, binary, or installer).
 
-> Note: This list is based on the dependencies declared in `pyproject.toml`, `requirements.txt`
-> and `requirements-dev.txt`. If you add or remove dependencies, remember to update this file.
+> Note: This list is based on the dependencies declared in `pyproject.toml` (and the matching
+> `requirements.txt` / `requirements-dev.txt`). If you add or remove dependencies, update this file.
 
 ---
 
@@ -49,12 +49,11 @@ are not distributed in final binaries, although they may be present if you publi
 
 | Library       | Version Range           | License Type  |
 |------------------|----------------------------|-------------------|
-| **pytest**       | `>=7.0` / `>=7.0,<8.0`     | MIT               |
-| **pytest-cov**   | `>=4.0` / `>=4.0,<5.0`     | MIT               |
-| **black**        | `>=23.0` / `>=23.0,<24.0`  | MIT               |
-| **flake8**       | `>=6.0`                    | MIT               |
+| **pytest**       | `>=7.0,<8.0`               | MIT               |
+| **pytest-cov**   | `>=4.0,<5.0`               | MIT               |
+| **black**        | `>=23.0,<24.0`             | MIT               |
 | **ruff**         | `>=0.1,<1.0`               | MIT               |
-| **mypy**         | `>=1.0` / `>=1.0,<2.0`     | MIT               |
+| **mypy**         | `>=1.0,<2.0`               | MIT               |
 | **pre-commit**   | `>=3.0,<4.0`               | MIT               |
 
 ---

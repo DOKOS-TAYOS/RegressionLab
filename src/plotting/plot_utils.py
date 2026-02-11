@@ -18,7 +18,59 @@ import pandas as pd
 from config import FONT_CONFIG, PLOT_CONFIG, get_output_path, setup_fonts
 from utils import get_logger
 
+# Optional scipy for 3D surface interpolation (import once at load time)
+try:
+    from scipy.interpolate import griddata
+    from scipy.spatial import QhullError
+except ImportError:
+    griddata = None  # type: ignore[assignment]
+    QhullError = Exception  # type: ignore[assignment, misc]
+
 logger = get_logger(__name__)
+
+# Pair plot styling constants (readability)
+_PAIR_PLOT_FACE = '#f8f9fa'
+_PAIR_PLOT_FIG_FACE = '#fafafa'
+_PAIR_PLOT_SCATTER_COLOR = '#1f77b4'
+_PAIR_PLOT_SCATTER_EDGE = 'white'
+_PAIR_PLOT_MAX_SIDE_INCHES = 12.0
+_PAIR_PLOT_CELL_INCHES_MAX = 2.8
+
+
+def _save_figure(
+    fig: Any,
+    save_path: Union[str, Path],
+    plot_config: Dict[str, Any],
+    *,
+    close: bool = True,
+    log_saved: bool = False,
+) -> str:
+    """
+    Save figure to disk and optionally create a PNG preview when saving as PDF.
+
+    Args:
+        fig: Matplotlib figure to save.
+        save_path: Output path (str or Path).
+        plot_config: Must contain 'dpi'. Used for main save and preview.
+        close: If True, close the figure after saving.
+        log_saved: If True, log at info level that the plot was saved.
+
+    Returns:
+        save_path as string.
+    """
+    path = Path(save_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    dpi = plot_config.get('dpi', 150)
+    plt.savefig(path, bbox_inches='tight', dpi=dpi)
+    if path.suffix.lower() == '.pdf':
+        preview = path.parent / (path.stem + '_preview.png')
+        plt.savefig(str(preview), bbox_inches='tight', dpi=dpi, format='png')
+        logger.debug("Preview image saved for GUI: %s", preview)
+    if close:
+        plt.close(fig)
+    if log_saved:
+        logger.info("Plot saved: %s", path)
+    return str(path)
 
 
 def create_pair_plots(
@@ -48,8 +100,7 @@ def create_pair_plots(
     if hasattr(data, 'select_dtypes'):
         df = data[cols].select_dtypes(include=['number'])
     else:
-        df = pd.DataFrame({c: data[c] for c in cols if c in data.columns})
-        df = df.select_dtypes(include=['number'])
+        df = pd.DataFrame({c: data[c] for c in cols}).select_dtypes(include=['number'])
     names = list(df.columns)
     n = len(names)
     if n == 0:
@@ -64,22 +115,21 @@ def create_pair_plots(
         font_config = FONT_CONFIG
 
     # Cap figure size so windows/layouts do not grow too large
-    max_side = 12.0
-    cell_inches = min(2.8, max_side / n)
+    cell_inches = min(_PAIR_PLOT_CELL_INCHES_MAX, _PAIR_PLOT_MAX_SIDE_INCHES / n)
     figsize = (cell_inches * n, cell_inches * n)
 
     if n == 1:
         # Single variable: one simple scatter (index vs value)
         fig, ax = plt.subplots(1, 1, figsize=(5, 5))
-        ax.set_facecolor('#f8f9fa')
+        ax.set_facecolor(_PAIR_PLOT_FACE)
         ax.grid(True, linestyle='--', alpha=0.4)
         ax.scatter(
             range(len(df[names[0]])),
             df[names[0]],
             alpha=0.7,
             s=28,
-            c='#1f77b4',
-            edgecolors='white',
+            c=_PAIR_PLOT_SCATTER_COLOR,
+            edgecolors=_PAIR_PLOT_SCATTER_EDGE,
             linewidths=0.5,
         )
         ax.set_xlabel(names[0], fontsize=10)
@@ -87,11 +137,7 @@ def create_pair_plots(
         ax.tick_params(axis='both', labelsize=9)
         plt.tight_layout()
         if output_path:
-            output_path = Path(output_path)
-            output_path.parent.mkdir(parents=True, exist_ok=True)
-            plt.savefig(output_path, bbox_inches='tight', dpi=plot_config.get('dpi', 150))
-            plt.close(fig)
-            return str(output_path)
+            return _save_figure(fig, output_path, plot_config, log_saved=True)
         return fig
 
     try:
@@ -100,13 +146,11 @@ def create_pair_plots(
         pass
 
     fig, axes = plt.subplots(n, n, figsize=figsize)
-    fig.patch.set_facecolor('#fafafa')
-    scatter_color = '#1f77b4'
-    scatter_edge = 'white'
+    fig.patch.set_facecolor(_PAIR_PLOT_FIG_FACE)
     for i in range(n):
         for j in range(n):
-            ax = axes[i, j] if n > 1 else axes[0, 0]
-            ax.set_facecolor('#f8f9fa')
+            ax = axes[i, j]
+            ax.set_facecolor(_PAIR_PLOT_FACE)
             if i == j:
                 ax.text(
                     0.5, 0.5, names[i],
@@ -124,8 +168,8 @@ def create_pair_plots(
                     df[ycol],
                     alpha=0.65,
                     s=min(45, max(18, 80 - 8 * n)),
-                    c=scatter_color,
-                    edgecolors=scatter_edge,
+                    c=_PAIR_PLOT_SCATTER_COLOR,
+                    edgecolors=_PAIR_PLOT_SCATTER_EDGE,
                     linewidths=0.4,
                 )
                 ax.grid(True, linestyle='--', alpha=0.35)
@@ -136,21 +180,7 @@ def create_pair_plots(
     plt.tight_layout(pad=1.2, h_pad=1.0, w_pad=1.0)
 
     if output_path:
-        output_path = Path(output_path)
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        plt.savefig(output_path, bbox_inches='tight', dpi=plot_config.get('dpi', 150))
-        if output_path.suffix.lower() == '.pdf':
-            preview_path = output_path.parent / (output_path.stem + '_preview.png')
-            plt.savefig(
-                str(preview_path),
-                bbox_inches='tight',
-                dpi=plot_config.get('dpi', 150),
-                format='png',
-            )
-            logger.debug(f"Preview image saved for GUI: {preview_path}")
-        plt.close(fig)
-        logger.info(f"Pair plot saved to {output_path}")
-        return str(output_path)
+        return _save_figure(fig, output_path, plot_config, log_saved=True)
     return fig
 
 
@@ -265,21 +295,8 @@ def create_plot(
         ax.tick_params(axis='both', which='major', labelsize=font_config['tick_size'])
         plt.tight_layout()
 
-        logger.debug(f"Saving plot to: {save_path}")
-        plt.savefig(save_path, bbox_inches='tight', dpi=plot_config['dpi'])
-        if Path(save_path).suffix.lower() == '.pdf':
-            preview_path = Path(save_path).parent / (Path(save_path).stem + '_preview.png')
-            plt.savefig(
-                str(preview_path),
-                bbox_inches='tight',
-                dpi=plot_config['dpi'],
-                format='png',
-            )
-            logger.debug(f"Preview image saved for GUI: {preview_path}")
-        plt.close(fig)
-
-        logger.info(f"Plot saved successfully: {save_path}")
-        return save_path
+        logger.debug("Saving plot to: %s", save_path)
+        return _save_figure(fig, save_path, plot_config, log_saved=True)
 
     except Exception as e:
         logger.error(f"Failed to create plot: {str(e)}", exc_info=True)
@@ -354,20 +371,8 @@ def create_residual_plot(
         
         ax.tick_params(axis='both', which='major', labelsize=font_config['tick_size'])
         plt.tight_layout()
-        
-        plt.savefig(save_path, bbox_inches='tight', dpi=plot_config['dpi'])
-        if Path(save_path).suffix.lower() == '.pdf':
-            preview_path = Path(save_path).parent / (Path(save_path).stem + '_preview.png')
-            plt.savefig(
-                str(preview_path),
-                bbox_inches='tight',
-                dpi=plot_config['dpi'],
-                format='png',
-            )
-        plt.close(fig)
-        
-        logger.info(f"Residual plot saved: {save_path}")
-        return save_path
+
+        return _save_figure(fig, save_path, plot_config, log_saved=True)
         
     except Exception as e:
         logger.error(f"Failed to create residual plot: {str(e)}", exc_info=True)
@@ -456,22 +461,19 @@ def create_3d_plot(
         x_unique = np.linspace(x_arr.min(), x_arr.max(), 25)
         y_unique = np.linspace(y_arr.min(), y_arr.max(), 25)
         X_mesh, Y_mesh = np.meshgrid(x_unique, y_unique)
-        
+
         # Interpolate z_fitted values onto the mesh.
         # Linear interpolation leaves NaN outside the convex hull; fill those with nearest.
         Z_mesh = None
-        try:
-            from scipy.interpolate import griddata
-            from scipy.spatial import QhullError
+        if griddata is not None:
             try:
                 Z_mesh = griddata(
                     (x_arr, y_arr),
                     z_fitted_arr,
                     (X_mesh, Y_mesh),
                     method='linear',
-                    fill_value=np.nan
+                    fill_value=np.nan,
                 )
-                # Fill NaN regions (outside convex hull) with nearest neighbor so the mesh covers the full box
                 nan_mask = np.isnan(Z_mesh)
                 if np.any(nan_mask):
                     Z_nearest = griddata(
@@ -489,16 +491,14 @@ def create_3d_plot(
                     (X_mesh, Y_mesh),
                     method='nearest',
                 )
-        except ImportError:
-            pass
         if Z_mesh is None:
             logger.warning("scipy not available, using simple mesh for 3D plot")
-            Z_mesh = np.full_like(X_mesh, np.nan)
-            for i in range(X_mesh.shape[0]):
-                for j in range(X_mesh.shape[1]):
-                    dists = np.sqrt((x_arr - X_mesh[i, j])**2 + (y_arr - Y_mesh[i, j])**2)
-                    nearest_idx = np.argmin(dists)
-                    Z_mesh[i, j] = z_fitted_arr[nearest_idx]
+            # Vectorized nearest-neighbor: all grid points vs all data points
+            X_flat = X_mesh.ravel()
+            Y_flat = Y_mesh.ravel()
+            dists_sq = (X_flat[:, np.newaxis] - x_arr) ** 2 + (Y_flat[:, np.newaxis] - y_arr) ** 2
+            nearest_idx = np.argmin(dists_sq, axis=1)
+            Z_mesh = z_fitted_arr[nearest_idx].reshape(X_mesh.shape)
         
         # Plot surface mesh with colors according to height (z)
         surf = ax.plot_surface(
@@ -524,20 +524,9 @@ def create_3d_plot(
         
         plt.tight_layout()
         if interactive:
-            logger.info(f"3D plot prepared: {save_path} (interactive, will save on close)")
+            logger.info("3D plot prepared: %s (interactive, will save on close)", save_path)
             return (save_path, fig)
-        plt.savefig(save_path, bbox_inches='tight', dpi=plot_config['dpi'])
-        if Path(save_path).suffix.lower() == '.pdf':
-            preview_path = Path(save_path).parent / (Path(save_path).stem + '_preview.png')
-            plt.savefig(
-                str(preview_path),
-                bbox_inches='tight',
-                dpi=plot_config['dpi'],
-                format='png',
-            )
-        plt.close(fig)
-        logger.info(f"3D plot saved: {save_path}")
-        return save_path
+        return _save_figure(fig, save_path, plot_config, log_saved=True)
         
     except Exception as e:
         logger.error(f"Failed to create 3D plot: {str(e)}", exc_info=True)

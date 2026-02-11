@@ -7,8 +7,8 @@ echo
 # Clean previous build
 make clean
 
-# Build HTML documentation
-make html
+# Build HTML documentation (parallel jobs for faster build)
+make html SPHINXOPTS="-j auto"
 
 echo
 echo "Documentation build complete!"

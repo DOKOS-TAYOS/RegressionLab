@@ -72,17 +72,18 @@ def reload_data_by_type(file_path: str, file_type: str) -> pd.DataFrame:
         DataLoadError: If file_type is not supported or loading fails
     """
     logger.info(t('log.reloading_data', path=file_path, type=file_type))
-    
+
+    _READERS: Dict[str, Callable[[str], pd.DataFrame]] = {
+        'csv': csv_reader,
+        'xlsx': excel_reader,
+        'txt': txt_reader,
+    }
     try:
-        if file_type == 'csv':
-            data = csv_reader(file_path)
-        elif file_type == 'xlsx':
-            data = excel_reader(file_path)
-        elif file_type == 'txt':
-            data = txt_reader(file_path)
-        else:
+        reader = _READERS.get(file_type)
+        if reader is None:
             logger.error(t('log.unsupported_file_type', file_type=file_type))
             raise DataLoadError(t('error.unsupported_file_type', file_type=file_type))
+        data = reader(file_path)
         
         logger.info(t('log.data_reloaded', rows=len(data)))
         return data

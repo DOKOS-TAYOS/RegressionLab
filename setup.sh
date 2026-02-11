@@ -64,21 +64,16 @@ echo "   RegressionLab Setup (Unix/Mac)"
 echo "===================================="
 echo ""
 
-# Check if Python is installed
-if ! command -v python3 &> /dev/null; then
-    # On Arch, python3 might be symlinked as 'python'
-    if command -v python &> /dev/null && python --version 2>&1 | grep -q "Python 3"; then
-        # Create alias/symlink expectation: many scripts use python3
-        if ! command -v python3 &> /dev/null; then
-            echo "Python 3 is installed as 'python' but not as 'python3'."
-            echo "On some systems (e.g. Arch) you may need: sudo ln -s $(which python) /usr/local/bin/python3"
-            echo "Or install python3 package: sudo pacman -S python"
-            exit 1
-        fi
-    fi
+# Resolve Python command (python3 preferred; on Arch/Linux sometimes only 'python' is available)
+PYTHON_CMD=""
+if command -v python3 &> /dev/null; then
+    PYTHON_CMD="python3"
+elif command -v python &> /dev/null && python --version 2>&1 | grep -q "Python 3"; then
+    PYTHON_CMD="python"
+    echo "Note: Using 'python' as Python 3 (python3 not in PATH)."
 fi
 
-if ! command -v python3 &> /dev/null; then
+if [ -z "$PYTHON_CMD" ]; then
     echo "Python 3 is not installed."
     if is_linux_with_pkg_manager; then
         read -p "Do you want to install Python 3.12 now? (y/N): " INSTALL_PYTHON
@@ -108,12 +103,14 @@ if ! command -v python3 &> /dev/null; then
         exit 1
     fi
 fi
+# Use python3 after a fresh install if PYTHON_CMD was not set
+[ -z "$PYTHON_CMD" ] && PYTHON_CMD="python3"
 
 echo "[1/7] Checking Python version..."
-python3 --version
+$PYTHON_CMD --version
 
 # Check Python version is 3.12 or higher
-python3 -c "import sys; exit(0 if sys.version_info >= (3, 12) else 1)" || {
+$PYTHON_CMD -c "import sys; exit(0 if sys.version_info >= (3, 12) else 1)" || {
     echo "ERROR: Python 3.12 or higher is required"
     exit 1
 }
@@ -124,7 +121,7 @@ echo "[2/7] Creating virtual environment..."
 if [ -d ".venv" ]; then
     echo "      Virtual environment already exists, skipping creation"
 else
-    python3 -m venv .venv
+    $PYTHON_CMD -m venv .venv
     echo "      Virtual environment created"
 fi
 

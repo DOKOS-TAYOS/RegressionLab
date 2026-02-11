@@ -6,6 +6,14 @@ from typing import Optional
 
 from config.env import get_env
 
+# Map common format variants to canonical extensions (for _normalize_plot_format)
+_PLOT_FORMAT_MAPPING: dict[str, str] = {
+    'jpg': 'jpg',
+    'jpeg': 'jpg',
+    'png': 'png',
+    'pdf': 'pdf',
+}
+
 
 def _normalize_plot_format(value: str) -> str:
     """
@@ -30,16 +38,7 @@ def _normalize_plot_format(value: str) -> str:
         'png'
     """
     normalized = (value or 'png').strip().lower()
-    
-    # Map common variants to canonical formats
-    format_mapping = {
-        'jpg': 'jpg',
-        'jpeg': 'jpg',
-        'png': 'png',
-        'pdf': 'pdf',
-    }
-    
-    return format_mapping.get(normalized, 'png')
+    return _PLOT_FORMAT_MAPPING.get(normalized, 'png')
 
 
 FILE_CONFIG = {

@@ -6,6 +6,9 @@ import numpy as np
 from numpy.typing import NDArray
 from scipy.special import eval_hermite
 
+# Steepness of tanh edges in smooth square pulse (larger = sharper edges)
+_SQUARE_PULSE_STEEPNESS = 50.0
+
 from fitting.functions._base import (
     DataLike,
     Numeric,
@@ -39,17 +42,18 @@ def _binomial_function(t: Numeric, a: float, b: float, c: float) -> Numeric:
 def _square_pulse_function(t: Numeric, A: float, t0: float, w: float) -> Numeric:
     """
     Smooth square pulse (approximation): y = A * (f(t - (t0-w/2)) - f(t - (t0+w/2)))/2
-    with f(s) = tanh(k*s), k=50.
+    with f(s) = tanh(k*s).
     """
-    k = 50.0
+    k = _SQUARE_PULSE_STEEPNESS
     return A * 0.5 * (np.tanh(k * (t - (t0 - w / 2.0))) - np.tanh(k * (t - (t0 + w / 2.0))))
 
 
 def _hermite_polynomial_3(t: Numeric, c0: float, c1: float, c2: float, c3: float) -> Numeric:
     """Sum of physicist's Hermite polynomials up to degree 3."""
-    out = c0 * eval_hermite(0, t) + c1 * eval_hermite(1, t)
-    out = out + c2 * eval_hermite(2, t) + c3 * eval_hermite(3, t)
-    return out
+    return (
+        c0 * eval_hermite(0, t) + c1 * eval_hermite(1, t)
+        + c2 * eval_hermite(2, t) + c3 * eval_hermite(3, t)
+    )
 
 
 def _hermite_polynomial_4(

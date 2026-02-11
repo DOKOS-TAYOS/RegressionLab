@@ -41,10 +41,12 @@ python -m venv .venv
 source .venv/bin/activate  # macOS/Linux
 .venv\Scripts\activate     # Windows
 
-# Install dependencies including development tools
+# Install dependencies including development tools (pytest, ruff, black, mypy, pre-commit)
 pip install -r requirements-dev.txt
+# Or install from pyproject.toml with dev extras:
+# pip install -e ".[dev]"
 
-# Install in editable mode
+# Install the package in editable mode (if not already done by the line above)
 pip install -e .
 ```
 
@@ -501,9 +503,7 @@ Recommended extensions:
 Workspace settings (`.vscode/settings.json`):
 ```json
 {
-    "python.linting.enabled": true,
-    "python.linting.pylintEnabled": false,
-    "python.linting.flake8Enabled": true,
+    "ruff.enable": true,
     "python.formatting.provider": "black",
     "python.testing.pytestEnabled": true,
     "editor.rulers": [100],
@@ -511,6 +511,8 @@ Workspace settings (`.vscode/settings.json`):
     "files.insertFinalNewline": true
 }
 ```
+
+The project uses **Ruff** for linting (see `requirements-dev.txt` and `pyproject.toml` optional `[dev]` dependencies). Ruff reads configuration from `pyproject.toml`. Install the [Ruff extension](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff) for VS Code.
 
 ## Project Structure
 
@@ -535,16 +537,16 @@ RegressionLab/
 ├── input/                       # Sample datasets
 ├── output/                      # Generated plots
 ├── bin/                         # Launchers (run, run_streamlit, run_tests)
-├── scripts/                     # Helper scripts (clean, generate_test_datasets)
+├── scripts/                     # Helper scripts (clean, generate_test_datasets, generate_multi_var_dataset)
 ├── install.bat                  # Windows installation script
 ├── install.sh                   # Linux/macOS installation script
 ├── setup.bat                    # Windows setup script
 ├── setup.sh                     # Linux/macOS setup script
 ├── .env.example                 # Sample environment configuration (dotenv)
 ├── .gitignore                   # git ignore rules
-├── requirements.txt             # Python dependencies (minimal set)
-├── requirements-dev.txt         # Developer dependencies (tests, linting, docs)
-├── pyproject.toml               # Modern Python project metadata and build config
+├── requirements.txt             # Python dependencies (runtime + Streamlit, Pillow)
+├── requirements-dev.txt         # Developer dependencies (pytest, ruff, black, mypy, pre-commit)
+├── pyproject.toml               # Project metadata, build config, and optional [dev] / [docs] deps
 ├── README.md                    # Project overview/readme
 ├── CHANGELOG.md                 # Project changelog
 └── LICENSE                      # License file

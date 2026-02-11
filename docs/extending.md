@@ -98,7 +98,7 @@ def hyperbola_function(t: Numeric, a: float, b: float) -> Numeric:
 In the same module under `fitting/functions/`, create a fitting wrapper. The wrapper must have this signature and return type:
 
 - **Signature**: `(data, x_name, y_name, initial_guess_override=None, bounds_override=None)`
-- **Return**: `Tuple[str, NDArray, str]` — `(text, y_fitted, equation)`. R² is included in `text`; `generic_fit` does not return it as a fourth value.
+- **Return**: Your wrapper can return `(text, y_fitted, equation)` or the full 4-tuple from `generic_fit`: `(text, y_fitted, equation, fit_info)`. R² is included in `text`. Callers (e.g. Streamlit) use the first three values.
 
 Use `get_equation_param_names_for_function('fit_<name>')` and `get_equation_format_for_function('fit_<name>')` so parameter names and the equation format live only in `equations.yaml`. That way you define them once in config.
 
@@ -136,7 +136,7 @@ def fit_my_function(
 **Key Points**:
 - **Signature**: Include `initial_guess_override` and `bounds_override` so the workflow can pass user overrides; they can be `None` if you do not use them.
 - **Config-driven params**: Prefer `get_equation_param_names_for_function` and `get_equation_format_for_function` so the equation is defined once in `equations.yaml`.
-- **Return**: `generic_fit` returns `(text, y_fitted, equation)` (three values).
+- **Return**: `generic_fit` returns `(text, y_fitted, equation, fit_info)` (four values). Your wrapper can `return generic_fit(...)`; callers that only need text, y_fitted, and equation use the first three elements.
 
 #### With Initial Guess and Bounds
 
@@ -302,7 +302,7 @@ python generate_exponential_test.py
 
 ### Parameter Bounds
 
-`generic_fit` accepts a `bounds` argument. Pass `(lower_bounds, upper_bounds)` when building your fit (see "With Initial Guess and Bounds" above). For full control (e.g. custom formatting), use `curve_fit` directly and then build the same return tuple `(text, y_fitted, equation)` that `generic_fit` returns, including R² in the text.
+`generic_fit` accepts a `bounds` argument. Pass `(lower_bounds, upper_bounds)` when building your fit (see "With Initial Guess and Bounds" above). For full control (e.g. custom formatting), use `curve_fit` directly and then build the same return tuple `(text, y_fitted, equation[, fit_info])` that `generic_fit` returns, including R² in the text.
 
 ### Fixed Parameters
 
@@ -543,7 +543,7 @@ def fit_damped_sine(
 
 ### Pattern 3: Specialized Function
 
-For functions with constraints or special handling, use `curve_fit` directly and build the same return tuple `(text, y_fitted, equation)` that `generic_fit` returns (include R² in the text). See existing implementations in `fitting/functions/special.py` for examples with bounds and custom estimators.
+For functions with constraints or special handling, use `curve_fit` directly and build the same return tuple `(text, y_fitted, equation[, fit_info])` that `generic_fit` returns (include R² in the text). See existing implementations in `fitting/functions/special.py` for examples with bounds and custom estimators.
 
 ## Example: Complete Implementation
 

@@ -58,7 +58,7 @@ preview_to_remove = preview_path_to_remove_after_display(display_path, original_
 
 Load an image from file and return a Tk PhotoImage scaled to fit within max dimensions.
 
-Uses PIL (Pillow) when available. Supports PNG, JPG, JPEG. Returns `None` if the file cannot be opened (e.g., missing PIL), so callers can fall back to `tkinter.PhotoImage(file=path)` for raster formats or skip showing.
+Uses PIL (Pillow) when available. The image is converted to RGB, so transparency is not preserved—this is intended for plot previews. For logos or images that need transparency, load with PIL directly (e.g., in `ui_main_menu`). Supports PNG, JPG, JPEG. Returns `None` if the file cannot be opened (e.g., missing PIL), so callers can fall back to `tkinter.PhotoImage(file=path)` for raster formats or skip showing.
 
 **Parameters:**
 - `path`: Path to the image file
@@ -114,9 +114,10 @@ if preview_to_remove and os.path.exists(preview_to_remove):
 
 ## Notes
 
-- PDF files cannot be displayed directly in Tkinter, so preview PNG files are used when available
-- Image scaling uses LANCZOS resampling for high quality
-- Functions handle missing files and import errors gracefully
+- PDF files cannot be displayed directly in Tkinter, so preview PNG files are used when available.
+- `load_image_scaled` converts to RGB; use PIL directly for images that must preserve transparency (e.g., logos).
+- Image scaling uses LANCZOS resampling for high quality.
+- Functions handle missing files and import errors gracefully.
 
 ---
 

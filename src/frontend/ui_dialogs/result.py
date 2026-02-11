@@ -13,6 +13,7 @@ from frontend.image_utils import (
     plot_display_path,
     preview_path_to_remove_after_display,
 )
+from frontend.keyboard_nav import bind_enter_to_accept
 from i18n import t
 
 # Max size for result plot image so it fits in the window
@@ -315,11 +316,7 @@ def create_result_window(
     )
     button_frame.pack(padx=_pad, pady=_pad)
 
-    for w in focusables:
-        w.bind("<Return>", lambda e: _on_close())
-        w.bind("<KP_Enter>", lambda e: _on_close())
-    plot_level.bind("<Return>", lambda e: _on_close())
-    plot_level.bind("<KP_Enter>", lambda e: _on_close())
+    bind_enter_to_accept(focusables + [plot_level], _on_close)
 
     plot_level.accept_button.focus_set()
     plot_level.protocol("WM_DELETE_WINDOW", _on_close)

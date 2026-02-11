@@ -388,7 +388,7 @@ The `validate_fitting_data` function performs validations in this order:
 ### Performance
 
 - **Early Exit**: Validation stops at first failure
-- **Efficient Checks**: Uses pandas/numpy operations
+- **Efficient Checks**: Uses pandas/numpy operations; duplicate and infinite-value checks reuse a single computed mask to avoid repeated array operations
 - **Minimal Overhead**: Fast validation for typical datasets
 
 ### Error Messages

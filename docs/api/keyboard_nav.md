@@ -42,6 +42,8 @@ Creates a grid-based navigation system where:
 
 If `on_enter` is provided, it is called as `on_enter(widget, event)`. If it returns `True`, the default behavior (invoke button) is skipped. Use it to handle Enter on non-button widgets (e.g., radiobutton -> confirm dialog).
 
+When activating the focused widget, the module calls `invoke()` on the widget if it has that method. If `invoke()` raises `tkinter.TclError` (e.g., widget in an invalid state or window being destroyed), the error is caught and ignored so the application does not crash.
+
 **Parameters:**
 - `widgets_grid`: 2D sequence of widgets (rows × columns). Use `None` for empty cells
 - `on_enter`: Optional callback `(widget, event) -> bool`. If returns `True`, skips default button invoke

@@ -353,6 +353,7 @@ Logging is thread-safe by default in Python's logging module.
 - **Lazy Evaluation**: Log messages are only formatted if the level is enabled
 - **Buffering**: File handler uses default buffering
 - **Colorama**: Only initialized if available
+- **Log Level Resolution**: Environment log level is resolved via a module-level mapping (no per-call dict build)
 
 ---
 

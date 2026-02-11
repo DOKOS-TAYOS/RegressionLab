@@ -152,8 +152,8 @@ class TestConfigConstants:
             assert 'param_names' in entry
     
     def test_available_equation_types(self) -> None:
-        """Test available equation types list."""
-        assert isinstance(AVAILABLE_EQUATION_TYPES, list)
+        """Test available equation types sequence."""
+        assert isinstance(AVAILABLE_EQUATION_TYPES, (list, tuple))
         assert len(AVAILABLE_EQUATION_TYPES) > 0
         assert 'linear_function' in AVAILABLE_EQUATION_TYPES
     

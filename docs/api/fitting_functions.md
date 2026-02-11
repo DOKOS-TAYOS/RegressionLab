@@ -7,7 +7,7 @@ Mathematical functions and curve fitting implementations for RegressionLab.
 The `fitting.fitting_functions` package re-exports all mathematical and fitting functions from `fitting.functions`. The implementations live in submodules under `src/fitting/functions/`:
 
 - **`fitting/functions/polynomials.py`** – Linear, quadratic, fourth power
-- **`fitting/functions/trigonometric.py`** – Sin, cos (with/without phase)
+- **`fitting/functions/trigonometric.py`** – Sin, cos, sinh, cosh, tan (with/without phase)
 - **`fitting/functions/inverse.py`** – ln, inverse, inverse square
 - **`fitting/functions/special.py`** – Gaussian, exponential, binomial, square pulse, Hermite
 
@@ -278,7 +278,7 @@ data = {
     'uy': np.ones(5) * 0.2
 }
 
-text, y_fitted, equation = fit_linear_function(data, 'x', 'y')
+text, y_fitted, equation, *_ = fit_linear_function(data, 'x', 'y')
 ```
 
 #### `fit_linear_function_with_n(data: DataLike, x_name: str, y_name: str, initial_guess_override: Optional[List[Optional[float]]] = None, bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None) -> Tuple[str, NDArray, str]`
@@ -289,7 +289,7 @@ Fit linear function with intercept: `y = m x + n`
 ```python
 from fitting.fitting_functions import fit_linear_function_with_n
 
-text, y_fitted, equation = fit_linear_function_with_n(data, 'x', 'y')
+text, y_fitted, equation, *_ = fit_linear_function_with_n(data, 'x', 'y')
 ```
 
 #### `fit_quadratic_function(data: DataLike, x_name: str, y_name: str, initial_guess_override: Optional[List[Optional[float]]] = None, bounds_override: Optional[Tuple[List[Optional[float]], List[Optional[float]]]] = None) -> Tuple[str, NDArray, str]`
@@ -481,7 +481,7 @@ data = {
 }
 
 # Perform fitting
-text, y_fitted, equation = fit_linear_function_with_n(data, 'x', 'y')
+text, y_fitted, equation, *_ = fit_linear_function_with_n(data, 'x', 'y')
 
 print(f"Parameters:\n{text}")
 print(f"Equation: {equation}")
@@ -504,7 +504,7 @@ data = {
     'uy': np.ones(100) * 0.1
 }
 
-text, y_fitted, equation = fit_sin_function_with_c(data, 'x', 'y')
+text, y_fitted, equation, *_ = fit_sin_function_with_c(data, 'x', 'y')
 ```
 
 ### Using Mathematical Functions Directly
@@ -583,7 +583,7 @@ See [Extending RegressionLab](../extending.md) for a detailed guide on adding ne
    from utils.exceptions import FittingError
    
    try:
-       text, y_fitted, equation = fit_ln_function(data, 'x', 'y')
+       text, y_fitted, equation, *_ = fit_ln_function(data, 'x', 'y')
    except FittingError as e:
        print(f"Fitting failed: {e}")
        # Try different equation or check data quality
@@ -607,7 +607,7 @@ See [Extending RegressionLab](../extending.md) for a detailed guide on adding ne
    from utils.validators import validate_fitting_data
    
    validate_fitting_data(data, 'x', 'y')
-   text, y_fitted, equation = fit_linear_function_with_n(data, 'x', 'y')
+   text, y_fitted, equation, *_ = fit_linear_function_with_n(data, 'x', 'y')
    ```
 
 2. **Use Appropriate Function**: Choose the function that matches your data pattern
@@ -638,7 +638,7 @@ All fitting functions use `generic_fit()` from `fitting_utils`, which:
 
 ### Numerical Considerations
 
-- **Initial Parameter Guesses**: Trigonometric functions use automatic parameter estimation via `estimate_trigonometric_parameters()` and `estimate_phase_shift()` for better convergence
+- **Initial Parameter Guesses**: Trigonometric (sin/cos/tan) use `estimate_trigonometric_parameters()` and `estimate_phase_shift()` from `fitting.estimators`. Hyperbolic (sinh/cosh) use `estimate_hyperbolic_parameters()` and `estimate_hyperbolic_bounds()` from the same module for initial values and bounds
 - **Parameter Bounds**: Can be applied to constrain parameters (not currently used in default implementation)
 - **Robust Fitting**: For outlier-heavy data, consider using robust loss functions
 - **Convergence**: Nonlinear functions may require good initial guesses or multiple attempts

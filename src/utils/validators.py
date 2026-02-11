@@ -157,10 +157,10 @@ def _validate_numeric_data(data: pd.Series, column_name: str) -> None:
             t('error.column_contains_missing_values', column=column_name, count=nan_count)
         )
     
-    # Check for infinite values
-    if np.isinf(data).any():
-        inf_count = np.isinf(data).sum()
-        logger.error(t('log.column_contains_infinite', column=column_name, count=inf_count))
+    # Check for infinite values (compute once for performance)
+    inf_mask = np.isinf(data)
+    if inf_mask.any():
+        logger.error(t('log.column_contains_infinite', column=column_name, count=inf_mask.sum()))
         raise DataValidationError(
             t('error.column_contains_infinite_values', column=column_name)
         )
@@ -181,12 +181,12 @@ def _validate_uncertainty_column(data: pd.DataFrame, var_name: str) -> None:
     """
     uncertainty_col = f'u{var_name}'
     _validate_column_exists(data, uncertainty_col)
-    _validate_numeric_data(data[uncertainty_col], uncertainty_col)
-    
+    series = data[uncertainty_col]
+    _validate_numeric_data(series, uncertainty_col)
     # Check that uncertainties are non-negative
-    if (data[uncertainty_col] < 0).any():
-        negative_count = (data[uncertainty_col] < 0).sum()
-        logger.error(t('log.uncertainty_negative', column=uncertainty_col, count=negative_count))
+    neg_mask = series < 0
+    if neg_mask.any():
+        logger.error(t('log.uncertainty_negative', column=uncertainty_col, count=neg_mask.sum()))
         raise DataValidationError(
             t('error.uncertainties_must_be_non_negative', column=uncertainty_col)
         )
@@ -332,12 +332,11 @@ def _validate_column_names(data: pd.DataFrame) -> None:
         raise DataValidationError(t('error.no_columns_in_file'))
     
     # Check for duplicate column names
-    if data.columns.duplicated().any():
-        duplicates = data.columns[data.columns.duplicated()].tolist()
-        logger.error(t('log.duplicate_columns', columns=', '.join(duplicates)))
-        raise DataValidationError(
-            t('error.duplicate_column_names', columns=', '.join(duplicates))
-        )
+    dup_mask = data.columns.duplicated()
+    if dup_mask.any():
+        dup_str = ', '.join(data.columns[dup_mask].unique().tolist())
+        logger.error(t('log.duplicate_columns', columns=dup_str))
+        raise DataValidationError(t('error.duplicate_column_names', columns=dup_str))
     
     # Check for empty column names
     empty_names = [name for name in data.columns if not str(name).strip()]

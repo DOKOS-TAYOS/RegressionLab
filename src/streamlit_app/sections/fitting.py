@@ -1,14 +1,16 @@
 """Fitting logic and equation selection UI for the Streamlit app."""
 
+from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 import streamlit as st
 
 from i18n import t
-
-from pathlib import Path
+from utils import get_logger
 
 from streamlit_app.sections.data import get_temp_output_dir, get_variable_names
+
+logger = get_logger(__name__)
 
 
 def perform_fit(
@@ -44,12 +46,10 @@ def perform_fit(
         ``plot_path`` and ``plot_name`` when the fit succeeds, or ``None``
         if the operation fails or is not supported.
     """
-    from fitting import get_fitting_function, CustomFunctionEvaluator
+    from fitting import CustomFunctionEvaluator, get_fitting_function
     from plotting import create_plot
-    from utils import FittingError, get_logger
+    from utils import FittingError
     from config import FILE_CONFIG
-
-    logger = get_logger(__name__)
 
     try:
         if equation_name == 'custom_formula' and custom_formula and parameter_names:
@@ -61,7 +61,8 @@ def perform_fit(
                 st.error(t('error.fitting_error'))
                 return None
 
-        text, y_fitted, equation = fit_function(data, x_name, y_name)
+        result_fit = fit_function(data, x_name, y_name)
+        text, y_fitted, equation = result_fit[0], result_fit[1], result_fit[2]
 
         x = data[x_name]
         y = data[y_name]

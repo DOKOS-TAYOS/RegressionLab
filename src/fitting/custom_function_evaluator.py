@@ -226,12 +226,13 @@ class CustomFunctionEvaluator:
         Returns:
             Template string with parameter placeholders
         """
-        # Replace parameter names with format placeholders
-        template = self.original_equation_str
-        for param in self.parameter_names:
-            # Use word boundaries to avoid replacing substrings
-            template = re.sub(r'\b' + param + r'\b', '{' + param + '}', template)
-        
+        if not self.parameter_names:
+            return 'y=' + self.original_equation_str
+        # Single-pass replacement with word boundaries
+        pattern = re.compile(
+            '|'.join(r'\b' + re.escape(p) + r'\b' for p in self.parameter_names)
+        )
+        template = pattern.sub(lambda m: '{' + m.group(0) + '}', self.original_equation_str)
         return 'y=' + template
     
     def fit(

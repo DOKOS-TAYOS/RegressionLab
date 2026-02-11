@@ -6,11 +6,12 @@ Contains the main application window and exit confirmation dialog.
 # Standard library
 import os
 import sys
+from pathlib import Path
 from tkinter import Tk, Toplevel, TOP, LEFT, RIGHT
 from tkinter import ttk
 from typing import Callable
 
-# Third-party packages
+# Third-party
 from PIL import Image, ImageTk
 
 # Local imports
@@ -59,33 +60,22 @@ def create_main_menu(
     outer_frame = ttk.Frame(menu, style='Raised.TFrame')
     main_frame = ttk.Frame(outer_frame, padding=UI_STYLE['border_width'])
 
-    # Load and display logo
+    # Load and display logo (PNG with possible transparency; scale by width, keep aspect ratio)
     logo_label = None
-    try:
-        # Get the project root directory (3 levels up from this file)
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        project_root = os.path.dirname(os.path.dirname(current_dir))
-        logo_path = os.path.join(project_root, 'images', 'RegressionLab_logo_app.png')
-        
-        if os.path.exists(logo_path):
-            # Load the image and resize it to fit nicely
-            logo_image = Image.open(logo_path)
-            # Resize to a reasonable width (e.g., 400 pixels) while maintaining aspect ratio
+    project_root = Path(__file__).resolve().parent.parent.parent
+    logo_path = project_root / 'images' / 'RegressionLab_logo_app.png'
+    if logo_path.exists():
+        try:
+            logo_image = Image.open(logo_path)  # do not convert to RGB to preserve transparency
             max_width = 600
             aspect_ratio = logo_image.height / logo_image.width
             new_height = int(max_width * aspect_ratio)
-            logo_image = logo_image.resize((max_width, new_height), Image.LANCZOS)
-            
-            # Convert to PhotoImage
+            logo_image = logo_image.resize((max_width, new_height), Image.Resampling.LANCZOS)
             logo_photo = ImageTk.PhotoImage(logo_image)
-            
-            # Create label for logo
             logo_label = ttk.Label(main_frame, image=logo_photo)
-            # Keep a reference to prevent garbage collection
-            logo_label.image = logo_photo
-    except Exception as e:
-        # If logo fails to load, continue without it
-        print(f"Warning: Could not load logo: {e}")
+            logo_label.image = logo_photo  # keep reference to prevent garbage collection
+        except Exception:
+            pass  # show menu without logo if load fails
     
     # Welcome message
     message = ttk.Label(main_frame, text=t('menu.welcome'), style='LargeBold.TLabel')

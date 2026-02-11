@@ -84,12 +84,10 @@ def mode_normal_fitting(equation_types: List[str]) -> None:
                 show_results(st.session_state.results)
 
             # Loop mode: after first fit, allow uploading another file and refitting with same equation
-            if loop_mode and st.session_state.results and getattr(
-                st.session_state, 'normal_fit_equation', None
-            ):
-                eq_name = st.session_state.normal_fit_equation
-                custom = getattr(st.session_state, 'normal_fit_custom_formula', None)
-                params = getattr(st.session_state, 'normal_fit_parameter_names', None)
+            eq_name = st.session_state.get('normal_fit_equation')
+            if loop_mode and st.session_state.results and eq_name is not None:
+                custom = st.session_state.get('normal_fit_custom_formula')
+                params = st.session_state.get('normal_fit_parameter_names')
                 with st.expander(t('workflow.loop_refit_same_equation')):
                     st.caption(t('workflow.loop_refit_caption'))
                     loop_file = st.file_uploader(

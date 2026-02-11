@@ -25,7 +25,7 @@ The `streamlit_app.app` module is the entry point for the web interface. The mai
 
 Main Streamlit application entry point.
 
-This function sets up the Streamlit page configuration, injects theme CSS from config (`get_streamlit_theme()`, `get_main_css()`), initializes session state, displays the UI, and routes to the appropriate operation mode handler.
+This function sets up the Streamlit page configuration, injects theme CSS from config (`get_streamlit_theme()`, `get_main_css()`), caches the theme in `st.session_state.streamlit_theme` for reuse by sections (e.g. logo), initializes session state, displays the UI, and routes to the appropriate operation mode handler.
 
 **Example:**
 ```python
@@ -165,7 +165,7 @@ if uploaded_file:
 
 #### `perform_fit(data, x_name, y_name, equation_name, plot_name, custom_formula=None, parameter_names=None) -> Optional[Dict[str, Any]]`
 
-Perform curve fitting and return results.
+Perform curve fitting and return results. Uses the backend fit function (from `fitting.get_fitting_function` or custom evaluator); the backend may return `(text, y_fitted, equation, fit_info)` — only the first three values are used.
 
 **Parameters:**
 - `data`: DataFrame with data
@@ -205,7 +205,8 @@ result = perform_fit(
 
 if result:
     st.image(result['plot_path'], width='stretch')
-    st.download_button("Download", data=open(result['plot_path'], 'rb'), file_name=result['plot_name'] + '.png')
+    with open(result['plot_path'], 'rb') as f:
+        st.download_button("Download", data=f.read(), file_name=result['plot_name'] + '.png')
 ```
 
 ## UI Components
@@ -312,7 +313,7 @@ st.set_page_config(
 ### Theme and CSS
 
 - **Source:** `streamlit_app/theme.py`. Theme is built from `config.theme.UI_STYLE` when importable (same env + theme as Tkinter); otherwise from `config.env` only. All colors are converted to hex for CSS (no tkinter at runtime in theme).
-- **Applied in:** `app.py` calls `get_streamlit_theme()` and `get_main_css(theme)`, then injects the returned CSS once.
+- **Applied in:** `app.py` calls `get_streamlit_theme()` (cached in `st.session_state.streamlit_theme`), then `get_main_css(theme)`, and injects the returned CSS once per run.
 - **Rules:** Main area uses `UI_BACKGROUND` and `UI_FOREGROUND`; sidebar uses a slightly lighter background (`sidebar_bg`); buttons use `UI_BUTTON_BG` and `UI_BUTTON_FG`; headings/accents use primary and accent2; fonts from `UI_FONT_FAMILY` and `UI_FONT_SIZE`.
 - **Sidebar layout:** `sections/sidebar.py` defines layout-only CSS (brand, version badge, section labels); colors come from the global theme CSS.
 

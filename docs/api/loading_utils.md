@@ -295,9 +295,10 @@ data, file_path = load_data_workflow('data1', 'csv')
 
 ### Directory Scanning
 
-- **Performance**: Single directory scan, no recursion
-- **Filtering**: Only includes files with recognized extensions
-- **Case Sensitivity**: Extension matching is case-insensitive on Windows
+- **Performance**: Single directory scan, no recursion; one pass over directory entries
+- **Filtering**: Only includes files with recognized extensions (`.csv`, `.xlsx`, `.txt`)
+- **Path handling**: Uses `pathlib.Path.suffix` and `Path.stem` for extension detection and base names (no string slicing)
+- **Case sensitivity**: Extension matching is case-insensitive on Windows
 
 ### Path Handling
 

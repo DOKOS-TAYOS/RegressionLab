@@ -42,6 +42,14 @@ UNICODE_PARAM_MAP: Dict[str, str] = {
     r"\u03A9": "Ω",
 }
 
+# Shared hint text for parameter/formula dialogs (Greek Unicode codes + exit instruction)
+_UNICODE_HINT_LINES: str = (
+    r'\u03B1=α, \u03B2=β, \u03B3=γ, \u03B4=δ, \u03B5=ε' + '\n'
+    r'\u03B6=ζ, \u03B7=η, \u03B8=θ, \u03BB=λ, \u03BC=μ' + '\n'
+    r'\u03BE=ξ, \u03C0=π, \u03C1=ρ, \u03C3=σ, \u03C6=φ' + '\n'
+    r'\u03C9=ω, \u0394=Δ, \u03A3=Σ, \u03A6=Φ, \u03A9=Ω'
+)
+
 
 def _normalize_unicode_text(text: str) -> str:
     """
@@ -390,11 +398,6 @@ def ask_parameter_names(parent_window: Any, num_params: int) -> List[str]:
         List of parameter names entered by the user. Returns ``[EXIT_SIGNAL]``
         if user cancels at any point.
     """
-    cod1 = '\\u03B1=α, \\u03B2=β, \\u03B3=γ, \\u03B4=δ, \\u03B5=ε\n'
-    cod2 = '\\u03B6=ζ, \\u03B7=η, \\u03B8=θ, \\u03BB=λ, \\u03BC=μ\n'
-    cod3 = '\\u03BE=ξ, \\u03C0=π, \\u03C1=ρ, \\u03C3=σ, \\u03C6=φ\n'
-    cod4 = '\\u03C9=ω, \\u0394=Δ, \\u03A3=Σ, \\u03A6=Φ, \\u03A9=Ω'
-    cod = cod1 + cod2 + cod3 + cod4
     exit_instruction = f'\n"{t("dialog.exit_option")}" {t("dialog.exit_instruction")}'
 
     parameter_names_list: List[str] = []
@@ -429,7 +432,9 @@ def ask_parameter_names(parent_window: Any, num_params: int) -> List[str]:
             highlightthickness=0,
         )
         unicode_hint: str = t('dialog.custom_formula_unicode_hint')
-        parameter_asker_leve.codes.insert('1.0', cod + exit_instruction + '\n\n' + unicode_hint)
+        parameter_asker_leve.codes.insert(
+            '1.0', _UNICODE_HINT_LINES + exit_instruction + '\n\n' + unicode_hint
+        )
         parameter_asker_leve.codes.config(state='disabled')
         parameter_asker_leve.name_entry = ttk.Entry(
             parameter_asker_leve.frame_custom,
@@ -486,11 +491,6 @@ def ask_custom_formula(parent_window: Any, parameter_names: List[str], num_indep
         Formula string entered by the user, with Unicode escape sequences
         normalized. Returns ``EXIT_SIGNAL`` if user cancels.
     """
-    cod1 = '\\u03B1=α, \\u03B2=β, \\u03B3=γ, \\u03B4=δ, \\u03B5=ε\n'
-    cod2 = '\\u03B6=ζ, \\u03B7=η, \\u03B8=θ, \\u03BB=λ, \\u03BC=μ\n'
-    cod3 = '\\u03BE=ξ, \\u03C0=π, \\u03C1=ρ, \\u03C3=σ, \\u03C6=φ\n'
-    cod4 = '\\u03C9=ω, \\u0394=Δ, \\u03A3=Σ, \\u03A6=Φ, \\u03A9=Ω'
-    cod = cod1 + cod2 + cod3 + cod4
     exit_instruction = f'\n"{t("dialog.exit_option")}" {t("dialog.exit_instruction")}'
 
     formulator_level = Toplevel()
@@ -552,7 +552,7 @@ def ask_custom_formula(parent_window: Any, parameter_names: List[str], num_indep
         borderwidth=0,
         highlightthickness=0,
     )
-    formulator_level.codes.insert('1.0', cod + exit_instruction)
+    formulator_level.codes.insert('1.0', _UNICODE_HINT_LINES + exit_instruction)
     formulator_level.codes.config(state='disabled')
     params_display = t('dialog.parameters_defined', params=', '.join(parameter_names))
     formulator_level.parametros = ttk.Label(

@@ -135,7 +135,7 @@ chmod +x install.sh
 
 ## 🛠️ Requirements
 
-- Python 3.12 or higher
+- Python 3.12 or higher (3.13 supported)
 - Windows 10/11, macOS 10.14+, or Linux
 - 4 GB RAM minimum (8 GB recommended)
 
@@ -150,13 +150,15 @@ chmod +x install.sh
 | **SciPy** | >= 1.17 | Scientific computing and curve fitting |
 | **Pandas** | >= 2.3 | Data manipulation |
 | **OpenPyXL** | >= 3.1 | Excel file handling |
+| **Pillow** | >= 10.0 | Image handling (GUI, logos) |
 | **Python-dotenv** | >= 1.0 | Environment configuration |
 | **Colorama** | >= 0.4 | Terminal colors |
+| **PyYAML** | >= 6.0 | YAML config (equations) |
+| **Streamlit** | >= 1.31 | Web interface |
 
-### Optional Dependencies
+### Optional
 
-- **Streamlit** - For web interface
-- **Tkinter** - For desktop interface (usually included with Python)
+- **Tkinter** – Desktop interface (usually included with Python)
 
 ## 🔧 Configuration
 

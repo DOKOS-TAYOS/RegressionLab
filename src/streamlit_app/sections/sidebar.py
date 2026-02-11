@@ -131,7 +131,7 @@ def show_logo() -> None:
     # __file__ is streamlit_app/sections/sidebar.py -> parent.parent = streamlit_app, parent.parent.parent = src, project root = parent.parent.parent.parent
     logo_path = Path(__file__).resolve().parent.parent.parent.parent / "images" / "RegressionLab_logo.png"
     logo_bytes = _cached_logo_bytes(str(logo_path))
-    theme = get_streamlit_theme()
+    theme = st.session_state.get("streamlit_theme") or get_streamlit_theme()
     primary = theme['button_fg_primary']
     muted = theme['muted']
 

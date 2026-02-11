@@ -37,6 +37,15 @@ LOG_COLORS = {
     'CRITICAL': Fore.RED + Style.BRIGHT if COLORAMA_AVAILABLE else '',
 }
 
+# Map env log level names to logging constants (avoid rebuilding on every call)
+LEVEL_MAP = {
+    'DEBUG': logging.DEBUG,
+    'INFO': logging.INFO,
+    'WARNING': logging.WARNING,
+    'ERROR': logging.ERROR,
+    'CRITICAL': logging.CRITICAL,
+}
+
 
 class ColoredFormatter(logging.Formatter):
     """
@@ -64,10 +73,8 @@ class ColoredFormatter(logging.Formatter):
         if not COLORAMA_AVAILABLE:
             return super().format(record)
         
-        # Get the color for this log level
         color = LOG_COLORS.get(record.levelname, '')
-        reset = Style.RESET_ALL if COLORAMA_AVAILABLE else ''
-        
+        reset = Style.RESET_ALL
         # Save the original levelname
         original_levelname = record.levelname
         
@@ -93,16 +100,7 @@ def get_log_level_from_env() -> int:
     # Use central configuration helper so values and defaults always
     # match those defined in ``.env`` / ``config.env.ENV_SCHEMA``.
     level_name = str(get_env('LOG_LEVEL', DEFAULT_LOG_LEVEL)).upper()
-
-    level_map = {
-        'DEBUG': logging.DEBUG,
-        'INFO': logging.INFO,
-        'WARNING': logging.WARNING,
-        'ERROR': logging.ERROR,
-        'CRITICAL': logging.CRITICAL,
-    }
-    
-    return level_map.get(level_name, logging.INFO)
+    return LEVEL_MAP.get(level_name, logging.INFO)
 
 
 def get_log_file_from_env() -> str:
@@ -161,9 +159,9 @@ def setup_logging(
     if console is None:
         console = should_log_to_console()
     
-    # Create log directory if it doesn't exist
+    # Create log directory if it doesn't exist (when path has a directory component)
     log_path = Path(log_file)
-    if log_path.parent != Path('.'):
+    if len(log_path.parts) > 1:
         log_path.parent.mkdir(parents=True, exist_ok=True)
     
     # Create formatters
@@ -254,7 +252,5 @@ def log_exception(
         ... except Exception as e:
         ...     log_exception(logger, e, "Failed to load data")
     """
-    if context:
-        logger.error(f"{context}: {type(exception).__name__}: {exception}", exc_info=True)
-    else:
-        logger.error(f"{type(exception).__name__}: {exception}", exc_info=True)
+    msg = f"{context}: {type(exception).__name__}: {exception}" if context else f"{type(exception).__name__}: {exception}"
+    logger.error(msg, exc_info=True)

@@ -88,17 +88,8 @@ def _validate_env_value(
             int_value = int(value)
         except (TypeError, ValueError, OverflowError):
             return False, default
-            
-        # Define validation rules for integer fields
-        size_fields = {
-            'UI_PADDING', 'UI_BUTTON_WIDTH',
-            'UI_FONT_SIZE', 'UI_SPINBOX_WIDTH', 'UI_ENTRY_WIDTH',
-            'PLOT_FIGSIZE_WIDTH', 'PLOT_FIGSIZE_HEIGHT',
-            'PLOT_MARKER_SIZE',
-            'FONT_AXIS_SIZE', 'FONT_TICK_SIZE'
-        }
-        
-        if key in size_fields:
+
+        if key in _SIZE_FIELDS:
             # All size fields must be positive
             if int_value <= 0:
                 return False, default
@@ -187,6 +178,15 @@ def _was_value_corrected(
 # Logging defaults (single source of truth for ENV_SCHEMA and utils.logger)
 DEFAULT_LOG_LEVEL = 'INFO'
 DEFAULT_LOG_FILE = 'regressionlab.log'
+
+# Env keys for integer size/dimension fields (positive, bounded validation)
+_SIZE_FIELDS: frozenset[str] = frozenset({
+    'UI_PADDING', 'UI_BUTTON_WIDTH',
+    'UI_FONT_SIZE', 'UI_SPINBOX_WIDTH', 'UI_ENTRY_WIDTH',
+    'PLOT_FIGSIZE_WIDTH', 'PLOT_FIGSIZE_HEIGHT',
+    'PLOT_MARKER_SIZE',
+    'FONT_AXIS_SIZE', 'FONT_TICK_SIZE',
+})
 
 # Order defines display order in config dialog. Within each section (ui, plot, font, etc.)
 # related options are grouped (e.g. all button settings together).

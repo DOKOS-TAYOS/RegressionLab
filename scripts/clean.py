@@ -18,7 +18,7 @@ build artifacts without affecting source code.
 import os
 import shutil
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 
 def find_pycache_dirs(root_dir: Path) -> List[Path]:
@@ -41,24 +41,20 @@ def find_pycache_dirs(root_dir: Path) -> List[Path]:
         Virtual environments (.venv, venv, env, virtualenv) are
         excluded to preserve installed packages' performance.
     """
-    # Common virtual environment directory names to exclude
     venv_names = {'.venv', 'venv', 'env', 'virtualenv', '.virtualenv'}
-    
-    pycache_dirs = []
-    # Walk the directory tree
-    for dirpath, dirnames, _ in os.walk(root_dir):
-        # Skip virtual environment directories (modify dirnames in-place)
-        dirnames[:] = [d for d in dirnames if d not in venv_names]
+    cache_dir_names = {'__pycache__', '.pytest_cache'}
+    pycache_dirs: List[Path] = []
 
-        # Include both __pycache__ and .pytest_cache
-        for cache_dir in ['__pycache__', '.pytest_cache']:
+    for dirpath, dirnames, _ in os.walk(root_dir):
+        for cache_dir in cache_dir_names:
             if cache_dir in dirnames:
-                cache_path = Path(dirpath) / cache_dir
-                pycache_dirs.append(cache_path)
+                pycache_dirs.append(Path(dirpath) / cache_dir)
+        # Do not descend into venv or cache directories
+        dirnames[:] = [d for d in dirnames if d not in venv_names and d not in cache_dir_names]
     return pycache_dirs
 
 
-def remove_pycache_dirs(root_dir: Path = None) -> None:
+def remove_pycache_dirs(root_dir: Optional[Path] = None) -> None:
     """
     Remove all found __pycache__ directories.
     
@@ -97,7 +93,7 @@ def remove_pycache_dirs(root_dir: Path = None) -> None:
         try:
             # shutil.rmtree removes directory and all its contents
             shutil.rmtree(pycache_dir)
-            print(f" Removed: {pycache_dir.relative_to(root_dir)}")
+            print(f"  Removed: {pycache_dir.relative_to(root_dir)}")
         except Exception as e:
             # Report errors but continue with other directories
             print(f" Error removing {pycache_dir.relative_to(root_dir)}: {e}")

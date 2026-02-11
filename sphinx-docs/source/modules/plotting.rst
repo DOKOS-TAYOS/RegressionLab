@@ -8,7 +8,3 @@ Plotting Utilities
 ========================
 
 .. automodule:: plotting.plot_utils
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :imported-members:

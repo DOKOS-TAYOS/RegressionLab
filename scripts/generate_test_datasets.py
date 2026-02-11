@@ -1236,13 +1236,14 @@ def main() -> None:
     # 3-variable mixed: z = a/x + b*y (combined inverse and linear).
     # ------------------------------------------------------------------------
     print("Generating 3Var_Mixed1 (3 magnitudes, mixed z = a/x + b*y)...")
+    rng_mixed = np.random.default_rng(42)
     n = 20
     x = np.linspace(1.0, 10.0, n)
     y = np.linspace(0.5, 5.0, n)
-    z = 50.0 / x + 2.0 * y + np.random.normal(0, 0.5, n)
-    ux = np.random.uniform(0.1, 0.3, n)
-    uy = np.random.uniform(0.05, 0.15, n)
-    uz = np.random.uniform(0.2, 0.4, n)
+    z = 50.0 / x + 2.0 * y + rng_mixed.normal(0, 0.5, n)
+    ux = rng_mixed.uniform(0.1, 0.3, n)
+    uy = rng_mixed.uniform(0.05, 0.15, n)
+    uz = rng_mixed.uniform(0.2, 0.4, n)
     df21 = pd.DataFrame({'x': x, 'ux': ux, 'y': y, 'uy': uy, 'z': z, 'uz': uz})
     df21 = rename_columns_simple_3var(df21, 'P', 'T', 'V', 'kPa', 'K', 'L')
     save_dataset(df21, '3Var_Mixed1')

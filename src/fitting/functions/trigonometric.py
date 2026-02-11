@@ -8,6 +8,8 @@ from numpy.typing import NDArray
 from fitting.functions._base import (
     DataLike,
     Numeric,
+    estimate_hyperbolic_bounds,
+    estimate_hyperbolic_parameters,
     estimate_phase_shift,
     estimate_trigonometric_parameters,
     generic_fit,
@@ -253,13 +255,9 @@ def fit_sinh_function(
     """
     x = data[x_name]
     y = data[y_name]
-    y_range = np.max(y) - np.min(y)
-    amplitude = y_range / 2.0 if y_range > 0 else 1.0
-    x_range = float(np.ptp(x))
-    frequency = 1.0 / x_range if x_range > 1e-30 else 1.0
-    b_max = 700.0 / (np.max(np.abs(x)) + 1e-30)
-    computed_bounds = ([-np.inf, 1e-9], [np.inf, min(b_max, 1e3)])
+    amplitude, frequency = estimate_hyperbolic_parameters(x, y)
     initial_guess = merge_initial_guess([amplitude, frequency], initial_guess_override)
+    computed_bounds = estimate_hyperbolic_bounds(x)
     bounds = (
         merge_bounds(computed_bounds, bounds_override[0], bounds_override[1], 2)
         if bounds_override is not None
@@ -297,14 +295,9 @@ def fit_cosh_function(
     """
     x = data[x_name]
     y = data[y_name]
-    y_min = np.min(y)
-    y_max = np.max(y)
-    amplitude = (y_max - y_min) / 2.0 if (y_max - y_min) > 0 else 1.0
-    x_range = float(np.ptp(x))
-    frequency = 1.0 / x_range if x_range > 1e-30 else 1.0
-    b_max = 700.0 / (np.max(np.abs(x)) + 1e-30)
-    computed_bounds = ([-np.inf, 1e-9], [np.inf, min(b_max, 1e3)])
+    amplitude, frequency = estimate_hyperbolic_parameters(x, y)
     initial_guess = merge_initial_guess([amplitude, frequency], initial_guess_override)
+    computed_bounds = estimate_hyperbolic_bounds(x)
     bounds = (
         merge_bounds(computed_bounds, bounds_override[0], bounds_override[1], 2)
         if bounds_override is not None

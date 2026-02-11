@@ -7,14 +7,15 @@ set -e  # Exit on error
 # Change to project root directory (parent of bin)
 cd "$(dirname "$0")/.."
 
+if [ ! -d ".venv" ]; then
+    echo "ERROR: Virtual environment not found"
+    echo "Please run setup.sh first"
+    exit 1
+fi
+
 echo "Starting RegressionLab Streamlit Application..."
 echo ""
-
-# Activate virtual environment if it exists
-if [ -f ".venv/bin/activate" ]; then
-    echo "Activating virtual environment..."
-    source .venv/bin/activate
-fi
+source .venv/bin/activate
 
 # Run Streamlit application
 streamlit run src/streamlit_app/app.py

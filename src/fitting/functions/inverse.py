@@ -18,6 +18,35 @@ from ._base import (
 )
 
 
+def _fit_single_param(
+    data: DataLike,
+    x_name: str,
+    y_name: str,
+    fit_func: Callable[..., Numeric],
+    fit_name: str,
+    a_0: float,
+    initial_guess_override: Optional[list[Optional[float]]] = None,
+    bounds_override: Optional[tuple[list[Optional[float]], list[Optional[float]]]] = None,
+) -> tuple[str, NDArray, str]:
+    """Common workflow for single-parameter inverse/log fits."""
+    initial_guess = merge_initial_guess([a_0], initial_guess_override)
+    bounds = (
+        merge_bounds(None, bounds_override[0], bounds_override[1], 1)
+        if bounds_override is not None
+        else None
+    )
+    return generic_fit(
+        data,
+        x_name,
+        y_name,
+        fit_func=fit_func,
+        param_names=get_equation_param_names_for_function(fit_name),
+        equation_template=get_equation_format_for_function(fit_name),
+        initial_guess=initial_guess,
+        bounds=bounds,
+    )
+
+
 def ln_function(t: Numeric, a: float) -> Numeric:
     """Natural logarithm function: y = a*ln(t)"""
     return a * np.log(t)
@@ -65,19 +94,9 @@ def fit_ln_function(
     x = data[x_name]
     y = data[y_name]
     a_0 = estimate_ln_parameter(x, y)
-    initial_guess = merge_initial_guess([a_0], initial_guess_override)
-    bounds = (
-        merge_bounds(None, bounds_override[0], bounds_override[1], 1)
-        if bounds_override is not None
-        else None
-    )
-    return generic_fit(
-        data, x_name, y_name,
-        fit_func=ln_function,
-        param_names=get_equation_param_names_for_function('fit_ln_function'),
-        equation_template=get_equation_format_for_function('fit_ln_function'),
-        initial_guess=initial_guess,
-        bounds=bounds,
+    return _fit_single_param(
+        data, x_name, y_name, ln_function, 'fit_ln_function', a_0,
+        initial_guess_override, bounds_override,
     )
 
 
@@ -104,19 +123,9 @@ def fit_inverse_function(
     x = data[x_name]
     y = data[y_name]
     a_0 = estimate_inverse_parameter(x, y, 1)
-    initial_guess = merge_initial_guess([a_0], initial_guess_override)
-    bounds = (
-        merge_bounds(None, bounds_override[0], bounds_override[1], 1)
-        if bounds_override is not None
-        else None
-    )
-    return generic_fit(
-        data, x_name, y_name,
-        fit_func=inverse_function,
-        param_names=get_equation_param_names_for_function('fit_inverse_function'),
-        equation_template=get_equation_format_for_function('fit_inverse_function'),
-        initial_guess=initial_guess,
-        bounds=bounds,
+    return _fit_single_param(
+        data, x_name, y_name, inverse_function, 'fit_inverse_function', a_0,
+        initial_guess_override, bounds_override,
     )
 
 
@@ -143,17 +152,7 @@ def fit_inverse_square_function(
     x = data[x_name]
     y = data[y_name]
     a_0 = estimate_inverse_parameter(x, y, 2)
-    initial_guess = merge_initial_guess([a_0], initial_guess_override)
-    bounds = (
-        merge_bounds(None, bounds_override[0], bounds_override[1], 1)
-        if bounds_override is not None
-        else None
-    )
-    return generic_fit(
-        data, x_name, y_name,
-        fit_func=inverse_square_function,
-        param_names=get_equation_param_names_for_function('fit_inverse_square_function'),
-        equation_template=get_equation_format_for_function('fit_inverse_square_function'),
-        initial_guess=initial_guess,
-        bounds=bounds,
+    return _fit_single_param(
+        data, x_name, y_name, inverse_square_function, 'fit_inverse_square_function', a_0,
+        initial_guess_override, bounds_override,
     )
