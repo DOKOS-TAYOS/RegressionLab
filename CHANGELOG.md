@@ -5,6 +5,14 @@ All notable changes to RegressionLab are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.9.1] - 2026-02-11
+
+### Fixed
+
+- **Streamlit Cloud**: Hotfix to repair Streamlit Cloud deployment that was not working due to a tkinter dependency that could not be resolved.
+
+---
+
 ## [0.9.0] - 2026-02-07
 
 ### Fixed
@@ -104,6 +112,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial 0.8.x release. See repository history and documentation for features and changes prior to 0.8.1.
 
+[0.9.1]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v0.9.0...v0.9.1
 [0.9.0]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v0.8.3...v0.9.0
 [0.8.3]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v0.8.2...v0.8.3
 [0.8.2]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v0.8.1...v0.8.2
