@@ -37,6 +37,13 @@ git --version
 REPO_URL="https://github.com/DOKOS-TAYOS/RegressionLab.git"
 REPO_NAME="regressionlab"
 
+# IMPORTANT: Clone to Termux home (~) - NOT to shared storage (Downloads, etc).
+# Android shared storage blocks symlinks, which Python venv needs for lib->lib64.
+INSTALL_DIR="$HOME/$REPO_NAME"
+cd "$HOME" || { echo "ERROR: Cannot access home directory"; exit 1; }
+echo "      Installing to: $INSTALL_DIR"
+echo ""
+
 # Check if directory already exists
 if [ -d "$REPO_NAME" ]; then
     echo ""
