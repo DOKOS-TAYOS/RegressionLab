@@ -66,11 +66,12 @@ echo "      Python version OK"
 echo ""
 echo "[2/9] Installing heavy packages via pkg (avoids slow pip build on ARM)..."
 pkg update -y 2>/dev/null || true
+pkg upgrade -y 2>/dev/null || true
 if ! pkg install -y tur-repo 2>/dev/null; then
     echo "      TUR repo not found, trying without..."
 fi
-# Install pre-built numpy, scipy, pandas, pillow, matplotlib - instant, no compilation
-for pkg_name in python-numpy python-scipy python-pandas python-pillow matplotlib python-matplotlib; do
+# Install pre-built numpy, pandas, pillow, matplotlib via pkg (scipy from pkg can be broken: __emutls_get_address)
+for pkg_name in python-numpy python-pandas python-pillow matplotlib python-matplotlib; do
     if pkg install -y "$pkg_name" 2>/dev/null; then
         echo "      Installed $pkg_name"
     else
@@ -118,6 +119,9 @@ if ! python -c "import numpy" 2>/dev/null; then
     echo "      numpy not from pkg, installing from TUR..."
     pip install --extra-index-url https://termux-user-repository.github.io/pypi/ numpy scipy pandas matplotlib pillow
 fi
+# scipy from pkg has __emutls_get_address errors on some devices; use TUR wheel instead (into venv)
+echo "      Installing scipy from TUR (wheel, overrides broken pkg scipy)..."
+pip install --index-url https://termux-user-repository.github.io/pypi/ --extra-index-url https://pypi.org/simple/ "scipy>=1.17,<2.0"
 # Use pkg's pandas 3.0.0 (installing pandas 2.x via pip fails: rpds-py has no ARM wheel, build fails)
 # Streamlit omitted on Termux (requires pandas<3.0); the Tkinter GUI (main_program.py) works with pandas 3.0
 pip install -r requirements_termux.txt
