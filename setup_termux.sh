@@ -113,7 +113,6 @@ python -m pip install --upgrade pip
 echo ""
 echo "[7/9] Installing remaining dependencies via pip..."
 # numpy, scipy, pandas, matplotlib, Pillow should be from pkg; if not, install from TUR wheels
-export _PIP_USE_IMPORTLIB_METADATA=0
 # If pkg didn't install some packages, install from TUR (pre-built wheels)
 if ! python -c "import numpy" 2>/dev/null; then
     echo "      numpy not from pkg, installing from TUR..."
