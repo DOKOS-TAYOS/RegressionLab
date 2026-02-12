@@ -41,7 +41,7 @@ echo "===================================="
 echo ""
 
 # [1/8] Check Python
-echo "[1/8] Checking Python..."
+echo "[1/9] Checking Python..."
 if ! command -v python3 &> /dev/null && ! command -v python &> /dev/null; then
     echo "      Installing Python..."
     pkg update
@@ -64,7 +64,22 @@ $PYTHON_CMD -c "import sys; exit(0 if sys.version_info >= (3, 10) else 1)" || {
 echo "      Python version OK"
 
 echo ""
-echo "[2/8] Ensuring tkinter is available (required for GUI)..."
+echo "[2/9] Installing heavy packages via pkg (avoids slow pip build on ARM)..."
+pkg update -y 2>/dev/null || true
+if ! pkg install -y tur-repo 2>/dev/null; then
+    echo "      TUR repo not found, trying without..."
+fi
+# Install pre-built numpy, scipy, pandas, pillow, matplotlib - instant, no compilation
+for pkg_name in python-numpy python-scipy python-pandas python-pillow python-matplotlib; do
+    if pkg install -y "$pkg_name" 2>/dev/null; then
+        echo "      Installed $pkg_name"
+    else
+        echo "      Warning: $pkg_name not available, will try pip later"
+    fi
+done
+
+echo ""
+echo "[3/9] Ensuring tkinter is available (required for GUI)..."
 if ! $PYTHON_CMD -c "import tkinter" 2>/dev/null; then
     echo "      Tkinter not found. Installing X11 packages..."
     pkg update
@@ -78,31 +93,37 @@ else
 fi
 
 echo ""
-echo "[3/8] Creating virtual environment..."
+echo "[4/9] Creating virtual environment..."
 if [ -d ".venv" ]; then
     echo "      Virtual environment already exists, skipping creation"
 else
-    $PYTHON_CMD -m venv .venv
-    echo "      Virtual environment created"
+    # Use --system-site-packages to inherit numpy, scipy, pandas, etc. from pkg
+    $PYTHON_CMD -m venv .venv --system-site-packages
+    echo "      Virtual environment created (with system packages)"
 fi
 
 echo ""
-echo "[4/8] Activating virtual environment..."
+echo "[5/9] Activating virtual environment..."
 source .venv/bin/activate
 
 echo ""
-echo "[5/8] Upgrading pip..."
+echo "[6/9] Upgrading pip..."
 python -m pip install --upgrade pip
 
 echo ""
-echo "[6/8] Installing dependencies..."
-# Use Termux User Repository (TUR) PyPI index for pre-built wheels (numpy, scipy, pandas, pillow).
-# Without this, pip would build from source on ARM, taking 20-60+ minutes at "preparing metadata".
-echo "      Using TUR pre-built wheels for faster installation on ARM..."
-pip install --extra-index-url https://termux-user-repository.github.io/pypi/ -r requirements.txt
+echo "[7/9] Installing remaining dependencies via pip..."
+# numpy, scipy, pandas, matplotlib, Pillow should be from pkg; if not, install from TUR wheels
+export _PIP_USE_IMPORTLIB_METADATA=0
+# If pkg didn't install some packages, install from TUR (pre-built wheels)
+if ! python -c "import numpy" 2>/dev/null; then
+    echo "      numpy not from pkg, installing from TUR..."
+    pip install --extra-index-url https://termux-user-repository.github.io/pypi/ numpy scipy pandas matplotlib pillow
+fi
+# Install openpyxl, streamlit, etc. - these are fast (pure Python or have wheels)
+pip install -r requirements_termux.txt
 
 echo ""
-echo "[7/8] Setting up environment file..."
+echo "[8/9] Setting up environment file..."
 if [ -f ".env" ]; then
     echo "      .env file already exists, skipping"
 else
@@ -121,7 +142,7 @@ else
 fi
 
 echo ""
-echo "[8/8] Creating shortcut in storage/downloads..."
+echo "[9/9] Creating shortcut in storage/downloads..."
 
 # Ensure termux-setup-storage has been run (creates ~/storage/downloads symlink)
 if [ ! -d "$HOME/storage/downloads" ]; then
