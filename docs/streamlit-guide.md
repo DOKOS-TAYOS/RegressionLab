@@ -121,21 +121,24 @@ The Streamlit interface consists of three main areas:
    - Options include Linear, Quadratic, Sine, Cosine, Logarithmic, etc.
    - Formula shown next to each option (e.g., "Linear with intercept - y=mx+n").
 
-7. **Fit the Curve**:
+7. **Plot Options** (optional):
+   - **Show plot title**: Checkbox to show or hide the title on the plot. Default comes from the `PLOT_SHOW_TITLE` environment variable; you can override it per fit without changing the config.
+
+8. **Fit the Curve**:
    - Click "Normal Fitting" button (blue button).
    - Wait for processing (spinner appears).
    - Results appear below.
 
-8. **Review Results** (three columns + plot):
+9. **Review Results** (three columns + plot):
    - **Equation** (left): Formula and formatted equation with fitted values.
    - **Parameters** (center): Fit parameters (e.g. a, b, c) with uncertainties and IC 95%.
    - **Statistics** (right): R², RMSE, χ², χ²_red, degrees of freedom.
-   - **Plot**: Data points and fitted curve below the columns.
+   - **Plot**: Data points and fitted curve below the columns (title uses the plot name if enabled).
    - **Download**: Button below the plot (PNG/JPG/PDF depending on configuration).
 
-9. **Download Plot**:
+10. **Download Plot**:
    - Click the "📥 Download" button below the plot.
-   - File format is that configured for the app (default PNG); if PDF is configured, the in-app preview is PNG but the download is PDF.
+   - File format is that configured for the app (default PNG); if PDF is configured, the in-app preview is PNG but the download is PDF. The plot title (when shown) uses the plot name you entered; no numeric suffix is added.
 
 **Custom Formula**:
 
@@ -186,12 +189,15 @@ If "Custom Formula" is selected:
      - Select Y variable.
      - Enter plot name (defaults to filename).
 
-5. **Fit All Datasets**:
+5. **Plot Options** (optional):
+   - **Show plot title**: Checkbox to show or hide the title on all plots. Default from `PLOT_SHOW_TITLE` env var.
+
+6. **Fit All Datasets**:
    - Click the "Multiple Datasets" button (centered, blue).
    - All datasets are fitted sequentially.
    - Progress indicators shown.
 
-6. **Review All Results**:
+7. **Review All Results**:
    - Results displayed for each dataset.
    - Each has its own:
      - Equation.
@@ -244,12 +250,15 @@ If "Custom Formula" is selected:
    - Default: First 3 equations pre-selected.
    - Custom formulas not available in this mode.
 
-5. **Run Checker Fitting**:
+5. **Plot Options** (optional):
+   - **Show plot title**: Checkbox to show or hide the title on all plots. Default from `PLOT_SHOW_TITLE` env var.
+
+6. **Run Checker Fitting**:
    - Click "Checker Fitting" button.
    - Progress bar shows completion.
    - Each equation fitted sequentially.
 
-6. **Compare Results**:
+7. **Compare Results**:
    - All results displayed vertically.
    - Compare:
      - R² values (higher is better).
@@ -310,14 +319,17 @@ If "Custom Formula" is selected:
    - Choose X and Y variables.
    - Enter plot name.
 
-4. **Run Total Fitting**:
+4. **Plot Options** (optional):
+   - **Show plot title**: Checkbox to show or hide the title on all plots. Default from `PLOT_SHOW_TITLE` env var.
+
+5. **Run Total Fitting**:
    - Info message shows: "Total Fitting: [N] equations".
    - Click "Total Fitting" button.
    - Progress bar shows completion.
    - **All** predefined equations fitted automatically.
    - Takes longer than other modes.
 
-5. **Review All Results**:
+6. **Review All Results**:
    - Comprehensive results for all equation types.
    - Scroll through to find the best fit.
    - Look for highest R² value.

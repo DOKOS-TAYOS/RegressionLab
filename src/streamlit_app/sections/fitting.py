@@ -5,6 +5,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import streamlit as st
 
+from config import PLOT_CONFIG
 from i18n import t
 from utils import get_logger
 
@@ -21,6 +22,7 @@ def perform_fit(
     plot_name: str,
     custom_formula: Optional[str] = None,
     parameter_names: Optional[List[str]] = None,
+    show_title: Optional[bool] = None,
 ) -> Optional[Dict[str, Any]]:
     """
     Perform curve fitting for the given dataset and equation selection.
@@ -40,6 +42,8 @@ def perform_fit(
         custom_formula: Custom formula string when ``equation_name`` is
             ``'custom_formula'``.
         parameter_names: List of parameter names used in ``custom_formula``.
+        show_title: If set, override plot title visibility (from env) for this
+            fit. ``None`` uses the value from ``PLOT_SHOW_TITLE``.
 
     Returns:
         Dictionary with keys ``equation_name``, ``parameters``, ``equation``,
@@ -77,10 +81,16 @@ def perform_fit(
         filename = f"{plot_name}_{st.session_state.plot_counter}"
         plot_ext = FILE_CONFIG.get('plot_format', 'png')
         out_path = get_temp_output_dir() / f"fit_{filename}.{plot_ext}"
+        plot_config = (
+            {**PLOT_CONFIG, 'show_title': show_title}
+            if show_title is not None
+            else None
+        )
         output_path = create_plot(
-            x, y, ux, uy, y_fitted, filename, x_name, y_name,
+            x, y, ux, uy, y_fitted, plot_name, x_name, y_name,
             output_path=str(out_path),
             fit_info=fit_info,
+            plot_config=plot_config,
         )
 
         result: Dict[str, Any] = {
@@ -188,7 +198,7 @@ def show_equation_selector(
     if selected_equation != 'custom_formula':
         desc = t(f'equations_descriptions.{selected_equation}')
         formula = EQUATIONS.get(selected_equation, {}).get("formula", "")
-        st.caption(f"**{desc}** — {formula}")
+        st.caption(f"**{desc}** : {formula}")
     custom_formula = None
     parameter_names = None
 
@@ -221,6 +231,26 @@ def show_equation_selector(
         )
 
     return selected_equation, custom_formula, parameter_names
+
+
+def show_plot_title_checkbox(key_prefix: str = '') -> bool:
+    """
+    Show checkbox to toggle plot title visibility for the next fit.
+
+    Default value comes from PLOT_CONFIG (env PLOT_SHOW_TITLE).
+
+    Args:
+        key_prefix: Prefix for Streamlit widget key to avoid clashes.
+
+    Returns:
+        Whether to show the plot title (True) or not (False).
+    """
+    return st.checkbox(
+        t('config.label_PLOT_SHOW_TITLE'),
+        value=PLOT_CONFIG.get('show_title', False),
+        key=f'{key_prefix}show_title' if key_prefix else 'show_title',
+        help=t('config.desc_PLOT_SHOW_TITLE'),
+    )
 
 
 def create_equation_options(equation_types: List[str]) -> Dict[str, str]:

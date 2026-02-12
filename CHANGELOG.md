@@ -14,12 +14,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - **General**: Significant code optimizations across loaders, paths, and fitting modules.
+- **2D fit plots**: The fitted curve is now drawn by evaluating the fitted function on a dense linspace (300 points) over the full x range, instead of plotting only at the original data points. Produces smoother curves when `fit_info` is available.
+- **3D fit plots**: The fitted surface is now drawn by evaluating the fitted function on a regular grid (50×50) of linspace points over the full x_0 and x_1 range, instead of interpolating the fitted values. Produces smoother surfaces when `fit_info` is available.
 - **Loaders**: Reader registry renamed from `_READERS` to `FILE_TYPE_READERS` and exported from `loaders` for reuse.
 - **Paths**: `get_output_path` now uses `pathlib` consistently instead of `os.path`.
 - **Fitting**: Simplified `format_parameter` logic; moved `find_peaks` import to module level in estimators.
+- **Streamlit plot titles**: The plot title now shows only the base name (e.g. "fit") without the numeric suffix (_1, _2). File paths still use the counter internally to avoid overwriting when making multiple fits in the same session.
 
 ### Added
 
+- **Streamlit**: Checkbox before each fit to toggle plot title visibility (show/hide). Default comes from `PLOT_SHOW_TITLE` environment variable; can be overridden per fit without changing the env.
 - **Multidimensional fitting**: Support for multidimensional regression. With 2 independent variables, an interactive 3D plot is shown; with more than 2 independent variables, a residuals plot is displayed.
 - **Predictions window**: New "Prediction" button in the result window opens a dialog to evaluate the fitted function at user-specified inputs. Supports one or more independent variables; displays the predicted value and propagates parameter uncertainty when available. Works for single/multiple datasets, multiple equations, and "all equations" mode.
 
@@ -132,6 +136,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial 0.8.x release. See repository history and documentation for features and changes prior to 0.8.1.
 
+[Unreleased]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v0.9.2...HEAD
 [0.9.2]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v0.9.1...v0.9.2
 [0.9.1]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v0.9.0...v0.9.1
 [0.9.0]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v0.8.3...v0.9.0

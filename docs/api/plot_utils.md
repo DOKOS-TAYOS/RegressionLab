@@ -6,10 +6,10 @@ Plot generation and styling utilities.
 
 The `plot_utils.py` module provides functions to create and save plots with experimental data and fitted curves. It handles:
 
-- **2D fit plots**: Data with error bars and fitted curve (`create_plot`)
+- **2D fit plots**: Data with error bars and fitted curve (`create_plot`). When `fit_info` is provided, the curve is evaluated on a dense linspace over the full x range for a smooth appearance.
 - **Pair plots**: Grid of scatter plots for all pairs of variables (`create_pair_plots`)
 - **Residual plots**: Residuals vs point index for multidimensional fits (`create_residual_plot`)
-- **3D plots**: Data points and fitted surface for two independent variables (`create_3d_plot`)
+- **3D plots**: Data points and fitted surface for two independent variables (`create_3d_plot`). When `fit_info` is provided, the surface is evaluated on a regular grid of linspace points over the full x_0 and x_1 range for a smooth appearance.
 
 All save functions use shared logic: the output directory is created if needed, and when saving as PDF a PNG preview is automatically generated for GUI use. Styling is driven by `config.PLOT_CONFIG` and `config.FONT_CONFIG` when not overridden.
 
@@ -17,7 +17,7 @@ All save functions use shared logic: the output directory is created if needed, 
 
 ### Plot Creation
 
-#### `create_plot(x, y, ux, uy, y_fitted, fit_name, x_name, y_name, plot_config=None, font_config=None, output_path=None) -> str`
+#### `create_plot(x, y, ux, uy, y_fitted, fit_name, x_name, y_name, plot_config=None, font_config=None, output_path=None, fit_info=None) -> str`
 
 Create and save a plot with experimental data and fitted curve.
 
@@ -33,6 +33,7 @@ Create and save a plot with experimental data and fitted curve.
 - `plot_config`: Optional plot configuration dict (defaults to `PLOT_CONFIG`)
 - `font_config`: Optional font configuration dict (defaults to `FONT_CONFIG`)
 - `output_path`: Optional full path to save the plot. If None, uses `get_output_path(fit_name)`.
+- `fit_info`: Optional dict with `fit_func` and `params` to evaluate the fitted function on a dense linspace (300 points) over the full x range. When provided, yields a smoother curve; if None, plots at the original x points.
 
 **Returns:**
 - Path to the saved plot file (as string)
@@ -97,21 +98,21 @@ Create a residual plot for multidimensional fitting (residuals vs point index).
 
 ---
 
-#### `create_3d_plot(x, y, z, z_fitted, fit_name, x_name, y_name, z_name, plot_config=None, font_config=None, output_path=None, interactive=False) -> str | tuple[str, Figure]`
+#### `create_3d_plot(x, y, z, z_fitted, fit_name, x_name, y_name, z_name, plot_config=None, font_config=None, output_path=None, interactive=False, fit_info=None) -> str | tuple[str, Figure]`
 
 Create a 3D plot with data points and fitted surface mesh for two independent variables.
 
-**Parameters:** `x`, `y`, `z`, `z_fitted`, `fit_name`, `x_name`, `y_name`, `z_name`, optional config and path. If `interactive=True`, returns `(save_path, figure)` for embedding in a window (e.g. rotatable with mouse) instead of saving and closing.
+**Parameters:** `x`, `y`, `z`, `z_fitted`, `fit_name`, `x_name`, `y_name`, `z_name`, optional config and path. If `interactive=True`, returns `(save_path, figure)` for embedding in a window (e.g. rotatable with mouse) instead of saving and closing. `fit_info`: Optional dict with `fit_func` and `params` to evaluate the fitted function on a regular grid (50×50) of linspace points over the full x_0 and x_1 range; when provided, yields a smoother surface.
 
 **Returns:** Path (str) when `interactive=False`; `(save_path, figure)` when `interactive=True`.
 
-**Note:** Surface interpolation uses `scipy.interpolate.griddata` when scipy is available; otherwise a vectorized nearest-neighbor fallback is used.
+**Note:** When `fit_info` is provided, the surface is evaluated on the grid. Otherwise, `scipy.interpolate.griddata` is used when scipy is available; a vectorized nearest-neighbor fallback is used without scipy.
 
 ## Plot Components
 
 ### Fitted Curve
 
-- **Line**: Smooth curve showing the fitted function
+- **Line**: Smooth curve showing the fitted function. When `fit_info` is provided, the curve is evaluated on 300 linspace points over the full x range; otherwise it is drawn at the original data points.
 - **Color**: Configurable via `plot_config['line_color']`
 - **Width**: Configurable via `plot_config['line_width']`
 - **Style**: Configurable via `plot_config['line_style']`
@@ -318,10 +319,12 @@ from plotting.plot_utils import create_plot
 # Get fitting function
 fit_func = get_fitting_function('linear_function')
 
-# Perform fit
-text, y_fitted, equation, *_ = fit_func(data, 'x', 'y')
+# Perform fit (returns text, y_fitted, equation, fit_info)
+result = fit_func(data, 'x', 'y')
+text, y_fitted, equation = result[0], result[1], result[2]
+fit_info = result[3] if len(result) >= 4 else None
 
-# Create plot
+# Create plot (fit_info enables smooth curve via linspace evaluation)
 plot_path = create_plot(
     x=data['x'],
     y=data['y'],
@@ -329,7 +332,8 @@ plot_path = create_plot(
     uy=data['uy'],
     y_fitted=y_fitted,
     fit_name='Linear Fit',
-    x_name='X', y_name='Y'
+    x_name='X', y_name='Y',
+    fit_info=fit_info,
 )
 ```
 
@@ -404,7 +408,8 @@ except Exception as e:
 
 ### 3D Plots and Optional SciPy
 
-- **With scipy**: 3D fitted surface uses `scipy.interpolate.griddata` (linear interpolation, with nearest-neighbor fill outside the convex hull).
+- **With fit_info**: The 3D fitted surface is evaluated on a 50×50 grid of linspace points over the full x_0 and x_1 range, yielding a smooth surface.
+- **Without fit_info**: With scipy, 3D fitted surface uses `scipy.interpolate.griddata` (linear interpolation, with nearest-neighbor fill outside the convex hull).
 - **Without scipy**: A vectorized nearest-neighbor interpolation over the grid is used so 3D plots still work without scipy.
 
 ### Performance

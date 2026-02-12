@@ -13,6 +13,7 @@ from streamlit_app.sections.fitting import (
     perform_fit,
     select_variables,
     show_equation_selector,
+    show_plot_title_checkbox,
 )
 from streamlit_app.sections.results import show_results
 
@@ -65,13 +66,15 @@ def mode_normal_fitting(equation_types: List[str]) -> None:
                 equation_name, custom_formula, parameter_names = (
                     show_equation_selector(equation_types)
                 )
+                show_title = show_plot_title_checkbox(key_prefix='normal_')
                 if st.button(
                     t('menu.normal_fitting'), type="primary", key="fit_btn", width='stretch'
                 ):
                     with st.spinner(t('workflow.normal_fitting_title')):
                         result = perform_fit(
                             data, x_name, y_name, equation_name, plot_name,
-                            custom_formula, parameter_names
+                            custom_formula, parameter_names,
+                            show_title=show_title,
                         )
                         if result:
                             st.session_state.results = [result]
@@ -101,11 +104,13 @@ def mode_normal_fitting(equation_types: List[str]) -> None:
                             loop_x, loop_y, loop_plot = select_variables(
                                 loop_data, key_prefix='loop_'
                             )
+                            loop_show_title = show_plot_title_checkbox(key_prefix='loop_')
                             if st.button(t('workflow.fit_again'), key='fit_again_btn'):
                                 with st.spinner(t('workflow.normal_fitting_title')):
                                     extra = perform_fit(
                                         loop_data, loop_x, loop_y, eq_name, loop_plot,
-                                        custom, params
+                                        custom, params,
+                                        show_title=loop_show_title,
                                     )
                                     if extra:
                                         st.session_state.results = (
@@ -156,6 +161,7 @@ def mode_multiple_datasets(equation_types: List[str]) -> None:
 
             col1, col2, col3 = st.columns([1, 2, 1])
             with col2:
+                show_title = show_plot_title_checkbox(key_prefix='multiple_')
                 if st.button(
                     t('menu.multiple_datasets'),
                     type="primary",
@@ -182,7 +188,8 @@ def mode_multiple_datasets(equation_types: List[str]) -> None:
                                 with st.spinner(title):
                                     result = perform_fit(
                                         data, x_name, y_name, equation_name, plot_name,
-                                        custom_formula, parameter_names
+                                        custom_formula, parameter_names,
+                                        show_title=show_title,
                                     )
                                     if result:
                                         results.append(result)
@@ -231,6 +238,7 @@ def mode_checker_fitting(equation_types: List[str]) -> None:
                 selected_equations = [
                     equation_options_filtered[label] for label in selected_labels
                 ]
+                show_title = show_plot_title_checkbox(key_prefix='checker_')
                 if st.button(
                     t('menu.checker_fitting'),
                     type="primary",
@@ -242,7 +250,10 @@ def mode_checker_fitting(equation_types: List[str]) -> None:
 
                     for idx, equation_name in enumerate(selected_equations):
                         with st.spinner(f"{t('workflow.fitting_title', name=equation_name)}"):
-                            result = perform_fit(data, x_name, y_name, equation_name, plot_name)
+                            result = perform_fit(
+                                data, x_name, y_name, equation_name, plot_name,
+                                show_title=show_title,
+                            )
 
                             if result:
                                 results.append(result)
@@ -279,6 +290,7 @@ def mode_total_fitting(equation_types: List[str]) -> None:
 
             with col2:
                 st.info(f"📊 {t('menu.total_fitting')}: {len(equation_types)}")
+                show_title = show_plot_title_checkbox(key_prefix='total_')
 
                 if st.button(
                     t('menu.total_fitting'),
@@ -291,7 +303,10 @@ def mode_total_fitting(equation_types: List[str]) -> None:
 
                     for idx, equation_name in enumerate(equation_types):
                         with st.spinner(f"{t('workflow.fitting_title', name=equation_name)}"):
-                            result = perform_fit(data, x_name, y_name, equation_name, plot_name)
+                            result = perform_fit(
+                                data, x_name, y_name, equation_name, plot_name,
+                                show_title=show_title,
+                            )
 
                             if result:
                                 results.append(result)

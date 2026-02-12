@@ -241,8 +241,10 @@ PLOT_SHOW_TITLE=false
 ```
 
 - **PLOT_SHOW_TITLE**: Whether to display a title above the plot.
-  - `true`: Show title (derived from the plot/filename).
+  - `true`: Show title (derived from the plot name).
   - `false`: No title (cleaner look for slides or publications).
+
+  In the Streamlit app, a checkbox before each fit overrides this value per fit; the default is loaded from this env var.
 
 ### Fitted Curve Style
 

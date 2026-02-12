@@ -12,7 +12,7 @@ The `streamlit_app.app` module is the entry point for the web interface. The mai
 - **`theme.py`** – Theme from config: `get_streamlit_theme()`, `get_main_css()`. Uses `config.theme.UI_STYLE` (env + theme) when importable; fallback to `config.env` only. Sidebar background is slightly lighter than main area. Colors and fonts come from `UI_BACKGROUND`, `UI_FOREGROUND`, `UI_BUTTON_*`, `UI_FONT_*`, etc.
 - **`sections/sidebar.py`** – Sidebar setup, logo (or fallback header with theme colors), language toggle, session state. Initial language from `config.env` (`LANGUAGE`).
 - **`sections/data.py`** – `load_uploaded_file`, `show_data_with_pair_plots`, `get_variable_names`, `get_temp_output_dir`
-- **`sections/fitting.py`** – `perform_fit`, `show_equation_selector`, `select_variables`, `create_equation_options`. Uses `config.FILE_CONFIG` for plot format/paths.
+- **`sections/fitting.py`** – `perform_fit`, `show_equation_selector`, `select_variables`, `show_plot_title_checkbox`, `create_equation_options`. Uses `config.FILE_CONFIG` for plot format/paths. Includes per-fit checkbox to toggle plot title visibility (default from `PLOT_SHOW_TITLE`).
 - **`sections/results.py`** – `show_results`
 - **`sections/help_section.py`** – `show_help_section`. Uses `config.DONATIONS_URL` for the donations link.
 - **`sections/modes.py`** – `mode_normal_fitting`, `mode_multiple_datasets`, `mode_checker_fitting`, `mode_total_fitting`, `mode_view_data`. Uses `config.DATA_FILE_TYPES`.
@@ -49,6 +49,7 @@ Single file, single equation fitting.
 - File upload (CSV, XLSX, TXT)
 - Variable selection
 - Equation selection (including custom)
+- Checkbox to show/hide plot title (default from `PLOT_SHOW_TITLE` env var)
 - Single fit execution
 - Result display (equation, parameters, statistics in three columns; plot; download below)
 
@@ -70,6 +71,7 @@ Multiple files, single equation fitting.
 - Multiple file upload
 - Per-file variable selection
 - Single equation for all files
+- Checkbox to show/hide plot title (default from `PLOT_SHOW_TITLE` env var)
 - Batch fitting
 - Results for each dataset
 
@@ -90,6 +92,7 @@ Single file, multiple equations fitting.
 - Single file upload
 - Variable selection
 - Multiple equation selection
+- Checkbox to show/hide plot title (default from `PLOT_SHOW_TITLE` env var)
 - Compare fits
 - Results comparison
 
@@ -109,6 +112,7 @@ Single file, all equations fitting.
 **Features:**
 - Single file upload
 - Variable selection
+- Checkbox to show/hide plot title (default from `PLOT_SHOW_TITLE` env var)
 - Automatic fitting with all equations
 - Comprehensive comparison
 - All results displayed
