@@ -174,7 +174,10 @@ def _wrap_with_visualization(base_fit_function: Callable, fit_name: str) -> Call
             if num_indep == 1:
                 x = data[x_key]
                 ux = data.get('u%s' % x_key, [0.0] * len(x))
-                output_path = create_plot(x, y, ux, uy, y_fitted, filename_base, x_key, y_name)
+                output_path = create_plot(
+                    x, y, ux, uy, y_fitted, filename_base, x_key, y_name,
+                    fit_info=fit_info,
+                )
             elif num_indep == 2:
                 # Two variables: 3D plot (interactive, rotatable with mouse)
                 from plotting import create_3d_plot

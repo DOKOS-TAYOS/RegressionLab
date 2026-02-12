@@ -28,6 +28,9 @@ except ImportError:
 
 logger = get_logger(__name__)
 
+# Number of points for smooth 1D fitted curve
+_PLOT_SMOOTH_POINTS = 300
+
 # Pair plot styling constants (readability)
 _PAIR_PLOT_FACE = '#f8f9fa'
 _PAIR_PLOT_FIG_FACE = '#fafafa'
@@ -196,6 +199,7 @@ def create_plot(
     plot_config: Optional[Dict[str, Any]] = None,
     font_config: Optional[Dict[str, Any]] = None,
     output_path: Optional[Union[str, Path]] = None,
+    fit_info: Optional[Dict[str, Any]] = None,
 ) -> str:
     """
     Create and save a plot with experimental data and fitted curve.
@@ -212,6 +216,8 @@ def create_plot(
         plot_config: Optional plot configuration dict. Defaults to PLOT_CONFIG.
         font_config: Optional font configuration dict. Defaults to FONT_CONFIG.
         output_path: Optional full path to save the plot. If None, uses get_output_path(fit_name).
+        fit_info: Optional dict with 'fit_func' and 'params' to evaluate the curve at linspace
+            points for a smooth plot. If None, uses x and y_fitted directly.
 
     Returns:
         Path to the saved plot file (as string).
@@ -242,10 +248,28 @@ def create_plot(
         fig, ax = plt.subplots(figsize=plot_config['figsize'])
         logger.debug(f"Figure created with size: {plot_config['figsize']}")
 
+        # Curva del ajuste: si hay fit_info, evaluar la función en linspace; si no, usar x, y_fitted
+        x_arr = np.asarray(x)
+        x_min, x_max = float(x_arr.min()), float(x_arr.max())
+        if fit_info is not None:
+            fit_func = fit_info.get('fit_func')
+            params = fit_info.get('params', [])
+            if fit_func is not None and params is not None:
+                x_plot = np.linspace(x_min, x_max, _PLOT_SMOOTH_POINTS)
+                try:
+                    y_plot = np.asarray(fit_func(x_plot, *params))
+                except Exception as e:
+                    logger.warning(f"Error evaluating fit at linspace: {e}. Using x, y_fitted.")
+                    x_plot, y_plot = x_arr, np.asarray(y_fitted)
+            else:
+                x_plot, y_plot = x_arr, np.asarray(y_fitted)
+        else:
+            x_plot, y_plot = x_arr, np.asarray(y_fitted)
+
         # Plot fitted line with error handling for invalid parameters
         try:
             ax.plot(
-                x, y_fitted,
+                x_plot, y_plot,
                 color=plot_config['line_color'],
                 lw=plot_config['line_width'],
                 ls=plot_config['line_style'],
@@ -253,7 +277,7 @@ def create_plot(
         except (ValueError, KeyError) as e:
             logger.warning(f"Invalid line plot parameters: {e}. Using defaults.")
             ax.plot(
-                x, y_fitted,
+                x_plot, y_plot,
                 color='black',
                 lw=1,
                 ls='-',

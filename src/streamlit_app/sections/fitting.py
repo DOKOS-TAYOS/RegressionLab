@@ -63,6 +63,7 @@ def perform_fit(
 
         result_fit = fit_function(data, x_name, y_name)
         text, y_fitted, equation = result_fit[0], result_fit[1], result_fit[2]
+        fit_info = result_fit[3] if len(result_fit) >= 4 else None
 
         x = data[x_name]
         y = data[y_name]
@@ -79,6 +80,7 @@ def perform_fit(
         output_path = create_plot(
             x, y, ux, uy, y_fitted, filename, x_name, y_name,
             output_path=str(out_path),
+            fit_info=fit_info,
         )
 
         result: Dict[str, Any] = {
