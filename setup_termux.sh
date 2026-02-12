@@ -118,11 +118,8 @@ if ! python -c "import numpy" 2>/dev/null; then
     echo "      numpy not from pkg, installing from TUR..."
     pip install --extra-index-url https://termux-user-repository.github.io/pypi/ numpy scipy pandas matplotlib pillow
 fi
-# pkg has pandas 3.0.0 but streamlit requires pandas<3.0 - install pandas 2.x from TUR (wheel) to avoid build
-# TUR as primary index + --only-binary: pip uses wheel immediately, no "preparing metadata" from sdist
-echo "      Ensuring pandas 2.x from TUR (wheel, no build)..."
-pip install --only-binary :all: --index-url https://termux-user-repository.github.io/pypi/ --extra-index-url https://pypi.org/simple/ "pandas>=2.3,<3.0"
-# Install openpyxl, streamlit, etc. - these are fast (pure Python or have wheels)
+# Use pkg's pandas 3.0.0 (installing pandas 2.x via pip fails: rpds-py has no ARM wheel, build fails)
+# Streamlit omitted on Termux (requires pandas<3.0); the Tkinter GUI (main_program.py) works with pandas 3.0
 pip install -r requirements_termux.txt
 
 echo ""
