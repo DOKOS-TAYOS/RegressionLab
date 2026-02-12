@@ -119,9 +119,9 @@ if ! python -c "import numpy" 2>/dev/null; then
     echo "      numpy not from pkg, installing from TUR..."
     pip install --extra-index-url https://termux-user-repository.github.io/pypi/ numpy scipy pandas matplotlib pillow
 fi
-# scipy from pkg has __emutls_get_address errors on some devices; use TUR wheel instead (into venv)
+# scipy from pkg has __emutls_get_address errors; force install TUR wheel into venv (--ignore-installed)
 echo "      Installing scipy from TUR (wheel, overrides broken pkg scipy)..."
-pip install --index-url https://termux-user-repository.github.io/pypi/ --extra-index-url https://pypi.org/simple/ "scipy>=1.17,<2.0"
+pip install --ignore-installed --index-url https://termux-user-repository.github.io/pypi/ --extra-index-url https://pypi.org/simple/ "scipy>=1.17,<2.0"
 # Use pkg's pandas 3.0.0 (installing pandas 2.x via pip fails: rpds-py has no ARM wheel, build fails)
 # Streamlit omitted on Termux (requires pandas<3.0); the Tkinter GUI (main_program.py) works with pandas 3.0
 pip install -r requirements_termux.txt
