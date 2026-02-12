@@ -10,7 +10,7 @@ Before installing RegressionLab, ensure you have:
 - **Git**: Version control system for cloning the repository.
   - Windows: Download from [git-scm.com](https://git-scm.com/install/windows).
   - macOS: Install via Homebrew `brew install git` or download from [git-scm.com](https://git-scm.com/install/mac).
-  - Linux: `sudo apt-get install git` (Debian/Ubuntu) or `sudo dnf install git` (Fedora).
+  - Linux: `sudo apt-get install git` (Debian/Ubuntu), `sudo dnf install git` (Fedora), `sudo zypper install git` (openSUSE), or `sudo pacman -S git` (Arch). The `install.sh` script can also offer to install Git automatically on supported distributions.
 
 - **Python**: Version 3.12 or higher (3.13 supported).
   - Download from [python.org](https://www.python.org/downloads/).
@@ -87,13 +87,22 @@ This is the fastest and easiest way to install RegressionLab. The installation s
    ./install.sh
    ```
 
-4. Wait for the installation to complete. If you choose to use an existing `regressionlab` directory instead of cloning again, the script will make `setup.sh` executable and run it.
+4. Wait for the installation to complete. The script will:
+   - **Check Git**: If Git is not installed, on Linux it will offer to install it automatically (apt, dnf, yum, zypper, or pacman depending on your distribution).
+   - **Clone the repository** into a `regressionlab` folder in the current directory. If this folder already exists, you will be asked whether to remove it and clone again, or to run `setup.sh` in the existing directory.
+   - **Run `setup.sh`** inside the cloned repository. The setup script will:
+     - Check Python 3.12+; on Linux it can offer to install Python 3.12 automatically if missing.
+     - Check Tkinter; on Linux it can install the system package (`python3.12-tk`, `python3-tkinter`, etc.) if needed.
+     - Create a virtual environment in `.venv`.
+     - Install dependencies from `requirements.txt`.
+     - Create `.env` from `.env.example`.
+     - Create a desktop shortcut (`RegressionLab.desktop`) on Desktop, Escritorio, or your home directory.
 
 5. Launch RegressionLab:
    - Double-click the desktop shortcut (if supported)
    - Or run `bin/run.sh` from the installation folder:
      ```bash
-     cd RegressionLab
+     cd regressionlab
      ./bin/run.sh
      ```
 
@@ -124,6 +133,8 @@ chmod +x setup.sh
 ```
 
 This will:
+- Check Python 3.12+ (on Linux, optionally install it if missing).
+- Check Tkinter (on Linux, optionally install the system package if missing).
 - Create a virtual environment in `.venv`.
 - Install all dependencies.
 - Create a desktop shortcut.
