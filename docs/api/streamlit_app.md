@@ -11,7 +11,7 @@ The `streamlit_app.app` module is the entry point for the web interface. The mai
 - **`app.py`** – Entry point: page config, theme injection, session state, sidebar, mode routing.
 - **`theme.py`** – Theme from config: `get_streamlit_theme()`, `get_main_css()`. Uses `config.theme.UI_STYLE` (env + theme) when importable; fallback to `config.env` only. Sidebar background is slightly lighter than main area. Colors and fonts come from `UI_BACKGROUND`, `UI_FOREGROUND`, `UI_BUTTON_*`, `UI_FONT_*`, etc.
 - **`sections/sidebar.py`** – Sidebar setup, logo (or fallback header with theme colors), language toggle, session state. Initial language from `config.env` (`LANGUAGE`).
-- **`sections/data.py`** – `load_uploaded_file`, `show_data_with_pair_plots`, `get_variable_names`, `get_temp_output_dir`. When `key_prefix` is set (e.g. View Data mode), `show_data_with_pair_plots` also renders transform, clean, and download controls.
+- **`sections/data.py`** – `load_uploaded_file`, `show_data_with_pair_plots`, `get_variable_names`, `get_temp_output_dir`. When `key_prefix` is set (e.g. View Data mode), `show_data_with_pair_plots` also renders transform, clean, download controls, and a Help expander with detailed option descriptions.
 - **`sections/fitting.py`** – `perform_fit`, `show_equation_selector`, `select_variables`, `show_plot_title_checkbox`, `create_equation_options`. Uses `config.FILE_CONFIG` for plot format/paths. Includes per-fit checkbox to toggle plot title visibility (default from `PLOT_SHOW_TITLE`).
 - **`sections/results.py`** – `show_results`
 - **`sections/help_section.py`** – `show_help_section`. Uses `config.DONATIONS_URL` for the donations link.
@@ -182,6 +182,7 @@ Show data in an expander with optional pair plots and data analysis (transform, 
 - Renders clean dropdown and Apply button (drop NaN, outliers, etc.).
 - Renders format selector and download button for the current data.
 - Pair plots use the current (possibly transformed) data.
+- Renders Help expander with pair plots, transform options (each detailed), clean options (each detailed), and save. Same content as Tkinter help dialog; localized (Spanish, English, German).
 
 ### Fitting
 

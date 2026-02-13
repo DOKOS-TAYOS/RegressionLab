@@ -13,6 +13,50 @@ from utils import get_logger
 
 logger = get_logger(__name__)
 
+# Help content keys for View Data (matches Tkinter help dialog)
+_VIEW_DATA_TRANSFORM_HELP_KEYS: List[str] = [
+    'view_data_transform_fft',
+    'view_data_transform_fft_magnitude',
+    'view_data_transform_ifft',
+    'view_data_transform_dct',
+    'view_data_transform_idct',
+    'view_data_transform_log',
+    'view_data_transform_log10',
+    'view_data_transform_exp',
+    'view_data_transform_sqrt',
+    'view_data_transform_square',
+    'view_data_transform_standardize',
+    'view_data_transform_normalize',
+]
+_VIEW_DATA_CLEAN_HELP_KEYS: List[str] = [
+    'view_data_clean_drop_na',
+    'view_data_clean_drop_duplicates',
+    'view_data_clean_fill_na_mean',
+    'view_data_clean_fill_na_median',
+    'view_data_clean_fill_na_zero',
+    'view_data_clean_remove_outliers_iqr',
+    'view_data_clean_remove_outliers_zscore',
+]
+
+
+def _render_view_data_help() -> None:
+    """Render help content for View Data mode (pair plots, transform, clean, save)."""
+    with st.expander(f"❓ {t('dialog.help_title')}", expanded=False):
+        st.markdown(f"**{t('help.view_data_pair_plots_header')}**")
+        st.markdown(t('help.view_data_pair_plots_body'))
+        st.markdown("---")
+        st.markdown(f"**{t('help.view_data_transform_header')}**")
+        for key in _VIEW_DATA_TRANSFORM_HELP_KEYS:
+            st.markdown(t(f'help.{key}'))
+        st.markdown("---")
+        st.markdown(f"**{t('help.view_data_clean_header')}**")
+        for key in _VIEW_DATA_CLEAN_HELP_KEYS:
+            st.markdown(t(f'help.{key}'))
+        st.markdown("---")
+        st.markdown(f"**{t('help.view_data_save_header')}**")
+        st.markdown(t('help.view_data_save_body'))
+
+
 # Layout-only CSS for data expander (colors come from theme in app)
 _EXPANDER_BUTTON_CSS = """
     <style>
@@ -223,6 +267,7 @@ def show_data_with_pair_plots(
 
         if key_prefix and isinstance(display_data, pd.DataFrame):
             _render_data_analysis_controls(display_data, key_prefix)
+            _render_view_data_help()
 
 
 def get_temp_output_dir() -> Path:

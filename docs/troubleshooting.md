@@ -278,6 +278,21 @@ Reset to default theme:
 3. Reduce dataset size.
 4. Avoid Total Fitting mode for large datasets.
 
+### Android / Mobile Platforms
+
+#### Status: Not Supported (Attempted)
+
+An Android installer has been attempted using **Termux** (terminal emulator) and **Termux:X11** for the graphical interface. This approach has not been successful.
+
+**Main obstacle**: Installing dependencies reliably, especially **scipy**. The standard `pip install -r requirements.txt` fails in Termux due to compilation and compatibility issues with the ARM architecture and Termux's environment.
+
+**Alternative that works (manual only)**: **Pydroid 3** allows running the application by installing each library manually with the appropriate options. However, Pydroid 3 does not support automated installation scripts, so a one-click or scripted installer is not feasible.
+
+**Summary**:
+- **Termux + Termux:X11**: Library installation (scipy in particular) fails; no working solution found.
+- **Pydroid 3**: Works with manual per-library installation, but cannot be automated.
+Android support remains a long-term goal; contributions or solutions to the dependency installation problem are welcome. If you want to see the best point I reached, check the `scripts/install_termux.sh` and `scripts/setup_termux.sh` files.
+
 ## Debugging Tips
 
 ### Enable Debug Logging
@@ -336,23 +351,6 @@ If you can't solve the issue, please report it on GitHub with:
 10. **Sample Data**: If possible, include data file that triggers issue.
 
 ## Future Updates and Roadmap
-
-### Version 0.9.2 (Q1 2026) - Planned
-
-**Major Features**:
-- 📊 **Enhanced Plotting**: Interactive plots, zoom, pan.
-- 🔮 **Prediction Windows**: Input specific X values to get predicted Y values from fitted models.
-- 📐 **Multidimensional Fitting**: Support for fitting functions with multiple independent variables (z = f(x, y)).
-- 🔧 **Data Preprocessing Tools**: Data smoothing, filtering, and transformation utilities.
-
-### Version 1.0.0 (Q1 2026) - Planned
-
-**Major Features**:
-- 📱 **Android Support**: Run RegressionLab on Android devices using Termux terminal emulator.
-
-**Documentation**:
-- Video tutorials.
-
 ### Long-Term Goals (2027+)
 
 **Under Consideration**:

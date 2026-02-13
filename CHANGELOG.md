@@ -5,6 +5,32 @@ All notable changes to RegressionLab are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+
+## [0.9.3] - 2026-02-13
+
+### Added
+
+- **Data view (Tkinter)**: New data analysis options in the "View data" window:
+  - **Transform**: Apply FFT, FFT magnitude, inverse FFT, DCT (cosine), inverse DCT, log, log10, exp, sqrt, square, standardize (z-score), or normalize [0,1] to numeric columns. Dropdown to select transform; click **Transform** to apply.
+  - **Clean**: Drop NaN rows, drop duplicates, fill NaN (mean/median/zero), or remove outliers (IQR or z-score). Dropdown to select cleaning; click **Clean** to apply.
+  - **Save**: **Save updated data** button saves the current (possibly transformed/cleaned) data to CSV, TXT, or XLSX.
+  - **Help**: Help button opens a dialog with collapsible sections (pair plots, transform, clean, save). Transform and Clean sections list each option with a detailed description. Window 900×650 px; Accept button fixed at bottom. Content in Spanish, English, and German.
+- **Data view (Streamlit)**: Same transform and clean options in the "View Data" mode. Select from dropdowns, click Apply; download updated data as CSV, TXT, or XLSX. Help expander with pair plots, transform options (each detailed), clean options (each detailed), and save—same content as Tkinter, in Spanish, English, and German.
+- **Data view (Tkinter)**: Pair plots window auto-updates when data is transformed or cleaned (if already open).
+- **Module**: New `data_analysis` package with `transforms` and `cleaning` submodules. Save logic in `loaders.saving_utils`; save dialog in `frontend.ui_dialogs.save_data_dialog`.
+
+### Changed
+
+- **Data view window (Tkinter)**: Reduced height; transform and clean each in their own row; save button next to pair plots. Transform and Clean buttons use the same accent color as equation buttons (`Equation.TButton`).
+- **Tkinter file loading**: Replaced the two-step dialogs (file type + file name) with a single native file picker (`filedialog.askopenfilename`). Works on Windows, Linux, and macOS. Users can now browse and select any CSV, TXT, or XLSX file in one step.
+- **Documentation**: Updated Linux installation guide in `docs/installation.md` to reflect current behavior of `install.sh` and `setup.sh`:
+  - Documented that `install.sh` clones into `regressionlab` (lowercase) and optionally installs Git on supported Linux distributions (apt, dnf, yum, zypper, pacman).
+  - Documented that `setup.sh` can optionally install Python 3.12 and Tkinter on Linux when missing.
+  - Updated prerequisites with additional package managers (zypper, pacman) and note about automatic Git installation.
+  - Corrected installation folder path (`regressionlab`) for launching the app after quick install.
+
+---
+
 ## [0.9.2] - 2026-02-11
 
 ### Fixed
@@ -137,7 +163,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial 0.8.x release. See repository history and documentation for features and changes prior to 0.8.1.
 
-[Unreleased]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v0.9.2...HEAD
+[Unreleased]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v0.9.3...HEAD
+[0.9.3]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v0.9.2...v0.9.3
 [0.9.2]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v0.9.1...v0.9.2
 [0.9.1]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v0.9.0...v0.9.1
 [0.9.0]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v0.8.3...v0.9.0

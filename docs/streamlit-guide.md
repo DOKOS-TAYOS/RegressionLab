@@ -313,6 +313,9 @@ If "Custom Formula" is selected:
    - Choose format (CSV, TXT, XLSX) from the dropdown.
    - Click the download button to save the current (possibly transformed/cleaned) data.
 
+7. **Help** (optional):
+   - Expand the Help section for a reference with pair plots, transform options (each with a detailed description), clean options (each with a detailed description), and save. Content available in Spanish, English, and German.
+
 **Use case**: Inspect columns, check data quality, transform or clean data, visualize variable pairs, or download processed data before deciding on a fitting mode.
 
 ### Mode 5: Total Fitting
