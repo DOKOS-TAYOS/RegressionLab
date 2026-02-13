@@ -27,10 +27,10 @@ from .modes import (
 )
 
 __all__ = [
+    'cycle_language',
     'initialize_session_state',
     'setup_sidebar',
     'show_logo',
-    'cycle_language',
     'get_temp_output_dir',
     'load_uploaded_file',
     'show_data_with_pair_plots',

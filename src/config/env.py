@@ -335,7 +335,7 @@ def validate_all_env_values() -> dict[str, tuple[Any, bool]]:
         Dictionary mapping environment keys to tuples of (corrected_value, was_corrected).
         was_corrected is True if the value was invalid and had to be corrected.
 
-    Example:
+    Examples:
         >>> results = validate_all_env_values()
         >>> results["LANGUAGE"]
         ('es', False)  # Value was valid
@@ -372,7 +372,7 @@ def get_current_env_values() -> dict[str, str]:
     Returns:
         Dictionary mapping environment keys to their string representation.
 
-    Example:
+    Examples:
         >>> values = get_current_env_values()
         >>> values["LANGUAGE"]
         'es'
@@ -402,7 +402,7 @@ def write_env_file(env_path: Path, values: dict[str, str]) -> None:
         env_path: Destination path for the ``.env`` file.
         values: Mapping from environment keys to their desired string values.
 
-    Example:
+    Examples:
         >>> from pathlib import Path
         >>> write_env_file(Path(".env"), {"LANGUAGE": "en", "LOG_LEVEL": "DEBUG"})
     """
@@ -430,7 +430,7 @@ def initialize_and_validate_config() -> None:
     configuration values are valid. Invalid values are automatically corrected
     to their defaults, and warnings are logged if any corrections were made.
 
-    Example:
+    Examples:
         >>> initialize_and_validate_config()
         # All config values are now validated and corrected if needed
     """

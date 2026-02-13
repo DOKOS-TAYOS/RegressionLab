@@ -5,6 +5,7 @@ Re-exports all configuration from submodules so that
 "from config import UI_STYLE" etc. continue to work.
 """
 
+from .color_utils import lighten_hex, muted_from_hex, parse_hex_to_rgb
 from .env import (
     DEFAULT_LOG_FILE,
     DEFAULT_LOG_LEVEL,
@@ -12,6 +13,7 @@ from .env import (
     ENV_SCHEMA,
     get_current_env_values,
     get_env,
+    get_env_from_schema,
     initialize_and_validate_config,
     validate_all_env_values,
     write_env_file,
@@ -50,17 +52,19 @@ from .constants import (
 )
 
 __all__ = [
-    # From env
+    'lighten_hex',
+    'muted_from_hex',
+    'parse_hex_to_rgb',
     'DEFAULT_LOG_FILE',
     'DEFAULT_LOG_LEVEL',
     'DONATIONS_URL',
     'ENV_SCHEMA',
     'get_current_env_values',
     'get_env',
+    'get_env_from_schema',
     'initialize_and_validate_config',
     'validate_all_env_values',
     'write_env_file',
-    # From theme
     'BUTTON_STYLE_ACCENT',
     'BUTTON_STYLE_DANGER',
     'BUTTON_STYLE_PRIMARY',
@@ -74,12 +78,10 @@ __all__ = [
     'configure_ttk_styles',
     'get_entry_font',
     'setup_fonts',
-    # From paths
     'FILE_CONFIG',
     'ensure_output_directory',
     'get_output_path',
     'get_project_root',
-    # From constants
     'AVAILABLE_EQUATION_TYPES',
     'DATA_FILE_TYPES',
     'EQUATIONS',

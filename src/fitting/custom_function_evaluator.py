@@ -42,7 +42,7 @@ class CustomFunctionEvaluator:
     converts it to a NumPy-compatible function, and provides methods for
     curve fitting operations.
     
-    Example:
+    Examples:
         >>> evaluator = CustomFunctionEvaluator("a*x**2 + b*x + c", ["a", "b", "c"])
         >>> text, y_fitted, equation = evaluator.fit(data, "x", "y")
     """

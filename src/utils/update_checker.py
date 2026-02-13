@@ -14,7 +14,7 @@ from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 
 from config import get_project_root
-from config.env import get_env
+from config import get_env
 
 
 # Default URL to fetch latest version (pyproject.toml from main repo)

@@ -7,7 +7,7 @@ import pandas as pd
 from tkinter import Toplevel, filedialog, messagebox
 
 from i18n import t
-from loaders.saving_utils import get_default_save_directory, save_dataframe
+from loaders import get_default_save_directory, save_dataframe
 
 
 def open_save_dialog(

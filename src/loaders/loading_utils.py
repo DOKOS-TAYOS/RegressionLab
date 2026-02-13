@@ -163,7 +163,7 @@ def get_file_names(
     Raises:
         FileNotFoundError: If directory does not exist
         
-    Example:
+    Examples:
         >>> csv, xlsx, txt = get_file_names()
         >>> # If 'input' contains 'data.csv' and 'experiment.xlsx':
         >>> print(csv)  # ['data']

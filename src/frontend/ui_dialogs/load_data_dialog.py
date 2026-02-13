@@ -8,7 +8,7 @@ from typing import Union
 from tkinter import Tk, Toplevel, filedialog
 
 from i18n import t
-from loaders.saving_utils import get_default_save_directory
+from loaders import get_default_save_directory
 
 
 def open_load_dialog(parent: Union[Tk, Toplevel]) -> Tuple[Optional[str], Optional[str]]:

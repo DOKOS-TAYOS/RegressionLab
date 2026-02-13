@@ -35,7 +35,7 @@ def format_parameter(value: float, sigma: float) -> Tuple[float, str]:
         Tuple ``(rounded_value, sigma_str)`` where ``sigma_str`` is in
         scientific notation (for example ``'1.2E-03'``).
 
-    Example:
+    Examples:
         >>> format_parameter(1.234567, 0.0123)
         (1.23, '1.2E-02')
     """
@@ -350,7 +350,7 @@ def get_equation_param_info(
         of parameter names in order and ``formula_str`` is a human‑readable
         equation, or ``None`` if the equation is unknown.
 
-    Example:
+    Examples:
         >>> names, formula = get_equation_param_info("linear_function_with_n")
         >>> names
         ['n', 'm']

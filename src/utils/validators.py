@@ -15,13 +15,13 @@ import pandas as pd
 
 # Local imports
 from config import DATA_FILE_TYPES
-from utils.exceptions import (
+from .exceptions import (
     DataValidationError,
     FileNotFoundError,
     InvalidFileTypeError,
     ValidationError,
 )
-from utils.logger import get_logger
+from .logger import get_logger
 from i18n import t
 
 logger = get_logger(__name__)

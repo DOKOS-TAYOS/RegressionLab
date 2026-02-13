@@ -104,6 +104,42 @@ def _equation_display_name(equation_name: str) -> str:
     return equation_name.replace('_', ' ').title()
 
 
+def _resolve_multiple_x_variables(
+    menu: Any,
+    data: Any,
+    x_name: str,
+    num_independent_vars: int,
+    filter_uncertainty: bool = False,
+) -> Optional[Union[str, List[str]]]:
+    """
+    Ask for multiple x variables when equation has more than one independent variable.
+
+    Args:
+        menu: Parent window for dialogs.
+        data: Dataset (DataFrame or dict).
+        x_name: First x variable already selected.
+        num_independent_vars: Number of independent variables required.
+        filter_uncertainty: If True, exclude uncertainty columns from variable list.
+
+    Returns:
+        List of x variable names, or None if user cancels. For single-variable fits,
+        returns x_name unchanged.
+    """
+    if num_independent_vars <= 1:
+        return x_name
+    from frontend import ask_multiple_x_variables
+    from loaders import get_variable_names
+
+    variable_names = get_variable_names(data, filter_uncertainty=filter_uncertainty)
+    x_names = ask_multiple_x_variables(
+        parent_window=menu,
+        variable_names=variable_names,
+        num_vars=num_independent_vars,
+        first_x_name=x_name,
+    )
+    return x_names if x_names else None
+
+
 def _set_equation_helper(equation_name: str) -> None:
     """
     Set the current equation and create a fitter with visualization.
@@ -305,28 +341,10 @@ def normal_fitting() -> None:
         return
     
     # Phase 3.5: If multidimensional, ask for additional x variables
-    if num_independent_vars > 1:
-        from frontend import ask_multiple_x_variables
-        from loaders import get_variable_names
-        
-        # Get available variable names
-        variable_names = get_variable_names(data)
-        
-        # Ask for multiple x variables
-        x_names = ask_multiple_x_variables(
-            parent_window=menu,
-            variable_names=variable_names,
-            num_vars=num_independent_vars,
-            first_x_name=x_name
-        )
-        
-        # Check if user cancelled
-        if not x_names:
-            logger.info("User cancelled multiple x variables selection")
-            return
-        
-        # Use list of x names instead of single x_name
-        x_name = x_names
+    x_name = _resolve_multiple_x_variables(menu, data, x_name, num_independent_vars)
+    if x_name is None:
+        logger.info("User cancelled multiple x variables selection")
+        return
     
     # Phase 4: Fitting Execution
     if loop_mode:
@@ -415,20 +433,12 @@ def single_fit_multiple_datasets() -> None:
         if isinstance(data, str):
             datasets.append({'data_file_type': EXIT_SIGNAL})
             break
-        if num_independent_vars > 1:
-            from frontend import ask_multiple_x_variables
-            from loaders import get_variable_names
-            variable_names = get_variable_names(data, filter_uncertainty=True)
-            x_names = ask_multiple_x_variables(
-                parent_window=menu,
-                variable_names=variable_names,
-                num_vars=num_independent_vars,
-                first_x_name=x_name
-            )
-            if not x_names:
-                datasets.append({'data_file_type': EXIT_SIGNAL})
-                break
-            x_name = x_names
+        x_name = _resolve_multiple_x_variables(
+            menu, data, x_name, num_independent_vars, filter_uncertainty=True
+        )
+        if x_name is None:
+            datasets.append({'data_file_type': EXIT_SIGNAL})
+            break
         datasets.append({
             'data': data,
             'x_name': x_name,
@@ -467,11 +477,10 @@ def multiple_fits_single_dataset() -> None:
         ask_num_parameters,
         ask_parameter_names,
         ask_custom_formula,
-        ask_multiple_x_variables,
     )
 
     menu = _get_menu_window()
-    
+
     # Load data once
     (
         data, x_name, y_name, plot_name, data_file_path, data_file_type
@@ -499,27 +508,14 @@ def multiple_fits_single_dataset() -> None:
         
         if equation_name != EXIT_SIGNAL and base_fit_function is not None:
             fitter_with_ui = _wrap_with_visualization(base_fit_function, _equation_display_name(equation_name))
-            
             _app_state.set_equation(equation_name, fitter_with_ui)
-            
+
             # If custom multidimensional, ask for independent variables before fitting
-            # (no need to go through plot name dialog - already selected on data load)
             num_independent_vars = getattr(base_fit_function, 'num_independent_vars', 1)
-            fit_x_name: Union[str, List[str]] = x_name
-            if num_independent_vars > 1:
-                from loaders import get_variable_names
-                variable_names = get_variable_names(data)
-                x_names = ask_multiple_x_variables(
-                    parent_window=menu,
-                    variable_names=variable_names,
-                    num_vars=num_independent_vars,
-                    first_x_name=x_name
-                )
-                if not x_names:
-                    logger.info("User cancelled multiple x variables selection")
-                    continue
-                fit_x_name = x_names
-            
+            fit_x_name = _resolve_multiple_x_variables(menu, data, x_name, num_independent_vars)
+            if fit_x_name is None:
+                logger.info("User cancelled multiple x variables selection")
+                continue
             fitter_with_ui(data, fit_x_name, y_name, plot_name)
         
         # Ask if user wants to try another equation

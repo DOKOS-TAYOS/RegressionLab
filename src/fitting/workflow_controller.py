@@ -251,7 +251,7 @@ def apply_all_equations(
         y_name: Dependent variable column name
         plot_name: Plot name for display and filename (optional).
 
-    Example:
+    Examples:
         >>> from config import AVAILABLE_EQUATION_TYPES
         >>> apply_all_equations(
         ...     equation_setter=my_setter,

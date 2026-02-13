@@ -145,7 +145,7 @@ def setup_logging(
         log_format: Format string for log messages
         date_format: Format string for timestamps
         
-    Example:
+    Examples:
         >>> setup_logging()  # Use defaults and env vars
         >>> setup_logging(log_file='my_app.log', level=logging.DEBUG)
     """
@@ -209,8 +209,8 @@ def get_logger(name: str) -> logging.Logger:
         
     Returns:
         Logger instance
-        
-    Example:
+
+    Examples:
         >>> logger = get_logger(__name__)
         >>> logger.info("Processing data...")
         >>> logger.error("Failed to load file", exc_info=True)
@@ -226,8 +226,8 @@ def log_function_call(logger: logging.Logger, func_name: str, **kwargs) -> None:
         logger: Logger instance to use
         func_name: Name of the function being called
         **kwargs: Function parameters to log
-        
-    Example:
+
+    Examples:
         >>> logger = get_logger(__name__)
         >>> log_function_call(logger, 'fit_linear', x_name='time', y_name='distance')
     """
@@ -246,7 +246,7 @@ def log_exception(
         exception: Exception that occurred.
         context: Optional context description.
 
-    Example:
+    Examples:
         >>> try:
         ...     risky_operation()
         ... except Exception as e:

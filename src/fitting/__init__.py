@@ -41,14 +41,11 @@ from .estimators import (
 )
 
 __all__ = [
-    # Fitting utilities
-    'generic_fit', 
+    'generic_fit',
     'get_fitting_function',
     'format_parameter',
     'get_equation_param_info',
-    # Custom function evaluator
     'CustomFunctionEvaluator',
-    # Workflow controller
     'reload_data_by_type',
     'single_fit_with_loop',
     'multiple_fit_with_loop',
@@ -57,7 +54,6 @@ __all__ = [
     'coordinate_data_viewing',
     'coordinate_equation_selection',
     'coordinate_custom_equation',
-    # Estimators
     'estimate_trigonometric_parameters',
     'estimate_phase_shift',
     'estimate_linear_parameters',

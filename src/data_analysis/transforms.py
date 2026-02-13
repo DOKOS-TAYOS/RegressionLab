@@ -13,6 +13,7 @@ except ImportError:
     idct = None  # type: ignore[assignment, misc]
     _HAS_SCIPY_DCT = False
 
+from data_analysis._utils import get_numeric_columns
 from utils import get_logger
 
 logger = get_logger(__name__)
@@ -48,17 +49,17 @@ TRANSFORM_OPTIONS: dict[str, str] = {
 }
 
 
-def _get_numeric_columns(data: pd.DataFrame, columns: Optional[List[str]] = None) -> List[str]:
-    """Return numeric column names from data, optionally filtered by columns."""
-    if columns is None:
-        return list(data.select_dtypes(include=['number']).columns)
-    return [c for c in columns if c in data.columns and pd.api.types.is_numeric_dtype(data[c])]
+def _apply_to_column(series: pd.Series, transform_id: str) -> pd.Series:
+    """
+    Apply a single transform to a numeric series.
 
+    Args:
+        series: Numeric pandas Series to transform.
+        transform_id: One of TRANSFORM_* constants.
 
-def _apply_to_column(
-    series: pd.Series, transform_id: str
-) -> pd.Series:
-    """Apply a single transform to a numeric series. Returns new series."""
+    Returns:
+        New Series with transformed values (NaN preserved where present).
+    """
     arr = np.asarray(series, dtype=float)
     nan_mask = np.isnan(arr)
     valid = arr.copy()
@@ -165,7 +166,7 @@ def apply_transform(
     Returns:
         New DataFrame with transformed columns.
     """
-    cols = _get_numeric_columns(data, columns)
+    cols = get_numeric_columns(data, columns)
     if not cols:
         logger.warning("No numeric columns to transform")
         return data.copy()

@@ -47,7 +47,7 @@ def _prepare_data_path(
     Returns:
         Complete file path (absolute from project root).
 
-    Example:
+    Examples:
         >>> _prepare_data_path('Example', 'xlsx')
         'C:/Users/user/project/input/Example.xlsx'
     """
@@ -153,7 +153,7 @@ def get_file_list_by_type(
     Raises:
         InvalidFileTypeError: If file type is not valid
         
-    Example:
+    Examples:
         >>> csv_files = ['data1', 'data2']
         >>> xlsx_files = ['experiment1', 'experiment2']
         >>> get_file_list_by_type('csv', csv_files, xlsx_files, [])
@@ -191,7 +191,7 @@ def load_data_workflow(filename: str, file_type: str) -> Tuple[pd.DataFrame, str
     Raises:
         DataLoadError: If data cannot be loaded
         
-    Example:
+    Examples:
         >>> data, path = load_data_workflow('Example', 'xlsx')
         >>> print(data.head())
         >>> print(f"Loaded from: {path}")

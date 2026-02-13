@@ -24,13 +24,13 @@ from .image_utils import (
     preview_path_to_remove_after_display,
     load_image_scaled,
 )
+from .keyboard_nav import bind_enter_to_accept, setup_arrow_enter_navigation
+from .ui_dialogs.tooltip import bind_tooltip
 
 __all__ = [
-    # Main menu
     'start_main_menu',
     'create_main_menu',
     'show_exit_confirmation',
-    # Dialogs
     'open_load_dialog',
     'ask_variables',
     'ask_multiple_x_variables',
@@ -44,8 +44,10 @@ __all__ = [
     'show_help_dialog',
     'remove_markdown_bold',
     'show_config_dialog',
-    # Image utilities
     'plot_display_path',
     'preview_path_to_remove_after_display',
     'load_image_scaled',
+    'bind_enter_to_accept',
+    'setup_arrow_enter_navigation',
+    'bind_tooltip',
 ]

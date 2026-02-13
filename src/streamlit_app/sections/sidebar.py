@@ -5,7 +5,7 @@ from typing import Optional
 
 import streamlit as st
 
-from config.constants import SUPPORTED_LANGUAGE_CODES
+from config import SUPPORTED_LANGUAGE_CODES
 from i18n import initialize_i18n, t
 from streamlit_app.theme import get_streamlit_theme
 
@@ -56,7 +56,7 @@ def _cached_logo_bytes(path: str) -> Optional[bytes]:
 def initialize_session_state() -> None:
     """Initialize Streamlit session state variables (language from config env)."""
     if 'language' not in st.session_state:
-        from config.env import get_env_from_schema
+        from config import get_env_from_schema
         st.session_state.language = get_env_from_schema('LANGUAGE')
     if 'results' not in st.session_state:
         st.session_state.results = []

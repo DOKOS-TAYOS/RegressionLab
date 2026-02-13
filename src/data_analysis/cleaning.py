@@ -5,6 +5,7 @@ from typing import List, Optional
 import numpy as np
 import pandas as pd
 
+from data_analysis._utils import get_numeric_columns
 from utils import get_logger
 
 logger = get_logger(__name__)
@@ -27,13 +28,6 @@ CLEAN_OPTIONS: dict[str, str] = {
     CLEAN_REMOVE_OUTLIERS_IQR: 'Remove outliers (IQR method)',
     CLEAN_REMOVE_OUTLIERS_ZSCORE: 'Remove outliers (z-score)',
 }
-
-
-def _get_numeric_columns(data: pd.DataFrame, columns: Optional[List[str]] = None) -> List[str]:
-    """Return numeric column names from data."""
-    if columns is None:
-        return list(data.select_dtypes(include=['number']).columns)
-    return [c for c in columns if c in data.columns and pd.api.types.is_numeric_dtype(data[c])]
 
 
 def apply_cleaning(
@@ -66,7 +60,7 @@ def apply_cleaning(
         logger.info(f"Dropped {before - len(result)} duplicate rows")
         return result
 
-    cols = _get_numeric_columns(result, columns) if columns else _get_numeric_columns(result)
+    cols = get_numeric_columns(result, columns)
 
     if clean_id == CLEAN_FILL_NA_MEAN:
         for col in cols:

@@ -7,7 +7,7 @@ cannot be imported (e.g. headless without tkinter).
 
 from typing import Any
 
-from config.env import get_env_from_schema
+from config import get_env_from_schema, lighten_hex, muted_from_hex
 
 # Tk/X11 names that matplotlib may not recognize -> hex or matplotlib name
 _TK_COLOR_ALIASES: dict[str, str] = {
@@ -43,9 +43,9 @@ def _theme_from_ui_style(style: dict[str, Any]) -> dict[str, Any]:
     bg_hex = _color_to_hex(style.get('bg', style.get('background', '#181818')))
     return {
         'background': bg_hex,
-        'sidebar_bg': _lighten_hex(bg_hex, factor=0.08),
+        'sidebar_bg': lighten_hex(bg_hex, factor=0.08),
         'foreground': fg_hex,
-        'muted': _muted_from_hex(fg_hex),
+        'muted': muted_from_hex(fg_hex),
         'button_bg': _color_to_hex(style.get('button_bg', '#1F1F1F')),
         'button_fg_primary': _color_to_hex(style.get('button_fg_accept', 'lime green')),
         'button_fg_cancel': _color_to_hex(style.get('button_fg_cancel', 'red2')),
@@ -62,9 +62,9 @@ def _theme_from_env() -> dict[str, Any]:
     bg_hex = _color_to_hex(get_env_from_schema('UI_BACKGROUND'))
     return {
         'background': bg_hex,
-        'sidebar_bg': _lighten_hex(bg_hex, factor=0.08),
+        'sidebar_bg': lighten_hex(bg_hex, factor=0.08),
         'foreground': fg_hex,
-        'muted': _muted_from_hex(fg_hex),
+        'muted': muted_from_hex(fg_hex),
         'button_bg': _color_to_hex(get_env_from_schema('UI_BUTTON_BG')),
         'button_fg_primary': _color_to_hex(get_env_from_schema('UI_BUTTON_FG')),
         'button_fg_cancel': _color_to_hex(get_env_from_schema('UI_BUTTON_FG_CANCEL')),
@@ -92,14 +92,14 @@ def get_streamlit_theme() -> dict[str, Any]:
 def get_main_css(theme: dict[str, Any]) -> str:
     """Generate global Streamlit CSS using theme (same visual rules as tkinter)."""
     bg = theme['background']
-    sidebar_bg = theme.get('sidebar_bg', _lighten_hex(bg, factor=0.08))
+    sidebar_bg = theme.get('sidebar_bg', lighten_hex(bg, factor=0.08))
     fg = theme['foreground']
     primary = theme['button_fg_primary']
     accent2 = theme['accent2']
     btn_bg = theme['button_bg']
     ff = theme['font_family']
     pad = theme['padding']
-    muted = theme.get('muted', _muted_from_hex(fg))
+    muted = theme.get('muted', muted_from_hex(fg))
 
     return f"""
     <style>
@@ -156,41 +156,3 @@ def get_main_css(theme: dict[str, Any]) -> str:
     }}
     </style>
     """
-
-
-def _lighten_hex(hex_color: str, factor: float = 0.08) -> str:
-    """Return a slightly lighter shade of hex color (e.g. for sidebar vs main bg)."""
-    if not hex_color or not hex_color.startswith('#'):
-        return '#222222'
-    hex_color = hex_color.lstrip('#')
-    if len(hex_color) != 6:
-        return '#222222'
-    try:
-        r = int(hex_color[0:2], 16)
-        g = int(hex_color[2:4], 16)
-        b = int(hex_color[4:6], 16)
-        r = min(255, int(r + (255 - r) * factor))
-        g = min(255, int(g + (255 - g) * factor))
-        b = min(255, int(b + (255 - b) * factor))
-        return f'#{r:02x}{g:02x}{b:02x}'
-    except (ValueError, TypeError):
-        return '#222222'
-
-
-def _muted_from_hex(hex_color: str) -> str:
-    """Approximate muted (section) text from foreground hex."""
-    if not hex_color or not hex_color.startswith('#'):
-        return '#666666'
-    hex_color = hex_color.lstrip('#')
-    if len(hex_color) != 6:
-        return '#666666'
-    try:
-        r = int(hex_color[0:2], 16)
-        g = int(hex_color[2:4], 16)
-        b = int(hex_color[4:6], 16)
-        # Move toward gray
-        mid = int(0.5 * (r + g + b) + 0.5 * 0x66)
-        m = min(255, max(0, mid))
-        return f'#{m:02x}{m:02x}{m:02x}'
-    except (ValueError, TypeError):
-        return '#666666'
