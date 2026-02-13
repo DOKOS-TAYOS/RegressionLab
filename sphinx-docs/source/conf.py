@@ -207,8 +207,9 @@ def _rewrite_locale_asset_paths(doctree: nodes.document) -> None:
 
 # Regex for paragraphs that are only markdown image or link (locale builds sometimes
 # inject translated strings as literal text instead of parsed nodes).
+# Match both ../images/ and ../../images/ (path may vary by context)
 _IMAGE_MARKDOWN_RE = re.compile(
-    r'^!\s*\[([^\]]*)\]\s*\(\s*(\.\./images/[^)]+)\s*\)\s*$',
+    r'^!\s*\[([^\]]*)\]\s*\(\s*((?:\.\./)+images/[^)]+)\s*\)\s*$',
     re.DOTALL,
 )
 _LINK_MARKDOWN_RE = re.compile(
@@ -222,27 +223,35 @@ _LINK_INLINE_RE = re.compile(
 
 
 def _convert_literal_markdown_paragraphs(app, doctree: nodes.document, docname: str) -> None:
-    """Convert paragraphs that are literal markdown image/link into proper nodes.
+    """Convert paragraphs/literal_blocks that are literal markdown image/link into proper nodes.
 
     In gettext builds, translated content can be inserted as plain text; the result
     is raw markdown like ![alt](../images/...) or [text](installation.md) shown
-    on the page. Replace such paragraphs with image and reference nodes.
+    on the page. Replace such nodes with image and reference nodes.
     """
+    # Only needed for non-English builds (gettext injects literal strings)
+    if getattr(app.config, "language", "en") == "en":
+        return
+
     builder = getattr(app, "builder", None)
     get_uri = getattr(builder, "get_relative_uri", None) if builder else None
 
-    for node in list(doctree.traverse(nodes.paragraph)):
+    # Handle both paragraph and literal_block (gettext may put content in either)
+    for node in list(doctree.traverse(nodes.paragraph)) + list(
+        doctree.traverse(nodes.literal_block)
+    ):
         text = node.astext().strip()
         if not text:
             continue
 
-        # Whole paragraph is a markdown image: ![alt](../images/...)
+        # Whole paragraph is a markdown image: ![alt](../images/...) or ![alt](../../images/...)
         match = _IMAGE_MARKDOWN_RE.match(text)
         if match:
             alt = match.group(1).strip()
             path = match.group(2).strip()
-            if path.startswith("../images/"):
-                uri = "../../images/" + path[len("../images/") :]
+            # Normalize to ../../images/... (relative to source/ = project root)
+            if "images/" in path:
+                uri = "../../images/" + path.split("images/", 1)[1]
             else:
                 uri = path
             img = nodes.image(uri=uri, alt=alt)
@@ -420,7 +429,7 @@ def setup(app):  # noqa: D103
 
     app.connect('builder-inited', add_filters)
     app.connect('autodoc-skip-member', _skip_imported_member)
-    app.connect('doctree-resolved', _rewrite_doc_md_links)
+    app.connect('doctree-resolved', _rewrite_doc_md_links, priority=900)
     app.connect('missing-reference', _on_missing_reference)
     return {'version': '0.1', 'parallel_read_safe': True}
 
