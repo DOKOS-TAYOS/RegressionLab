@@ -1,0 +1,800 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Alejandro Mata Ali
+# This file is distributed under the same license as the RegressionLab
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: RegressionLab 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-13 19:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: es <LL@li.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../../docs/contributing.md:1 5672a5095f18442eb1401172154d9b52
+msgid "Contributing to RegressionLab"
+msgstr "Contribuyendo a RegressionLab"
+
+#: ../../../docs/contributing.md:3 bcd6cb7d498d4d86a4fafb51e23707f5
+msgid ""
+"Thank you for your interest in contributing to RegressionLab! This guide "
+"will help you get started with contributing code, documentation, or other "
+"improvements to the project."
+msgstr ""
+"¡Gracias por su interés en contribuir a RegressionLab! Esta guía lo ayudará "
+"a comenzar a contribuir con código, documentación u otras mejoras al "
+"proyecto."
+
+#: ../../../docs/contributing.md:5 0944d1877660495a927c0bfcc706b6a6
+msgid "Ways to Contribute"
+msgstr "Formas de contribuir"
+
+#: ../../../docs/contributing.md:7 999e9c48e1904b24aba2ec1e4afaaea2
+msgid "There are many ways to contribute to RegressionLab:"
+msgstr "Hay muchas maneras de contribuir a RegressionLab:"
+
+#: ../../../docs/contributing.md:9 a655113d8f7443298a5f90849311e26f
+msgid "🐛 **Report bugs**: Help us identify issues."
+msgstr "🐛 **Informar errores**: Ayúdanos a identificar problemas."
+
+#: ../../../docs/contributing.md:10 8117ca0beeef4d14af98ca6701e9212a
+msgid "💡 **Suggest features**: Share your ideas for improvements."
+msgstr "💡 **Sugerir funciones**: comparte tus ideas para mejorar."
+
+#: ../../../docs/contributing.md:11 9d5325cfa276489dae2ad0713d71a4f5
+msgid ""
+"📝 **Improve documentation**: Fix typos, add examples, clarify explanations."
+msgstr ""
+"📝 **Mejorar la documentación**: corregir errores tipográficos, agregar "
+"ejemplos, aclarar explicaciones."
+
+#: ../../../docs/contributing.md:12 7b9089bd852b4b0499d52bffd09988de
+msgid "🔧 **Fix bugs**: Submit patches for known issues."
+msgstr "🔧 **Corregir errores**: envíe parches para problemas conocidos."
+
+#: ../../../docs/contributing.md:13 77eca712ea9343e88db6e7c54899d5d8
+msgid "✨ **Add features**: Implement new functionality."
+msgstr "✨ **Agregar funciones**: implementar nuevas funciones."
+
+#: ../../../docs/contributing.md:14 d53bc6be05c848a585bedcb284c588d0
+msgid "🧪 **Write tests**: Improve code coverage."
+msgstr "🧪 **Pruebas de escritura**: mejora la cobertura del código."
+
+#: ../../../docs/contributing.md:15 95cca6065fe642b989bdcbac482de35e
+msgid "🌍 **Add translations**: Support more languages."
+msgstr "🌍 **Agregar traducciones**: Admite más idiomas."
+
+#: ../../../docs/contributing.md:16 bd77d5d8b0164059b6f1ac71a867780b
+msgid "📊 **Add equations**: Contribute new fitting functions."
+msgstr "📊 **Agregar ecuaciones**: aporta nuevas funciones de ajuste."
+
+#: ../../../docs/contributing.md:17 5804b61234c146adbcf8a0e0f06c6e01
+msgid "🎨 **Improve UI/UX**: Enhance user experience."
+msgstr "🎨 **Mejorar UI/UX**: mejora la experiencia del usuario."
+
+#: ../../../docs/contributing.md:19 b028ffdb043f4610b7ce8ede84a57219
+msgid "Getting Started"
+msgstr "Empezando"
+
+#: ../../../docs/contributing.md:21 0f6ff641855a41e19a9938aee16343fc
+msgid "1. Fork and Clone"
+msgstr "1. Bifurcar y clonar"
+
+#: ../../../docs/contributing.md:34 c62225e1e78543d3807ecc6071cc9613
+msgid "2. Set Up Development Environment"
+msgstr "2. Configurar el entorno de desarrollo"
+
+#: ../../../docs/contributing.md:53 cf3bbf1ca8aa49cfbb63364fbb583ef6
+msgid "3. Create a Branch"
+msgstr "3. Crea una sucursal"
+
+#: ../../../docs/contributing.md:66 3494a6959add4612ae9379784dcd0192
+msgid "**Branch Naming Conventions**:"
+msgstr "**Convenciones de nomenclatura de sucursales**:"
+
+#: ../../../docs/contributing.md:67 2f547a6f060749e6ba9acdb47093d585
+msgid "`feature/` - New features."
+msgstr "`feature/` - Nuevas funciones."
+
+#: ../../../docs/contributing.md:68 6371ad487fdb4368bf9d0e4149ef4a85
+msgid "`fix/` - Bug fixes."
+msgstr "`fix/` - Corrección de errores."
+
+#: ../../../docs/contributing.md:69 604e05cce6544fb8b67cea7ae8034f0b
+msgid "`docs/` - Documentation updates."
+msgstr "`docs/` - Actualizaciones de documentación."
+
+#: ../../../docs/contributing.md:70 878cea42bfb64a4fa4c02ca98bcee94b
+msgid "`refactor/` - Code refactoring."
+msgstr "`refactor/` - Refactorización de código."
+
+#: ../../../docs/contributing.md:71 d212663056194eb3b73808a1fa8d6cdf
+msgid "`test/` - Adding or updating tests."
+msgstr "`test/` - Agregar o actualizar pruebas."
+
+#: ../../../docs/contributing.md:73 979c2c098a4d41aabea20cdd9aefe920
+msgid "Development Guidelines"
+msgstr "Pautas de desarrollo"
+
+#: ../../../docs/contributing.md:75 10c239897bbe4ebe8da20d0f49778f10
+msgid "Code Style"
+msgstr "Estilo de código"
+
+#: ../../../docs/contributing.md:77 be0a308bb2df45b781e02de4a0974d07
+msgid "RegressionLab follows PEP 8 with some project-specific conventions:"
+msgstr ""
+"RegressionLab sigue PEP 8 con algunas convenciones específicas del proyecto:"
+
+#: ../../../docs/contributing.md:79 d6352e67400f4a88b2f307e7d0b56d2e
+msgid "1. Line Length"
+msgstr "1. Longitud de la línea"
+
+#: ../../../docs/contributing.md:80 32ade1c077bb487d80ab8a1e258ddbc2
+msgid "Maximum 100 characters per line."
+msgstr "Máximo 100 caracteres por línea."
+
+#: ../../../docs/contributing.md:81 465b2afa31a9488489e9655327d816ed
+msgid "For long strings, use implicit concatenation or `textwrap`."
+msgstr "Para cadenas largas, utilice concatenación implícita o \"textwrap\"."
+
+#: ../../../docs/contributing.md:94 42e9a1e094b447a2b236c1eb06badba4
+msgid "2. Type Hints"
+msgstr "2. Escriba sugerencias"
+
+#: ../../../docs/contributing.md:96 e5b62c70d6df4881a8c1c791ef0de234
+msgid "Always include type hints for function signatures:"
+msgstr "Incluya siempre sugerencias de tipo para las firmas de funciones:"
+
+#: ../../../docs/contributing.md:112 ebe96c1f29b9470696171861c51643a2
+msgid "3. Docstrings"
+msgstr "3. Cadenas de documentos"
+
+#: ../../../docs/contributing.md:114 b96aabb32d2e4691a7b37c11dcd1abed
+msgid "Use Google-style docstrings:"
+msgstr "Utilice cadenas de documentación al estilo de Google:"
+
+#: ../../../docs/contributing.md:148 3a858b55bb2b43048d687681b9f6c961
+msgid "4. Imports"
+msgstr "4. Importaciones"
+
+#: ../../../docs/contributing.md:150 a35a927eef2a4efda4741fd666e7abbb
+msgid "Organize imports in three groups, separated by blank lines:"
+msgstr ""
+"Organice las importaciones en tres grupos, separados por líneas en blanco:"
+
+#: ../../../docs/contributing.md:171 7b0b02d8afee46e2ad69b51c4a96baa1
+msgid "5. Naming Conventions"
+msgstr "5. Convenciones de nomenclatura"
+
+#: ../../../docs/contributing.md:173 d746a1732f5a4db0975b1dc663565fe0
+msgid "**Functions/variables**: `snake_case`"
+msgstr "**Funciones/variables**: `snake_case`"
+
+#: ../../../docs/contributing.md:174 67a8bc9d943e49d7b8d3ca3ef57d2412
+msgid "**Classes**: `PascalCase`"
+msgstr "**Clases**: `PascalCase`"
+
+#: ../../../docs/contributing.md:175 318269fe76674cb8961b4ee72b4cf860
+msgid "**Constants**: `UPPER_SNAKE_CASE`"
+msgstr "**Constantes**: `UPPER_SNAKE_CASE`"
+
+#: ../../../docs/contributing.md:176 947bf21757444aa690b7632ee70da6f5
+msgid "**Private members**: `_leading_underscore`"
+msgstr "**Miembros privados**: `_leading_underscore`"
+
+#: ../../../docs/contributing.md:193 ed6083893de0461aaf752daa0b60396d
+msgid "6. Comments"
+msgstr "6. Comentarios"
+
+#: ../../../docs/contributing.md:195 4bab21efda9d4c1ba6f804d88d29f681
+msgid "Use comments sparingly - prefer self-documenting code"
+msgstr ""
+"Utilice los comentarios con moderación; prefiera el código autodocumentado"
+
+#: ../../../docs/contributing.md:196 77c011eadc6b4eed8724d8240a88a68a
+msgid "Comments should explain *why*, not *what*"
+msgstr "Los comentarios deben explicar *por qué*, no *qué*"
+
+#: ../../../docs/contributing.md:197 1be9a19a09d54dd0bfc03dedb1452489
+msgid "Keep comments up-to-date when code changes"
+msgstr "Mantenga los comentarios actualizados cuando cambie el código"
+
+#: ../../../docs/contributing.md:210 d85840edafb4460381627d3961825bd8
+msgid "Testing"
+msgstr "Pruebas"
+
+#: ../../../docs/contributing.md:212 5859b6dfbacc49a6974a79aaa4c754c9
+msgid "Writing Tests"
+msgstr "Pruebas de escritura"
+
+#: ../../../docs/contributing.md:214 700aaf5519de4a29a2fde19d300d1400
+msgid "**Location**: Place tests in `tests/` directory"
+msgstr "**Ubicación**: Coloque las pruebas en el directorio `tests/`"
+
+#: ../../../docs/contributing.md:215 61f3cb5c03cd4d8ca0d038b9517cd379
+msgid "**Naming**: Test files should match source files: `test_<module>.py`"
+msgstr ""
+"**Denominación**: los archivos de prueba deben coincidir con los archivos "
+"fuente: `test_<módulo>.py`"
+
+#: ../../../docs/contributing.md:216 2f0a5cc3796f4c8cb2c13cb80c77ad2e
+msgid "**Structure**: Use pytest conventions"
+msgstr "**Estructura**: utilice convenciones de pytest"
+
+#: ../../../docs/contributing.md:306 0223ba418be8463ca837c9779576d7cf
+msgid "Running Tests"
+msgstr "Ejecución de pruebas"
+
+#: ../../../docs/contributing.md:330 c4069e3a5d504606a8812a7b3614d0ea
+msgid "Check coverage:"
+msgstr "Consultar cobertura:"
+
+#: ../../../docs/contributing.md:335 6df05b8a5b6548ebb72093ef4584308a
+msgid "Adding New Fitting Functions"
+msgstr "Agregar nuevas funciones de adaptación"
+
+#: ../../../docs/contributing.md:337 b7c9ea33d28e41aaa99ced763813bc86
+msgid "See [Extending RegressionLab](extending.md) for detailed guide."
+msgstr ""
+"Consulte [Extending RegressionLab](extending.md) para obtener una guía "
+"detallada."
+
+#: ../../../docs/contributing.md:339 0ae538348e08486cac836d972760f8cd
+msgid "Summary:"
+msgstr "Resumen:"
+
+#: ../../../docs/contributing.md:340 9dc1bf55d18b45939dea90d1d440b9a5
+msgid ""
+"Add mathematical and fitting functions in `src/fitting/functions/` (e.g. "
+"`special.py`, `polynomials.py`)"
+msgstr ""
+"Agregue funciones matemáticas y de ajuste en `src/fitting/functions/` (por "
+"ejemplo, `special.py`, `polynomials.py`)"
+
+#: ../../../docs/contributing.md:341 50e5c270324e4fefb0448c221173c3b1
+msgid ""
+"Export the fit function from `src/fitting/functions/__init__.py`, then "
+"register in `src/config/equations.yaml` (add entry with `function`, "
+"`formula`, `format`, `param_names`)"
+msgstr ""
+"Exporte la función de ajuste desde `src/fitting/functions/__init__.py`, "
+"luego regístrela en `src/config/equations.yaml` (agregue una entrada con "
+"`function`, `formula`, `format`, `param_names`)"
+
+#: ../../../docs/contributing.md:342 04f98296845640d893a967cc980e96e9
+msgid "Add translations to `src/locales/` (en.json, es.json, de.json)"
+msgstr "Agregar traducciones a `src/locales/` (en.json, es.json, de.json)"
+
+#: ../../../docs/contributing.md:343 a22532ba143b4873ac566c084a27d7e1
+msgid "Write tests in `tests/test_fitting_functions.py`"
+msgstr "Escribe pruebas en `tests/test_fitting_functions.py`"
+
+#: ../../../docs/contributing.md:344 36a2040d1c3c4479acfa6077eb6a30f6
+msgid "Update documentation"
+msgstr "Actualizar documentación"
+
+#: ../../../docs/contributing.md:346 c582467a4eda40c4b0d3abb1288c1524
+msgid "Adding Translations"
+msgstr "Agregar traducciones"
+
+#: ../../../docs/contributing.md:348 adc7e5033bb54cf58861a9d3e44d9ae8
+msgid "To add a new language:"
+msgstr "Para agregar un nuevo idioma:"
+
+#: ../../../docs/contributing.md:350 6bf5638eef094159b69b0ed2a5dcd393
+msgid "**Create locale file**: `src/locales/<language_code>.json`"
+msgstr "**Crear archivo local**: `src/locales/<código_idioma>.json`"
+
+#: ../../../docs/contributing.md:364 02f3118de32a436c8388c59961ed5905
+msgid ""
+"**Update config**: Add the language code to `SUPPORTED_LANGUAGE_CODES` and "
+"`LANGUAGE_ALIASES` in `src/config/constants.py`"
+msgstr ""
+"**Actualizar configuración**: agregue el código de idioma a "
+"`SUPPORTED_LANGUAGE_CODES` y `LANGUAGE_ALIASES` en `src/config/constants.py`"
+
+#: ../../../docs/contributing.md:366 68b031c50fd34887bf2c935a0f5017c3
+msgid "**Test thoroughly**: Check all UI elements in both interfaces"
+msgstr ""
+"**Pruebe minuciosamente**: verifique todos los elementos de la interfaz de "
+"usuario en ambas interfaces"
+
+#: ../../../docs/contributing.md:368 05a9e30bac534edb8abe88a3b2ff2c24
+msgid "**Update documentation**: Add language to README and docs"
+msgstr "**Actualizar documentación**: agregar idioma a README y documentos"
+
+#: ../../../docs/contributing.md:370 b367107cdfa84312bde71a9518cefc88
+msgid "Documentation"
+msgstr "Documentación"
+
+#: ../../../docs/contributing.md:372 28a73c211887420f926ee46e947f26c9
+msgid "Updating Documentation"
+msgstr "Actualización de documentación"
+
+#: ../../../docs/contributing.md:374 e695c40438324f66927abc1e8ba71465
+msgid "Documentation is in `docs/` directory"
+msgstr "La documentación está en el directorio `docs/`"
+
+#: ../../../docs/contributing.md:375 6e07e18cf1e84325bc44379128c64350
+msgid "Use Markdown format"
+msgstr "Usar formato Markdown"
+
+#: ../../../docs/contributing.md:376 71c070bbb04f4fecab6971d070e5cbf9
+msgid "Follow existing structure and style"
+msgstr "Seguir la estructura y el estilo existentes"
+
+#: ../../../docs/contributing.md:377 d98929fc9b2647df84f09ace09369a53
+msgid "Include code examples where appropriate"
+msgstr "Incluya ejemplos de código cuando corresponda"
+
+#: ../../../docs/contributing.md:378 e619eb8a3db545929c7436e78963ade8
+msgid "Add screenshots for UI changes (place in `docs/images/`)"
+msgstr ""
+"Agregar capturas de pantalla para cambios en la interfaz de usuario (colocar"
+" en `docs/images/`)"
+
+#: ../../../docs/contributing.md:380 02e45a913cb7477fb4f22ced7760e512
+msgid "Building Documentation"
+msgstr "Documentación de construcción"
+
+#: ../../../docs/contributing.md:396 ec6b7bb4f3e746d28cc9de0ddfefef7c
+msgid "Submitting Changes"
+msgstr "Enviar cambios"
+
+#: ../../../docs/contributing.md:398 b1d3ae01ef97455c99ee05f8f9e0668d
+msgid "1. Commit Your Changes"
+msgstr "1. Confirme sus cambios"
+
+#: ../../../docs/contributing.md:400 a9ab60f00f514fd787ae83a94a6b574f
+msgid "Write clear, descriptive commit messages:"
+msgstr "Escriba mensajes de confirmación claros y descriptivos:"
+
+#: ../../../docs/contributing.md:415 e7f93cbc2b4c4942a1251a64dc2a8030
+msgid "**Commit Message Format**:"
+msgstr "**Formato de mensaje de confirmación**:"
+
+#: ../../../docs/contributing.md:424 83e41707c7ad48c1a56586f6b37c02bc
+msgid "**Types**:"
+msgstr "**Tipos**:"
+
+#: ../../../docs/contributing.md:425 f611157a70a5495aafe7b56300d6e3f3
+msgid "`feat`: New feature."
+msgstr "`feat`: Nueva característica."
+
+#: ../../../docs/contributing.md:426 4e87d5fb68f448a7a9ab5286aa947b62
+msgid "`fix`: Bug fix."
+msgstr "`arreglar`: Corrección de errores."
+
+#: ../../../docs/contributing.md:427 b271c1138c4f4509a9e144f82f22c87c
+msgid "`docs`: Documentation changes."
+msgstr "`docs`: cambios en la documentación."
+
+#: ../../../docs/contributing.md:428 a402d828c00f4ae999bd1c226eaeb0f7
+msgid "`style`: Code style changes (formatting, no logic change)."
+msgstr ""
+"`style`: cambios de estilo de código (formato, sin cambios de lógica)."
+
+#: ../../../docs/contributing.md:429 709fef9704d44cc3ad1cf4a2d899bee8
+msgid "`refactor`: Code refactoring."
+msgstr "`refactor`: refactorización de código."
+
+#: ../../../docs/contributing.md:430 4c2f6d840bd3455a8580c172b3362e1c
+msgid "`test`: Adding or updating tests."
+msgstr "`test`: Agregar o actualizar pruebas."
+
+#: ../../../docs/contributing.md:431 c9ccb2bc6d4a432fa52238b3130bd443
+msgid "`chore`: Maintenance tasks."
+msgstr "`chore`: Tareas de mantenimiento."
+
+#: ../../../docs/contributing.md:433 10c185e6f16047c2879e903ab5d18ba4
+msgid "**Example**:"
+msgstr "**Ejemplo**:"
+
+#: ../../../docs/contributing.md:444 302e027aba4e4691a834e5b806a25b21
+msgid "2. Push to Your Fork"
+msgstr "2. Empuja hacia tu tenedor"
+
+#: ../../../docs/contributing.md:450 2d3b9107ef0c45bda2789df0f1c5c7bc
+msgid "3. Create Pull Request"
+msgstr "3. Crear solicitud de extracción"
+
+#: ../../../docs/contributing.md:452 4fdf7ecd3e6b4c8f94587ba58cdd1d8c
+msgid "Go to your fork on GitHub"
+msgstr "Ve a tu bifurcación en GitHub"
+
+#: ../../../docs/contributing.md:453 e97b462fd38d4e2ba26cc31f66556a6f
+msgid "Click \"New Pull Request\""
+msgstr "Haga clic en \"Nueva solicitud de extracción\""
+
+#: ../../../docs/contributing.md:454 c45c8d3a86e040f79105aeafff87d74d
+msgid "Select your branch"
+msgstr "Selecciona tu sucursal"
+
+#: ../../../docs/contributing.md:455 904aa916d65a477d9751aa8c4145a99c
+msgid "Fill out the pull request template:"
+msgstr "Complete la plantilla de solicitud de extracción:"
+
+#: ../../../docs/contributing.md:456 aea262c0507742dcb1b5bc52d26cc7a9
+msgid "**Title**: Clear, concise summary"
+msgstr "**Título**: Resumen claro y conciso"
+
+#: ../../../docs/contributing.md:457 942f1e3e4e984e2a83b5189702d79f83
+msgid "**Description**: What changes were made and why"
+msgstr "**Descripción**: Qué cambios se realizaron y por qué"
+
+#: ../../../docs/contributing.md:458 b2d2cadf05174de6a8982bd3db45f798
+msgid "**Testing**: How you tested the changes"
+msgstr "**Pruebas**: Cómo probaste los cambios"
+
+#: ../../../docs/contributing.md:459 180200180a5e43bf8ac175e49bc3079d
+msgid "**Screenshots**: For UI changes"
+msgstr "**Capturas de pantalla**: para cambios en la interfaz de usuario"
+
+#: ../../../docs/contributing.md:460 f9cba47fce2a417b8f227cf2310d3005
+msgid "**Closes**: Reference any related issues"
+msgstr "**Cierra**: haga referencia a cualquier problema relacionado"
+
+#: ../../../docs/contributing.md:462 e83f3763128e4d099226be12a4be12da
+msgid "Pull Request Checklist"
+msgstr "Lista de verificación de solicitud de extracción"
+
+#: ../../../docs/contributing.md:464 6b1f7dc53e7e40df9f7191a6b3f32b06
+msgid "Before submitting, ensure:"
+msgstr "Antes de enviar, asegúrese de:"
+
+#: ../../../docs/contributing.md:466 f7cf38ba78504fb9a3cf0f4ec09b7228
+msgid "Code follows project style guidelines"
+msgstr "El código sigue las pautas de estilo del proyecto."
+
+#: ../../../docs/contributing.md:467 f70ed7321b464660ae00cfce45b28da1
+msgid "All tests pass (`pytest tests/`)"
+msgstr "Todas las pruebas pasan (`pytest tests/`)"
+
+#: ../../../docs/contributing.md:468 7059f00a509c448ca002df1182b0833b
+msgid "New tests added for new functionality"
+msgstr "Se agregaron nuevas pruebas para nuevas funciones."
+
+#: ../../../docs/contributing.md:469 abcdd5fbc14f41a4836ce7dd24288355
+msgid "Documentation updated (if needed)"
+msgstr "Documentación actualizada (si es necesario)"
+
+#: ../../../docs/contributing.md:470 d9d3e9ac8110480286e9a5d7cb64fae6
+msgid "Commit messages are clear and descriptive"
+msgstr "Los mensajes de confirmación son claros y descriptivos."
+
+#: ../../../docs/contributing.md:471 387eb501bde54adc9f3da1fa10238cc6
+msgid "No unnecessary files included (check `.gitignore`)"
+msgstr "No se incluyen archivos innecesarios (marque `.gitignore`)"
+
+#: ../../../docs/contributing.md:472 63c4ce33e4f84f9c848b275484610343
+msgid "Type hints included"
+msgstr "Sugerencias de tipo incluidas"
+
+#: ../../../docs/contributing.md:473 bd433ccc0e5342adbd2e3eddcec0439b
+msgid "Docstrings added for new functions"
+msgstr "Cadenas de documentos agregadas para nuevas funciones"
+
+#: ../../../docs/contributing.md:474 3e058ec4d00f4fd3a6aa979af9cdbe67
+msgid "Translations added (if UI changes)"
+msgstr "Traducciones agregadas (si la interfaz de usuario cambia)"
+
+#: ../../../docs/contributing.md:475 b5536fa0e03348d5b43f61d31a83ceca
+msgid "CHANGELOG.md updated (for significant changes)"
+msgstr "CHANGELOG.md actualizado (para cambios significativos)"
+
+#: ../../../docs/contributing.md:477 5ee70f9f1cb24c5aae3e30462fc9f2d2
+msgid "Review Process"
+msgstr "Proceso de revisión"
+
+#: ../../../docs/contributing.md:479 d5b34d601f34471eaf0ed8fcbe21f39a
+msgid "**Automated checks**: CI/CD runs tests automatically"
+msgstr ""
+"**Comprobaciones automatizadas**: CI/CD ejecuta pruebas automáticamente"
+
+#: ../../../docs/contributing.md:480 7682ff14327840ff87c88a0322819756
+msgid "**Code review**: Maintainer reviews your code"
+msgstr "**Revisión de código**: el mantenedor revisa su código"
+
+#: ../../../docs/contributing.md:481 598661e91c3c40e39816a0bbaab7bbe5
+msgid "**Feedback**: Address any requested changes"
+msgstr "**Comentarios**: Aborde cualquier cambio solicitado"
+
+#: ../../../docs/contributing.md:482 c3ff627a8d364c8699b1a7b730f918a0
+msgid "**Approval**: Once approved, changes are merged"
+msgstr "**Aprobación**: una vez aprobados, los cambios se fusionan"
+
+#: ../../../docs/contributing.md:483 8c51100c64064f6c8dffb63608766822
+msgid "**Cleanup**: Delete your branch after merge"
+msgstr "**Limpieza**: elimina tu rama después de la fusión"
+
+#: ../../../docs/contributing.md:485 025a681aa562422ca6b451843cd5176e
+msgid "Development Setup"
+msgstr "Configuración de desarrollo"
+
+#: ../../../docs/contributing.md:487 cc64ae9bda4f4a4db2918fbb53f05146
+msgid "Recommended Tools"
+msgstr "Herramientas recomendadas"
+
+#: ../../../docs/contributing.md:489 df0b0dc49d764456a0148d142f4cef7e
+msgid "**IDE**: Visual Studio Code, PyCharm, or your preference"
+msgstr "**IDE**: Visual Studio Code, PyCharm o su preferencia"
+
+#: ../../../docs/contributing.md:490 18a70e6191b448a7b46c4a0abe24af4f
+msgid "**Git Client**: Command line, GitKraken, or GitHub Desktop"
+msgstr "**Cliente Git**: línea de comando, GitKraken o GitHub Desktop"
+
+#: ../../../docs/contributing.md:491 404eb5a59b1c4bbfb1bfb725ab5f0884
+msgid "**Python Version**: 3.12 or higher"
+msgstr "**Versión de Python**: 3.12 o superior"
+
+#: ../../../docs/contributing.md:492 34995dccf35c4f5a9b0cc681cc7e4358
+msgid "**Virtual Environment**: Always use virtual environments"
+msgstr "**Entorno virtual**: utilice siempre entornos virtuales"
+
+#: ../../../docs/contributing.md:494 a64da8e0b31f4223822c2fef7846b09b
+msgid "VS Code Setup"
+msgstr "Configuración del código VS"
+
+#: ../../../docs/contributing.md:496 609d5f5dda304087a7d2619c4afe859a
+msgid "Recommended extensions:"
+msgstr "Extensiones recomendadas:"
+
+#: ../../../docs/contributing.md:497 2d975de435494a61aa51718eb0a8fc30
+msgid "Python (Microsoft)"
+msgstr "Pitón (Microsoft)"
+
+#: ../../../docs/contributing.md:498 5967f53187fe46a1a232f1aa26d3b864
+msgid "Pylance"
+msgstr "Pylance"
+
+#: ../../../docs/contributing.md:499 563c29c2321d4fc682078bce103e435c
+msgid "Python Test Explorer"
+msgstr "Explorador de pruebas de Python"
+
+#: ../../../docs/contributing.md:500 272cce7abeab42ac812e60f13125b176
+msgid "GitLens"
+msgstr "GitLens"
+
+#: ../../../docs/contributing.md:501 c359468b31ad4d96add9b1c0791801be
+msgid "Markdown All in One"
+msgstr "Rebaja todo en uno"
+
+#: ../../../docs/contributing.md:503 f76e90f3f5fc42b099a905338aabe437
+msgid "Workspace settings (`.vscode/settings.json`):"
+msgstr "Configuración del espacio de trabajo (`.vscode/settings.json`):"
+
+#: ../../../docs/contributing.md:515 2137d320ee2b4aa9ac2b15cada66897a
+msgid ""
+"The project uses **Ruff** for linting (see `requirements-dev.txt` and "
+"`pyproject.toml` optional `[dev]` dependencies). Ruff reads configuration "
+"from `pyproject.toml`. Install the [Ruff "
+"extension](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff)"
+" for VS Code."
+msgstr ""
+"El proyecto usa **Ruff** para linting (consulte las dependencias opcionales "
+"`[dev]` de `requirements-dev.txt` y `pyproject.toml`). Ruff lee la "
+"configuración de `pyproject.toml`. Instale la [extensión "
+"Ruff](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff)"
+" para VS Code."
+
+#: ../../../docs/contributing.md:517 e713f61abcf7458095b29d6468ab040d
+msgid "Project Structure"
+msgstr "Estructura del proyecto"
+
+#: ../../../docs/contributing.md:519 1958ac87dfb54c87ba0a82b0c1a91b2a
+msgid "Understanding the codebase:"
+msgstr "Comprender el código base:"
+
+#: ../../../docs/contributing.md:555 4721f225fdc14a50b1efdc1493437ce7
+msgid "Communication"
+msgstr "Comunicación"
+
+#: ../../../docs/contributing.md:557 b00f4db768a2406c975d707a5e6a39c0
+msgid "Asking Questions"
+msgstr "Hacer preguntas"
+
+#: ../../../docs/contributing.md:559 843b0916eabd4f6fbd270114c14f3de0
+msgid "**GitHub Discussions**: For general questions and ideas"
+msgstr "**Discusiones de GitHub**: para preguntas e ideas generales"
+
+#: ../../../docs/contributing.md:560 ba087d8be95345318be037e90789e7bf
+msgid "**GitHub Issues**: For bug reports and feature requests"
+msgstr ""
+"**Problemas de GitHub**: para informes de errores y solicitudes de funciones"
+
+#: ../../../docs/contributing.md:561 25a4edca0fde4dac972450762ddbcdc2
+msgid "**Email**: For private inquiries"
+msgstr "**Correo electrónico**: Para consultas privadas"
+
+#: ../../../docs/contributing.md:563 8a4853d796f84b0caa807c205491d970
+msgid "Reporting Bugs"
+msgstr "Informar errores"
+
+#: ../../../docs/contributing.md:565 272f1eee575647919af2b7d79e4eccf2
+msgid "Use the GitHub issue template and include:"
+msgstr "Utilice la plantilla de incidencias de GitHub e incluya:"
+
+#: ../../../docs/contributing.md:567 2ec5e346dc70449e9d7ca81f03b8d071
+msgid "**Title**: Clear, specific description"
+msgstr "**Título**: descripción clara y específica"
+
+#: ../../../docs/contributing.md:568 96b29e11de68442e80696401163eef81
+msgid "**Version**: RegressionLab version"
+msgstr "**Versión**: versión de RegressionLab"
+
+#: ../../../docs/contributing.md:569 a56eb823a5a3460d8f271161d04cd903
+msgid "**Environment**: OS, Python version"
+msgstr "**Entorno**: SO, versión Python"
+
+#: ../../../docs/contributing.md:570 a2a534c51a1e4c5eadd2b9e1bbec161d
+msgid "**Steps to reproduce**: Exact steps"
+msgstr "**Pasos para reproducir**: Pasos exactos"
+
+#: ../../../docs/contributing.md:571 b8f797369c3749aa80a0b84caa630837
+msgid "**Expected behavior**: What should happen"
+msgstr "**Comportamiento esperado**: ¿Qué debería suceder?"
+
+#: ../../../docs/contributing.md:572 965c96bc967340e19b59b0153c955e23
+msgid "**Actual behavior**: What actually happens"
+msgstr "**Comportamiento real**: lo que realmente sucede"
+
+#: ../../../docs/contributing.md:573 bf67b67e5e014706b9bf6d5436821e96
+msgid "**Error messages**: Full traceback"
+msgstr "**Mensajes de error**: rastreo completo"
+
+#: ../../../docs/contributing.md:574 4d3feb2a22da4b228f0cc93911a9dd84
+msgid "**Sample data**: If possible"
+msgstr "**Datos de muestra**: Si es posible"
+
+#: ../../../docs/contributing.md:575 aa38df326709459b85d940543568e83f
+msgid "**Screenshots**: For UI issues"
+msgstr "**Capturas de pantalla**: para problemas con la interfaz de usuario"
+
+#: ../../../docs/contributing.md:577 a5895492b5364e4f830c32ff13860517
+msgid "Suggesting Features"
+msgstr "Sugerencias de características"
+
+#: ../../../docs/contributing.md:579 69561f5c2e844057bc388047941e3f6f
+msgid "Use the GitHub feature request template:"
+msgstr "Utilice la plantilla de solicitud de funciones de GitHub:"
+
+#: ../../../docs/contributing.md:581 2238378add664971b85130891d4e474d
+msgid "**Problem description**: What problem does this solve?"
+msgstr "**Descripción del problema**: ¿Qué problema resuelve esto?"
+
+#: ../../../docs/contributing.md:582 d91cc545d15841318886c478d31e2ee4
+msgid "**Proposed solution**: How should it work?"
+msgstr "**Solución propuesta**: ¿Cómo debería funcionar?"
+
+#: ../../../docs/contributing.md:583 00efadebcac548079e808161acfa9035
+msgid "**Alternatives**: Other solutions considered"
+msgstr "**Alternativas**: otras soluciones consideradas"
+
+#: ../../../docs/contributing.md:584 1b9fef7eda624578bbe03492ccfc5840
+msgid "**Additional context**: Examples, mockups, etc."
+msgstr "**Contexto adicional**: Ejemplos, maquetas, etc."
+
+#: ../../../docs/contributing.md:586 a6f747a7aa064686ba9bf49c828eff99
+msgid "Code of Conduct"
+msgstr "Código de conducta"
+
+#: ../../../docs/contributing.md:588 2296b519079243b5ac59f19f8927bcb1
+msgid "Our Standards"
+msgstr "Nuestros estándares"
+
+#: ../../../docs/contributing.md:590 25cad750bfcb4b8ca2e013edf25c176c
+msgid "**Be respectful**: Treat everyone with respect."
+msgstr "**Sea respetuoso**: Trate a todos con respeto."
+
+#: ../../../docs/contributing.md:591 be1ddec119a24d189787b352651d1a42
+msgid "**Be constructive**: Provide helpful feedback."
+msgstr "**Sea constructivo**: proporcione comentarios útiles."
+
+#: ../../../docs/contributing.md:592 03e7a14741114dc38531e0dceae9f5fe
+msgid "**Be patient**: Everyone is learning."
+msgstr "**Ten paciencia**: todos están aprendiendo."
+
+#: ../../../docs/contributing.md:593 3e7f6b236dbd49c38b2e46fe15bfa70c
+msgid "**Be professional**: Keep discussions on-topic."
+msgstr "**Sea profesional**: mantenga las discusiones centradas en el tema."
+
+#: ../../../docs/contributing.md:595 9be112499b8143859b6c12c07cb1f2f2
+msgid "Unacceptable Behavior"
+msgstr "Comportamiento inaceptable"
+
+#: ../../../docs/contributing.md:597 111930dc90704fc49f40890c62849105
+msgid "Harassment or discriminatory language."
+msgstr "Acoso o lenguaje discriminatorio."
+
+#: ../../../docs/contributing.md:598 0b71ae4413b34d7e84303e4113faa62b
+msgid "Personal attacks."
+msgstr "Ataques personales."
+
+#: ../../../docs/contributing.md:599 a00a939f2c5f4ae7a274c992961cb46c
+msgid "Trolling or inflammatory comments."
+msgstr "Comentarios trolling o incendiarios."
+
+#: ../../../docs/contributing.md:600 3dbb669dc0d145f09fda65ee125877e2
+msgid "Publishing private information."
+msgstr "Publicar información privada."
+
+#: ../../../docs/contributing.md:601 15a02b30ab4547b9aafd55ec3c1ef74f
+msgid "Other unprofessional conduct."
+msgstr "Otras conductas no profesionales."
+
+#: ../../../docs/contributing.md:603 c40f062750084000bf4a0c02f0474517
+msgid "Enforcement"
+msgstr "Aplicación"
+
+#: ../../../docs/contributing.md:605 1f4017b82b33402cbef4dc8dc8ede139
+msgid "Violations may result in:"
+msgstr "Las violaciones pueden resultar en:"
+
+#: ../../../docs/contributing.md:606 0a58145493d54a54be7c48dce4a208f2
+msgid "Warning."
+msgstr "Advertencia."
+
+#: ../../../docs/contributing.md:607 e0061d5bb9814eeaad1bddfdc81979ba
+msgid "Temporary ban."
+msgstr "Prohibición temporal."
+
+#: ../../../docs/contributing.md:608 8638cdfbe4f943f5b3a9d9c9ba759410
+msgid "Permanent ban."
+msgstr "Prohibición permanente."
+
+#: ../../../docs/contributing.md:610 65a6ce8e01514a69b6b62bc8fb8ffd37
+msgid "Report issues to: alejandro.mata.ali@gmail.com"
+msgstr "Reportar problemas a: alejandro.mata.ali@gmail.com"
+
+#: ../../../docs/contributing.md:612 aea333e0be644d11ad284a800aca15a5
+msgid "License"
+msgstr "Licencia"
+
+#: ../../../docs/contributing.md:614 c5bc2ec41d5d4a86a35e235a6d58ec81
+msgid ""
+"By contributing to RegressionLab, you agree that your contributions will be "
+"licensed under the MIT License."
+msgstr ""
+"Al contribuir a RegressionLab, usted acepta que sus contribuciones tendrán "
+"la licencia MIT."
+
+#: ../../../docs/contributing.md:616 5d9a8853630a400b8bbfce4487394511
+msgid "Recognition"
+msgstr "Reconocimiento"
+
+#: ../../../docs/contributing.md:618 e5ae580472644e5ca592fb4d5f086ff0
+msgid "Contributors may be recognized in:"
+msgstr "Los contribuyentes podrán ser reconocidos en:"
+
+#: ../../../docs/contributing.md:619 75b591ff86304cc78c5775b464d50d00
+msgid "A `CONTRIBUTORS.md` file (if added to the project)."
+msgstr "Un archivo `CONTRIBUTORS.md` (si se agrega al proyecto)."
+
+#: ../../../docs/contributing.md:620 62804f7e6eeb4db19a5e7007924212b0
+msgid "Release notes."
+msgstr "Notas de lanzamiento."
+
+#: ../../../docs/contributing.md:621 a407e651b52a47e880173ce55834ad09
+msgid "Documentation credits."
+msgstr "Créditos de documentación."
+
+#: ../../../docs/contributing.md:623 37cbc8e41a24444c92027a51a6090dfe
+msgid "Thank you for contributing to RegressionLab! 🎉"
+msgstr "¡Gracias por contribuir a RegressionLab! 🎉"
+
+#: ../../../docs/contributing.md:627 dd1a9eeef0bf4c40a5f1210ccfff66db
+msgid ""
+"*Questions about contributing? Open a GitHub Discussion or email "
+"alejandro.mata.ali@gmail.com.*"
+msgstr ""
+"*¿Tienes preguntas sobre cómo contribuir? Abra una discusión de GitHub o "
+"envíe un correo electrónico a alejandro.mata.ali@gmail.com.*"

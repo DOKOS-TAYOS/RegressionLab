@@ -1,0 +1,984 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Alejandro Mata Ali
+# This file is distributed under the same license as the RegressionLab
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: RegressionLab 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-13 19:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: es <LL@li.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../../docs/troubleshooting.md:1 5e87c25bf1d2484582cbb2239e093e3b
+msgid "Troubleshooting"
+msgstr "Solución de problemas"
+
+#: ../../../docs/troubleshooting.md:3 1052504ac20e421786d7b0afb72e0aac
+msgid ""
+"This guide covers known issues, common problems, and their solutions. It "
+"also includes information about future updates and the development roadmap."
+msgstr ""
+"Esta guía cubre problemas conocidos, problemas comunes y sus soluciones. "
+"También incluye información sobre futuras actualizaciones y la hoja de ruta "
+"de desarrollo."
+
+#: ../../../docs/troubleshooting.md:5 ab3cb4ca12da4c808205185c33544b86
+msgid "Common Problems and Solutions"
+msgstr "Problemas comunes y soluciones"
+
+#: ../../../docs/troubleshooting.md:7 617315f35cfa4eb2bbcf736071d87191
+msgid "Installation Issues"
+msgstr "Problemas de instalación"
+
+#: ../../../docs/troubleshooting.md:9 e8629bf2d5db4f378646569055257270
+msgid "Problem: Python Not Found"
+msgstr "Problema: Python no encontrado"
+
+#: ../../../docs/troubleshooting.md:15 ../../../docs/troubleshooting.md:42
+#: ../../../docs/troubleshooting.md:57 ../../../docs/troubleshooting.md:69
+#: ../../../docs/troubleshooting.md:87 ../../../docs/troubleshooting.md:95
+#: ../../../docs/troubleshooting.md:103 ../../../docs/troubleshooting.md:111
+#: ../../../docs/troubleshooting.md:195 ../../../docs/troubleshooting.md:203
+#: ../../../docs/troubleshooting.md:217 ../../../docs/troubleshooting.md:227
+#: ../../../docs/troubleshooting.md:259 ../../../docs/troubleshooting.md:268
+#: ../../../docs/troubleshooting.md:275 02ef8fe49ce046afb436645656fe67c3
+#: 0b9470fbe449460ebcb6bc20837d562b 283e4e93d7114814b56e75b85c5d268a
+#: 307b559921e54187915df572263ff8ea 346f90517a9d4c8989f44edb0f49d465
+#: 40708bd2b7ea49c78de1ab1baf47ef61 4184581f08e642c79a4bb03e40c7f4ba
+#: 468de1f3f8ca4a63888d3752de279a39 5379f50cc1e842d9aee6c7fa930649d5
+#: 77279f235d49407092d3a8aa0b5f97e8 7de08880cd6847f89b9268bcecb7974c
+#: 849d7de9b7e04497b1e865e06294bc49 c6bcdd4e1d7348e1be073cc31c1bfef1
+#: cac791418c2e45dbac99ef5699eb5b8b d21abfcf5a3a4b469e1990879be0e2e9
+msgid "**Solution**:"
+msgstr "**Solución**:"
+
+#: ../../../docs/troubleshooting.md:16 5853bbeb2f0e4f9cb4c648e84106c1bf
+msgid "Verify Python installation: Open Command Prompt/Terminal."
+msgstr ""
+"Verifique la instalación de Python: abra el símbolo del sistema/terminal."
+
+#: ../../../docs/troubleshooting.md:17 f5b280077e7346fda9aed2e2cf7c5801
+msgid "Try `python --version` or `python3 --version`."
+msgstr "Pruebe `python --version` o `python3 --version`."
+
+#: ../../../docs/troubleshooting.md:18 e343c6f375184e9585ab9c70d887156f
+msgid "If not found, install Python from [python.org](https://python.org)."
+msgstr ""
+"Si no lo encuentra, instale Python desde [python.org](https://python.org)."
+
+#: ../../../docs/troubleshooting.md:19 50aeed44d3ce4c1a9a8ce0593cc783c6
+msgid "**Important**: During installation, check \"Add Python to PATH\"."
+msgstr ""
+"**Importante**: Durante la instalación, marque \"Agregar Python a la RUTA\"."
+
+#: ../../../docs/troubleshooting.md:20 1f12a195e5224f49aea2dcd21409bc40
+msgid "Restart terminal after installation."
+msgstr "Reinicie el terminal después de la instalación."
+
+#: ../../../docs/troubleshooting.md:22 5dcf999eb3b94f8cbf8b1d4fcb21417e
+msgid "Problem: Virtual Environment Not Found (bin launchers)"
+msgstr "Problema: entorno virtual no encontrado (lanzadores de contenedores)"
+
+#: ../../../docs/troubleshooting.md:28 6b7b8fefb4464c0782704b004863500b
+msgid "(or `setup.sh` on macOS/Linux)"
+msgstr "(o `setup.sh` en macOS/Linux)"
+
+#: ../../../docs/troubleshooting.md:30 2c5a72d085ce4ea1955c4a3aeda8f11a
+msgid ""
+"**Solution**: The `bin/` launchers (`run.bat`, `run.sh`, "
+"`run_streamlit.bat`, `run_streamlit.sh`, `run_tests.bat`, `run_tests.sh`) "
+"require a project virtual environment. From the project root, run:"
+msgstr ""
+"**Solución**: Los lanzadores `bin/` (`run.bat`, `run.sh`, "
+"`run_streamlit.bat`, `run_streamlit.sh`, `run_tests.bat`, `run_tests.sh`) "
+"requieren un entorno virtual de proyecto. Desde la raíz del proyecto, "
+"ejecute:"
+
+#: ../../../docs/troubleshooting.md:31 b8a4b7ac73d2478c9cb400d0c2bde909
+msgid "**Windows**: `setup.bat`"
+msgstr "**Windows**: `setup.bat`"
+
+#: ../../../docs/troubleshooting.md:32 88ee694359b34215aed8b5c8e30d1f3f
+msgid "**macOS/Linux**: `chmod +x setup.sh` then `./setup.sh`"
+msgstr "**macOS/Linux**: `chmod +x setup.sh` y luego `./setup.sh`"
+
+#: ../../../docs/troubleshooting.md:34 73d9a52b8d5f41a68f21a933284d5928
+msgid "Then run the desired launcher again."
+msgstr "Luego ejecute nuevamente el iniciador deseado."
+
+#: ../../../docs/troubleshooting.md:36 4e5189658cf949acb18055861167efa4
+msgid "Problem: Permission Denied on Linux/macOS"
+msgstr "Problema: Permiso denegado en Linux/macOS"
+
+#: ../../../docs/troubleshooting.md:51 5d20859576e547189c6d4737fae4c4f2
+msgid "Problem: Virtual Environment Won't Activate (Windows PowerShell)"
+msgstr "Problema: el entorno virtual no se activa (Windows PowerShell)"
+
+#: ../../../docs/troubleshooting.md:58 71ad19b0f24143d4838a20c48d2ab7cc
+msgid "Open PowerShell as Administrator."
+msgstr "Abra PowerShell como administrador."
+
+#: ../../../docs/troubleshooting.md:59 cbf692777f0347dbba519cf3be93c36c
+msgid "Run: `Set-ExecutionPolicy RemoteSigned`."
+msgstr "Ejecute: `Set-ExecutionPolicy RemoteSigned`."
+
+#: ../../../docs/troubleshooting.md:60 9028db318bf64256ad506741e2c99fc4
+msgid "Confirm with 'Y'."
+msgstr "Confirme con 'Y'."
+
+#: ../../../docs/troubleshooting.md:61 6223d5899a604a5e8a6bfd559301965c
+msgid "Retry activation: `.venv\\Scripts\\Activate.ps1`."
+msgstr "Reintente la activación: `.venv\\Scripts\\Activate.ps1`."
+
+#: ../../../docs/troubleshooting.md:63 46c415ce87844e63875652dbb58cd3da
+msgid "Problem: Module Not Found After Installation"
+msgstr "Problema: Módulo no encontrado después de la instalación"
+
+#: ../../../docs/troubleshooting.md:70 d68f5219452d476880bcddf48c0aa45a
+msgid "Ensure virtual environment is activated."
+msgstr "Asegúrese de que el entorno virtual esté activado."
+
+#: ../../../docs/troubleshooting.md:71 72ce04aff4a741a7ab5b2ce9279d1e8a
+msgid "You should see `(.venv)` in your terminal prompt."
+msgstr "Deberías ver `(.venv)` en el indicador de tu terminal."
+
+#: ../../../docs/troubleshooting.md:72 c9e80856fdce48c58b20edf8c1fd6a85
+msgid "Windows: `.venv\\Scripts\\activate`."
+msgstr "Windows: `.venv\\Scripts\\activate`."
+
+#: ../../../docs/troubleshooting.md:73 f8f9c91854f94e2f849da21f092e6e38
+msgid "macOS/Linux: `source .venv/bin/activate`."
+msgstr "macOS/Linux: `fuente .venv/bin/activate`."
+
+#: ../../../docs/troubleshooting.md:74 19b77705e8c644d5a6e356b44f3c6f3d
+msgid "Reinstall dependencies:"
+msgstr "Reinstale las dependencias:"
+
+#: ../../../docs/troubleshooting.md:78 3e42867c401d4db6bfe9a862449fb675
+msgid "Verify installation:"
+msgstr "Verificar la instalación:"
+
+#: ../../../docs/troubleshooting.md:83 3ed1a44d48fb40f2afba320eec538a16
+msgid "Data Loading Issues"
+msgstr "Problemas de carga de datos"
+
+#: ../../../docs/troubleshooting.md:85 2933bbbeb84b4bd6b521ee887f9a3bbe
+msgid "Problem: \"File not found\" Error"
+msgstr "Problema: Error \"Archivo no encontrado\""
+
+#: ../../../docs/troubleshooting.md:88 d5ad181dad0342bc82d4cd77b786e68a
+msgid "Check file exists in specified location."
+msgstr "Compruebe que el archivo existe en la ubicación especificada."
+
+#: ../../../docs/troubleshooting.md:89 d87bb61a6f2442e4929b65d268732987
+msgid "Use absolute path if relative path fails."
+msgstr "Utilice la ruta absoluta si falla la ruta relativa."
+
+#: ../../../docs/troubleshooting.md:90 912e642fc5c643e08e184548c41b5a9e
+msgid "Check file permissions (read access required)."
+msgstr "Verifique los permisos de archivos (se requiere acceso de lectura)."
+
+#: ../../../docs/troubleshooting.md:91 97b5154026bf47a6bf33778271c5b670
+msgid "Verify file extension (.csv, .xlsx, .txt)."
+msgstr "Verifique la extensión del archivo (.csv, .xlsx, .txt)."
+
+#: ../../../docs/troubleshooting.md:93 82bf3111abb2409ea5b616ef5abe6262
+msgid "Problem: CSV File Appears Empty"
+msgstr "Problema: el archivo CSV parece vacío"
+
+#: ../../../docs/troubleshooting.md:96 fb8ec868f3b04ff6b7cfa38f7735c40a
+msgid "Open file in text editor to verify content."
+msgstr "Abra el archivo en el editor de texto para verificar el contenido."
+
+#: ../../../docs/troubleshooting.md:97 635c5131aa5149feb4b3f11a4e8b9537
+msgid "Check delimiter (comma, semicolon, tab)."
+msgstr "Verifique el delimitador (coma, punto y coma, tabulación)."
+
+#: ../../../docs/troubleshooting.md:98 9a484e8f667e45cabcb6243a671553e2
+msgid "Ensure first row contains column headers."
+msgstr "Asegúrese de que la primera fila contenga encabezados de columna."
+
+#: ../../../docs/troubleshooting.md:99 83bb1f4d839943a2be4e69f3a6a23b94
+msgid "Remove any blank lines at beginning of file."
+msgstr "Elimine las líneas en blanco al comienzo del archivo."
+
+#: ../../../docs/troubleshooting.md:101 06b0e1a730d7481081fb6b0ed4d72bee
+msgid "Problem: Excel File Won't Load"
+msgstr "Problema: el archivo de Excel no se carga"
+
+#: ../../../docs/troubleshooting.md:104 aa3a803248924a1097c10739d5dc209d
+msgid "Ensure `openpyxl` is installed: `pip install openpyxl`."
+msgstr "Asegúrese de que `openpyxl` esté instalado: `pip install openpyxl`."
+
+#: ../../../docs/troubleshooting.md:105 67beec29876042b5b0bb5025e1783524
+msgid "Check file isn't password-protected."
+msgstr "El archivo de comprobación no está protegido con contraseña."
+
+#: ../../../docs/troubleshooting.md:106 889d29d8eb20455484bf425c4f69b1ae
+msgid "Verify file isn't corrupted (try opening in Excel)."
+msgstr "Verifique que el archivo no esté dañado (intente abrirlo en Excel)."
+
+#: ../../../docs/troubleshooting.md:107 b809a8e79bd8448cb0aa5671dd9c9ec1
+msgid "Save as .xlsx format (newer format more reliable)."
+msgstr "Guárdelo como formato .xlsx (el formato más nuevo es más confiable)."
+
+#: ../../../docs/troubleshooting.md:109 bc477d405ae34e41b81a4e8735fb1cfe
+msgid "Problem: Uncertainty Columns Not Detected"
+msgstr "Problema: columnas de incertidumbre no detectadas"
+
+#: ../../../docs/troubleshooting.md:112 ef9e22fe96c64a4ab60934cd4670189f
+msgid "Verify naming: uncertainty for column `x` must be named `ux`."
+msgstr ""
+"Verificar el nombre: la incertidumbre de la columna \"x\" debe denominarse "
+"\"ux\"."
+
+#: ../../../docs/troubleshooting.md:113 b636cb15860a4c91b4beab106b253682
+msgid "Use lowercase `u` prefix."
+msgstr "Utilice el prefijo \"u\" minúscula."
+
+#: ../../../docs/troubleshooting.md:114 25b5d4cbe168487097fbd7d640877c3c
+msgid "Check for extra spaces in column names."
+msgstr "Compruebe si hay espacios adicionales en los nombres de las columnas."
+
+#: ../../../docs/troubleshooting.md:115 c6057baffd2c47748652c85c59da00ac
+msgid "Ensure uncertainty columns contain numeric values."
+msgstr ""
+"Asegúrese de que las columnas de incertidumbre contengan valores numéricos."
+
+#: ../../../docs/troubleshooting.md:117 64a3573f8c9f4f549b4557ba75a6c072
+msgid "Fitting Issues"
+msgstr "Problemas de ajuste"
+
+#: ../../../docs/troubleshooting.md:119 d3b5ca3f81df487d831e5e772c70402f
+msgid "Problem: \"Optimal parameters not found\""
+msgstr "Problema: \"No se encontraron parámetros óptimos\""
+
+#: ../../../docs/troubleshooting.md:125 ../../../docs/troubleshooting.md:152
+#: ../../../docs/troubleshooting.md:179 1580b1219a1540c58a4dd2b153199a3b
+#: 4e6fa485474f400a934346765f2c6a2b c62bcc598b3c422ab51f4fff144a8ffb
+msgid "**Causes**:"
+msgstr "**Causas**:"
+
+#: ../../../docs/troubleshooting.md:126 6d7bc818a6e046359fb63fb6a097078f
+msgid "Not enough data points (need at least 5-10)."
+msgstr ""
+"No hay suficientes puntos de datos (se necesitan al menos entre 5 y 10)."
+
+#: ../../../docs/troubleshooting.md:127 ae798887f68d4f9f9f4db11091f1f724
+msgid "Data doesn't match equation type."
+msgstr "Los datos no coinciden con el tipo de ecuación."
+
+#: ../../../docs/troubleshooting.md:128 1a9b5fb0cf824fd4a36ecb45e31b4899
+msgid "Bad initial parameter guess."
+msgstr "Mala estimación del parámetro inicial."
+
+#: ../../../docs/troubleshooting.md:129 b2400e9128e943a389f10e3d54658667
+msgid "Equation too complex for data."
+msgstr "Ecuación demasiado compleja para los datos."
+
+#: ../../../docs/troubleshooting.md:131 ../../../docs/troubleshooting.md:158
+#: ../../../docs/troubleshooting.md:185 30a0ce8494e94d8aad23fe3940acfcb8
+#: 7bf443105ba84e59bccfdeb883f2b65b 98da95fa788f4acea88894ceb0cc4d2f
+msgid "**Solutions**:"
+msgstr "**Soluciones**:"
+
+#: ../../../docs/troubleshooting.md:132 811735fa33d749ca8501cdbfc894c0a9
+msgid "**Check data quality**:"
+msgstr "**Comprueba la calidad de los datos**:"
+
+#: ../../../docs/troubleshooting.md:133 680a3cd6baf4480b912ace275a2eb0d3
+msgid "Plot data first (use \"Watch Data\")."
+msgstr "Trazar los datos primero (use \"Ver datos\")."
+
+#: ../../../docs/troubleshooting.md:134 922d102715614d83b3b45d72a65e4836
+msgid "Look for obvious outliers."
+msgstr "Busque valores atípicos obvios."
+
+#: ../../../docs/troubleshooting.md:135 e313e1b85e6041f9bddbc2b091ada591
+msgid "Ensure sufficient data points."
+msgstr "Asegúrese de que haya suficientes puntos de datos."
+
+#: ../../../docs/troubleshooting.md:137 21d11686f8ac4a55a141c26f27697caf
+msgid "**Try different equation**:"
+msgstr "**Pruebe una ecuación diferente**:"
+
+#: ../../../docs/troubleshooting.md:138 0f9bf9b5e834439e85ac3a29d7f132e5
+msgid "Start with simpler equations (linear, quadratic)."
+msgstr "Comience con ecuaciones más simples (lineales, cuadráticas)."
+
+#: ../../../docs/troubleshooting.md:139 3bae059e5b32421bbab9b29c9d4f9675
+msgid "Use Checker mode to test multiple equations."
+msgstr "Utilice el modo Checker para probar múltiples ecuaciones."
+
+#: ../../../docs/troubleshooting.md:141 8f93dd0fe387475db206dead5a6fdf44
+msgid "**Provide better initial guess**:"
+msgstr "**Proporciona una mejor suposición inicial**:"
+
+#: ../../../docs/troubleshooting.md:142 188a4472cede42b09c016b008cb5144e
+msgid "For custom formulas, estimate parameters manually."
+msgstr "Para fórmulas personalizadas, estime los parámetros manualmente."
+
+#: ../../../docs/troubleshooting.md:143 1e5c791c634b4a5bbeb0992cd908f9fa
+msgid "Look at data range to guess amplitudes."
+msgstr "Mire el rango de datos para adivinar amplitudes."
+
+#: ../../../docs/troubleshooting.md:145 edddd438720d4351ad4c6a72bf32a860
+msgid "**Simplify the model**:"
+msgstr "**Simplifica el modelo**:"
+
+#: ../../../docs/troubleshooting.md:146 f3264bc00992476c9300199ddcb54c18
+msgid "Reduce number of parameters."
+msgstr "Reducir el número de parámetros."
+
+#: ../../../docs/troubleshooting.md:147 adf3ceb6b4804c3f816cfb4da7761dc1
+msgid "Remove unnecessary complexity."
+msgstr "Elimine la complejidad innecesaria."
+
+#: ../../../docs/troubleshooting.md:150 baad1f197db0447bba2b0840f4c18368
+msgid "Problem: Low R² Value (Poor Fit)"
+msgstr "Problema: valor R² bajo (mal ajuste)"
+
+#: ../../../docs/troubleshooting.md:153 9a32982ef88a4c4fb42e609d389ac72a
+msgid "Wrong equation type for data."
+msgstr "Tipo de ecuación incorrecto para los datos."
+
+#: ../../../docs/troubleshooting.md:154 7c64da490afe48f6b2458e7ba1bcc6b0
+msgid "Noisy data."
+msgstr "Datos ruidosos."
+
+#: ../../../docs/troubleshooting.md:155 e8b696aeefa54199a35d88942d8e0ddd
+msgid "Outliers present."
+msgstr "Valores atípicos presentes."
+
+#: ../../../docs/troubleshooting.md:156 08c22478d6e24b52aa26bdc9d174f5b9
+msgid "Insufficient data points."
+msgstr "Puntos de datos insuficientes."
+
+#: ../../../docs/troubleshooting.md:159 920a15f2b1644bc094f2a8f7e54e9f37
+msgid "**Try different equations**:"
+msgstr "**Pruebe diferentes ecuaciones**:"
+
+#: ../../../docs/troubleshooting.md:160 f890d111a2d8401f822a895d199697a6
+msgid "Use Checker or Total Fitting mode."
+msgstr "Utilice el modo Comprobador o Ajuste total."
+
+#: ../../../docs/troubleshooting.md:161 70dc4e91753941c98ed3773a0a9ec27a
+msgid "Compare R² values across equations."
+msgstr "Compare los valores de R² entre ecuaciones."
+
+#: ../../../docs/troubleshooting.md:163 a02ee23e7c27468289d571640626e495
+msgid "**Clean data**:"
+msgstr "**Datos limpios**:"
+
+#: ../../../docs/troubleshooting.md:164 7233996816e242cf97d83d629c875161
+msgid "Use Loop mode to iteratively remove outliers."
+msgstr ""
+"Utilice el modo Bucle para eliminar de forma iterativa los valores atípicos."
+
+#: ../../../docs/troubleshooting.md:165 285832ffe39645d68713f879660142e9
+msgid "Filter data before fitting."
+msgstr "Filtrar datos antes de realizar el ajuste."
+
+#: ../../../docs/troubleshooting.md:167 96ecf954f55b4f04bceec430c9fe614a
+msgid "**Check for systematic issues**:"
+msgstr "**Compruebe si hay problemas sistemáticos**:"
+
+#: ../../../docs/troubleshooting.md:168 cb7362fc517b4057b46bf1816f2ed159
+msgid "Is there a trend the equation doesn't capture?"
+msgstr "¿Existe alguna tendencia que la ecuación no captura?"
+
+#: ../../../docs/troubleshooting.md:169 3725e08a25a74e7ca312a710d705770b
+msgid "Are there periodic components?"
+msgstr "¿Hay componentes periódicos?"
+
+#: ../../../docs/troubleshooting.md:170 8949deb1bdf143b8b0977a2ad2fe3f62
+msgid "Is data actually stochastic?"
+msgstr "¿Son los datos realmente estocásticos?"
+
+#: ../../../docs/troubleshooting.md:173 85d42412a061469495ddf237035774d9
+msgid "Problem: Parameters Have Huge Uncertainties"
+msgstr "Problema: los parámetros tienen enormes incertidumbres"
+
+#: ../../../docs/troubleshooting.md:180 c06373322b4946a98c7982dcd7ebffc8
+msgid "Poorly conditioned problem."
+msgstr "Problema mal condicionado."
+
+#: ../../../docs/troubleshooting.md:181 bf11a8c82a584ae8a02fcc42eb06cb0f
+msgid "Parameters are correlated."
+msgstr "Los parámetros están correlacionados."
+
+#: ../../../docs/troubleshooting.md:182 77359adf67134f47b3284a1316d9f198
+msgid "Not enough data to constrain parameters."
+msgstr "No hay suficientes datos para restringir los parámetros."
+
+#: ../../../docs/troubleshooting.md:183 eea48552736c4869b93eaf13d23d08f3
+msgid "Wrong equation type."
+msgstr "Tipo de ecuación incorrecto."
+
+#: ../../../docs/troubleshooting.md:186 14a57c635f5f4dc4b863b914730dffd6
+msgid "**Collect more data**: More points reduce uncertainties."
+msgstr "**Recopile más datos**: más puntos reducen las incertidumbres."
+
+#: ../../../docs/troubleshooting.md:187 d34655ebc5d846a3988b5b93e141de88
+msgid "**Extend data range**: Cover wider range of X values."
+msgstr "**Ampliar rango de datos**: cubre un rango más amplio de valores X."
+
+#: ../../../docs/troubleshooting.md:188 f14394f5a045420b9197527179ef214d
+msgid "**Reduce parameters**: Simpler model may be better."
+msgstr "**Reducir parámetros**: un modelo más simple puede ser mejor."
+
+#: ../../../docs/troubleshooting.md:189 7e43972d871a489daffdf0a48cb3827b
+msgid "**Fix some parameters**: If you know certain values, fix them."
+msgstr ""
+"**Corregir algunos parámetros**: Si conoce ciertos valores, corríjalos."
+
+#: ../../../docs/troubleshooting.md:191 46b69ca87a4745c8a72f479a3b5b728f
+msgid "Plotting Issues"
+msgstr "Problemas de trazado"
+
+#: ../../../docs/troubleshooting.md:193 18fdd9636a1b4f04b1db3347bdd36ba3
+msgid "Problem: Plot Window is Blank"
+msgstr "Problema: la ventana de trazado está en blanco"
+
+#: ../../../docs/troubleshooting.md:196 c830c23f5bcd4a1f8b384c522288eabd
+msgid "Check output directory exists and is writable."
+msgstr "Compruebe que el directorio de salida exista y se pueda escribir."
+
+#: ../../../docs/troubleshooting.md:197 859f2e0ee6d0483aa97721d33f55af32
+msgid "Verify matplotlib is installed: `pip install matplotlib`."
+msgstr "Verifique que matplotlib esté instalado: `pip install matplotlib`."
+
+#: ../../../docs/troubleshooting.md:198 7264fd9435d94462aab26942ad1dd0ac
+msgid "Check logs for error messages: `regressionlab.log`."
+msgstr ""
+"Verifique los registros en busca de mensajes de error: `regressionlab.log`."
+
+#: ../../../docs/troubleshooting.md:199 3ef5106dd5bd48f987e24e06a8fa1243
+msgid "Try recreating virtual environment."
+msgstr "Intente recrear el entorno virtual."
+
+#: ../../../docs/troubleshooting.md:201 bb705bbec7e64bb89d9da72fd6bcd092
+msgid "Problem: Plot Quality is Poor"
+msgstr "Problema: la calidad de la trama es mala"
+
+#: ../../../docs/troubleshooting.md:204 749d1e5e44f544e6a7b9ecc9c31e46b5
+msgid "Increase DPI in `.env`:"
+msgstr "Aumentar DPI en `.env`:"
+
+#: ../../../docs/troubleshooting.md:208 00ccd6388fa24ceea7b526ba5d8b7c44
+msgid "Adjust figure size:"
+msgstr "Ajustar el tamaño de la figura:"
+
+#: ../../../docs/troubleshooting.md:213 6dcfbedb58054ad4b979277cac461973
+msgid "Modify font sizes in `.env`."
+msgstr "Modifique los tamaños de fuente en `.env`."
+
+#: ../../../docs/troubleshooting.md:215 d245272c67914a7097e93caa478771ee
+msgid "Problem: Error Bars Don't Appear"
+msgstr "Problema: las barras de error no aparecen"
+
+#: ../../../docs/troubleshooting.md:218 232b0ea5c3fe4beb8e31182a3366c19d
+msgid "Verify uncertainty columns exist and are named correctly."
+msgstr ""
+"Verifique que las columnas de incertidumbre existan y tengan el nombre "
+"correcto."
+
+#: ../../../docs/troubleshooting.md:219 2b2ee665bc454b309bc6af873bab6c35
+msgid "Check uncertainties are non-zero."
+msgstr "Las incertidumbres de comprobación son distintas de cero."
+
+#: ../../../docs/troubleshooting.md:220 62b9632346e9411b8b955cbd03ce833d
+msgid "Ensure uncertainties are numeric (not strings)."
+msgstr "Asegúrese de que las incertidumbres sean numéricas (no cadenas)."
+
+#: ../../../docs/troubleshooting.md:221 4b3183e3b37547c39a824fdbdb99e077
+msgid "Try with test data to isolate issue."
+msgstr "Pruebe con datos de prueba para aislar el problema."
+
+#: ../../../docs/troubleshooting.md:223 34af6515c99149458ddf6be6a02b0f34
+msgid "UI Issues (Tkinter)"
+msgstr "Problemas de interfaz de usuario (Tkinter)"
+
+#: ../../../docs/troubleshooting.md:225 3edba2a9e8074bb782189cf8a41b0dba
+msgid "Problem: Dialogs Don't Appear"
+msgstr "Problema: los cuadros de diálogo no aparecen"
+
+#: ../../../docs/troubleshooting.md:228 2a3d83639efb4b2986f2585f94708a8c
+msgid "Check if dialog is behind main window (Alt+Tab)."
+msgstr ""
+"Compruebe si el diálogo está detrás de la ventana principal (Alt+Tab)."
+
+#: ../../../docs/troubleshooting.md:229 679e72d1fb144210902b522c42554c42
+msgid "Look in taskbar for new windows."
+msgstr "Busque en la barra de tareas nuevas ventanas."
+
+#: ../../../docs/troubleshooting.md:230 3f27c6bc12dc40df92c60f5b5b324ce8
+msgid "Disable \"Always on top\" if using other applications."
+msgstr "Desactive \"Siempre visible\" si utiliza otras aplicaciones."
+
+#: ../../../docs/troubleshooting.md:231 ../../../docs/troubleshooting.md:241
+#: ../../../docs/troubleshooting.md:253 061bfcb5fe174275ac0b998f7227f411
+#: 12eef916df7243ac90ed12818d6396ff b2d9a01e0fe244c9947224b76b11b199
+msgid "Restart application."
+msgstr "Reinicie la aplicación."
+
+#: ../../../docs/troubleshooting.md:233 010e6733004744e492ed2828659818c9
+msgid "Problem: Buttons/Text Too Small or Large"
+msgstr "Problema: botones/texto demasiado pequeños o grandes"
+
+#: ../../../docs/troubleshooting.md:235 eb2a4943f5b74dd788989c70ea117f17
+msgid "**Solution**: Edit `.env` file:"
+msgstr "**Solución**: Editar el archivo `.env`:"
+
+#: ../../../docs/troubleshooting.md:243 a9c4058d3e214c07925e7b0b71aa9040
+msgid "Problem: Colors Are Unreadable"
+msgstr "Problema: los colores son ilegibles"
+
+#: ../../../docs/troubleshooting.md:245 6baa53bb541943ed949978a87b9bae5a
+msgid "**Solution**: Reset to default theme:"
+msgstr "**Solución**: Restablecer el tema predeterminado:"
+
+#: ../../../docs/troubleshooting.md:247 f0a04b0342d647ad8c2d59c264fd967c
+msgid "Copy `.env.example` to `.env`"
+msgstr "Copie `.env.example` a `.env`"
+
+#: ../../../docs/troubleshooting.md:248 ab8666d91ad844d69bb1adfea8c98247
+msgid "Or manually set high-contrast colors:"
+msgstr "O configure manualmente colores de alto contraste:"
+
+#: ../../../docs/troubleshooting.md:255 91c9a54f90844266b249aed034cacbec
+msgid "Streamlit Issues"
+msgstr "Problemas de Streamlit"
+
+#: ../../../docs/troubleshooting.md:257 c2c78837036149608e93b21cd121509c
+msgid "Problem: Upload Fails Silently"
+msgstr "Problema: la carga falla silenciosamente"
+
+#: ../../../docs/troubleshooting.md:260 0b116140e4b24ce3a91d96e9beb7d52e
+msgid "Check file size (< 200 MB for online version)."
+msgstr "Verifique el tamaño del archivo (< 200 MB para la versión en línea)."
+
+#: ../../../docs/troubleshooting.md:261 485ebcbcf6634c27b7b6023c2dd55903
+msgid "Verify file format (CSV, XLSX, TXT)."
+msgstr "Verifique el formato del archivo (CSV, XLSX, TXT)."
+
+#: ../../../docs/troubleshooting.md:262 fa57fb668c7d47f8ba92a88a88a6ce65
+msgid "Clear browser cache and retry."
+msgstr "Borre la memoria caché del navegador y vuelva a intentarlo."
+
+#: ../../../docs/troubleshooting.md:263 a177f1e5ddfa4452a18300804e6df1cb
+msgid "Try different browser."
+msgstr "Pruebe con un navegador diferente."
+
+#: ../../../docs/troubleshooting.md:264 9e562ecca89c4e349d1e6ae1f31a56a3
+msgid "Check browser console for JavaScript errors (F12)."
+msgstr ""
+"Verifique la consola del navegador para ver si hay errores de JavaScript "
+"(F12)."
+
+#: ../../../docs/troubleshooting.md:266 950dad97836c4f71b806be8db6dc28f4
+msgid "Problem: Results Disappear After Refresh"
+msgstr "Problema: los resultados desaparecen después de la actualización"
+
+#: ../../../docs/troubleshooting.md:269 0180b3a5e147454fb6329130394818be
+msgid "This is expected behavior - Streamlit doesn't persist results."
+msgstr ""
+"Este es el comportamiento esperado: Streamlit no conserva los resultados."
+
+#: ../../../docs/troubleshooting.md:270 e9fb074216d84bdc88ba8f420cf1f67c
+msgid "Download plots before refreshing."
+msgstr "Descargue los gráficos antes de actualizar."
+
+#: ../../../docs/troubleshooting.md:271 ce0a3bec204446b5bf8e68ead3c41ae2
+msgid "Use Tkinter version if persistence needed."
+msgstr "Utilice la versión Tkinter si necesita persistencia."
+
+#: ../../../docs/troubleshooting.md:273 4ebbc1a4004845ae87c577191770e230
+msgid "Problem: App is Slow/Unresponsive"
+msgstr "Problema: la aplicación es lenta o no responde"
+
+#: ../../../docs/troubleshooting.md:276 aca35d71283846d9be31281311897d30
+msgid "Close other tabs to free memory."
+msgstr "Cierra otras pestañas para liberar memoria."
+
+#: ../../../docs/troubleshooting.md:277 2e745fe30b6f4a019ac73267238898fa
+msgid "Use local version for better performance."
+msgstr "Utilice la versión local para un mejor rendimiento."
+
+#: ../../../docs/troubleshooting.md:278 1be5d6cc4ccc4284b2e317f293844a97
+msgid "Reduce dataset size."
+msgstr "Reducir el tamaño del conjunto de datos."
+
+#: ../../../docs/troubleshooting.md:279 1f74e6a58eee47e08dd07bc0da72a829
+msgid "Avoid Total Fitting mode for large datasets."
+msgstr "Evite el modo de ajuste total para conjuntos de datos grandes."
+
+#: ../../../docs/troubleshooting.md:281 2507a009762a4e7b8f964967f7e742c3
+msgid "Android / Mobile Platforms"
+msgstr "Android/plataformas móviles"
+
+#: ../../../docs/troubleshooting.md:283 27d86ff4e2714c9f94c3578d2407e7f6
+msgid "Status: Not Supported (Attempted)"
+msgstr "Estado: No admitido (intento)"
+
+#: ../../../docs/troubleshooting.md:285 b77eb708686045e297d70904a048efd0
+msgid ""
+"An Android installer has been attempted using **Termux** (terminal emulator)"
+" and **Termux:X11** for the graphical interface. This approach has not been "
+"successful."
+msgstr ""
+"Se ha intentado instalar un Android usando **Termux** (emulador de terminal)"
+" y **Termux:X11** para la interfaz gráfica. Este enfoque no ha tenido éxito."
+
+#: ../../../docs/troubleshooting.md:287 2b3ded9dca7b472283dc2a5ef114d68a
+msgid ""
+"**Main obstacle**: Installing dependencies reliably, especially **scipy**. "
+"The standard `pip install -r requirements.txt` fails in Termux due to "
+"compilation and compatibility issues with the ARM architecture and Termux's "
+"environment."
+msgstr ""
+"**Obstáculo principal**: instalar dependencias de manera confiable, "
+"especialmente **scipy**. El estándar `pip install -r requisitos.txt` falla "
+"en Termux debido a problemas de compilación y compatibilidad con la "
+"arquitectura ARM y el entorno de Termux."
+
+#: ../../../docs/troubleshooting.md:289 c5318364ae3b494f99e99370e167d4ce
+msgid ""
+"**Alternative that works (manual only)**: **Pydroid 3** allows running the "
+"application by installing each library manually with the appropriate "
+"options. However, Pydroid 3 does not support automated installation scripts,"
+" so a one-click or scripted installer is not feasible."
+msgstr ""
+"**Alternativa que funciona (solo manual)**: **Pydroid 3** permite ejecutar "
+"la aplicación instalando cada biblioteca manualmente con las opciones "
+"apropiadas. Sin embargo, Pydroid 3 no admite scripts de instalación "
+"automatizados, por lo que no es factible un instalador con un solo clic o "
+"con script."
+
+#: ../../../docs/troubleshooting.md:291 26ff6fa511134e81adb43ba471b60fac
+msgid "**Summary**:"
+msgstr "**Resumen**:"
+
+#: ../../../docs/troubleshooting.md:292 b719873d4f91421ba062d104fccb47fa
+msgid ""
+"**Termux + Termux:X11**: Library installation (scipy in particular) fails; "
+"no working solution found."
+msgstr ""
+"**Termux + Termux:X11**: La instalación de la biblioteca (scipy en "
+"particular) falla; no se encontró ninguna solución funcional."
+
+#: ../../../docs/troubleshooting.md:293 baceabd528a04652a4ecffba4a607d97
+msgid ""
+"**Pydroid 3**: Works with manual per-library installation, but cannot be "
+"automated. Android support remains a long-term goal; contributions or "
+"solutions to the dependency installation problem are welcome. If you want to"
+" see the best point I reached, check the `scripts/install_termux.sh` and "
+"`scripts/setup_termux.sh` files."
+msgstr ""
+"**Pydroid 3**: funciona con instalación manual por biblioteca, pero no se "
+"puede automatizar. La compatibilidad con Android sigue siendo un objetivo a "
+"largo plazo; Se aceptan aportes o soluciones al problema de instalación de "
+"dependencias. Si desea ver el mejor punto al que llegué, consulte los "
+"archivos `scripts/install_termux.sh` y `scripts/setup_termux.sh`."
+
+#: ../../../docs/troubleshooting.md:296 dd846dc793e244a39d40d69b5ec10d08
+msgid "Debugging Tips"
+msgstr "Consejos de depuración"
+
+#: ../../../docs/troubleshooting.md:298 6e58b26faec0475bbd6386d2df4839d2
+msgid "Enable Debug Logging"
+msgstr "Habilitar el registro de depuración"
+
+#: ../../../docs/troubleshooting.md:300 054d95151dc4404499f081fbff6b1fcc
+msgid "Edit `.env`:"
+msgstr "Editar `.env`:"
+
+#: ../../../docs/troubleshooting.md:306 95cfbe6ecc90484fbc8e84d9ec7ec8e0
+msgid "View logs:"
+msgstr "Ver registros:"
+
+#: ../../../docs/troubleshooting.md:315 14335e7a838d47da912662370d1446d5
+msgid "Check Python Environment"
+msgstr "Comprobar el entorno Python"
+
+#: ../../../docs/troubleshooting.md:331 cce7fcb875324a3a95278021e72a087c
+msgid "Isolate the Problem"
+msgstr "Aislar el problema"
+
+#: ../../../docs/troubleshooting.md:333 7363693b4fd94340b3fdcee142616836
+msgid "**Test with sample data**: Use files in `input/` folder."
+msgstr "**Prueba con datos de muestra**: use archivos en la carpeta `input/`."
+
+#: ../../../docs/troubleshooting.md:334 c221773a13bc417daebedee09dd4225f
+msgid "**Test different modes**: Does issue occur in all modes?"
+msgstr ""
+"**Pruebe diferentes modos**: ¿Se produce el problema en todos los modos?"
+
+#: ../../../docs/troubleshooting.md:335 ef4547a904114b66a43fa1d5fb1ca519
+msgid "**Test both interfaces**: Try Tkinter AND Streamlit."
+msgstr "**Pruebe ambas interfaces**: Pruebe Tkinter Y Streamlit."
+
+#: ../../../docs/troubleshooting.md:336 107b8d4b3abf46c3aa9751cfa982c832
+msgid "**Minimal example**: Create simplest case that reproduces issue."
+msgstr ""
+"**Ejemplo mínimo**: cree el caso más simple que reproduzca el problema."
+
+#: ../../../docs/troubleshooting.md:338 ebbdf04120ba48bbba31dc19305e3d7d
+msgid "Report a Bug"
+msgstr "Informar un error"
+
+#: ../../../docs/troubleshooting.md:340 f8ca7448f6594ac6a37f214093c91a6f
+msgid "If you can't solve the issue, please report it on GitHub with:"
+msgstr "Si no puede resolver el problema, infórmelo en GitHub con:"
+
+#: ../../../docs/troubleshooting.md:342 cd768ebceaa4459e8afaf0cc7193b642
+msgid ""
+"**Version**: Check version in main menu or `config` (e.g. "
+"`config/constants.py`)."
+msgstr ""
+"**Versión**: Verifique la versión en el menú principal o `config` (por "
+"ejemplo, `config/constants.py`)."
+
+#: ../../../docs/troubleshooting.md:343 a9478a5820a34f03ba5eee034fdfad02
+msgid "**Operating System**: Windows, macOS, or Linux (with version)."
+msgstr "**Sistema Operativo**: Windows, macOS o Linux (con versión)."
+
+#: ../../../docs/troubleshooting.md:344 34465c542933451fa8033d3030a98040
+msgid "**Python Version**: Output of `python --version`."
+msgstr "**Versión de Python**: Salida de `python --version`."
+
+#: ../../../docs/troubleshooting.md:345 2afcac4834384b0881566f175513dd6b
+msgid "**Steps to Reproduce**: Exact steps to trigger the issue."
+msgstr ""
+"**Pasos para reproducir**: pasos exactos para desencadenar el problema."
+
+#: ../../../docs/troubleshooting.md:346 e25f063e4d9c4e819791c373be001127
+msgid "**Expected Behavior**: What should happen."
+msgstr "**Comportamiento esperado**: Qué debería suceder."
+
+#: ../../../docs/troubleshooting.md:347 08d6545db3b345649a651e13e7ca0ff4
+msgid "**Actual Behavior**: What actually happens."
+msgstr "**Comportamiento real**: Lo que realmente sucede."
+
+#: ../../../docs/troubleshooting.md:348 268f50da1f4d43afb148d2ff9096824b
+msgid "**Error Messages**: Full error message and traceback."
+msgstr "**Mensajes de error**: mensaje de error completo y rastreo."
+
+#: ../../../docs/troubleshooting.md:349 3e8f0cababfc4414ac32be735f4cc86b
+msgid "**Logs**: Relevant portions of `regressionlab.log`."
+msgstr "**Registros**: partes relevantes de `regressionlab.log`."
+
+#: ../../../docs/troubleshooting.md:350 70c4be7623794a50af61055b02dd1bcc
+msgid "**Screenshots**: If UI-related."
+msgstr ""
+"**Capturas de pantalla**: si están relacionadas con la interfaz de usuario."
+
+#: ../../../docs/troubleshooting.md:351 e532743c95a945c7ab6f2c9319e7d6ce
+msgid "**Sample Data**: If possible, include data file that triggers issue."
+msgstr ""
+"**Datos de muestra**: si es posible, incluya el archivo de datos que "
+"desencadena el problema."
+
+#: ../../../docs/troubleshooting.md:353 66d1e3d96f104a12bff679c28f7c6081
+msgid "Future Updates and Roadmap"
+msgstr "Actualizaciones futuras y hoja de ruta"
+
+#: ../../../docs/troubleshooting.md:354 39646d40c37846be866f34a1e2cf03a2
+msgid "Long-Term Goals (2027+)"
+msgstr "Metas a largo plazo (2027+)"
+
+#: ../../../docs/troubleshooting.md:356 426c114554ca4d1ebd455cafe730ad58
+msgid "**Under Consideration**:"
+msgstr "**Está siendo considerado**:"
+
+#: ../../../docs/troubleshooting.md:357 d1714f0fc11a4680af9e57ae704e77ac
+msgid "Time-series analysis tools."
+msgstr "Herramientas de análisis de series temporales."
+
+#: ../../../docs/troubleshooting.md:358 66b3b1851589455c8d13f683fbb0a70f
+msgid "Machine learning models (SVM, Random Forest, Neural Networks)."
+msgstr ""
+"Modelos de aprendizaje automático (SVM, Random Forest, Neural Networks)."
+
+#: ../../../docs/troubleshooting.md:359 294acbe119734a1382ef1c75c0b9c88e
+msgid "Bayesian regression and uncertainty quantification."
+msgstr "Regresión bayesiana y cuantificación de la incertidumbre."
+
+#: ../../../docs/troubleshooting.md:360 208acbc16d5b4e69aab4bdf62335ff0a
+msgid "Automated model selection and comparison tools."
+msgstr "Herramientas automatizadas de selección y comparación de modelos."
+
+#: ../../../docs/troubleshooting.md:362 fc7c328f7a2c40be97846397b0bafb65
+msgid "How to Request Features"
+msgstr "Cómo solicitar funciones"
+
+#: ../../../docs/troubleshooting.md:364 395681edf497410686f28f98b4e2f3f9
+msgid "**Check existing issues**: Avoid duplicates."
+msgstr "**Verifique los problemas existentes**: evite duplicados."
+
+#: ../../../docs/troubleshooting.md:365 048c47769d734441be66a6ce6b7902ca
+msgid "**Open GitHub issue**: Use \"Feature Request\" template."
+msgstr ""
+"**Abrir problema de GitHub**: utilice la plantilla \"Solicitud de función\"."
+
+#: ../../../docs/troubleshooting.md:366 7a4e0b028a53468585ccbdec57e3c2aa
+msgid "**Describe use case**: Why is this feature needed?"
+msgstr "**Describa el caso de uso**: ¿Por qué se necesita esta función?"
+
+#: ../../../docs/troubleshooting.md:367 0b645ba2ba1c48b6bd3ce36eec2c73b0
+msgid "**Provide examples**: Show what you want to achieve."
+msgstr "**Proporcione ejemplos**: muestre lo que desea lograr."
+
+#: ../../../docs/troubleshooting.md:368 c554a712c413447fad63b1a3bbd0a248
+msgid "**Be patient**: We're a one person team!"
+msgstr "**Ten paciencia**: ¡Somos un equipo de una sola persona!"
+
+#: ../../../docs/troubleshooting.md:370 271cf74328df499eb89f9ea5b284304c
+msgid "Optimization Tips"
+msgstr "Consejos de optimización"
+
+#: ../../../docs/troubleshooting.md:372 ab29fdf0dba24f8a83b96d2beaf3303a
+msgid "For Faster Fitting"
+msgstr "Para un ajuste más rápido"
+
+#: ../../../docs/troubleshooting.md:374 20b72f53f9c045d88f46b68ddf40b9f1
+msgid "**Use compiled Python**: Try PyPy for pure Python code."
+msgstr ""
+"**Utilice Python compilado**: pruebe PyPy para obtener código Python puro."
+
+#: ../../../docs/troubleshooting.md:375 b57741c6cf8f46a8a0c326f9043eaaf5
+msgid "**Reduce plot resolution**: Lower DPI for faster rendering."
+msgstr ""
+"**Reducir la resolución de la trama**: Baje los DPI para una representación "
+"más rápida."
+
+#: ../../../docs/troubleshooting.md:376 94a388bdd45f48d0a45c3de968a747a5
+msgid "**Disable logging**: Set `LOG_LEVEL=WARNING` in production."
+msgstr ""
+"**Deshabilitar el registro**: establezca `LOG_LEVEL=WARNING` en producción."
+
+#: ../../../docs/troubleshooting.md:377 cae3c4536c3b47d180772e60c6b2b107
+msgid "**Use local version**: Avoid network latency."
+msgstr "**Utilice la versión local**: evite la latencia de la red."
+
+#: ../../../docs/troubleshooting.md:378 689cab514cec4c5bbd47f5c2820130f4
+msgid "**Close result windows**: Free memory between fits."
+msgstr "**Cerrar ventanas de resultados**: Libera memoria entre ajustes."
+
+#: ../../../docs/troubleshooting.md:380 bd062a15c9ae41c5b89c311255e06e4d
+msgid "For Better Accuracy"
+msgstr "Para una mejor precisión"
+
+#: ../../../docs/troubleshooting.md:382 939d9023e8c04ce1a44f13756e2cebc9
+msgid "**Provide uncertainties**: Weighted fitting is more accurate."
+msgstr "**Proporcione incertidumbres**: el ajuste ponderado es más preciso."
+
+#: ../../../docs/troubleshooting.md:383 782d9691237e489db1e8fad4a305af0b
+msgid "**Use appropriate equation**: Don't over-complicate."
+msgstr "**Utilice la ecuación adecuada**: No complique demasiado."
+
+#: ../../../docs/troubleshooting.md:384 dbad8c7549d44fa183ae4ea5c0cc7ce7
+msgid "**Collect more data**: More points = better parameter estimates."
+msgstr ""
+"**Recopile más datos**: Más puntos = mejores estimaciones de parámetros."
+
+#: ../../../docs/troubleshooting.md:385 1617de9f353f47cb87becbedcff1e0cd
+msgid "**Extend data range**: Cover full range of interest."
+msgstr "**Ampliar el rango de datos**: cubre el rango completo de intereses."
+
+#: ../../../docs/troubleshooting.md:388 9c7fd073b7a34d53bae713f7440cbef6
+msgid "Getting Help"
+msgstr "Obtener ayuda"
+
+#: ../../../docs/troubleshooting.md:390 fb23684cbdaf4709bc254f80a721a576
+msgid "Resources"
+msgstr "Recursos"
+
+#: ../../../docs/troubleshooting.md:392 660b64fc6b044c0488d43033224b544d
+msgid "**Documentation**: Start here!"
+msgstr "**Documentación**: ¡Empieza aquí!"
+
+#: ../../../docs/troubleshooting.md:393 e3cef3d6289d47639903e6ee38c44343
+msgid "[User Guide](usage.md)."
+msgstr "[Guía del usuario](usage.md)."
+
+#: ../../../docs/troubleshooting.md:394 52a38dc6a97c4bea8980f07bef557904
+msgid "[Configuration Guide](configuration.md)."
+msgstr "[Guía de configuración](configuration.md)."
+
+#: ../../../docs/troubleshooting.md:395 bb50afafa10441c2a8dd9adb4bef31a4
+msgid "[API Documentation](api/index)."
+msgstr "[Documentación API](api/índice)."
+
+#: ../../../docs/troubleshooting.md:397 f18d2c7f3be34715a1806ac62c8824aa
+msgid "**Examples**: Check `input/` folder for sample datasets."
+msgstr ""
+"**Ejemplos**: consulte la carpeta `input/` para ver conjuntos de datos de "
+"muestra."
+
+#: ../../../docs/troubleshooting.md:399 a0122081d63d414fa00e7e0fb16051c1
+msgid "**GitHub**:"
+msgstr "**GitHub**:"
+
+#: ../../../docs/troubleshooting.md:400 a9eab016a2c54ce888c302693d223f68
+msgid ""
+"[Issues](https://github.com/DOKOS-TAYOS/RegressionLab/issues): Report bugs."
+msgstr ""
+"[Problemas](https://github.com/DOKOS-TAYOS/RegressionLab/issues): Informar "
+"errores."
+
+#: ../../../docs/troubleshooting.md:401 1a28d83855e8407caf38958dd7b0747f
+msgid ""
+"[Discussions](https://github.com/DOKOS-TAYOS/RegressionLab/discussions): Ask"
+" questions."
+msgstr ""
+"[Discusiones](https://github.com/DOKOS-TAYOS/RegressionLab/discussions): "
+"Haga preguntas."
+
+#: ../../../docs/troubleshooting.md:403 4299c9ce4c38476da96fb2d90a2798de
+msgid "**Community**:"
+msgstr "**Comunidad**:"
+
+#: ../../../docs/troubleshooting.md:404 d637436d77ef453880719ab5c26f3614
+msgid "Share your analyses."
+msgstr "Comparte tus análisis."
+
+#: ../../../docs/troubleshooting.md:405 8c007771b04a40958169a2ea000366b9
+msgid "Contribute code."
+msgstr "Código de contribución."
+
+#: ../../../docs/troubleshooting.md:406 46931d05d254498791bc46a43a295577
+msgid "Improve documentation."
+msgstr "Mejorar la documentación."
+
+#: ../../../docs/troubleshooting.md:408 e968e584f8db45d4b94e516c4414acba
+msgid "Contact"
+msgstr "Contacto"
+
+#: ../../../docs/troubleshooting.md:410 4f1b7eb9d4d549d791ddc15bced52991
+msgid "**Email**: alejandro.mata.ali@gmail.com."
+msgstr "**Correo electrónico**: alejandro.mata.ali@gmail.com."
+
+#: ../../../docs/troubleshooting.md:411 32621be0c1194ec4aa663ff5e9eed9d8
+msgid "**GitHub**: Open an issue for bugs/features."
+msgstr "**GitHub**: abre un problema para errores/características."
+
+#: ../../../docs/troubleshooting.md:415 14442b4dfbec4676a65fb85255d44df4
+msgid ""
+"*Document last updated: February 2026.* *If you solved a problem not listed "
+"here, please contribute by opening a pull request!*"
+msgstr ""
+"*Última actualización del documento: febrero de 2026.* *Si resolvió un "
+"problema que no figura aquí, ¡contribuya abriendo una solicitud de "
+"extracción!*"

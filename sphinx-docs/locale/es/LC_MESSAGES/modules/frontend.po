@@ -1,0 +1,894 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Alejandro Mata Ali
+# This file is distributed under the same license as the RegressionLab
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: RegressionLab 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-13 19:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../source/modules/frontend.rst:3 988dadc120294d33865c7a5eb39c9568
+msgid "Frontend Module"
+msgstr "Módulo Frontend"
+
+#: ../../source/modules/frontend.rst:5 59397940312c4c328755a007e2c01355
+msgid ""
+"The ``frontend`` module contains the Tkinter-based graphical user "
+"interface."
+msgstr ""
+"El módulo ``frontend`` contiene la interfaz gráfica basada en Tkinter."
+
+#: ../../source/modules/frontend.rst:8 ebb20bb6f0e0471c97c310f2c50509a6
+msgid "Main Menu"
+msgstr "Menú principal"
+
+#: 4772670e6b1c41f795f2a3467d969d30 frontend.ui_main_menu:1 of
+msgid ""
+"Main menu module. Contains the main application window and exit "
+"confirmation dialog."
+msgstr ""
+"Módulo del menú principal. Contiene la ventana principal de la aplicación y el "
+"diálogo de confirmación de salida."
+
+#: 529cc8e209c34e54b7c73bd41689c024 frontend.ui_main_menu.create_main_menu:1 of
+msgid "Create and display the main application menu window."
+msgstr "Crear y mostrar la ventana del menú principal de la aplicación."
+
+#: ../../source/modules/frontend.rst 1b4376f19de947ae8330505fa1b88d14
+#: 1e6bb4eda7164af4a39d010922f8ff98 38dce23d0fd4489dbec92b4f69fa316a
+#: 411ca9129d7e4a019d196834c8ab9485 5078fadbeed943ecb739a4a75737f49a
+#: 5b7f962209934e8fa355e460b2dbea2e 616b3960d77f4848864c95791dfd9b9e
+#: 69c5714fccee483cbf531ba3639c14a2 7126f943656043658855ed16b12b6483
+#: 7e42d132c98240f0851743402c972c9e 825cc3b19afc4cd1b43c680fb630db31
+#: 9113c98b33374097b8414df5e8723d66 91b6501ce34a4a74a07541acad465840
+#: 92777eb5996e4ae3bf48cba7f79fbbcf 9718d35bf7b947a5b70387cf32072749
+#: abf1a33bcb044a39b3839edc3101381d acafe4225547422588f68d199fbf0df5
+#: b58acf9341744a70904bdb5051af86df c4ead6d92095472bb115ebfede4494d5
+#: cd2b31d1f27740e489ce454cf8d6148d d9f751791c034567a88f8f1afa630e07
+#: ec86d8745a954ea4b2d8ea2cebcdd399 f1462af379fc4b36ab83488850d8558b
+#: f894747bdcc64cdfb2ade8a13e6339c5 ff2c6b00d90f43b988b53ec6bf0b3734
+msgid "Parameters"
+msgstr "Parámetros"
+
+#: 8f738dbbca2c4366a264f0ac98408ad4 e160a9534d5a48fd9df9c9cded5c82a3
+#: frontend.ui_main_menu.create_main_menu:3
+#: frontend.ui_main_menu.start_main_menu:5 of
+msgid "Function to call for normal fitting"
+msgstr "Función a llamar para ajuste normal"
+
+#: 02c1a3d7df814d36847808ad03240e03 60b23171a6a741fa8d7f37d7370db7c9
+#: frontend.ui_main_menu.create_main_menu:4
+#: frontend.ui_main_menu.start_main_menu:6 of
+msgid "Function to call for single fit on multiple datasets"
+msgstr "Función a llamar para un ajuste sobre varios conjuntos de datos"
+
+#: 5d86e9de1bba4954931d27e2d76e4dd7 b2303ff59f94465d953df1c30dc913c7
+#: frontend.ui_main_menu.create_main_menu:5
+#: frontend.ui_main_menu.start_main_menu:7 of
+msgid "Function to call for multiple fits on single dataset"
+msgstr "Función a llamar para varios ajustes sobre un único conjunto de datos"
+
+#: 76b7aaeaf5014841b119d6906c5fb61b f08b281f4cf64ab5afee383e841ee4e8
+#: frontend.ui_main_menu.create_main_menu:6
+#: frontend.ui_main_menu.start_main_menu:8 of
+msgid "Function to call for all fits on single dataset"
+msgstr "Función a llamar para todos los ajustes sobre un único conjunto de datos"
+
+#: 4663d628047f4142ac1824d2718e6fb9 5f51b25e23924b07b08ee6405c40d735
+#: frontend.ui_main_menu.create_main_menu:7
+#: frontend.ui_main_menu.start_main_menu:9 of
+msgid "Function to call for viewing data"
+msgstr "Función a llamar para ver datos"
+
+#: 3f857f903ffd4e57ba84be28b5e2b5df dd785732200f45669f416d6ac69b2ff5
+#: frontend.ui_main_menu.create_main_menu:8
+#: frontend.ui_main_menu.start_main_menu:10 of
+msgid "Function to display help information"
+msgstr "Función para mostrar la información de ayuda"
+
+#: ../../source/modules/frontend.rst 09c72a50188b4228967b0f393867c585
+#: 120b7040721a462f8f3cdcad74f8dbca 26321a1deb5b47c78f4587e76e04a60f
+#: 29e0fbf1985b44768a925ba2bbe744de 4353ed27b52448c5b16f6e1a56c5e0d0
+#: 47859ef7cee5462598357846ef0cccd9 507f7461fd6547eebea0957eaabb0128
+#: 59996fb5766946e9914e43f31037be23 820a17a5144b4c05945bf10d2549577a
+#: 8a6aaa18eeab4b29b95dcc95abeb8a83 8f2ce5346dbe41788cc3ed8ceedced6b
+#: 93234fbfc4324f25b63e6117c54f3e4d 955b092a523e46d78de5b8db937574f6
+#: c956e6485bc540bab423a338396e8ab6 d47ffca2bf5b4a259ab7afbe7a778a1a
+#: ecd460a0ba4042329dcfe138a864e668 fd98b7176a404f8886ad069bf2f3399e
+msgid "Returns"
+msgstr "Devuelve"
+
+#: 0a1d9e7b80274fe589278a6324176571 frontend.ui_main_menu.create_main_menu:10
+#: of
+msgid "The main Tk window instance"
+msgstr "La instancia de la ventana principal Tk"
+
+#: 4fdd340df9ee48548f9f79e75482d1d7
+#: frontend.ui_main_menu.show_exit_confirmation:1 of
+msgid "Display exit confirmation dialog."
+msgstr "Mostrar el diálogo de confirmación de salida."
+
+#: b76c17e46f5f44bc80c9cd19bd1c6ae5
+#: frontend.ui_main_menu.show_exit_confirmation:3 of
+msgid "The parent menu window to close if user confirms exit"
+msgstr "La ventana del menú padre a cerrar si el usuario confirma la salida"
+
+#: 47de92caebd3457a85a1756693b826e6 frontend.ui_main_menu.start_main_menu:1 of
+msgid "Create and run the main application menu."
+msgstr "Crear y ejecutar el menú principal de la aplicación."
+
+#: 5e0d578e26504d5a9a73a8814b1b036d frontend.ui_main_menu.start_main_menu:3 of
+msgid "This is the entry point for the GUI application."
+msgstr "Es el punto de entrada de la aplicación con interfaz gráfica."
+
+#: ../../source/modules/frontend.rst:13 5b3a04b1746343c2bc090565416d1eb6
+msgid "Image Utilities"
+msgstr "Utilidades de imagen"
+
+#: c5e4e480aa1d4182ac3497e48a8e71a6 frontend.image_utils:1 of
+msgid "Shared image loading and scaling for the Tkinter frontend."
+msgstr "Carga y escalado compartido de imágenes para el frontend Tkinter."
+
+#: e8bc29730123401badb5e4ea686a7835 frontend.image_utils.plot_display_path:1 of
+msgid "Return the path to use for displaying a plot in the GUI."
+msgstr "Devolver la ruta a usar para mostrar un gráfico en la interfaz."
+
+#: f441698723b74573a1a951c02b3e9e89 frontend.image_utils.plot_display_path:3 of
+msgid ""
+"When the saved file is PDF, returns the ``_preview.png`` path if it "
+"exists, so Tkinter can show the image without breaking."
+msgstr ""
+"Cuando el archivo guardado es PDF, devuelve la ruta ``_preview.png`` si existe, "
+"para que Tkinter pueda mostrar la imagen sin fallos."
+
+#: 08fdf7184c964d8dbc193af89ca30830 frontend.image_utils.plot_display_path:6 of
+msgid "Full path to the saved plot file (e.g. PDF or PNG)."
+msgstr "Ruta completa al archivo del gráfico guardado (p. ej. PDF o PNG)."
+
+#: e630f649a6dc48fca0ac918235869a35 frontend.image_utils.plot_display_path:8 of
+msgid "Path to the image file to display (preview PNG for PDFs when available)."
+msgstr "Ruta al archivo de imagen a mostrar (PNG de vista previa para PDF cuando exista)."
+
+#: 26542ab94cbd41f0a29a27831b342586
+#: frontend.image_utils.preview_path_to_remove_after_display:1 of
+msgid "Return the path of an auxiliary preview file to remove after display."
+msgstr "Devolver la ruta del archivo de vista previa auxiliar a eliminar tras mostrarlo."
+
+#: 172932d468fe44e6adf544d7f7f15191
+#: frontend.image_utils.preview_path_to_remove_after_display:3 of
+msgid ""
+"If the displayed image is an auxiliary preview file (``_preview.png``), "
+"return its path so the caller can delete it after the window is closed."
+msgstr ""
+"Si la imagen mostrada es un archivo de vista previa auxiliar (``_preview.png``), "
+"devolver su ruta para que el llamador pueda borrarlo tras cerrar la ventana."
+
+#: b10d8db5dd60471e9e39ed2cb283b20e
+#: frontend.image_utils.preview_path_to_remove_after_display:6 of
+msgid "Path actually used for display (may be preview PNG)."
+msgstr "Ruta realmente usada para mostrar (puede ser el PNG de vista previa)."
+
+#: 282ed9a7bd0c47639eb3da18f5f1b455
+#: frontend.image_utils.preview_path_to_remove_after_display:7 of
+msgid "Original output path (e.g. PDF path)."
+msgstr "Ruta de salida original (p. ej. ruta del PDF)."
+
+#: 9033c028d938409f9c86a58c1328fa23
+#: frontend.image_utils.preview_path_to_remove_after_display:9 of
+msgid "Path to the preview file to delete, or None if no cleanup needed."
+msgstr "Ruta del archivo de vista previa a borrar, o None si no hace falta limpieza."
+
+#: d0fb642950f94692b4806086b8be6a1f frontend.image_utils.load_image_scaled:1 of
+msgid ""
+"Load an image from file and return a Tk PhotoImage scaled to fit within "
+"max dimensions."
+msgstr ""
+"Cargar una imagen desde archivo y devolver un PhotoImage de Tk escalado para "
+"ajustarse a las dimensiones máximas."
+
+#: c75323d9d6c340ae9f3e40adf0cb8c5f frontend.image_utils.load_image_scaled:3 of
+msgid ""
+"Uses PIL when available. Supports PNG, JPG, JPEG. Returns None if the "
+"file cannot be opened (e.g. missing PIL), so callers can fall back to "
+"tkinter.PhotoImage(file=path) for raster formats or skip showing."
+msgstr ""
+"Usa PIL cuando está disponible. Soporta PNG, JPG, JPEG. Devuelve None si el "
+"archivo no se puede abrir (p. ej. falta PIL), para que el llamador pueda usar "
+"tkinter.PhotoImage(file=path) para formatos raster o omitir la visualización."
+
+#: 724570e4fb384bcab14b6edeb8896c81 frontend.image_utils.load_image_scaled:7 of
+msgid "Path to the image file."
+msgstr "Ruta al archivo de imagen."
+
+#: 387f9aaf8b134a0b9a5909bcfefae4a2 frontend.image_utils.load_image_scaled:8 of
+msgid "Maximum width in pixels."
+msgstr "Ancho máximo en píxeles."
+
+#: 2ad99de0316744eeb6e4d38a356b883f frontend.image_utils.load_image_scaled:9 of
+msgid "Maximum height in pixels."
+msgstr "Altura máxima en píxeles."
+
+#: d1e7458d2f9a456683af0c8276ef947c frontend.image_utils.load_image_scaled:11
+#: of
+msgid "ImageTk.PhotoImage scaled to fit, or None on failure."
+msgstr "ImageTk.PhotoImage escalado para ajustar, o None si falla."
+
+#: ../../source/modules/frontend.rst:18 5791d28f8ef348619f9d854aae163f22
+msgid "Keyboard Navigation"
+msgstr "Navegación por teclado"
+
+#: d7f760d97e3a4fb795a50f56e4976782 frontend.keyboard_nav:1 of
+msgid "Keyboard navigation: arrow keys to move focus, Enter to activate."
+msgstr "Navegación por teclado: flechas para mover el foco, Enter para activar."
+
+#: 02a5ab2ef88e4f22bfd1ed81685577f4
+#: frontend.keyboard_nav.bind_enter_to_accept:1 of
+msgid "Bind Enter key events to trigger accept callback on widgets."
+msgstr "Vincular eventos de la tecla Enter para ejecutar el callback de aceptar en los widgets."
+
+#: 9f9a087299bd4ccc9608bfa4e040aa04
+#: frontend.keyboard_nav.bind_enter_to_accept:3 of
+msgid ""
+"Binds both <Return> and <KP_Enter> events on each widget to the "
+"accept_callback function, so that pressing Enter from input widgets "
+"(Spinbox, Entry, Combobox, etc.) triggers the accept action."
+msgstr ""
+"Vincula los eventos <Return> y <KP_Enter> en cada widget a la función "
+"accept_callback, de modo que pulsar Enter desde widgets de entrada "
+"(Spinbox, Entry, Combobox, etc.) dispare la acción de aceptar."
+
+#: a9d67b1112774196b80e19ff046e4536
+#: frontend.keyboard_nav.bind_enter_to_accept:7 of
+msgid "Sequence of Tkinter widgets to bind events to."
+msgstr "Secuencia de widgets Tkinter a los que vincular eventos."
+
+#: 054c379daf4142b6ad2a58040a92957c
+#: frontend.keyboard_nav.bind_enter_to_accept:8 of
+msgid ""
+"Callback function with signature ``() -> None`` to call when Enter is "
+"pressed."
+msgstr ""
+"Función callback con firma ``() -> None`` a llamar cuando se pulse Enter."
+
+#: 454da42817884f08a67f5a4d5e18443c
+#: frontend.keyboard_nav.setup_arrow_enter_navigation:1 of
+msgid "Set up keyboard navigation for a grid of widgets."
+msgstr "Configurar la navegación por teclado para una cuadrícula de widgets."
+
+#: 691f29d068fa4f1d963d15a7fd73ea71
+#: frontend.keyboard_nav.setup_arrow_enter_navigation:3 of
+msgid ""
+"Binds arrow keys to move focus between widgets in the grid and "
+"Return/Enter keys to activate the focused widget. The grid is a 2D list "
+"of focusable widgets (e.g. ttk.Button); use None for empty cells."
+msgstr ""
+"Vincula las teclas de flecha para mover el foco entre widgets de la cuadrícula "
+"y Return/Enter para activar el widget con foco. La cuadrícula es una lista 2D "
+"de widgets enfocables (p. ej. ttk.Button); usar None para celdas vacías."
+
+#: 1bad3663e640484aa1b2b0811e1e4623
+#: frontend.keyboard_nav.setup_arrow_enter_navigation:7 of
+msgid ""
+"2D sequence of widgets arranged in a grid layout. Use ``None`` for empty "
+"cells in the grid."
+msgstr ""
+"Secuencia 2D de widgets dispuestos en cuadrícula. Usar ``None`` para celdas "
+"vacías en la cuadrícula."
+
+#: 626419accc064ababfba3fbf950d4db6
+#: frontend.keyboard_nav.setup_arrow_enter_navigation:9 of
+msgid ""
+"Optional callback function called when Enter is pressed. Signature: "
+"``on_enter(widget, event) -> bool``. If it returns ``True``, the default "
+"behavior (invoke button) is skipped. Use this to handle Enter on non-"
+"button widgets (e.g. radiobutton -> confirm dialog)."
+msgstr ""
+"Función callback opcional llamada al pulsar Enter. Firma: "
+"``on_enter(widget, event) -> bool``. Si devuelve ``True``, se omite el "
+"comportamiento por defecto (invocar botón). Úsala para manejar Enter en "
+"widgets que no son botón (p. ej. radiobutton -> diálogo de confirmación)."
+
+#: ../../source/modules/frontend.rst:23 9f9d1d5c936049eda73e12285fb50f34
+msgid "Dialogs"
+msgstr "Diálogos"
+
+#: ../../source/modules/frontend.rst:25 12f518d3ef12413a8d214eddf954f2e5
+msgid "Main dialogs package (re-exports from ui_dialogs submodules)."
+msgstr "Paquete principal de diálogos (reexporta desde submódulos ui_dialogs)."
+
+#: 52db7303cba44d7faef3e630edb03923 frontend.ui_dialogs:1 of
+msgid ""
+"UI Dialogs package. Contains all Tkinter dialog windows for user "
+"interaction, split by concern."
+msgstr ""
+"Paquete de diálogos de interfaz. Contiene todas las ventanas de diálogo Tkinter "
+"para interacción del usuario, organizadas por función."
+
+#: ../../source/modules/frontend.rst:30 67d23b68810d495daaa773f5d8a6bdc7
+msgid "Load Data Dialog"
+msgstr "Diálogo de cargar datos"
+
+#: ff7815cd812b48149887916a39e2463a frontend.ui_dialogs.load_data_dialog:1 of
+msgid ""
+"Load data dialog using native file picker (replaces ask_file_type + "
+"ask_file_name)."
+msgstr ""
+"Diálogo de carga de datos con selector de archivos nativo (sustituye a "
+"ask_file_type + ask_file_name)."
+
+#: 085f6c902ade418b9ff1de532aa7ef5e
+#: frontend.ui_dialogs.load_data_dialog.open_load_dialog:1 of
+msgid "Open native file dialog to select a data file (CSV, TXT, XLSX)."
+msgstr "Abrir diálogo nativo de archivos para seleccionar un archivo de datos (CSV, TXT, XLSX)."
+
+#: 20e2bc7d31a04b339a4cfecd5119a491
+#: frontend.ui_dialogs.load_data_dialog.open_load_dialog:3 of
+msgid ""
+"Replaces the two-step flow (file type + file name) with a single native "
+"OS dialog. Works on Windows, Linux, and macOS."
+msgstr ""
+"Sustituye el flujo en dos pasos (tipo de archivo + nombre) por un único diálogo "
+"nativo del SO. Funciona en Windows, Linux y macOS."
+
+#: 29c7939b9e3648d0af350134dc5bdda5
+#: frontend.ui_dialogs.load_data_dialog.open_load_dialog:6 of
+msgid "Parent Tkinter window (Toplevel or Tk)."
+msgstr "Ventana Tkinter padre (Toplevel o Tk)."
+
+#: 7bbf001398674597be845c5ce0e29ab8
+#: frontend.ui_dialogs.load_data_dialog.open_load_dialog:8 of
+msgid ""
+"Tuple (file_path, file_type) if user selects a file, or (None, None) if "
+"user cancels. file_type is one of 'csv', 'txt', 'xlsx'."
+msgstr ""
+"Tupla (file_path, file_type) si el usuario elige un archivo, o (None, None) si "
+"cancela. file_type es uno de 'csv', 'txt', 'xlsx'."
+
+#: ../../source/modules/frontend.rst:35 f8ff0fd752a643158751760f22e11dde
+msgid "Save Data Dialog"
+msgstr "Diálogo de guardar datos"
+
+#: 74ba9c4701a94cc48f57500800096f9d frontend.ui_dialogs.save_data_dialog:1 of
+msgid "Save data dialog for the data view window."
+msgstr "Diálogo de guardar datos para la ventana de vista de datos."
+
+#: 63e7957c33074ded95cb3da8732167ca
+#: frontend.ui_dialogs.save_data_dialog.open_save_dialog:1 of
+msgid "Open save file dialog for the current data."
+msgstr "Abrir diálogo de guardar archivo para los datos actuales."
+
+#: ../../source/modules/frontend.rst:40 8c2071a55f004863b2473aecc09fc6ec
+msgid "Data Selection Dialog"
+msgstr "Diálogo de selección de datos"
+
+#: 9e73a4856f8d48f9b38897894fdd6d90 frontend.ui_dialogs.data_selection:1 of
+msgid "Data selection dialogs: file type, file name, variables, and data preview."
+msgstr "Diálogos de selección de datos: tipo de archivo, nombre, variables y vista previa."
+
+#: 0c30f0797e6a44f39197d1a57bb17df4
+#: frontend.ui_dialogs.data_selection.ask_file_type:1 of
+msgid "Dialog to ask for data file type."
+msgstr "Diálogo para pedir el tipo de archivo de datos."
+
+#: 5982cabd00894413afe9f0a3d90f562a
+#: frontend.ui_dialogs.data_selection.ask_file_type:3 of
+msgid ""
+"Presents radio buttons with file type options (xlsx, csv, txt, Exit). "
+"User can select one option."
+msgstr ""
+"Muestra botones de opción con tipos de archivo (xlsx, csv, txt, Salir). "
+"El usuario puede elegir una opción."
+
+#: 944dabfa5463416c91d7de493b66f84b
+#: frontend.ui_dialogs.data_selection.ask_file_type:6 of
+msgid "Parent Tkinter window"
+msgstr "Ventana Tkinter padre"
+
+#: 4979a14e784146c89247fe1cc5da28cd
+#: frontend.ui_dialogs.data_selection.ask_file_type:8 of
+msgid ""
+"Selected file type (one of ``config.DATA_FILE_TYPES``, ``EXIT_SIGNAL``, "
+"or empty string ``''``)."
+msgstr ""
+"Tipo de archivo seleccionado (uno de ``config.DATA_FILE_TYPES``, ``EXIT_SIGNAL``, "
+"o cadena vacía ``''``)."
+
+#: 3b553aac247b45f19e230fe1a6cae8a1
+#: frontend.ui_dialogs.data_selection.ask_file_name:1 of
+msgid "Dialog to select a specific file from the list."
+msgstr "Diálogo para seleccionar un archivo concreto de la lista."
+
+#: 0c8eb90942ca4cfab8d8355742edb348 69d6a554ea8a48c9bb958d084795e9a9
+#: 6eb958a361e348febe43f69c28b6848d 80eb5747339741369244299cbd08d2d3
+#: b4d12b03aa054167b86abbd2fba575cf bf2aaae29c204c53ac8f4deec8bb08ff
+#: df6b8c7f9ebd419892b9c3a275d95bee ef374b2e8500497dbb81958ab37af821
+#: frontend.ui_dialogs.data_selection.ask_file_name:3
+#: frontend.ui_dialogs.data_selection.ask_multiple_x_variables:3
+#: frontend.ui_dialogs.data_selection.ask_variables:3
+#: frontend.ui_dialogs.equation.ask_custom_formula:7
+#: frontend.ui_dialogs.equation.ask_equation_type:7
+#: frontend.ui_dialogs.equation.ask_num_fits:6
+#: frontend.ui_dialogs.equation.ask_num_parameters:6
+#: frontend.ui_dialogs.equation.ask_parameter_names:7 of
+msgid "Parent Tkinter window."
+msgstr "Ventana Tkinter padre."
+
+#: f6453589a2ff45fba7e4b4ae178b657b
+#: frontend.ui_dialogs.data_selection.ask_file_name:4 of
+msgid "List of available file names (without extensions)."
+msgstr "Lista de nombres de archivo disponibles (sin extensiones)."
+
+#: 142dc107fa974c83b1d766268dac8b91
+#: frontend.ui_dialogs.data_selection.ask_file_name:6 of
+msgid "Selected file name (without extension), or empty string if cancelled."
+msgstr "Nombre de archivo seleccionado (sin extensión), o cadena vacía si se cancela."
+
+#: 58bc91de30a3402e855a2d7d32b25ed4
+#: frontend.ui_dialogs.data_selection.ask_variables:1 of
+msgid ""
+"Dialog to select independent (x) and dependent (y) variables and plot "
+"name."
+msgstr ""
+"Diálogo para seleccionar variables independiente (x) y dependiente (y) y nombre "
+"del gráfico."
+
+#: 37a264420ac1436cafa3ee29e360ba6f d659d9908470456e80e4a78bfa2b847a
+#: frontend.ui_dialogs.data_selection.ask_multiple_x_variables:4
+#: frontend.ui_dialogs.data_selection.ask_variables:4 of
+msgid "List of available variable names from the dataset."
+msgstr "Lista de nombres de variables disponibles del conjunto de datos."
+
+#: b659f8ae52d04213871977747fedc293
+#: frontend.ui_dialogs.data_selection.ask_variables:6 of
+msgid ""
+"Tuple of ``(x_name, y_name, plot_name)``. Returns ``('', '', '')`` if "
+"user cancels."
+msgstr ""
+"Tupla ``(x_name, y_name, plot_name)``. Devuelve ``('', '', '')`` si el usuario cancela."
+
+#: 8755b21955054a08b4d8f4ae1c79fc92
+#: frontend.ui_dialogs.data_selection.ask_multiple_x_variables:1 of
+msgid ""
+"Dialog to select multiple independent (x) variables for multidimensional "
+"fitting."
+msgstr ""
+"Diálogo para seleccionar varias variables independientes (x) para ajuste "
+"multidimensional."
+
+#: 71c4bc21a8394e49974dcd6b519711f6
+#: frontend.ui_dialogs.data_selection.ask_multiple_x_variables:5 of
+msgid "Number of independent variables to select."
+msgstr "Número de variables independientes a seleccionar."
+
+#: 6d79341ac01e460ab6cb7208e13053c1
+#: frontend.ui_dialogs.data_selection.ask_multiple_x_variables:6 of
+msgid "Name of the first x variable already selected."
+msgstr "Nombre de la primera variable x ya seleccionada."
+
+#: 2b1478419f5b4960a288dcd1dce06711
+#: frontend.ui_dialogs.data_selection.ask_multiple_x_variables:8 of
+msgid "List of x variable names. Returns empty list if user cancels."
+msgstr "Lista de nombres de variables x. Devuelve lista vacía si el usuario cancela."
+
+#: d5ea594980ce42fbaff7504605371126
+#: frontend.ui_dialogs.data_selection.show_data_dialog:1 of
+msgid "Dialog to display loaded data."
+msgstr "Diálogo para mostrar los datos cargados."
+
+#: 46bbc748213c4c4fa0e54fadcc6df6bc
+#: frontend.ui_dialogs.data_selection.show_data_dialog:3 of
+msgid ""
+"Provides transform, cleaning, save, and pair-plot options. "
+"Transform/clean dialogs are non-modal so focus stays on the data window "
+"for multiple ops. Pair plots auto-update when data is transformed (if "
+"already open)."
+msgstr ""
+"Ofrece opciones de transformar, limpiar, guardar y gráficos de pares. Los "
+"diálogos de transformar/limpiar son no modales para mantener el foco en la "
+"ventana de datos en operaciones múltiples. Los gráficos de pares se actualizan "
+"automáticamente al transformar datos (si ya están abiertos)."
+
+#: 2bb5f66fc07042f09804bfb423d7bc2f 54e997c076a34b6fae63f0802b22592f
+#: bb2acfed2c354bebad2ff5c66dcec9a3
+#: frontend.ui_dialogs.config_dialog.show_config_dialog:6
+#: frontend.ui_dialogs.data_selection.show_data_dialog:7
+#: frontend.ui_dialogs.help.show_help_dialog:7 of
+msgid "Parent Tkinter window (``Tk`` or ``Toplevel``)."
+msgstr "Ventana Tkinter padre (``Tk`` o ``Toplevel``)."
+
+#: f0139334a26f4e0b8a53daeaf172d8b4
+#: frontend.ui_dialogs.data_selection.show_data_dialog:8 of
+msgid ""
+"DataFrame to display (or string). If DataFrame, converted to string for "
+"display using ``to_string()`` method."
+msgstr ""
+"DataFrame a mostrar (o cadena). Si es DataFrame, se convierte a cadena para "
+"mostrar con el método ``to_string()``."
+
+#: ../../source/modules/frontend.rst:45 1729f9e015c546ed85a42a2df503443f
+msgid "Equation Dialog"
+msgstr "Diálogo de ecuación"
+
+#: 0dd5095d361743cdbb673a37aa3f61d8 frontend.ui_dialogs.equation:1 of
+msgid "Equation and parameter dialogs for fitting."
+msgstr "Diálogos de ecuación y parámetros para el ajuste."
+
+#: fc4c2836911944699e253053d4ac0b33
+#: frontend.ui_dialogs.equation.ask_equation_type:1 of
+msgid "Dialog to select fitting equation type."
+msgstr "Diálogo para seleccionar el tipo de ecuación de ajuste."
+
+#: 93cf9629053f4b94b9e35a86d69d5eb5
+#: frontend.ui_dialogs.equation.ask_equation_type:3 of
+msgid ""
+"Optionally allows configuring initial values and bounds per parameter. "
+"Displays a grid of buttons for predefined equation types, plus options "
+"for custom equations and exiting."
+msgstr ""
+"Opcionalmente permite configurar valores iniciales y límites por parámetro. "
+"Muestra una cuadrícula de botones para tipos de ecuación predefinidos, más "
+"opciones para ecuaciones personalizadas y salir."
+
+#: b0dda2c429e54d9bbefe87963e86eed6
+#: frontend.ui_dialogs.equation.ask_equation_type:9 of
+msgid ""
+"Tuple of ``(equation_type, user_initial_guess, user_bounds)``. "
+"``user_initial_guess`` and ``user_bounds`` are ``None`` when not "
+"configured."
+msgstr ""
+"Tupla ``(equation_type, user_initial_guess, user_bounds)``. "
+"``user_initial_guess`` y ``user_bounds`` son ``None`` cuando no se configuran."
+
+#: e69b94bb217e424f8ea81d5247eb53bf
+#: frontend.ui_dialogs.equation.ask_num_parameters:1 of
+msgid ""
+"Dialog to ask for number of parameters and independent variables in a "
+"custom function."
+msgstr ""
+"Diálogo para pedir el número de parámetros y de variables independientes en una "
+"función personalizada."
+
+#: da4fe71d7dc94f0db240b4e9879c5e95
+#: frontend.ui_dialogs.equation.ask_num_parameters:3 of
+msgid ""
+"Displays a dialog with Spinboxes allowing the user to select the number "
+"of parameters (1-12) and number of independent variables (1-10) for a "
+"custom fitting function."
+msgstr ""
+"Muestra un diálogo con Spinboxes para que el usuario elija el número de "
+"parámetros (1-12) y de variables independientes (1-10) para una función de "
+"ajuste personalizada."
+
+#: 7997dd72791e44fa885beab29a3ea204
+#: frontend.ui_dialogs.equation.ask_num_parameters:8 of
+msgid ""
+"Tuple of (number of parameters, number of independent variables), or "
+"``None`` if the user closed the window."
+msgstr ""
+"Tupla (número de parámetros, número de variables independientes), o "
+"``None`` si el usuario cerró la ventana."
+
+#: 0f5c3b2ec0eb4c0188f69af7f05a2ab3
+#: frontend.ui_dialogs.equation.ask_parameter_names:1 of
+msgid "Dialog to ask for parameter names in a custom function."
+msgstr "Diálogo para pedir los nombres de parámetros en una función personalizada."
+
+#: f212c1ac58a043ff9b21b20fb788b6f7
+#: frontend.ui_dialogs.equation.ask_parameter_names:3 of
+msgid ""
+"Displays a series of dialogs (one per parameter) asking the user to enter"
+" parameter names. Shows Unicode escape sequence hints for Greek letters. "
+"Parameter names are normalized (Unicode escapes replaced, whitespace "
+"removed)."
+msgstr ""
+"Muestra una serie de diálogos (uno por parámetro) pidiendo los nombres de "
+"parámetros. Muestra pistas de secuencias de escape Unicode para letras griegas. "
+"Los nombres se normalizan (reemplazo de escapes Unicode, eliminación de espacios)."
+
+#: 7483f745d9724e579bea0e3c3c35d298
+#: frontend.ui_dialogs.equation.ask_parameter_names:8 of
+msgid "Number of parameters to collect names for."
+msgstr "Número de parámetros para los que recoger nombres."
+
+#: 1ece71a394fc49c7882417afbab68744
+#: frontend.ui_dialogs.equation.ask_parameter_names:10 of
+msgid ""
+"List of parameter names entered by the user. Returns ``[EXIT_SIGNAL]`` if"
+" user cancels at any point."
+msgstr ""
+"Lista de nombres de parámetros introducidos por el usuario. Devuelve ``[EXIT_SIGNAL]`` "
+"si el usuario cancela en cualquier momento."
+
+#: 57ffda0ee1ce4af3a92a161167291f15
+#: frontend.ui_dialogs.equation.ask_custom_formula:1 of
+msgid "Dialog to ask for custom function formula."
+msgstr "Diálogo para pedir la fórmula de la función personalizada."
+
+#: e11ae6998f314c91bd492f4d44346429
+#: frontend.ui_dialogs.equation.ask_custom_formula:3 of
+msgid ""
+"Displays a dialog allowing the user to enter a mathematical formula using"
+" the previously defined parameter names. Shows syntax hints and Unicode "
+"escape sequence reference for Greek letters."
+msgstr ""
+"Muestra un diálogo para introducir una fórmula matemática con los nombres de "
+"parámetros ya definidos. Muestra pistas de sintaxis y referencia de secuencias "
+"Unicode para letras griegas."
+
+#: 879608a71bb44666ac3ac27309967670
+#: frontend.ui_dialogs.equation.ask_custom_formula:8 of
+msgid "List of parameter names that can be used in the formula."
+msgstr "Lista de nombres de parámetros que pueden usarse en la fórmula."
+
+#: 40b0ccf9740e4b60acc867acbf3fbcbd
+#: frontend.ui_dialogs.equation.ask_custom_formula:9 of
+msgid "Number of independent variables (1 for x, >1 for x_0, x_1, etc.)."
+msgstr "Número de variables independientes (1 para x, >1 para x_0, x_1, etc.)."
+
+#: 3d5a6b8b70e94a36bde1b952e44e1ec6
+#: frontend.ui_dialogs.equation.ask_custom_formula:11 of
+msgid ""
+"Formula string entered by the user, with Unicode escape sequences "
+"normalized. Returns ``EXIT_SIGNAL`` if user cancels."
+msgstr ""
+"Cadena de fórmula introducida por el usuario, con secuencias de escape Unicode "
+"normalizadas. Devuelve ``EXIT_SIGNAL`` si el usuario cancela."
+
+#: 97c446a1def74d77b9171a02e069dcd9 frontend.ui_dialogs.equation.ask_num_fits:1
+#: of
+msgid "Dialog to ask for number of multiple fits."
+msgstr "Diálogo para pedir el número de ajustes múltiples."
+
+#: a4e016c38fe245ecb2102b2f8b9882f8 frontend.ui_dialogs.equation.ask_num_fits:3
+#: of
+msgid ""
+"Displays a dialog with a Spinbox allowing the user to select the number "
+"of fits to perform (between min_val and max_val)."
+msgstr ""
+"Muestra un diálogo con un Spinbox para que el usuario elija el número de "
+"ajustes a realizar (entre min_val y max_val)."
+
+#: 1d138e7e65ca45cfbed3812a278131dd frontend.ui_dialogs.equation.ask_num_fits:7
+#: of
+msgid "Minimum number of fits allowed (default: 2)."
+msgstr "Número mínimo de ajustes permitidos (por defecto: 2)."
+
+#: 06dde5091ddd49118e0b9742d29780ab frontend.ui_dialogs.equation.ask_num_fits:8
+#: of
+msgid "Maximum number of fits allowed (default: 10)."
+msgstr "Número máximo de ajustes permitidos (por defecto: 10)."
+
+#: 86212f4a9adb440ab56bb1fbc97db6d3
+#: frontend.ui_dialogs.equation.ask_num_fits:10 of
+msgid ""
+"Selected number of fits (between ``min_val`` and ``max_val``), or "
+"``None`` if the user closed the window."
+msgstr ""
+"Número de ajustes seleccionado (entre ``min_val`` y ``max_val``), o "
+"``None`` si el usuario cerró la ventana."
+
+#: ../../source/modules/frontend.rst:50 5a33a0366a7c4dafa175b10f3d893653
+msgid "Help Dialog"
+msgstr "Diálogo de ayuda"
+
+#: b368dfdea4c840a192170de1ebbfd095 frontend.ui_dialogs.help:1 of
+msgid "Help dialog and text utilities for Tkinter display."
+msgstr "Diálogo de ayuda y utilidades de texto para visualización en Tkinter."
+
+#: 313c2b2d8a6f4044a9bf28877c8a01d3
+#: frontend.ui_dialogs.help.remove_markdown_bold:1 of
+msgid "Remove Markdown bold markers (**) from text for Tkinter display."
+msgstr "Quitar marcadores de negrita Markdown (**) del texto para mostrar en Tkinter."
+
+#: 2a770471bcef4979b3ca5a7ad70887e7
+#: frontend.ui_dialogs.help.remove_markdown_bold:3 of
+msgid ""
+"Only strips ** when the content between them has no asterisk, so "
+"exponentiation in code (e.g. ``x**2``) is preserved."
+msgstr ""
+"Solo elimina ** cuando el contenido entre ellos no tiene asterisco, así se "
+"preserva la exponenciación en código (p. ej. ``x**2``)."
+
+#: 96cead9dfdd94b5e95ca46e71630a370
+#: frontend.ui_dialogs.help.remove_markdown_bold:6 of
+msgid "String that may contain Markdown bold markers."
+msgstr "Cadena que puede contener marcadores de negrita Markdown."
+
+#: 23dda4fb4f4243639785065a31013a0c
+#: frontend.ui_dialogs.help.remove_markdown_bold:8 of
+msgid "String with ``**...**`` removed (content preserved)."
+msgstr "Cadena con ``**...**`` eliminado (contenido preservado)."
+
+#: 8c574314503b48fc8736b89c5befa09a
+#: frontend.ui_dialogs.help.show_data_view_help_dialog:1 of
+msgid ""
+"Display help dialog for the Watch Data window (transform, clean, save "
+"options)."
+msgstr ""
+"Mostrar diálogo de ayuda para la ventana Ver datos (transformar, limpiar, "
+"guardar)."
+
+#: d67f00633fbc43fcb65577ffa7f9080b
+#: frontend.ui_dialogs.help.show_data_view_help_dialog:3 of
+msgid ""
+"Shows collapsible sections: pair plots, transform (with each option "
+"detailed), clean (with each option detailed), and save. Used when the "
+"user clicks Help in the data view."
+msgstr ""
+"Muestra secciones colapsables: gráficos de pares, transformar (con cada opción "
+"detallada), limpiar (con cada opción detallada) y guardar. Se usa cuando el "
+"usuario hace clic en Ayuda en la vista de datos."
+
+#: d366942777d04ef99dad6a2baa1f13f3
+#: frontend.ui_dialogs.help.show_data_view_help_dialog:7 of
+msgid "Parent Tkinter window (the data view Toplevel)."
+msgstr "Ventana Tkinter padre (el Toplevel de la vista de datos)."
+
+#: de8e6d2b45a44ae2990af850026cd361 frontend.ui_dialogs.help.show_help_dialog:1
+#: of
+msgid "Display help and information dialog about the application."
+msgstr "Mostrar diálogo de ayuda e información sobre la aplicación."
+
+#: abed8bd8781a4d239021a3db86e7dcd9 frontend.ui_dialogs.help.show_help_dialog:3
+#: of
+msgid ""
+"Shows information in collapsible sections (like the config dialog): "
+"objective, advantages, fitting modes, custom functions, data format, data"
+" location, output location, and statistics."
+msgstr ""
+"Muestra información en secciones colapsables (como el diálogo de config): "
+"objetivo, ventajas, modos de ajuste, funciones personalizadas, formato de datos, "
+"ubicación de datos, ubicación de salida y estadísticas."
+
+#: ../../source/modules/frontend.rst:55 1c28cb4f69754e3f99689d3ba32d3345
+msgid "Configuration Dialog"
+msgstr "Diálogo de configuración"
+
+#: c442f771d3254e92a67407f595bae62c frontend.ui_dialogs.config_dialog:1 of
+msgid "Configuration dialog for editing .env settings."
+msgstr "Diálogo de configuración para editar ajustes .env."
+
+#: 8783c97a296147f2b97f9d0b38a94d31
+#: frontend.ui_dialogs.config_dialog.show_config_dialog:1 of
+msgid "Show configuration dialog to edit .env fields."
+msgstr "Mostrar diálogo de configuración para editar campos .env."
+
+#: e7dbdaa6fdf44f9c93daa592c1f890dd
+#: frontend.ui_dialogs.config_dialog.show_config_dialog:3 of
+msgid ""
+"Pre-fills with current env values (or defaults). On Accept, writes .env "
+"and returns True so the caller can restart the app. On Cancel returns "
+"False."
+msgstr ""
+"Rellena con los valores actuales de env (o por defecto). Al aceptar, escribe "
+".env y devuelve True para que el llamador pueda reiniciar la app. Al cancelar "
+"devuelve False."
+
+#: 63ed26ea5a0548deb84290716c980cf9
+#: frontend.ui_dialogs.config_dialog.show_config_dialog:8 of
+msgid ""
+"``True`` if user accepted and ``.env`` was written (caller should "
+"restart). ``False`` if user cancelled."
+msgstr ""
+"``True`` si el usuario aceptó y se escribió ``.env`` (el llamador debe "
+"reiniciar). ``False`` si el usuario canceló."
+
+#: ../../source/modules/frontend.rst:60 6192794e045e480d84692c06cf6fac81
+msgid "Result Dialog"
+msgstr "Diálogo de resultados"
+
+#: c9d1289a03894893a80170a655a47e18 frontend.ui_dialogs.result:1 of
+msgid "Result window for displaying fitting results and plot."
+msgstr "Ventana de resultados para mostrar resultados del ajuste y gráfico."
+
+#: aa76ce9618c0470ba564eb4f34705e41
+#: frontend.ui_dialogs.result.create_result_window:1 of
+msgid "Create a Tkinter window to display the fitting results."
+msgstr "Crear una ventana Tkinter para mostrar los resultados del ajuste."
+
+#: 1a0de493c6164c56a0e257f72189d8ad
+#: frontend.ui_dialogs.result.create_result_window:3 of
+msgid ""
+"Creates a new ``Toplevel`` window showing the fitting results including "
+"parameter values, uncertainties, statistics, and the fitted equation "
+"plot."
+msgstr ""
+"Crea una ventana ``Toplevel`` nueva que muestra los resultados del ajuste: "
+"valores de parámetros, incertidumbres, estadísticas y el gráfico de la ecuación "
+"ajustada."
+
+#: 6c326fda8a254bb09c6c5dc0a0d1bfa7
+#: frontend.ui_dialogs.result.create_result_window:6 of
+msgid "Name of the fit for window title."
+msgstr "Nombre del ajuste para el título de la ventana."
+
+#: 4ec8ff19602e4e1fb9a937fd58d32fd6
+#: frontend.ui_dialogs.result.create_result_window:7 of
+msgid "Formatted text with parameters, uncertainties, and statistics."
+msgstr "Texto formateado con parámetros, incertidumbres y estadísticas."
+
+#: dffd891e549e4472b01a7c548cdbe3b4
+#: frontend.ui_dialogs.result.create_result_window:8 of
+msgid "Formatted equation string with parameter values."
+msgstr "Cadena de ecuación formateada con valores de parámetros."
+
+#: 489fff5a8bb04238a06f542b871d7fc0
+#: frontend.ui_dialogs.result.create_result_window:9 of
+msgid "Path to the plot image file to display."
+msgstr "Ruta al archivo de imagen del gráfico a mostrar."
+
+#: 3ce10a180eb74db3acd6ab6d6e7ef6a4
+#: frontend.ui_dialogs.result.create_result_window:10 of
+msgid ""
+"Optional matplotlib Figure for 3D plot (embeds interactive canvas, "
+"rotatable with mouse)."
+msgstr ""
+"Figure de matplotlib opcional para gráfico 3D (incluye canvas interactivo, "
+"rotable con el ratón)."
+
+#: 016759a4dba340bd8b8a442e45ee9846
+#: frontend.ui_dialogs.result.create_result_window:11 of
+msgid ""
+"Optional dict with 'fit_func', 'params', 'cov', 'x_names' for prediction "
+"feature."
+msgstr ""
+"Dict opcional con 'fit_func', 'params', 'cov', 'x_names' para la función de "
+"predicción."
+
+#: 2ab46251fb5344a093d08df94ddc56d6
+#: frontend.ui_dialogs.result.create_result_window:13 of
+msgid "The created ``Toplevel`` window instance."
+msgstr "La instancia de la ventana ``Toplevel`` creada."
+
+#: ../../source/modules/frontend.rst:65 969839bc534948dfbd825af079b977d9
+msgid "Tooltip"
+msgstr "Tooltip"
+
+#: 466e7bb25aa74c4dbe8a07d8756b983a frontend.ui_dialogs.tooltip:1 of
+msgid "Tooltip binding for Tkinter widgets."
+msgstr "Vinculación de tooltips para widgets Tkinter."
+
+#: feb391da91424945bc30266739b16941 frontend.ui_dialogs.tooltip.bind_tooltip:1
+#: of
+msgid "Bind a tooltip to a Tkinter widget."
+msgstr "Vincular un tooltip a un widget Tkinter."
+
+#: 99b699212cb04f90bbfdf4f4f59155df frontend.ui_dialogs.tooltip.bind_tooltip:3
+#: of
+msgid ""
+"Shows a tooltip window after a delay when the mouse enters the widget, "
+"and hides it when the mouse leaves. Uses a contrasting background and "
+"border so the tooltip is visible over the UI."
+msgstr ""
+"Muestra una ventana de tooltip tras un retraso al entrar el ratón en el widget "
+"y la oculta al salir. Usa fondo y borde contrastados para que el tooltip sea "
+"visible sobre la interfaz."
+
+#: e68ac7c3d681412d8989a7cf1413fc8d frontend.ui_dialogs.tooltip.bind_tooltip:7
+#: of
+msgid "Tkinter widget to bind the tooltip to."
+msgstr "Widget Tkinter al que vincular el tooltip."
+
+#: 9689e75b2ae947fcabe1db2bbfb5043d frontend.ui_dialogs.tooltip.bind_tooltip:8
+#: of
+msgid "Tooltip text to display when mouse hovers over the widget."
+msgstr "Texto del tooltip a mostrar cuando el ratón pasa sobre el widget."
+
+#: bdd55df764ae42ac808e54cd3333b973 frontend.ui_dialogs.tooltip.bind_tooltip:9
+#: of
+msgid "Delay in milliseconds before showing the tooltip (default: ``500``)."
+msgstr "Retraso en milisegundos antes de mostrar el tooltip (por defecto: ``500``)."
+

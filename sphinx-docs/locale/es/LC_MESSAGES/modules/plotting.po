@@ -1,0 +1,256 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Alejandro Mata Ali
+# This file is distributed under the same license as the RegressionLab
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: RegressionLab 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-13 19:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../source/modules/plotting.rst:3 79417406e78343c985170e847366e249
+msgid "Plotting Module"
+msgstr "Módulo de gráficos"
+
+#: ../../source/modules/plotting.rst:5 931a3d3766374911b32239ffd23c2635
+msgid "The ``plotting`` module handles plot generation and visualization."
+msgstr "El módulo ``plotting`` gestiona la generación y visualización de gráficos."
+
+#: ../../source/modules/plotting.rst:8 d4054f31f9754c7e9be484a21f513212
+msgid "Plotting Utilities"
+msgstr "Utilidades de gráficos"
+
+#: d84dfeb7a7ba4a6aa79eedeee7a96099 of plotting.plot_utils:1
+msgid "Plotting utilities for RegressionLab."
+msgstr "Utilidades de gráficos para RegressionLab."
+
+#: 6344901b668c4b3191ad5639e86f2b1a of plotting.plot_utils:3
+msgid ""
+"This module provides functions to create pair plots (scatter matrices) "
+"and save fitted data plots with error bars, using configuration from "
+"config (fonts, style)."
+msgstr ""
+"Este módulo proporciona funciones para crear gráficos de pares (matrices de "
+"dispersión) y guardar gráficos de datos ajustados con barras de error, "
+"usando la configuración de config (fuentes, estilo)."
+
+#: 49dbf3e53bc645af9ce72bee4c4653e6 of plotting.plot_utils.create_pair_plots:1
+msgid "Create a grid of scatter plots for all pairs of variables (pair plot)."
+msgstr "Crear una cuadrícula de gráficos de dispersión para todos los pares de variables (gráfico de pares)."
+
+#: ../../source/modules/plotting.rst 7a5913ffd9564c82a034cbeb313e9dbe
+#: b2bcaed3a6d045679aac5614dc0257fd c6389d6e99604440b0d1d8617384a893
+#: f0e5afb2797047e8b1325b4b5ad76e3e
+msgid "Parameters"
+msgstr "Parámetros"
+
+#: 90947bff686f44e1977f66e6fb58ca73 of plotting.plot_utils.create_pair_plots:3
+msgid "DataFrame or dict-like with numeric columns."
+msgstr "DataFrame o similar a dict con columnas numéricas."
+
+#: 70aad25e042d4d86b20c3c69688b3288 of plotting.plot_utils.create_pair_plots:4
+msgid "List of column names to use (must be numeric)."
+msgstr "Lista de nombres de columnas a usar (deben ser numéricas)."
+
+#: 12129a69c7c140d3aecad860e779ebe2 14286cae40514d4fb7e64cf5f15dddcf
+#: 374e37876aed4fe3af6295e2526934fc 8b8865642a7e4adaa192ac13b173471d of
+#: plotting.plot_utils.create_3d_plot:13
+#: plotting.plot_utils.create_pair_plots:5 plotting.plot_utils.create_plot:11
+#: plotting.plot_utils.create_residual_plot:8
+msgid "Optional plot configuration dict. Defaults to PLOT_CONFIG."
+msgstr "Diccionario opcional de configuración del gráfico. Por defecto PLOT_CONFIG."
+
+#: a0511c8f7ae04c00a5707db9df63ec2d bb0ef8ed6ea6457eb523730126a06bf3
+#: c3baba87da5d4d20b93d7732993bbccb d25aa32189f548b493aa88799c4638cf of
+#: plotting.plot_utils.create_3d_plot:14
+#: plotting.plot_utils.create_pair_plots:6 plotting.plot_utils.create_plot:12
+#: plotting.plot_utils.create_residual_plot:9
+msgid "Optional font configuration dict. Defaults to FONT_CONFIG."
+msgstr "Diccionario opcional de configuración de fuentes. Por defecto FONT_CONFIG."
+
+#: 4b14d45d2161436f846fd8dc14c79dd3 of plotting.plot_utils.create_pair_plots:7
+msgid ""
+"If given, save figure to this path and return path (str). If None, return"
+" the Figure for inline display (e.g. Streamlit)."
+msgstr ""
+"Si se proporciona, guarda la figura en esta ruta y devuelve la ruta (str). "
+"Si es None, devuelve la Figure para visualización inline (p. ej. Streamlit)."
+
+#: ../../source/modules/plotting.rst 688f709f5ba64dc2ae2f53c8b62be28d
+#: afe764fdbf7742a9b14a8f85c2307c96 b8e6e272d797441dbb70a5c8c397604b
+#: cc6383056e684b0ea7621753f98778dd
+msgid "Returns"
+msgstr "Devuelve"
+
+#: 4b2e21fb6b8b4ea1b0d097f1ef53acba of plotting.plot_utils.create_pair_plots:10
+msgid "path to the saved image (str). Otherwise: matplotlib Figure instance."
+msgstr "ruta a la imagen guardada (str). Si no: instancia de matplotlib Figure."
+
+#: ../../source/modules/plotting.rst 98289dd2c7cd42bfbc23498ce991f8e1
+#: fc567e697acb4c1ca631a88f7481f6e6
+msgid "Return type"
+msgstr "Tipo de retorno"
+
+#: e13ef68fa14a4ac09f8e4fde35ad32e5 of plotting.plot_utils.create_plot:1
+msgid "Create and save a plot with experimental data and fitted curve."
+msgstr "Crear y guardar un gráfico con datos experimentales y curva ajustada."
+
+#: 5bd476cdb99d44f4b2307a8b3b35d5c6 of plotting.plot_utils.create_plot:3
+msgid "Independent variable data (array-like)."
+msgstr "Datos de la variable independiente (array-like)."
+
+#: c96bed79dec842e6a88c364cdcb1c213 of plotting.plot_utils.create_plot:4
+msgid "Dependent variable data (array-like)."
+msgstr "Datos de la variable dependiente (array-like)."
+
+#: 4bcdf7c3750645f58db01cb516cdb36e of plotting.plot_utils.create_plot:5
+msgid "Uncertainties in x (array-like)."
+msgstr "Incertidumbres en x (array-like)."
+
+#: dd8c315fa1d9497e952bd909c5a49c33 of plotting.plot_utils.create_plot:6
+msgid "Uncertainties in y (array-like)."
+msgstr "Incertidumbres en y (array-like)."
+
+#: 5380e0fe7f794b1cbe1f0b03fec84c0e of plotting.plot_utils.create_plot:7
+msgid "Fitted y values (array-like)."
+msgstr "Valores y ajustados (array-like)."
+
+#: 5d24a2809cd14730bb924951b071cf87 b0f920b896b143a2a7875a6fa351ed2d
+#: e859016ce36c4c639fb06f5b8f3c591f of plotting.plot_utils.create_3d_plot:9
+#: plotting.plot_utils.create_plot:8 plotting.plot_utils.create_residual_plot:7
+msgid "Name of the fit for plot title."
+msgstr "Nombre del ajuste para el título del gráfico."
+
+#: bf7bd9d55fdd40e9bd78ccc663254029 d6c0b91986d84c79b028850c6d3b2a0f of
+#: plotting.plot_utils.create_3d_plot:10 plotting.plot_utils.create_plot:9
+msgid "Label for x-axis."
+msgstr "Etiqueta del eje x."
+
+#: 110e85354d75460ca1c8de43db245d19 57d32f5741884d77a31d4c987fcc2a04 of
+#: plotting.plot_utils.create_3d_plot:11 plotting.plot_utils.create_plot:10
+msgid "Label for y-axis."
+msgstr "Etiqueta del eje y."
+
+#: 478b287b293a4f818d66fb04118a4817 6abaa28a902944aa9aed7028523a86f9
+#: d7f06a431b274957bf18fece804366ce of plotting.plot_utils.create_3d_plot:15
+#: plotting.plot_utils.create_plot:13
+#: plotting.plot_utils.create_residual_plot:10
+msgid ""
+"Optional full path to save the plot. If None, uses "
+"get_output_path(fit_name)."
+msgstr ""
+"Ruta completa opcional para guardar el gráfico. Si es None, usa "
+"get_output_path(fit_name)."
+
+#: 4719c7ef7aab42bc928a5aab8f2c8bd2 of plotting.plot_utils.create_plot:14
+msgid ""
+"Optional dict with 'fit_func' and 'params' to evaluate the curve at "
+"linspace points for a smooth plot. If None, uses x and y_fitted directly."
+msgstr ""
+"Diccionario opcional con 'fit_func' y 'params' para evaluar la curva en "
+"puntos linspace para un gráfico suave. Si es None, usa x e y_fitted directamente."
+
+#: 33b10d8b954a4e27b75996ed67525c5e 3842f60781f74de2ba24b29f0c811308 of
+#: plotting.plot_utils.create_plot:17
+#: plotting.plot_utils.create_residual_plot:12
+msgid "Path to the saved plot file (as string)."
+msgstr "Ruta al archivo del gráfico guardado (como string)."
+
+#: ../../source/modules/plotting.rst 6c4bf8d28411468aaae0310e4dabc59f
+msgid "Raises"
+msgstr "Lanza"
+
+#: afcf572f9b2d495785db67815aec89e7 of plotting.plot_utils.create_plot:19
+msgid "If the plot file cannot be written."
+msgstr "Si no se puede escribir el archivo del gráfico."
+
+#: 0eec542a26774d2c8c1824fc4f51040c of plotting.plot_utils.create_plot:20
+msgid "If matplotlib fails during plot creation or saving."
+msgstr "Si matplotlib falla durante la creación o guardado del gráfico."
+
+#: 338d3147f6fc4bbc8bb2957e01e70a1c of
+#: plotting.plot_utils.create_residual_plot:1
+msgid "Create a residual plot for multidimensional fitting."
+msgstr "Crear un gráfico de residuos para ajuste multidimensional."
+
+#: 16109f0ee7c34754b18002875181e5f7 of
+#: plotting.plot_utils.create_residual_plot:3
+msgid "Shows residuals (y - y_fitted) vs point index."
+msgstr "Muestra residuos (y - y_fitted) frente al índice del punto."
+
+#: ad7a4fea5e27450cad5dec95bd377d76 of
+#: plotting.plot_utils.create_residual_plot:5
+msgid "Residual values (y - y_fitted) for each data point."
+msgstr "Valores residuales (y - y_fitted) para cada punto de datos."
+
+#: edb996ff3aab4f1eb98e196e8a0d0322 of
+#: plotting.plot_utils.create_residual_plot:6
+msgid "Indices of data points (0, 1, 2, ...)."
+msgstr "Índices de los puntos de datos (0, 1, 2, ...)."
+
+#: a4bc177069224d08a5e1233ecafef2e7 of plotting.plot_utils.create_3d_plot:1
+msgid "Create a 3D plot for fitting with two independent variables."
+msgstr "Crear un gráfico 3D para ajuste con dos variables independientes."
+
+#: ff360e2bee4f4960bcb90ee9904c8e36 of plotting.plot_utils.create_3d_plot:3
+msgid "Shows data points and fitted surface mesh."
+msgstr "Muestra puntos de datos y malla de superficie ajustada."
+
+#: a9a2b3e8737649aebe902651a7956c82 of plotting.plot_utils.create_3d_plot:5
+msgid "First independent variable data."
+msgstr "Datos de la primera variable independiente."
+
+#: e3c36b2951c845518e133e1d31a30f77 of plotting.plot_utils.create_3d_plot:6
+msgid "Second independent variable data."
+msgstr "Datos de la segunda variable independiente."
+
+#: 35e3c2a67dd845e0a8c2bcd0bd02864b of plotting.plot_utils.create_3d_plot:7
+msgid "Dependent variable data (observed)."
+msgstr "Datos de la variable dependiente (observados)."
+
+#: 09bf30d613af4212988eb13758693e43 of plotting.plot_utils.create_3d_plot:8
+msgid "Fitted z values."
+msgstr "Valores z ajustados."
+
+#: 58e4ab8943a24c1e9f57854e5fed97a6 of plotting.plot_utils.create_3d_plot:12
+msgid "Label for z-axis."
+msgstr "Etiqueta del eje z."
+
+#: e6eeeae591d74b9b8e2c51ebc27e5007 of plotting.plot_utils.create_3d_plot:16
+msgid ""
+"If True, return (save_path, figure) for embedding in a window (rotatable "
+"with mouse)."
+msgstr ""
+"Si es True, devuelve (save_path, figure) para incrustar en una ventana "
+"(rotable con el ratón)."
+
+#: e5fa3447e7a84526b66a6acc1f2f436f of plotting.plot_utils.create_3d_plot:17
+msgid ""
+"Optional dict with 'fit_func' and 'params' to evaluate the surface on a "
+"linspace grid for a smooth plot. If None, interpolates z_fitted onto the "
+"grid."
+msgstr ""
+"Diccionario opcional con 'fit_func' y 'params' para evaluar la superficie "
+"en una cuadrícula linspace para un gráfico suave. Si es None, interpola "
+"z_fitted en la cuadrícula."
+
+#: 2957b76266944897ba600f2b8029aeda of plotting.plot_utils.create_3d_plot:20
+msgid ""
+"path to the saved plot file (str). If interactive=True: tuple (save_path,"
+" figure) for embedding."
+msgstr ""
+"ruta al archivo del gráfico guardado (str). Si interactive=True: tupla "
+"(save_path, figure) para incrustar."
+

@@ -1,0 +1,753 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Alejandro Mata Ali
+# This file is distributed under the same license as the RegressionLab
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: RegressionLab 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-13 19:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: es <LL@li.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../../docs/extending.md:1 a8b8b473f15b44c0af9175f89279b719
+msgid "Extending RegressionLab"
+msgstr "Ampliación del laboratorio de regresión"
+
+#: ../../../docs/extending.md:3 809301d69a6442e18bb1c6ad9cd67cd5
+msgid ""
+"This guide explains how to add new fitting functions to RegressionLab. "
+"Whether you want to add a specific equation for your research or extend the "
+"library with new mathematical models, this guide will walk you through the "
+"process."
+msgstr ""
+"Esta guía explica cómo agregar nuevas funciones de adaptación a "
+"RegressionLab. Ya sea que desee agregar una ecuación específica para su "
+"investigación o ampliar la biblioteca con nuevos modelos matemáticos, esta "
+"guía lo guiará a través del proceso."
+
+#: ../../../docs/extending.md:5 3f962a25beca40938470f91bb6fd3b10
+msgid "Overview"
+msgstr "Descripción general"
+
+#: ../../../docs/extending.md:7 6b359b20553746578899589aa690444e
+msgid "Adding a new fitting function involves four main steps:"
+msgstr ""
+"Agregar una nueva función de adaptación implica cuatro pasos principales:"
+
+#: ../../../docs/extending.md:9 5cc9a1312c2b4f7d83cecf5b746908a1
+msgid ""
+"**Implement the model and fit function**: In the right module under "
+"`src/fitting/functions/`, add the mathematical function and a fitting "
+"wrapper that uses `generic_fit` (or `curve_fit` directly for advanced "
+"cases)."
+msgstr ""
+"**Implemente el modelo y la función de ajuste**: en el módulo derecho en "
+"`src/fitting/functions/`, agregue la función matemática y un contenedor de "
+"ajuste que use `generic_fit` (o `curve_fit` directamente para casos "
+"avanzados)."
+
+#: ../../../docs/extending.md:10 c24005f23d63436c96bb654fe6d99026
+msgid ""
+"**Export the fit function**: Add the new `fit_*` to the exports in "
+"`src/fitting/functions/__init__.py` so the app can resolve it by name."
+msgstr ""
+"**Exportar la función de ajuste**: agregue el nuevo `fit_*` a las "
+"exportaciones en `src/fitting/functions/__init__.py` para que la aplicación "
+"pueda resolverlo por nombre."
+
+#: ../../../docs/extending.md:11 11b20d904f8d4b1fb2c01b02166bf700
+msgid ""
+"**Register in configuration**: Add an entry in `src/config/equations.yaml` "
+"(with `function`, `formula`, `format`, `param_names`) and add translations "
+"in `src/locales/`."
+msgstr ""
+"**Registrarse en configuración**: Agregue una entrada en "
+"`src/config/equations.yaml` (con `function`, `formula`, `format`, "
+"`param_names`) y agregue traducciones en `src/locales/`."
+
+#: ../../../docs/extending.md:12 c85f7a2162ab405fb1b76df5fb39782c
+msgid "**Test**: Run the app (Tkinter or Streamlit) and optionally add tests."
+msgstr ""
+"**Prueba**: ejecuta la aplicación (Tkinter o Streamlit) y, opcionalmente, "
+"agrega pruebas."
+
+#: ../../../docs/extending.md:14 390996bacb08427f82bfbfc691daef5a
+msgid ""
+"The app resolves fit functions by name: it reads the `function` key from "
+"`equations.yaml` (e.g. `fit_exponential_function`) and does "
+"`getattr(fitting_functions, function_name)`. The `fitting_functions` package"
+" re-exports everything from `fitting.functions`, so any new `fit_*` must be "
+"implemented in one of the modules under `fitting/functions/` and re-exported"
+" from `fitting/functions/__init__.py`."
+msgstr ""
+"La aplicación resuelve funciones de ajuste por nombre: lee la tecla "
+"`función` de `equations.yaml` (por ejemplo, `fit_exponential_function`) y "
+"hace `getattr(fitting_functions, function_name)`. El paquete "
+"`fitting_functions` reexporta todo desde `fitting.functions`, por lo que "
+"cualquier nuevo `fit_*` debe implementarse en uno de los módulos en "
+"`fitting/functions/` y reexportarse desde `fitting/functions/__init__.py`."
+
+#: ../../../docs/extending.md:16 0ba496b34c0940bd9eb8151db3467d82
+msgid "Prerequisites"
+msgstr "Requisitos previos"
+
+#: ../../../docs/extending.md:18 d6fb0fa062b54b6a9c1ed8ec66468350
+msgid "Required Knowledge"
+msgstr "Conocimiento requerido"
+
+#: ../../../docs/extending.md:20 2e8247860f414d308ae91f784b419ac9
+msgid "**Basic Python**: Functions, variables, imports"
+msgstr "**Python básico**: funciones, variables, importaciones"
+
+#: ../../../docs/extending.md:21 4c7810eccfb3463486c40eafd25b712d
+msgid "**NumPy basics**: Arrays, mathematical operations"
+msgstr "**Conceptos básicos de NumPy**: matrices, operaciones matemáticas"
+
+#: ../../../docs/extending.md:22 4b6f5d55483849cbb497f61a396a0934
+msgid "**Basic mathematics**: Understanding the equation you want to add"
+msgstr "**Matemáticas básicas**: comprender la ecuación que deseas sumar"
+
+#: ../../../docs/extending.md:24 4e59efeb366b44008feb136faa2a513d
+msgid "Files You'll Modify"
+msgstr "Archivos que modificarás"
+
+#: ../../../docs/extending.md:46 7cc8c8059c564c40b4b0de2908ca35c5
+msgid "Step-by-Step Guide"
+msgstr "Guía paso a paso"
+
+#: ../../../docs/extending.md:48 fa505ed7c3de4d78bc4008c85e565024
+msgid "Step 1: Implement the Model and Fit Function"
+msgstr "Paso 1: implementar el modelo y la función de ajuste"
+
+#: ../../../docs/extending.md:50 7bc52d99ce9d493286265467f5e847c8
+msgid ""
+"Open the appropriate module under `src/fitting/functions/` (e.g. "
+"`special.py` for exponential/Gaussian, `polynomials.py` for polynomial "
+"models). Add the mathematical model (e.g. `_my_function`) and the fitting "
+"wrapper (`fit_my_function`). The model can be a private function (e.g. "
+"`_gaussian_function`) if it is only used inside that module."
+msgstr ""
+"Abra el módulo apropiado en `src/fitting/functions/` (por ejemplo, "
+"`special.py` para modelos exponenciales/gaussianos, `polynomials.py` para "
+"modelos polinomiales). Agregue el modelo matemático (por ejemplo, "
+"`_my_function`) y el contenedor de ajuste (`fit_my_function`). El modelo "
+"puede ser una función privada (por ejemplo, `_gaussian_function`) si solo se"
+" usa dentro de ese módulo."
+
+#: ../../../docs/extending.md:52 04380a63915f457780d20a6a3305ed48
+msgid "Example: Adding an Exponential Function"
+msgstr "Ejemplo: agregar una función exponencial"
+
+#: ../../../docs/extending.md:60 ../../../docs/extending.md:136
+#: d4d748270066428ea8164903644ba195 dfaae63901644b11822c4dfe562eb636
+msgid "**Key Points**:"
+msgstr "**Puntos clave**:"
+
+#: ../../../docs/extending.md:61 55590f7f17c240009c86777719a3e7f6
+msgid ""
+"**Type hints**: Use `Numeric` type for variables that can be scalar or array"
+msgstr ""
+"**Sugerencias de tipo**: use el tipo `Numeric` para variables que pueden ser"
+" escalares o de matriz"
+
+#: ../../../docs/extending.md:62 f2a55f8021264ffea6e3f10413519a86
+msgid ""
+"**Docstring**: Explain what the function does, its parameters, and return "
+"value"
+msgstr ""
+"**Docstring**: Explique qué hace la función, sus parámetros y el valor de "
+"retorno."
+
+#: ../../../docs/extending.md:63 5cc40a873eb04bf98308d983a1abf42c
+msgid ""
+"**NumPy functions**: Use `np.exp()`, `np.sin()`, etc. for array "
+"compatibility"
+msgstr ""
+"**Funciones NumPy**: utilice `np.exp()`, `np.sin()`, etc. para "
+"compatibilidad con matrices"
+
+#: ../../../docs/extending.md:64 8742a32cc5f541acb4532dc9742451f0
+msgid "**Parameter order**: After `t`, list all fitting parameters"
+msgstr ""
+"**Orden de parámetros**: después de `t`, enumere todos los parámetros de "
+"ajuste"
+
+#: ../../../docs/extending.md:66 6e32ef596aa64a06af2e98ed8bbfcaed
+msgid "More Examples"
+msgstr "Más ejemplos"
+
+#: ../../../docs/extending.md:68 00b0de042ff74f2bb404cf66bb178628
+msgid "**Power Law**:"
+msgstr "**Ley de potencia**:"
+
+#: ../../../docs/extending.md:75 635aa95652284aca8469bbc598998384
+msgid "**Gaussian**:"
+msgstr "**Gaussiano**:"
+
+#: ../../../docs/extending.md:82 4f38a086a76946c194c5440861b759da
+msgid "**Logistic**:"
+msgstr "**Logístico**:"
+
+#: ../../../docs/extending.md:89 f1b34690cff04a279c608c4eca8ddb24
+msgid "**Hyperbola**:"
+msgstr "**Hipérbola**:"
+
+#: ../../../docs/extending.md:96 99a6becdb3734bf4adf3835007ab6f4e
+msgid "Step 2: Create the Fitting Wrapper"
+msgstr "Paso 2: cree el envoltorio adecuado"
+
+#: ../../../docs/extending.md:98 c28b2dd17c644d90865077e2b3882ad4
+msgid ""
+"In the same module under `fitting/functions/`, create a fitting wrapper. The"
+" wrapper must have this signature and return type:"
+msgstr ""
+"En el mismo módulo, en `fitting/functions/`, cree un contenedor de ajuste. "
+"El contenedor debe tener esta firma y tipo de devolución:"
+
+#: ../../../docs/extending.md:100 cd71ab7720b0438aa337bee543922ea1
+msgid ""
+"**Signature**: `(data, x_name, y_name, initial_guess_override=None, "
+"bounds_override=None)`"
+msgstr ""
+"**Firma**: `(datos, nombre_x, nombre_y, inicial_guess_override=Ninguno, "
+"límites_override=Ninguno)`"
+
+#: ../../../docs/extending.md:101 657ab845af674780ac7373715b60a78e
+msgid ""
+"**Return**: Your wrapper can return `(text, y_fitted, equation)` or the full"
+" 4-tuple from `generic_fit`: `(text, y_fitted, equation, fit_info)`. R² is "
+"included in `text`. Callers (e.g. Streamlit) use the first three values."
+msgstr ""
+"**Retorno**: Su contenedor puede devolver `(text, y_fitted, ecuación)` o la "
+"tupla completa de `generic_fit`: `(text, y_fitted, ecuación, fit_info)`. R² "
+"está incluido en \"texto\". Las personas que llaman (por ejemplo, Streamlit)"
+" utilizan los primeros tres valores."
+
+#: ../../../docs/extending.md:103 5b87892114084ae3831c8f03d53cf308
+msgid ""
+"Use `get_equation_param_names_for_function('fit_<name>')` and "
+"`get_equation_format_for_function('fit_<name>')` so parameter names and the "
+"equation format live only in `equations.yaml`. That way you define them once"
+" in config."
+msgstr ""
+"Utilice `get_equation_param_names_for_function('fit_<name>')` y "
+"`get_equation_format_for_function('fit_<name>')` para que los nombres de los"
+" parámetros y el formato de la ecuación vivan solo en `equations.yaml`. De "
+"esa manera los defines una vez en config."
+
+#: ../../../docs/extending.md:105 3a7513bae029473b913f27dd058d99da
+msgid "Basic Template"
+msgstr "Plantilla básica"
+
+#: ../../../docs/extending.md:137 6641f3d7af9f47d68bdadc95cb48efbf
+msgid ""
+"**Signature**: Include `initial_guess_override` and `bounds_override` so the"
+" workflow can pass user overrides; they can be `None` if you do not use "
+"them."
+msgstr ""
+"**Firma**: incluya `initial_guess_override` y `bounds_override` para que el "
+"flujo de trabajo pueda pasar las anulaciones del usuario; pueden ser "
+"\"Ninguno\" si no los usa."
+
+#: ../../../docs/extending.md:138 e0bbe8f7ef754aa18664ef82f1fb0806
+msgid ""
+"**Config-driven params**: Prefer `get_equation_param_names_for_function` and"
+" `get_equation_format_for_function` so the equation is defined once in "
+"`equations.yaml`."
+msgstr ""
+"**Parámetros controlados por configuración**: prefiera "
+"`get_equation_param_names_for_function` y `get_equation_format_for_function`"
+" para que la ecuación se defina una vez en `equations.yaml`."
+
+#: ../../../docs/extending.md:139 dfae25b74de948918f31411bcf74d0f8
+msgid ""
+"**Return**: `generic_fit` returns `(text, y_fitted, equation, fit_info)` "
+"(four values). Your wrapper can `return generic_fit(...)`; callers that only"
+" need text, y_fitted, and equation use the first three elements."
+msgstr ""
+"**Retorno**: `generic_fit` devuelve `(text, y_fitted, ecuación, fit_info)` "
+"(cuatro valores). Su contenedor puede `devolver generic_fit(...)`; las "
+"personas que llaman que solo necesitan texto, y_fitted y ecuación usan los "
+"primeros tres elementos."
+
+#: ../../../docs/extending.md:141 8fa283169e8c4cb4a383cfdf03427093
+msgid "With Initial Guess and Bounds"
+msgstr "Con conjeturas y límites iniciales"
+
+#: ../../../docs/extending.md:143 8494c92e87144f5bbd1dca29b340bfaf
+msgid ""
+"For complex functions, use estimators (from `_base` or `estimators`) and "
+"merge helpers:"
+msgstr ""
+"Para funciones complejas, use estimadores (de `_base` o `estimators`) y "
+"combine ayudantes:"
+
+#: ../../../docs/extending.md:187 1ab84a2cdca64dac8d3b1883b1fdbc2d
+msgid "Step 3: Export the Fit Function"
+msgstr "Paso 3: Exportar la función Ajustar"
+
+#: ../../../docs/extending.md:189 f584d293acaa4ac781ecfcac76de60b9
+msgid ""
+"The app resolves the fit function by name with `getattr(fitting_functions, "
+"function_name)`. The `fitting_functions` package re-exports from "
+"`fitting.functions`, so you must export your new `fit_*` from "
+"`src/fitting/functions/__init__.py`."
+msgstr ""
+"La aplicación resuelve la función de ajuste por nombre con "
+"`getattr(fitting_functions, function_name)`. El paquete `fitting_functions` "
+"se reexporta desde `fitting.functions`, por lo que debes exportar tu nuevo "
+"`fit_*` desde `src/fitting/functions/__init__.py`."
+
+#: ../../../docs/extending.md:191 5f969ff24ec04984919943a81f14464d
+msgid ""
+"Add your fit function to the appropriate `from .<module> import ...` (e.g. "
+"`from .special import ..., fit_my_function`)."
+msgstr ""
+"Agregue su función de ajuste al `from .<module> import...` apropiado (por "
+"ejemplo, `from .special import..., fit_my_function`)."
+
+#: ../../../docs/extending.md:192 7a6f590cd0224313b9a2277bdd4966d1
+msgid "Add the same name to the `__all__` list in that file."
+msgstr "Agregue el mismo nombre a la lista `__all__` en ese archivo."
+
+#: ../../../docs/extending.md:194 17f7102d57ab4a2188b54a8f4d2a4f52
+msgid ""
+"If you omit this step, the app will raise `AttributeError` when the user "
+"selects your equation."
+msgstr ""
+"Si omite este paso, la aplicación generará \"AttributeError\" cuando el "
+"usuario seleccione su ecuación."
+
+#: ../../../docs/extending.md:196 8f620372a0ac4fcf86decf786b349812
+msgid "Step 4: Register in Configuration"
+msgstr "Paso 4: Regístrese en Configuración"
+
+#: ../../../docs/extending.md:198 4824a524185148dcb3c5d137e690b0e4
+msgid "Add to equations.yaml"
+msgstr "Agregar a ecuaciones.yaml"
+
+#: ../../../docs/extending.md:200 6002605c229341d1af385c0be5438662
+msgid ""
+"Open `src/config/equations.yaml` and add a new entry. The key is the "
+"equation ID (e.g. `exponential_function`). The order of entries defines the "
+"order in the UI."
+msgstr ""
+"Abra `src/config/equations.yaml` y agregue una nueva entrada. La clave es el"
+" ID de la ecuación (por ejemplo, \"función_exponencial\"). El orden de las "
+"entradas define el orden en la interfaz de usuario."
+
+#: ../../../docs/extending.md:211 8c5a51a79cc14700a0c1a49a9e2a0fdd
+msgid ""
+"**`function`**: Exact name of your fitting function (e.g. "
+"`fit_exponential_function`). Must match the name exported from "
+"`fitting.functions`."
+msgstr ""
+"**`función`**: Nombre exacto de su función de ajuste (por ejemplo, "
+"`fit_exponential_function`). Debe coincidir con el nombre exportado desde "
+"`fitting.functions`."
+
+#: ../../../docs/extending.md:212 6d27cf10e3b349cb9590b5b26514120e
+msgid "**`formula`**: Display string for the UI (Tkinter and Streamlit)."
+msgstr ""
+"**`fórmula`**: Cadena de visualización para la interfaz de usuario (Tkinter "
+"y Streamlit)."
+
+#: ../../../docs/extending.md:213 c41e9d60fcaf4bb8980f11a66d0ab378
+#, python-brace-format
+msgid ""
+"**`format`**: Template with `{param}` placeholders used to build the fitted "
+"equation string (e.g. `y={a} exp({b}x)`). Required by `generic_fit` when "
+"using `get_equation_format_for_function`."
+msgstr ""
+"**`format`**: Plantilla con marcadores de posición `{param}` utilizados para"
+" construir la cadena de ecuación ajustada (por ejemplo, `y={a} exp({b}x)`). "
+"Requerido por `generic_fit` cuando se usa "
+"`get_equation_format_for_function`."
+
+#: ../../../docs/extending.md:214 90da7b19024c456da106d59c41db8a45
+msgid ""
+"**`param_names`**: List of parameter names in the order expected by your "
+"mathematical function (same order as in the model signature after the "
+"independent variable)."
+msgstr ""
+"**`param_names`**: Lista de nombres de parámetros en el orden esperado por "
+"su función matemática (el mismo orden que en la firma del modelo después de "
+"la variable independiente)."
+
+#: ../../../docs/extending.md:216 28985153e86b4cd4818a1973b3742bec
+msgid ""
+"The application loads this file at startup; `AVAILABLE_EQUATION_TYPES` and "
+"`EQUATIONS` in `config.constants` are built from it, so you do not need to "
+"edit `constants.py`."
+msgstr ""
+"La aplicación carga este archivo al inicio; `AVAILABLE_EQUATION_TYPES` y "
+"`EQUACIONES` en `config.constants` se crean a partir de él, por lo que no es"
+" necesario editar `constants.py`."
+
+#: ../../../docs/extending.md:218 d8d01760b9474b0ea28c8e1541a43ffc
+msgid "Add Translations"
+msgstr "Agregar traducciones"
+
+#: ../../../docs/extending.md:220 38da057d12ec4369b27f75a93750a5ce
+msgid ""
+"Add translations for the equation ID in the `equations` section of each "
+"locale file:"
+msgstr ""
+"Agregue traducciones para el ID de la ecuación en la sección \"ecuaciones\" "
+"de cada archivo local:"
+
+#: ../../../docs/extending.md:222 0485074e6687487f82cbd22e8924b027
+msgid "**English** (`src/locales/en.json`):"
+msgstr "**Inglés** (`src/locales/en.json`):"
+
+#: ../../../docs/extending.md:231 42fc720615f1463ab2e3d8587243b717
+msgid "**Spanish** (`src/locales/es.json`):"
+msgstr "**Español** (`src/locales/es.json`):"
+
+#: ../../../docs/extending.md:240 c0af7e7a4f2646c58759dff6130d310f
+msgid "**German** (`src/locales/de.json`):"
+msgstr "**Alemán** (`src/locales/de.json`):"
+
+#: ../../../docs/extending.md:249 de297d79e8a64753b7eaa6f466f3947e
+msgid "Step 5: Test Your Function"
+msgstr "Paso 5: prueba tu función"
+
+#: ../../../docs/extending.md:251 433fa682113f4a6ca8be407bda901ddf
+msgid "Create Test Data"
+msgstr "Crear datos de prueba"
+
+#: ../../../docs/extending.md:253 6fb38fbf187346a9abccfde8c8c66b32
+msgid "Create a test file in `input/` folder:"
+msgstr "Cree un archivo de prueba en la carpeta `input/`:"
+
+#: ../../../docs/extending.md:277 3fd0b602d2ac474db9c90128a8ebd77e
+msgid "Run the script:"
+msgstr "Ejecute el script:"
+
+#: ../../../docs/extending.md:282 f8413862450840bfbc14162d58ba0b4a
+msgid "Test in Tkinter"
+msgstr "Prueba en Tkinter"
+
+#: ../../../docs/extending.md:284 7d9dc4501b664070abc88aa05c08df10
+msgid "Run RegressionLab"
+msgstr "Ejecute el laboratorio de regresión"
+
+#: ../../../docs/extending.md:285 fc5dfffb22eb4d1991b2e5290ab10a60
+msgid "Select \"Normal Fitting\""
+msgstr "Seleccione \"Ajuste normal\""
+
+#: ../../../docs/extending.md:286 aa6e43e0b0e74d8cb5ad8fc3be48d660
+msgid "Choose \"Exponential Function\" from equation dropdown"
+msgstr "Elija \"Función exponencial\" en el menú desplegable de ecuaciones"
+
+#: ../../../docs/extending.md:287 65318a10eb6146538346b81b1bbf740b
+msgid "Load `exponential_test.csv`"
+msgstr "Cargar `exponential_test.csv`"
+
+#: ../../../docs/extending.md:288 62594352796f4ab98cb4ee45c4e7bc12
+msgid "Select x and y variables"
+msgstr "Seleccionar variables x e y"
+
+#: ../../../docs/extending.md:289 1b38e9e8fa2e41fe928aeb455b87786c
+msgid "View results and check:"
+msgstr "Ver resultados y comprobar:"
+
+#: ../../../docs/extending.md:290 71d07755404e43d58246cecd49a7dbae
+msgid "Parameters are reasonable (a ≈ 2.5, b ≈ 0.8)"
+msgstr "Los parámetros son razonables (a ≈ 2,5, b ≈ 0,8)"
+
+#: ../../../docs/extending.md:291 4fb44a69111b4705a66901981fbfce76
+msgid "R² is high (> 0.95)"
+msgstr "R² es alto (> 0,95)"
+
+#: ../../../docs/extending.md:292 8556eba4bdcd4a6aac305e65253ee774
+msgid "Plot looks good"
+msgstr "La trama se ve bien"
+
+#: ../../../docs/extending.md:294 b7effde993b84bdbab50023260fccfd3
+msgid "Test in Streamlit"
+msgstr "Prueba en Streamlit"
+
+#: ../../../docs/extending.md:296 88e6f63950bd4794addf380d69719336
+msgid "Run `streamlit run src/streamlit_app/app.py`"
+msgstr "Ejecute `streamlit run src/streamlit_app/app.py`"
+
+#: ../../../docs/extending.md:297 ed60a94feada494abd00e41f48547d06
+msgid "Upload `exponential_test.csv`"
+msgstr "Sube `exponential_test.csv`"
+
+#: ../../../docs/extending.md:298 383af96d28e04b538e098dd985f6a6ae
+msgid "Select \"Exponential Function\""
+msgstr "Seleccione \"Función exponencial\""
+
+#: ../../../docs/extending.md:299 d2b950ea0e174a06b14714b65f5e6e91
+msgid "Verify results"
+msgstr "Verificar resultados"
+
+#: ../../../docs/extending.md:301 0a655512a0e9408486f805b1ad516d71
+msgid "Advanced Topics"
+msgstr "Temas avanzados"
+
+#: ../../../docs/extending.md:303 ee03347dc63b4c4e801ad6a846145344
+msgid "Parameter Bounds"
+msgstr "Límites de parámetros"
+
+#: ../../../docs/extending.md:305 b74c9537ddc14833a61d1dd7c6a77c09
+msgid ""
+"`generic_fit` accepts a `bounds` argument. Pass `(lower_bounds, "
+"upper_bounds)` when building your fit (see \"With Initial Guess and Bounds\""
+" above). For full control (e.g. custom formatting), use `curve_fit` directly"
+" and then build the same return tuple `(text, y_fitted, equation[, "
+"fit_info])` that `generic_fit` returns, including R² in the text."
+msgstr ""
+"`generic_fit` acepta un argumento `límites`. Pase `(límites_inferiores, "
+"límites_superiores)` cuando desarrolle su ajuste (consulte \"Con "
+"estimaciones y límites iniciales\" más arriba). Para un control total (por "
+"ejemplo, formato personalizado), use `curve_fit` directamente y luego cree "
+"la misma tupla de retorno `(text, y_fitted, ecuación[, fit_info])` que "
+"devuelve `generic_fit`, incluido R² en el texto."
+
+#: ../../../docs/extending.md:307 768246bac4af45b190cd19c8f0fad818
+msgid "Fixed Parameters"
+msgstr "Parámetros fijos"
+
+#: ../../../docs/extending.md:309 b2f17373848542b3a89f0265711c04d6
+msgid ""
+"Fit with some parameters fixed: define a reduced model that takes only the "
+"free parameters and pass the corresponding `param_names` and "
+"`equation_template` (or register a separate equation in `equations.yaml` "
+"with its own `format` and `param_names`)."
+msgstr ""
+"Ajuste con algunos parámetros fijos: defina un modelo reducido que tome solo"
+" los parámetros libres y pase los correspondientes `param_names` y "
+"`equation_template` (o registre una ecuación separada en `equations.yaml` "
+"con su propio `format` y `param_names`)."
+
+#: ../../../docs/extending.md:311 98cea2075cb84285b54d80b685b252e3
+msgid "Multi-Dimensional Functions"
+msgstr "Funciones multidimensionales"
+
+#: ../../../docs/extending.md:313 41e5cbd2bc594050925e7dcc35ee1534
+msgid ""
+"For functions of multiple variables (e.g., z = f(x, y)), you'll need to use "
+"`curve_fit` directly since `generic_fit` is designed for single-variable "
+"functions:"
+msgstr ""
+"Para funciones de múltiples variables (por ejemplo, z = f(x, y)), "
+"necesitarás usar `curve_fit` directamente ya que `generic_fit` está diseñado"
+" para funciones de una sola variable:"
+
+#: ../../../docs/extending.md:364 54190485401c4980b221cefb49c4ec83
+msgid "Piecewise Functions"
+msgstr "Funciones por partes"
+
+#: ../../../docs/extending.md:366 ce2c7dec7d44414aa0ee55d0a71c12d5
+msgid "Functions with different behaviors in different regions:"
+msgstr "Funciones con diferentes comportamientos en diferentes regiones:"
+
+#: ../../../docs/extending.md:380 013e158a2cc843b784acb88f88f051e4
+msgid "Code Style Guidelines"
+msgstr "Pautas de estilo de código"
+
+#: ../../../docs/extending.md:382 74bba6d8f72248b3adcd4322af1490be
+msgid "Follow Existing Conventions"
+msgstr "Siga las convenciones existentes"
+
+#: ../../../docs/extending.md:384 7f59e93a9351475c875f33bec77534e6
+msgid "**Naming**:"
+msgstr "**Denominación**:"
+
+#: ../../../docs/extending.md:385 c390362f3f10499ab8263485624b2e37
+msgid ""
+"Mathematical functions: `<name>_function` (e.g., `exponential_function`)"
+msgstr ""
+"Funciones matemáticas: `<nombre>_función` (por ejemplo, "
+"`función_exponencial`)"
+
+#: ../../../docs/extending.md:386 8fc7aeb8c6ab46b3913a91665ed676bd
+msgid "Fitting functions: `fit_<name>` (e.g., `fit_exponential`)"
+msgstr "Funciones de ajuste: `fit_<nombre>` (por ejemplo, `fit_exponential`)"
+
+#: ../../../docs/extending.md:387 234eae0ce68049e6a97c64aa03252da1
+msgid "Use snake_case for function names"
+msgstr "Utilice Snake_case para nombres de funciones"
+
+#: ../../../docs/extending.md:389 9a214b15cc5743548ea792f5b330435e
+msgid "**Type Hints**:"
+msgstr "**Sugerencias de tipo**:"
+
+#: ../../../docs/extending.md:406 4efed3ada8184c15ad22e8939c49776f
+msgid "**Docstrings**:"
+msgstr "**Cadenas de documentos**:"
+
+#: ../../../docs/extending.md:413 16ea73d1a9e7424a91bab446664bf911
+msgid "For fitting wrapper functions:"
+msgstr "Para funciones de envoltura de montaje:"
+
+#: ../../../docs/extending.md:424 9ef97a1faa384783a749fe2333bd0539
+msgid ""
+"**Error Handling**: `generic_fit` raises `FittingError` on failure. You can "
+"wrap your fit in try/except to log or re-raise; the workflow controller "
+"already handles errors from the fit function."
+msgstr ""
+"**Manejo de errores**: `generic_fit` genera `FittingError` en caso de falla."
+" Puedes terminar tu ajuste en try/except para iniciar sesión o volver a "
+"subir; el controlador de flujo de trabajo ya maneja los errores de la "
+"función de ajuste."
+
+#: ../../../docs/extending.md:426 4c7fe44ccb2c47bd89cb0263ddfda3fc
+msgid "Testing"
+msgstr "Pruebas"
+
+#: ../../../docs/extending.md:428 b64a01c7b4424aa0b9209e95ef068ad4
+msgid "Create a test file in `tests/` directory:"
+msgstr "Cree un archivo de prueba en el directorio `tests/`:"
+
+#: ../../../docs/extending.md:469 3e48e633cb054cbfa757b423a6d92829
+msgid "Run tests:"
+msgstr "Ejecutar pruebas:"
+
+#: ../../../docs/extending.md:474 2649f4ccb7e74dc0ae263099f94ddbe2
+msgid "Common Patterns"
+msgstr "Patrones comunes"
+
+#: ../../../docs/extending.md:476 01db2f6b9c0540c09960d3e8f740d5d6
+msgid "Pattern 1: Simple Function"
+msgstr "Patrón 1: función simple"
+
+#: ../../../docs/extending.md:478 4a6c5aa1c22a4639881fd421e9c94f60
+msgid "For straightforward equations without special requirements:"
+msgstr "Para ecuaciones sencillas sin requisitos especiales:"
+
+#: ../../../docs/extending.md:509 7c828711f9ec454ea7450575cbb0396e
+msgid "Pattern 2: Function with Estimation"
+msgstr "Patrón 2: Función con estimación"
+
+#: ../../../docs/extending.md:511 f8e789df3ca64b93bff3d76cc2db4c93
+msgid ""
+"For complex functions needing initial guesses, use estimators from `_base` "
+"(or add one in `estimators.py` and re-export from `_base`) and "
+"`merge_initial_guess` / `merge_bounds`:"
+msgstr ""
+"Para funciones complejas que necesitan conjeturas iniciales, use estimadores"
+" de `_base` (o agregue uno en `estimators.py` y vuelva a exportarlo desde "
+"`_base`) y `merge_initial_guess`/`merge_bounds`:"
+
+#: ../../../docs/extending.md:544 5a3eb81f33fd4ba2a658c15bd74a36ab
+msgid "Pattern 3: Specialized Function"
+msgstr "Patrón 3: función especializada"
+
+#: ../../../docs/extending.md:546 3e964522250d480eb52bf04e11d7d416
+msgid ""
+"For functions with constraints or special handling, use `curve_fit` directly"
+" and build the same return tuple `(text, y_fitted, equation[, fit_info])` "
+"that `generic_fit` returns (include R² in the text). See existing "
+"implementations in `fitting/functions/special.py` for examples with bounds "
+"and custom estimators."
+msgstr ""
+"Para funciones con restricciones o manejo especial, use `curve_fit` "
+"directamente y cree la misma tupla de retorno `(text, y_fitted, ecuación[, "
+"fit_info])` que devuelve `generic_fit` (incluya R² en el texto). Consulte "
+"las implementaciones existentes en `fitting/functions/special.py` para ver "
+"ejemplos con límites y estimadores personalizados."
+
+#: ../../../docs/extending.md:548 c36700746bcd4a3a8910c6ea502adb90
+msgid "Example: Complete Implementation"
+msgstr "Ejemplo: implementación completa"
+
+#: ../../../docs/extending.md:550 0f0bc730753548b6be5a3f1c12b931ec
+msgid "Here's a complete example adding a Stretched Exponential function."
+msgstr ""
+"Aquí hay un ejemplo completo que agrega una función exponencial extendida."
+
+#: ../../../docs/extending.md:552 2448056b293e4c93ba413e759aa0afd2
+msgid "**1. Add to `fitting/functions/special.py`:**"
+msgstr "**1. Agregar a `fitting/functions/special.py`:**"
+
+#: ../../../docs/extending.md:582 09c90d570bb2401eab70d6e42c843087
+msgid ""
+"**2. Export in `fitting/functions/__init__.py`:**   Add "
+"`fit_stretched_exponential` to the `from .special import ...` list and to "
+"`__all__`."
+msgstr ""
+"**2. Exportar en `fitting/functions/__init__.py`:** Agregue "
+"`fit_stretched_exponential` a la lista `from .special import...` y a "
+"`__all__`."
+
+#: ../../../docs/extending.md:585 42871e5daeb2476aaa45451f4f1b1cb6
+msgid "**3. Add to `config/equations.yaml`:**"
+msgstr "**3. Agregar a `config/equations.yaml`:**"
+
+#: ../../../docs/extending.md:595 543c57add4b54d19b9b8a47f0b71631e
+msgid ""
+"**4. Add translations** in `src/locales/en.json`, `es.json`, and `de.json` "
+"under the `equations` key:"
+msgstr ""
+"**4. Agregue traducciones** en `src/locales/en.json`, `es.json` y `de.json` "
+"bajo la clave `equations`:"
+
+#: ../../../docs/extending.md:601 cb2b96455ca74954bd172464ad26be6d
+msgid ""
+"**5. Test:** Create test data (e.g. in `input/stretched_exp_test.csv`) and "
+"run the app (Tkinter or Streamlit) to verify the new equation appears and "
+"fits correctly."
+msgstr ""
+"**5. Prueba:** Cree datos de prueba (por ejemplo, en "
+"`input/stretched_exp_test.csv`) y ejecute la aplicación (Tkinter o "
+"Streamlit) para verificar que la nueva ecuación aparezca y se ajuste "
+"correctamente."
+
+#: ../../../docs/extending.md:603 a56e2508bcfc44bbafa7258189802ef4
+msgid "Next Steps"
+msgstr "Próximos pasos"
+
+#: ../../../docs/extending.md:605 e0748b626c034d17b6529fe7829b19bb
+msgid ""
+"**Study existing functions**: Look at the modules under `fitting/functions/`"
+" for more examples"
+msgstr ""
+"**Estudiar funciones existentes**: consulte los módulos en "
+"`fitting/functions/` para obtener más ejemplos"
+
+#: ../../../docs/extending.md:606 a7bf9018a43141048a6494fd76ea98c6
+msgid "**Test thoroughly**: Create synthetic data with known parameters"
+msgstr ""
+"**Pruebe minuciosamente**: cree datos sintéticos con parámetros conocidos"
+
+#: ../../../docs/extending.md:607 8410dec39713490caa198c52f67b4bfd
+msgid "**Document well**: Write clear docstrings and comments"
+msgstr ""
+"**Documente bien**: escriba cadenas de documentación y comentarios claros"
+
+#: ../../../docs/extending.md:608 eeec1214e3b6461da2ee131211445ef0
+msgid "**Contribute**: Submit your functions as pull requests to help others!"
+msgstr ""
+"**Contribuya**: envíe sus funciones como solicitudes de extracción para "
+"ayudar a otros."
+
+#: ../../../docs/extending.md:610 4475dcad2f344a648c0504454bcd663b
+msgid ""
+"For more advanced customization, see [Customizing the Fitting "
+"Core](customization.md)."
+msgstr ""
+"Para una personalización más avanzada, consulte [Personalizar el núcleo de "
+"adaptación] (customization.md)."
+
+#: ../../../docs/extending.md:614 31e5c503fed143c4996253410a0256df
+msgid ""
+"*Have questions? Open an issue on GitHub or check the [API "
+"Documentation](api/index).*"
+msgstr ""
+"*¿Tiene preguntas? Abra una incidencia en GitHub o consulte la "
+"[Documentación de API](api/index).*"

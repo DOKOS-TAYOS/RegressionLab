@@ -1,0 +1,542 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Alejandro Mata Ali
+# This file is distributed under the same license as the RegressionLab
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: RegressionLab 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-13 19:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: es <LL@li.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../../docs/customization.md:1 db8995a26e3246a8b07378d8aac392bf
+msgid "Customizing the Fitting Core"
+msgstr "Personalización del núcleo de adaptación"
+
+#: ../../../docs/customization.md:3 3b3a9e3c4c0e44f4843b64ab5d9736b8
+msgid ""
+"This guide explains how to replace or modify the curve fitting engine in "
+"RegressionLab. By default, RegressionLab uses SciPy's `curve_fit` function, "
+"but you may want to use a different optimization library for specific needs."
+msgstr ""
+"Esta guía explica cómo reemplazar o modificar el motor de ajuste de curvas "
+"en RegressionLab. De forma predeterminada, RegressionLab usa la función "
+"`curve_fit` de SciPy, pero es posible que desees usar una biblioteca de "
+"optimización diferente para necesidades específicas."
+
+#: ../../../docs/customization.md:5 ddc80a1cacc54d349d4c509dcfb1996f
+msgid "Overview"
+msgstr "Descripción general"
+
+#: ../../../docs/customization.md:7 0b987e5e61a44281b33823c635e2d944
+msgid ""
+"RegressionLab's fitting architecture is modular, making it relatively easy "
+"to swap out the optimization backend. This guide covers:"
+msgstr ""
+"La arquitectura adecuada de RegressionLab es modular, lo que hace que sea "
+"relativamente fácil cambiar el backend de optimización. Esta guía cubre:"
+
+#: ../../../docs/customization.md:9 6bdb3a4aa5304dc7a7e746ba43d2d79d
+msgid "**Understanding the current architecture**"
+msgstr "**Comprensión de la arquitectura actual**"
+
+#: ../../../docs/customization.md:10 0c2e983294cc4d93955d795d2075ed33
+msgid "**Why you might want to change it**"
+msgstr "**Por qué es posible que quieras cambiarlo**"
+
+#: ../../../docs/customization.md:11 350471f8f3484d45868dd4a996f201d3
+msgid "**How to replace SciPy with another library**"
+msgstr "**Cómo reemplazar SciPy con otra biblioteca**"
+
+#: ../../../docs/customization.md:12 04c667bdd5c94983951e4d1147672445
+msgid "**Alternative optimization libraries**"
+msgstr "**Bibliotecas de optimización alternativas**"
+
+#: ../../../docs/customization.md:13 736b5f79cb7b4db8885cff997aa7c8a6
+msgid "**Performance considerations**"
+msgstr "**Consideraciones de rendimiento**"
+
+#: ../../../docs/customization.md:15 fe5e9c6ef4dd4154bda1ab1a02f6e8de
+msgid "Current Architecture"
+msgstr "Arquitectura actual"
+
+#: ../../../docs/customization.md:17 b234fee6110844689004ba633ae00b0f
+msgid "How Fitting Works Now"
+msgstr "Cómo funciona el ajuste ahora"
+
+#: ../../../docs/customization.md:19 8cfc75d4de244d2f83ffc78723f89491
+msgid "RegressionLab's fitting pipeline:"
+msgstr "Canal de adaptación de RegressionLab:"
+
+#: ../../../docs/customization.md:33 8fe3dbb2425b4bf5a8e41911e0219e33
+msgid "Key File: `fitting_utils.py`"
+msgstr "Archivo clave: `fitting_utils.py`"
+
+#: ../../../docs/customization.md:35 c4a151fa0bec48249323264826d52883
+msgid "The core fitting logic is in `src/fitting/fitting_utils.py`:"
+msgstr ""
+"La lógica de adaptación principal está en `src/fitting/fitting_utils.py`:"
+
+#: ../../../docs/customization.md:78 6e1bb0f7f2184cb7878c626febac93ae
+msgid ""
+"This function is the **single point of control** for the optimization "
+"backend."
+msgstr ""
+"Esta función es el **único punto de control** para el backend de "
+"optimización."
+
+#: ../../../docs/customization.md:80 a5c061a58ac546e89a18cffbaf3bed23
+msgid "Why Change the Fitting Core?"
+msgstr "¿Por qué cambiar el núcleo de ajuste?"
+
+#: ../../../docs/customization.md:82 0c7dafca31b1465cae931176da1ca378
+msgid "Reasons to Use a Different Library"
+msgstr "Razones para utilizar una biblioteca diferente"
+
+#: ../../../docs/customization.md:84 912b66879d074ea5a2de4a3d4712e162
+msgid "**Performance**: Some libraries are faster for specific problem types"
+msgstr ""
+"**Rendimiento**: algunas bibliotecas son más rápidas para tipos de problemas"
+" específicos"
+
+#: ../../../docs/customization.md:85 05cdcad6428c43429a9a36b99335361b
+msgid "**Robustness**: Better handling of difficult optimization problems"
+msgstr "**Robustez**: Mejor manejo de problemas de optimización difíciles"
+
+#: ../../../docs/customization.md:86 4ff5f931560a4be7bed958786ca2907e
+msgid ""
+"**Features**: Access to different optimization algorithms (global "
+"optimization, constraints, etc.)"
+msgstr ""
+"**Características**: Acceso a diferentes algoritmos de optimización "
+"(optimización global, restricciones, etc.)"
+
+#: ../../../docs/customization.md:87 77be872bc1f94b689d8fadb9f3e2150c
+msgid "**Licensing**: Some libraries have different licenses"
+msgstr "**Licencias**: algunas bibliotecas tienen licencias diferentes"
+
+#: ../../../docs/customization.md:88 7537c93092984f3eb9ace4a682d24a36
+msgid "**Custom needs**: Specialized algorithms for your domain"
+msgstr ""
+"**Necesidades personalizadas**: Algoritmos especializados para tu dominio"
+
+#: ../../../docs/customization.md:90 0822ca6ca51c4e0db83c740ecc8505f9
+msgid "Popular Alternatives"
+msgstr "Alternativas populares"
+
+#: ../../../docs/customization.md 18980edd43c54d27ae418358edafa9fc
+msgid "Library"
+msgstr "Biblioteca"
+
+#: ../../../docs/customization.md 3ed0edca1eca4be8a7308b3c35591b19
+msgid "Pros"
+msgstr "Ventajas"
+
+#: ../../../docs/customization.md 482fcf5eb8574f55a2c17aa408fae71e
+msgid "Cons"
+msgstr "Contras"
+
+#: ../../../docs/customization.md bba16cc2f0fe4b26a9e670c312c02e3f
+msgid "**lmfit**"
+msgstr "** estoy en forma **"
+
+#: ../../../docs/customization.md 1d708f96853044158ed86876afb9bb9d
+msgid "High-level API, parameter constraints, many models"
+msgstr "API de alto nivel, restricciones de parámetros, muchos modelos"
+
+#: ../../../docs/customization.md c2e7f9ae1b3146ab887e48dd194fd886
+msgid "Additional dependency"
+msgstr "Dependencia adicional"
+
+#: ../../../docs/customization.md 7078d2a72e5e4c0a8d1b42dba72ed669
+msgid "**scipy.optimize.least_squares**"
+msgstr "**scipy.optimize.mínimos_cuadrados**"
+
+#: ../../../docs/customization.md 232a299bfbbe4b71aa0d00bff81ab45b
+msgid "More options than curve_fit, robust loss functions"
+msgstr "Más opciones que curve_fit, funciones de pérdida robustas"
+
+#: ../../../docs/customization.md a792d81cfccb4c7fbf80f2f54213867c
+msgid "Lower-level API"
+msgstr "API de nivel inferior"
+
+#: ../../../docs/customization.md c1b77a5f70274e759c17ded22f5ab2cd
+msgid "**scipy.optimize.minimize**"
+msgstr "**scipy.optimizar.minimizar**"
+
+#: ../../../docs/customization.md a454016e8df64c0b9ced5c0afa625fb8
+msgid "General optimization, many algorithms"
+msgstr "Optimización general, muchos algoritmos."
+
+#: ../../../docs/customization.md 171ea6a143a84b1d8b0c366f6c1a96d5
+msgid "Not specialized for curve fitting"
+msgstr "No especializado para ajuste de curvas"
+
+#: ../../../docs/customization.md 970eb37dcd8b4f8da8082b39cdfeabfb
+msgid "**PyGMO**"
+msgstr "**PyGM**"
+
+#: ../../../docs/customization.md 49e4f0eee8164e57bcd97fe04875bf97
+msgid "Global optimization, parallel evaluation"
+msgstr "Optimización global, evaluación paralela"
+
+#: ../../../docs/customization.md 05dde9e8c0e9479c93045bbbedc30bc1
+msgid "Complex, heavy dependency"
+msgstr "Dependencia compleja y fuerte"
+
+#: ../../../docs/customization.md 9cc71c5e73e94170ae74d895fe12d788
+msgid "**NLopt**"
+msgstr "**NLoptar**"
+
+#: ../../../docs/customization.md 0ec43ea5b0304dcb8b2e9f8ce6d7a6c4
+msgid "Fast, many algorithms, constraints"
+msgstr "Rápido, muchos algoritmos, restricciones."
+
+#: ../../../docs/customization.md 78f02d640c8a4a618721f3a4f3535cd8
+msgid "C library binding, harder to install"
+msgstr "Enlace de biblioteca C, más difícil de instalar"
+
+#: ../../../docs/customization.md b719617b667744d993ad5e872e75b42c
+msgid "**TensorFlow/PyTorch**"
+msgstr "**TensorFlow/PyTorch**"
+
+#: ../../../docs/customization.md 777a019179c34b8ca73272da239123aa
+msgid "GPU acceleration, automatic differentiation"
+msgstr "Aceleración de GPU, diferenciación automática"
+
+#: ../../../docs/customization.md 17737790846c46599cc7c42ca05b5539
+msgid "Overkill for simple fits, steep learning curve"
+msgstr "Exceso para ajustes simples, curva de aprendizaje pronunciada"
+
+#: ../../../docs/customization.md:101 5232e0737b3b4f568159a85fb30cd6ac
+msgid "How to Replace the Fitting Core"
+msgstr "Cómo reemplazar el núcleo de conexión"
+
+#: ../../../docs/customization.md:103 32772c5f57474258885c01f65869a358
+msgid "Method 1: Modify `generic_fit` Function"
+msgstr "Método 1: modificar la función `generic_fit`"
+
+#: ../../../docs/customization.md:105 b67bec1360344fee868186f046ab7e27
+msgid ""
+"This is the recommended approach as it requires minimal changes to the "
+"codebase."
+msgstr ""
+"Este es el enfoque recomendado ya que requiere cambios mínimos en el código "
+"base."
+
+#: ../../../docs/customization.md:107 05b3be8c65a840719e5bff5a5ee893e1
+msgid "Example: Using lmfit"
+msgstr "Ejemplo: uso de lmfit"
+
+#: ../../../docs/customization.md:109 88e0b22e951a4bcfac4f34a0d3d59879
+msgid "**Step 1: Install lmfit**"
+msgstr "**Paso 1: Instalar lmfit**"
+
+#: ../../../docs/customization.md:115 55fbc709487949d7af43a7ea6efb8de2
+msgid "Add to `requirements.txt`:"
+msgstr "Agregar a `requisitos.txt`:"
+
+#: ../../../docs/customization.md:120 c986a0e0620e4a939f06856334017eb2
+msgid "**Step 2: Create Alternative Generic Fit**"
+msgstr "**Paso 2: Crear un ajuste genérico alternativo**"
+
+#: ../../../docs/customization.md:122 dc567962a6874cff9c9bf940ffdb8c70
+msgid "Create a new function in `fitting_utils.py`:"
+msgstr "Crea una nueva función en `fitting_utils.py`:"
+
+#: ../../../docs/customization.md:178 f25c0f804fb844cb8fd8c4a915740c8f
+msgid "**Step 3: Switch to New Implementation**"
+msgstr "**Paso 3: Cambiar a una nueva implementación**"
+
+#: ../../../docs/customization.md:180 0c4e1bcc75cf48da8e6ccaa1c38155ec
+msgid "Option A - Replace original:"
+msgstr "Opción A - Reemplazar original:"
+
+#: ../../../docs/customization.md:191 d1d71080de6f462e847fd5a8fe535881
+msgid "Option B - Use configuration flag:"
+msgstr "Opción B: utilizar el indicador de configuración:"
+
+#: ../../../docs/customization.md:206 d2a405de086545a58e707251aca15f85
+msgid "Example: Using scipy.optimize.least_squares"
+msgstr "Ejemplo: uso de scipy.optimize.least_squares"
+
+#: ../../../docs/customization.md:208 33c5e84904604b9dbb32073691501626
+msgid "For more control and robust loss functions:"
+msgstr "Para obtener más control y funciones de pérdida sólidas:"
+
+#: ../../../docs/customization.md:272 bc6dc3ee1a2b4bfeb9e83329378a9f53
+msgid "**Robust Loss Functions**:"
+msgstr "**Funciones de pérdida robustas**:"
+
+#: ../../../docs/customization.md:273 e5cc925189b446fda4d83bb2fd0e96bb
+msgid "`'linear'`: Standard least squares (default, same as curve_fit)"
+msgstr ""
+"`'lineal'`: Mínimos cuadrados estándar (predeterminado, igual que curve_fit)"
+
+#: ../../../docs/customization.md:274 f923307650f24f02b32feade629b7750
+msgid "`'soft_l1'`: Robust to outliers, smooth transition"
+msgstr "`'soft_l1'`: Robusto a valores atípicos, transición suave"
+
+#: ../../../docs/customization.md:275 aa0756a863774aceb229308d1aaa7d63
+msgid "`'huber'`: Robust to outliers, less aggressive"
+msgstr "``huber'': Robusto ante valores atípicos, menos agresivo"
+
+#: ../../../docs/customization.md:276 b09ea30e15934956a36995b4f1a743b1
+msgid "`'cauchy'`: Very robust to outliers, but can converge slowly"
+msgstr ""
+"`'cauchy'`: muy resistente a los valores atípicos, pero puede converger "
+"lentamente"
+
+#: ../../../docs/customization.md:277 48abf5d507c14871bf28262f0c3fe593
+msgid "`'arctan'`: Similar to Cauchy"
+msgstr "``arctan'': Similar a Cauchy"
+
+#: ../../../docs/customization.md:279 633b60227e6f4be0bc5521cdf37f04e4
+msgid "Method 2: Create Custom Fitting Wrapper"
+msgstr "Método 2: crear un envoltorio de ajuste personalizado"
+
+#: ../../../docs/customization.md:281 4ad3a5452ca4447e90d56707a7946c65
+msgid "For specialized needs, create domain-specific fitting functions:"
+msgstr ""
+"Para necesidades especializadas, cree funciones de adaptación específicas de"
+" dominio:"
+
+#: ../../../docs/customization.md:339 3fa22d0a3f0e42168ba7d147796aecb0
+msgid "Method 3: Bayesian Fitting with MCMC"
+msgstr "Método 3: Ajuste bayesiano con MCMC"
+
+#: ../../../docs/customization.md:341 0386ce36d8574ac7a6bacca11244553c
+msgid "For uncertainty quantification with complex models:"
+msgstr "Para cuantificación de incertidumbre con modelos complejos:"
+
+#: ../../../docs/customization.md:413 02540faede9b4d3584074aea1c4658a4
+msgid "Advanced: Parameter Constraints and Bounds"
+msgstr "Avanzado: restricciones y límites de parámetros"
+
+#: ../../../docs/customization.md:415 83c583874d114be98dd62fc37dd1be40
+msgid "Adding Bounds to Existing Functions"
+msgstr "Agregar límites a funciones existentes"
+
+#: ../../../docs/customization.md:417 1c2052b1c5ca44bdbb5dfc71945769f7
+msgid "Modify individual fitting functions to include bounds:"
+msgstr "Modifique funciones de ajuste individuales para incluir límites:"
+
+#: ../../../docs/customization.md:442 1005422b7ae6427f9d1bde01603349de
+msgid "Creating a Configurable Bounds System"
+msgstr "Crear un sistema de límites configurable"
+
+#: ../../../docs/customization.md:444 9d6e14acc7914c44a31e04872612a047
+msgid "Add bounds to function metadata:"
+msgstr "Agregue límites a los metadatos de la función:"
+
+#: ../../../docs/customization.md:479 674e39aa7e8d4b069d504c724069e262
+msgid "Performance Considerations"
+msgstr "Consideraciones de rendimiento"
+
+#: ../../../docs/customization.md:481 bfc2b5a11f4047af8a1386319487df57
+msgid "Benchmarking Different Backends"
+msgstr "Evaluación comparativa de diferentes backends"
+
+#: ../../../docs/customization.md:483 e882c70cdea34e468836f57db6917b6f
+msgid "Create a benchmark script:"
+msgstr "Cree un script de referencia:"
+
+#: ../../../docs/customization.md:516 048adbd44ca1493493ffe52dfc7d6ddb
+msgid "Optimization Tips"
+msgstr "Consejos de optimización"
+
+#: ../../../docs/customization.md:518 929990a017ef46c086c6db27182e3caf
+msgid "**Vectorize operations**: Use NumPy arrays, not loops"
+msgstr "**Operaciones de vectorización**: use matrices NumPy, no bucles"
+
+#: ../../../docs/customization.md:519 f554a8c406274c85a910a3cb7200dfc1
+msgid "**Good initial guesses**: Reduces iterations"
+msgstr "**Buenas conjeturas iniciales**: Reduce las iteraciones"
+
+#: ../../../docs/customization.md:520 afd1f044aee04498bb72be4daa618672
+msgid "**Appropriate tolerances**: Don't over-optimize"
+msgstr "**Tolerancias adecuadas**: no optimice demasiado"
+
+#: ../../../docs/customization.md:521 5b89a564a1784634825a52da80ead976
+msgid "**Warm starts**: Reuse previous fits as initial guesses"
+msgstr ""
+"**Comienzos en caliente**: reutilice ajustes anteriores como conjeturas "
+"iniciales"
+
+#: ../../../docs/customization.md:523 b89151f50d484a209849738cb002cca2
+msgid "Example with warm starts:"
+msgstr "Ejemplo con arranques en caliente:"
+
+#: ../../../docs/customization.md:545 91887e159fe940a78fb15df347c42af7
+msgid "Handling Uncertainty Propagation"
+msgstr "Manejo de la propagación de la incertidumbre"
+
+#: ../../../docs/customization.md:547 19579b165a224ccbb25ed296a8371d97
+msgid "Using uncertainties Package"
+msgstr "Uso del paquete de incertidumbres"
+
+#: ../../../docs/customization.md:549 9297b5198a144093a83927dd8419b0cf
+msgid "For automatic error propagation:"
+msgstr "Para la propagación automática de errores:"
+
+#: ../../../docs/customization.md:584 9d725615006445ca951a33bc5b674718
+msgid "Configuration File Approach"
+msgstr "Enfoque del archivo de configuración"
+
+#: ../../../docs/customization.md:586 4ec99f418fac460da890d9a372d72c39
+msgid "Create a comprehensive configuration system:"
+msgstr "Cree un sistema de configuración integral:"
+
+#: ../../../docs/customization.md:622 d33e1e971d8b47e99fd9b02605955ae2
+msgid ""
+"Users can then switch backends by editing the config package (e.g. "
+"`config/constants.py`) without modifying code."
+msgstr ""
+"Luego, los usuarios pueden cambiar de backend editando el paquete de "
+"configuración (por ejemplo, `config/constants.py`) sin modificar el código."
+
+#: ../../../docs/customization.md:624 0b92949d65a34ac88f9616c857348c3b
+msgid "Testing New Backends"
+msgstr "Probando nuevos backends"
+
+#: ../../../docs/customization.md:626 6678b558609b4f129c190aa35b3612e4
+msgid "Always test thoroughly when changing the fitting core:"
+msgstr "Pruebe siempre minuciosamente al cambiar el núcleo del accesorio:"
+
+#: ../../../docs/customization.md:668 29d75e89df4641318f97a95d61de983e
+msgid "Summary"
+msgstr "Resumen"
+
+#: ../../../docs/customization.md 2de139ab41644cc6b0abf4c1e2bc8fd4
+msgid "Approach"
+msgstr "Acercarse"
+
+#: ../../../docs/customization.md a2d40535aef14f098e1443e8c1c3d2b5
+msgid "Difficulty"
+msgstr "Dificultad"
+
+#: ../../../docs/customization.md 421d218c1fb5411287ced394a42c84d4
+msgid "Flexibility"
+msgstr "Flexibilidad"
+
+#: ../../../docs/customization.md 3e47c587c1ac4b4b8bb058f9068d4576
+msgid "When to Use"
+msgstr "Cuando usar"
+
+#: ../../../docs/customization.md 554042a7903e4289a51c17345eb37800
+msgid "Modify `generic_fit`"
+msgstr "Modificar `generic_fit`"
+
+#: ../../../docs/customization.md 62029a3b0e6745278e1a8109990e8e21
+msgid "Easy"
+msgstr "Fácil"
+
+#: ../../../docs/customization.md 484ed7425ea64bf992309b5128370038
+msgid "Low"
+msgstr "Bajo"
+
+#: ../../../docs/customization.md 6c0781a596464420a520b773d7d339ed
+msgid "Simple backend swap"
+msgstr "Intercambio de backend simple"
+
+#: ../../../docs/customization.md fb0dc75e78c04521a0fc5f5874d207d3
+msgid "Add backend option"
+msgstr "Agregar opción de backend"
+
+#: ../../../docs/customization.md 10a5b6180f224a638b49def9fc30566d
+#: 84e0db24f9d049869430510eca6d0395 b1541b8079d04cfbaa83c16857f7b061
+msgid "Medium"
+msgstr "Medio"
+
+#: ../../../docs/customization.md 2bf18fdb1d7c43d7b3e8747412d9d86d
+msgid "Support multiple backends"
+msgstr "Admite múltiples servidores"
+
+#: ../../../docs/customization.md c7449b581b7b477689587bbe0aca58df
+msgid "Custom fitting functions"
+msgstr "Funciones de ajuste personalizadas"
+
+#: ../../../docs/customization.md 6b442b07edd748ac8c25d61589a822a3
+msgid "High"
+msgstr "Alto"
+
+#: ../../../docs/customization.md f323b2ad31c046f1bee9b690b9cfc9e4
+msgid "Specialized needs per equation"
+msgstr "Necesidades especializadas por ecuación"
+
+#: ../../../docs/customization.md 6ef89129f61a4916a243fdf660250f4b
+msgid "Configuration system"
+msgstr "Sistema de configuración"
+
+#: ../../../docs/customization.md c8a7c308732c46179e5e7c13434cb57c
+msgid "Hard"
+msgstr "Duro"
+
+#: ../../../docs/customization.md 610f790af7e34c1fab75ed46aa1ee8e2
+msgid "Very High"
+msgstr "muy alto"
+
+#: ../../../docs/customization.md 73d74b2f7e5743138a66b3bbf7048d6e
+msgid "Production deployments"
+msgstr "Implementaciones de producción"
+
+#: ../../../docs/customization.md:677 ff8ed2751ed04eefa5641e8668982a6f
+msgid "**Recommendations**:"
+msgstr "**Recomendaciones**:"
+
+#: ../../../docs/customization.md:678 faf443273c67490eb3f7f61198a1de01
+msgid "**Start simple**: Modify `generic_fit` directly"
+msgstr "**Empiece de forma sencilla**: modifique `generic_fit` directamente"
+
+#: ../../../docs/customization.md:679 33190ae4959e419282346122643b149e
+msgid "**For production**: Use configuration system"
+msgstr "**Para producción**: Usar sistema de configuración"
+
+#: ../../../docs/customization.md:680 2bdf2fe14937458f80525b710892c2e5
+msgid "**For research**: Create specialized fitting functions"
+msgstr "**Para investigación**: cree funciones de adaptación especializadas"
+
+#: ../../../docs/customization.md:681 226e2e1496a6439bbf4354490caba771
+msgid "**Always test**: Verify results match expectations"
+msgstr ""
+"**Prueba siempre**: verifica que los resultados coincidan con las "
+"expectativas"
+
+#: ../../../docs/customization.md:683 fb41cb5b05af4dbfb03d5d63e158caa0
+msgid "Next Steps"
+msgstr "Próximos pasos"
+
+#: ../../../docs/customization.md:685 96dcec06aa254cbd85527ffc6aa52062
+msgid "**Test thoroughly**: Use known data to validate new backend"
+msgstr ""
+"**Prueba minuciosamente**: utiliza datos conocidos para validar el nuevo "
+"backend"
+
+#: ../../../docs/customization.md:686 90ea4d63a7eb475f934c6a86d983cf6b
+msgid "**Benchmark**: Compare performance with original"
+msgstr "**Parámetro**: compare el rendimiento con el original"
+
+#: ../../../docs/customization.md:687 54b5444d330f4572bb98dd59c7e83ba4
+msgid "**Document**: Explain why you chose a different backend"
+msgstr "**Documento**: Explica por qué elegiste un backend diferente"
+
+#: ../../../docs/customization.md:688 d8087959a8a24b6e8fee0d2efc549efa
+msgid "**Contribute**: Share your improvements with the community!"
+msgstr "**Contribuye**: ¡Comparte tus mejoras con la comunidad!"
+
+#: ../../../docs/customization.md:692 c0e30e6dc08c41d99cd7a7624c6357b8
+msgid "*For more technical details, see the [API Documentation](api/index).*"
+msgstr ""
+"*Para obtener más detalles técnicos, consulte la [Documentación "
+"API](api/index).*"

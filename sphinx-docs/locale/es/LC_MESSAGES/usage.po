@@ -1,0 +1,1221 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Alejandro Mata Ali
+# This file is distributed under the same license as the RegressionLab
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: RegressionLab 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-13 19:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: es <LL@li.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../../docs/usage.md:1 fa8032137a9344cca7027e83386fa3d4
+msgid "User Guide"
+msgstr "Guía del usuario"
+
+#: ../../../docs/usage.md:3 f78b62abcdd1489790560fdace47e210
+msgid ""
+"This guide explains how to use RegressionLab to fit curves to your data. "
+"Whether you're using the web version or the desktop version, this guide will"
+" help you get started."
+msgstr ""
+"Esta guía explica cómo utilizar RegressionLab para ajustar curvas a sus "
+"datos. Ya sea que esté utilizando la versión web o la versión de escritorio,"
+" esta guía lo ayudará a comenzar."
+
+#: ../../../docs/usage.md:5 8fdaf0e8f2ca44c18b5ff3dd93875d88
+msgid "Overview"
+msgstr "Descripción general"
+
+#: ../../../docs/usage.md:7 1a9571ab9fef4eb49dcc928e529debc4
+msgid "RegressionLab provides two interfaces for curve fitting:"
+msgstr "RegressionLab proporciona dos interfaces para el ajuste de curvas:"
+
+#: ../../../docs/usage.md:9 63c2c2bec0da4be6bd31262f2a09cb7a
+msgid ""
+"**Web Version (Streamlit)**: Browser-based, easy to use, accessible from "
+"anywhere. The sidebar lets you choose language and operation mode; the main "
+"area handles file upload, variable and equation selection, and results. "
+"Configuration is done by editing the `.env` file (no in-app config dialog)."
+msgstr ""
+"**Versión web (Streamlit)**: basada en navegador, fácil de usar, accesible "
+"desde cualquier lugar. La barra lateral te permite elegir el idioma y el "
+"modo de operación; el área principal maneja la carga de archivos, la "
+"selección de variables y ecuaciones, y los resultados. La configuración se "
+"realiza editando el archivo `.env` (sin cuadro de diálogo de configuración "
+"en la aplicación)."
+
+#: ../../../docs/usage.md:11 02f3edf46b294cc283e3674a3601ea68
+msgid ""
+"**Desktop Version (Tkinter)**: Native application with full features and "
+"advanced options. The main menu offers mode buttons (Normal Fitting, "
+"Multiple Datasets, Checker Fitting, Total Fitting, Watch Data), "
+"**Information** (help with collapsible sections and optional Donations "
+"link), **Configure** (edit .env options in a dialog; saving restarts the "
+"app), and Exit."
+msgstr ""
+"**Versión de escritorio (Tkinter)**: Aplicación nativa con funciones "
+"completas y opciones avanzadas. El menú principal ofrece botones de modo "
+"(Ajuste normal, Conjuntos de datos múltiples, Ajuste del verificador, Ajuste"
+" total, Datos de observación), **Información** (ayuda con secciones "
+"plegables y enlace de donaciones opcional), **Configurar** (editar las "
+"opciones de .env en un cuadro de diálogo; al guardar se reinicia la "
+"aplicación) y Salir."
+
+#: ../../../docs/usage.md:13 10774741a42f4049a2f0ddcbc5da0ff0
+msgid ""
+"Both versions share the same core functionality but have different user "
+"interfaces optimized for their platform."
+msgstr ""
+"Ambas versiones comparten la misma funcionalidad principal pero tienen "
+"diferentes interfaces de usuario optimizadas para su plataforma."
+
+#: ../../../docs/usage.md:15 7f945ed2012d48e6b68b3c840487b753
+msgid "Choosing Your Version"
+msgstr "Elegir tu versión"
+
+#: ../../../docs/usage.md:17 17d5e6a96ef2427385e58171460c472d
+msgid "Use the Web Version (Streamlit) if:"
+msgstr "Utilice la versión web (Streamlit) si:"
+
+#: ../../../docs/usage.md:18 6cd3fb0142354573a547b9073da33169
+msgid "You want quick access without installation."
+msgstr "Quieres un acceso rápido sin instalación."
+
+#: ../../../docs/usage.md:19 447b695e13fd457891ea3034f381f20e
+msgid "You're working from different computers."
+msgstr "Estás trabajando desde diferentes computadoras."
+
+#: ../../../docs/usage.md:20 720a36a5f07b4eef8c1afe8534006f60
+msgid "You prefer a modern, streamlined interface."
+msgstr "Prefiere una interfaz moderna y optimizada."
+
+#: ../../../docs/usage.md:21 6c95b86e0f4c4acd914cfd2dff709aa4
+msgid "You're new to curve fitting."
+msgstr "Eres nuevo en el ajuste de curvas."
+
+#: ../../../docs/usage.md:22 a6b39fb9e554407897a8f8541c5d01bb
+msgid "You need to share the tool with others easily."
+msgstr "Necesita compartir la herramienta con otras personas fácilmente."
+
+#: ../../../docs/usage.md:24 48a57979180544cb84c693fd208313ea
+msgid "Use the Desktop Version (Tkinter) if:"
+msgstr "Utilice la versión de escritorio (Tkinter) si:"
+
+#: ../../../docs/usage.md:25 c38d45aee9e043729f90c0364cca80c8
+msgid "You need offline access."
+msgstr "Necesitas acceso sin conexión."
+
+#: ../../../docs/usage.md:26 81c4f064d7db4f2297637ec17900b881
+msgid "You want faster performance with large datasets."
+msgstr "Quiere un rendimiento más rápido con grandes conjuntos de datos."
+
+#: ../../../docs/usage.md:27 910978b567bd45beb2575e5fb9b82084
+msgid "You prefer a traditional desktop application."
+msgstr "Prefieres una aplicación de escritorio tradicional."
+
+#: ../../../docs/usage.md:28 95611e1237134ef4a387e49152b868e2
+msgid "You need advanced customization options."
+msgstr "Necesita opciones de personalización avanzadas."
+
+#: ../../../docs/usage.md:29 9b91f374f2014cfcba74a943119e538e
+msgid "You're working with sensitive data that can't be uploaded."
+msgstr "Estás trabajando con datos confidenciales que no se pueden cargar."
+
+#: ../../../docs/usage.md:31 9b202d8ebe484ff7b705c35675ae9e67
+msgid "Getting Started"
+msgstr "Empezando"
+
+#: ../../../docs/usage.md:33 4842bb5925dd4603825a50d4cd3b1457
+msgid "Web Version (Streamlit)"
+msgstr "Versión web (transmitida)"
+
+#: ../../../docs/usage.md:35 e5703c6a42684d8aa535d4862d60fc4d
+msgid "Option 1: Online (Recommended for Quick Start)"
+msgstr "Opción 1: en línea (recomendado para inicio rápido)"
+
+#: ../../../docs/usage.md:37 563fdb81940e41fba84bb3e588897f28
+msgid "**Access the Application**"
+msgstr "**Accede a la Aplicación**"
+
+#: ../../../docs/usage.md:38 fb7b028230cc4c479856723ee2a3ebf1
+msgid "Open your web browser."
+msgstr "Abra su navegador web."
+
+#: ../../../docs/usage.md:39 beb65e34792e451d98e389e5bbaabf0d
+msgid ""
+"Navigate to: "
+"[https://regressionlab.streamlit.app/](https://regressionlab.streamlit.app/)."
+msgstr ""
+"Navegue a: "
+"[https://regressionlab.streamlit.app/](https://regressionlab.streamlit.app/)."
+
+#: ../../../docs/usage.md:40 a6b10a2e98924c2d867586f8455c08e1
+msgid ""
+"If the app is sleeping, click \"Start\" and wait a moment for it to wake up."
+msgstr ""
+"Si la aplicación está inactiva, haga clic en \"Iniciar\" y espere un momento"
+" hasta que se active."
+
+#: ../../../docs/usage.md:42 e1b37f17de4641f180d9a9ad64aa1caa
+msgid ""
+"**Upload Your Data** (or choose \"View Data\" in the sidebar to inspect, "
+"transform, clean, and download data without fitting)"
+msgstr ""
+"**Cargue sus datos** (o elija \"Ver datos\" en la barra lateral para "
+"inspeccionar, transformar, limpiar y descargar datos sin ajustarlos)"
+
+#: ../../../docs/usage.md:43 f6adc862552b4d8f862954f49b048cf6
+msgid "Click \"Browse files\" or drag and drop your file."
+msgstr "Haga clic en \"Buscar archivos\" o arrastre y suelte su archivo."
+
+#: ../../../docs/usage.md:44 6ad0857403134b2fb37f1968b1d16d08
+msgid "Supported formats: CSV, XLSX, TXT."
+msgstr "Formatos soportados: CSV, XLSX, TXT."
+
+#: ../../../docs/usage.md:46 5c151fc47e1a4d598ccebb343417ff61
+msgid "**Select Variables and Equation**"
+msgstr "**Seleccione variables y ecuación**"
+
+#: ../../../docs/usage.md:47 12f8e90571cc45949dbc03038d81dc3b
+msgid "Choose your X (independent) variable."
+msgstr "Elija su variable X (independiente)."
+
+#: ../../../docs/usage.md:48 27cbe5612a0a4a928761d9dc6c11f83a
+msgid "Choose your Y (dependent) variable."
+msgstr "Elija su variable Y (dependiente)."
+
+#: ../../../docs/usage.md:49 5a967156c1674c0590a692a87b292e42
+msgid "Select the equation type to fit."
+msgstr "Seleccione el tipo de ecuación que desee ajustar."
+
+#: ../../../docs/usage.md:50 e30df4b19385470daa3ec0feb7240775
+msgid ""
+"In Normal Fitting you can enable \"loop fitting\" to fit another file with "
+"the same equation later."
+msgstr ""
+"En Ajuste normal puede habilitar el \"ajuste de bucle\" para ajustar otro "
+"archivo con la misma ecuación más adelante."
+
+#: ../../../docs/usage.md:52 8af1aaf0953749c6900de396411ac65d
+msgid "**Run the Fitting**"
+msgstr "**Ejecutar la adaptación**"
+
+#: ../../../docs/usage.md:53 3b45607b61364ab88aa8b7c0fa018407
+msgid "Click the fitting button."
+msgstr "Haga clic en el botón de adaptación."
+
+#: ../../../docs/usage.md:54 eeb981c4a2a0493ba9391b2f316a77c3
+msgid ""
+"Results show in three columns (Equation, Parameters, Statistics), then the "
+"plot, then the download button."
+msgstr ""
+"Los resultados se muestran en tres columnas (Ecuación, Parámetros, "
+"Estadísticas), luego el gráfico y luego el botón de descarga."
+
+#: ../../../docs/usage.md:55 f1a0fde3960840fe9aaead15b396357f
+msgid ""
+"Download the plot (PNG/JPG or PDF if configured; when PDF is used, the in-"
+"app preview is PNG)."
+msgstr ""
+"Descargue el trazado (PNG/JPG o PDF si está configurado; cuando se usa PDF, "
+"la vista previa en la aplicación es PNG)."
+
+#: ../../../docs/usage.md:57 371da35954f14354b7c7b96d912cb14e
+msgid "Option 2: Local Streamlit"
+msgstr "Opción 2: Streamlit local"
+
+#: ../../../docs/usage.md:59 7e13a48bf80f4c438638b9aef85a5c55
+msgid ""
+"If you've installed RegressionLab locally, you can run Streamlit on your "
+"machine:"
+msgstr ""
+"Si ha instalado RegressionLab localmente, puede ejecutar Streamlit en su "
+"máquina:"
+
+#: ../../../docs/usage.md:61 dd27a0dbc3a649f898ef8c9967a222fc
+msgid "**Windows:**"
+msgstr "**Windows:**"
+
+#: ../../../docs/usage.md:66 06f255078b8542448d7a7f97a58fc537
+msgid "**macOS/Linux:**"
+msgstr "**macOS/Linux:**"
+
+#: ../../../docs/usage.md:71 6433abd4c1584bcd80cf0d473cb96604
+msgid "**Direct Command:**"
+msgstr "**Comando directo:**"
+
+#: ../../../docs/usage.md:76 a4f0949944044bdca2f788f2ee078093
+msgid ""
+"The application will open in your default browser, usually at "
+"`http://localhost:8501`."
+msgstr ""
+"La aplicación se abrirá en su navegador predeterminado, generalmente en "
+"`http://localhost:8501`."
+
+#: ../../../docs/usage.md:78 4aabfeccd6c749c58ef2b47ef6d7d0b7
+msgid "Desktop Version (Tkinter)"
+msgstr "Versión de escritorio (Tkinter)"
+
+#: ../../../docs/usage.md:80 dae1d85b09be49afbc256072a14caba5
+msgid "Launching the Application"
+msgstr "Lanzando la aplicación"
+
+#: ../../../docs/usage.md:82 8a62be9bc39d426fbb4eb180da4d6b7e
+msgid "**Method 1: Desktop Shortcut**"
+msgstr "**Método 1: acceso directo al escritorio**"
+
+#: ../../../docs/usage.md:83 8812d3d3ef8b49a29486b3614e0c8b14
+msgid "Double-click the \"RegressionLab\" shortcut created during installation"
+msgstr ""
+"Haga doble clic en el acceso directo \"RegressionLab\" creado durante la "
+"instalación"
+
+#: ../../../docs/usage.md:85 66d60f71fdb94424a6e8283ecf46b7aa
+msgid ""
+"![Desktop Shortcut](../images/en_documentation/tkinter_docs/shortcut.png)"
+msgstr ""
+"![Atajo de escritorio](../images/en_documentation/tkinter_docs/shortcut.png)"
+
+#: ../../../docs/usage.md:85 0e26de050613492fb8513d0a186f38d9
+msgid "Desktop Shortcut"
+msgstr "Acceso directo al escritorio"
+
+#: ../../../docs/usage.md:88 b4c75ce672f1425682a6f075463ad549
+msgid "**Method 2: Shell Scripts**"
+msgstr "**Método 2: scripts de Shell**"
+
+#: ../../../docs/usage.md:90 76f3687aebe74d19b203b5da2d0b5d08
+msgid "Windows:"
+msgstr "Ventanas:"
+
+#: ../../../docs/usage.md:95 e23ebaa6e9f6486ba4a71c60fd5f045c
+msgid "macOS/Linux:"
+msgstr "MacOS/Linux:"
+
+#: ../../../docs/usage.md:100 9342aa95ef3a4bf4b030c893a5ce061d
+msgid "**Method 3: Direct Execution**"
+msgstr "**Método 3: Ejecución directa**"
+
+#: ../../../docs/usage.md:105 b6ed3353d53a4409bd2a18c8db64ed13
+msgid "Operation Modes"
+msgstr "Modos de operación"
+
+#: ../../../docs/usage.md:107 e6bea111f55d4f83956faa26748d5d99
+msgid ""
+"RegressionLab offers four different operation modes to match your workflow. "
+"Each mode is designed for specific use cases."
+msgstr ""
+"RegressionLab ofrece cuatro modos de operación diferentes para adaptarse a "
+"su flujo de trabajo. Cada modo está diseñado para casos de uso específicos."
+
+#: ../../../docs/usage.md:109 12ddfe36cdba41c9b5c6f50675368855
+msgid "1. Normal Fitting"
+msgstr "1. Ajuste normal"
+
+#: ../../../docs/usage.md:111 26311fef1c3d477fac00bd1de255bd63
+msgid "**Use when**: You want to fit one equation to one dataset."
+msgstr "**Úselo cuando**: desee ajustar una ecuación a un conjunto de datos."
+
+#: ../../../docs/usage.md:113 ../../../docs/usage.md:141
+#: ../../../docs/usage.md:167 ../../../docs/usage.md:196
+#: 195cbf7f6dce4e1fa911f80015a381b1 21e9638bc8ea4d0da736217956f900e0
+#: dcab526e760e478eb6571bae2eb6f933 fa83c578fa054ee4865a2ccb798f23f1
+msgid "**How it works**:"
+msgstr "**Cómo funciona**:"
+
+#: ../../../docs/usage.md:114 5ad56d21a97f40478d3e9e1763832ad1
+msgid "Select an equation type (or define a custom formula)."
+msgstr "Seleccione un tipo de ecuación (o defina una fórmula personalizada)."
+
+#: ../../../docs/usage.md:115 b9bd63d00d4344b4953b00e23c6962c0
+msgid "Choose whether to enable loop mode."
+msgstr "Elija si desea habilitar el modo de bucle."
+
+#: ../../../docs/usage.md:116 6018dc235bd7409d99349d4a41f611aa
+msgid "Load your data file."
+msgstr "Cargue su archivo de datos."
+
+#: ../../../docs/usage.md:117 95ae2b47000c471b8c62902a9f3ddf34
+msgid "Select X and Y variables."
+msgstr "Seleccione las variables X e Y."
+
+#: ../../../docs/usage.md:118 fd3c5d76fd7c4b09a847aec82a28c2a5
+msgid "View the fitting results."
+msgstr "Vea los resultados de la adaptación."
+
+#: ../../../docs/usage.md:120 4138f3ca20bc45c99232485c81b105f9
+msgid "**Loop Mode**:"
+msgstr "**Modo de bucle**:"
+
+#: ../../../docs/usage.md:121 2c30858a9b0542e6a1609663373ad63e
+msgid "Allows you to modify the data file and refit without restarting."
+msgstr ""
+"Le permite modificar el archivo de datos y volver a colocarlo sin reiniciar."
+
+#: ../../../docs/usage.md:122 6f93af549f0347a185791f1dbb88590f
+msgid ""
+"Useful for iterative data cleaning or exploring different data subsets."
+msgstr ""
+"Útil para la limpieza de datos iterativos o la exploración de diferentes "
+"subconjuntos de datos."
+
+#: ../../../docs/usage.md:123 ca3c7dfa8c2d4982aff18b165f7fb6db
+msgid "After each fit, you can edit the file and reload it."
+msgstr "Después de cada ajuste, puedes editar el archivo y recargarlo."
+
+#: ../../../docs/usage.md:125 ../../../docs/usage.md:153
+#: ../../../docs/usage.md:179 ../../../docs/usage.md:208
+#: 1aed9fc91b6541fa9878826eb0bfcfa4 315b516399ae4dc9a03914cf8d11ebe3
+#: 385fb1505b2846e1bfa2febb509eb112 6556992c839e4727a5f06bd4848e5466
+msgid "**Example workflow**:"
+msgstr "**Ejemplo de flujo de trabajo**:"
+
+#: ../../../docs/usage.md:137 742b509fa253421c9d909b561ab66db7
+msgid "2. Multiple Datasets (Single Fit Multiple Datasets)"
+msgstr ""
+"2. Múltiples conjuntos de datos (conjuntos de datos múltiples de ajuste "
+"único)"
+
+#: ../../../docs/usage.md:139 003638f1fefe4dbaac4b75edde92fd49
+msgid ""
+"**Use when**: You want to apply the same equation to multiple different "
+"datasets."
+msgstr ""
+"**Úselo cuando**: desee aplicar la misma ecuación a varios conjuntos de "
+"datos diferentes."
+
+#: ../../../docs/usage.md:142 8ef5018fc67d43769de84209091f842e
+msgid "Select an equation type once."
+msgstr "Seleccione un tipo de ecuación una vez."
+
+#: ../../../docs/usage.md:143 7a666a30439c4d28ae08db8317da3343
+msgid "Specify how many datasets you want to fit."
+msgstr "Especifique cuántos conjuntos de datos desea ajustar."
+
+#: ../../../docs/usage.md:144 c7569a44fff84f3882d8ca37a384641b
+msgid "Load each dataset one by one."
+msgstr "Cargue cada conjunto de datos uno por uno."
+
+#: ../../../docs/usage.md:145 52744ab2e7ed4c39b6814a225d2b6936
+msgid "Choose variables for each dataset."
+msgstr "Elija variables para cada conjunto de datos."
+
+#: ../../../docs/usage.md:146 81454804c9634118a95f7b046efdcfc7
+msgid "All fits are performed and results displayed."
+msgstr "Se realizan todos los ajustes y se muestran los resultados."
+
+#: ../../../docs/usage.md:148 ../../../docs/usage.md:174
+#: ../../../docs/usage.md:203 0df4702812a849f4be7e67ef347de393
+#: 371d8f2553684e7a96d20b067f15018b 5c63b429e2604274b0df2025b50b2178
+msgid "**Example use case**:"
+msgstr "**Caso de uso de ejemplo**:"
+
+#: ../../../docs/usage.md:149 37b8b659a14d430f94cc08b18ae7a141
+msgid "Fitting the same calibration curve to data from different instruments."
+msgstr ""
+"Ajustar la misma curva de calibración a datos de diferentes instrumentos."
+
+#: ../../../docs/usage.md:150 48e54731180648a1854a7d5a85d109cb
+msgid "Analyzing similar experiments performed on different days."
+msgstr "Analizar experimentos similares realizados en días diferentes."
+
+#: ../../../docs/usage.md:151 77894558c95841aeb4af8b9cc79a63f0
+msgid "Comparing the same relationship across different samples."
+msgstr "Comparar la misma relación en diferentes muestras."
+
+#: ../../../docs/usage.md:163 4cc99dd199964974b5d1b8a0b87a5d8f
+msgid "3. Checker Fitting (Multiple Fits Single Dataset)"
+msgstr "3. Ajuste corrector (conjunto de datos único de ajustes múltiples)"
+
+#: ../../../docs/usage.md:165 eed3ab21952848a088c3d7daad069fe1
+msgid ""
+"**Use when**: You want to try multiple equations on the same dataset to find"
+" the best fit."
+msgstr ""
+"**Úselo cuando**: desea probar varias ecuaciones en el mismo conjunto de "
+"datos para encontrar el mejor ajuste."
+
+#: ../../../docs/usage.md:168 4cfbb1adff144783978cb739aa42bf47
+msgid "Load your dataset once."
+msgstr "Cargue su conjunto de datos una vez."
+
+#: ../../../docs/usage.md:169 b080d7f2abcb41d598e9eb8cb9c44d9e
+msgid "Select variables once."
+msgstr "Seleccione las variables una vez."
+
+#: ../../../docs/usage.md:170 8e7efcbcf0b34199a5660659d7362d87
+msgid "Choose multiple equation types to test."
+msgstr "Elija varios tipos de ecuaciones para probar."
+
+#: ../../../docs/usage.md:171 adb433f86824410abd3b24db85045e0b
+msgid "All selected equations are fitted sequentially."
+msgstr "Todas las ecuaciones seleccionadas se ajustan secuencialmente."
+
+#: ../../../docs/usage.md:172 d0c68d9d514e46fd9ce094e294b79fb7
+msgid "Compare results to find the best model."
+msgstr "Compare los resultados para encontrar el mejor modelo."
+
+#: ../../../docs/usage.md:175 9e22ef8c308a41a28b5f58af2fb48451
+msgid "Exploratory data analysis when you're not sure which model fits best."
+msgstr ""
+"Análisis de datos exploratorios cuando no está seguro de qué modelo se "
+"ajusta mejor."
+
+#: ../../../docs/usage.md:176 62306a03b2fd4961b67f4edc2a06a7f4
+msgid "Model selection based on R² values."
+msgstr "Selección de modelo basada en valores R²."
+
+#: ../../../docs/usage.md:177 e052cc7fc9044fd68616c6d5d784a0b9
+msgid ""
+"Understanding which mathematical relationships might describe your data."
+msgstr "Comprender qué relaciones matemáticas podrían describir sus datos."
+
+#: ../../../docs/usage.md:192 f46d1324109147d7a1bb0cbcf2f35371
+msgid "4. Total Fitting (All Fits Single Dataset)"
+msgstr "4. Ajuste total (todo se ajusta a un solo conjunto de datos)"
+
+#: ../../../docs/usage.md:194 ed3f2bf69bbc4225a4856202b113b1f9
+msgid ""
+"**Use when**: You want to automatically try ALL available equations on your "
+"dataset."
+msgstr ""
+"**Úselo cuando**: desea probar automáticamente TODAS las ecuaciones "
+"disponibles en su conjunto de datos."
+
+#: ../../../docs/usage.md:197 e68afa91d0214a6fba19ae160c7ff0bb
+msgid "Load your dataset."
+msgstr "Cargue su conjunto de datos."
+
+#: ../../../docs/usage.md:198 d88a54697ca448cc8b42dc7b3a8c53d1
+msgid "Select variables."
+msgstr "Seleccionar variables."
+
+#: ../../../docs/usage.md:199 7d8b86baccfd4e498763dc257d1c3ab9
+msgid "Click \"Total Fitting\"."
+msgstr "Haga clic en \"Ajuste total\"."
+
+#: ../../../docs/usage.md:200 884903f302ab48088e7cd9406b83e341
+msgid "All predefined equations are fitted automatically."
+msgstr "Todas las ecuaciones predefinidas se ajustan automáticamente."
+
+#: ../../../docs/usage.md:201 ac2021d56173454f8c4334e0de5a6857
+msgid "Review all results to find the best fit."
+msgstr "Revise todos los resultados para encontrar la mejor opción."
+
+#: ../../../docs/usage.md:204 3065098be8ef46c29e8007a9aba556c2
+msgid "Comprehensive analysis when you have no prior model expectations."
+msgstr ""
+"Análisis completo cuando no tienes expectativas previas sobre el modelo."
+
+#: ../../../docs/usage.md:205 9b589dcb5c654f9591741972f0bf43f7
+msgid "Creating a complete fitting report."
+msgstr "Elaboración de un informe de adaptación completo."
+
+#: ../../../docs/usage.md:206 89d55b3f0a754191abdb4eb170f9b6c8
+msgid "Teaching/learning about different function types."
+msgstr "Enseñar/aprender sobre diferentes tipos de funciones."
+
+#: ../../../docs/usage.md:222 0630f0156816430f85d9aba69a4e6699
+msgid "Understanding Your Data Format"
+msgstr "Comprender su formato de datos"
+
+#: ../../../docs/usage.md:224 3cb1ea620d06401ba046ad5197337839
+msgid "RegressionLab expects data in a specific format for optimal results."
+msgstr ""
+"RegressionLab espera datos en un formato específico para obtener resultados "
+"óptimos."
+
+#: ../../../docs/usage.md:226 8bd2b54ca7e047a3914df132642d14ac
+msgid "Multidimensional Data"
+msgstr "Datos multidimensionales"
+
+#: ../../../docs/usage.md:228 31deb7f850b3425d9d71ac0522951d2f
+msgid ""
+"For regression with 2 or more independent variables (custom formulas with "
+"`num_independent_vars > 1`), your data must have columns for each variable. "
+"During variable selection you will pick multiple X columns (e.g. "
+"`temperature`, `pressure`) and one Y column. The fitting uses all selected X"
+" columns together."
+msgstr ""
+"Para la regresión con 2 o más variables independientes (fórmulas "
+"personalizadas con `num_independent_vars > 1`), sus datos deben tener "
+"columnas para cada variable. Durante la selección de variables, seleccionará"
+" varias columnas X (por ejemplo, \"temperatura\", \"presión\") y una columna"
+" Y. El ajuste utiliza todas las columnas X seleccionadas juntas."
+
+#: ../../../docs/usage.md:230 8965348ed76c4ecaa5c3f947856a5761
+msgid "Required Format"
+msgstr "Formato requerido"
+
+#: ../../../docs/usage.md:232 baa02e51e88b4ccda82e17178514df9e
+msgid "Your data file should contain:"
+msgstr "Su archivo de datos debe contener:"
+
+#: ../../../docs/usage.md:233 eb73538c1196414a9b99ed692bbe42cc
+msgid ""
+"**Column headers**: Each column must have a name (e.g., \"time\", "
+"\"voltage\", \"temperature\"). You can use LaTeX with `$` for variable names"
+" (e.g. `$\\alpha$`, `$\\sigma$`) if you need Greek letters or other symbols."
+msgstr ""
+"**Encabezados de columna**: cada columna debe tener un nombre (por ejemplo, "
+"\"tiempo\", \"voltaje\", \"temperatura\"). Puede usar LaTeX con `$` para "
+"nombres de variables (por ejemplo, `$\\alpha$`, `$\\sigma$`) si necesita "
+"letras griegas u otros símbolos."
+
+#: ../../../docs/usage.md:234 5c0bfcd9e1f44d1aa80435034560cb2a
+msgid "**Numeric data**: All data values should be numbers."
+msgstr "**Datos numéricos**: todos los valores de datos deben ser números."
+
+#: ../../../docs/usage.md:235 41d7516a59a94b4b9bdf8ef342ba5cfd
+msgid "**Consistent units**: Use the same units throughout each column."
+msgstr "**Unidades consistentes**: use las mismas unidades en cada columna."
+
+#: ../../../docs/usage.md:237 31b0c3f6e0234b9fbe7cb693a3ff2338
+msgid "Basic Example (CSV)"
+msgstr "Ejemplo básico (CSV)"
+
+#: ../../../docs/usage.md:248 6d9a97ee1a064a09be61534853afd574
+msgid "With Uncertainties"
+msgstr "Con incertidumbres"
+
+#: ../../../docs/usage.md:250 9fb2e1f5b01a4337a2dbe5406a837f8d
+msgid ""
+"RegressionLab automatically detects uncertainty columns if they follow the "
+"naming convention: `u<variablename>`"
+msgstr ""
+"RegressionLab detecta automáticamente las columnas de incertidumbre si "
+"siguen la convención de nomenclatura: `u<nombredevariable>`"
+
+#: ../../../docs/usage.md:261 036638e6ac5b48b7990ac8af5b44d089
+msgid "`utime`: Uncertainty in time measurements"
+msgstr "`utime`: Incertidumbre en las mediciones del tiempo"
+
+#: ../../../docs/usage.md:262 062133a6916241f287dd1df9b1a24e5e
+msgid "`utemperature`: Uncertainty in temperature measurements"
+msgstr "`utemperatura`: Incertidumbre en las mediciones de temperatura"
+
+#: ../../../docs/usage.md:264 b50c21b156dd47f58eac92b350b5274c
+msgid "**Rules for uncertainty columns**:"
+msgstr "**Reglas para columnas de incertidumbre**:"
+
+#: ../../../docs/usage.md:265 d1311c14589941739ae6e1dd4b93d1e0
+msgid "Uncertainties must be non-negative."
+msgstr "Las incertidumbres no deben ser negativas."
+
+#: ../../../docs/usage.md:266 5f2725b38f5e4c54b5a6b2a0fc07b7dd
+msgid "If present, they will be used for weighted fitting."
+msgstr "Si están presentes, se utilizarán para ajuste ponderado."
+
+#: ../../../docs/usage.md:267 a35700cfe6b24ca5aff49d29d081f05a
+msgid "They will be displayed as error bars in plots."
+msgstr "Se mostrarán como barras de error en los gráficos."
+
+#: ../../../docs/usage.md:269 8a6ef486d9774f98bc5bad92e88e7df6
+msgid "Supported File Formats"
+msgstr "Formatos de archivo admitidos"
+
+#: ../../../docs/usage.md:270 b97a61d9e3ae43b9aa31bc3174cfc8fb
+msgid "**CSV** (`.csv`): Comma-separated values."
+msgstr "**CSV** (`.csv`): valores separados por comas."
+
+#: ../../../docs/usage.md:271 7d3ebfe4ca5a408d9fd2c696c05fa031
+msgid "Can use comma, semicolon, or tab as delimiters."
+msgstr "Puede utilizar coma, punto y coma o tabulador como delimitadores."
+
+#: ../../../docs/usage.md:272 ../../../docs/usage.md:280
+#: 2a9ac55a26b94a388d0adca43893220d fb8124113a36445eae20d7e543e8339c
+msgid "UTF-8 encoding recommended."
+msgstr "Se recomienda codificación UTF-8."
+
+#: ../../../docs/usage.md:274 5a7dcbc8ccae4f3d9e52b7baaa09fa71
+msgid "**Excel** (`.xlsx`): Microsoft Excel files."
+msgstr "**Excel** (`.xlsx`): archivos de Microsoft Excel."
+
+#: ../../../docs/usage.md:275 100547d0f84f4b318ba09d918231e5f7
+msgid "Data should be in the first sheet."
+msgstr "Los datos deben estar en la primera hoja."
+
+#: ../../../docs/usage.md:276 c57a9d628bf44f53b45ea022e4805b20
+msgid "Column headers in the first row."
+msgstr "Encabezados de columna en la primera fila."
+
+#: ../../../docs/usage.md:278 eb9730de62214aad9304b681e211474d
+msgid "**TXT** (`.txt`): Tab-separated or space-separated text files."
+msgstr ""
+"**TXT** (`.txt`): archivos de texto separados por tabulaciones o espacios."
+
+#: ../../../docs/usage.md:279 7ce1a702671a42f596307ad9a642c110
+msgid "Plain text format."
+msgstr "Formato de texto plano."
+
+#: ../../../docs/usage.md:282 fe94363a403747a7a3ae89e92795f87a
+msgid "Interpreting Results"
+msgstr "Interpretación de resultados"
+
+#: ../../../docs/usage.md:284 1e76933010504d7687bf00ba9d0ea6ca
+msgid ""
+"When you perform a fit, RegressionLab displays a results window showing:"
+msgstr ""
+"Cuando realiza un ajuste, RegressionLab muestra una ventana de resultados "
+"que muestra:"
+
+#: ../../../docs/usage.md:286 d07bb1f4ae644a78b7967967f2a1f1f0
+msgid "![Results Window](../images/en_documentation/tkinter_docs/result.png)"
+msgstr ""
+"![Ventana de resultados](../images/en_documentation/tkinter_docs/result.png)"
+
+#: ../../../docs/usage.md:286 9ac7c4fedc394252be9c52c068e316a8
+msgid "Results Window"
+msgstr "Ventana de resultados"
+
+#: ../../../docs/usage.md:288 356d30fae86d4f44a8544087950c14b9
+msgid "The results window contains:"
+msgstr "La ventana de resultados contiene:"
+
+#: ../../../docs/usage.md:289 ef849df4307447cb951b90ef45204e9f
+msgid ""
+"**Fitted equation**: The mathematical expression with your fitted "
+"parameters."
+msgstr ""
+"**Ecuación ajustada**: La expresión matemática con sus parámetros ajustados."
+
+#: ../../../docs/usage.md:290 0e6a78037b834fc39502950e7765b0c1
+msgid "**Parameter values**: Each parameter with its uncertainty."
+msgstr "**Valores de los parámetros**: Cada parámetro con su incertidumbre."
+
+#: ../../../docs/usage.md:291 aa98617f67a04e448cdc449a1913fec9
+msgid "**Statistical measures**: R², RMSE, χ², and reduced χ²."
+msgstr "**Medidas estadísticas**: R², RMSE, χ² y χ² reducido."
+
+#: ../../../docs/usage.md:292 6d9d9830a94e4b9784dcb59b815be8e9
+msgid ""
+"**Plot preview**: Visual representation of your data and the fitted curve. "
+"For 2 independent variables: interactive 3D plot; for 3+ variables: "
+"residuals plot."
+msgstr ""
+"**Vista previa del trazado**: representación visual de sus datos y la curva "
+"ajustada. Para 2 variables independientes: gráfico 3D interactivo; para más "
+"de 3 variables: gráfico de residuos."
+
+#: ../../../docs/usage.md:293 a33ff52cc75d425a9e47c878a1534d7d
+msgid ""
+"**Prediction button** (desktop): Opens a dialog to evaluate the fitted "
+"function at user-specified inputs, with uncertainty propagation when "
+"available."
+msgstr ""
+"**Botón de predicción** (escritorio): abre un cuadro de diálogo para evaluar"
+" la función ajustada en las entradas especificadas por el usuario, con "
+"propagación de la incertidumbre cuando esté disponible."
+
+#: ../../../docs/usage.md:296 b3dcd7a4481f47399af32ddfa9743e31
+msgid "1. Fitted Parameters"
+msgstr "1. Parámetros ajustados"
+
+#: ../../../docs/usage.md:298 2b0446f539af48e68df2b06959394615
+msgid "The values of the parameters in your equation, with uncertainties:"
+msgstr "Los valores de los parámetros en su ecuación, con incertidumbres:"
+
+#: ../../../docs/usage.md:306 d5bcaef54d0841fba2921f97e7e696be
+msgid "2. Equation"
+msgstr "2. Ecuación"
+
+#: ../../../docs/usage.md:308 dcfea113942b488780b5436572939866
+msgid ""
+"The mathematical equation with your fitted parameters. Always x is the "
+"independent variable and y the dependent one."
+msgstr ""
+"La ecuación matemática con sus parámetros ajustados. Siempre x es la "
+"variable independiente e y la dependiente."
+
+#: ../../../docs/usage.md:314 6ec10cc0fa83438d8f5e9ffda82dbcf8
+msgid "3. Statistical Measures"
+msgstr "3. Medidas estadísticas"
+
+#: ../../../docs/usage.md:316 07b9d63f4e174807ab7f679ad466cff6
+msgid ""
+"RegressionLab provides comprehensive statistical information about your fit:"
+msgstr ""
+"RegressionLab proporciona información estadística completa sobre su ajuste:"
+
+#: ../../../docs/usage.md:318 3f73d1a09c884ff3ba203a0424224054
+msgid "R² (Coefficient of Determination)"
+msgstr "R² (Coeficiente de Determinación)"
+
+#: ../../../docs/usage.md:320 8e9745f20f16461db0c992ab18b9e808
+msgid "A statistical measure of how well the fit matches the data:"
+msgstr ""
+"Una medida estadística de qué tan bien el ajuste coincide con los datos:"
+
+#: ../../../docs/usage.md:322 9b67795c9f7a455e84f99e479d27373e
+msgid ""
+"\n"
+"R^2 = 1 - \\frac{SS_{\\mathrm{res}}}{SS_{\\mathrm{tot}}}, \\qquad\n"
+"SS_{\\mathrm{res}} = \\sum_{i=1}^{n}(y_i - \\hat{y}_i)^2, \\qquad\n"
+"SS_{\\mathrm{tot}} = \\sum_{i=1}^{n}(y_i - \\bar{y})^2\n"
+msgstr ""
+"R^2 = 1 - \\frac{SS_{\\mathrm{res}}}{SS_{\\mathrm{tot}}}, \\qquad\n"
+"SS_{\\mathrm{res}} = \\sum_{i=1}^{n}(y_i - \\hat{y}_i)^2, \\qquad\n"
+"SS_{\\mathrm{tot}} = \\sum_{i=1}^{n}(y_i - \\bar{y})^2"
+
+#: ../../../docs/usage.md:328 b9362ad54cb94ebbb81903827ec808c6
+#, python-brace-format
+msgid ""
+"Where $y_i$ = observed values, $\\hat{y}_i$ = fitted values, $\\bar{y}$ = "
+"mean of $y$."
+msgstr ""
+"Donde $y_i$ = valores observados, $\\hat{y}_i$ = valores ajustados, "
+"$\\bar{y}$ = media de $y$."
+
+#: ../../../docs/usage.md:330 28809d42036049349d86d04ed52388f8
+msgid "**R² = 1.0**: Perfect fit"
+msgstr "**R² = 1,0**: Ajuste perfecto"
+
+#: ../../../docs/usage.md:331 c9f38ef645894f53a4944aa73c2a6991
+msgid "**R² > 0.95**: Excellent fit"
+msgstr "**R² > 0,95**: Ajuste excelente"
+
+#: ../../../docs/usage.md:332 237b438503dd4d1e8249b9f9e9783166
+msgid "**R² > 0.85**: Good fit"
+msgstr "**R² > 0,85**: Buen ajuste"
+
+#: ../../../docs/usage.md:333 261f0974c6f045dcbc84c8c20a1dafe6
+msgid "**R² > 0.70**: Acceptable fit"
+msgstr "**R² > 0,70**: Ajuste aceptable"
+
+#: ../../../docs/usage.md:334 9b04099aa17744ef95c4545489ac8def
+msgid "**R² < 0.70**: Poor fit - consider trying a different equation"
+msgstr ""
+"**R² < 0,70**: Ajuste deficiente: considere probar con una ecuación "
+"diferente"
+
+#: ../../../docs/usage.md:336 f3a7bde8c1ba4056bba74ab34fcbc153
+msgid "RMSE (Root Mean Square Error)"
+msgstr "RMSE (error cuadrático medio)"
+
+#: ../../../docs/usage.md:338 752d0c93fdf743e0b71ba335a9558c55
+msgid ""
+"The average magnitude of residuals. Lower values indicate better fit; "
+"expressed in the same units as the dependent variable."
+msgstr ""
+"La magnitud promedio de los residuos. Los valores más bajos indican un mejor"
+" ajuste; expresado en las mismas unidades que la variable dependiente."
+
+#: ../../../docs/usage.md:340 7d3e58f46ede41afab689384ebc8721a
+msgid ""
+"\n"
+"\\mathrm{RMSE} = \\sqrt{\\frac{1}{n}\\sum_{i=1}^{n}(y_i - \\hat{y}_i)^2}\n"
+msgstr "\\mathrm{RMSE} = \\sqrt{\\frac{1}{n}\\sum_{i=1}^{n}(y_i - \\hat{y}_i)^2}"
+
+#: ../../../docs/usage.md:344 5217a34955224a4f919db39b805c113a
+msgid "χ² (Chi-squared)"
+msgstr "χ² (Chi-cuadrado)"
+
+#: ../../../docs/usage.md:346 e412c3bba0ff4a938f2faf705d47ea30
+msgid ""
+"Sum of squared residuals weighted by uncertainties. Lower values indicate "
+"better fit when uncertainties are well estimated. Only calculated when "
+"uncertainty data is available."
+msgstr ""
+"Suma de residuos al cuadrado ponderados por incertidumbres. Los valores más "
+"bajos indican un mejor ajuste cuando las incertidumbres están bien "
+"estimadas. Sólo se calcula cuando se dispone de datos de incertidumbre."
+
+#: ../../../docs/usage.md:348 324da44546304f44820f42509e7ac756
+msgid ""
+"\n"
+"\\chi^2 = \\sum_{i=1}^{n} \\frac{(y_i - \\hat{y}_i)^2}{\\sigma_i^2}\n"
+msgstr "\\chi^2 = \\sum_{i=1}^{n} \\frac{(y_i - \\hat{y}_i)^2}{\\sigma_i^2}"
+
+#: ../../../docs/usage.md:352 6d10920fc8464e629fc54813e9b97f47
+msgid ""
+"Where $\\sigma_i$ = uncertainty (standard deviation) of the $i$-th "
+"measurement."
+msgstr ""
+"Donde $\\sigma_i$ = incertidumbre (desviación estándar) de la $i$-ésima "
+"medición."
+
+#: ../../../docs/usage.md:354 39e4232726014da3a9b5ceb6382b26db
+msgid "χ²_red (Reduced Chi-squared)"
+msgstr "χ²_red (Chi-cuadrado reducido)"
+
+#: ../../../docs/usage.md:356 adbdab71f6484493b4541e91821ebf99
+msgid ""
+"Chi-squared divided by degrees of freedom. A value close to 1 suggests "
+"uncertainties are consistent with the fit."
+msgstr ""
+"Chi cuadrado dividido por grados de libertad. Un valor cercano a 1 sugiere "
+"que las incertidumbres son consistentes con el ajuste."
+
+#: ../../../docs/usage.md:358 69b9d882abab47fd9413fba2ef3ca7fb
+msgid ""
+"\n"
+"\\chi^2_{\\mathrm{red}} = \\frac{\\chi^2}{\\nu}\n"
+msgstr "\\chi^2_{\\mathrm{rojo}} = \\frac{\\chi^2}{\\nu}"
+
+#: ../../../docs/usage.md:362 f56393ad03644f1c93288d3061d131ec
+msgid "ν (Degrees of Freedom)"
+msgstr "ν (Grados de libertad)"
+
+#: ../../../docs/usage.md:364 d199e1b6cb374151ba200987731749d8
+msgid ""
+"Number of data points minus the number of fitted parameters. Used in "
+"statistical calculations and confidence intervals."
+msgstr ""
+"Número de puntos de datos menos el número de parámetros ajustados. Utilizado"
+" en cálculos estadísticos e intervalos de confianza."
+
+#: ../../../docs/usage.md:366 36aa9ec7c4d547fbb1a9212a3628eeac
+msgid ""
+"\n"
+"\\nu = n - p\n"
+msgstr "\\nu = n - p"
+
+#: ../../../docs/usage.md:370 014bea4d945d4097b5b6e3c2a5e8b1b0
+msgid "Where $n$ = number of data points, $p$ = number of fitted parameters."
+msgstr ""
+"Donde $n$ = número de puntos de datos, $p$ = número de parámetros ajustados."
+
+#: ../../../docs/usage.md:372 475d47ed5de046288cfdad42eca0ca91
+msgid "95% Confidence Intervals (IC 95%)"
+msgstr "Intervalos de confianza del 95% (IC 95%)"
+
+#: ../../../docs/usage.md:374 17d00ec231a6494e89bbe6e45ae4e02c
+#, python-format
+msgid ""
+"For each fitted parameter, the range within which the true value is expected"
+" with 95% confidence, calculated using the t-distribution. These intervals "
+"help assess the reliability of your parameter estimates."
+msgstr ""
+"Para cada parámetro ajustado, el rango dentro del cual se espera el valor "
+"real con un 95% de confianza, calculado utilizando la distribución t. Estos "
+"intervalos ayudan a evaluar la confiabilidad de las estimaciones de sus "
+"parámetros."
+
+#: ../../../docs/usage.md:376 d1b01c3c54da4b849eca694ae15dc6ee
+#, python-brace-format
+msgid ""
+"\n"
+"\\theta_k \\pm t_{0.975,\\,\\nu} \\cdot \\sigma_{\\theta_k}\n"
+msgstr "\\theta_k \\pm t_{0.975,\\,\\nu} \\cdot \\sigma_{\\theta_k}"
+
+#: ../../../docs/usage.md:380 8bbab2e947044ea187a2320bff7e28f5
+#, python-brace-format
+msgid ""
+"Where $\\theta_k$ = estimated parameter, $\\sigma_{\\theta_k}$ = its "
+"standard error (from the fit covariance matrix), $t_{0.975,\\,\\nu}$ = "
+"critical value of the t-distribution for 97.5% (two-tailed 95%) with $\\nu$ "
+"degrees of freedom."
+msgstr ""
+"Donde $\\theta_k$ = parámetro estimado, $\\sigma_{\\theta_k}$ = su error "
+"estándar (de la matriz de covarianza de ajuste), $t_{0.975,\\,\\nu}$ = valor"
+" crítico de la distribución t para 97,5% (95% de dos colas) con $\\nu$ "
+"grados de libertad."
+
+#: ../../../docs/usage.md:382 14557d53b02f47679893bd9af40f470a
+msgid "4. Plot"
+msgstr "4. Trama"
+
+#: ../../../docs/usage.md:384 7ac888932f8d4ba6817ed23b4eb99d14
+msgid "A visualization showing:"
+msgstr "Una visualización que muestra:"
+
+#: ../../../docs/usage.md:385 11418d2c544e47c08e19486dbc51d584
+msgid ""
+"**Red points with error bars**: Your original data (error bars appear if "
+"uncertainties are provided)."
+msgstr ""
+"**Puntos rojos con barras de error**: sus datos originales (las barras de "
+"error aparecen si se proporcionan incertidumbres)."
+
+#: ../../../docs/usage.md:386 bd617a06bfda4fbfb1df0acc531aef32
+msgid "**Black line**: The fitted curve."
+msgstr "**Línea negra**: La curva ajustada."
+
+#: ../../../docs/usage.md:387 2faf3a2f0d354a1591806066ed262989
+msgid "**Axis labels**: Your variable names."
+msgstr "**Etiquetas de eje**: los nombres de sus variables."
+
+#: ../../../docs/usage.md:388 7a4949e0427840f1ad3d6d734323f8ab
+msgid "**Legend**: Equation and R² value."
+msgstr "**Leyenda**: Ecuación y valor R²."
+
+#: ../../../docs/usage.md:390 5bb35867c88a4a23b763bf31bd51d1a7
+msgid "5. Output File"
+msgstr "5. Archivo de salida"
+
+#: ../../../docs/usage.md:392 97dfa7febb9a472684e01dcbb94511d0
+msgid ""
+"The plot is automatically saved as a PNG image (or JPG/PDF if configured) in"
+" the output directory (default: `output/`)."
+msgstr ""
+"El trazado se guarda automáticamente como una imagen PNG (o JPG/PDF si está "
+"configurado) en el directorio de salida (predeterminado: `salida/`)."
+
+#: ../../../docs/usage.md:394 5c3171052e4d41f990c6a50373d83f15
+msgid "Tips for Better Results"
+msgstr "Consejos para obtener mejores resultados"
+
+#: ../../../docs/usage.md:396 29d836e3112e456c8760250c3d58aeb3
+msgid "Data Quality"
+msgstr "Calidad de datos"
+
+#: ../../../docs/usage.md:398 e3e96ecb07be4e0f89637b284c977b31
+msgid ""
+"**Remove outliers**: Outliers can significantly affect the fit. Use loop "
+"mode to iteratively remove them."
+msgstr ""
+"**Eliminar valores atípicos**: los valores atípicos pueden afectar "
+"significativamente el ajuste. Utilice el modo de bucle para eliminarlos de "
+"forma iterativa."
+
+#: ../../../docs/usage.md:400 388e9653f25b456c812e817eeedae6c5
+msgid ""
+"**Check data range**: Ensure your data covers the range of interest. "
+"Extrapolation beyond your data range can be unreliable."
+msgstr ""
+"**Verifique el rango de datos**: asegúrese de que sus datos cubran el rango "
+"de interés. La extrapolación más allá de su rango de datos puede no ser "
+"confiable."
+
+#: ../../../docs/usage.md:402 3e2fd5da9f6442519093380476a7f741
+msgid ""
+"**Use uncertainties**: If you have measurement uncertainties, include them. "
+"This provides more accurate parameter estimates."
+msgstr ""
+"**Utilice incertidumbres**: si tiene incertidumbres de medición, inclúyalas."
+" Esto proporciona estimaciones de parámetros más precisas."
+
+#: ../../../docs/usage.md:404 a45fe587348144dbac244a9c544c8636
+msgid ""
+"**Sufficient data points**: More data points generally give better fits. Aim"
+" for at least 10-20 points for simple equations."
+msgstr ""
+"**Puntos de datos suficientes**: más puntos de datos generalmente dan "
+"mejores ajustes. Apunte a obtener al menos entre 10 y 20 puntos para "
+"ecuaciones simples."
+
+#: ../../../docs/usage.md:406 2e3ede76c570467ea8c26b62b3f6bbff
+msgid "Choosing Equations"
+msgstr "Elegir ecuaciones"
+
+#: ../../../docs/usage.md:408 1f684564214743c1935d3a365e61d390
+msgid ""
+"**Physical basis**: If you know the underlying physics/chemistry, choose an "
+"equation that matches the theory."
+msgstr ""
+"**Base física**: si conoces la física/química subyacente, elige una ecuación"
+" que coincida con la teoría."
+
+#: ../../../docs/usage.md:410 7f18a91ce6224076b8aca5e4971a6f59
+msgid ""
+"**Visual inspection**: Plot your data first to get an idea of the shape "
+"(linear, curved, oscillating, etc.)."
+msgstr ""
+"**Inspección visual**: Primero, trace sus datos para tener una idea de la "
+"forma (lineal, curva, oscilante, etc.)."
+
+#: ../../../docs/usage.md:412 1467d4cbff5749518f3e369c2f970914
+msgid ""
+"**Start simple**: Try simpler equations (linear, quadratic) before complex "
+"ones."
+msgstr ""
+"**Empiece de forma sencilla**: pruebe con ecuaciones más simples (lineales, "
+"cuadráticas) antes que con las complejas."
+
+#: ../../../docs/usage.md:414 96c49bc4307244f48663a5c802833f11
+msgid ""
+"**Compare R² values**: When testing multiple equations, the one with the "
+"highest R² generally fits best."
+msgstr ""
+"**Comparar valores de R²**: cuando se prueban varias ecuaciones, la que "
+"tiene el R² más alto generalmente se ajusta mejor."
+
+#: ../../../docs/usage.md:416 489bcc03e07d4bf1a840f56075009a2e
+msgid ""
+"**Be cautious of overfitting**: A complex equation with many parameters "
+"might fit better but may not generalize well."
+msgstr ""
+"**Tenga cuidado con el sobreajuste**: una ecuación compleja con muchos "
+"parámetros podría ajustarse mejor, pero no generalizarse bien."
+
+#: ../../../docs/usage.md:418 5d285e79714c494a819a5badf74a4464
+msgid "Custom Formulas"
+msgstr "Fórmulas personalizadas"
+
+#: ../../../docs/usage.md:420 e9a28a72b97d41a5b08c2a33b5226e6a
+msgid "If none of the predefined equations work, you can define your own:"
+msgstr ""
+"Si ninguna de las ecuaciones predefinidas funciona, puedes definir la tuya "
+"propia:"
+
+#: ../../../docs/usage.md:422 9ccfa9e50bee4fdcb308e710c5b5b8a6
+msgid "Select \"Custom Formula\" as the equation type."
+msgstr "Seleccione \"Fórmula personalizada\" como tipo de ecuación."
+
+#: ../../../docs/usage.md:423 1c7bd5b93408475eb77d6c1b4a53254b
+msgid "Specify the number of parameters."
+msgstr "Especifique el número de parámetros."
+
+#: ../../../docs/usage.md:424 d80bedff3b044baa9aa1332adbf65558
+msgid ""
+"Specify the number of independent variables (1 for standard y=f(x), 2+ for "
+"multidimensional regression)."
+msgstr ""
+"Especifique el número de variables independientes (1 para estándar y=f(x), "
+"2+ para regresión multidimensional)."
+
+#: ../../../docs/usage.md:425 4e9e9c66701d4a7dbba4c762351141f6
+msgid ""
+"Name your parameters (e.g., `a`, `b`, `c`). You can also use special "
+"characters."
+msgstr ""
+"Asigne un nombre a sus parámetros (por ejemplo, `a`, `b`, `c`). También "
+"puedes utilizar caracteres especiales."
+
+#: ../../../docs/usage.md:426 f0fb833fad3a448c9b1a9dda3c59d976
+msgid "Enter your formula using Python syntax."
+msgstr "Ingrese su fórmula usando la sintaxis de Python."
+
+#: ../../../docs/usage.md:427 9d52c0bd0b604b0ebaf1fd3864640a41
+msgid "`a*x**2 + b*x + c` (quadratic, 1 variable)."
+msgstr "`a*x**2 + b*x + c` (cuadrático, 1 variable)."
+
+#: ../../../docs/usage.md:428 1c9d84a27f2342b2983b6c3e2bd29d5a
+msgid "`a*np.exp(-b*x)` (exponential decay)."
+msgstr "`a*np.exp(-b*x)` (decaimiento exponencial)."
+
+#: ../../../docs/usage.md:429 be222935c2f1477f832294f0ac4e8d03
+msgid "`a/(1 + b*x)` (hyperbola)."
+msgstr "`a/(1 + b*x)` (hipérbola)."
+
+#: ../../../docs/usage.md:430 e7acf4b044584e30b90202a495b982dd
+msgid ""
+"`a*x_0 + b*x_1 + c` (multidimensional, 2 variables: use `x_0`, `x_1`, etc.)."
+msgstr ""
+"`a*x_0 + b*x_1 + c` (multidimensional, 2 variables: use `x_0`, `x_1`, etc.)."
+
+#: ../../../docs/usage.md:432 a66a6f9dacb943349015ad8078fd527a
+msgid ""
+"For multidimensional (2+ variables), you will select multiple X columns "
+"during variable selection. With 2 variables you get an interactive 3D plot; "
+"with 3+ you get a residuals plot."
+msgstr ""
+"Para multidimensionales (más de 2 variables), seleccionará varias columnas X"
+" durante la selección de variables. Con 2 variables obtienes un gráfico 3D "
+"interactivo; con 3+ obtienes una gráfica de residuos."
+
+#: ../../../docs/usage.md:434 e7dc4107cfd441d3936897628e8117d0
+msgid "Prediction Window (Desktop)"
+msgstr "Ventana de predicción (escritorio)"
+
+#: ../../../docs/usage.md:436 10b5956e0e5d491c8789937fc76727f2
+msgid ""
+"After fitting, the result window shows a **Prediction** button. Click it to "
+"open a dialog where you can:"
+msgstr ""
+"Después del ajuste, la ventana de resultados muestra un botón "
+"**Predicción**. Haga clic en él para abrir un cuadro de diálogo donde podrá:"
+
+#: ../../../docs/usage.md:438 919aa6e36ed84e34a6fc09014f181bb8
+msgid "Enter values for each independent variable (x, x_0, x_1, etc.)."
+msgstr "Ingrese valores para cada variable independiente (x, x_0, x_1, etc.)."
+
+#: ../../../docs/usage.md:439 d5ea82fe95dc4a1486189c8b6ad2c9b5
+msgid "See the predicted y value updated in real time."
+msgstr "Vea el valor y previsto actualizado en tiempo real."
+
+#: ../../../docs/usage.md:440 4a398eb6b6744bf99dfb1e08e68f2961
+msgid ""
+"When parameter covariance is available, the predicted uncertainty is shown "
+"as well."
+msgstr ""
+"Cuando la covarianza del parámetro está disponible, también se muestra la "
+"incertidumbre prevista."
+
+#: ../../../docs/usage.md:442 250099fff5c14ca6ac38543dea0a4d94
+msgid ""
+"This works for single fits, multiple datasets, checker mode, and total "
+"fitting. It supports both 1D and multidimensional fits."
+msgstr ""
+"Esto funciona para ajustes únicos, múltiples conjuntos de datos, modo "
+"verificador y ajuste total. Admite ajustes tanto 1D como multidimensionales."
+
+#: ../../../docs/usage.md:444 9e92b2698dfb4b9e8cc17654cdd1cf75
+msgid "Common Workflows"
+msgstr "Flujos de trabajo comunes"
+
+#: ../../../docs/usage.md:446 b1b255271fba4eb0b1143f975d23c707
+msgid "Workflow 1: Quick Analysis"
+msgstr "Flujo de trabajo 1: análisis rápido"
+
+#: ../../../docs/usage.md:459 ca037424f414407f881c348f57944763
+msgid "Workflow 2: Finding the Best Model"
+msgstr "Flujo de trabajo 2: encontrar el mejor modelo"
+
+#: ../../../docs/usage.md:472 f3a62b75829f498ca48c2617da4bc77f
+msgid "Workflow 3: Batch Processing"
+msgstr "Flujo de trabajo 3: procesamiento por lotes"
+
+#: ../../../docs/usage.md:485 94e8ba2cd6034045949c8fd8257cd809
+msgid "Workflow 4: Iterative Refinement"
+msgstr "Flujo de trabajo 4: refinamiento iterativo"
+
+#: ../../../docs/usage.md:499 4d2bf55290e54d70b36258426c5f2e07
+msgid "Next Steps"
+msgstr "Próximos pasos"
+
+#: ../../../docs/usage.md:501 4120f95e621a48ed85a2a39f5256fe77
+msgid "Now that you understand the basics:"
+msgstr "Ahora que comprende los conceptos básicos:"
+
+#: ../../../docs/usage.md:503 4a1fefca015541189fad2705124c845f
+msgid ""
+"**Streamlit Guide**: For detailed information on the web interface, see "
+"[Streamlit Guide](streamlit-guide.md)."
+msgstr ""
+"**Guía Streamlit**: Para obtener información detallada sobre la interfaz "
+"web, consulte [Guía Streamlit](streamlit-guide.md)."
+
+#: ../../../docs/usage.md:504 bbe3e244a05d4fbcbfdca9442be80b8d
+msgid ""
+"**Tkinter Guide**: For detailed information on the desktop interface, see "
+"[Tkinter Guide](tkinter-guide.md)."
+msgstr ""
+"**Guía de Tkinter**: Para obtener información detallada sobre la interfaz de"
+" escritorio, consulte la [Guía de Tkinter](tkinter-guide.md)."
+
+#: ../../../docs/usage.md:505 7cf471183ad4458f8f0366b4768f3021
+msgid ""
+"**Configuration**: Customize appearance and behavior in the [Configuration "
+"Guide](configuration.md)."
+msgstr ""
+"**Configuración**: personalice la apariencia y el comportamiento en la [Guía"
+" de configuración] (configuration.md)."
+
+#: ../../../docs/usage.md:506 89ef610298bb40c4a39215888e20831d
+msgid ""
+"**Advanced Usage**: Learn how to add custom functions in [Extending "
+"RegressionLab](extending.md)."
+msgstr ""
+"**Uso avanzado**: aprenda cómo agregar funciones personalizadas en "
+"[Extending RegressionLab] (extending.md)."
+
+#: ../../../docs/usage.md:510 93ca3400d4fd4f2ba02ce1757fdd0bcc
+msgid ""
+"*Need help? Check the [Troubleshooting Guide](troubleshooting.md) for common"
+" issues and solutions.*"
+msgstr ""
+"*¿Necesitar ayuda? Consulte la [Guía de solución de problemas] "
+"(troubleshooting.md) para conocer problemas y soluciones comunes.*"

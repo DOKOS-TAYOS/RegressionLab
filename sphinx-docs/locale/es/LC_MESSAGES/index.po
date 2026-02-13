@@ -1,0 +1,64 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Alejandro Mata Ali
+# This file is distributed under the same license as the RegressionLab
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: RegressionLab 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-13 19:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../source/index.rst:39
+msgid "Getting Started"
+msgstr "Primeros pasos"
+
+#: ../../source/index.rst:47
+msgid "Configuration & Customization"
+msgstr "Configuración y personalización"
+
+#: ../../source/index.rst:55
+msgid "For Developers"
+msgstr "Para desarrolladores"
+
+#: ../../source/index.rst:63
+msgid "Reference & Support"
+msgstr "Referencia y soporte"
+
+#: ../../source/index.rst:71
+msgid "API Reference"
+msgstr "Referencia de la API"
+
+#: ../../source/index.rst:1 87c3560c973f49ff8568b3b40d0500da
+msgid "RegressionLab Logo"
+msgstr "Logo de RegressionLab"
+
+#: ../../source/index.rst:35 7be72b29eb95410cb2393e16df55348b
+msgid "RegressionLab Documentation"
+msgstr "Documentación de RegressionLab"
+
+#: ../../source/index.rst:37 0b5f6a4cc94f4c899fb5cea55c0a9fd9
+msgid ""
+"**RegressionLab** is a comprehensive curve fitting application that "
+"enables you to perform advanced curve fitting operations using multiple "
+"mathematical models with an intuitive interface. Whether you're analyzing"
+" experimental data, calibrating instruments, or exploring mathematical "
+"relationships, RegressionLab provides the tools you need."
+msgstr ""
+"**RegressionLab** es una aplicación completa de ajuste de curvas que "
+"te permite realizar operaciones avanzadas de ajuste usando múltiples "
+"modelos matemáticos con una interfaz intuitiva. Ya sea que analices "
+"datos experimentales, calibres instrumentos o explores relaciones "
+"matemáticas, RegressionLab te proporciona las herramientas necesarias."
+

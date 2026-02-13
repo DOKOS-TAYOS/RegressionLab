@@ -1,0 +1,793 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Alejandro Mata Ali
+# This file is distributed under the same license as the RegressionLab
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: RegressionLab 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-13 19:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: es <LL@li.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../../docs/license.md ../../../docs/license.md:1
+#: 73a61b19964d47a5a5b2c867db9469bd b3431126031b438eb634990dbb6fcf41
+msgid "License"
+msgstr "Licencia"
+
+#: ../../../docs/license.md:3 3cfe798026ff4b8dbe48a866aafefbc9
+msgid "MIT License"
+msgstr "Licencia MIT"
+
+#: ../../../docs/license.md:5 ../../../docs/license.md:151
+#: 9f01a316100049bdac2fa51c0ca94210 da6b0d0b0f5942a3918a3c504664c575
+msgid "Copyright (c) 2026 Alejandro Mata Ali"
+msgstr "Copyright (c) 2026 Alejandro Mata Ali"
+
+#: ../../../docs/license.md:7 904c61400f5d42439be3b3a77a90d416
+msgid ""
+"Permission is hereby granted, free of charge, to any person obtaining a copy"
+" of this software and associated documentation files (the \"Software\"), to "
+"deal in the Software without restriction, including without limitation the "
+"rights to use, copy, modify, merge, publish, distribute, sublicense, and/or "
+"sell copies of the Software, and to permit persons to whom the Software is "
+"furnished to do so, subject to the following conditions:"
+msgstr ""
+"Por el presente se otorga permiso, sin cargo, a cualquier persona que "
+"obtenga una copia de este software y los archivos de documentación asociados"
+" (el \"Software\"), para operar con el Software sin restricciones, "
+"incluidos, entre otros, los derechos de uso, copia, modificación, fusión, "
+"publicación, distribución, sublicencia y/o venta de copias del Software, y "
+"para permitir que las personas a quienes se proporciona el Software lo "
+"hagan, sujeto a las siguientes condiciones:"
+
+#: ../../../docs/license.md:14 9927bbcfdfed4ee18f7484c0f31ae220
+msgid ""
+"The above copyright notice and this permission notice shall be included in "
+"all copies or substantial portions of the Software."
+msgstr ""
+"El aviso de derechos de autor anterior y este aviso de permiso se incluirán "
+"en todas las copias o partes sustanciales del Software."
+
+#: ../../../docs/license.md:17 f5a94b514e454832b453375abf45f684
+msgid ""
+"THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR"
+" IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, "
+"FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE "
+"AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER "
+"LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING "
+"FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS"
+" IN THE SOFTWARE."
+msgstr ""
+"EL SOFTWARE SE PROPORCIONA \"TAL CUAL\", SIN GARANTÍA DE NINGÚN TIPO, "
+"EXPRESA O IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A LAS GARANTÍAS DE "
+"COMERCIABILIDAD, IDONEIDAD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN "
+"NINGÚN CASO LOS AUTORES O TITULARES DE DERECHOS DE AUTOR SERÁN RESPONSABLES "
+"DE NINGÚN RECLAMO, DAÑO U OTRA RESPONSABILIDAD, YA SEA EN UNA ACCIÓN "
+"CONTRACTUAL, AGRAVIO O DE OTRA MANERA, QUE SURJA DE, FUERA DE O EN RELACIÓN "
+"CON EL SOFTWARE O EL USO U OTRAS NEGOCIOS EN EL SOFTWARE."
+
+#: ../../../docs/license.md:25 61e19174b4cb43da8480d9f04a802dc5
+msgid "What This Means"
+msgstr "Qué significa esto"
+
+#: ../../../docs/license.md:27 e989043bc3904c44a04a63be27a5ab1f
+msgid ""
+"The MIT License is one of the most permissive open-source licenses. Here's "
+"what it means in plain language:"
+msgstr ""
+"La licencia MIT es una de las licencias de código abierto más permisivas. "
+"Esto es lo que significa en lenguaje sencillo:"
+
+#: ../../../docs/license.md:29 d5895e0a504b4dda99aeab3361f5b3fa
+msgid "✅ You CAN:"
+msgstr "✅ Tú PUEDES:"
+
+#: ../../../docs/license.md:31 29adcb6d4b9c4d8b8bf6d36039064597
+msgid "**Use** the software for any purpose (commercial or non-commercial)"
+msgstr ""
+"**Usar** el software para cualquier propósito (comercial o no comercial)"
+
+#: ../../../docs/license.md:32 7bad672c512b48169c7aee0ce7bf1040
+msgid "**Copy** the software and distribute it"
+msgstr "**Copia** el software y distribúyelo"
+
+#: ../../../docs/license.md:33 0a6d10137e3842b1b12c8c2db8c9c1f4
+msgid "**Modify** the software and create derivative works"
+msgstr "**Modificar** el software y crear trabajos derivados."
+
+#: ../../../docs/license.md:34 cd8edcf027b4429c8e7e1edcebe63b1d
+msgid "**Merge** the software with other projects"
+msgstr "**Fusionar** el software con otros proyectos"
+
+#: ../../../docs/license.md:35 439b1f632da04ed1b5d8c7519997ddba
+msgid "**Publish** the software or modified versions"
+msgstr "**Publicar** el software o las versiones modificadas"
+
+#: ../../../docs/license.md:36 9b8f9e29886f46e2bacb21dbd3dd8686
+msgid "**Sublicense** the software"
+msgstr "**Sublicenciar** el software"
+
+#: ../../../docs/license.md:37 bbf9db68f8cd47bbb062732397969666
+msgid "**Sell** the software or products that include it"
+msgstr "**Vender** el software o productos que lo incluyen"
+
+#: ../../../docs/license.md:39 4c729e19c968426c8d3e9a150e3a2d15
+msgid "⚠️ You MUST:"
+msgstr "⚠️ DEBES:"
+
+#: ../../../docs/license.md:41 43df946b61b24b879055785dd96e2843
+msgid ""
+"**Include the license notice**: Include the MIT License text and copyright "
+"notice in all copies or substantial portions of the software"
+msgstr ""
+"**Incluir el aviso de licencia**: incluya el texto de la licencia MIT y el "
+"aviso de derechos de autor en todas las copias o partes sustanciales del "
+"software."
+
+#: ../../../docs/license.md:42 88f810d5ccfb47db9a419e63fe1ccf86
+msgid ""
+"**Include the copyright notice**: Credit the original author (Alejandro Mata"
+" Ali)"
+msgstr ""
+"**Incluir el aviso de copyright**: Dar crédito al autor original (Alejandro "
+"Mata Ali)"
+
+#: ../../../docs/license.md:44 fe6d35baabcc4ccba95499540b9775b8
+msgid "❌ You CANNOT:"
+msgstr "❌ NO PUEDES:"
+
+#: ../../../docs/license.md:46 221fe096133544d79bcea94fa0bad024
+msgid ""
+"**Hold the author liable**: The software is provided \"as is\" without "
+"warranty"
+msgstr ""
+"**Hacer responsable al autor**: el software se proporciona \"tal cual\" sin "
+"garantía"
+
+#: ../../../docs/license.md:47 c7ef796aa18a406a891e7843b7e45f10
+msgid "**Remove the copyright notice**: The original copyright must remain"
+msgstr ""
+"**Eliminar el aviso de derechos de autor**: los derechos de autor originales"
+" deben permanecer"
+
+#: ../../../docs/license.md:48 bca4127b34164fef9171c54f125b36d0
+msgid "**Use the author's name for endorsement**: Without explicit permission"
+msgstr "**Use el nombre del autor para respaldo**: Sin permiso explícito"
+
+#: ../../../docs/license.md:50 7626bb5913334b96a854950aafec7222
+msgid "Dependencies"
+msgstr "Dependencias"
+
+#: ../../../docs/license.md:52 c83f488aaf1f4949b5e7f20ccacc8c14
+msgid ""
+"RegressionLab uses several open-source libraries, each with their own "
+"licenses:"
+msgstr ""
+"RegressionLab utiliza varias bibliotecas de código abierto, cada una con sus"
+" propias licencias:"
+
+#: ../../../docs/license.md:54 9236da17a70a422491c4239515f67493
+msgid "Core Dependencies"
+msgstr "Dependencias principales"
+
+#: ../../../docs/license.md 7fa483fbebae41439dfb1642df32cae8
+msgid "Package"
+msgstr "Paquete"
+
+#: ../../../docs/license.md 94ef3d3ed9df4dd695e2d7219c593955
+msgid "Use"
+msgstr "Usar"
+
+#: ../../../docs/license.md 14fcc77a26f34ff0ae169485e73b5edb
+msgid "**NumPy**"
+msgstr "**Número**"
+
+#: ../../../docs/license.md 009281358b0247708006fafbbd724ca4
+#: 20ad1644f4444ecfb6e24fe1bb266a03 6257ff3558e84610bd48120282a79df3
+#: 6bc570786c7c4d2aa594bf34e15de059 b17fb0c459a745ad9478fbf8ee7d82e1
+msgid "BSD-3-Clause"
+msgstr "Cláusula BSD-3"
+
+#: ../../../docs/license.md ead6c97f75d946c2aa86806f9a9b6bf2
+msgid "Numerical computing"
+msgstr "Computación numérica"
+
+#: ../../../docs/license.md bb4431fc5d1848328bbc27d05f1c797f
+msgid "**Matplotlib**"
+msgstr "**Matplotlib**"
+
+#: ../../../docs/license.md 25bbcafeaac641f39a5771cdc8407b38
+msgid "PSF-based"
+msgstr "basado en PSF"
+
+#: ../../../docs/license.md 7e4cf94b51c54dfeb79ffe4defba4336
+msgid "Plotting and visualization"
+msgstr "Trazado y visualización"
+
+#: ../../../docs/license.md 6b65b7a13e8d47bdb69519fb050eb53f
+msgid "**SciPy**"
+msgstr "**Ciencia**"
+
+#: ../../../docs/license.md 245c3772426e4deca1f05f68e5c16ab1
+msgid "Scientific computing and optimization"
+msgstr "Computación científica y optimización."
+
+#: ../../../docs/license.md 8a05555167314fafabb8b0f96aea4d68
+msgid "**Pandas**"
+msgstr "**pandas**"
+
+#: ../../../docs/license.md 37088d9a936c42cb900f9677af393457
+msgid "Data manipulation"
+msgstr "Manipulación de datos"
+
+#: ../../../docs/license.md c4cda7482b9447ac87b06596c2886bb6
+msgid "**openpyxl**"
+msgstr "**openpyxl**"
+
+#: ../../../docs/license.md 4a1f80730e304cca80a02821699ce4dc
+#: f8b7c069afc34a0f935eb978764145d4
+msgid "MIT"
+msgstr "MIT"
+
+#: ../../../docs/license.md 4aa802c81fe849989c8c8d2cdb78be1a
+msgid "Excel file support"
+msgstr "Soporte de archivos Excel"
+
+#: ../../../docs/license.md bbf659051ad44ee185f32b00a6a2eaec
+msgid "**Pillow**"
+msgstr "**Almohada**"
+
+#: ../../../docs/license.md fbba259c996048c6bb701deeb2b64f6a
+msgid "HPND"
+msgstr "HPND"
+
+#: ../../../docs/license.md e6527d66dbc6436aa6c5322adf95881c
+msgid "Image processing"
+msgstr "Procesamiento de imágenes"
+
+#: ../../../docs/license.md 55394af73de84e3e9131e9a04feba01c
+msgid "**python-dotenv**"
+msgstr "**python-dotenv**"
+
+#: ../../../docs/license.md 9ef75a906fa64f9bb5c698154c1a1193
+msgid "Environment variable management"
+msgstr "Gestión de variables de entorno."
+
+#: ../../../docs/license.md 0d48b247b04c4694be906bb8e1265d8a
+msgid "**colorama**"
+msgstr "**colorama**"
+
+#: ../../../docs/license.md 93aeab703b5444efaf7efdf20d44c96d
+msgid "Colored terminal output"
+msgstr "Salida de terminal de color"
+
+#: ../../../docs/license.md 34da7c1f0b3a4d298bf04bc063184f57
+msgid "**PyYAML**"
+msgstr "**PyYAML**"
+
+#: ../../../docs/license.md 677a52017073413685a1f76dc7ee87eb
+msgid "YAML config (equations, etc.)"
+msgstr "Configuración YAML (ecuaciones, etc.)"
+
+#: ../../../docs/license.md f7ae7a3acb80492c931c73601621b5ab
+msgid "**Streamlit**"
+msgstr "**Iluminado**"
+
+#: ../../../docs/license.md 5253c864662f435fa8bdc3b4ea31a603
+msgid "Apache 2.0"
+msgstr "apache 2.0"
+
+#: ../../../docs/license.md e1490d0501cf426da350d773da001541
+msgid "Web application framework"
+msgstr "Marco de aplicación web"
+
+#: ../../../docs/license.md:69 e5ee235e02ad4feaabb03fe462176454
+msgid ""
+"All of these licenses are permissive and compatible with the MIT License."
+msgstr ""
+"Todas estas licencias son permisivas y compatibles con la licencia MIT."
+
+#: ../../../docs/license.md:71 be241f238060483d99feb7da31f617e6
+msgid ""
+"For version ranges, full license texts of selected dependencies (including "
+"PyYAML), and compliance notes, see "
+"**[THIRD_PARTY_LICENSES.md](../THIRD_PARTY_LICENSES.md)** in the project "
+"root."
+msgstr ""
+"Para conocer los rangos de versiones, los textos de licencia completos de "
+"las dependencias seleccionadas (incluido PyYAML) y las notas de "
+"cumplimiento, consulte "
+"**[THIRD_PARTY_LICENSES.md](../THIRD_PARTY_LICENSES.md)** en la raíz del "
+"proyecto."
+
+#: ../../../docs/license.md:73 32eb59337db9431b9ddfc13c8da11250
+msgid "License Compatibility"
+msgstr "Compatibilidad de licencia"
+
+#: ../../../docs/license.md:75 1d48a80945954c519b2bbf21491ae6ab
+msgid "The MIT License is compatible with:"
+msgstr "La Licencia MIT es compatible con:"
+
+#: ../../../docs/license.md:76 ab0c044b37af4f6caa36dca3f59a97cb
+msgid "BSD licenses"
+msgstr "licencias BSD"
+
+#: ../../../docs/license.md:77 3541b58945b04c2ca27dbaadabd2a5d4
+msgid "Apache License 2.0"
+msgstr "Licencia Apache 2.0"
+
+#: ../../../docs/license.md:78 cf0eae781fe947dbb3b76c2d0d309e3e
+msgid "GPL (can be relicensed as GPL)"
+msgstr "GPL (se puede volver a licenciar como GPL)"
+
+#: ../../../docs/license.md:79 4809335cec414a0bac501207b60505a3
+msgid "Commercial software"
+msgstr "software comercial"
+
+#: ../../../docs/license.md:81 beafe8d4375c4323a1647450da0040a9
+msgid "Using RegressionLab in Your Project"
+msgstr "Usando RegressionLab en su proyecto"
+
+#: ../../../docs/license.md:83 51293ab527a340baae2cc9c1449087a1
+msgid "Academic Use"
+msgstr "Uso Académico"
+
+#: ../../../docs/license.md:85 a58c2ec9f44141f3bef216a62af84b86
+msgid "If you use RegressionLab in academic research, please cite:"
+msgstr "Si utiliza RegressionLab en investigaciones académicas, cite:"
+
+#: ../../../docs/license.md:92 27f9b61dadec48c89291325c04202209
+msgid "BibTeX entry:"
+msgstr "Entrada BibTeX:"
+
+#: ../../../docs/license.md:103 bdcb840e073d4f14b3dd5f1f1509b369
+msgid "Commercial Use"
+msgstr "Uso comercial"
+
+#: ../../../docs/license.md:105 95b656d7b6a84ba38bdef285b3bc9cc5
+msgid ""
+"RegressionLab can be used in commercial projects without restrictions. "
+"However:"
+msgstr ""
+"RegressionLab se puede utilizar en proyectos comerciales sin restricciones. "
+"Sin embargo:"
+
+#: ../../../docs/license.md:107 5d1c610d8d7f42009f8c5fbf746a4b65
+msgid ""
+"**Include the license**: The MIT License and copyright notice must be "
+"included"
+msgstr ""
+"**Incluir la licencia**: Se debe incluir la licencia MIT y el aviso de "
+"derechos de autor."
+
+#: ../../../docs/license.md:108 4337458d1e684cd584fcf4a62c131369
+msgid "**No warranty**: The software is provided \"as is\" without warranty"
+msgstr "**Sin garantía**: el software se proporciona \"tal cual\" sin garantía"
+
+#: ../../../docs/license.md:109 2a714b582d694c16b3de6ccb1f7b8397
+msgid ""
+"**Attribution**: Credit the original project (appreciated but not required)"
+msgstr ""
+"**Atribución**: acredita el proyecto original (se agradece pero no es "
+"obligatorio)"
+
+#: ../../../docs/license.md:111 9abaae8dce3b44c184b905a3ee7154a2
+msgid "Derivative Works"
+msgstr "Obras derivadas"
+
+#: ../../../docs/license.md:113 291adb3eda5642d8b04f939cfb7ccb60
+msgid "If you create a modified version of RegressionLab:"
+msgstr "Si crea una versión modificada de RegressionLab:"
+
+#: ../../../docs/license.md:115 b58047d4e7c24f13bba4fcf8caa23bd4
+msgid "**You can** distribute it under any license (including proprietary)"
+msgstr ""
+"**Puedes** distribuirlo bajo cualquier licencia (incluida la propietaria)"
+
+#: ../../../docs/license.md:116 1c33ab0da69a481687a0999fc02408a4
+msgid "**You must** include the original MIT License for RegressionLab code"
+msgstr ""
+"**Debe** incluir la licencia MIT original para el código de RegressionLab"
+
+#: ../../../docs/license.md:117 0f75a88e030a45e094f60a367b0c58ac
+msgid "**You should** clearly indicate what changes were made"
+msgstr "**Debes** indicar claramente qué cambios se realizaron"
+
+#: ../../../docs/license.md:118 33d44dabc7014e9996bfd7b3288ff33b
+msgid "**Consider** contributing improvements back to the original project"
+msgstr "**Considere** contribuir con mejoras al proyecto original."
+
+#: ../../../docs/license.md:120 7b90c9632e7a4afd87916eb4c266c757
+msgid "Example attribution:"
+msgstr "Atribución de ejemplo:"
+
+#: ../../../docs/license.md:127 1a5a128106904ed3bb880c4492d50ee9
+msgid "Warranty Disclaimer"
+msgstr "Descargo de responsabilidad de garantía"
+
+#: ../../../docs/license.md:129 b68519214a774fa6afa0b765f2e3806f
+msgid ""
+"THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR"
+" IMPLIED."
+msgstr ""
+"EL SOFTWARE SE PROPORCIONA \"TAL CUAL\", SIN GARANTÍA DE NINGÚN TIPO, "
+"EXPRESA O IMPLÍCITA."
+
+#: ../../../docs/license.md:131 23a7982e131d41bd89ea92105a0daabc
+msgid "This means:"
+msgstr "Esto significa:"
+
+#: ../../../docs/license.md:133 93dbca5667ea4655bf1d3f015b76a494
+msgid ""
+"**No guarantee of fitness**: The software may not be suitable for your "
+"specific purpose"
+msgstr ""
+"**Sin garantía de idoneidad**: Es posible que el software no sea adecuado "
+"para su propósito específico"
+
+#: ../../../docs/license.md:134 4d4edce1b1de43dcb326e0f19a601f00
+msgid ""
+"**No guarantee of accuracy**: Results should be independently verified for "
+"critical applications"
+msgstr ""
+"**No hay garantía de precisión**: Los resultados deben verificarse de forma "
+"independiente para aplicaciones críticas"
+
+#: ../../../docs/license.md:135 808e9967a3a74c358a1d80e9e67620e6
+msgid ""
+"**No guarantee of maintenance**: Updates and bug fixes are provided on a "
+"best-effort basis"
+msgstr ""
+"**No hay garantía de mantenimiento**: las actualizaciones y correcciones de "
+"errores se proporcionan según el mejor esfuerzo posible."
+
+#: ../../../docs/license.md:136 5f949a15aaa94df498c2cc5413023947
+msgid ""
+"**No liability**: The authors are not responsible for any damages arising "
+"from the use of the software"
+msgstr ""
+"**Sin responsabilidad**: Los autores no son responsables de ningún daño que "
+"surja del uso del software."
+
+#: ../../../docs/license.md:138 573ed3e947d0442cbe873c820f163eba
+msgid "Important for Scientific Use"
+msgstr "Importante para uso científico"
+
+#: ../../../docs/license.md:140 074b690071294d3687eb26474e3b91d5
+msgid ""
+"While RegressionLab has been carefully developed and tested, users are "
+"responsible for:"
+msgstr ""
+"Si bien RegressionLab ha sido desarrollado y probado cuidadosamente, los "
+"usuarios son responsables de:"
+
+#: ../../../docs/license.md:142 1f318bb65b8b4a50a79b2c249c0e2ab4
+msgid "**Validating results**: Always check that results make physical sense"
+msgstr ""
+"**Validación de resultados**: compruebe siempre que los resultados tengan "
+"sentido físico"
+
+#: ../../../docs/license.md:143 5033418413104884983710dfc9798b5f
+msgid "**Verifying accuracy**: Compare with known solutions when possible"
+msgstr ""
+"**Verificación de la precisión**: compare con soluciones conocidas cuando "
+"sea posible"
+
+#: ../../../docs/license.md:144 9f99138eef4d45ee889fc5eac8528d11
+msgid ""
+"**Understanding limitations**: Be aware of numerical precision and algorithm"
+" limitations"
+msgstr ""
+"**Comprensión de las limitaciones**: tenga en cuenta la precisión numérica y"
+" las limitaciones de los algoritmos"
+
+#: ../../../docs/license.md:145 89b42ca0d9cc4625b83754fc3926d249
+msgid ""
+"**Citing properly**: In scientific publications, cite the tool and methods "
+"used"
+msgstr ""
+"**Citar correctamente**: En publicaciones científicas, citar la herramienta "
+"y los métodos utilizados."
+
+#: ../../../docs/license.md:147 5811d1f7b9374faf90d71987c8d926e0
+msgid "Copyright"
+msgstr "Derechos de autor"
+
+#: ../../../docs/license.md:149 a1cd981d4035469e8ce5d4e1abfe89e8
+msgid "Original Work"
+msgstr "Trabajo Original"
+
+#: ../../../docs/license.md:153 5627c25f891b4daaa08147c5e50ce554
+msgid ""
+"The following materials are original works created by Alejandro Mata Ali for"
+" RegressionLab:"
+msgstr ""
+"Los siguientes materiales son trabajos originales creados por Alejandro Mata"
+" Ali para RegressionLab:"
+
+#: ../../../docs/license.md:155 7dca1442fca84289895da6ebf47806de
+msgid ""
+"**Source Code**: All software code written specifically for RegressionLab."
+msgstr ""
+"**Código fuente**: todo el código de software escrito específicamente para "
+"RegressionLab."
+
+#: ../../../docs/license.md:156 ccfb0dacd95246b4b08dbe13c1ebc569
+msgid ""
+"**Documentation**: All user guides, API references, and example content."
+msgstr ""
+"**Documentación**: todas las guías de usuario, referencias de API y "
+"contenido de ejemplo."
+
+#: ../../../docs/license.md:157 5a04a2974e9f4f87be9b6e2ca58e30e2
+msgid ""
+"**Design**: UI/UX layouts, application structure, and architectural "
+"diagrams."
+msgstr ""
+"**Diseño**: diseños UI/UX, estructura de aplicaciones y diagramas "
+"arquitectónicos."
+
+#: ../../../docs/license.md:158 97c7dc34324e45b982fbd11e5650530f
+msgid ""
+"**Images and Icons**: All images and icons included with RegressionLab are "
+"original creations."
+msgstr ""
+"**Imágenes e íconos**: Todas las imágenes e íconos incluidos con "
+"RegressionLab son creaciones originales."
+
+#: ../../../docs/license.md:159 187d751b336346b2957cce5f56ce6d55
+msgid ""
+"**Sample Data**: All provided sample datasets are original and created for "
+"use with RegressionLab."
+msgstr ""
+"**Datos de muestra**: todos los conjuntos de datos de muestra proporcionados"
+" son originales y están creados para su uso con RegressionLab."
+
+#: ../../../docs/license.md:161 a55547fb70b94a29bd689c65a67b84b4
+msgid "Third-Party Components"
+msgstr "Componentes de terceros"
+
+#: ../../../docs/license.md:163 73842204ec6c4359b948f2f1e36b228b
+msgid "RegressionLab uses certain third-party resources, including:"
+msgstr "RegressionLab utiliza ciertos recursos de terceros, que incluyen:"
+
+#: ../../../docs/license.md:165 65b803c98d6245659bc0a8093f0b6c8c
+msgid ""
+"**Mathematical Algorithms**: Implemented based on standard, widely accepted "
+"numerical methods."
+msgstr ""
+"**Algoritmos matemáticos**: Implementado en base a métodos numéricos "
+"estándar y ampliamente aceptados."
+
+#: ../../../docs/license.md:168 43a10cc4ede94972bdea04b6644efded
+msgid "Contributing"
+msgstr "Contribuyendo"
+
+#: ../../../docs/license.md:170 c7bfbefacdf44833be149cdbb5421899
+msgid "By contributing to RegressionLab, you agree that:"
+msgstr "Al contribuir a RegressionLab, aceptas que:"
+
+#: ../../../docs/license.md:172 f28f617272f84c33ba013495e104ad9c
+msgid "**You own** or have the rights to the contributed code"
+msgstr "**Eres propietario** o tienes los derechos sobre el código aportado."
+
+#: ../../../docs/license.md:173 abc4a897593942298e65c9ce6ed3657f
+msgid ""
+"**You grant** the project a perpetual, worldwide, non-exclusive license to "
+"use your contribution"
+msgstr ""
+"**Otorgas** al proyecto una licencia perpetua, mundial y no exclusiva para "
+"utilizar tu contribución."
+
+#: ../../../docs/license.md:174 7ec42361352f49d88724c23324e057e5
+msgid "**Your contribution** will be licensed under the MIT License"
+msgstr "**Su contribución** tendrá la licencia MIT."
+
+#: ../../../docs/license.md:175 1a2ddff8317147939bcac2002ff48fd9
+msgid "**You understand** your contribution may be used commercially"
+msgstr "**Entiendes** que tu contribución puede usarse comercialmente"
+
+#: ../../../docs/license.md:177 35290f4dbc21491e90541073db700e1e
+msgid "See [Contributing Guide](contributing.md) for details."
+msgstr ""
+"Consulte la [Guía de contribución] (contributing.md) para obtener más "
+"detalles."
+
+#: ../../../docs/license.md:179 0c0b2849d0cd492abfe76daa7c49c7d4
+msgid "Trademark"
+msgstr "Marca"
+
+#: ../../../docs/license.md:181 28e6e9a304dd48f3a98e012a41f45dc0
+msgid "\"RegressionLab\" is not a registered trademark. You may:"
+msgstr "\"RegressionLab\" no es una marca registrada. Puedes:"
+
+#: ../../../docs/license.md:183 b0658fbe96b443c4b6393c8748d4e287
+msgid "Use the name \"RegressionLab\" to refer to this software"
+msgstr "Utilice el nombre \"RegressionLab\" para referirse a este software."
+
+#: ../../../docs/license.md:184 b8e75286ad554048a02cc680ccd5ef52
+msgid "State that your project \"uses RegressionLab\""
+msgstr "Indique que su proyecto \"usa RegressionLab\""
+
+#: ../../../docs/license.md:185 d89a9513edee4b9fad4eac0d55db94df
+msgid "State that your project is \"based on RegressionLab\""
+msgstr "Indique que su proyecto está \"basado en RegressionLab\""
+
+#: ../../../docs/license.md:187 1faf42d162604270acd9f854ffa5b945
+msgid "You may not:"
+msgstr "No puedes:"
+
+#: ../../../docs/license.md:189 e51e715d3ef54fa2b0e1d70f8bab9af9
+msgid "Imply official endorsement without permission"
+msgstr "Implica respaldo oficial sin permiso."
+
+#: ../../../docs/license.md:190 ecbb32b53634429b95e6109ba4ae8248
+msgid "Use the name in a way that causes confusion with the original project"
+msgstr ""
+"Usar el nombre de una manera que cause confusión con el proyecto original."
+
+#: ../../../docs/license.md:191 b6251b3026cd48dfb327521f2d39e602
+msgid "Register \"RegressionLab\" or similar names as trademarks"
+msgstr "Registre \"RegressionLab\" o nombres similares como marcas comerciales"
+
+#: ../../../docs/license.md:193 11671765966d40308f293ccb1eabd516
+msgid "Contact"
+msgstr "Contacto"
+
+#: ../../../docs/license.md:195 beabbbc2ff974a1f92ce1f78be5f1b19
+msgid "For licensing questions or commercial inquiries:"
+msgstr "Para preguntas sobre licencias o consultas comerciales:"
+
+#: ../../../docs/license.md:197 632c8468eecf46e9976b4358e3ac2c4f
+msgid ""
+"**Email**: alejandro.mata.ali@gmail.com   **GitHub**: [Project "
+"Repository](https://github.com/)"
+msgstr ""
+"**Correo electrónico**: alejandro.mata.ali@gmail.com **GitHub**: "
+"[Repositorio de proyectos](https://github.com/)"
+
+#: ../../../docs/license.md:200 98cb256e284643a3acd7ac5b0241f64d
+msgid "Full License Text"
+msgstr "Texto de licencia completo"
+
+#: ../../../docs/license.md:202 c287b5defc894375b65cf71659f00594
+msgid ""
+"The complete MIT License text is also available in the `LICENSE` file in the"
+" root directory of the repository."
+msgstr ""
+"El texto completo de la licencia MIT también está disponible en el archivo "
+"`LICENCIA` en el directorio raíz del repositorio."
+
+#: ../../../docs/license.md:204 9d01de1d30e9482aafa8ec5c92a5b201
+msgid "Version History"
+msgstr "Historial de versiones"
+
+#: ../../../docs/license.md:206 d7bebdbabebe41f494907b8388f8c427
+msgid "**v0.9.1** (February 2026): Current license (MIT)"
+msgstr "**v0.9.1** (febrero de 2026): licencia actual (MIT)"
+
+#: ../../../docs/license.md:207 7edeebd7bf3344509a281b95e5612892
+msgid "License has remained MIT since project inception"
+msgstr "La licencia sigue siendo MIT desde el inicio del proyecto."
+
+#: ../../../docs/license.md:211 f1e574e402804524bb6e4a24b27c60eb
+msgid "Frequently Asked Questions"
+msgstr "Preguntas frecuentes"
+
+#: ../../../docs/license.md:213 d0af60e2b9c543d38e931d02668130b4
+msgid "Can I use RegressionLab in my company?"
+msgstr "¿Puedo utilizar RegressionLab en mi empresa?"
+
+#: ../../../docs/license.md:215 b86220925e9341cdac13ab28bae2d4a3
+msgid ""
+"**Yes**, the MIT License allows commercial use without restrictions or fees."
+msgstr ""
+"**Sí**, la Licencia MIT permite el uso comercial sin restricciones ni "
+"tarifas."
+
+#: ../../../docs/license.md:217 53ff27475f134a708a2bff1a0836ad3e
+msgid "Do I need to make my code open source if I use RegressionLab?"
+msgstr ""
+"¿Necesito hacer que mi código sea de código abierto si uso RegressionLab?"
+
+#: ../../../docs/license.md:219 5c8e9aa79c4948d59e64ea25bca4fd20
+msgid ""
+"**No**, the MIT License does not require you to open-source your code. You "
+"can use RegressionLab in proprietary software."
+msgstr ""
+"**No**, la licencia MIT no requiere que abra su código. Puede utilizar "
+"RegressionLab en software propietario."
+
+#: ../../../docs/license.md:221 009e013b713c4fc78e9bf5a3352ae02f
+msgid "Can I sell a product that includes RegressionLab?"
+msgstr "¿Puedo vender un producto que incluya RegressionLab?"
+
+#: ../../../docs/license.md:223 2540e98c54b84b1988e5bbd9682c27e1
+msgid ""
+"**Yes**, you can sell products that include or are based on RegressionLab. "
+"You must include the MIT License and copyright notice."
+msgstr ""
+"**Sí**, puedes vender productos que incluyan o estén basados ​​en "
+"RegressionLab. Debe incluir la licencia MIT y el aviso de derechos de autor."
+
+#: ../../../docs/license.md:225 8d6312ecab9141ab9d988c63c15fced8
+msgid "Do I need to credit RegressionLab?"
+msgstr "¿Necesito acreditar a RegressionLab?"
+
+#: ../../../docs/license.md:227 c347aa871e9c4f8ab8f2ed3bfc57d35d
+msgid ""
+"**You must** include the license and copyright notice in your distribution. "
+"Attribution beyond that is appreciated but not required."
+msgstr ""
+"**Debes** incluir la licencia y el aviso de derechos de autor en tu "
+"distribución. La atribución más allá de eso se agradece pero no es "
+"obligatoria."
+
+#: ../../../docs/license.md:229 2d24fc409a044237a9f2e177ac3f9971
+msgid "Can I modify RegressionLab and keep my changes private?"
+msgstr "¿Puedo modificar RegressionLab y mantener mis cambios privados?"
+
+#: ../../../docs/license.md:231 471578597b9f4c248d7bc4737a9d235f
+msgid ""
+"**Yes**, you can modify the code and keep your changes private. There's no "
+"requirement to share modifications."
+msgstr ""
+"**Sí**, puedes modificar el código y mantener tus cambios en privado. No es "
+"necesario compartir modificaciones."
+
+#: ../../../docs/license.md:233 fa6854b228084503869f8591b4567c43
+msgid "What if I find a bug or security issue?"
+msgstr "¿Qué pasa si encuentro un error o un problema de seguridad?"
+
+#: ../../../docs/license.md:235 c9c5b7ff06a54e38ba64c729e54d37b6
+msgid ""
+"Please report it on GitHub or via email. While the license disclaims "
+"warranty, we take bugs and security seriously and will address issues as "
+"quickly as possible."
+msgstr ""
+"Infórmalo en GitHub o por correo electrónico. Si bien la licencia excluye la"
+" garantía, nos tomamos en serio los errores y la seguridad y solucionaremos "
+"los problemas lo más rápido posible."
+
+#: ../../../docs/license.md:237 bf51b688ee7a466b9dd56aea2dbd2f56
+msgid "Can I use RegressionLab in academic papers?"
+msgstr "¿Puedo utilizar RegressionLab en trabajos académicos?"
+
+#: ../../../docs/license.md:239 0166eae915054297bff17a0b38443636
+msgid ""
+"**Yes**, it's free to use for academic purposes. Please cite the software "
+"appropriately (see citation information above)."
+msgstr ""
+"**Sí**, su uso es gratuito para fines académicos. Cite el software de forma "
+"adecuada (consulte la información de citas más arriba)."
+
+#: ../../../docs/license.md:241 d0026485ba724b24880cb1d8d192d5d7
+msgid "What if I want to contribute code back?"
+msgstr "¿Qué pasa si quiero contribuir con el código?"
+
+#: ../../../docs/license.md:243 735507e505e446fc8bd3b3d8ccae7b47
+msgid ""
+"**Great!** See the [Contributing Guide](contributing.md). Your contributions"
+" will also be under the MIT License."
+msgstr ""
+"**¡Genial!** Consulte la [Guía de contribución](contributing.md). Tus "
+"contribuciones también estarán bajo la Licencia MIT."
+
+#: ../../../docs/license.md:247 f394aafca6ca464b9209b9af0c8ef23d
+msgid ""
+"*For any other questions about licensing, please contact "
+"alejandro.mata.ali@gmail.com.*"
+msgstr ""
+"*Para cualquier otra pregunta sobre licencias, comuníquese con "
+"alejandro.mata.ali@gmail.com.*"

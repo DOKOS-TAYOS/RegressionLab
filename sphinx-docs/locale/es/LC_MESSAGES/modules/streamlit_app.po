@@ -1,0 +1,463 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Alejandro Mata Ali
+# This file is distributed under the same license as the RegressionLab
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: RegressionLab 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-13 19:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../source/modules/streamlit_app.rst:3 4838e4dffd8d4ab7b7a0fe88fc631d8c
+msgid "Streamlit Web Application"
+msgstr "Aplicación web Streamlit"
+
+#: ../../source/modules/streamlit_app.rst:5 23d6e42ce834443b8fb2d035c8347c66
+msgid "The ``streamlit_app`` module contains the Streamlit-based web interface."
+msgstr "El módulo ``streamlit_app`` contiene la interfaz web basada en Streamlit."
+
+#: ../../source/modules/streamlit_app.rst:8 de95e72f500b438f9c9c2d3d0f5aec46
+msgid "Main Application"
+msgstr "Aplicación principal"
+
+#: 556cf14265e0402d85e4743ba66c0f6b of streamlit_app.app:1
+msgid ""
+"Streamlit Application for RegressionLab Web-based interface for curve "
+"fitting operations."
+msgstr ""
+"Aplicación Streamlit para RegressionLab: interfaz web para operaciones de "
+"ajuste de curvas."
+
+#: c3e5aaf9a0bf4ab781bc8ff1a129e7ed of streamlit_app.app.main:1
+msgid "Main Streamlit application."
+msgstr "Aplicación principal de Streamlit."
+
+#: ../../source/modules/streamlit_app.rst:13 1c0e8fe3b8f5436daaf6cc958b4d8197
+msgid "Theme Configuration"
+msgstr "Configuración del tema"
+
+#: dedd30c015d3487ebfa91f5ca6bfe44c of streamlit_app.theme:1
+msgid "Streamlit UI theme from config (same rules as tkinter app)."
+msgstr "Tema de interfaz Streamlit desde config (mismas reglas que la app Tkinter)."
+
+#: 0d6ffe5b455d442eaefcee469bcc4617 of streamlit_app.theme:3
+msgid ""
+"Uses config.theme.UI_STYLE when available (env + theme.py). Converts "
+"color names to hex for CSS via matplotlib. Fallback to config.env only if"
+" theme cannot be imported (e.g. headless without tkinter)."
+msgstr ""
+"Usa config.theme.UI_STYLE cuando está disponible (env + theme.py). Convierte "
+"nombres de color a hex para CSS vía matplotlib. Recurso a config.env solo si "
+"el tema no puede importarse (p. ej. headless sin tkinter)."
+
+#: a199aae08b0c490c92e405782c9ab085 of
+#: streamlit_app.theme.get_streamlit_theme:1
+msgid ""
+"Theme dict from config: prefers config.theme.UI_STYLE (env + paths + "
+"theme), fallback to config.env when theme cannot be imported (e.g. "
+"headless)."
+msgstr ""
+"Diccionario de tema desde config: prefiere config.theme.UI_STYLE (env + rutas + "
+"tema), recurre a config.env cuando el tema no puede importarse (p. ej. headless)."
+
+#: d5fe835449484fb2ac4640674a631ac3 of
+#: streamlit_app.theme.get_streamlit_theme:4
+msgid "Returns dict with hex colors and font settings for Streamlit CSS."
+msgstr "Devuelve un dict con colores hex y configuración de fuentes para el CSS de Streamlit."
+
+#: 28abe61bbbc34b5393bbb3eec27acf81 of streamlit_app.theme.get_main_css:1
+msgid "Generate global Streamlit CSS using theme (same visual rules as tkinter)."
+msgstr "Generar CSS global de Streamlit usando el tema (mismas reglas visuales que tkinter)."
+
+#: ../../source/modules/streamlit_app.rst:18 1f700a1786034a0b8df4b8c27eb41026
+msgid "Application Sections"
+msgstr "Secciones de la aplicación"
+
+#: ../../source/modules/streamlit_app.rst:20 239d389484a4494b8905e0ef627b4076
+msgid ""
+"The ``streamlit_app.sections`` subpackage contains UI sections organized "
+"by functionality."
+msgstr ""
+"El subpaquete ``streamlit_app.sections`` contiene secciones de interfaz "
+"organizadas por funcionalidad."
+
+#: ../../source/modules/streamlit_app.rst:23 c3bfaac0148e48d9ae1e548e43b74e9b
+msgid "Main Sections Package"
+msgstr "Paquete de secciones principales"
+
+#: 48e4a77736614b00bdd9f8f64758a9b0 of streamlit_app.sections:1
+msgid "Streamlit app sections: sidebar, data, fitting, results, help, modes."
+msgstr "Secciones de la app Streamlit: barra lateral, datos, ajuste, resultados, ayuda, modos."
+
+#: ../../source/modules/streamlit_app.rst:28 841cb067c40f4457ac9b8bf7f4584141
+msgid "Sidebar Section"
+msgstr "Sección barra lateral"
+
+#: 4ae4a8bb87654564a5edf2e1b305d4d6 of streamlit_app.sections.sidebar:1
+msgid "Sidebar, session state, and logo for the Streamlit app."
+msgstr "Barra lateral, estado de sesión y logo de la app Streamlit."
+
+#: 59f2549df3c841db90f29e643f903081 of
+#: streamlit_app.sections.sidebar.initialize_session_state:1
+msgid "Initialize Streamlit session state variables (language from config env)."
+msgstr "Inicializar variables de estado de sesión de Streamlit (idioma desde config env)."
+
+#: cd1955bc75864fccb3e1a058abe4e9e9 of
+#: streamlit_app.sections.sidebar.cycle_language:1
+msgid "Cycle to the next supported language (es -> en -> de -> es)."
+msgstr "Cambiar al siguiente idioma soportado (es -> en -> de -> es)."
+
+#: 2c781a4af0ba468da2fc732f5f0ff54e of
+#: streamlit_app.sections.sidebar.setup_sidebar:1
+msgid "Setup and render the sidebar with language selector and mode options."
+msgstr "Configurar y renderizar la barra lateral con selector de idioma y opciones de modo."
+
+#: ../../source/modules/streamlit_app.rst 00cbd4caa3f34d32b1c2c616ae508f32
+#: 3c9a7f2d71f749e29865eb84adbb1ae8 434b03435b2b4d77885cce6492d8f3b5
+#: 88f5669acae44636af16474ec43bb09b 9b74ae865a694f4dbee6d200057599fd
+#: a05544cf95954fb583b9ac363d8b87d0 ab9edf6619284969a1005ee8ab7eeac8
+msgid "Parameters"
+msgstr "Parámetros"
+
+#: e9bac78e5ee741508f5b7634b8af11c2 of
+#: streamlit_app.sections.sidebar.setup_sidebar:3
+msgid "Application version string to display in the sidebar."
+msgstr "Cadena de versión de la aplicación a mostrar en la barra lateral."
+
+#: ../../source/modules/streamlit_app.rst 238b995328db444c83b5d32947ec5eea
+#: 4d6cb6b6912641deb02e1143bc8e151f 9f2ed4403ee24db099452467095c0531
+#: c693e70416ff4ac186305c447a5fb4f0 f519de0d8553444a98f6ab4b1e2ae988
+#: f86d5015d6f7490e8f2a189f7e658016
+msgid "Returns"
+msgstr "Devuelve"
+
+#: 8d99dd543b684d00b70b8d398938ac6d of
+#: streamlit_app.sections.sidebar.setup_sidebar:5
+msgid "Selected operation mode (e.g. 'normal_fitting', 'watch_data')."
+msgstr "Modo de operación seleccionado (p. ej. 'normal_fitting', 'watch_data')."
+
+#: 1bc34a3e2796480da4159860874ff10b of
+#: streamlit_app.sections.sidebar.show_logo:1
+msgid "Display application logo or fallback header (colors from config theme)."
+msgstr "Mostrar logo de la aplicación o cabecera alternativa (colores del tema en config)."
+
+#: ../../source/modules/streamlit_app.rst:33 d7cfb56ed30a4dc1ab655a072f9f636e
+msgid "Data Section"
+msgstr "Sección de datos"
+
+#: d15ba1f1c901492a9138036e342c78f7 of streamlit_app.sections.data:1
+msgid "Data loading and display for the Streamlit app."
+msgstr "Carga y visualización de datos para la app Streamlit."
+
+#: 5f4bae8c72c84b56922b425290436601 of
+#: streamlit_app.sections.data.load_uploaded_file:1
+msgid "Load data from an uploaded file (CSV, XLSX, or TXT)."
+msgstr "Cargar datos desde un archivo subido (CSV, XLSX o TXT)."
+
+#: 28b672387b0f4d0f9d2a727a4c6f5613 of
+#: streamlit_app.sections.data.load_uploaded_file:3
+msgid "Streamlit UploadedFile object (e.g. from st.file_uploader)."
+msgstr "Objeto Streamlit UploadedFile (p. ej. de st.file_uploader)."
+
+#: 23f01b0000af42759a87d11cc0a6aecb of
+#: streamlit_app.sections.data.load_uploaded_file:5
+msgid "DataFrame with loaded data, or None if loading fails."
+msgstr "DataFrame con los datos cargados, o None si falla la carga."
+
+#: 627f19f47cd54005bb48e2e11c2a1783 of
+#: streamlit_app.sections.data.show_data_with_pair_plots:1
+msgid ""
+"Show data in an expander with optional pair plots and data analysis "
+"(transform/clean/save)."
+msgstr ""
+"Mostrar datos en un expandible con gráficos de pares opcionales y análisis "
+"de datos (transformar/limpiar/guardar)."
+
+#: 0540a8eeb4bb4906855f4b770ad3dbae of
+#: streamlit_app.sections.data.show_data_with_pair_plots:3
+msgid "DataFrame or data to display."
+msgstr "DataFrame o datos a mostrar."
+
+#: 2318ed31078b41f0bd3acf1feaae13ac of
+#: streamlit_app.sections.data.show_data_with_pair_plots:4
+msgid ""
+"If set (e.g. 'view_data'), enables transform/clean/save and uses session "
+"state for the current data. Required for analysis features."
+msgstr ""
+"Si se establece (p. ej. 'view_data'), activa transformar/limpiar/guardar y "
+"usa el estado de sesión para los datos actuales. Necesario para las funciones de análisis."
+
+#: 0931a21e9291473b8b3d7d535a3c47af of
+#: streamlit_app.sections.data.show_data_with_pair_plots:6
+msgid ""
+"When key_prefix is set, used to detect file changes. When file_id "
+"changes, the displayed data is reset to the new loaded data."
+msgstr ""
+"Cuando key_prefix está definido, se usa para detectar cambios de archivo. "
+"Cuando file_id cambia, los datos mostrados se restablecen a los nuevos datos cargados."
+
+#: 0ec27961c3764edbb4e1871deba8d917 of
+#: streamlit_app.sections.data.get_temp_output_dir:1
+msgid ""
+"Get or create a temporary directory for plots. Uses session-specific temp"
+" directory."
+msgstr ""
+"Obtener o crear un directorio temporal para gráficos. Usa directorio temporal por sesión."
+
+#: d8084991a1a54db6964a522e06c63323 of
+#: streamlit_app.sections.data.get_variable_names:1
+msgid "Public wrapper for variable names (used by fitting and modes)."
+msgstr "Envoltorio público para nombres de variables (usado por ajuste y modos)."
+
+#: ../../source/modules/streamlit_app.rst:38 2a8b113b8c7a49748b07d030d4ee3718
+msgid "Fitting Section"
+msgstr "Sección de ajuste"
+
+#: 3186c11c4d824ab086ee47a801fe4fd8 of streamlit_app.sections.fitting:1
+msgid "Fitting logic and equation selection UI for the Streamlit app."
+msgstr "Lógica de ajuste y UI de selección de ecuación para la app Streamlit."
+
+#: 7d61baeae06c4f948d9d8a187470668c of
+#: streamlit_app.sections.fitting.perform_fit:1
+msgid "Perform curve fitting for the given dataset and equation selection."
+msgstr "Realizar ajuste de curvas para el conjunto de datos y la ecuación seleccionados."
+
+#: c50fcc33998f47e796f726b0067c1dae of
+#: streamlit_app.sections.fitting.perform_fit:3
+msgid ""
+"This helper wraps the core fitting logic used by the Streamlit UI: it "
+"resolves either a predefined fitting function or a custom "
+":class:`~fitting.custom_function_evaluator.CustomFunctionEvaluator`, "
+"computes the fit and generates the corresponding plot."
+msgstr ""
+"Este helper envuelve la lógica de ajuste usada por la UI Streamlit: resuelve "
+"una función de ajuste predefinida o un "
+":class:`~fitting.custom_function_evaluator.CustomFunctionEvaluator` personalizado, "
+"calcula el ajuste y genera el gráfico correspondiente."
+
+#: 7d7e0d5a7c5049c6ac147ef4c9208ca4 of
+#: streamlit_app.sections.fitting.perform_fit:8
+#, python-brace-format
+msgid ""
+"Dataset with columns ``x_name``, ``y_name`` and optionally their "
+"uncertainties ``u{x_name}``, ``u{y_name}``."
+msgstr ""
+"Conjunto de datos con columnas ``x_name``, ``y_name`` y opcionalmente sus "
+"incertidumbres ``u{x_name}``, ``u{y_name}``."
+
+#: 6035d53bb8624e829d9e1bba4fe56dcf of
+#: streamlit_app.sections.fitting.perform_fit:10
+msgid "Name of the independent variable column."
+msgstr "Nombre de la columna de variable independiente."
+
+#: e50d81bfb37f40d48e25f263174ef84f of
+#: streamlit_app.sections.fitting.perform_fit:11
+msgid "Name of the dependent variable column."
+msgstr "Nombre de la columna de variable dependiente."
+
+#: 10dc6f93e9234327adcb23266450b3f2 of
+#: streamlit_app.sections.fitting.perform_fit:12
+msgid "Internal equation identifier or ``'custom_formula'``."
+msgstr "Identificador interno de ecuación o ``'custom_formula'``."
+
+#: f1d602d4f1314b5c8c38d140b8f73086 of
+#: streamlit_app.sections.fitting.perform_fit:13
+msgid "Base name used for the generated plot."
+msgstr "Nombre base usado para el gráfico generado."
+
+#: ff6c0abb234b41cba51057623a92be85 of
+#: streamlit_app.sections.fitting.perform_fit:14
+msgid "Custom formula string when ``equation_name`` is ``'custom_formula'``."
+msgstr "Cadena de fórmula personalizada cuando ``equation_name`` es ``'custom_formula'``."
+
+#: f0658b4184894336ad4ef428b7fde043 of
+#: streamlit_app.sections.fitting.perform_fit:16
+msgid "List of parameter names used in ``custom_formula``."
+msgstr "Lista de nombres de parámetros usados en ``custom_formula``."
+
+#: e537ca6139ea44bcafc9db21ad24bae8 of
+#: streamlit_app.sections.fitting.perform_fit:17
+msgid ""
+"If set, override plot title visibility (from env) for this fit. ``None`` "
+"uses the value from ``PLOT_SHOW_TITLE``."
+msgstr ""
+"Si se establece, sobrescribe la visibilidad del título del gráfico (desde env) "
+"para este ajuste. ``None`` usa el valor de ``PLOT_SHOW_TITLE``."
+
+#: df80ad164b2b45a881ec648ebf26d606 of
+#: streamlit_app.sections.fitting.perform_fit:20
+msgid ""
+"Dictionary with keys ``equation_name``, ``parameters``, ``equation``, "
+"``plot_path`` and ``plot_name`` when the fit succeeds, or ``None`` if the"
+" operation fails or is not supported."
+msgstr ""
+"Diccionario con claves ``equation_name``, ``parameters``, ``equation``, "
+"``plot_path`` y ``plot_name`` cuando el ajuste tiene éxito, o ``None`` si "
+"la operación falla o no está soportada."
+
+#: 353f9e0daeb04fe3ba4c90b62ecb30f1 of
+#: streamlit_app.sections.fitting.select_variables:1
+msgid ""
+"Show variable selection widgets and return the chosen variables and plot "
+"name."
+msgstr ""
+"Mostrar widgets de selección de variables y devolver las variables elegidas y el nombre del gráfico."
+
+#: 590a5c2b1eff49ba9decd8080f4beb99 of
+#: streamlit_app.sections.fitting.select_variables:3
+msgid "Dataset from which variables are extracted."
+msgstr "Conjunto de datos del que se extraen las variables."
+
+#: d844d831126542ca8165170667ab0631 of
+#: streamlit_app.sections.fitting.select_variables:4
+msgid "Optional prefix for Streamlit widget keys to avoid clashes."
+msgstr "Prefijo opcional para las claves de widgets Streamlit para evitar conflictos."
+
+#: b60230dd35c84b18bee9c387ec7d89d3 of
+#: streamlit_app.sections.fitting.select_variables:6
+msgid "Tuple ``(x_name, y_name, plot_name)`` selected by the user."
+msgstr "Tupla ``(x_name, y_name, plot_name)`` seleccionada por el usuario."
+
+#: f966752562ee41a996639287a169bf22 of
+#: streamlit_app.sections.fitting.show_equation_selector:1
+msgid "Show equation type selector in the sidebar/content area."
+msgstr "Mostrar selector de tipo de ecuación en la barra lateral o área de contenido."
+
+#: e918ad154e9b47b4af279d7919df1baa of
+#: streamlit_app.sections.fitting.show_equation_selector:3
+msgid "List of available equation identifiers."
+msgstr "Lista de identificadores de ecuación disponibles."
+
+#: 5e81fba84d0c46e783cf6193f50cde9f of
+#: streamlit_app.sections.fitting.show_equation_selector:5
+msgid ""
+"Tuple ``(equation_key, custom_formula, parameter_names)`` where "
+"``custom_formula`` and ``parameter_names`` are only populated when the "
+"custom‑formula option is selected."
+msgstr ""
+"Tupla ``(equation_key, custom_formula, parameter_names)`` donde "
+"``custom_formula`` y ``parameter_names`` solo se rellenan cuando se selecciona "
+"la opción de fórmula personalizada."
+
+#: 3af050e14079487da718ceafd4fc6234 of
+#: streamlit_app.sections.fitting.show_plot_title_checkbox:1
+msgid "Show checkbox to toggle plot title visibility for the next fit."
+msgstr "Mostrar casilla para activar/desactivar la visibilidad del título del gráfico en el próximo ajuste."
+
+#: a56496882ddc4da9984a00d2eca7dd9e of
+#: streamlit_app.sections.fitting.show_plot_title_checkbox:3
+msgid "Default value comes from PLOT_CONFIG (env PLOT_SHOW_TITLE)."
+msgstr "El valor por defecto viene de PLOT_CONFIG (env PLOT_SHOW_TITLE)."
+
+#: fe34d7a338da420c875fbc211f299067 of
+#: streamlit_app.sections.fitting.show_plot_title_checkbox:5
+msgid "Prefix for Streamlit widget key to avoid clashes."
+msgstr "Prefijo para la clave del widget Streamlit para evitar conflictos."
+
+#: 051a0ac14eeb471fa202ef921ddaa7ab of
+#: streamlit_app.sections.fitting.show_plot_title_checkbox:7
+msgid "Whether to show the plot title (True) or not (False)."
+msgstr "Si mostrar el título del gráfico (True) o no (False)."
+
+#: 92ced78d424548ad87fb4229411b41b6 of
+#: streamlit_app.sections.fitting.create_equation_options:1
+msgid "Public wrapper around :func:`_create_equation_options`."
+msgstr "Envoltorio público de :func:`_create_equation_options`."
+
+#: b259e2ca8bb449718aa9d8cdb03f37f5 of
+#: streamlit_app.sections.fitting.create_equation_options:3
+msgid ""
+"This function is imported by the modes module to build the mapping from "
+"translated labels to equation identifiers."
+msgstr ""
+"Esta función es importada por el módulo modes para construir la correspondencia "
+"entre etiquetas traducidas e identificadores de ecuación."
+
+#: ../../source/modules/streamlit_app.rst:43 49a9d928a8974ce8a91f8b32ec0f6faf
+msgid "Results Section"
+msgstr "Sección de resultados"
+
+#: 9503278fc29f45c2bac77797d655e7a1 of streamlit_app.sections.results:1
+msgid "Results display for the Streamlit app."
+msgstr "Visualización de resultados para la app Streamlit."
+
+#: bff70205cfe549f5ba1102245c9d69cc of
+#: streamlit_app.sections.results.show_results:1
+msgid ""
+"Display fitting results: equation (formula + formatted) left, params "
+"center, stats right; plot; download below."
+msgstr ""
+"Mostrar resultados del ajuste: ecuación (fórmula + formateada) a la izquierda, "
+"parámetros al centro, estadísticos a la derecha; gráfico; descarga abajo."
+
+#: ../../source/modules/streamlit_app.rst:48 30f960eef0b1425b90be9b178ea2e496
+msgid "Help Section"
+msgstr "Sección de ayuda"
+
+#: c148b6e6b7fb435893bc5a75ff2e6245 of streamlit_app.sections.help_section:1
+msgid "Help and information section for the Streamlit app."
+msgstr "Sección de ayuda e información para la app Streamlit."
+
+#: 4c30e98ba2bf4214a2fa4273f2808ee3 of
+#: streamlit_app.sections.help_section.show_help_section:1
+msgid "Display help information in an expandable section."
+msgstr "Mostrar información de ayuda en una sección expandible."
+
+#: ../../source/modules/streamlit_app.rst:53 58b6bbffc43b41a8bc532088f5b419b1
+msgid "Modes Section"
+msgstr "Sección de modos"
+
+#: fd255295cf7641bba7bcd098b8ce147a of streamlit_app.sections.modes:1
+msgid ""
+"Operation modes: normal, multiple datasets, checker, total fitting, view "
+"data."
+msgstr ""
+"Modos de operación: normal, múltiples conjuntos, verificador, ajuste total, ver datos."
+
+#: 3a4e915940114d2489371775feba9315 of
+#: streamlit_app.sections.modes.mode_view_data:1
+msgid ""
+"Handle view-data mode: load file and show data without fitting (like "
+"Tkinter 'Mirar datos')."
+msgstr ""
+"Gestionar modo ver datos: cargar archivo y mostrar datos sin ajuste (como "
+"Tkinter 'Ver datos')."
+
+#: c79907b180454e59a78958ac178642e6 of
+#: streamlit_app.sections.modes.mode_normal_fitting:1
+msgid ""
+"Handle normal fitting mode (single file, single equation), with optional "
+"loop mode."
+msgstr ""
+"Gestionar modo de ajuste normal (un archivo, una ecuación), con modo bucle opcional."
+
+#: 9cac7800274a42d39d55b5218bf9b507 of
+#: streamlit_app.sections.modes.mode_multiple_datasets:1
+msgid ""
+"Handle multiple datasets mode (multiple files, single equation), with "
+"loop hint."
+msgstr ""
+"Gestionar modo múltiples conjuntos (varios archivos, una ecuación), con indicación de bucle."
+
+#: 4cd79d91306b4d36adbccbe15e0585bd of
+#: streamlit_app.sections.modes.mode_checker_fitting:1
+msgid "Handle checker fitting mode (single file, multiple equations)."
+msgstr "Gestionar modo ajuste verificador (un archivo, varias ecuaciones)."
+
+#: 85d6eb9484464bca97845ea99e86a84c of
+#: streamlit_app.sections.modes.mode_total_fitting:1
+msgid "Handle total fitting mode (single file, all equations)."
+msgstr "Gestionar modo ajuste total (un archivo, todas las ecuaciones)."
+

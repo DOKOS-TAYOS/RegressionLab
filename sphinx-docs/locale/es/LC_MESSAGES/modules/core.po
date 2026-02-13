@@ -1,0 +1,659 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Alejandro Mata Ali
+# This file is distributed under the same license as the RegressionLab
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: RegressionLab 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-13 19:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../source/modules/core.rst:3 3b2a59a6cd80425ca871c2c26be0c925
+msgid "Core Modules"
+msgstr "Módulos principales"
+
+#: ../../source/modules/core.rst:5 20f90551c2fa4672bcb9d0699bcb291d
+msgid "Main system modules."
+msgstr "Módulos principales del sistema."
+
+#: ../../source/modules/core.rst:8 5140d14879a24d30bc7ceaf3483b2e68
+msgid "Main Program"
+msgstr "Programa principal"
+
+#: 11fbc3e868c244279b19863bc3b3e410 main_program:1 of
+msgid ""
+"Main Program - Data Fitting Application Entry point for the curve fitting"
+" application with GUI interface."
+msgstr ""
+"Programa principal - Aplicación de ajuste de datos. Punto de entrada de la "
+"aplicación de ajuste de curvas con interfaz gráfica."
+
+#: 45c96e4fa0434e4683e7c8061d5ce487 main_program.normal_fitting:1 of
+msgid "Perform a normal fitting operation with optional loop mode."
+msgstr "Realizar una operación de ajuste normal con modo bucle opcional."
+
+#: 278d468d4288488886e23e5f1fe1da2d main_program.normal_fitting:3 of
+msgid ""
+"This is the main fitting workflow that most users will use. It fits a "
+"single equation type to a single dataset."
+msgstr ""
+"Es el flujo de trabajo principal de ajuste que usarán la mayoría de usuarios. "
+"Ajusta un único tipo de ecuación a un único conjunto de datos."
+
+#: 6002e3063d714ebcb3957a7057b0eff7 main_program.normal_fitting:6 of
+msgid ""
+"Workflow: 1. User selects equation type (predefined or custom) 2. User "
+"decides whether to enable loop mode 3. User selects data file and "
+"variables 4. Fit is performed and results displayed 5. If loop mode: user"
+" can modify data and refit without restarting"
+msgstr ""
+"Flujo: 1. El usuario elige el tipo de ecuación (predefinida o personalizada) 2. "
+"El usuario decide si activar el modo bucle 3. El usuario selecciona archivo de "
+"datos y variables 4. Se realiza el ajuste y se muestran los resultados 5. En modo "
+"bucle: el usuario puede modificar datos y reajustar sin reiniciar"
+
+#: c5b42c03da1149058b0dd2d5b1aac7c9 main_program.normal_fitting:13 of
+msgid "Loop mode is useful for:"
+msgstr "El modo bucle es útil para:"
+
+#: 10b38f0c3a3f482f9c251425b2aea1b7 main_program.normal_fitting:15 of
+msgid "Exploring different data subsets"
+msgstr "Explorar distintos subconjuntos de datos"
+
+#: 98f23922fdc3424d887789df48fe8707 main_program.normal_fitting:16 of
+msgid "Iteratively cleaning outliers"
+msgstr "Limpiar valores atípicos de forma iterativa"
+
+#: dc300598794b4e8eb3d6d7b425971858 main_program.normal_fitting:17 of
+msgid "Testing sensitivity to data modifications"
+msgstr "Probar la sensibilidad a modificaciones de los datos"
+
+#: 74eb82a192ee48cf8935aa7e81676dc7 main_program.single_fit_multiple_datasets:1
+#: of
+msgid ""
+"Perform multiple fitting operations with the same equation on different "
+"datasets."
+msgstr ""
+"Realizar varias operaciones de ajuste con la misma ecuación sobre distintos "
+"conjuntos de datos."
+
+#: 0c8b6c7edf114f2cbd5009b2d0498d49 main_program.single_fit_multiple_datasets:3
+#: of
+msgid ""
+"Workflow: 1. Select equation type 2. Specify how many datasets to fit 3. "
+"Load each dataset 4. Perform fits on all datasets 5. Optionally reload "
+"and refit in loop"
+msgstr ""
+"Flujo: 1. Seleccionar tipo de ecuación 2. Indicar cuántos conjuntos ajustar 3. "
+"Cargar cada conjunto 4. Realizar ajustes en todos 5. Opcionalmente recargar y "
+"reajustar en bucle"
+
+#: 9a218fbe16624d2389780a98d3adc99f main_program.multiple_fits_single_dataset:1
+#: of
+msgid "Test different equation types on the same dataset."
+msgstr "Probar distintos tipos de ecuación sobre el mismo conjunto de datos."
+
+#: ebe6e93ff061402fb0ef0950d48207be main_program.multiple_fits_single_dataset:3
+#: of
+msgid ""
+"Workflow: 1. Load a dataset once 2. Try different equation types on it 3."
+" Compare results without reloading the data"
+msgstr ""
+"Flujo: 1. Cargar un conjunto una vez 2. Probar distintos tipos de ecuación 3. "
+"Comparar resultados sin recargar los datos"
+
+#: a789a17c6fcc450fa4006f7105f170a3 main_program.all_fits_single_dataset:1 of
+msgid "Perform all available fitting types on the selected dataset."
+msgstr "Ejecutar todos los tipos de ajuste disponibles sobre el conjunto seleccionado."
+
+#: 6137cfae50c147378662835c7425ae60 main_program.all_fits_single_dataset:3 of
+msgid ""
+"This function loads data and sequentially applies all predefined equation"
+" types to fit the data, generating results for each fitting method."
+msgstr ""
+"Esta función carga los datos y aplica secuencialmente todos los tipos de ecuación "
+"predefinidos para ajustar los datos, generando resultados para cada método."
+
+#: db7cc857918348d3b43214cd517584e9 main_program.watch_data:1 of
+msgid "View data from a file without performing any fitting."
+msgstr "Ver datos de un archivo sin realizar ningún ajuste."
+
+#: 0dfaf021024c42dbbe7e4a2d042103ea main_program.watch_data:3 of
+msgid "This function allows users to inspect loaded data."
+msgstr "Esta función permite inspeccionar los datos cargados."
+
+#: d18ef0faf74546438b671e254b32c032 main_program.show_help:1 of
+msgid "Display help and information about the application."
+msgstr "Mostrar ayuda e información sobre la aplicación."
+
+#: 60f050e3ef6e41d1b396ad1d92c2527c main_program.show_help:3 of
+msgid ""
+"Shows information about fitting modes, navigation, data locations, and "
+"output locations."
+msgstr ""
+"Muestra información sobre modos de ajuste, navegación, ubicación de datos y "
+"de salida."
+
+#: d0ed8529932b4cb491a7bc47005f62fc main_program.main:1 of
+msgid "Main entry point for the application."
+msgstr "Punto de entrada principal de la aplicación."
+
+#: ../../source/modules/core.rst:13 68d367796fe245b095b70c6dac7f9a48
+msgid "Configuration"
+msgstr "Configuración"
+
+#: ../../source/modules/core.rst:15 91fecf04373d40c982d6c5217b161608
+msgid ""
+"The ``config`` package contains all configuration management for the "
+"application."
+msgstr ""
+"El paquete ``config`` contiene toda la gestión de configuración de la aplicación."
+
+#: ../../source/modules/core.rst:18 e85a960988924db6a8f5e6df4cbf035b
+msgid "Main Configuration Package"
+msgstr "Paquete principal de configuración"
+
+#: config:1 df5ea35106824bcb8814c5c383dadf17 of
+msgid "Central configuration for the RegressionLab project."
+msgstr "Configuración central del proyecto RegressionLab."
+
+#: 011fdb76af634b838936cbf7090f6dae config:3 of
+msgid ""
+"Re-exports all configuration from submodules so that \"from config import"
+" UI_STYLE\" etc. continue to work."
+msgstr ""
+"Reexporta toda la configuración de los submódulos para que \"from config import "
+"UI_STYLE\" etc. siga funcionando."
+
+#: ../../source/modules/core.rst:23 dff2b1f7e2cb4d4eba3095f8c08aeb45
+msgid "Color Utilities"
+msgstr "Utilidades de color"
+
+#: 8090cd56d9b94e5f8e33a3a0aa6f9c2c config.color_utils:1 of
+msgid "Pure hex color manipulation utilities (no config/env dependencies)."
+msgstr "Utilidades puras de manipulación de colores hex (sin dependencias de config/env)."
+
+#: 783f7fb4341346109482b5d66b800716 config.color_utils.parse_hex_to_rgb:1 of
+msgid "Parse a hex color string to RGB tuple (0-255 range)."
+msgstr "Convertir una cadena de color hex a tupla RGB (rango 0-255)."
+
+#: ../../source/modules/core.rst 42d4ad6d4c6e457aa82c77e933824ea4
+#: 50e9a3c6b3a04a828a4ea127a0515aea 5e1d49970ad149c092ed2ebec73bb0c9
+#: 6291871fefd74c169664dad125033775 921ed0a3522f44f5907b946ff90676bb
+#: b93b4286065c40358fa9db86f670b94e config.env.write_env_file
+#: config.paths.get_output_path da106561fdb344b2bd77ea2d1bb24a0d
+#: dc3b442660364db8a5d72a82bfc848cd e1ada90b94184d2aa12cac98de1e1d59
+#: e46169638ded42e4a5192cd2c874b398 e9e92b747949477885a491fda53c4e11 i18n.t of
+msgid "Parameters"
+msgstr "Parámetros"
+
+#: ac8de96b67db4b0faaa74494b9489446 config.color_utils.parse_hex_to_rgb:3 of
+msgid "Hex string (e.g., '#rrggbb' or '#rgb')."
+msgstr "Cadena hex (p. ej. '#rrggbb' o '#rgb')."
+
+#: ../../source/modules/core.rst 1e3edd1798bf46b18b7ff1a6e839266a
+#: 5c1b0f880d424a8e87c12eec370b01c6 677758c5cd3a4404a3d715352e5ec7de
+#: 76905f86f69a4164ad9816966059499b 7fa614bc57af440f9260500bb2c61b2e
+#: 8be476b191bc4b31aa2a99208e87522c 9be97bbf7c434cfaa40454f9301a359f
+#: af359df881694f19a167dabe9a52d9cd config.env.get_current_env_values
+#: config.env.validate_all_env_values config.paths.get_output_path
+#: e61ffe47a33740f0ad4fa3a6c04ac79c ede7deea5d69476dbc3b3ef5f80ed4ff
+#: f0ace67ad1024316ba0f5137ee6b23b2 fb0e80bad5bc4ee98bb62d249c8e106e
+#: fb6c06c6ce404440a7f7f40fa982ca83 i18n.t of
+msgid "Returns"
+msgstr "Devuelve"
+
+#: 47c0a93ba2b547f0b31fb7f6ee2c5b98 config.color_utils.parse_hex_to_rgb:5 of
+msgid "Tuple of (r, g, b) in 0-255 range, or None if invalid."
+msgstr "Tupla (r, g, b) en rango 0-255, o None si es inválido."
+
+#: 21de15ab2e7d4a4a85594932e0982bb5 config.color_utils.lighten_hex:1 of
+msgid "Return a slightly lighter shade of hex color."
+msgstr "Devolver una tonalidad ligeramente más clara del color hex."
+
+#: 8e48ae5097f94d8fae55ae934694641e config.color_utils.lighten_hex:3 of
+msgid "Input hex color (e.g., '#181818')."
+msgstr "Color hex de entrada (p. ej. '#181818')."
+
+#: 746331e7b253413b8e16d93a40e3c502 config.color_utils.lighten_hex:4 of
+msgid "Amount to lighten (0-1, default 0.08)."
+msgstr "Cantidad de aclarado (0-1, por defecto 0.08)."
+
+#: 1d0e7e58677a4e3da1be45ff79f42839 3308fa4b0db34419ae42d597b9b25bf1
+#: config.color_utils.lighten_hex:5 config.color_utils.muted_from_hex:4 of
+msgid "Fallback when input is invalid."
+msgstr "Valor alternativo cuando la entrada es inválida."
+
+#: config.color_utils.lighten_hex:7 d9711fc2915b49cdbc32488a212c5026 of
+msgid "Lighter hex color as #rrggbb."
+msgstr "Color hex más claro como #rrggbb."
+
+#: 0f4d34ce17a24bd5a8e062db39a85eea config.color_utils.muted_from_hex:1 of
+msgid "Approximate muted (grayish) color from a hex color."
+msgstr "Aproximar un color apagado (grisáceo) a partir de un color hex."
+
+#: 1769f75f4d51446bb03bbaafe375e3e6 config.color_utils.muted_from_hex:3 of
+msgid "Input hex color."
+msgstr "Color hex de entrada."
+
+#: ca0ab26dce1a4c0f903591a3d0c54710 config.color_utils.muted_from_hex:6 of
+msgid "Muted gray hex color as #rrggbb."
+msgstr "Color gris apagado en hex como #rrggbb."
+
+#: ../../source/modules/core.rst:28 a407d20d35884c91922fbc8bb2f81a4a
+msgid "Environment Configuration"
+msgstr "Configuración del entorno"
+
+#: 86402e92a57749deb0df19249f31a070 config.env:1 of
+msgid "Environment variable loading and .env schema."
+msgstr "Carga de variables de entorno y esquema .env."
+
+#: c6596051427c44a9a415eff9df27ce70 config.env.get_env_from_schema:1 of
+msgid ""
+"Get environment variable using ENV_SCHEMA: default and cast_type come "
+"from the schema. Use this when the key is defined in ENV_SCHEMA to avoid "
+"duplicating defaults."
+msgstr ""
+"Obtener variable de entorno usando ENV_SCHEMA: default y cast_type vienen del "
+"esquema. Úsalo cuando la clave esté definida en ENV_SCHEMA para no duplicar "
+"valores por defecto."
+
+#: config.env.get_env_from_schema:5 da67bb9e2d974e11b791c78468eec9a5 of
+msgid "Environment variable name (must exist in ENV_SCHEMA)."
+msgstr "Nombre de la variable de entorno (debe existir en ENV_SCHEMA)."
+
+#: 16ac306e375d474e98d243a349163b0a config.env.get_env_from_schema:7 of
+msgid "The validated value from get_env(key, default, cast_type)."
+msgstr "El valor validado de get_env(key, default, cast_type)."
+
+#: ../../source/modules/core.rst 1828d884828d4851ad5bd38e7057e2cd
+#: 98e568f056204f7ba75888e621bfd0f7
+msgid "Raises"
+msgstr "Lanza"
+
+#: config.env.get_env_from_schema:9 dd756151f3cb44e38a21577f8915734a of
+msgid "If key is not in ENV_SCHEMA."
+msgstr "Si la clave no está en ENV_SCHEMA."
+
+#: acd3bebbec9a4e2fb9e7e879a4259762 config.env.get_env:1 of
+msgid "Get environment variable with type casting, validation, and default value."
+msgstr "Obtener variable de entorno con conversión de tipo, validación y valor por defecto."
+
+#: 6cceec8f32cc4993babcd0e49fba22b4 config.env.get_env:3 of
+msgid ""
+"This function validates the value according to ENV_SCHEMA rules. If "
+"validation fails, the default value is returned."
+msgstr ""
+"Esta función valida el valor según las reglas de ENV_SCHEMA. Si falla la "
+"validación, se devuelve el valor por defecto."
+
+#: afeb6723a89b4565b790ca1d4e630723 config.env.get_env:6 of
+msgid "Environment variable name."
+msgstr "Nombre de la variable de entorno."
+
+#: 87e3deaeeedd4878b2affbcd2e221033 config.env.get_env:7 of
+msgid "Default value if variable not found or invalid."
+msgstr "Valor por defecto si la variable no existe o es inválida."
+
+#: 1b3f320f90ad4428aa29c0e0e6892d93 config.env.get_env:8 of
+msgid "Type to cast the value to (str, int, float, bool)."
+msgstr "Tipo al que convertir el valor (str, int, float, bool)."
+
+#: 4291dabe01574bcca1e6116146e6893e config.env.get_env:10 of
+msgid ""
+"The environment variable value cast to the specified type, validated, or "
+"default if invalid or missing."
+msgstr ""
+"El valor de la variable de entorno convertido al tipo indicado, validado, o el "
+"valor por defecto si es inválido o falta."
+
+#: config.env.validate_all_env_values:1 fe3cbb657051421a80ebfaae0a1d8855 of
+msgid ""
+"Validate all environment values according to ENV_SCHEMA and return "
+"validation results."
+msgstr ""
+"Validar todos los valores de entorno según ENV_SCHEMA y devolver los resultados "
+"de validación."
+
+#: 60590abcef3e40a6b92d44847303c7cb config.env.validate_all_env_values:4 of
+msgid ""
+"This function checks all environment variables defined in ENV_SCHEMA, "
+"validates them, and returns information about which values were "
+"corrected."
+msgstr ""
+"Esta función comprueba todas las variables de entorno definidas en ENV_SCHEMA, "
+"las valida y devuelve información sobre qué valores fueron corregidos."
+
+#: 9c4a4e1683e641d781a912e9a3d85d0b config.env.validate_all_env_values:7 of
+msgid ""
+"Dictionary mapping environment keys to tuples of (corrected_value, "
+"was_corrected). was_corrected is True if the value was invalid and had to"
+" be corrected."
+msgstr ""
+"Diccionario que mapea claves de entorno a tuplas (corrected_value, was_corrected). "
+"was_corrected es True si el valor era inválido y hubo que corregirlo."
+
+#: 22b30e4081fc4df9b3e6cdccbee07f91 3678f036ebb84b569ec447860db7270a
+#: 46fc200263594267a297a07243f63229 9df0c811094246149659f89ded9a60dd
+#: config.env.get_current_env_values:11
+#: config.env.initialize_and_validate_config:8
+#: config.env.validate_all_env_values:11 config.env.write_env_file:11
+#: config.paths.get_output_path:13 e7f12f5219fb4073aa9e1bf350be93af
+#: e8cc57c4cfc44938904929e075ae547c i18n.t:12 of
+msgid "Examples"
+msgstr "Ejemplos"
+
+#: 218c5e7f89ce4dc8a78587784d20a8fa config.env.get_current_env_values:1 of
+msgid "Collect current environment values for all keys defined in ``ENV_SCHEMA``."
+msgstr "Recoger los valores actuales de entorno para todas las claves definidas en ``ENV_SCHEMA``."
+
+#: config.env.get_current_env_values:3 ec06a1674720411c9388ae0251e627b8 of
+msgid ""
+"Values are read using :func:`get_env` so casting, defaults and boolean "
+"handling are applied consistently. Booleans are converted to the strings "
+"``\"true\"`` or ``\"false\"`` so they can be written back to ``.env`` "
+"files without ambiguity."
+msgstr ""
+"Los valores se leen con :func:`get_env` para que la conversión, los valores por "
+"defecto y el manejo de booleanos se apliquen de forma consistente. Los booleanos "
+"se convierten a las cadenas ``\"true\"`` o ``\"false\"`` para poder escribirlos en "
+"archivos ``.env`` sin ambigüedad."
+
+#: config.env.get_current_env_values:8 ede79c7ee1d340009eefc9be90cd59ae of
+msgid "Dictionary mapping environment keys to their string representation."
+msgstr "Diccionario que mapea claves de entorno a su representación en cadena."
+
+#: 4489df93ce5e488a90a04bd6438abaee config.env.write_env_file:1 of
+msgid "Write a ``.env`` file with the given key=value pairs."
+msgstr "Escribir un archivo ``.env`` con los pares clave=valor dados."
+
+#: 01278027152b4f34986402161ac9251b config.env.write_env_file:3 of
+msgid ""
+"Only keys present in :data:`ENV_SCHEMA` are written, and values are "
+"quoted when they contain spaces, ``#`` or line breaks so they remain "
+"parseable by ``dotenv`` and similar tools."
+msgstr ""
+"Solo se escriben las claves presentes en :data:`ENV_SCHEMA`, y los valores se "
+"entrecomillan cuando contienen espacios, ``#`` o saltos de línea para que sigan "
+"siendo parseables por ``dotenv`` y herramientas similares."
+
+#: a05f2f6be06945c6af3901b3bb51c5dc config.env.write_env_file:7 of
+msgid "Destination path for the ``.env`` file."
+msgstr "Ruta de destino del archivo ``.env``."
+
+#: 1befb3946c6b4191b1ba6470539a9e4c config.env.write_env_file:8 of
+msgid "Mapping from environment keys to their desired string values."
+msgstr "Mapeo de claves de entorno a sus valores en cadena deseados."
+
+#: 5648adc6307e4e3db77f23d267d3dcef config.env.initialize_and_validate_config:1
+#: of
+msgid "Initialize configuration and validate all environment values."
+msgstr "Inicializar la configuración y validar todos los valores de entorno."
+
+#: config.env.initialize_and_validate_config:3 da7cef68b51e4ec49b718a7108992d60
+#: of
+msgid ""
+"This function should be called at application startup to ensure all "
+"configuration values are valid. Invalid values are automatically "
+"corrected to their defaults, and warnings are logged if any corrections "
+"were made."
+msgstr ""
+"Esta función debe llamarse al arrancar la aplicación para asegurar que todos los "
+"valores de configuración son válidos. Los valores inválidos se corrigen "
+"automáticamente a sus valores por defecto y se registran advertencias si se "
+"realizaron correcciones."
+
+#: ../../source/modules/core.rst:33 d1701a51446c4bd598d825ea2d9d50e0
+msgid "Theme Configuration"
+msgstr "Configuración del tema"
+
+#: config.theme:1 f4f8003d5686406dabad34e0c6993083 of
+msgid "UI theme, plot style, and font configuration."
+msgstr "Configuración de tema de la interfaz, estilo de gráficos y fuentes."
+
+#: 994d598077bc44a0b25237d2baf96074 config.theme:3 of
+msgid ""
+"All UI appearance is controlled by a single set of env vars. Fonts, "
+"sizes, colors, relief and spacing are unified for consistency. Values are"
+" read from ENV_SCHEMA in config.env (single source of truth for defaults "
+"and types)."
+msgstr ""
+"Toda la apariencia de la interfaz se controla con un único conjunto de variables "
+"de entorno. Fuentes, tamaños, colores, relieve y espaciado están unificados. Los "
+"valores se leen de ENV_SCHEMA en config.env (fuente única de verdad para "
+"valores por defecto y tipos)."
+
+#: 0d665470db4944cfb58d93010de8b3ff config.theme.get_entry_font:1 of
+msgid "Get font tuple for ttk Entry and Combobox widgets."
+msgstr "Obtener la tupla de fuente para widgets ttk Entry y Combobox."
+
+#: af85a479a2334c158e83c6a57498d150 config.theme.get_entry_font:3 of
+msgid "Returns a font tuple unified with the UI base font configuration."
+msgstr "Devuelve una tupla de fuente unificada con la configuración base de fuentes de la interfaz."
+
+#: config.theme.get_entry_font:5 fce1efda89e64f848147d6a8623ad0fe of
+msgid "Tuple of ``(font_family, font_size)`` from ``UI_STYLE`` configuration."
+msgstr "Tupla ``(font_family, font_size)`` de la configuración ``UI_STYLE``."
+
+#: 5b11769826ef49c49ead90d20761dfba config.theme.configure_ttk_styles:1 of
+msgid ""
+"Configure ttk styles from the unified UI_STYLE. Call once after creating "
+"the Tk root. Uses 'clam' theme for consistent field colors."
+msgstr ""
+"Configurar estilos ttk desde el UI_STYLE unificado. Llamar una vez tras crear "
+"la raíz Tk. Usa el tema 'clam' para colores de campo consistentes."
+
+#: 37117f6a6acc4c50a5939e0b4703c365 config.theme.apply_hover_to_children:1 of
+msgid "Bind hover highlight effects to ttk widgets under parent."
+msgstr "Vincular efectos de resaltado al pasar el ratón a los widgets ttk bajo el padre."
+
+#: config.theme.apply_hover_to_children:3 f28ecbeba66f46289afcf960c1a84a6e of
+msgid ""
+"Recursively applies hover effects (style changes on mouse enter/leave) to"
+" ttk Entry and Combobox widgets within the parent widget hierarchy."
+msgstr ""
+"Aplica recursivamente efectos de hover (cambios de estilo al entrar/salir el ratón) "
+"a los widgets ttk Entry y Combobox dentro de la jerarquía del widget padre."
+
+#: b54c522f90aa4e8885412c51ec33fb7f config.theme.apply_hover_to_children:6 of
+msgid ""
+"TCheckbutton and TRadiobutton are excluded to avoid text size/layout "
+"shifts when hovering over options."
+msgstr ""
+"TCheckbutton y TRadiobutton se excluyen para evitar cambios de tamaño o diseño "
+"del texto al pasar el ratón sobre las opciones."
+
+#: 14fb891bd5e64b8db3da9b6a358a9c38 config.theme.apply_hover_to_children:9 of
+msgid "Parent Tkinter widget to recursively search for children widgets."
+msgstr "Widget padre de Tkinter en el que buscar recursivamente widgets hijos."
+
+#: 5a6ff570ff1d4d1892b7d81926444350 config.theme.setup_fonts:1 of
+msgid "Configure and cache font properties for plot titles and axes."
+msgstr "Configurar y cachear propiedades de fuente para títulos y ejes de gráficos."
+
+#: config.theme.setup_fonts:3 fa6c321fcd914a13b743057b089109f6 of
+msgid ""
+"Creates and caches font objects for matplotlib plot titles and axes from "
+"FONT_CONFIG. Subsequent calls return cached fonts."
+msgstr ""
+"Crea y cachea objetos de fuente para títulos y ejes de matplotlib desde "
+"FONT_CONFIG. Las llamadas posteriores devuelven las fuentes cacheadas."
+
+#: 067376025cca40448b944ecf292af561 config.theme.setup_fonts:6 of
+msgid "Tuple of ``(title_font, axis_font)`` font objects from ``FONT_CONFIG``."
+msgstr "Tupla de objetos de fuente ``(title_font, axis_font)`` desde ``FONT_CONFIG``."
+
+#: ../../source/modules/core.rst:38 57c7242015a74da79fc900cfb0effce5
+msgid "Paths Configuration"
+msgstr "Configuración de rutas"
+
+#: 713b34ef0b024e4ab56488d7f35c534c config.paths:1 of
+msgid "File paths and output directory configuration."
+msgstr "Configuración de rutas de archivos y directorio de salida."
+
+#: 147dc40755d14859b074b12911281102 config.paths.get_project_root:1 of
+msgid "Get the project root directory (parent of ``src/``)."
+msgstr "Obtener el directorio raíz del proyecto (padre de ``src/``)."
+
+#: 62883e6085d8482da83ebb414a1e9b8c config.paths.get_project_root:3 of
+msgid ""
+"The function resolves the path based on the current file location, so it "
+"works even when the package is installed or executed from another folder."
+msgstr ""
+"La función resuelve la ruta según la ubicación del archivo actual, por lo que "
+"funciona aunque el paquete esté instalado o se ejecute desde otra carpeta."
+
+#: config.paths.get_project_root:6 fa2ea00187c546219799477ab6050618 of
+msgid "Absolute :class:`pathlib.Path` to the project root."
+msgstr ":class:`pathlib.Path` absoluto a la raíz del proyecto."
+
+#: 74085e9930db48f3b7b6b6049e4dd607 config.paths.ensure_output_directory:1 of
+msgid "Ensure that the output directory exists and return its absolute path."
+msgstr "Asegurar que el directorio de salida exista y devolver su ruta absoluta."
+
+#: 423dd75dd61d475b83aad61f666fd133 config.paths.ensure_output_directory:3 of
+msgid ""
+"If ``output_dir`` is ``None``, the value from :data:`FILE_CONFIG` is "
+"used. The directory is created recursively when missing."
+msgstr ""
+"Si ``output_dir`` es ``None``, se usa el valor de :data:`FILE_CONFIG`. El "
+"directorio se crea recursivamente si no existe."
+
+#: af8c8ed43aa54f39a9f0553751f1853a config.paths.ensure_output_directory:6 of
+msgid "Relative output directory name, usually from configuration."
+msgstr "Nombre relativo del directorio de salida, normalmente desde la configuración."
+
+#: 419f0aec1826491a923d15ee16fba6e8 config.paths.ensure_output_directory:8 of
+msgid "Absolute path to the output directory as a string."
+msgstr "Ruta absoluta al directorio de salida como cadena."
+
+#: 43fcb525973745ceb761d35d7f969265 config.paths.ensure_output_directory:10 of
+msgid "If the directory cannot be created."
+msgstr "Si no se puede crear el directorio."
+
+#: 370fc82a299546e6b412ede685519463 config.paths.get_output_path:1 of
+msgid "Build the full output file path for a plot image."
+msgstr "Construir la ruta completa del archivo de salida para una imagen del gráfico."
+
+#: 1f8a04ccb1c24ccc80464ba0dc80d5ed config.paths.get_output_path:3 of
+msgid ""
+"The final filename is created from ``FILE_CONFIG['filename_template']`` "
+"and the normalized plot format, ensuring a consistent extension."
+msgstr ""
+"El nombre de archivo final se crea a partir de ``FILE_CONFIG['filename_template']`` "
+"y el formato de gráfico normalizado, asegurando una extensión consistente."
+
+#: cce0e22249894fff876c1c42eed22edd config.paths.get_output_path:6 of
+msgid "Base name for the plot (usually the fit or dataset name)."
+msgstr "Nombre base del gráfico (normalmente el nombre del ajuste o del conjunto de datos)."
+
+#: aa290936a69d432c817a4ba359a503d0 config.paths.get_output_path:7 of
+msgid ""
+"Optional relative output directory; if ``None``, the default from "
+":data:`FILE_CONFIG` is used."
+msgstr ""
+"Directorio de salida relativo opcional; si es ``None``, se usa el valor por defecto "
+"de :data:`FILE_CONFIG`."
+
+#: 3ccf425ca76948cba91a77f95c5630fe config.paths.get_output_path:10 of
+msgid "Absolute path to the image file as a string."
+msgstr "Ruta absoluta al archivo de imagen como cadena."
+
+#: ../../source/modules/core.rst:43 0c64ea5de0564782b698866648874d45
+msgid "Constants"
+msgstr "Constantes"
+
+#: 44034325bc624393ab7221391b6c816d config.constants:1 of
+msgid "Application constants, equation mappings, and version."
+msgstr "Constantes de la aplicación, mapeos de ecuaciones y versión."
+
+#: ../../source/modules/core.rst:48 853eadcaa2124f73a6a1fa1d06c60524
+msgid "Internationalization"
+msgstr "Internacionalización"
+
+#: afdd21393ffe4913af2826ff3566a873 i18n:1 of
+msgid "Internationalization (i18n) module for the RegressionLab application."
+msgstr "Módulo de internacionalización (i18n) para la aplicación RegressionLab."
+
+#: fd92ad5f065b45128b2a78a6ae223fcd i18n:3 of
+msgid ""
+"This module provides language support for the application, allowing all "
+"UI messages, logs, and errors to be displayed in different languages "
+"based on the LANGUAGE environment variable."
+msgstr ""
+"Este módulo proporciona soporte de idiomas para la aplicación, permitiendo que "
+"todos los mensajes de la interfaz, logs y errores se muestren en distintos "
+"idiomas según la variable de entorno LANGUAGE."
+
+#: fae2476b2ff942c890f548531c48d6d2 i18n:7 of
+msgid "Supported languages:"
+msgstr "Idiomas soportados:"
+
+#: c917781bc1f84d289d1ffd5e1e0a967f i18n:9 of
+msgid "'es' or 'español': Spanish (default)"
+msgstr "'es' o 'español': Español (por defecto)"
+
+#: 5c85c0524bc045e3a0876903227d385a i18n:10 of
+msgid "'en' or 'english': English"
+msgstr "'en' o 'english': Inglés"
+
+#: 210fdbf5ef1f40e584fcdebe0d88fffd i18n:11 of
+msgid "'de' or 'german': German"
+msgstr "'de' o 'german': Alemán"
+
+#: e1af4ae734244ad2a09e786e2b4d06f7 i18n:13 of
+msgid "Usage::"
+msgstr "Uso::"
+
+#: 1a7f4c9131b64b88bc265565c5e100bf i18n.initialize_i18n:1 of
+msgid "Initialize the internationalization system."
+msgstr "Inicializar el sistema de internacionalización."
+
+#: a431e21ac7db4cada325b455d84e5da7 i18n.initialize_i18n:3 of
+msgid ""
+"This function should be called once at application startup. If no "
+"language is specified, it reads from the LANGUAGE environment variable."
+msgstr ""
+"Esta función debe llamarse una vez al arrancar la aplicación. Si no se especifica "
+"idioma, se lee de la variable de entorno LANGUAGE."
+
+#: 0127e0a2fd924f4c95c41b989cfd3041 i18n.initialize_i18n:6 of
+msgid "Optional language code ('es', 'en', or 'de'). If None, reads from env var."
+msgstr "Código de idioma opcional ('es', 'en' o 'de'). Si es None, se lee de la variable de entorno."
+
+#: b696eab1eb5e4961bb940b6433f68248 i18n.t:1 of
+msgid "Translate a key to the current language."
+msgstr "Traducir una clave al idioma actual."
+
+#: 21e74e3b7ace408e8b3db48c3f373fc5 i18n.t:3 of
+msgid ""
+"Retrieves the translation for a given key in the current language. The "
+"key uses dot notation to navigate nested dictionaries."
+msgstr ""
+"Obtiene la traducción de una clave dada en el idioma actual. La clave usa "
+"notación de punto para navegar por diccionarios anidados."
+
+#: 44811d95ace4441cbf3309bbab5f8ca3 i18n.t:6 of
+msgid "Translation key in dot notation (e.g. ``'menu.welcome'``)."
+msgstr "Clave de traducción en notación de punto (p. ej. ``'menu.welcome'``)."
+
+#: 3f3857b6b59b4dc189c7a7919ede38fe i18n.t:7 of
+msgid "Optional format parameters for string interpolation."
+msgstr "Parámetros de formato opcionales para interpolación de cadenas."
+
+#: d1175a3a758a4898be28c6b8b33ed393 i18n.t:9 of
+msgid "Translated string, or the key itself if translation not found."
+msgstr "Cadena traducida, o la clave misma si no se encuentra la traducción."
+

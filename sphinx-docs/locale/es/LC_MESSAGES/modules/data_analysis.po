@@ -1,0 +1,117 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Alejandro Mata Ali
+# This file is distributed under the same license as the RegressionLab
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: RegressionLab 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-13 19:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../source/modules/data_analysis.rst:3 9084038cc0b84bc0bb4d4cd4566efd5f
+msgid "Data Analysis Module"
+msgstr "Módulo de análisis de datos"
+
+#: ../../source/modules/data_analysis.rst:5 a3522eacc93e4743b0c8d00081dfddad
+msgid ""
+"The ``data_analysis`` module provides transforms (FFT, DCT, log, exp, "
+"etc.) and cleaning utilities (drop NaN, outliers, etc.). Used by the View"
+" Data window in Tkinter and Streamlit."
+msgstr ""
+"El módulo ``data_analysis`` proporciona transformaciones (FFT, DCT, log, "
+"exp, etc.) y utilidades de limpieza (eliminar NaN, valores atípicos, etc.). "
+"Usado por la ventana Ver datos en Tkinter y Streamlit."
+
+#: ../../source/modules/data_analysis.rst:8 4aafde9ef3f344b5a7478adb6588dc7f
+msgid "Main Package"
+msgstr "Paquete principal"
+
+#: b06ab56d4f394dabb0546ab84dbfff04 data_analysis:1 of
+msgid "Data analysis: transforms and cleaning utilities."
+msgstr "Análisis de datos: transformaciones y utilidades de limpieza."
+
+#: ../../source/modules/data_analysis.rst:13 3e23c66ce1e445cfa9573875fd5e29c8
+msgid "Transforms"
+msgstr "Transformaciones"
+
+#: d7c3baee672945419d32fd1774f7b9df data_analysis.transforms:1 of
+msgid "Data transforms: Fourier, DCT, log, etc."
+msgstr "Transformaciones de datos: Fourier, DCT, log, etc."
+
+#: 0409b5e259cd4bf192c4b3143f049c67 data_analysis.transforms.apply_transform:1
+#: of
+msgid "Apply a transform to selected numeric columns."
+msgstr "Aplicar una transformación a las columnas numéricas seleccionadas."
+
+#: ../../source/modules/data_analysis.rst 43fe0b16b11842ceabe2d2baecbea087
+#: 7c09310f371f40e185838114ce00181d
+msgid "Parameters"
+msgstr "Parámetros"
+
+#: 8f3b69141b034f17ab47e65da4edd0bd data_analysis.cleaning.apply_cleaning:3
+#: data_analysis.transforms.apply_transform:3 ddeef81b9a9e4a87a3c2a662762260ca
+#: of
+msgid "Input DataFrame."
+msgstr "DataFrame de entrada."
+
+#: 20d5ec034806480d9484270ef615f453 data_analysis.transforms.apply_transform:4
+#: of
+msgid "One of TRANSFORM_* constants."
+msgstr "Una de las constantes TRANSFORM_*."
+
+#: 5638f59683bb482bbc074628f9c6ddd1 data_analysis.transforms.apply_transform:5
+#: of
+msgid "Columns to transform. If None, all numeric columns."
+msgstr "Columnas a transformar. Si es None, todas las columnas numéricas."
+
+#: data_analysis.transforms.apply_transform:6 ed08c076f1ec496c97d7a7f6a52ada8e
+#: of
+msgid "If True, replace columns. If False, add new columns with suffix."
+msgstr "Si es True, reemplaza columnas. Si es False, añade columnas nuevas con sufijo."
+
+#: ../../source/modules/data_analysis.rst 5892f2f1fa80423ba13e0808f5dd49b1
+#: 61c93216858e448cbe003ef86fc2a091
+msgid "Returns"
+msgstr "Devuelve"
+
+#: 7888608eabbb4699855c08ab47d24862 data_analysis.transforms.apply_transform:8
+#: of
+msgid "New DataFrame with transformed columns."
+msgstr "Nuevo DataFrame con las columnas transformadas."
+
+#: ../../source/modules/data_analysis.rst:18 b0159da7080c495187587ad377414556
+msgid "Cleaning"
+msgstr "Limpieza"
+
+#: 5d6a9c0de75f4f08959d8d4761812d98 data_analysis.cleaning:1 of
+msgid "Data cleaning operations."
+msgstr "Operaciones de limpieza de datos."
+
+#: 6c8f6cf681d64c3da11b82ebaa88246e data_analysis.cleaning.apply_cleaning:1 of
+msgid "Apply a cleaning operation to the DataFrame."
+msgstr "Aplicar una operación de limpieza al DataFrame."
+
+#: 0fcb5326b34f4d3994543e07acbc6292 data_analysis.cleaning.apply_cleaning:4 of
+msgid "One of CLEAN_* constants."
+msgstr "Una de las constantes CLEAN_*."
+
+#: c30426ea3b2049e3b733bfa7c6a0f639 data_analysis.cleaning.apply_cleaning:5 of
+msgid "For column-specific ops (fill, outliers). If None, all numeric."
+msgstr "Para operaciones por columna (relleno, valores atípicos). Si es None, todas las numéricas."
+
+#: a45bb14d9297426e86d1f17a0081af77 data_analysis.cleaning.apply_cleaning:7 of
+msgid "New cleaned DataFrame."
+msgstr "Nuevo DataFrame limpio."
+

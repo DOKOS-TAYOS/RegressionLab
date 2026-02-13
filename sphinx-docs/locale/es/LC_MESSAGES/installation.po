@@ -1,0 +1,814 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Alejandro Mata Ali
+# This file is distributed under the same license as the RegressionLab
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: RegressionLab 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-13 19:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: es <LL@li.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../../docs/installation.md:1 f27768920adf4dc69faf86a285fe435a
+msgid "Installation Guide"
+msgstr "Guía de instalación"
+
+#: ../../../docs/installation.md:3 4ea3e6efcea14dcc92f7182b3d6ac564
+msgid ""
+"This guide will help you install RegressionLab on your computer. There are "
+"multiple installation methods available, from a quick automated setup to "
+"manual installation for advanced users."
+msgstr ""
+"Esta guía te ayudará a instalar RegressionLab en tu ordenador. Hay múltiples"
+" métodos de instalación disponibles, desde una instalación automática rápida"
+" hasta la instalación manual para usuarios avanzados."
+
+#: ../../../docs/installation.md:5 b93c61f59f8e485f97e3378ee2a2323f
+msgid "Prerequisites"
+msgstr "Requisitos previos"
+
+#: ../../../docs/installation.md:7 708e3068ab694e7ebdecd2aeea2f9159
+msgid "Before installing RegressionLab, ensure you have:"
+msgstr "Antes de instalar RegressionLab, asegúrate de tener:"
+
+#: ../../../docs/installation.md:9 d494a3105d824c37b7c9ed39358646c1
+msgid "Required Software"
+msgstr "Software requerido"
+
+#: ../../../docs/installation.md:10 489cd501391644f69f483ce934761326
+msgid "**Git**: Version control system for cloning the repository."
+msgstr "**Git**: Sistema de control de versiones para clonar el repositorio."
+
+#: ../../../docs/installation.md:11 1de004943e1d4ae39745ed4a3cfbc7fe
+msgid ""
+"Windows: Download from [git-scm.com](https://git-scm.com/install/windows)."
+msgstr ""
+"Windows: Descarga desde [git-scm.com](https://git-scm.com/install/windows)."
+
+#: ../../../docs/installation.md:12 ac3d84aefa3d470b953d26825a269c06
+msgid ""
+"macOS: Install via Homebrew `brew install git` or download from [git-"
+"scm.com](https://git-scm.com/install/mac)."
+msgstr ""
+"macOS: Instala vía Homebrew `brew install git` o descarga desde [git-"
+"scm.com](https://git-scm.com/install/mac)."
+
+#: ../../../docs/installation.md:13 0dfd2cf82f4b4a948e1201089df2562e
+msgid ""
+"Linux: `sudo apt-get install git` (Debian/Ubuntu), `sudo dnf install git` "
+"(Fedora), `sudo zypper install git` (openSUSE), or `sudo pacman -S git` "
+"(Arch). The `install.sh` script can also offer to install Git automatically "
+"on supported distributions."
+msgstr ""
+"Linux: `sudo apt-get install git` (Debian/Ubuntu), `sudo dnf install git` "
+"(Fedora), `sudo zypper install git` (openSUSE) o `sudo pacman -S git` "
+"(Arch). El script `install.sh` también puede ofrecer instalar Git "
+"automáticamente en distribuciones compatibles."
+
+#: ../../../docs/installation.md:15 a653200f17d344989eea804bc4a8d0b3
+msgid "**Python**: Version 3.12 or higher (3.13 supported)."
+msgstr "**Python**: Versión 3.12 o superior (3.13 compatible)."
+
+#: ../../../docs/installation.md:16 a0dbbfc4e26e44da90236a08c33b9f92
+msgid "Download from [python.org](https://www.python.org/downloads/)."
+msgstr "Descarga desde [python.org](https://www.python.org/downloads/)."
+
+#: ../../../docs/installation.md:17 b92d79726cb647a1aa172bc044250784
+msgid ""
+"Verify installation: `python --version` or `python3 --version`. On some "
+"systems (e.g. Arch Linux) the command may be `python` only; the setup script"
+" detects either."
+msgstr ""
+"Verifica la instalación: `python --version` o `python3 --version`. En "
+"algunos sistemas (p. ej. Arch Linux) el comando puede ser solo `python`; el "
+"script de configuración detecta ambos."
+
+#: ../../../docs/installation.md:19 d33afc264c964582b6d3ae601d6faf86
+msgid "System Requirements"
+msgstr "Requisitos del sistema"
+
+#: ../../../docs/installation.md:20 74cf1ca9e0ea4c4e94c6d36f83e28e2a
+msgid "**Operating System**: Windows 10/11, macOS 10.14+, or Linux."
+msgstr "**Sistema operativo**: Windows 10/11, macOS 10.14+ o Linux."
+
+#: ../../../docs/installation.md:21 6d7fe423fa944279acd12314688dbc6b
+msgid "**RAM**: 4 GB minimum, 8 GB recommended."
+msgstr "**RAM**: 4 GB mínimo, 8 GB recomendado."
+
+#: ../../../docs/installation.md:22 7d0141c4405b4e559d07df35305c1e38
+msgid ""
+"**Disk Space**: 1 GB minimum, 2 GB recommended for application and "
+"dependencies."
+msgstr ""
+"**Espacio en disco**: 1 GB mínimo, 2 GB recomendado para la aplicación y "
+"dependencias."
+
+#: ../../../docs/installation.md:23 153784cbc75d49d0a3e36a9a4850c5f0
+msgid "**Display**: 1280x720 minimum resolution recommended."
+msgstr "**Pantalla**: Resolución mínima 1280x720 recomendada."
+
+#: ../../../docs/installation.md:25 319bb825ebc94df4bcdf34414594d743
+msgid "Installation Methods"
+msgstr "Métodos de instalación"
+
+#: ../../../docs/installation.md:27 072e92bb657c4cb488abb43602e31f0d
+msgid "Method 1: Quick Installation (Recommended)"
+msgstr "Método 1: Instalación rápida (recomendado)"
+
+#: ../../../docs/installation.md:29 622b8e3ef22047dd9fd30a02e5c8e7ca
+msgid ""
+"This is the fastest and easiest way to install RegressionLab. The "
+"installation script will:"
+msgstr ""
+"Esta es la forma más rápida y fácil de instalar RegressionLab. El script de "
+"instalación:"
+
+#: ../../../docs/installation.md:30 e68c85e5298f4d35a7730e0f450b666b
+msgid "Clone the repository."
+msgstr "Clonará el repositorio."
+
+#: ../../../docs/installation.md:31 ca91ab8b65e54bd0b38952902bbdb542
+msgid "Create a virtual environment."
+msgstr "Creará un entorno virtual."
+
+#: ../../../docs/installation.md:32 ../../../docs/installation.md:139
+#: 3561dece518f454ca10eec7b59afa709 b4098e1ab7064b3d92db9874996a288c
+msgid "Install all dependencies."
+msgstr "Instalará todas las dependencias."
+
+#: ../../../docs/installation.md:33 ../../../docs/installation.md:140
+#: 2c909bf1bce54b9f8b15c1a246ccce7f c0945fc88aab4926b7e778008d842d8a
+msgid "Create a desktop shortcut."
+msgstr "Creará un acceso directo en el escritorio."
+
+#: ../../../docs/installation.md:38 d75434fb4d0d4d769b824d0c0b8a95c5
+msgid "Windows"
+msgstr "Windows"
+
+#: ../../../docs/installation.md:40 ../../../docs/installation.md:70
+#: c47f90891b68454d99e4bfb91f5d5887 d7d397ed2bf04de78a4a15f83b15a281
+msgid "Download the installation script:"
+msgstr "Descarga el script de instalación:"
+
+#: ../../../docs/installation.md:41 091fa0698d29432989c4acb9ec9e8351
+msgid ""
+"Right-click on [`install.bat`](https://raw.githubusercontent.com/DOKOS-"
+"TAYOS/RegressionLab/main/install.bat) and select \"Save link as...\" to "
+"download from the repository"
+msgstr ""
+"Haz clic derecho en [`install.bat`](https://raw.githubusercontent.com/DOKOS-"
+"TAYOS/RegressionLab/main/install.bat) y selecciona \"Guardar enlace "
+"como...\" para descargar desde el repositorio"
+
+#: ../../../docs/installation.md:42 ../../../docs/installation.md:72
+#: 2a4b894552ca47ac96d0fae8e70ebb55 c4521032d52c41078a4cfdc9d122e40a
+msgid "Or visit the GitHub repository and download it directly"
+msgstr "O visita el repositorio de GitHub y descárgalo directamente"
+
+#: ../../../docs/installation.md:44 32b833c86c094d7db56c9e462de2a132
+msgid "Navigate to the folder where you want to install RegressionLab"
+msgstr "Navega a la carpeta donde quieras instalar RegressionLab"
+
+#: ../../../docs/installation.md:46 ../../../docs/installation.md:85
+#: 0d3607568ebc4a2884b18aae5779ecb4 c5215ef0559a418e810c16b1fdead761
+msgid "Run the installation script:"
+msgstr "Ejecuta el script de instalación:"
+
+#: ../../../docs/installation.md:47 75d02b9c6dd3434a9d9cc2547b146a58
+msgid ""
+"Double-click `install.bat` ![Windows "
+"Installer](../images/en_documentation/tkinter_docs/installer.png)"
+msgstr ""
+"Haz doble clic en `install.bat` ![Instalador de "
+"Windows](../images/en_documentation/tkinter_docs/installer.png)"
+
+#: ../../../docs/installation.md:47 7b3ea81ac8004010bcb7e81b35148434
+msgid "Windows Installer"
+msgstr "Instalador de Windows"
+
+#: ../../../docs/installation.md:49 05bcb6c48d824a8cab3a4a9ecf89b212
+msgid "Or open Command Prompt/PowerShell in the folder and run:"
+msgstr "O abre Símbolo del sistema/PowerShell en la carpeta y ejecuta:"
+
+#: ../../../docs/installation.md:55 ../../../docs/installation.md:90
+#: 25fb51b2c4374a3eb5b2402d567c33ce a350457b7ab64057a19000b7c987118f
+msgid "Wait for the installation to complete. The script will:"
+msgstr "Espera a que termine la instalación. El script:"
+
+#: ../../../docs/installation.md:56 88f03f1f97f349b78f7c665bce83adbf
+msgid "Clone the repository into a `RegressionLab` folder."
+msgstr "Clonará el repositorio en una carpeta `RegressionLab`."
+
+#: ../../../docs/installation.md:57 31b28a534b2547f2a4ba7154cb961303
+msgid "Set up a Python virtual environment."
+msgstr "Configurará un entorno virtual de Python."
+
+#: ../../../docs/installation.md:58 7fa7a05beb2d4d52bd3f4e2f4aafef0c
+msgid "Install all required dependencies."
+msgstr "Instalará todas las dependencias requeridas."
+
+#: ../../../docs/installation.md:59 da4c6cb7bb5c4b1f8ae785dbdc87f401
+msgid "Create a desktop shortcut named \"RegressionLab\"."
+msgstr "Creará un acceso directo en el escritorio llamado \"RegressionLab\"."
+
+#: ../../../docs/installation.md:61 0fe016aebe104cf3bc40d1adcad45aad
+msgid ""
+"![Installation Process](../images/en_documentation/tkinter_docs/install.png)"
+msgstr ""
+"![Proceso de "
+"instalación](../images/en_documentation/tkinter_docs/install.png)"
+
+#: ../../../docs/installation.md:61 82a648edf29d4f97b1bb0bacb656a463
+msgid "Installation Process"
+msgstr "Proceso de instalación"
+
+#: ../../../docs/installation.md:63 ../../../docs/installation.md:101
+#: 1c926196e374434d9dbaeffa870c30d3 49e784b7d60844b783e51645883317dd
+msgid "Launch RegressionLab:"
+msgstr "Inicie RegressionLab:"
+
+#: ../../../docs/installation.md:64 1260979396474126a8eb647fb0b2d2fa
+msgid ""
+"Double-click the desktop shortcut ![Desktop "
+"Shortcut](../images/en_documentation/tkinter_docs/shortcut.png)"
+msgstr ""
+"¡Haga doble clic en el acceso directo del escritorio![Acceso directo al "
+"escritorio](../images/en_documentation/tkinter_docs/shortcut.png)"
+
+#: ../../../docs/installation.md:64 ../../../docs/installation.md:272
+#: 5472eed9a33343a3906e63248744982c eacdcd0625d645ed897e9692428a6c58
+msgid "Desktop Shortcut"
+msgstr "Acceso directo al escritorio"
+
+#: ../../../docs/installation.md:66 5d6fa1d9d172465bb5d71b866c931307
+msgid "Or run `bin\\run.bat` from the installation folder"
+msgstr "O ejecute `bin\\run.bat` desde la carpeta de instalación"
+
+#: ../../../docs/installation.md:68 7a4cc743df404eb89cb6cca34eabe097
+msgid "macOS / Linux"
+msgstr "macOS/Linux"
+
+#: ../../../docs/installation.md:71 fc9f5cdd18324caea49091c3f6f03e0d
+msgid ""
+"Right-click on [`install.sh`](https://raw.githubusercontent.com/DOKOS-"
+"TAYOS/RegressionLab/main/install.sh) and select \"Save link as...\" to "
+"download from the repository"
+msgstr ""
+"Haga clic derecho en [`install.sh`](https://raw.githubusercontent.com/DOKOS-"
+"TAYOS/RegressionLab/main/install.sh) y seleccione \"Guardar enlace como...\""
+" para descargar desde el repositorio."
+
+#: ../../../docs/installation.md:73 5d0df8dd576a48fab718df191b4c17cf
+msgid "Or use wget/curl:"
+msgstr "O use wget/curl:"
+
+#: ../../../docs/installation.md:80 2df9cf9ceaae4aff88566a637102c33e
+msgid "Make the script executable:"
+msgstr "Haga que el script sea ejecutable:"
+
+#: ../../../docs/installation.md:91 55462efc7ed5466eb32423dae0f8cedb
+msgid ""
+"**Check Git**: If Git is not installed, on Linux it will offer to install it"
+" automatically (apt, dnf, yum, zypper, or pacman depending on your "
+"distribution)."
+msgstr ""
+"**Verifique Git**: Si Git no está instalado, en Linux ofrecerá instalarlo "
+"automáticamente (apt, dnf, yum, zypper o pacman dependiendo de su "
+"distribución)."
+
+#: ../../../docs/installation.md:92 583e8fd4238f43339438c68c298044f7
+msgid ""
+"**Clone the repository** into a `regressionlab` folder in the current "
+"directory. If this folder already exists, you will be asked whether to "
+"remove it and clone again, or to run `setup.sh` in the existing directory."
+msgstr ""
+"**Clonar el repositorio** en una carpeta `regressionlab` en el directorio "
+"actual. Si esta carpeta ya existe, se le preguntará si desea eliminarla y "
+"clonarla nuevamente o ejecutar `setup.sh` en el directorio existente."
+
+#: ../../../docs/installation.md:93 d6beda6c2e7246a096359e39cf0f42d1
+msgid ""
+"**Run `setup.sh`** inside the cloned repository. The setup script will:"
+msgstr ""
+"**Ejecute `setup.sh`** dentro del repositorio clonado. El script de "
+"configuración:"
+
+#: ../../../docs/installation.md:94 4e28fe1db646496789411f7098686ff6
+msgid ""
+"Check Python 3.12+; on Linux it can offer to install Python 3.12 "
+"automatically if missing."
+msgstr ""
+"Consulte Python 3.12+; en Linux puede ofrecer instalar Python 3.12 "
+"automáticamente si falta."
+
+#: ../../../docs/installation.md:95 0546f762188042768432bd52b46046e1
+msgid ""
+"Check Tkinter; on Linux it can install the system package (`python3.12-tk`, "
+"`python3-tkinter`, etc.) if needed."
+msgstr ""
+"Consulte Tkinter; en Linux puede instalar el paquete del sistema "
+"(`python3.12-tk`, `python3-tkinter`, etc.) si es necesario."
+
+#: ../../../docs/installation.md:96 ../../../docs/installation.md:138
+#: 12b515908fd146b880233b330246b2cb a4ec730664254086b331b7eceb2b37eb
+msgid "Create a virtual environment in `.venv`."
+msgstr "Cree un entorno virtual en `.venv`."
+
+#: ../../../docs/installation.md:97 e437cf84493443668c9b7aafbddb6033
+msgid "Install dependencies from `requirements.txt`."
+msgstr "Instale dependencias desde `requirements.txt`."
+
+#: ../../../docs/installation.md:98 84a83a975b4f4c5a82465155e16d9d49
+msgid "Create `.env` from `.env.example`."
+msgstr "Cree `.env` a partir de `.env.example`."
+
+#: ../../../docs/installation.md:99 76329fc7fcf441a8bf54fc640ceebf33
+msgid ""
+"Create a desktop shortcut (`RegressionLab.desktop`) on Desktop, Escritorio, "
+"or your home directory."
+msgstr ""
+"Cree un acceso directo en el escritorio (`RegressionLab.desktop`) en "
+"Desktop, Escritorio o su directorio de inicio."
+
+#: ../../../docs/installation.md:102 bcf85e60a0fb43a299a69c9468a7005b
+msgid "Double-click the desktop shortcut (if supported)"
+msgstr ""
+"Haga doble clic en el acceso directo del escritorio (si es compatible)"
+
+#: ../../../docs/installation.md:103 915d1975b96348f1bebb9a8f3184490f
+msgid "Or run `bin/run.sh` from the installation folder:"
+msgstr "O ejecute `bin/run.sh` desde la carpeta de instalación:"
+
+#: ../../../docs/installation.md:109 967b17aeabe442918f6ff7d7b77e8689
+msgid "Method 2: Installation with Git"
+msgstr "Método 2: instalación con Git"
+
+#: ../../../docs/installation.md:111 8edbf8f294d241e99a4ee3dae7cfdb94
+msgid ""
+"This method gives you more control over where the repository is cloned and "
+"allows you to easily update the application."
+msgstr ""
+"Este método le brinda más control sobre dónde se clona el repositorio y le "
+"permite actualizar fácilmente la aplicación."
+
+#: ../../../docs/installation.md:113 48ece2344d384145be4046a9de0c0932
+msgid "Step 1: Clone the Repository"
+msgstr "Paso 1: clonar el repositorio"
+
+#: ../../../docs/installation.md:120 97116ddd99f946229909d14ed1f13a0b
+msgid "Step 2: Choose Your Setup Method"
+msgstr "Paso 2: elija su método de configuración"
+
+#: ../../../docs/installation.md:122 6d76ec1e9a0f4e6289185c41ad3664d6
+msgid "Option A: Automated Setup (Recommended)"
+msgstr "Opción A: Configuración automatizada (recomendada)"
+
+#: ../../../docs/installation.md:124 ../../../docs/installation.md:145
+#: ../../../docs/installation.md:205 3a41bceff65c49e8ae48466cc7ea6d4a
+#: 7bf5bc89df9c493b93652f1352208fba bbca46ad6fde475d8907a293815d97cb
+msgid "**Windows:**"
+msgstr "**Windows:**"
+
+#: ../../../docs/installation.md:129 ../../../docs/installation.md:160
+#: ../../../docs/installation.md:211 0b30c367eeb2454fb2ee5ca5b5d28dd3
+#: 893741301c674ffd91a7534ed4075b9e e88ae280bd6541fda56ea7903a6e271f
+msgid "**macOS/Linux:**"
+msgstr "**macOS/Linux:**"
+
+#: ../../../docs/installation.md:135 0ccfed8847c042228a438b3c69a81200
+msgid "This will:"
+msgstr "Esto:"
+
+#: ../../../docs/installation.md:136 9c2506649e284a92aa66c9238a34c98d
+msgid "Check Python 3.12+ (on Linux, optionally install it if missing)."
+msgstr "Verifique Python 3.12+ (en Linux, instálelo opcionalmente si falta)."
+
+#: ../../../docs/installation.md:137 24308a06efb7406294fe53d54a0082a6
+msgid ""
+"Check Tkinter (on Linux, optionally install the system package if missing)."
+msgstr ""
+"Marque Tkinter (en Linux, opcionalmente instale el paquete del sistema si "
+"falta)."
+
+#: ../../../docs/installation.md:141 a954834f71544f8bb57e9583c6105e9c
+msgid "Copy `.env.example` to `.env`."
+msgstr "Copie `.env.example` a `.env`."
+
+#: ../../../docs/installation.md:143 72c1da1cea0141d59255ee139d0885d3
+msgid "Option B: Manual Virtual Environment Setup"
+msgstr "Opción B: Configuración manual del entorno virtual"
+
+#: ../../../docs/installation.md:175 6f53ac2e917c491bb030722c787dde54
+msgid "Option C: Using Poetry (Advanced)"
+msgstr "Opción C: Usar poesía (avanzado)"
+
+#: ../../../docs/installation.md:177 47542698c1ed41ce8a07960b55dea454
+msgid "If you prefer Poetry for dependency management:"
+msgstr "Si prefieres Poesía para la gestión de la dependencia:"
+
+#: ../../../docs/installation.md:190 51ebbd85ff2e41728fb83f8ec844f3d1
+msgid "Method 3: Manual Installation (Advanced Users)"
+msgstr "Método 3: instalación manual (usuarios avanzados)"
+
+#: ../../../docs/installation.md:192 e0c429e659b642db9d86834631c354b4
+msgid "For users who want complete control over the installation process:"
+msgstr ""
+"Para usuarios que desean un control total sobre el proceso de instalación:"
+
+#: ../../../docs/installation.md:194 e4a6d911886c41ce96953af08affb53b
+msgid "Step 1: Download or Clone the Repository"
+msgstr "Paso 1: descargar o clonar el repositorio"
+
+#: ../../../docs/installation.md:201 628c6138ad1d45e5b495d82a8987af51
+msgid "Or download the ZIP file from GitHub and extract it."
+msgstr "O descargue el archivo ZIP de GitHub y extráigalo."
+
+#: ../../../docs/installation.md:203 eec984374fb840fa9ee0eaca3f543dbf
+msgid "Step 2: Create Virtual Environment (Optional but Recommended)"
+msgstr "Paso 2: crear un entorno virtual (opcional pero recomendado)"
+
+#: ../../../docs/installation.md:217 c60743f344de4035b57370d4d0d70c02
+msgid "Step 3: Install Dependencies"
+msgstr "Paso 3: instalar dependencias"
+
+#: ../../../docs/installation.md:219 546ba896f1624cfa82931e1782bf88ae
+msgid "Choose one of the following methods:"
+msgstr "Elija uno de los siguientes métodos:"
+
+#: ../../../docs/installation.md:221 8969d362386b42cdb2638745851f9538
+msgid "**Using requirements.txt:**"
+msgstr "**Usando requisitos.txt:**"
+
+#: ../../../docs/installation.md:226 55310a13bf3a49c5add89680d635f988
+msgid "**Using pyproject.toml:**"
+msgstr "**Usando pyproject.toml:**"
+
+#: ../../../docs/installation.md:230 cbc951b0d0db4b19bb78d7e04e036af5
+msgid ""
+"This installs the same runtime dependencies as `requirements.txt` (including"
+" Pillow and Streamlit)."
+msgstr ""
+"Esto instala las mismas dependencias de tiempo de ejecución que "
+"`requirements.txt` (incluidos Pillow y Streamlit)."
+
+#: ../../../docs/installation.md:232 7438b4eea83b4c01bcc3fea4818a88a1
+msgid ""
+"**For development (testing, linting with Ruff, formatting with Black, type "
+"checking with mypy, pre-commit):**"
+msgstr ""
+"**Para desarrollo (pruebas, linting con Ruff, formateo con Black, "
+"verificación de tipos con mypy, confirmación previa):**"
+
+#: ../../../docs/installation.md:239 30d47d62c1904f47bc9b935946f43d28
+msgid "Step 4: Configure Environment"
+msgstr "Paso 4: configurar el entorno"
+
+#: ../../../docs/installation.md:249 7ad4218626a1465393f9c04a6e0e0430
+msgid ""
+"See the [Configuration Guide](configuration.md) for details on available "
+"options."
+msgstr ""
+"Consulte la [Guía de configuración] (configuration.md) para obtener detalles"
+" sobre las opciones disponibles."
+
+#: ../../../docs/installation.md:251 1b30dd822a19496cb83c347470bfcccc
+msgid "Step 5: Verify Installation"
+msgstr "Paso 5: verificar la instalación"
+
+#: ../../../docs/installation.md:253 7f8c1115a39a4665a4d641c3af4a4ec7
+msgid ""
+"Test that everything is working (from the project root, with virtual "
+"environment activated if you use one):"
+msgstr ""
+"Prueba que todo esté funcionando (desde la raíz del proyecto, con el entorno"
+" virtual activado si usas uno):"
+
+#: ../../../docs/installation.md:265 69de86d7f40c4a7cb8f204b2fb4dd5e9
+msgid "Running RegressionLab"
+msgstr "Ejecutando RegressionLab"
+
+#: ../../../docs/installation.md:267 57541daf0f644e969974e4d888cc0dac
+msgid "After installation, you can run RegressionLab in several ways:"
+msgstr ""
+"Después de la instalación, puede ejecutar RegressionLab de varias maneras:"
+
+#: ../../../docs/installation.md:269 df5c5e390f3e4f7881f4c4a9bb91929d
+msgid "Desktop Version (Tkinter)"
+msgstr "Versión de escritorio (Tkinter)"
+
+#: ../../../docs/installation.md:271 cd890f490edb49efa79557310c988cc3
+msgid "**Method 1: Desktop Shortcut**"
+msgstr "**Método 1: acceso directo al escritorio**"
+
+#: ../../../docs/installation.md:272 abfb08150e344ae79e1754517f17c169
+msgid ""
+"Double-click the \"RegressionLab\" shortcut on your desktop ![Desktop "
+"Shortcut](../images/en_documentation/tkinter_docs/shortcut.png)"
+msgstr ""
+"¡Haga doble clic en el acceso directo \"RegressionLab\" en su "
+"escritorio![Acceso directo al "
+"escritorio](../images/en_documentation/tkinter_docs/shortcut.png)"
+
+#: ../../../docs/installation.md:275 fca230f686a244e39ebb6940973683cb
+msgid "**Method 2: Shell Scripts**"
+msgstr "**Método 2: scripts de Shell**"
+
+#: ../../../docs/installation.md:277 b43f068b5b8849e19261fcd66d91167f
+msgid ""
+"The `bin/` scripts activate the project virtual environment and run the app."
+" They require that you have run `setup.bat` (Windows) or `setup.sh` "
+"(macOS/Linux) first; otherwise they exit with \"Virtual environment not "
+"found\"."
+msgstr ""
+"Los scripts `bin/` activan el entorno virtual del proyecto y ejecutan la "
+"aplicación. Requieren que haya ejecutado primero `setup.bat` (Windows) o "
+"`setup.sh` (macOS/Linux); de lo contrario, salen con \"Entorno virtual no "
+"encontrado\"."
+
+#: ../../../docs/installation.md:279 ../../../docs/installation.md:302
+#: 1988c734ba70430dad652f0fe0b39743 3b5dd609a83f4f15931d6642d7c99b07
+msgid "Windows:"
+msgstr "Ventanas:"
+
+#: ../../../docs/installation.md:284 ../../../docs/installation.md:307
+#: 8fe650ef2d3346bbb20c107e0df5272b b8fc6503aa6849bba4d46a79ddb25463
+msgid "macOS/Linux:"
+msgstr "MacOS/Linux:"
+
+#: ../../../docs/installation.md:289 8d05d10fdc034607bccd8b33873cfd9d
+msgid "**Method 3: Direct Python Execution**"
+msgstr "**Método 3: Ejecución directa de Python**"
+
+#: ../../../docs/installation.md:296 0d06252908304c008ddae87d9eb4bac1
+msgid "Web Version (Streamlit)"
+msgstr "Versión web (transmitida)"
+
+#: ../../../docs/installation.md:298 99f5e1f97f034e22b728f2d81acff858
+msgid "**Method 1: Shell Scripts**"
+msgstr "**Método 1: scripts de Shell**"
+
+#: ../../../docs/installation.md:300 9a65280af6f248b8b8be9bee2d4ccd3d
+msgid ""
+"Same as the desktop version: ensure the virtual environment exists (run "
+"setup first). Then:"
+msgstr ""
+"Igual que la versión de escritorio: asegúrese de que exista el entorno "
+"virtual (ejecute primero la configuración). Entonces:"
+
+#: ../../../docs/installation.md:312 6cafb49e74e042f7a335e0f88ee72006
+msgid "**Method 2: Direct Streamlit Command**"
+msgstr "**Método 2: Comando Streamlit directo**"
+
+#: ../../../docs/installation.md:318 53acccf69fa44d2a9eaad4ec041dd5e1
+msgid "**Method 3: Online Version**"
+msgstr "**Método 3: Versión en línea**"
+
+#: ../../../docs/installation.md:320 1561ffe1b0db4fec8af95d5400294786
+msgid ""
+"Access the hosted version at: "
+"[https://regressionlab.streamlit.app/](https://regressionlab.streamlit.app/)"
+msgstr ""
+"Acceda a la versión alojada en: "
+"[https://regressionlab.streamlit.app/](https://regressionlab.streamlit.app/)"
+
+#: ../../../docs/installation.md:322 3ff91387124b4aff9c1786d51279d942
+msgid "Updating RegressionLab"
+msgstr "Actualizando RegressionLab"
+
+#: ../../../docs/installation.md:324 fc2dfa352884460c9d24e01c6622dc4e
+msgid "In-App Update Check (Tkinter, Git Install)"
+msgstr "Comprobación de actualización en la aplicación (Tkinter, Git Install)"
+
+#: ../../../docs/installation.md:326 a0468ac9f64146c18be7bcd21660572a
+msgid ""
+"If you installed RegressionLab via Git and use the **Tkinter desktop app**, "
+"the app checks for updates **once a week** when you open it. If a newer "
+"version is available, a dialog asks whether you want to update. If you "
+"confirm, the app runs `git pull` to update the code. Your `input/`, "
+"`output/` folders and `.env` file are not modified."
+msgstr ""
+"Si instaló RegressionLab a través de Git y usa la **aplicación de escritorio"
+" Tkinter**, la aplicación busca actualizaciones **una vez por semana** "
+"cuando la abre. Si hay una versión más reciente disponible, un cuadro de "
+"diálogo le preguntará si desea actualizar. Si confirma, la aplicación "
+"ejecuta `git pull` para actualizar el código. Sus carpetas `input/`, "
+"`output/` y el archivo `.env` no se modifican."
+
+#: ../../../docs/installation.md:328 e188a1311e6b49d4bd7e03c6f8d28bc5
+msgid ""
+"You can disable this in **Configure** → **Updates** (`CHECK_UPDATES=false` "
+"in `.env`) or force a check every time (`CHECK_UPDATES_FORCE=true`). See the"
+" [Configuration Guide](configuration.md#7-update-check-tkinter) for details."
+msgstr ""
+"Puede desactivar esto en **Configurar** → **Actualizaciones** "
+"(`CHECK_UPDATES=false` en `.env`) o forzar una verificación cada vez "
+"(`CHECK_UPDATES_FORCE=true`). Consulte la [Guía de configuración] "
+"(configuration.md#7-update-check-tkinter) para obtener más detalles."
+
+#: ../../../docs/installation.md:330 15533affd82c45b58eba54ed578799cd
+msgid "If Installed via Git (Manual Update)"
+msgstr "Si se instala a través de Git (actualización manual)"
+
+#: ../../../docs/installation.md:340 9cd663421a59409fab5e5700baa1c0eb
+msgid "If Installed via Download"
+msgstr "Si se instala mediante descarga"
+
+#: ../../../docs/installation.md:342 e72223b9df304e81aa5a0d673e503bff
+msgid ""
+"Download the latest version and repeat the installation process, or switch "
+"to the Git method for easier updates."
+msgstr ""
+"Descargue la última versión y repita el proceso de instalación, o cambie al "
+"método Git para obtener actualizaciones más sencillas."
+
+#: ../../../docs/installation.md:344 ca29ed36ed3a4a8cbe31fd863f493cd2
+msgid "Troubleshooting Installation"
+msgstr "Solución de problemas de instalación"
+
+#: ../../../docs/installation.md:346 237624803828467b8ba2089eaf8cb7d8
+msgid "Python Not Found"
+msgstr "Python no encontrado"
+
+#: ../../../docs/installation.md:348 207463769f214067ab3f57f3c7f114ef
+msgid ""
+"**Error**: `'python' is not recognized as an internal or external command`"
+msgstr ""
+"**Error**: `'python' no se reconoce como un comando interno o externo`"
+
+#: ../../../docs/installation.md:350 ../../../docs/installation.md:359
+#: ../../../docs/installation.md:371 ../../../docs/installation.md:393
+#: 44fb51750f0c4c62b5dc6711730f4a95 9a595eb86b504fe79c108db69ad1ad75
+#: aa18392cc35048988b084dfbecdeaabc ea5f59540ec845d49a76b8a30e749ce2
+msgid "**Solution**:"
+msgstr "**Solución**:"
+
+#: ../../../docs/installation.md:351 1cc0e9bdc7f34679a8f11bf48a6ac0df
+msgid "Ensure Python is installed and added to PATH."
+msgstr "Asegúrese de que Python esté instalado y agregado a PATH."
+
+#: ../../../docs/installation.md:352 08fdfde3d9c045cab792d15cda9660a4
+msgid "Try using `python3` instead of `python`."
+msgstr "Intente usar `python3` en lugar de `python`."
+
+#: ../../../docs/installation.md:353 69aad4c9a9d949d0af095d5a16ee514d
+msgid "Reinstall Python and check \"Add Python to PATH\" during installation."
+msgstr ""
+"Reinstale Python y marque \"Agregar Python a PATH\" durante la instalación."
+
+#: ../../../docs/installation.md:355 f90ca3aea85e404dad9af7b9ccebfd30
+msgid "Permission Denied (macOS/Linux)"
+msgstr "Permiso denegado (macOS/Linux)"
+
+#: ../../../docs/installation.md:357 f0225eb9b10f46c9bddcb01347c51e28
+msgid "**Error**: `Permission denied` when running shell scripts"
+msgstr "**Error**: `Permiso denegado` al ejecutar scripts de shell"
+
+#: ../../../docs/installation.md:367 f9d615583cc4402f996f86f23dfbe7db
+msgid "Module Not Found"
+msgstr "Módulo no encontrado"
+
+#: ../../../docs/installation.md:369 186699fd5831495ebb2068869b1b1948
+msgid ""
+"**Error**: `ModuleNotFoundError: No module named 'numpy'` (or other modules)"
+msgstr ""
+"**Error**: `ModuleNotFoundError: No hay módulo llamado 'numpy'` (u otros "
+"módulos)"
+
+#: ../../../docs/installation.md:372 702c65748d824c6c9481a76c74d3ce24
+msgid "Ensure virtual environment is activated."
+msgstr "Asegúrese de que el entorno virtual esté activado."
+
+#: ../../../docs/installation.md:373 0cf18544a1294fd8b56baa45383dd9ae
+msgid "Reinstall dependencies: `pip install -r requirements.txt`."
+msgstr "Reinstale las dependencias: `pip install -r requisitos.txt`."
+
+#: ../../../docs/installation.md:374 457966d9684e4f57a2263141d34e5b15
+msgid "Check that you're using the correct Python interpreter."
+msgstr "Compruebe que esté utilizando el intérprete de Python correcto."
+
+#: ../../../docs/installation.md:376 d04e9dbd850744cdaef7f54ec588fb16
+msgid "Virtual Environment Issues"
+msgstr "Problemas del entorno virtual"
+
+#: ../../../docs/installation.md:378 97ca98cd70e747b899683f39281951aa
+msgid "**Error**: Virtual environment activation fails"
+msgstr "**Error**: falla la activación del entorno virtual"
+
+#: ../../../docs/installation.md:380 072ecdf896634f26932423da8925e249
+msgid "**Solution Windows**:"
+msgstr "**Solución Windows**:"
+
+#: ../../../docs/installation.md:381 1a617f8a5401479e976eee2a118d6f5d
+msgid "Run PowerShell as Administrator"
+msgstr "Ejecute PowerShell como administrador"
+
+#: ../../../docs/installation.md:382 abc5937fd39844199cd171c28ea0e4ea
+msgid "Execute: `Set-ExecutionPolicy RemoteSigned`"
+msgstr "Ejecutar: `Set-ExecutionPolicy RemoteSigned`"
+
+#: ../../../docs/installation.md:383 57a38a9dc4c14727a50d3271e542834e
+msgid "Try activating again"
+msgstr "Intenta activar de nuevo"
+
+#: ../../../docs/installation.md:385 c50f373b029e4bd6a06bd99f7536e1a9
+msgid "**Solution macOS/Linux**:"
+msgstr "**Solución macOS/Linux**:"
+
+#: ../../../docs/installation.md:386 717d5b3109a74910b3f32fa2f3f14339
+msgid "Ensure `.venv/bin/activate` exists"
+msgstr "Asegúrese de que exista `.venv/bin/activate`"
+
+#: ../../../docs/installation.md:387 c8ab21bb03cd484198dd5fe04a7a84c3
+msgid "Check Python installation: `python3 --version`"
+msgstr "Verifique la instalación de Python: `python3 --version`"
+
+#: ../../../docs/installation.md:389 216eb5fb0fb04c5eb6220fed46c72936
+msgid "Git Clone Fails"
+msgstr "El clon de Git falla"
+
+#: ../../../docs/installation.md:391 61bd065c13b64f3c9eb278ca303a9f5e
+msgid "**Error**: `fatal: unable to access 'https://github.com/...'`"
+msgstr "**Error**: `fatal: no se puede acceder a 'https://github.com/...'`"
+
+#: ../../../docs/installation.md:394 f3e0d436085640808685dfebe29a0e64
+msgid "Check internet connection."
+msgstr "Verifique la conexión a Internet."
+
+#: ../../../docs/installation.md:395 d239f73c64d2465fa118b622b3051bb2
+msgid "Verify Git is installed: `git --version`."
+msgstr "Verifique que Git esté instalado: `git --version`."
+
+#: ../../../docs/installation.md:396 e2687c6d74e24cb390af48852c6ffe68
+msgid "Try using HTTPS instead of SSH or vice versa."
+msgstr "Intente utilizar HTTPS en lugar de SSH o viceversa."
+
+#: ../../../docs/installation.md:398 1a42316231624452bb7648deb6a5d703
+msgid "Uninstalling RegressionLab"
+msgstr "Desinstalación de RegressionLab"
+
+#: ../../../docs/installation.md:400 90eda63642a240e28e0716f673aee100
+msgid "To remove RegressionLab from your system:"
+msgstr "Para eliminar RegressionLab de su sistema:"
+
+#: ../../../docs/installation.md:402 8226b6c0b39b4b76b6063004cd96b09f
+msgid "Delete the RegressionLab folder."
+msgstr "Elimine la carpeta RegressionLab."
+
+#: ../../../docs/installation.md:403 9894758bdb5e45f28ffeeeee872c55d2
+msgid "Delete the desktop shortcut (if created)."
+msgstr "Elimine el acceso directo del escritorio (si se creó)."
+
+#: ../../../docs/installation.md:404 cd91726eea1e4edd9690512cda10433a
+msgid "Remove the virtual environment (if created separately)."
+msgstr "Elimine el entorno virtual (si se crea por separado)."
+
+#: ../../../docs/installation.md:416 b3d90bc74a4243fb9ae3de25803d5b49
+msgid "Next Steps"
+msgstr "Próximos pasos"
+
+#: ../../../docs/installation.md:418 2b78ba5c207f4e53937af467176aaa9d
+msgid "Now that RegressionLab is installed:"
+msgstr "Ahora que RegressionLab está instalado:"
+
+#: ../../../docs/installation.md:420 4e363d9ed5344761afbc259f22f7f296
+msgid ""
+"**Configure**: Customize your settings in the [Configuration "
+"Guide](configuration.md)."
+msgstr ""
+"**Configurar**: personalice sus ajustes en la [Guía de configuración] "
+"(configuration.md)."
+
+#: ../../../docs/installation.md:421 754a7efe035a421bae001c4da3d2cd78
+msgid ""
+"**Learn**: Read the [User Guide](usage.md) to understand how to use "
+"RegressionLab."
+msgstr ""
+"**Aprenda**: lea la [Guía del usuario](usage.md) para comprender cómo "
+"utilizar RegressionLab."
+
+#: ../../../docs/installation.md:422 0d00fb81dd0c40b495c3ece30f4ea58c
+msgid ""
+"**Explore**: Try the different operation modes with sample datasets in the "
+"`input/` folder."
+msgstr ""
+"**Explorar**: Pruebe los diferentes modos de operación con conjuntos de "
+"datos de muestra en la carpeta `input/`."
+
+#: ../../../docs/installation.md:426 9c4b1d12942147268e1e1b7f03ae6284
+msgid ""
+"*Having issues? Check the [Troubleshooting Guide](troubleshooting.md) or "
+"open an issue on GitHub.*"
+msgstr ""
+"*¿Tienes problemas? Consulte la [Guía de solución de problemas] "
+"(troubleshooting.md) o abra un problema en GitHub.*"

@@ -1,0 +1,2022 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Alejandro Mata Ali
+# This file is distributed under the same license as the RegressionLab
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: RegressionLab 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-13 19:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: es <LL@li.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../../docs/tkinter-guide.md:1 689ad86d2e5b49fab9f8c25de735cf66
+msgid "Tkinter Guide"
+msgstr "Guía de Tkinter"
+
+#: ../../../docs/tkinter-guide.md:3 3f30361bcd28465894636fce4d11be6e
+msgid ""
+"This guide covers the desktop application interface of RegressionLab built "
+"with Tkinter. The Tkinter version provides a full-featured native "
+"application experience with advanced options and offline capabilities."
+msgstr ""
+"Esta guía cubre la interfaz de la aplicación de escritorio de RegressionLab "
+"creada con Tkinter. La versión de Tkinter proporciona una experiencia de "
+"aplicación nativa con todas las funciones, opciones avanzadas y capacidades "
+"fuera de línea."
+
+#: ../../../docs/tkinter-guide.md:5 001a045879334d2693a028451a7d8f68
+msgid "Overview"
+msgstr "Descripción general"
+
+#: ../../../docs/tkinter-guide.md:7 83a595bfc4fc40db89ccf1a89077a361
+msgid "The Tkinter interface offers:"
+msgstr "La interfaz de Tkinter ofrece:"
+
+#: ../../../docs/tkinter-guide.md:8 4771cb93932542069508291758fc3ce0
+msgid "**Native Performance**: Fast, responsive desktop application."
+msgstr "**Rendimiento nativo**: aplicación de escritorio rápida y responsiva."
+
+#: ../../../docs/tkinter-guide.md:9 410e8adf0d894436b12cc3a3cce25694
+msgid "**Offline Operation**: No internet connection required."
+msgstr "**Operación sin conexión**: No se requiere conexión a Internet."
+
+#: ../../../docs/tkinter-guide.md:10 97f8e81448c34ce0bb675981032c9f94
+msgid ""
+"**Advanced Features**: Loop mode, direct file browsing, extensive "
+"customization."
+msgstr ""
+"**Funciones avanzadas**: modo de bucle, exploración directa de archivos, "
+"amplia personalización."
+
+#: ../../../docs/tkinter-guide.md:11 12a301dc4aa5439b8d8d1c3816637860
+msgid "**Traditional UI**: Familiar desktop application layout."
+msgstr "**IU tradicional**: diseño familiar de la aplicación de escritorio."
+
+#: ../../../docs/tkinter-guide.md:12 13fb207c81604122a59dbb74ad70c94d
+msgid "**Full Control**: Access to all configuration options."
+msgstr "**Control total**: Acceso a todas las opciones de configuración."
+
+#: ../../../docs/tkinter-guide.md:14 896dd122b2654cb399b41248ec1ea63a
+msgid "Launching the Application"
+msgstr "Lanzando la aplicación"
+
+#: ../../../docs/tkinter-guide.md:16 92fa5640db9841438d93a51843a32731
+msgid "Method 1: Desktop Shortcut"
+msgstr "Método 1: acceso directo al escritorio"
+
+#: ../../../docs/tkinter-guide.md:18 5aee03e432564b88a6b415d55bb12d53
+msgid "Double-click the \"RegressionLab\" shortcut created during installation."
+msgstr ""
+"Haga doble clic en el acceso directo \"RegressionLab\" creado durante la "
+"instalación."
+
+#: ../../../docs/tkinter-guide.md:20 cc918322d489484696b296c241eb94e8
+msgid ""
+"![Desktop Shortcut](../images/en_documentation/tkinter_docs/shortcut.png)"
+msgstr ""
+"![Atajo de escritorio](../images/en_documentation/tkinter_docs/shortcut.png)"
+
+#: ../../../docs/tkinter-guide.md:20 4f48a697bf264ba682a3c02a6bdc1d1f
+msgid "Desktop Shortcut"
+msgstr "Acceso directo al escritorio"
+
+#: ../../../docs/tkinter-guide.md:22 8b12d91456ac4bba866db173b2f7d2dd
+msgid "Method 2: Shell Scripts"
+msgstr "Método 2: scripts de Shell"
+
+#: ../../../docs/tkinter-guide.md:24 3511870849fc4b70a0d77b0c64ecf500
+msgid "**Windows:**"
+msgstr "**Windows:**"
+
+#: ../../../docs/tkinter-guide.md:29 b9604f8d69094edbb60baedb8a146aeb
+msgid "**macOS/Linux:**"
+msgstr "**macOS/Linux:**"
+
+#: ../../../docs/tkinter-guide.md:34 889d8d72ce1f4976b33b217c18fed53a
+msgid "Method 3: Direct Python Execution"
+msgstr "Método 3: ejecución directa de Python"
+
+#: ../../../docs/tkinter-guide.md:45 e1c07b16a68a46d2b6b944032cb24fb1
+msgid "Interface Layout"
+msgstr "Diseño de interfaz"
+
+#: ../../../docs/tkinter-guide.md:47 5796478578324ba7b652de3204b1af9e
+msgid "The Tkinter application uses a menu-based navigation system:"
+msgstr ""
+"La aplicación Tkinter utiliza un sistema de navegación basado en menús:"
+
+#: ../../../docs/tkinter-guide.md:49 569cc6209cd34f1a8aabf7da8d5bc869
+msgid "Main Menu Window"
+msgstr "Ventana del menú principal"
+
+#: ../../../docs/tkinter-guide.md:51 718df0c3736a4f2ea65ec311fe7a4669
+msgid ""
+"When you launch the application, you see the main menu with buttons for each"
+" operation mode:"
+msgstr ""
+"Cuando inicia la aplicación, ve el menú principal con botones para cada modo"
+" de operación:"
+
+#: ../../../docs/tkinter-guide.md:53 2cfa52910882409dbeb8c3bc6d71b993
+msgid "![Main Menu](../images/en_documentation/tkinter_docs/main.png)"
+msgstr "![Menú principal](../images/en_documentation/tkinter_docs/main.png)"
+
+#: ../../../docs/tkinter-guide.md:53 d9834f121b0d4dcba8996d8aec2b250c
+msgid "Main Menu"
+msgstr "Menú principal"
+
+#: ../../../docs/tkinter-guide.md:73 a66a862c776a45b28ec2e6a97a033bcc
+msgid ""
+"**Button colors and layout**: Configurable via `.env` or the **Configure** "
+"dialog."
+msgstr ""
+"**Colores y diseño de los botones**: Configurable a través de `.env` o el "
+"cuadro de diálogo **Configurar**."
+
+#: ../../../docs/tkinter-guide.md:74 a67b0814372a49e19ef06fb9d208d382
+msgid "**Window size**: Adapts to content."
+msgstr "**Tamaño de ventana**: Se adapta al contenido."
+
+#: ../../../docs/tkinter-guide.md:75 e513067a34af4109bb42818930c7f6f6
+msgid ""
+"**Information**: Opens the help dialog (objective, advantages, modes, data "
+"format, locations, statistics; optional Donations button)."
+msgstr ""
+"**Información**: Abre el cuadro de diálogo de ayuda (objetivo, ventajas, "
+"modos, formato de datos, ubicaciones, estadísticas; botón opcional "
+"Donaciones)."
+
+#: ../../../docs/tkinter-guide.md:76 f4e6066185274906a530599b66e4692e
+msgid ""
+"**Configure**: Opens the configuration dialog; saving writes `.env` and "
+"restarts the application."
+msgstr ""
+"**Configurar**: Abre el cuadro de diálogo de configuración; guardar escribe "
+"`.env` y reinicia la aplicación."
+
+#: ../../../docs/tkinter-guide.md:78 4344c7d3da8840ffb31d69ac14e9ea16
+msgid "Language"
+msgstr "Idioma"
+
+#: ../../../docs/tkinter-guide.md:80 63aa7fd133af409e940a76c2b71a1508
+msgid ""
+"The language is set in the `.env` file or in the **Configure** dialog "
+"(Language section):"
+msgstr ""
+"El idioma se establece en el archivo `.env` o en el cuadro de diálogo "
+"**Configurar** (sección Idioma):"
+
+#: ../../../docs/tkinter-guide.md:88 48ec0c067b244eee905255756ed13856
+msgid ""
+"You can also use aliases (e.g. `spanish`, `english`, `deutsch`). Change "
+"requires restarting the application."
+msgstr ""
+"También puedes utilizar alias (por ejemplo, `español`, `inglés`, `deutsch`)."
+" El cambio requiere reiniciar la aplicación."
+
+#: ../../../docs/tkinter-guide.md:90 d274e79fa13948abba1fccd7e40bd332
+msgid "Operation Modes"
+msgstr "Modos de operación"
+
+#: ../../../docs/tkinter-guide.md:92 22205ce26c634ed695bf8b46f39e5b01
+msgid "Mode 1: Normal Fitting"
+msgstr "Modo 1: Ajuste normal"
+
+#: ../../../docs/tkinter-guide.md:94 82fe271f8511409dae2fadf5cbdeb2ef
+msgid "**Purpose**: Fit one equation to one dataset with optional loop mode."
+msgstr ""
+"**Propósito**: Ajustar una ecuación a un conjunto de datos con el modo de "
+"bucle opcional."
+
+#: ../../../docs/tkinter-guide.md:96 ../../../docs/tkinter-guide.md:213
+#: ../../../docs/tkinter-guide.md:274 ../../../docs/tkinter-guide.md:323
+#: ../../../docs/tkinter-guide.md:369 ../../../docs/tkinter-guide.md:413
+#: ../../../docs/tkinter-guide.md:429 2fa077aa3d0147f8a1b8de39f28051cc
+#: 3214ed459ce84cf79e75c635b729e7f6 322a0403ea234804b06ee1f9174f7646
+#: 52ada04c80574c4bb33ae8ab4f9c6a9b 8b698f22de924844be99f6fc66fbe6ec
+#: 957e3b79be5245458c3278656e6e23ab f1e797a9a66047388b7650a515d66401
+msgid "**Steps**:"
+msgstr "**Pasos**:"
+
+#: ../../../docs/tkinter-guide.md:98 88124ed0e1144703ab847accb6c4de29
+msgid "**Click \"Normal Fitting\"** from the main menu."
+msgstr "**Haga clic en \"Ajuste normal\"** en el menú principal."
+
+#: ../../../docs/tkinter-guide.md:100 332b9f2cc9654d7eb791c25f93d23726
+msgid "**Select Equation Type**:"
+msgstr "**Seleccione tipo de ecuación**:"
+
+#: ../../../docs/tkinter-guide.md:101 710d392d8f1145c7942ccffa180aeae4
+msgid ""
+"Dialog appears with dropdown menu. ![Equation "
+"Selector](../images/en_documentation/tkinter_docs/equations.png)"
+msgstr ""
+"Aparece un cuadro de diálogo con un menú desplegable. ![Selector de "
+"ecuaciones](../images/en_documentation/tkinter_docs/equations.png)"
+
+#: ../../../docs/tkinter-guide.md:101 b92a116ef09c4a52a7e432f10342293d
+msgid "Equation Selector"
+msgstr "Selector de ecuaciones"
+
+#: ../../../docs/tkinter-guide.md:103 adaa32b80092426c864fa4c14f1d245c
+msgid "Choose from predefined equations:"
+msgstr "Elija entre ecuaciones predefinidas:"
+
+#: ../../../docs/tkinter-guide.md:104 82879e66860a42ef994698b3c7a6e19a
+msgid "Linear (y=mx)"
+msgstr "Lineal (y=mx)"
+
+#: ../../../docs/tkinter-guide.md:105 378fdefa6a8e4ee7b2fdc26d0ecef95d
+msgid "Linear with intercept (y=mx+n)"
+msgstr "Lineal con intersección (y=mx+n)"
+
+#: ../../../docs/tkinter-guide.md:106 0830f9089de44aabb001b9006e1a047a
+msgid "Quadratic (y=ax²)"
+msgstr "Cuadrática (y=ax²)"
+
+#: ../../../docs/tkinter-guide.md:107 8224bb4f419b423e9ef821380299b540
+msgid "Quadratic complete (y=cx²+bx+a)"
+msgstr "Cuadrática completa (y=cx²+bx+a)"
+
+#: ../../../docs/tkinter-guide.md:108 a9e4b2089d89431b8417ff47c168623b
+msgid "Fourth power (y=ax⁴)"
+msgstr "Cuarta potencia (y=ax⁴)"
+
+#: ../../../docs/tkinter-guide.md:109 6739b456892d43bcabcc22575c1abfff
+msgid "Sin, Cos (with and without phase)"
+msgstr "Sin, Cos (con y sin fase)"
+
+#: ../../../docs/tkinter-guide.md:110 1ebd702f6ac84019bd465d81317c4c32
+msgid "Sinh, Cosh"
+msgstr "Sinh, Cosh"
+
+#: ../../../docs/tkinter-guide.md:111 39a20194fc92427799d284ceca57fe20
+msgid "Logarithmic (y=a·ln(x))"
+msgstr "Logarítmico (y=a·ln(x))"
+
+#: ../../../docs/tkinter-guide.md:112 a9e64b6fb1364496b9e3e9c12622a8de
+msgid "Inverse (y=a/x)"
+msgstr "Inversa (y=a/x)"
+
+#: ../../../docs/tkinter-guide.md:113 0b7087bde9bb46c0a74c1895297f1697
+msgid "Inverse square (y=a/x²)"
+msgstr "Cuadrado inverso (y=a/x²)"
+
+#: ../../../docs/tkinter-guide.md:114 e118e680c2454745ad619a709d1bb7da
+msgid "Or select \"Custom Formula\" (see below)."
+msgstr "O seleccione \"Fórmula personalizada\" (ver más abajo)."
+
+#: ../../../docs/tkinter-guide.md:115 f558e5593dd24612b18ef20e1af8c42f
+msgid "Click \"Accept\" or press Enter."
+msgstr "Haga clic en \"Aceptar\" o presione Entrar."
+
+#: ../../../docs/tkinter-guide.md:117 ../../../docs/tkinter-guide.md:224
+#: 93163bc3d22d48c6964bbd58b9d6f2ed ac95acc5ad1c401eb5f98ff85e5757c9
+msgid "**Enable/Disable Loop Mode**:"
+msgstr "**Activar/desactivar el modo de bucle**:"
+
+#: ../../../docs/tkinter-guide.md:118 6894f6933e1e4865aa15ea76935a7fdb
+msgid "Dialog asks: \"Do you want to enable loop mode?\""
+msgstr "El cuadro de diálogo pregunta: \"¿Quieres habilitar el modo de bucle?\""
+
+#: ../../../docs/tkinter-guide.md:119 d12d60a609f74475912d4350933b323e
+msgid "**Yes**: After fitting, you can modify data and refit."
+msgstr ""
+"**Sí**: Después del montaje, puedes modificar los datos y volver a montar."
+
+#: ../../../docs/tkinter-guide.md:120 d0f74b82f5004e87b194ddaebb28c96f
+msgid "**No**: Single fit, then return to main menu."
+msgstr "**No**: Ajuste único, luego regrese al menú principal."
+
+#: ../../../docs/tkinter-guide.md:121 6387305d5c3f4a1197a95c319870436b
+msgid "Loop mode recommended for iterative data refinement."
+msgstr ""
+"Se recomienda el modo de bucle para el refinamiento de datos iterativos."
+
+#: ../../../docs/tkinter-guide.md:123 628267d1d8b541559d907093334f4dfa
+msgid "**Select Data File**:"
+msgstr "**Seleccione archivo de datos**:"
+
+#: ../../../docs/tkinter-guide.md:124 c245899cb71d4967a97ee0e360909a25
+msgid ""
+"Native file picker opens. ![File "
+"Selection](../images/en_documentation/tkinter_docs/files.png)"
+msgstr ""
+"Se abre el selector de archivos nativo. ![Selección de "
+"archivo](../images/en_documentation/tkinter_docs/files.png)"
+
+#: ../../../docs/tkinter-guide.md:124 d79d34ffe0b847a5904ca13540515182
+msgid "File Selection"
+msgstr "Selección de archivos"
+
+#: ../../../docs/tkinter-guide.md:126 01989a35cd0b414985eb987bbcb258d2
+msgid ""
+"Default filter: all data files (CSV, TXT, XLSX). You can also filter by "
+"type."
+msgstr ""
+"Filtro predeterminado: todos los archivos de datos (CSV, TXT, XLSX). También"
+" puedes filtrar por tipo."
+
+#: ../../../docs/tkinter-guide.md:127 12f611654294463ab738ba4fadf15ddb
+msgid "Default location: `input/` directory."
+msgstr "Ubicación predeterminada: directorio `input/`."
+
+#: ../../../docs/tkinter-guide.md:128 8d78533c40a047299f31bb3235858e25
+msgid "Navigate to your data file and click \"Open\"."
+msgstr "Navegue hasta su archivo de datos y haga clic en \"Abrir\"."
+
+#: ../../../docs/tkinter-guide.md:130 da8ad49f8b204aca97d6bbd597018b29
+msgid "**Select Variables**:"
+msgstr "**Seleccionar variables**:"
+
+#: ../../../docs/tkinter-guide.md:131 06302f59132c4c4c821c34b2911efaee
+msgid ""
+"Dialog shows available columns. ![Variable "
+"Selection](../images/en_documentation/tkinter_docs/names.png)"
+msgstr ""
+"El cuadro de diálogo muestra las columnas disponibles. ![Selección de "
+"variables](../images/en_documentation/tkinter_docs/names.png)"
+
+#: ../../../docs/tkinter-guide.md:131 33f93cf609fd45ca80114d168e77184f
+msgid "Variable Selection"
+msgstr "Selección de variables"
+
+#: ../../../docs/tkinter-guide.md:133 a65174c9a8cd4528aa3bed3733eff6c1
+msgid "**Select X (independent variable)**:"
+msgstr "**Seleccione X (variable independiente)**:"
+
+#: ../../../docs/tkinter-guide.md:134 7fb9f9f4ad74490b88e7fb31db17ea4d
+msgid "Dropdown with all non-uncertainty columns."
+msgstr "Desplegable con todas las columnas sin incertidumbre."
+
+#: ../../../docs/tkinter-guide.md:135 7bee0cbacb7740b1a427718722df1c40
+msgid "Example: \"time\", \"voltage\", \"concentration\"."
+msgstr "Ejemplo: \"tiempo\", \"voltaje\", \"concentración\"."
+
+#: ../../../docs/tkinter-guide.md:136 01353566f6d845c4a90807664dc435c2
+msgid ""
+"**Multidimensional (custom formulas only)**: If the equation has 2+ "
+"independent variables, a dialog asks you to select multiple X columns (e.g. "
+"first X, second X, etc.)."
+msgstr ""
+"**Multidimensional (solo fórmulas personalizadas)**: si la ecuación tiene "
+"más de 2 variables independientes, un cuadro de diálogo le pide que "
+"seleccione varias columnas X (por ejemplo, primera X, segunda X, etc.)."
+
+#: ../../../docs/tkinter-guide.md:137 d7d2b430e8a7407aad2f4bf6486f1d5b
+msgid "**Select Y (dependent variable)**:"
+msgstr "**Seleccione Y (variable dependiente)**:"
+
+#: ../../../docs/tkinter-guide.md:138 484c6de483d04dcbb5435c6e52b070f4
+msgid "Dropdown with remaining columns."
+msgstr "Desplegable con las columnas restantes."
+
+#: ../../../docs/tkinter-guide.md:139 444c66bfccbc41238b240969bd6ed96f
+msgid "Example: \"temperature\", \"current\", \"absorbance\"."
+msgstr "Ejemplo: \"temperatura\", \"corriente\", \"absorbancia\"."
+
+#: ../../../docs/tkinter-guide.md:140 df8b8dd9c0c6445f8ce385717bf48070
+msgid "**Enter Plot Name**:"
+msgstr "**Ingrese el nombre de la trama**:"
+
+#: ../../../docs/tkinter-guide.md:141 c5e904afd5f247f180816090e2aa288b
+msgid "Text field for output filename."
+msgstr "Campo de texto para el nombre del archivo de salida."
+
+#: ../../../docs/tkinter-guide.md:142 43e0eecd7a30458aa492aa417702ce0a
+msgid "Default: based on variable names."
+msgstr "Predeterminado: basado en nombres de variables."
+
+#: ../../../docs/tkinter-guide.md:143 21827540ef72401c9df4a6eeba3818b3
+msgid "Example: \"experiment_2026\"."
+msgstr "Ejemplo: \"experimento_2026\"."
+
+#: ../../../docs/tkinter-guide.md:144 ../../../docs/tkinter-guide.md:171
+#: ../../../docs/tkinter-guide.md:189 ../../../docs/tkinter-guide.md:222
+#: ../../../docs/tkinter-guide.md:287 ../../../docs/tkinter-guide.md:457
+#: ../../../docs/tkinter-guide.md:462 4925152b3f3a4a66b00a079dfe4f03d7
+#: 8e8566ac20034e58a0a638521da43042 a1a743ffa1d94c4995e382a78c0dc026
+#: b83e0964cf9b473eade4ed71491f2feb cc2bd3c792814e4f8919914a98588d55
+#: e8b9642612e34d83865584a594484e87 ec24f43287ae4c46a025fb3cacf76142
+msgid "Click \"Accept\"."
+msgstr "Haga clic en \"Aceptar\"."
+
+#: ../../../docs/tkinter-guide.md:146 ae523dd130334ed69f81aa2b0ace1de4
+msgid "**View Results**:"
+msgstr "**Ver resultados**:"
+
+#: ../../../docs/tkinter-guide.md:147 a6f36ab27476476786bb25147acc33e8
+msgid ""
+"New window opens showing: ![Results "
+"Window](../images/en_documentation/tkinter_docs/result.png)"
+msgstr ""
+"Se abre una nueva ventana que muestra: ![Ventana de "
+"resultados](../images/en_documentation/tkinter_docs/result.png)"
+
+#: ../../../docs/tkinter-guide.md:147 fff0493318d54930bcfe369e36e54394
+msgid "Results Window"
+msgstr "Ventana de resultados"
+
+#: ../../../docs/tkinter-guide.md:149 2a6d4813872a4192883a04311a6ba124
+msgid ""
+"**Plot**: Your data with fitted curve. For 2 independent variables: "
+"interactive 3D plot (rotatable with mouse). For 3+ variables: residuals "
+"plot."
+msgstr ""
+"**Gráfico**: Tus datos con curva ajustada. Para 2 variables independientes: "
+"gráfico 3D interactivo (giratorio con el ratón). Para más de 3 variables: "
+"gráfico de residuos."
+
+#: ../../../docs/tkinter-guide.md:150 c995591340064b6ebea4768b1c00789f
+msgid "**Equation**: Mathematical formula with parameters."
+msgstr "**Ecuación**: Fórmula matemática con parámetros."
+
+#: ../../../docs/tkinter-guide.md:151 8ff8bbf9dc1e4ad2856b6a52381464f9
+msgid "**Parameters**: Values with uncertainties."
+msgstr "**Parámetros**: Valores con incertidumbres."
+
+#: ../../../docs/tkinter-guide.md:152 b4fd5c80b2ff48b4a292bad42e0aeecc
+msgid "**R² Value**: Goodness of fit."
+msgstr "**Valor R²**: Bondad de ajuste."
+
+#: ../../../docs/tkinter-guide.md:153 d7d5719447a84c2a9d2a0958a71b92f1
+msgid ""
+"**Prediction** button: Opens a dialog to evaluate the fitted function at "
+"user-specified x values; shows predicted y with uncertainty propagation when"
+" available."
+msgstr ""
+"Botón **Predicción**: abre un cuadro de diálogo para evaluar la función "
+"ajustada en valores x especificados por el usuario; muestra la y predicha "
+"con propagación de la incertidumbre cuando esté disponible."
+
+#: ../../../docs/tkinter-guide.md:154 38e82cd1fb024518b974dcd455652bae
+msgid "Plot automatically saved to `output/` directory."
+msgstr "El trazado se guarda automáticamente en el directorio `output/`."
+
+#: ../../../docs/tkinter-guide.md:156 ../../../docs/tkinter-guide.md:238
+#: 1623249afdc340028ba899f5376cc19f abdfcee5014b45a5aca69fee5fcf1e9b
+msgid "**Loop Mode** (if enabled):"
+msgstr "**Modo de bucle** (si está habilitado):"
+
+#: ../../../docs/tkinter-guide.md:157 3e08fd7f5e5b4a60ab6250ebe6a0755a
+msgid "After viewing results, dialog asks: \"Continue with this dataset?\""
+msgstr ""
+"Después de ver los resultados, el cuadro de diálogo pregunta: \"¿Continuar "
+"con este conjunto de datos?\""
+
+#: ../../../docs/tkinter-guide.md:158 466d4d37cf084040865cf2e0544d2bd6
+msgid "**Yes**:"
+msgstr "**Sí**:"
+
+#: ../../../docs/tkinter-guide.md:159 75c52fe963bf4b50be931d1796ad25d1
+msgid "Modify your data file (in Excel, text editor, etc.)."
+msgstr "Modifique su archivo de datos (en Excel, editor de texto, etc.)."
+
+#: ../../../docs/tkinter-guide.md:160 c2811f3903bf49419949b139aae0e7d5
+msgid "Click Yes to reload and refit."
+msgstr "Haga clic en Sí para recargar y volver a montar."
+
+#: ../../../docs/tkinter-guide.md:161 639f19fcc5394d348e7da111067cba6c
+msgid "Repeat as needed."
+msgstr "Repita según sea necesario."
+
+#: ../../../docs/tkinter-guide.md:162 ../../../docs/tkinter-guide.md:291
+#: 206e46fd94c1468e8a7b17096b4c31b5 a68a133851414ee0abb01d320ab3b91a
+msgid "**No**: Return to main menu."
+msgstr "**No**: Volver al menú principal."
+
+#: ../../../docs/tkinter-guide.md:164 1c1f94077db346fb8222110a0646e823
+msgid "**Custom Formula**:"
+msgstr "**Fórmula personalizada**:"
+
+#: ../../../docs/tkinter-guide.md:166 1fbaec338c8c4bbc8179789890b99846
+msgid "If you select \"Custom Formula\":"
+msgstr "Si selecciona \"Fórmula personalizada\":"
+
+#: ../../../docs/tkinter-guide.md:168 5f8d35433aff4d3dbbd5c6b2fba4d9ef
+msgid "**Number of Parameters**:"
+msgstr "**Número de parámetros**:"
+
+#: ../../../docs/tkinter-guide.md:169 ../../../docs/tkinter-guide.md:220
+#: 444d91ca6f7d4637ac05d2898c2d56e6 877c037f69844132b690f7bf2c5633cf
+msgid "Dialog with spinbox."
+msgstr "Diálogo con spinbox."
+
+#: ../../../docs/tkinter-guide.md:170 05e38bdf47ed4b09903bd2c06fd83bce
+msgid "Enter number of parameters (1-10)."
+msgstr "Introduzca el número de parámetros (1-10)."
+
+#: ../../../docs/tkinter-guide.md:173 5f1b8be364bd44a190b5ec125eff8669
+msgid "**Parameter Names**:"
+msgstr "**Nombres de parámetros**:"
+
+#: ../../../docs/tkinter-guide.md:174 acee2a7bd96449bdb93c655594b764db
+msgid ""
+"Dialog appears for each parameter. ![Parameter "
+"Names](../images/en_documentation/tkinter_docs/custom_name.png)"
+msgstr ""
+"Aparece un cuadro de diálogo para cada parámetro. ![Nombres de "
+"parámetros](../images/en_documentation/tkinter_docs/custom_name.png)"
+
+#: ../../../docs/tkinter-guide.md:174 57ca28b8b79e4738896bbc15fd83fa90
+msgid "Parameter Names"
+msgstr "Nombres de parámetros"
+
+#: ../../../docs/tkinter-guide.md:176 f7e42f5c7014476d82bc9fd656c98540
+msgid "Enter meaningful names (e.g., \"amplitude\", \"frequency\", \"phase\")."
+msgstr ""
+"Introduzca nombres significativos (por ejemplo, \"amplitud\", "
+"\"frecuencia\", \"fase\")."
+
+#: ../../../docs/tkinter-guide.md:177 653c12f742d7490c9e6a92bb92348709
+msgid "Or use defaults (p1, p2, etc.)."
+msgstr "O utilice los valores predeterminados (p1, p2, etc.)."
+
+#: ../../../docs/tkinter-guide.md:179 eac7ee3e00c1421ab733b574c900d592
+msgid "**Number of Independent Variables** (optional):"
+msgstr "**Número de variables independientes** (opcional):"
+
+#: ../../../docs/tkinter-guide.md:180 dac1fa54eb11493bb6c2b3fa70ae9c40
+msgid "Spinbox: 1 for standard y=f(x), 2+ for multidimensional regression."
+msgstr "Spinbox: 1 para y=f(x) estándar, 2+ para regresión multidimensional."
+
+#: ../../../docs/tkinter-guide.md:181 bebd86ad8e27449aae40f25d0191656c
+msgid "Use `x_0`, `x_1`, etc. in the formula for 2+ variables."
+msgstr "Utilice `x_0`, `x_1`, etc. en la fórmula para 2+ variables."
+
+#: ../../../docs/tkinter-guide.md:183 5f8e07a12b724e8294cc5eb30b1f91ec
+msgid "**Enter Formula**:"
+msgstr "**Ingrese la fórmula**:"
+
+#: ../../../docs/tkinter-guide.md:184 43e12251a2d24c2aa3eb59d9a7457175
+msgid ""
+"Text entry dialog. ![Custom Formula "
+"Entry](../images/en_documentation/tkinter_docs/custom_equation.png)"
+msgstr ""
+"Diálogo de entrada de texto. ![Entrada de fórmula "
+"personalizada](../images/en_documentation/tkinter_docs/custom_equation.png)"
+
+#: ../../../docs/tkinter-guide.md:184 4a2b8549346d49e48b8ff548e8b72c95
+msgid "Custom Formula Entry"
+msgstr "Entrada de fórmula personalizada"
+
+#: ../../../docs/tkinter-guide.md:186 5de2dfc569aa4922bfae54b921b08793
+msgid ""
+"Enter formula using parameter names and `x` (or `x_0`, `x_1` for "
+"multidimensional)."
+msgstr ""
+"Ingrese la fórmula usando nombres de parámetros y `x` (o `x_0`, `x_1` para "
+"multidimensional)."
+
+#: ../../../docs/tkinter-guide.md:187 eb14a28385ab43d58c0dc7e49924d2b9
+msgid "Example: `amplitude * sin(frequency * x + phase)`."
+msgstr "Ejemplo: `amplitud * sin(frecuencia * x + fase)`."
+
+#: ../../../docs/tkinter-guide.md:188 d99f7868a57c4fc7a97c54381803c8e0
+msgid "Example (2 variables): `a*x_0 + b*x_1 + c`."
+msgstr "Ejemplo (2 variables): `a*x_0 + b*x_1 + c`."
+
+#: ../../../docs/tkinter-guide.md:191 1fd186a692d54371bbd9e0c860a9645f
+msgid "Continue with steps 3-8 above."
+msgstr "Continúe con los pasos 3 a 8 anteriores."
+
+#: ../../../docs/tkinter-guide.md:193 ../../../docs/tkinter-guide.md:248
+#: ../../../docs/tkinter-guide.md:307 ../../../docs/tkinter-guide.md:348
+#: 5cde0c39615a49a4b89f3a3f6316d469 617809b851544ca3a938c7ae007b54e3
+#: cbd411f8743146d98370692ddefd7e4a decd21332c2742078cf5d030c2820312
+msgid "**Example Workflow**:"
+msgstr "**Flujo de trabajo de ejemplo**:"
+
+#: ../../../docs/tkinter-guide.md:209 d59c1d7c8ead4a3f9de5e68614cfcf4b
+msgid "Mode 2: Single Fit Multiple Datasets"
+msgstr "Modo 2: Ajuste único de múltiples conjuntos de datos"
+
+#: ../../../docs/tkinter-guide.md:211 c7aa42ce8e1f4227b46a8224b28c59f6
+msgid "**Purpose**: Apply the same equation to multiple different datasets."
+msgstr ""
+"**Propósito**: Aplicar la misma ecuación a varios conjuntos de datos "
+"diferentes."
+
+#: ../../../docs/tkinter-guide.md:215 68d5eaa1e2854993ac5313c73736cc98
+msgid "**Click \"Single Fit Multiple Datasets\"** from the main menu."
+msgstr ""
+"**Haga clic en \"Ajuste único de múltiples conjuntos de datos\"** en el menú"
+" principal."
+
+#: ../../../docs/tkinter-guide.md:217 d88b2765197f4e7ca8c4b1ff8c7d9d93
+msgid "**Select Equation Type**: (same as Normal Fitting)."
+msgstr "**Seleccione el tipo de ecuación**: (igual que el ajuste normal)."
+
+#: ../../../docs/tkinter-guide.md:219 562a5c7057a94bfe840526d67894c068
+msgid "**Enter Number of Datasets**:"
+msgstr "**Ingrese el número de conjuntos de datos**:"
+
+#: ../../../docs/tkinter-guide.md:221 d6b7e4066fbb4712a3b112fa84b66878
+msgid "Enter how many datasets you want to fit (2-99)."
+msgstr "Ingrese cuántos conjuntos de datos desea ajustar (2-99)."
+
+#: ../../../docs/tkinter-guide.md:225 a897781edf034b2abf95d5af8ab67f21
+msgid "Asked once for all datasets."
+msgstr "Preguntado una vez para todos los conjuntos de datos."
+
+#: ../../../docs/tkinter-guide.md:227 9a4e54210d3046ad95ca5ddfaa3e85aa
+msgid "**For Each Dataset**:"
+msgstr "**Para cada conjunto de datos**:"
+
+#: ../../../docs/tkinter-guide.md:228 ../../../docs/tkinter-guide.md:279
+#: ../../../docs/tkinter-guide.md:328 7dda5184b7a843f4a1a9a3b5c2c37559
+#: b825f8b2bbe54c67951e61addc845c35 d7b231c2aac949079e6bbcf66e46d0d9
+msgid "Select file (native file picker)."
+msgstr "Seleccionar archivo (selector de archivos nativo)."
+
+#: ../../../docs/tkinter-guide.md:229 ../../../docs/tkinter-guide.md:280
+#: ../../../docs/tkinter-guide.md:329 689e99d894dd4074b00c49a85c78509e
+#: f0e7b1c6275e42c2ad7cde7c51132129 f8b01c95bca24467a72f986ab55335db
+msgid "Select X and Y variables."
+msgstr "Seleccione las variables X e Y."
+
+#: ../../../docs/tkinter-guide.md:230 ../../../docs/tkinter-guide.md:330
+#: 86bb6b8196b14d5b9189d222fc7fb3d5 c466be1edd0144cca992e4d36ea665dc
+msgid "Enter plot name."
+msgstr "Introduzca el nombre de la trama."
+
+#: ../../../docs/tkinter-guide.md:231 127b3e791adc4196abc06b8dc99c5ab2
+msgid "Repeat for all datasets."
+msgstr "Repita para todos los conjuntos de datos."
+
+#: ../../../docs/tkinter-guide.md:233 3cadd4464f1546439781699afb51c424
+msgid "**View All Results**:"
+msgstr "**Ver todos los resultados**:"
+
+#: ../../../docs/tkinter-guide.md:234 ab051a9bd90e4650a5d36d599a4c2223
+msgid "Results appear sequentially."
+msgstr "Los resultados aparecen secuencialmente."
+
+#: ../../../docs/tkinter-guide.md:235 d53f6735c8d84c348fb5d3d8e19639a8
+msgid "Each in its own window."
+msgstr "Cada uno en su propia ventana."
+
+#: ../../../docs/tkinter-guide.md:236 d203243f201c428caadd7e229bdc6ac0
+msgid "All plots saved automatically."
+msgstr "Todos los gráficos se guardan automáticamente."
+
+#: ../../../docs/tkinter-guide.md:239 59e625fa95d24e478c3a3b1fe9c22bdd
+msgid "After all fits, ask to continue with all datasets."
+msgstr ""
+"Después de que todos coincidan, solicite continuar con todos los conjuntos "
+"de datos."
+
+#: ../../../docs/tkinter-guide.md:240 7275a7b5f259453cbb2d048e24c4bbbd
+msgid "Modify any/all data files."
+msgstr "Modifique cualquiera o todos los archivos de datos."
+
+#: ../../../docs/tkinter-guide.md:241 4709b3e3e8a84623adb5776ba7cf5dbb
+msgid "Reload and refit all."
+msgstr "Vuelva a cargar y montar todo."
+
+#: ../../../docs/tkinter-guide.md:243 696c3a1a3629436a948f2652c2dafe42
+msgid "**Tips**:"
+msgstr "**Consejos**:"
+
+#: ../../../docs/tkinter-guide.md:244 185d2412c6674c2bb2a4b6cdb3dcdc11
+msgid "Prepare all data files beforehand."
+msgstr "Prepare todos los archivos de datos de antemano."
+
+#: ../../../docs/tkinter-guide.md:245 e55ef04ce8f741128c34244e140421ec
+msgid "Use consistent column names across files."
+msgstr "Utilice nombres de columnas coherentes en todos los archivos."
+
+#: ../../../docs/tkinter-guide.md:246 b8c76a0bb11543c99554d508fedefa89
+msgid "Keep file browser in same directory for faster selection."
+msgstr ""
+"Mantenga el explorador de archivos en el mismo directorio para una selección"
+" más rápida."
+
+#: ../../../docs/tkinter-guide.md:270 a38a2be79f6d4ab1a52fdac104bbff6c
+msgid "Mode 3: Checker Fitting (Multiple Fits Single Dataset)"
+msgstr ""
+"Modo 3: Ajuste corrector (conjunto de datos único de ajustes múltiples)"
+
+#: ../../../docs/tkinter-guide.md:272 59d92be11afe42178a7e6fc609d79d7d
+msgid "**Purpose**: Test multiple equations on the same dataset."
+msgstr ""
+"**Propósito**: Probar múltiples ecuaciones en el mismo conjunto de datos."
+
+#: ../../../docs/tkinter-guide.md:276 992b77bfa60b4b2bb9496cfbcfe6aeb6
+msgid "**Click \"Checker Fitting\"** from the main menu."
+msgstr "**Haga clic en \"Comprobador de ajuste\"** en el menú principal."
+
+#: ../../../docs/tkinter-guide.md:278 ../../../docs/tkinter-guide.md:327
+#: 06701cfcb24445c7b852751354a80e19 6946ac60662f42eab6c8a1df8d1421b1
+msgid "**Load Dataset**:"
+msgstr "**Cargar conjunto de datos**:"
+
+#: ../../../docs/tkinter-guide.md:281 057e01332aab42319c599cc0677ad772
+msgid "Enter plot name (used for all results)."
+msgstr "Ingrese el nombre de la parcela (usado para todos los resultados)."
+
+#: ../../../docs/tkinter-guide.md:283 be3a4a27f20e4bd2927b26d26f3a7897
+msgid "**Test Equations**:"
+msgstr "**Ecuaciones de prueba**:"
+
+#: ../../../docs/tkinter-guide.md:284 cccb5aabc1f7416cb6a59864f12fdf68
+msgid "For each equation you want to test:"
+msgstr "Para cada ecuación que quieras probar:"
+
+#: ../../../docs/tkinter-guide.md:285 e49414851ca6477fb3bbae41e083549c
+msgid "Dialog asks: \"Select equation type\"."
+msgstr "El cuadro de diálogo pregunta: \"Seleccione el tipo de ecuación\"."
+
+#: ../../../docs/tkinter-guide.md:286 0011caa17484451dba34b3686d791553
+msgid "Choose an equation."
+msgstr "Elige una ecuación."
+
+#: ../../../docs/tkinter-guide.md:288 50c78e2aae254f2f8465fb52700e4f34
+msgid "View results."
+msgstr "Ver resultados."
+
+#: ../../../docs/tkinter-guide.md:289 e724023a423d408cab25726811aa2b08
+msgid "Dialog asks: \"Do you want to continue testing?\""
+msgstr "El cuadro de diálogo pregunta: \"¿Quieres continuar con las pruebas?\""
+
+#: ../../../docs/tkinter-guide.md:290 9cd081a6e62246928caef481e7ece627
+msgid "**Yes**: Try another equation."
+msgstr "**Sí**: prueba con otra ecuación."
+
+#: ../../../docs/tkinter-guide.md:293 74a29d1878254928b0433ebe3b8d8db2
+msgid "**Compare Results**:"
+msgstr "**Comparar resultados**:"
+
+#: ../../../docs/tkinter-guide.md:294 188586568be641d0be6c9ed7c5ba5ccd
+msgid "Multiple result windows open."
+msgstr "Se abren varias ventanas de resultados."
+
+#: ../../../docs/tkinter-guide.md:295 7a7037c5dd0147c397568f013f0f62d1
+msgid "Compare R² values."
+msgstr "Compara los valores de R²."
+
+#: ../../../docs/tkinter-guide.md:296 28fc519e108e4c8594e5fb96f61e09e0
+msgid "Compare visual fit quality."
+msgstr "Compare la calidad del ajuste visual."
+
+#: ../../../docs/tkinter-guide.md:297 61ac9488978f4f8397183f17b9507f62
+msgid "Choose the best equation."
+msgstr "Elige la mejor ecuación."
+
+#: ../../../docs/tkinter-guide.md:299 dd50ab381b7443a4a4b655a6a64a73da
+msgid "**Workflow Strategy**:"
+msgstr "**Estrategia de flujo de trabajo**:"
+
+#: ../../../docs/tkinter-guide.md:319 a106ed0aed174e349c3ae81ed908bfdd
+msgid "Mode 4: Total Fitting"
+msgstr "Modo 4: Ajuste total"
+
+#: ../../../docs/tkinter-guide.md:321 d3a5d1e2279d4c9d811072f9f99f8547
+msgid "**Purpose**: Automatically fit ALL available equations."
+msgstr ""
+"**Propósito**: Ajustar automáticamente TODAS las ecuaciones disponibles."
+
+#: ../../../docs/tkinter-guide.md:325 276c398d943b43b7817804f302ee6ff1
+msgid "**Click \"Total Fitting\"** from the main menu."
+msgstr "**Haga clic en \"Ajuste total\"** en el menú principal."
+
+#: ../../../docs/tkinter-guide.md:332 fedc7111da54418e950c582bef345678
+msgid "**Automatic Fitting**:"
+msgstr "**Montaje automático**:"
+
+#: ../../../docs/tkinter-guide.md:333 7f5c1ed90fc04c34a12a07dcaefce0b5
+msgid "All predefined equations fitted automatically."
+msgstr "Todas las ecuaciones predefinidas se ajustan automáticamente."
+
+#: ../../../docs/tkinter-guide.md:334 ebfb4683ae574f30b8ce1e184decf022
+msgid "Result windows appear sequentially."
+msgstr "Las ventanas de resultados aparecen secuencialmente."
+
+#: ../../../docs/tkinter-guide.md:335 a38741bf5aa04817916f4e5bce08f7e2
+msgid "Takes 5-30 seconds depending on data size."
+msgstr "Tarda entre 5 y 30 segundos, según el tamaño de los datos."
+
+#: ../../../docs/tkinter-guide.md:337 2d72294ecb9149f98ff910db31b5cede
+msgid "**Review All Results**:"
+msgstr "**Revisar todos los resultados**:"
+
+#: ../../../docs/tkinter-guide.md:338 f2f0fea071b245678af0c014946c0b72
+msgid "Multiple windows with all fits."
+msgstr "Múltiples ventanas con todos los ajustes."
+
+#: ../../../docs/tkinter-guide.md:339 592f4cdc5c2b4c4ba68150108aeecdae
+msgid "Scan through to find highest R²."
+msgstr "Escanee para encontrar el R² más alto."
+
+#: ../../../docs/tkinter-guide.md:340 f5248c200c0d48a5ba0229a2f441f3e4
+msgid "Choose the best-fitting equation."
+msgstr "Elija la ecuación que mejor se ajuste."
+
+#: ../../../docs/tkinter-guide.md:342 ../../../docs/tkinter-guide.md:401
+#: 8baa1a8cc1ce42aa89d989272e0355fd f09695c5268741acb1045b57a8523958
+msgid "**Use Cases**:"
+msgstr "**Casos de uso**:"
+
+#: ../../../docs/tkinter-guide.md:343 2d0d3cf603c24d05b02e81b57ea16b43
+msgid "Comprehensive analysis."
+msgstr "Análisis integral."
+
+#: ../../../docs/tkinter-guide.md:344 dec633113a034e24b83c03a85f23405a
+msgid "Educational demonstrations."
+msgstr "Demostraciones educativas."
+
+#: ../../../docs/tkinter-guide.md:345 c0379d327d6c42ff92784b2f1b9c651a
+msgid "When you have no idea what equation to expect."
+msgstr "Cuando no tienes idea de qué ecuación esperar."
+
+#: ../../../docs/tkinter-guide.md:346 ef2ab293899f4696b0810e3205b5b6c5
+msgid "Creating a fitting report with all options."
+msgstr "Creando un informe adecuado con todas las opciones."
+
+#: ../../../docs/tkinter-guide.md:365 2ee4c1b0bd1d48178cc6bb062e59f436
+msgid "Mode 5: Watch Data"
+msgstr "Modo 5: Ver datos"
+
+#: ../../../docs/tkinter-guide.md:367 c4ccf3fc2cfe4e32b00f22cecc1d7f41
+msgid ""
+"**Purpose**: View data file contents without fitting. Includes transform, "
+"clean, and save options."
+msgstr ""
+"**Propósito**: Ver el contenido del archivo de datos sin ajustarlo. Incluye "
+"opciones de transformar, limpiar y guardar."
+
+#: ../../../docs/tkinter-guide.md:371 533fe4aa27264596883d391df5fa0c98
+msgid "**Click \"Watch Data\"** from the main menu."
+msgstr "**Haga clic en \"Ver datos\"** en el menú principal."
+
+#: ../../../docs/tkinter-guide.md:373 212d249371344f1cb9dd2b43814eceb9
+msgid "**Select File**:"
+msgstr "**Seleccione Archivo**:"
+
+#: ../../../docs/tkinter-guide.md:374 b1e809e4bdbc4dabb640dc2506e8ac25
+msgid ""
+"Native file picker opens (default filter: all data files). Browse and select"
+" a CSV, TXT, or XLSX file."
+msgstr ""
+"Se abre el selector de archivos nativo (filtro predeterminado: todos los "
+"archivos de datos). Busque y seleccione un archivo CSV, TXT o XLSX."
+
+#: ../../../docs/tkinter-guide.md:376 91d0da4faa2b4b759e2f9292a3068ef5
+msgid "**View Data**:"
+msgstr "**Ver datos**:"
+
+#: ../../../docs/tkinter-guide.md:378 a953fc8ac3d14ef8b0cf7bec50a9abf5
+msgid ""
+"![Data View](../images/en_documentation/tkinter_docs/variable_pair.png)"
+msgstr ""
+"![Vista de datos](../images/en_documentation/tkinter_docs/variable_pair.png)"
+
+#: ../../../docs/tkinter-guide.md:378 f40bb8a1457a42488ab3ea95e3dfa1d0
+msgid "Data View"
+msgstr "Vista de datos"
+
+#: ../../../docs/tkinter-guide.md:380 dc34648fa9e04f84b8a8c6845f3477f4
+msgid "Dialog shows:"
+msgstr "El diálogo muestra:"
+
+#: ../../../docs/tkinter-guide.md:381 88bde735e13545ca817db8e353f96e5d
+msgid "All columns and rows in table format."
+msgstr "Todas las columnas y filas en formato de tabla."
+
+#: ../../../docs/tkinter-guide.md:382 bdf616f353ee4169a4a19177fed8a960
+msgid ""
+"**Row 1**: Pair plots button | Save updated data | **Help** (opens a dialog "
+"with detailed info about every option and mode, in the current language)."
+msgstr ""
+"**Fila 1**: botón Emparejar gráficos | Guardar datos actualizados | "
+"**Ayuda** (abre un cuadro de diálogo con información detallada sobre cada "
+"opción y modo, en el idioma actual)."
+
+#: ../../../docs/tkinter-guide.md:383 0607668d28884f1f8a66e000ff0ea6dc
+msgid ""
+"**Row 2**: Transform dropdown | Transform button (same accent color as "
+"equation buttons)."
+msgstr ""
+"**Fila 2**: menú desplegable Transformar | Botón Transformar (mismo color de"
+" acento que los botones de ecuación)."
+
+#: ../../../docs/tkinter-guide.md:384 f252c2be12b7408ebb933c3bf4d244f0
+msgid ""
+"**Row 3**: Clean dropdown | Clean button (same accent color as equation "
+"buttons)."
+msgstr ""
+"**Fila 3**: Menú desplegable limpio | Botón Limpiar (mismo color de acento "
+"que los botones de ecuación)."
+
+#: ../../../docs/tkinter-guide.md:385 5e91ad27b69a423487b6ac2a288d84c1
+msgid "Use scrollbar to navigate the table."
+msgstr "Utilice la barra de desplazamiento para navegar por la tabla."
+
+#: ../../../docs/tkinter-guide.md:386 2a928c3adf4246d1ae9093883c3a15ec
+msgid ""
+"Click **Help** for a reference with collapsible sections (pair plots, "
+"transform options, clean options, save). Each transform and clean option has"
+" a detailed description. Available in Spanish, English, and German."
+msgstr ""
+"Haga clic en **Ayuda** para obtener una referencia con secciones plegables "
+"(emparejar gráficos, opciones de transformación, opciones de limpieza, "
+"guardar). Cada opción de transformación y limpieza tiene una descripción "
+"detallada. Disponible en español, inglés y alemán."
+
+#: ../../../docs/tkinter-guide.md:387 de043893bba94c49898af2b53e2d4c16
+msgid "Click **Accept** when done."
+msgstr "Haga clic en **Aceptar** cuando haya terminado."
+
+#: ../../../docs/tkinter-guide.md:389 3a9d04a7d68c447884eb273cc908fed9
+msgid "**Transform Data** (optional):"
+msgstr "**Transformar datos** (opcional):"
+
+#: ../../../docs/tkinter-guide.md:390 49c29b9b90ca4930bb8f31a7229096aa
+msgid ""
+"Select a transform from the dropdown: FFT, FFT magnitude, inverse FFT, DCT, "
+"inverse DCT, log, log10, exp, sqrt, square, standardize (z-score), or "
+"normalize [0,1]."
+msgstr ""
+"Seleccione una transformación del menú desplegable: FFT, magnitud FFT, FFT "
+"inversa, DCT, DCT inversa, log, log10, exp, sqrt, cuadrado, estandarizar "
+"(puntuación z) o normalizar [0,1]."
+
+#: ../../../docs/tkinter-guide.md:391 100e62e763104baea59328af147d5e85
+msgid "Click **Transform** to apply. The table updates immediately."
+msgstr ""
+"Haga clic en **Transformar** para aplicar. La tabla se actualiza "
+"inmediatamente."
+
+#: ../../../docs/tkinter-guide.md:392 65a7b2ea6e8b473ca6d9f1f9ecd2a1a3
+msgid "If the pair plots window is open, it updates automatically."
+msgstr ""
+"Si la ventana de gráficos de pares está abierta, se actualiza "
+"automáticamente."
+
+#: ../../../docs/tkinter-guide.md:394 fc75ea40b06f45e587656369e854b022
+msgid "**Clean Data** (optional):"
+msgstr "**Limpiar datos** (opcional):"
+
+#: ../../../docs/tkinter-guide.md:395 8f394c2e13f14443a5a9b0a19bd426a1
+msgid ""
+"Select a cleaning option: drop NaN rows, drop duplicates, fill NaN "
+"(mean/median/zero), or remove outliers (IQR or z-score)."
+msgstr ""
+"Seleccione una opción de limpieza: elimine filas de NaN, elimine duplicados,"
+" complete NaN (media/mediana/cero) o elimine valores atípicos (IQR o "
+"puntuación z)."
+
+#: ../../../docs/tkinter-guide.md:396 560bffb470ed446da0d90b61f5766681
+msgid "Click **Clean** to apply. The table updates immediately."
+msgstr ""
+"Haga clic en **Limpiar** para aplicar. La tabla se actualiza inmediatamente."
+
+#: ../../../docs/tkinter-guide.md:398 684dcf27fbeb4b64add0c483e396e34f
+msgid "**Save Updated Data** (optional):"
+msgstr "**Guardar datos actualizados** (opcional):"
+
+#: ../../../docs/tkinter-guide.md:399 e15f556b31d346eab7f54d31a75c6a67
+msgid ""
+"Click **Save updated data** to save the current (possibly "
+"transformed/cleaned) data to CSV, TXT, or XLSX."
+msgstr ""
+"Haga clic en **Guardar datos actualizados** para guardar los datos actuales "
+"(posiblemente transformados/limpiados) en CSV, TXT o XLSX."
+
+#: ../../../docs/tkinter-guide.md:402 d8e4589cae234929a777877d7aefc7d1
+msgid "Verify data loaded correctly."
+msgstr "Verifique los datos cargados correctamente."
+
+#: ../../../docs/tkinter-guide.md:403 8a2b4a583569403383d7aceb960a824d
+msgid "Check column names."
+msgstr "Verifique los nombres de las columnas."
+
+#: ../../../docs/tkinter-guide.md:404 fb9c745ec0bb47feaf6c6b1bad7e51e1
+msgid "Inspect data values."
+msgstr "Inspeccionar los valores de los datos."
+
+#: ../../../docs/tkinter-guide.md:405 69d5554406ba4e2ab25c9d912e8407c0
+msgid "Preview before fitting."
+msgstr "Vista previa antes del montaje."
+
+#: ../../../docs/tkinter-guide.md:406 6b743fd623d944cdb5ce094781295750
+msgid "Transform data (e.g. FFT, log) for analysis."
+msgstr "Transforme datos (por ejemplo, FFT, log) para su análisis."
+
+#: ../../../docs/tkinter-guide.md:407 b67de1161fad4c78984a475dd637bcf1
+msgid "Clean data (remove outliers, fill NaN) before fitting."
+msgstr ""
+"Limpie los datos (elimine los valores atípicos, complete NaN) antes de "
+"realizar el ajuste."
+
+#: ../../../docs/tkinter-guide.md:409 a32c8f832aa445f59bfe293131c1618d
+msgid "Mode 6: Information (Help)"
+msgstr "Modo 6: Información (Ayuda)"
+
+#: ../../../docs/tkinter-guide.md:411 f1dbf4f477eb470da3b28798a23f253d
+msgid "**Purpose**: View help and application information."
+msgstr "**Propósito**: Ver ayuda e información de la aplicación."
+
+#: ../../../docs/tkinter-guide.md:415 385acb84525347b2a4ae6a1b5f3da741
+msgid "**Click \"Information\"** from the main menu."
+msgstr "**Haga clic en \"Información\"** en el menú principal."
+
+#: ../../../docs/tkinter-guide.md:417 67bf976d8eff4b12ae32a770885eefb9
+msgid ""
+"**View Help Dialog**: ![Information "
+"Dialog](../images/en_documentation/tkinter_docs/information.png)"
+msgstr ""
+"**Ver cuadro de diálogo de ayuda**: ![Diálogo de "
+"información](../images/en_documentation/tkinter_docs/information.png)"
+
+#: ../../../docs/tkinter-guide.md:417 9ea44ba00902441cae9f7286d4768e69
+msgid "Information Dialog"
+msgstr "Diálogo de información"
+
+#: ../../../docs/tkinter-guide.md:420 1020e70ac2b64fb287f39a5f8a154728
+msgid ""
+"Window with scrollable content and **collapsible sections** (click the "
+"section header to expand/collapse)."
+msgstr ""
+"Ventana con contenido desplazable y **secciones plegables** (haga clic en el"
+" encabezado de la sección para expandir/contraer)."
+
+#: ../../../docs/tkinter-guide.md:421 c52ff4b176ca438b9902fb0c491dce5c
+msgid ""
+"Sections: **Objective**, **Advantages**, **Fitting Modes** (including loop "
+"mode), **Custom Functions**, **Data Format** (columns, uncertainty prefix), "
+"**Data Location** (input dir, formats), **Output Location** (plots, logs), "
+"**Statistics** (R², RMSE, χ², reduced χ², DoF, 95% parameter intervals)."
+msgstr ""
+"Secciones: **Objetivo**, **Ventajas**, **Modos de ajuste** (incluido el modo"
+" de bucle), **Funciones personalizadas**, **Formato de datos** (columnas, "
+"prefijo de incertidumbre), **Ubicación de datos** (directorio de entrada, "
+"formatos), **Ubicación de salida** (gráficos, registros), **Estadísticas** "
+"(R², RMSE, χ², χ² reducido, DoF, intervalos de parámetros del 95%)."
+
+#: ../../../docs/tkinter-guide.md:422 79b157bca26f47359d07f03c94cf8dd9
+msgid ""
+"If a donations URL is set in configuration, a **Donations** button appears "
+"at the bottom."
+msgstr ""
+"Si se establece una URL de donaciones en la configuración, aparece un botón "
+"**Donaciones** en la parte inferior."
+
+#: ../../../docs/tkinter-guide.md:423 1a94f6cd3bdc434ebab29c05c56362f4
+msgid "Click **Accept** (or close the window) when done."
+msgstr "Haga clic en **Aceptar** (o cierre la ventana) cuando haya terminado."
+
+#: ../../../docs/tkinter-guide.md:425 5aa1f1eb049243a588aa26346758ee29
+msgid "Configuration Dialog (Configure)"
+msgstr "Diálogo de configuración (Configurar)"
+
+#: ../../../docs/tkinter-guide.md:427 5159e3ae24c04d51a933b1e258b20a88
+msgid "**Purpose**: Edit `.env` options without opening the file manually."
+msgstr ""
+"**Propósito**: Editar las opciones `.env` sin abrir el archivo manualmente."
+
+#: ../../../docs/tkinter-guide.md:431 0a55d10e3daf4cbcb818c05f83559373
+msgid "**Click \"Configure\"** from the main menu."
+msgstr "**Haga clic en \"Configurar\"** en el menú principal."
+
+#: ../../../docs/tkinter-guide.md:433 1c34e33b85174ca78486c24971c1f28f
+msgid ""
+"**Configuration dialog**: ![Configuration "
+"Dialog](../images/en_documentation/tkinter_docs/configuration.png)"
+msgstr ""
+"**Diálogo de configuración**: ![Diálogo de "
+"configuración](../images/en_documentation/tkinter_docs/configuration.png)"
+
+#: ../../../docs/tkinter-guide.md:433 338837c3357c429385a979422d8ec4d0
+msgid "Configuration Dialog"
+msgstr "Diálogo de configuración"
+
+#: ../../../docs/tkinter-guide.md:436 e51bda91bcec421583f740b23b0a5887
+msgid ""
+"**Collapsible sections** (click header to expand/collapse): Language, UI, "
+"Plot, Font, Paths, Links, Updates, Logging."
+msgstr ""
+"**Secciones plegables** (haga clic en el encabezado para expandir/contraer):"
+" idioma, interfaz de usuario, trama, fuente, rutas, enlaces, "
+"actualizaciones, registro."
+
+#: ../../../docs/tkinter-guide.md:437 8eb4072278a34ba89c52aa658cb4cd60
+msgid ""
+"Each option has a label and a short description; values are shown in text "
+"fields, checkboxes (for booleans), or dropdowns (for fixed options)."
+msgstr ""
+"Cada opción tiene una etiqueta y una breve descripción; los valores se "
+"muestran en campos de texto, casillas de verificación (para booleanos) o "
+"menús desplegables (para opciones fijas)."
+
+#: ../../../docs/tkinter-guide.md:438 ce6d4e0c42b1419988dd786cee477c06
+msgid "Use the scroll area and mouse wheel to move through sections."
+msgstr ""
+"Utilice el área de desplazamiento y la rueda del mouse para moverse por las "
+"secciones."
+
+#: ../../../docs/tkinter-guide.md:440 d8e1173136f442f9b942d1687d32f2bf
+msgid "**Accept or Cancel**:"
+msgstr "**Aceptar o Cancelar**:"
+
+#: ../../../docs/tkinter-guide.md:441 23e8ee64f886471993945b62b57b5577
+msgid ""
+"**Accept**: Writes current values to `.env` and closes the dialog; the "
+"application then restarts so the new settings take effect."
+msgstr ""
+"**Aceptar**: escribe los valores actuales en `.env` y cierra el cuadro de "
+"diálogo; Luego, la aplicación se reinicia para que la nueva configuración "
+"surta efecto."
+
+#: ../../../docs/tkinter-guide.md:442 038fa063434c42bcaa693cce8d5dd45d
+msgid "**Cancel** (or close window): Discards changes and closes the dialog."
+msgstr ""
+"**Cancelar** (o cerrar ventana): descarta los cambios y cierra el cuadro de "
+"diálogo."
+
+#: ../../../docs/tkinter-guide.md:444 3848d91b462c4090bbed2a2cce6747ce
+msgid ""
+"**Note**: A message at the bottom reminds you that the app will restart "
+"after saving. See the [Configuration Guide](configuration.md) for the full "
+"list of options and their meanings."
+msgstr ""
+"**Nota**: Un mensaje en la parte inferior le recuerda que la aplicación se "
+"reiniciará después de guardar. Consulte la [Guía de "
+"configuración](configuration.md) para obtener la lista completa de opciones "
+"y sus significados."
+
+#: ../../../docs/tkinter-guide.md:446 a75c030e223948aeae7a2a754aade144
+msgid "Dialog Types"
+msgstr "Tipos de diálogo"
+
+#: ../../../docs/tkinter-guide.md:448 bfe408aa64e74afb96f0cf6234677a11
+msgid "Selection Dialogs"
+msgstr "Diálogos de selección"
+
+#: ../../../docs/tkinter-guide.md:450 02c2f0e3ffd4412c953805b43070521b
+msgid "**Dropdown Menus**:"
+msgstr "**Menús desplegables**:"
+
+#: ../../../docs/tkinter-guide.md:451 bab93b66707445e0a0b0d91d40fca4d4
+msgid "Click to expand options."
+msgstr "Haga clic para expandir las opciones."
+
+#: ../../../docs/tkinter-guide.md:452 0d0eaa930ee2456b87bc954067a272fd
+msgid "Click option to select."
+msgstr "Haga clic en la opción para seleccionar."
+
+#: ../../../docs/tkinter-guide.md:453 ../../../docs/tkinter-guide.md:468
+#: da0eb43ca31742e59df5b12d760aef1a eb8bbe6d2fc14cdc877b0ca3b8bd62f4
+msgid "Press Enter or click \"Accept\"."
+msgstr "Presione Enter o haga clic en \"Aceptar\"."
+
+#: ../../../docs/tkinter-guide.md:455 fdd2a100819847eb81f3fb1fa0c4df59
+msgid "**Radio Buttons**:"
+msgstr "**Botones de opción**:"
+
+#: ../../../docs/tkinter-guide.md:456 1bb615d5babf4904a78e692a6aa0bf86
+msgid "Click one option."
+msgstr "Haga clic en una opción."
+
+#: ../../../docs/tkinter-guide.md:459 de98364dd36147b6b412a2a41412ab0e
+msgid "**Spinbox**:"
+msgstr "**Caja giratoria**:"
+
+#: ../../../docs/tkinter-guide.md:460 4432912fcfc743719d5fb54c2b1fc3f9
+msgid "Type number."
+msgstr "Escriba el número."
+
+#: ../../../docs/tkinter-guide.md:461 1627f51911b0450fab43b033ce78c413
+msgid "Or use up/down arrows."
+msgstr "O utilice flechas arriba/abajo."
+
+#: ../../../docs/tkinter-guide.md:464 89d4fc1c683449f4b5c543b7841b17f8
+msgid "Text Entry Dialogs"
+msgstr "Diálogos de entrada de texto"
+
+#: ../../../docs/tkinter-guide.md:466 99948317d5534445812f88707492b380
+msgid "**Single Line**:"
+msgstr "**Línea única**:"
+
+#: ../../../docs/tkinter-guide.md:467 161a98bb170445f2b34702de09c2dfa9
+msgid "Type text."
+msgstr "Escriba texto."
+
+#: ../../../docs/tkinter-guide.md:469 4febc6fc37674005a1b169a95a96b318
+msgid "ESC or \"Cancel\" to abort."
+msgstr "ESC o \"Cancelar\" para cancelar."
+
+#: ../../../docs/tkinter-guide.md:471 974582c3c6ec47879a6febaa0b8f0e9a
+msgid "**Multi-Line** (for formulas):"
+msgstr "**Multilínea** (para fórmulas):"
+
+#: ../../../docs/tkinter-guide.md:472 bd859f0e264f460faa9dca85849956b0
+msgid "Type formula."
+msgstr "Escriba la fórmula."
+
+#: ../../../docs/tkinter-guide.md:473 8dff307522e944249fd0cc5648f00e8a
+msgid "Use multiple lines if needed."
+msgstr "Utilice varias líneas si es necesario."
+
+#: ../../../docs/tkinter-guide.md:474 f1fa12378d874431880e278c5d01bc96
+msgid "Click \"Accept\" when done."
+msgstr "Haga clic en \"Aceptar\" cuando haya terminado."
+
+#: ../../../docs/tkinter-guide.md:476 fc20dc884a1043558e26c45dc17fe141
+msgid "Information Dialogs"
+msgstr "Diálogos de información"
+
+#: ../../../docs/tkinter-guide.md:478 831476f176c94be39858cd0e0a69fc9b
+msgid "**Message Boxes**:"
+msgstr "**Cuadros de mensajes**:"
+
+#: ../../../docs/tkinter-guide.md:479 cb9325b86a4442c49c10418055c91e20
+msgid "Read message."
+msgstr "Leer mensaje."
+
+#: ../../../docs/tkinter-guide.md:480 e1d4cda0828446cea2f5994cd12df914
+msgid "Click \"OK\"."
+msgstr "Haga clic en \"Aceptar\"."
+
+#: ../../../docs/tkinter-guide.md:482 a32ae140576741f88590eaa4192a2619
+msgid "**Yes/No Dialogs**:"
+msgstr "**Sí/No cuadros de diálogo**:"
+
+#: ../../../docs/tkinter-guide.md:483 ecfe30a204bb4393ad9d143b21b55fe9
+msgid "Read question."
+msgstr "Leer pregunta."
+
+#: ../../../docs/tkinter-guide.md:484 0db9a1d9e1c745398a21765f733403e0
+msgid "Click \"Yes\" or \"No\"."
+msgstr "Haga clic en \"Sí\" o \"No\"."
+
+#: ../../../docs/tkinter-guide.md:486 aa5c6b19e6294480b466929a22f95b04
+msgid "Result Windows"
+msgstr "Ventanas de resultados"
+
+#: ../../../docs/tkinter-guide.md:488 07d96551047b4ee5a0815a72449ccd4d
+msgid "**Plot Window**:"
+msgstr "**Ventana de trazado**:"
+
+#: ../../../docs/tkinter-guide.md:489 5c340a4ac3e9444da8a6caf942130831
+msgid ""
+"Shows matplotlib plot (or interactive 3D canvas for 2-variable fits; "
+"residuals plot for 3+ variables)."
+msgstr ""
+"Muestra el gráfico matplotlib (o lienzo 3D interactivo para ajustes de 2 "
+"variables; gráfico de residuos para más de 3 variables)."
+
+#: ../../../docs/tkinter-guide.md:490 7c7f3192091b4bfa9e87804803d25155
+msgid "Embedded in Tkinter window."
+msgstr "Incrustado en la ventana de Tkinter."
+
+#: ../../../docs/tkinter-guide.md:491 7b4b472e3e174e54b18e9d9cc6734801
+msgid "Includes:"
+msgstr "Incluye:"
+
+#: ../../../docs/tkinter-guide.md:492 3e62ebc0d6614d7ab7319193a93ab41c
+msgid "Plot image."
+msgstr "Imagen de la trama."
+
+#: ../../../docs/tkinter-guide.md:493 b734b4bad3c44cbaac3f5d9267d8f24b
+msgid "Equation text (formula with fitted values)."
+msgstr "Texto de ecuación (fórmula con valores ajustados)."
+
+#: ../../../docs/tkinter-guide.md:494 2db413993bb645499676d6d387adf8f0
+#, python-format
+msgid "Parameters with uncertainties and 95% confidence intervals."
+msgstr "Parámetros con incertidumbres e intervalos de confianza del 95%."
+
+#: ../../../docs/tkinter-guide.md:495 3e9a7a81a3c3440399389a4379e51263
+msgid "Statistics: R², RMSE, χ², reduced χ², degrees of freedom."
+msgstr "Estadísticas: R², RMSE, χ², χ² reducido, grados de libertad."
+
+#: ../../../docs/tkinter-guide.md:496 cc7c2f63d63d4eea8eb9aa6e2b34f7f4
+msgid ""
+"**Prediction** button: Opens a dialog to evaluate the fitted function at "
+"user-specified inputs; shows predicted y with uncertainty when available."
+msgstr ""
+"Botón **Predicción**: abre un cuadro de diálogo para evaluar la función "
+"ajustada en las entradas especificadas por el usuario; muestra la y predicha"
+" con incertidumbre cuando está disponible."
+
+#: ../../../docs/tkinter-guide.md:497 2e537fc72c4b459b882790af39940709
+msgid "Click \"Close\" (or \"Accept\") to dismiss."
+msgstr "Haga clic en \"Cerrar\" (o \"Aceptar\") para descartar."
+
+#: ../../../docs/tkinter-guide.md:499 c0357b302c0c414c9e64e36eabe03f6c
+msgid "File Browsing"
+msgstr "Exploración de archivos"
+
+#: ../../../docs/tkinter-guide.md:501 bb29ce0722ba48d98b273f3a87a1e677
+msgid "Default Directories"
+msgstr "Directorios predeterminados"
+
+#: ../../../docs/tkinter-guide.md:503 81ade6649e0443b1b84add86aaa6afa4
+msgid "**Input**:"
+msgstr "**Aporte**:"
+
+#: ../../../docs/tkinter-guide.md:504 b993c5fa54d0444a9f2abfecdea2315b
+msgid "Default: `input/` in RegressionLab directory."
+msgstr "Valor predeterminado: `input/` en el directorio RegressionLab."
+
+#: ../../../docs/tkinter-guide.md:505 0404a92a35d146808e5c08eaae0bf2d8
+msgid "Contains sample datasets."
+msgstr "Contiene conjuntos de datos de muestra."
+
+#: ../../../docs/tkinter-guide.md:506 2cbb92f9142d4c9888c463f4b4400181
+msgid "Add your data files here."
+msgstr "Agregue sus archivos de datos aquí."
+
+#: ../../../docs/tkinter-guide.md:508 a82e608757b84875bf0ba94be02de46d
+msgid "**Output**:"
+msgstr "**Producción**:"
+
+#: ../../../docs/tkinter-guide.md:509 24ea5a447dc84037aeb0a6e2abc4fcd7
+msgid "Default: `output/` in RegressionLab directory."
+msgstr "Valor predeterminado: `salida/` en el directorio RegressionLab."
+
+#: ../../../docs/tkinter-guide.md:510 062ba9bb843e463c9db6f4e093d332be
+msgid "All plots saved here automatically."
+msgstr "Todos los gráficos se guardan aquí automáticamente."
+
+#: ../../../docs/tkinter-guide.md:511 2bb3b83848754ff6b0a7a93533de7080
+msgid "Named according to plot name + timestamp."
+msgstr "Nombrado según el nombre de la trama + marca de tiempo."
+
+#: ../../../docs/tkinter-guide.md:513 8d8aa30d05df4dceaa679c2b1f121c07
+msgid "Changing Directories"
+msgstr "Cambiar directorios"
+
+#: ../../../docs/tkinter-guide.md:515 9ed2e0bc6a76461d894f80db65e87a91
+msgid "In file browser:"
+msgstr "En el explorador de archivos:"
+
+#: ../../../docs/tkinter-guide.md:516 6e990d0e19ba485989a9493e6ee53dc8
+msgid "Navigate using folder list."
+msgstr "Navegue usando la lista de carpetas."
+
+#: ../../../docs/tkinter-guide.md:517 55db36e82f4344aea9b747d325296b5e
+msgid "Double-click folders to open."
+msgstr "Haga doble clic en las carpetas para abrirlas."
+
+#: ../../../docs/tkinter-guide.md:518 aa20112c773e400eb5bbaef9a2fee575
+msgid "Click file to select."
+msgstr "Haga clic en el archivo para seleccionar."
+
+#: ../../../docs/tkinter-guide.md:519 9102eca3c9214011b68e84a33b475db7
+msgid "Use \"Up\" button to go to parent directory."
+msgstr "Utilice el botón \"Arriba\" para ir al directorio principal."
+
+#: ../../../docs/tkinter-guide.md:521 ad87727f269f455a922cc4fb266884b2
+msgid "Or configure defaults in `.env`:"
+msgstr "O configure los valores predeterminados en `.env`:"
+
+#: ../../../docs/tkinter-guide.md:527 10222fd0a0b14939828df46d71168178
+msgid "Keyboard Shortcuts"
+msgstr "Atajos de teclado"
+
+#: ../../../docs/tkinter-guide.md:529 49b1d25722de4979b9ad610856b267eb
+msgid "While dialogs are open:"
+msgstr "Mientras los cuadros de diálogo están abiertos:"
+
+#: ../../../docs/tkinter-guide.md:530 0d82054f17994b14874bd3fabd9a49ae
+msgid "**Space**: Accept current selection."
+msgstr "**Espacio**: Aceptar la selección actual."
+
+#: ../../../docs/tkinter-guide.md:531 e3208a5c10f145d9801a2ec2ab895cd8
+msgid "**Tab**: Move between fields."
+msgstr "**Pestaña**: Moverse entre campos."
+
+#: ../../../docs/tkinter-guide.md:533 42688307810e4c1d9d046fd4b866b1d9
+msgid "In result windows:"
+msgstr "En ventanas de resultados:"
+
+#: ../../../docs/tkinter-guide.md:534 f3700d3bebb549cdab46f5eec339f457
+msgid "**Alt+F4** (Windows/Linux) or **Cmd+W** (Mac): Close window."
+msgstr "**Alt+F4** (Windows/Linux) o **Cmd+W** (Mac): cerrar ventana."
+
+#: ../../../docs/tkinter-guide.md:536 18df4a1a62f54a2ca523ecf376c2668c
+msgid "Main menu:"
+msgstr "Menú principal:"
+
+#: ../../../docs/tkinter-guide.md:537 d0f3cc6e2d7b4b88984e063ce9e81811
+msgid "**Alt+F4** (Windows/Linux) or **Cmd+Q** (Mac): Quit application."
+msgstr "**Alt+F4** (Windows/Linux) o **Cmd+Q** (Mac): salir de la aplicación."
+
+#: ../../../docs/tkinter-guide.md:539 af4b3ceb8d60401daa6485210c9f322b
+msgid "Understanding Results"
+msgstr "Comprender los resultados"
+
+#: ../../../docs/tkinter-guide.md:541 683d7ce3f32c479298c6192dfb042557
+msgid "Result Window Components"
+msgstr "Componentes de la ventana de resultados"
+
+#: ../../../docs/tkinter-guide.md:542 64077d65085243e79db690c83354c933
+msgid "![Result Window](../images/en_documentation/tkinter_docs/result.png)"
+msgstr ""
+"![Ventana de resultados](../images/en_documentation/tkinter_docs/result.png)"
+
+#: ../../../docs/tkinter-guide.md:542 2d4d3bbf02d64ed09b78077e57184ad1
+msgid "Result Window"
+msgstr "Ventana de resultados"
+
+#: ../../../docs/tkinter-guide.md:565 b78934e0eee7427380061a3e03b53bec
+#, python-format
+msgid ""
+"The result text includes **parameters** (value ± uncertainty and 95% "
+"confidence interval per parameter) and **statistics** (R², RMSE, χ², reduced"
+" χ², degrees of freedom). The **Information** dialog (main menu → "
+"Information) has a **Statistics** section that explains these in detail."
+msgstr ""
+"El texto del resultado incluye **parámetros** (valor ± incertidumbre e "
+"intervalo de confianza del 95 % por parámetro) y **estadísticas** (R², RMSE,"
+" χ², χ² reducido, grados de libertad). El cuadro de diálogo **Información** "
+"(menú principal → Información) tiene una sección **Estadísticas** que las "
+"explica en detalle."
+
+#: ../../../docs/tkinter-guide.md:567 ef24f28f37704b879dcc6a3d660e4c33
+msgid "Statistics Shown"
+msgstr "Estadísticas mostradas"
+
+#: ../../../docs/tkinter-guide.md:569 c8b58d6d35124da3b67d1623e7ff98e0
+msgid "**R²**: Coefficient of determination (goodness of fit)."
+msgstr "**R²**: Coeficiente de determinación (bondad de ajuste)."
+
+#: ../../../docs/tkinter-guide.md:570 46f28256bad748ef93fda323a25a1377
+msgid "**RMSE**: Root mean square error."
+msgstr "**RMSE**: raíz del error cuadrático medio."
+
+#: ../../../docs/tkinter-guide.md:571 6428755a4aad45e284d5da273bb8b5ba
+msgid "**χ²**: Chi-squared."
+msgstr "**χ²**: Chi-cuadrado."
+
+#: ../../../docs/tkinter-guide.md:572 12484516beb64ca58bc17ffe98db4a51
+msgid "**χ²_red**: Reduced chi-squared."
+msgstr "**χ²_red**: Chi-cuadrado reducido."
+
+#: ../../../docs/tkinter-guide.md:573 6ef320af9d4448e9861a37866b102003
+msgid "**DoF (ν)**: Degrees of freedom."
+msgstr "**DoF (ν)**: Grados de libertad."
+
+#: ../../../docs/tkinter-guide.md:574 97fdb7d272ca4d05970f6ef56cc565c3
+#, python-format
+msgid "**IC 95%**: 95% confidence interval for each fitted parameter."
+msgstr ""
+"**IC 95%**: intervalo de confianza del 95% para cada parámetro ajustado."
+
+#: ../../../docs/tkinter-guide.md:576 ea0fe9b3c0644368a0749eb41b3e0a32
+msgid "R² Value (Coefficient of Determination)"
+msgstr "Valor R² (Coeficiente de Determinación)"
+
+#: ../../../docs/tkinter-guide.md:578 8eb99931f72b4cc88cc0095058d7ae0c
+msgid "**Interpretation**:"
+msgstr "**Interpretación**:"
+
+#: ../../../docs/tkinter-guide.md:579 2fca0629b2b64b029072e29b021021d2
+msgid "**R² = 1.0**: Perfect fit (rare in real data)."
+msgstr "**R² = 1,0**: Ajuste perfecto (poco común en datos reales)."
+
+#: ../../../docs/tkinter-guide.md:580 2be9d4792f844d28b7889638d79e17d8
+msgid "**R² > 0.95**: Excellent fit ✓."
+msgstr "**R² > 0,95**: Excelente ajuste ✓."
+
+#: ../../../docs/tkinter-guide.md:581 4eab6dc475624803bc947f9ed84a0d7c
+msgid "**R² > 0.85**: Good fit ✓."
+msgstr "**R² > 0,85**: Buen ajuste ✓."
+
+#: ../../../docs/tkinter-guide.md:582 54fd0874291f483ab431bc1b79cd2147
+msgid "**R² > 0.70**: Acceptable fit ⚠️."
+msgstr "**R² > 0,70**: Ajuste aceptable ⚠️."
+
+#: ../../../docs/tkinter-guide.md:583 94dd442a0c9b45988b8c3a7c5ed9cd6f
+msgid "**R² < 0.70**: Poor fit — try a different equation ✗."
+msgstr ""
+"**R² < 0,70**: Ajuste deficiente; pruebe con una ecuación diferente ✗."
+
+#: ../../../docs/tkinter-guide.md:585 c83389b41b8e47a380ff78aea55b8e1c
+#, python-format
+msgid ""
+"R² is the fraction of variance in the data explained by the model (e.g. R² ="
+" 0.95 means 95% of the variance is explained). Higher is better."
+msgstr ""
+"R² es la fracción de la varianza en los datos explicados por el modelo (por "
+"ejemplo, R² = 0,95 significa que se explica el 95% de la varianza). Cuanto "
+"más alto es mejor."
+
+#: ../../../docs/tkinter-guide.md:587 ac937f869c984c088ca69f9e18765bf5
+msgid "Plot Features"
+msgstr "Características de la trama"
+
+#: ../../../docs/tkinter-guide.md:589 25a72e812d7942aa9303191c01d521f3
+msgid "**Data Points**:"
+msgstr "**Puntos de datos**:"
+
+#: ../../../docs/tkinter-guide.md:590 71a26a1da2f64da097be5d6376a01553
+msgid "Red circles (default, configurable)."
+msgstr "Círculos rojos (predeterminado, configurable)."
+
+#: ../../../docs/tkinter-guide.md:591 70aece5491c548c8bda719a570616e1f
+msgid "Error bars if uncertainties present."
+msgstr "Barras de error si existen incertidumbres."
+
+#: ../../../docs/tkinter-guide.md:592 f24c0165c1ac4fcf926ba12035790088
+msgid "Size and style from `.env`."
+msgstr "Tamaño y estilo de `.env`."
+
+#: ../../../docs/tkinter-guide.md:594 a57ad3c2b5264ed2a679acde488423df
+msgid "**Fitted Curve**:"
+msgstr "**Curva ajustada**:"
+
+#: ../../../docs/tkinter-guide.md:595 d9189c57ccc0432dab49d870ec4d85c7
+msgid "Black line (default, configurable)."
+msgstr "Línea negra (predeterminada, configurable)."
+
+#: ../../../docs/tkinter-guide.md:596 6bf0f1459e1645bd98c22a83d091fbe6
+msgid "Smooth continuous curve."
+msgstr "Curva continua suave."
+
+#: ../../../docs/tkinter-guide.md:597 f20ae92a28514e54a06415432da4fc18
+msgid "Based on fitted parameters."
+msgstr "Basado en parámetros ajustados."
+
+#: ../../../docs/tkinter-guide.md:599 ec17228939e24145af51b188fec435c9
+msgid "**Axes**:"
+msgstr "**Ejes**:"
+
+#: ../../../docs/tkinter-guide.md:600 5fcaec2f841d4c628b107484cb55f84c
+msgid "Labels from variable names."
+msgstr "Etiquetas de nombres de variables."
+
+#: ../../../docs/tkinter-guide.md:601 7bbaba7b49ad446ebf2d0f18d1ecfafc
+msgid "Tick marks automatically scaled."
+msgstr "Las marcas de graduación se escalan automáticamente."
+
+#: ../../../docs/tkinter-guide.md:602 4bd118e1e0b34dcba70ab79a59a50685
+msgid "Font and size from `.env`."
+msgstr "Fuente y tamaño de `.env`."
+
+#: ../../../docs/tkinter-guide.md:604 fc6b63cd3aaf4cd69469c523bd3a1b1f
+msgid "Tips and Best Practices"
+msgstr "Consejos y mejores prácticas"
+
+#: ../../../docs/tkinter-guide.md:606 9b108a79ecd54540bea487e8e4f6d21d
+msgid "Performance"
+msgstr "Actuación"
+
+#: ../../../docs/tkinter-guide.md:608 a0aab87dc0304d0580e22ee39adda21e
+msgid "**Close result windows**: Free memory by closing old results."
+msgstr ""
+"**Cerrar ventanas de resultados**: Libera memoria cerrando resultados "
+"antiguos."
+
+#: ../../../docs/tkinter-guide.md:609 434ae852cd7840dabde101e777d781ee
+msgid "**Use loop mode wisely**: Only when iteratively refining data."
+msgstr ""
+"**Utilice el modo de bucle con prudencia**: solo cuando refina datos de "
+"forma iterativa."
+
+#: ../../../docs/tkinter-guide.md:610 31c8f31a44b749e08f064d1de2a0b4d7
+msgid "**Large datasets**: May take longer, be patient."
+msgstr ""
+"**Conjuntos de datos grandes**: puede llevar más tiempo, tenga paciencia."
+
+#: ../../../docs/tkinter-guide.md:613 fbe8d008d66c4351b0eca14baaa1433a
+msgid "Workflow"
+msgstr "Flujo de trabajo"
+
+#: ../../../docs/tkinter-guide.md:615 75168b76f79e4ced94356b7fc9313861
+msgid "**Test with small data first**: Verify setup before big analysis."
+msgstr ""
+"**Pruebe primero con datos pequeños**: verifique la configuración antes de "
+"un gran análisis."
+
+#: ../../../docs/tkinter-guide.md:616 242e555e0fb444a2ade5aa1da0624e56
+msgid ""
+"**Use Watch Data**: Preview, transform, clean, and save data before fitting."
+msgstr ""
+"**Usar datos de observación**: obtenga una vista previa, transforme, limpie "
+"y guarde los datos antes de realizar la adaptación."
+
+#: ../../../docs/tkinter-guide.md:617 8720db9e9bf44364b8957a264bddc1bd
+msgid "**Start simple**: Try Normal Fitting before complex modes."
+msgstr ""
+"**Empiece de forma sencilla**: pruebe el ajuste normal antes que los modos "
+"complejos."
+
+#: ../../../docs/tkinter-guide.md:618 a20bab3b8ffc405d9bd4825d78a82651
+msgid "**Save important plots**: Copy from `output/` to safe location."
+msgstr ""
+"**Guarde gráficos importantes**: cópielos desde `salida/` a una ubicación "
+"segura."
+
+#: ../../../docs/tkinter-guide.md:621 57030025d0374ca1b452be95b80ffdf2
+msgid "Data Organization"
+msgstr "Organización de datos"
+
+#: ../../../docs/tkinter-guide.md:623 2627d7e2015649eab94346ce315f90d1
+msgid "**Keep data in `input/`**: Faster access."
+msgstr "**Mantener datos en `input/`**: Acceso más rápido."
+
+#: ../../../docs/tkinter-guide.md:624 99deccc434c44372b7ea8e5f808eed6b
+msgid "**Use descriptive names**: \"experiment1.csv\" not \"data.csv\"."
+msgstr "**Utilice nombres descriptivos**: \"experiment1.csv\", no \"data.csv\"."
+
+#: ../../../docs/tkinter-guide.md:625 3d5ca10a8b674fc29cb21eadda2bb323
+msgid "**One dataset per file**: Don't combine unrelated data."
+msgstr ""
+"**Un conjunto de datos por archivo**: no combine datos no relacionados."
+
+#: ../../../docs/tkinter-guide.md:626 f63e4b68a4264ee286cac157a59ced51
+msgid "**Backup originals**: Especially when using loop mode."
+msgstr ""
+"**Copia de seguridad de originales**: especialmente cuando se utiliza el "
+"modo bucle."
+
+#: ../../../docs/tkinter-guide.md:629 f315b20b7e4f45c689b2b7dea6057dca
+msgid "Custom Formulas"
+msgstr "Fórmulas personalizadas"
+
+#: ../../../docs/tkinter-guide.md:631 431dc6bd91234b2d9a0018ae2800769f
+msgid "**Test incrementally**: Start with simple formula, add complexity."
+msgstr ""
+"**Pruebe incrementalmente**: comience con una fórmula simple, agregue "
+"complejidad."
+
+#: ../../../docs/tkinter-guide.md:632 90a42af5ab704c2d9c53d987324d0714
+msgid "**Use meaningful parameter names**: \"amplitude\" not \"p1\"."
+msgstr "**Utilice nombres de parámetros significativos**: \"amplitud\", no \"p1\"."
+
+#: ../../../docs/tkinter-guide.md:633 b2d0d84aaa0d4478b73e935794d36854
+msgid "**Check parentheses**: Ensure correct order of operations."
+msgstr ""
+"**Compruebe los paréntesis**: asegúrese de que el orden de las operaciones "
+"sea correcto."
+
+#: ../../../docs/tkinter-guide.md:634 29da891587724999862cf95451c28c43
+msgid "**Know available functions**:"
+msgstr "**Conoce las funciones disponibles**:"
+
+#: ../../../docs/tkinter-guide.md:635 a03d1bc673ea4f8ab23076f3f6655799
+msgid "Trig: `sin(x)`, `cos(x)`, `tan(x)`."
+msgstr "Trig.: `sin(x)`, `cos(x)`, `tan(x)`."
+
+#: ../../../docs/tkinter-guide.md:636 25d989fb31104df6819efcb5a614d872
+msgid "Hyperbolic: `sinh(x)`, `cosh(x)`."
+msgstr "Hiperbólico: `sinh(x)`, `cosh(x)`."
+
+#: ../../../docs/tkinter-guide.md:637 17f87f8a3eec4de6a6ac3bd1911682ce
+msgid "Exponential: `exp(x)`, `log(x)`, `sqrt(x)`."
+msgstr "Exponencial: `exp(x)`, `log(x)`, `sqrt(x)`."
+
+#: ../../../docs/tkinter-guide.md:638 b2dd97a145be4f7282130cb5e7926d6b
+msgid "Powers: `x**2`, `x**0.5`."
+msgstr "Potencias: `x**2`, `x**0.5`."
+
+#: ../../../docs/tkinter-guide.md:640 720d934dd0ee40d4bb86817f7c2eb824
+msgid "Troubleshooting"
+msgstr "Solución de problemas"
+
+#: ../../../docs/tkinter-guide.md:642 d23da8b5550b45abb8586ce5307a29f6
+msgid "Application Won't Start"
+msgstr "La aplicación no se inicia"
+
+#: ../../../docs/tkinter-guide.md:644 80332175be464e5e8511350aea634046
+msgid "**Issue**: Double-clicking shortcut does nothing."
+msgstr "**Problema**: Hacer doble clic en el acceso directo no hace nada."
+
+#: ../../../docs/tkinter-guide.md:646 ../../../docs/tkinter-guide.md:656
+#: ../../../docs/tkinter-guide.md:666 ../../../docs/tkinter-guide.md:676
+#: ../../../docs/tkinter-guide.md:687 ../../../docs/tkinter-guide.md:700
+#: 426d42636d1942c78f0ed02cd2d7ec9d 7bafa05a24534be99ca77604ac0a842b
+#: 9d466346878e4414b63071e93a24aa7a ab5fafc262514af0a3ba03ba22ee9489
+#: e2dac39b55a344b7acfbeafc8b01c055 f3e2a5bf0b3043d5a075d56da423dbb5
+msgid "**Solutions**:"
+msgstr "**Soluciones**:"
+
+#: ../../../docs/tkinter-guide.md:647 eb251cd25f324594b7c12128d6a9aa07
+msgid "Run from command line to see error messages."
+msgstr "Ejecute desde la línea de comando para ver mensajes de error."
+
+#: ../../../docs/tkinter-guide.md:648 4d21eb87ed0d48169063fcbe2ad5da91
+msgid "Check Python installation: `python --version`."
+msgstr "Verifique la instalación de Python: `python --version`."
+
+#: ../../../docs/tkinter-guide.md:649 f0905b9d7943403e84d4fd0b2977820d
+msgid "Verify virtual environment activated."
+msgstr "Verifique el entorno virtual activado."
+
+#: ../../../docs/tkinter-guide.md:650 8701b92a8592443ca3ce014ab8eb61c7
+msgid "Check logs: `regressionlab.log`."
+msgstr "Verifique los registros: `regressionlab.log`."
+
+#: ../../../docs/tkinter-guide.md:652 aeda0006227c43ed84baa7eacb2bbd9c
+msgid "Dialogs Not Appearing"
+msgstr "Los cuadros de diálogo no aparecen"
+
+#: ../../../docs/tkinter-guide.md:654 7eb6774e253d467f9b99dade7f6c4e54
+msgid "**Issue**: Clicked button but nothing happens."
+msgstr "**Problema**: Se hizo clic en el botón pero no sucede nada."
+
+#: ../../../docs/tkinter-guide.md:657 eff0734f33654e1eb9b9af788035f62c
+msgid "Check if dialog opened behind other windows."
+msgstr "Compruebe si el cuadro de diálogo se abrió detrás de otras ventanas."
+
+#: ../../../docs/tkinter-guide.md:658 b517a380d5224539abe275190c312da5
+msgid "Look at taskbar for new windows."
+msgstr "Mire la barra de tareas para ver si hay nuevas ventanas."
+
+#: ../../../docs/tkinter-guide.md:659 dabb44e30f6044578be0bd94a1fddee2
+msgid "Press Alt+Tab to cycle through windows."
+msgstr "Presione Alt+Tab para recorrer las ventanas."
+
+#: ../../../docs/tkinter-guide.md:660 4c76dcc576e14672a31bdd1dfddd27b1
+msgid "Check if application is frozen (wait indicator)."
+msgstr "Compruebe si la aplicación está congelada (indicador de espera)."
+
+#: ../../../docs/tkinter-guide.md:662 8e3172fbb7764b44814c0c4a3b67706b
+msgid "File Browser Empty"
+msgstr "Explorador de archivos vacío"
+
+#: ../../../docs/tkinter-guide.md:664 675adb2ce1314d558b35d93129d2496b
+msgid "**Issue**: No files shown in file browser."
+msgstr "**Problema**: No se muestran archivos en el explorador de archivos."
+
+#: ../../../docs/tkinter-guide.md:667 ce130e3956734b009b8b6d454423b5a2
+msgid "Navigate to correct directory."
+msgstr "Navegue hasta el directorio correcto."
+
+#: ../../../docs/tkinter-guide.md:668 b852b93053d24f87b675511700b4aa85
+msgid "Check file extensions (CSV, XLSX, TXT)."
+msgstr "Verifique las extensiones de archivos (CSV, XLSX, TXT)."
+
+#: ../../../docs/tkinter-guide.md:669 3a7b0f75e07c46d382e349eca61f50e4
+msgid "Verify files exist in expected location."
+msgstr "Verifique que los archivos existan en la ubicación esperada."
+
+#: ../../../docs/tkinter-guide.md:670 94cb61b114bf4659a4d77ab444c1f653
+msgid "Use absolute path in `.env` for input directory."
+msgstr "Utilice la ruta absoluta en `.env` para el directorio de entrada."
+
+#: ../../../docs/tkinter-guide.md:672 0d6939f6b8c64d57b4c396ee796989d5
+msgid "Fitting Fails"
+msgstr "El ajuste falla"
+
+#: ../../../docs/tkinter-guide.md:674 7fdac6b8fa8549bda9b4dc6d9b927ed3
+msgid "**Issue**: Error message after selecting variables."
+msgstr "**Problema**: Mensaje de error después de seleccionar variables."
+
+#: ../../../docs/tkinter-guide.md:677 76f625961cca46ef81d6cd749c810336
+msgid "Check data format (numeric values only)."
+msgstr "Verifique el formato de los datos (solo valores numéricos)."
+
+#: ../../../docs/tkinter-guide.md:678 7942d05ba55c4647887dc845c4efaadf
+msgid "Ensure sufficient data points (>5)."
+msgstr "Asegúrese de que haya suficientes puntos de datos (>5)."
+
+#: ../../../docs/tkinter-guide.md:679 d3a8e8531a544afdabfea96906ad616f
+msgid "Verify X and Y columns exist."
+msgstr "Verifique que existan las columnas X e Y."
+
+#: ../../../docs/tkinter-guide.md:680 6af467ee7cc344ebad0e801d0d6581ae
+msgid "Check for NaN or infinite values."
+msgstr "Compruebe si hay NaN o valores infinitos."
+
+#: ../../../docs/tkinter-guide.md:681 d9f163a6fc154c14bd37fa64d8270e1a
+msgid "Try different equation type."
+msgstr "Pruebe diferentes tipos de ecuaciones."
+
+#: ../../../docs/tkinter-guide.md:683 f74dab918b7a4d72a57f881a7bc96237
+msgid "Result Window Too Large/Small"
+msgstr "Ventana de resultados demasiado grande/pequeña"
+
+#: ../../../docs/tkinter-guide.md:685 0754d77ba99c4e6cab1a570f1c4f4d4a
+msgid "**Issue**: Result window doesn't fit screen."
+msgstr "**Problema**: la ventana de resultados no se ajusta a la pantalla."
+
+#: ../../../docs/tkinter-guide.md:688 223def1cd5d24ae7ac1a5fd3a0f71ea0
+msgid "Adjust plot size in `.env`:"
+msgstr "Ajuste el tamaño del trazado en `.env`:"
+
+#: ../../../docs/tkinter-guide.md:693 ../../../docs/tkinter-guide.md:705
+#: 59c8a65387da4f998fd45b2e338120de 93b4f28a39804ab49ebbd39bfacc8694
+msgid "Restart application."
+msgstr "Reinicie la aplicación."
+
+#: ../../../docs/tkinter-guide.md:694 129169a8823a41ff8800855f9eee2a52
+msgid "Use smaller font sizes."
+msgstr "Utilice tamaños de fuente más pequeños."
+
+#: ../../../docs/tkinter-guide.md:696 4369b5d690b0408abdb4def04a572b6f
+msgid "Colors Look Wrong"
+msgstr "Los colores se ven mal"
+
+#: ../../../docs/tkinter-guide.md:698 82ad9c1c2c304adaa1e2445f41aa44c1
+msgid "**Issue**: Text unreadable or colors clash."
+msgstr "**Problema**: El texto es ilegible o los colores chocan."
+
+#: ../../../docs/tkinter-guide.md:701 16720e177ce24e0386367713cfe2ac1c
+msgid "Edit `.env` color settings."
+msgstr "Edite la configuración de color `.env`."
+
+#: ../../../docs/tkinter-guide.md:702 649f943f46fa4d4cbe357273c94c32b4
+msgid "Use high contrast combinations:"
+msgstr "Utilice combinaciones de alto contraste:"
+
+#: ../../../docs/tkinter-guide.md:703 b1484b63ee0f4bc3823f4b2b9c980696
+msgid "Dark background + light text."
+msgstr "Fondo oscuro + texto claro."
+
+#: ../../../docs/tkinter-guide.md:704 426f54cfbab74805b6c0f250072f99a2
+msgid "Light background + dark text."
+msgstr "Fondo claro + texto oscuro."
+
+#: ../../../docs/tkinter-guide.md:707 725ab9629cf7499cb08713ca46c54c35
+msgid "Advanced Features"
+msgstr "Funciones avanzadas"
+
+#: ../../../docs/tkinter-guide.md:709 1e4688f1928b44a9858395ba594100b2
+msgid "Loop Mode Strategies"
+msgstr "Estrategias de modo de bucle"
+
+#: ../../../docs/tkinter-guide.md:711 9ea655547fc74168a2c3abe0fb046d8f
+msgid "**Strategy 1: Outlier Removal**"
+msgstr "**Estrategia 1: Eliminación de valores atípicos**"
+
+#: ../../../docs/tkinter-guide.md:720 1b06eae3386e454291c59262aadd4eed
+msgid "**Strategy 2: Parameter Exploration**"
+msgstr "**Estrategia 2: Exploración de parámetros**"
+
+#: ../../../docs/tkinter-guide.md:729 563035825d904098bd2e3c3fe49bf66a
+msgid "**Strategy 3: Uncertainty Testing**"
+msgstr "**Estrategia 3: Pruebas de incertidumbre**"
+
+#: ../../../docs/tkinter-guide.md:737 93937d711c054e5ca774b972102c7276
+msgid "Batch Processing Workflow"
+msgstr "Flujo de trabajo de procesamiento por lotes"
+
+#: ../../../docs/tkinter-guide.md:739 2f95df5b41764581a20e8177cbb03f28
+msgid "For processing many similar files:"
+msgstr "Para procesar muchos archivos similares:"
+
+#: ../../../docs/tkinter-guide.md:752 eadec6fbe2f241eeb993cb3e2f84cbb7
+msgid "Customization"
+msgstr "Personalización"
+
+#: ../../../docs/tkinter-guide.md:754 f4ce64b77ef54d6e86cc11a0a0693c1c
+msgid ""
+"See [Configuration Guide](configuration.md) for extensive customization:"
+msgstr ""
+"Consulte la [Guía de configuración](configuration.md) para una "
+"personalización exhaustiva:"
+
+#: ../../../docs/tkinter-guide.md:755 8cdc487138054feb88e735f54f21f173
+msgid "Colors and themes."
+msgstr "Colores y temas."
+
+#: ../../../docs/tkinter-guide.md:756 4a77301d85c34cb3a28a7941a4d88fc6
+msgid "Plot styles."
+msgstr "Estilos de trama."
+
+#: ../../../docs/tkinter-guide.md:757 d0631b28aa1845988533be3fa44dc315
+msgid "Fonts and sizes."
+msgstr "Fuentes y tamaños."
+
+#: ../../../docs/tkinter-guide.md:758 b05065cddeb0476898ce6e5f3a3d4f6b
+msgid "Directories."
+msgstr "Directorios."
+
+#: ../../../docs/tkinter-guide.md:759 689bc7a00a604f458827c486a26bf776
+msgid "Logging."
+msgstr "Explotación florestal."
+
+#: ../../../docs/tkinter-guide.md:761 ffc8f88049f7456c83cd82d0b0b778b9
+msgid "Differences from Streamlit Version"
+msgstr "Diferencias con la versión Streamlit"
+
+#: ../../../docs/tkinter-guide.md:763 777e124b36974bad8761ec2ac9057cb9
+msgid "**Tkinter has**:"
+msgstr "**Tkinter tiene**:"
+
+#: ../../../docs/tkinter-guide.md:764 c6f17b4caf7f466ca388979fc6b89ca7
+msgid "✓ Loop mode for iterative fitting."
+msgstr "✓ Modo bucle para ajuste iterativo."
+
+#: ../../../docs/tkinter-guide.md:765 8cb5b6b78df9488197156c98681db74c
+msgid "✓ Direct file system access."
+msgstr "✓ Acceso directo al sistema de archivos."
+
+#: ../../../docs/tkinter-guide.md:766 803f4bf562ac4eadba50adee04ff6777
+msgid "✓ Offline operation."
+msgstr "✓ Operación sin conexión."
+
+#: ../../../docs/tkinter-guide.md:767 a852fc12e26e4be6a521c40edfcb42df
+msgid "✓ Extensive customization via `.env`."
+msgstr "✓ Amplia personalización a través de `.env`."
+
+#: ../../../docs/tkinter-guide.md:768 af2756af03824583a5a7d79245f34f4f
+msgid "✓ Native desktop performance."
+msgstr "✓ Rendimiento de escritorio nativo."
+
+#: ../../../docs/tkinter-guide.md:769 74bd2f9dc52344dbb4fc96108b7f506d
+msgid ""
+"✓ Prediction window (evaluate fitted function at user inputs; uncertainty "
+"propagation)."
+msgstr ""
+"✓ Ventana de predicción (evaluar la función ajustada en las entradas del "
+"usuario; propagación de la incertidumbre)."
+
+#: ../../../docs/tkinter-guide.md:770 f0e7927a83e44985a9552592cbdd3e22
+msgid ""
+"✓ Multidimensional fitting (custom formulas with 2+ variables; 3D/residuals "
+"plots)."
+msgstr ""
+"✓ Ajuste multidimensional (fórmulas personalizadas con más de 2 variables; "
+"gráficos 3D/residuales)."
+
+#: ../../../docs/tkinter-guide.md:771 150179cad4ce482693a650d3cb37fc16
+msgid ""
+"✓ Data view with transform, clean, and save (FFT, DCT, log, outliers, etc.)."
+msgstr ""
+"✓ Vista de datos con transformación, limpieza y guardado (FFT, DCT, "
+"registro, valores atípicos, etc.)."
+
+#: ../../../docs/tkinter-guide.md:773 49941bdf720c473786908fe2b0012a80
+msgid "**Tkinter lacks**:"
+msgstr "**Tkinter carece**:"
+
+#: ../../../docs/tkinter-guide.md:774 57cbca109743461b8826a6162f18dc67
+msgid "✗ Modern web UI."
+msgstr "✗ Interfaz de usuario web moderna."
+
+#: ../../../docs/tkinter-guide.md:775 fdf4913c76e24f028efc38030c37e255
+msgid "✗ Easy sharing (URL-based)."
+msgstr "✗ Compartir fácilmente (basado en URL)."
+
+#: ../../../docs/tkinter-guide.md:776 572324fc73b24f5e88d4387313e5626f
+msgid "✗ Mobile/tablet support."
+msgstr "✗ Soporte para móviles/tabletas."
+
+#: ../../../docs/tkinter-guide.md:777 06f49fe1b1db417daacad6c189c45151
+msgid "✗ Automatic cloud storage."
+msgstr "✗ Almacenamiento automático en la nube."
+
+#: ../../../docs/tkinter-guide.md:779 c2453ee01d1a41fc9ec224ea32d9b41e
+msgid "**When to use each**:"
+msgstr "**Cuándo usar cada uno**:"
+
+#: ../../../docs/tkinter-guide.md:780 89be606914eb4fcb8c5d0793954820aa
+msgid "**Tkinter**: Serious analysis, offline work, advanced features."
+msgstr ""
+"**Tkinter**: Análisis serio, trabajo fuera de línea, funciones avanzadas."
+
+#: ../../../docs/tkinter-guide.md:781 9ee791b591bc4066b7be87490e89ea2f
+msgid "**Streamlit**: Quick checks, sharing, accessibility."
+msgstr "**Streamlit**: comprobaciones rápidas, uso compartido, accesibilidad."
+
+#: ../../../docs/tkinter-guide.md:783 c9b06c01b4de4a95828b464a30ebca1c
+msgid "Next Steps"
+msgstr "Próximos pasos"
+
+#: ../../../docs/tkinter-guide.md:785 ed1df5f7091342c2a64c8f83ca4597a9
+msgid ""
+"**Customize Interface**: Edit `.env` to personalize appearance "
+"([Configuration Guide](configuration.md))."
+msgstr ""
+"**Personalizar interfaz**: edite `.env` para personalizar la apariencia "
+"([Guía de configuración](configuration.md))."
+
+#: ../../../docs/tkinter-guide.md:786 4486951aa32a4e869d4f2f48a402407e
+msgid ""
+"**Add Functions**: Learn to extend RegressionLab ([Extending "
+"RegressionLab](extending.md))."
+msgstr ""
+"**Agregar funciones**: aprenda a extender RegressionLab ([Extending "
+"RegressionLab](extending.md))."
+
+#: ../../../docs/tkinter-guide.md:787 446cfdd1e28e453398fae29d09545976
+msgid ""
+"**Web Version**: Try the Streamlit interface ([Streamlit Guide](streamlit-"
+"guide.md))."
+msgstr ""
+"**Versión web**: Pruebe la interfaz Streamlit ([Guía Streamlit](streamlit-"
+"guide.md))."
+
+#: ../../../docs/tkinter-guide.md:791 9a5a8252915b42639d7e052b80cd774e
+msgid ""
+"*Master the desktop interface! Check [Troubleshooting](troubleshooting.md) "
+"for help with any issues.*"
+msgstr ""
+"*¡Domina la interfaz de escritorio! Consulte [Solución de problemas] "
+"(troubleshooting.md) para obtener ayuda con cualquier problema.*"

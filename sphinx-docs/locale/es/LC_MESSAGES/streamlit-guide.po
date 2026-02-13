@@ -1,0 +1,1932 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Alejandro Mata Ali
+# This file is distributed under the same license as the RegressionLab
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: RegressionLab 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-13 19:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: es <LL@li.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../../docs/streamlit-guide.md:1 d519cda3fe514fad89696f478bef1630
+msgid "Streamlit Guide"
+msgstr "Guía Streamlit"
+
+#: ../../../docs/streamlit-guide.md:3 c91825a832174b149d8605d9fb0a0a15
+msgid ""
+"This guide covers the web-based interface of RegressionLab built with "
+"Streamlit. The Streamlit version provides a modern, browser-based experience"
+" for curve fitting operations."
+msgstr ""
+"Esta guía cubre la interfaz basada en web de RegressionLab creada con "
+"Streamlit. La versión Streamlit proporciona una experiencia moderna basada "
+"en navegador para operaciones de ajuste de curvas."
+
+#: ../../../docs/streamlit-guide.md:5 2535b27af0664e53aa283d3a84fe9389
+msgid "Overview"
+msgstr "Descripción general"
+
+#: ../../../docs/streamlit-guide.md:7 00e3ad8bfe59420ca7b31c02de37c04c
+msgid "The Streamlit interface offers:"
+msgstr "La interfaz Streamlit ofrece:"
+
+#: ../../../docs/streamlit-guide.md:8 a926327e2d004fb887faf1627a825183
+msgid "**Modern UI**: Clean, intuitive design."
+msgstr "**IU moderna**: diseño limpio e intuitivo."
+
+#: ../../../docs/streamlit-guide.md:9 e0cb0dd92f1a468c80a8003f0eb0dc71
+msgid "**Accessibility**: Works on any device with a browser."
+msgstr "**Accesibilidad**: Funciona en cualquier dispositivo con navegador."
+
+#: ../../../docs/streamlit-guide.md:10 cec476f8934e4b7082e9e47331b56f3e
+msgid "**No installation**: Use the online version instantly."
+msgstr "**Sin instalación**: Utilice la versión en línea al instante."
+
+#: ../../../docs/streamlit-guide.md:11 9e2d5f0548c1480fa639f8cf053dec22
+msgid "**Visual feedback**: Real-time updates and progress indicators."
+msgstr ""
+"**Comentarios visuales**: actualizaciones en tiempo real e indicadores de "
+"progreso."
+
+#: ../../../docs/streamlit-guide.md:12 33649b641b5f485b97de58bf9b72abb8
+msgid "**Easy sharing**: Share results by downloading plots."
+msgstr "**Compartir fácilmente**: comparta resultados descargando gráficos."
+
+#: ../../../docs/streamlit-guide.md:14 3162e42dd49d4a1eaee60c4e15efe9ef
+msgid ""
+"Configuration (language, UI colors, fonts, plot style, paths, etc.) is the "
+"same as the Tkinter app: edit the `.env` file or use the Tkinter "
+"**Configure** menu. The Streamlit UI has no in-app configuration dialog; it "
+"reads `LANGUAGE`, `UI_BACKGROUND`, `UI_FOREGROUND`, `UI_BUTTON_*`, "
+"`UI_FONT_*`, and the rest of the env schema. The initial language and the "
+"entire look (background, sidebar, buttons, text) follow the same rules as "
+"the desktop version. The sidebar is rendered slightly lighter than the main "
+"area for visual separation."
+msgstr ""
+"La configuración (idioma, colores de la interfaz de usuario, fuentes, estilo"
+" de trazado, rutas, etc.) es la misma que la de la aplicación Tkinter: edite"
+" el archivo `.env` o use el menú **Configurar** de Tkinter. La interfaz de "
+"usuario de Streamlit no tiene un cuadro de diálogo de configuración en la "
+"aplicación; lee `LANGUAGE`, `UI_BACKGROUND`, `UI_FOREGROUND`, `UI_BUTTON_*`,"
+" `UI_FONT_*` y el resto del esquema de entorno. El idioma inicial y el "
+"aspecto completo (fondo, barra lateral, botones, texto) siguen las mismas "
+"reglas que la versión de escritorio. La barra lateral se vuelve ligeramente "
+"más clara que el área principal para la separación visual."
+
+#: ../../../docs/streamlit-guide.md:16 ce221439a6874065b765a758fb4fc9ae
+msgid "Accessing Streamlit"
+msgstr "Accediendo a Streamlit"
+
+#: ../../../docs/streamlit-guide.md:18 805ff035a9cc423c8628d49db6e848bd
+msgid "Online Version (Recommended)"
+msgstr "Versión en línea (recomendada)"
+
+#: ../../../docs/streamlit-guide.md:20 d76b08422e0747628c6cb1e51cff06c6
+msgid ""
+"Visit: "
+"[https://regressionlab.streamlit.app/](https://regressionlab.streamlit.app/)"
+msgstr ""
+"Visita: "
+"[https://regressionlab.streamlit.app/](https://regressionlab.streamlit.app/)"
+
+#: ../../../docs/streamlit-guide.md:22 28132961c33147ba98bc78bf829e587c
+msgid "**First-time access**:"
+msgstr "**Acceso por primera vez**:"
+
+#: ../../../docs/streamlit-guide.md:23 999b97261257459491ea3c55830d1428
+msgid "Open the URL in your browser."
+msgstr "Abra la URL en su navegador."
+
+#: ../../../docs/streamlit-guide.md:24 fc31d13a84224f389766d2349fdcadf2
+msgid "If you see \"App is sleeping\", click \"Start\"."
+msgstr "Si ve \"La aplicación está inactiva\", haga clic en \"Iniciar\"."
+
+#: ../../../docs/streamlit-guide.md:25 62ca63a77f6146eeb97b7b4448eed784
+msgid "Wait 30-60 seconds for the app to wake up."
+msgstr "Espere entre 30 y 60 segundos para que se active la aplicación."
+
+#: ../../../docs/streamlit-guide.md:26 0389923977054f1b8f79b9f174b7b6bd
+msgid "The app will load and be ready to use."
+msgstr "La aplicación se cargará y estará lista para usar."
+
+#: ../../../docs/streamlit-guide.md:28 eb744a0231e344d1b23250d55d65561c
+msgid "Local Version"
+msgstr "Versión Local"
+
+#: ../../../docs/streamlit-guide.md:30 ca56d44fe923401fb5988f0be1fd7f43
+msgid "If you have RegressionLab installed locally:"
+msgstr "Si tiene RegressionLab instalado localmente:"
+
+#: ../../../docs/streamlit-guide.md:32 024b14e8eb9347539e91b6bbde4d5f9d
+msgid "**Windows:**"
+msgstr "**Windows:**"
+
+#: ../../../docs/streamlit-guide.md:37 460a4514e0e44e50a2f48635642c747d
+msgid "**macOS/Linux:**"
+msgstr "**macOS/Linux:**"
+
+#: ../../../docs/streamlit-guide.md:42 4989776298cd47e985f82e63a605e27b
+msgid "**Or use the direct command:**"
+msgstr "**O use el comando directo:**"
+
+#: ../../../docs/streamlit-guide.md:47 ed1182c17b9d4af3ad183791aba06a1c
+msgid ""
+"The app will open automatically in your default browser at "
+"`http://localhost:8501`."
+msgstr ""
+"La aplicación se abrirá automáticamente en su navegador predeterminado en "
+"`http://localhost:8501`."
+
+#: ../../../docs/streamlit-guide.md:49 870a28ca6ef34e869f3111da8abed28f
+msgid "Interface Layout"
+msgstr "Diseño de interfaz"
+
+#: ../../../docs/streamlit-guide.md:51 e1abe333cc5f418e8682724b7d0a0213
+msgid "The Streamlit interface consists of three main areas:"
+msgstr "La interfaz Streamlit consta de tres áreas principales:"
+
+#: ../../../docs/streamlit-guide.md:53 c2eeb8ab3a0046839a7bd27e3bcbc713
+msgid "1. Sidebar (Left)"
+msgstr "1. Barra lateral (izquierda)"
+
+#: ../../../docs/streamlit-guide.md:54 f8da3427db12426cb84f92c6f956383f
+msgid ""
+"Slightly lighter background than the main area (same theme rules as "
+"Tkinter)."
+msgstr ""
+"Fondo ligeramente más claro que el área principal (las mismas reglas del "
+"tema que Tkinter)."
+
+#: ../../../docs/streamlit-guide.md:55 e0904df6c61648b6811fd0eb3ca6a317
+msgid ""
+"**Language**: One button that cycles through all supported languages "
+"(Spanish → English → Deutsch → Spanish). The button label shows the *next* "
+"language (e.g. \"English 🇬🇧\" when current is Spanish). Initial value comes "
+"from `.env` `LANGUAGE`."
+msgstr ""
+"**Idioma**: Un botón que recorre todos los idiomas admitidos (español → "
+"inglés → alemán → español). La etiqueta del botón muestra el *siguiente* "
+"idioma (por ejemplo, \"inglés 🇬🇧\" cuando el actual es español). El valor "
+"inicial proviene de `.env` `LANGUAGE`."
+
+#: ../../../docs/streamlit-guide.md:56 3613a71dd83c4739924591f29726e945
+msgid "**Mode Selection**: Choose your operation mode:"
+msgstr "**Selección de modo**: Elija su modo de operación:"
+
+#: ../../../docs/streamlit-guide.md:57 e2760d8984ef439c81adce96a3b2732d
+msgid "Normal Fitting."
+msgstr "Ajuste normal."
+
+#: ../../../docs/streamlit-guide.md:58 54ab6e7546a7409cae510bf4fe7921b0
+msgid "Multiple Datasets."
+msgstr "Múltiples conjuntos de datos."
+
+#: ../../../docs/streamlit-guide.md:59 119f4539e33541b4a6d8dc4ea32b40d1
+msgid "Checker Fitting."
+msgstr "Ajuste corrector."
+
+#: ../../../docs/streamlit-guide.md:60 27f84334bef44872bde8b9008770ccb7
+msgid "Total Fitting."
+msgstr "Ajuste total."
+
+#: ../../../docs/streamlit-guide.md:61 fc45ed6af40f4788be1b709ebb1aa85b
+msgid "View Data."
+msgstr "Ver datos."
+
+#: ../../../docs/streamlit-guide.md:63 0a509c680a57496bbb4f9dda14054e54
+msgid "2. Main Area (Center)"
+msgstr "2. Área Principal (Centro)"
+
+#: ../../../docs/streamlit-guide.md:64 ac95aeae53844a50bd8c15b2b923c86b
+msgid "**Logo and Title**: RegressionLab branding."
+msgstr "**Logotipo y título**: marca RegressionLab."
+
+#: ../../../docs/streamlit-guide.md:65 f63d979e74524cf89153773b7c70f2f1
+msgid "**Help Section**: Expandable information about the app."
+msgstr "**Sección de Ayuda**: Información ampliable sobre la aplicación."
+
+#: ../../../docs/streamlit-guide.md:66 cc42f3e815534a558927057c5600af16
+msgid ""
+"**Operation Controls**: File upload, variable selection, equation selection."
+msgstr ""
+"**Controles de operación**: carga de archivos, selección de variables, "
+"selección de ecuaciones."
+
+#: ../../../docs/streamlit-guide.md:67 4a29cb3ee208413e8da0d3fbb9756906
+msgid "**Results Display**: Plots and fitting results."
+msgstr "**Visualización de resultados**: Gráficos y resultados de ajuste."
+
+#: ../../../docs/streamlit-guide.md:69 e75399a6a6c747519d21e4db4a3d59e5
+msgid "3. Results Section (Bottom)"
+msgstr "3. Sección de Resultados (Abajo)"
+
+#: ../../../docs/streamlit-guide.md:70 e11e09fa00b04e99974bb1fdce135ee5
+msgid ""
+"**Three columns**: Equation (formula and formatted equation, left), "
+"Parameters (fit parameters with uncertainties and IC 95%, center), "
+"Statistics (R², RMSE, χ², etc., right)."
+msgstr ""
+"**Tres columnas**: Ecuación (fórmula y ecuación formateada, izquierda), "
+"Parámetros (parámetros de ajuste con incertidumbres e IC 95%, centro), "
+"Estadísticas (R², RMSE, χ², etc., derecha)."
+
+#: ../../../docs/streamlit-guide.md:71 39f92852cbaf4a88ad5e9c880c7f2df4
+msgid "**Plot Display**: Visualization of fitted curves below the columns."
+msgstr ""
+"**Visualización de trazado**: Visualización de curvas ajustadas debajo de "
+"las columnas."
+
+#: ../../../docs/streamlit-guide.md:72 21c7c2bafce047e18ff7d872cda8a7d2
+msgid ""
+"**Download Button**: Below each plot; save as PNG, JPG, or PDF (when "
+"configured)."
+msgstr ""
+"**Botón Descargar**: Debajo de cada gráfico; guárdelo como PNG, JPG o PDF "
+"(cuando esté configurado)."
+
+#: ../../../docs/streamlit-guide.md:74 898fdb93ff064eff80ab08cc58b739ba
+msgid "Language Selection"
+msgstr "Selección de idioma"
+
+#: ../../../docs/streamlit-guide.md:76 fea988f3d34c466dad5c748567e0cfb1
+msgid "Changing the Language"
+msgstr "Cambiar el idioma"
+
+#: ../../../docs/streamlit-guide.md:78 452365c0284d493593034f04c4487354
+msgid "Look at the sidebar (left side)."
+msgstr "Mire la barra lateral (lado izquierdo)."
+
+#: ../../../docs/streamlit-guide.md:79 6610f80472da4ddc8e8e152754738dc2
+msgid ""
+"Click the language button. The button always shows the *next* language in "
+"the cycle:"
+msgstr ""
+"Haga clic en el botón de idioma. El botón siempre muestra el *siguiente* "
+"idioma del ciclo:"
+
+#: ../../../docs/streamlit-guide.md:80 36631575746448dcbf800316137215fa
+msgid "**\"English 🇬🇧\"** → switch to English (when current is Spanish)."
+msgstr "**\"Inglés 🇬🇧\"** → cambiar a inglés (cuando el actual sea español)."
+
+#: ../../../docs/streamlit-guide.md:81 7ca53d8ae7d24e88b056ae2108ce51ef
+msgid "**\"Deutsch 🇩🇪\"** → switch to German (when current is English)."
+msgstr "**\"Deutsch 🇩🇪\"** → cambiar a alemán (cuando el actual sea inglés)."
+
+#: ../../../docs/streamlit-guide.md:82 c813497aba2a49f5ac2009c54fe7933d
+msgid "**\"Español 🇪🇸\"** → switch to Spanish (when current is German)."
+msgstr "**\"Español 🇪🇸\"** → cambiar a español (cuando lo actual es alemán)."
+
+#: ../../../docs/streamlit-guide.md:83 f29f8cf3a4d84e83bf32e89ba0d56969
+msgid ""
+"The entire interface updates immediately. Click again to cycle to the next "
+"language."
+msgstr ""
+"Toda la interfaz se actualiza inmediatamente. Haga clic nuevamente para "
+"pasar al siguiente idioma."
+
+#: ../../../docs/streamlit-guide.md:85 cceb1d4b82d84ba984d726899b6f906e
+msgid "**Available Languages** (cycle order: es → en → de → es):"
+msgstr "**Idiomas disponibles** (orden de ciclo: es → en → de → es):"
+
+#: ../../../docs/streamlit-guide.md:86 e2bd0a5442974b85b2d4a151b941a312
+msgid "Spanish (Español) – default."
+msgstr "Español (Español) – predeterminado."
+
+#: ../../../docs/streamlit-guide.md:87 2332a7020c4e48b6b513107d0561a2ef
+msgid "English."
+msgstr "Inglés."
+
+#: ../../../docs/streamlit-guide.md:88 c4502d12f49e47b1921578665d3e73fb
+msgid "German (Deutsch)."
+msgstr "Alemán (Deutsch)."
+
+#: ../../../docs/streamlit-guide.md:90 ad37e49a09b9453eb081b5e1f84ae2a5
+msgid "Operation Modes"
+msgstr "Modos de operación"
+
+#: ../../../docs/streamlit-guide.md:92 0b39fc4a81c0480cb3b523d7a2b0777a
+msgid "Mode 1: Normal Fitting"
+msgstr "Modo 1: Ajuste normal"
+
+#: ../../../docs/streamlit-guide.md:94 a21d5b06fbc5498187941d2bc8a8c419
+msgid "**Purpose**: Fit one equation to one dataset."
+msgstr "**Propósito**: Ajustar una ecuación a un conjunto de datos."
+
+#: ../../../docs/streamlit-guide.md:96 ../../../docs/streamlit-guide.md:170
+#: ../../../docs/streamlit-guide.md:234 ../../../docs/streamlit-guide.md:291
+#: ../../../docs/streamlit-guide.md:325 4193795881754c06944c6a00c383930f
+#: 5a714d484b7a44d9999617324fc41af1 92343c89321f4e6a8f7fbe7f9254c80f
+#: e28a2ad92629491695a055bdf2d2a0db efb0ae895c6a431b844263c120667460
+msgid "**Steps**:"
+msgstr "**Pasos**:"
+
+#: ../../../docs/streamlit-guide.md:98 ../../../docs/streamlit-guide.md:172
+#: ../../../docs/streamlit-guide.md:236 ../../../docs/streamlit-guide.md:293
+#: ../../../docs/streamlit-guide.md:327 9edc145fcb714734b3ce2e5f31e8309f
+#: a72ea898cc5149ae8e3f2eee9b9ee19e c0a39376005d4b71ac7143b952eb6972
+#: c581f4ff75df47c3a9d323fe54581047 ff189aab2672426db0a73899ddfbc1d8
+msgid "**Select Mode**:"
+msgstr "**Seleccionar modo**:"
+
+#: ../../../docs/streamlit-guide.md:99 81f849f85dcf4930ad0c9855db46e298
+msgid "In the sidebar, ensure \"Normal Fitting\" is selected."
+msgstr ""
+"En la barra lateral, asegúrese de que esté seleccionado \"Ajuste normal\"."
+
+#: ../../../docs/streamlit-guide.md:101 9293189c63c840edbdfa6849e7f7306d
+msgid "**Optional: Loop fitting**:"
+msgstr "**Opcional: Conexión de bucle**:"
+
+#: ../../../docs/streamlit-guide.md:102 358b0aa5edbd4c62b551550192f9e803
+msgid ""
+"Check \"Do you want loop fitting?\" if you plan to fit another file with the"
+" same equation later."
+msgstr ""
+"Marque \"¿Quiere un ajuste de bucle?\" si planeas ajustar otro archivo con "
+"la misma ecuación más adelante."
+
+#: ../../../docs/streamlit-guide.md:103 ff161ad4fe804d5991eb8e660cd26003
+msgid ""
+"When enabled, after the first fit an expander lets you upload another file "
+"and click \"Fit again\" without changing the equation."
+msgstr ""
+"Cuando está habilitado, después del primer ajuste, un expansor le permite "
+"cargar otro archivo y hacer clic en \"Ajustar de nuevo\" sin cambiar la "
+"ecuación."
+
+#: ../../../docs/streamlit-guide.md:105 ../../../docs/streamlit-guide.md:239
+#: ../../../docs/streamlit-guide.md:296 ../../../docs/streamlit-guide.md:330
+#: 10c1cfc3d3614fcbbe68e51a86cb60cd 6340a2cdcccb4805bba8caf19c28222f
+#: 65151ca2a15e45758501587ba1250f2e c4f4ef6a7fa24455aec4ed0f293063a0
+msgid "**Upload Data**:"
+msgstr "**Subir datos**:"
+
+#: ../../../docs/streamlit-guide.md:106 ../../../docs/streamlit-guide.md:297
+#: 8040ac8102694390ab98ee7c829c46d4 eda4aef2f9ec4a128c90add01133637f
+msgid "Click \"Browse files\" or drag and drop your file."
+msgstr "Haga clic en \"Buscar archivos\" o arrastre y suelte su archivo."
+
+#: ../../../docs/streamlit-guide.md:107 ../../../docs/streamlit-guide.md:298
+#: 0975376e1b9e4bd8b99fd9418874ec03 2ff72c7f15b341339746131565907462
+msgid "Supported formats: CSV, XLSX, TXT."
+msgstr "Formatos soportados: CSV, XLSX, TXT."
+
+#: ../../../docs/streamlit-guide.md:108 0f282d74a57d4fdca08c56618062aa8e
+msgid "Wait for the file to upload and process."
+msgstr "Espere a que el archivo se cargue y procese."
+
+#: ../../../docs/streamlit-guide.md:110 0def9b522ae44764935a4d98ee1dbea0
+msgid "**View Data** (Optional):"
+msgstr "**Ver datos** (opcional):"
+
+#: ../../../docs/streamlit-guide.md:111 67d6f61a06fa44a6aa789a9b417f6aa2
+msgid "Expand \"Show Data\" to preview your dataset."
+msgstr ""
+"Expanda \"Mostrar datos\" para obtener una vista previa de su conjunto de "
+"datos."
+
+#: ../../../docs/streamlit-guide.md:112 d9225bfb0c0a4909925e869c5caa2f0b
+msgid "Verify columns are loaded correctly."
+msgstr "Verifique que las columnas estén cargadas correctamente."
+
+#: ../../../docs/streamlit-guide.md:114 ../../../docs/streamlit-guide.md:242
+#: ../../../docs/streamlit-guide.md:333 3ba058a90ea94ffe868c9689402c3b8f
+#: 5a14f529ec5b4859a3465dcb9975d432 c76503b347f34e008fe53e346e64bb08
+msgid "**Select Variables**:"
+msgstr "**Seleccionar variables**:"
+
+#: ../../../docs/streamlit-guide.md:115 4b91cd5b56ff482db0a0823e8df95f79
+msgid "**Independent Variable (X)**: Choose from dropdown (e.g., \"time\")."
+msgstr ""
+"**Variable independiente (X)**: elija del menú desplegable (por ejemplo, "
+"\"tiempo\")."
+
+#: ../../../docs/streamlit-guide.md:116 5ffcbc5d1db74965a292ee5bdd1295b8
+msgid "**Dependent Variable (Y)**: Choose from dropdown (e.g., \"temperature\")."
+msgstr ""
+"**Variable dependiente (Y)**: elija del menú desplegable (por ejemplo, "
+"\"temperatura\")."
+
+#: ../../../docs/streamlit-guide.md:117 8c1fea2c4ecc4e869219c8c8e548e86c
+msgid "**Plot Name**: Enter a name for the output file (e.g., \"experiment1\")."
+msgstr ""
+"**Nombre de la trama**: ingrese un nombre para el archivo de salida (por "
+"ejemplo, \"experimento1\")."
+
+#: ../../../docs/streamlit-guide.md:119 5d2134488d3a4279990b65bf8db1aed2
+msgid "**Select Equation**:"
+msgstr "**Seleccione ecuación**:"
+
+#: ../../../docs/streamlit-guide.md:120 4c4aadd698264dd7a30f1c482541c5d1
+msgid "Choose an equation type from the dropdown."
+msgstr "Elija un tipo de ecuación del menú desplegable."
+
+#: ../../../docs/streamlit-guide.md:121 66c610cfa0b643ec991b51256ba3ae12
+msgid "Options include Linear, Quadratic, Sine, Cosine, Logarithmic, etc."
+msgstr ""
+"Las opciones incluyen lineal, cuadrática, seno, coseno, logarítmica, etc."
+
+#: ../../../docs/streamlit-guide.md:122 944c295ea5784b6d827b2ead215bc0e2
+msgid ""
+"Formula shown next to each option (e.g., \"Linear with intercept - "
+"y=mx+n\")."
+msgstr ""
+"Fórmula que se muestra junto a cada opción (por ejemplo, \"Lineal con "
+"intersección - y=mx+n\")."
+
+#: ../../../docs/streamlit-guide.md:124 ../../../docs/streamlit-guide.md:192
+#: ../../../docs/streamlit-guide.md:253 ../../../docs/streamlit-guide.md:337
+#: 2eed42b74922420e8d41b4f09ee7b6ae 86ef983233b046d6a29f782ff45240d8
+#: c44b3b8802ad4cce8f8122efb00dc090 d1522b00100541d7a2955e6fc98ac80c
+msgid "**Plot Options** (optional):"
+msgstr "**Opciones de trama** (opcional):"
+
+#: ../../../docs/streamlit-guide.md:125 c28429d031204f42a2a245b92d6d2085
+msgid ""
+"**Show plot title**: Checkbox to show or hide the title on the plot. Default"
+" comes from the `PLOT_SHOW_TITLE` environment variable; you can override it "
+"per fit without changing the config."
+msgstr ""
+"**Mostrar título del gráfico**: casilla de verificación para mostrar u "
+"ocultar el título del gráfico. El valor predeterminado proviene de la "
+"variable de entorno `PLOT_SHOW_TITLE`; puedes anularlo por ajuste sin "
+"cambiar la configuración."
+
+#: ../../../docs/streamlit-guide.md:127 f2c9a44dcee040ab94614700fd76c3b1
+msgid "**Fit the Curve**:"
+msgstr "**Ajustar la curva**:"
+
+#: ../../../docs/streamlit-guide.md:128 846f6a09939044929e8f0ff47425f20c
+msgid "Click \"Normal Fitting\" button (blue button)."
+msgstr "Haga clic en el botón \"Ajuste normal\" (botón azul)."
+
+#: ../../../docs/streamlit-guide.md:129 46aef37372ad47adafc14296a75945ae
+msgid "Wait for processing (spinner appears)."
+msgstr "Espere el procesamiento (aparece la ruleta)."
+
+#: ../../../docs/streamlit-guide.md:130 580959cbee804c1ea9988971e188f355
+msgid "Results appear below."
+msgstr "Los resultados aparecen a continuación."
+
+#: ../../../docs/streamlit-guide.md:132 993088cb27714a02b2bb29e432fc048d
+msgid "**Review Results** (three columns + plot):"
+msgstr "**Revisar resultados** (tres columnas + gráfico):"
+
+#: ../../../docs/streamlit-guide.md:133 61da077fbd3d489982d199f8e62047c0
+msgid ""
+"**Equation** (left): Formula and formatted equation with fitted values."
+msgstr ""
+"**Ecuación** (izquierda): Fórmula y ecuación formateada con valores "
+"ajustados."
+
+#: ../../../docs/streamlit-guide.md:134 ad5e0e77b39f4859bd86eb30f6aea35a
+msgid ""
+"**Parameters** (center): Fit parameters (e.g. a, b, c) with uncertainties "
+"and IC 95%."
+msgstr ""
+"**Parámetros** (centro): Ajuste de parámetros (por ejemplo, a, b, c) con "
+"incertidumbres e IC del 95 %."
+
+#: ../../../docs/streamlit-guide.md:135 a20b635217be40c998449297bbfd3bcc
+msgid "**Statistics** (right): R², RMSE, χ², χ²_red, degrees of freedom."
+msgstr "**Estadísticas** (derecha): R², RMSE, χ², χ²_red, grados de libertad."
+
+#: ../../../docs/streamlit-guide.md:136 e79027fb550b4d17bb63e79b381381c6
+msgid ""
+"**Plot**: Data points and fitted curve below the columns (title uses the "
+"plot name if enabled)."
+msgstr ""
+"**Gráfico**: puntos de datos y curva ajustada debajo de las columnas (el "
+"título usa el nombre del gráfico si está habilitado)."
+
+#: ../../../docs/streamlit-guide.md:137 a188f3da0acb45b683bde15e19c2106e
+msgid ""
+"**Download**: Button below the plot (PNG/JPG/PDF depending on "
+"configuration)."
+msgstr ""
+"**Descargar**: Botón debajo del gráfico (PNG/JPG/PDF según configuración)."
+
+#: ../../../docs/streamlit-guide.md:139 dd409c5dee9043fa86a5b7a817ae6738
+msgid "**Download Plot**:"
+msgstr "**Descargar argumento**:"
+
+#: ../../../docs/streamlit-guide.md:140 ../../../docs/streamlit-guide.md:470
+#: 0ec2ab48b56f43f7a12cfc5c2115b870 879f457732a4447fb4ca5549eed7859b
+msgid "Click the \"📥 Download\" button below the plot."
+msgstr "Haga clic en el botón \"📥 Descargar\" debajo del gráfico."
+
+#: ../../../docs/streamlit-guide.md:141 dca741db09c848ee83d12d2f3441c641
+msgid ""
+"File format is that configured for the app (default PNG); if PDF is "
+"configured, the in-app preview is PNG but the download is PDF. The plot "
+"title (when shown) uses the plot name you entered; no numeric suffix is "
+"added."
+msgstr ""
+"El formato de archivo es el configurado para la aplicación (PNG "
+"predeterminado); Si se configura PDF, la vista previa en la aplicación es "
+"PNG pero la descarga es PDF. El título de la trama (cuando se muestra) "
+"utiliza el nombre de la trama que usted ingresó; no se agrega ningún sufijo "
+"numérico."
+
+#: ../../../docs/streamlit-guide.md:143 e15e481781524357b59c7a563fca6dd2
+msgid "**Custom Formula**:"
+msgstr "**Fórmula personalizada**:"
+
+#: ../../../docs/streamlit-guide.md:145 7c289833ed614fdf9f2a569d02005a64
+msgid "If \"Custom Formula\" is selected:"
+msgstr "Si se selecciona \"Fórmula personalizada\":"
+
+#: ../../../docs/streamlit-guide.md:147 982c796c99234a88b53282f735fd94f9
+msgid "**Enter Number of Parameters**: Use the number input (1-10)."
+msgstr ""
+"**Ingrese el número de parámetros**: utilice la entrada numérica (1-10)."
+
+#: ../../../docs/streamlit-guide.md:148 795274e75fe64115a7f633e5de8d78bc
+msgid "**Name Parameters**: Enter names in the input boxes (e.g., \"a\", \"b\", \"c\")."
+msgstr ""
+"**Parámetros de nombre**: ingrese nombres en los cuadros de entrada (por "
+"ejemplo, \"a\", \"b\", \"c\")."
+
+#: ../../../docs/streamlit-guide.md:149 ccf1a893909449a8a1426aa20d19fdbb
+msgid "**Enter Formula**: Type your formula using Python syntax."
+msgstr ""
+"**Ingrese la fórmula**: escriba su fórmula usando la sintaxis de Python."
+
+#: ../../../docs/streamlit-guide.md:150 38ec6e10bbd2402c9484567e2958c9d5
+msgid "Example: `a*x**2 + b*x + c`."
+msgstr "Ejemplo: `a*x**2 + b*x + c`."
+
+#: ../../../docs/streamlit-guide.md:151 13d587d8b5374814a6737b1fb504380b
+msgid "Use `x` as the independent variable."
+msgstr "Utilice `x` como variable independiente."
+
+#: ../../../docs/streamlit-guide.md:152 bc29aac5a1144f27a8fec8ff449c1bed
+msgid "Use parameter names defined above."
+msgstr "Utilice los nombres de parámetros definidos anteriormente."
+
+#: ../../../docs/streamlit-guide.md:153 0713d63503de4a6889e95721a7d2ea58
+msgid ""
+"Supported: `+`, `-`, `*`, `/`, `**` (power), `np.sin()`, `np.cos()`, "
+"`np.exp()`, `np.log()`, etc."
+msgstr ""
+"Soportado: `+`, `-`, `*`, `/`, `**` (potencia), `np.sin()`, `np.cos()`, "
+"`np.exp()`, `np.log()`, etc."
+
+#: ../../../docs/streamlit-guide.md:155 ../../../docs/streamlit-guide.md:215
+#: ../../../docs/streamlit-guide.md:269 ../../../docs/streamlit-guide.md:358
+#: 2d55f2bfc1d04371a08856cbb490d66a 5845797bee494b3a96f627797364c556
+#: a4c77ef16a7d4fffb20bbf6bad7abb4e e8b4f93cca02446595ab3f54d782b3c5
+msgid "**Example Workflow**:"
+msgstr "**Flujo de trabajo de ejemplo**:"
+
+#: ../../../docs/streamlit-guide.md:166 0534c179b9814bd68186ac7686466b56
+msgid "Mode 2: Multiple Datasets"
+msgstr "Modo 2: múltiples conjuntos de datos"
+
+#: ../../../docs/streamlit-guide.md:168 ae7815be78964e90aa192c709a5c122f
+msgid "**Purpose**: Apply the same equation to multiple different files."
+msgstr ""
+"**Propósito**: Aplicar la misma ecuación a varios archivos diferentes."
+
+#: ../../../docs/streamlit-guide.md:173 40f827ee3ed34db59c6ef13bc9b16369
+msgid "In sidebar, click \"Multiple Datasets\"."
+msgstr "En la barra lateral, haga clic en \"Múltiples conjuntos de datos\"."
+
+#: ../../../docs/streamlit-guide.md:175 b22ad7a31a72482b81335d14d4f464b1
+msgid "**Select Equation First**:"
+msgstr "**Seleccione la ecuación primero**:"
+
+#: ../../../docs/streamlit-guide.md:176 698a76b3e41641b399f7201559e03ce7
+msgid "Choose the equation type you'll use for all datasets."
+msgstr ""
+"Elija el tipo de ecuación que usará para todos los conjuntos de datos."
+
+#: ../../../docs/streamlit-guide.md:177 6bd5ff87f0bd4d0ab3d34803301658a6
+msgid "If using custom formula, define it here."
+msgstr "Si utiliza una fórmula personalizada, defínala aquí."
+
+#: ../../../docs/streamlit-guide.md:179 badcc912ce764dc4bbff65d24093d7e3
+msgid "**Upload Multiple Files**:"
+msgstr "**Subir varios archivos**:"
+
+#: ../../../docs/streamlit-guide.md:180 63358e44c95545afab250b336d2b8cf5
+msgid "Click \"Browse files\"."
+msgstr "Haga clic en \"Buscar archivos\"."
+
+#: ../../../docs/streamlit-guide.md:181 793b4e7bab0743a9975fe95a831d36d8
+msgid "**Hold Ctrl (Windows/Linux) or Cmd (Mac)** to select multiple files."
+msgstr ""
+"**Mantenga presionada la tecla Ctrl (Windows/Linux) o Cmd (Mac)** para "
+"seleccionar varios archivos."
+
+#: ../../../docs/streamlit-guide.md:182 5d61e9bcdb48424b9eb0f34a5fd2443b
+msgid "Or use drag-and-drop for multiple files."
+msgstr "O utilice arrastrar y soltar para varios archivos."
+
+#: ../../../docs/streamlit-guide.md:183 ba30b9f181934e25bbea730d640d2787
+msgid "All files upload simultaneously."
+msgstr "Todos los archivos se cargan simultáneamente."
+
+#: ../../../docs/streamlit-guide.md:185 c462b97c30484c3d904511c1fbaa6c6f
+msgid "**Configure Each Dataset**:"
+msgstr "**Configurar cada conjunto de datos**:"
+
+#: ../../../docs/streamlit-guide.md:186 b57028d2515241199918456917c1e51b
+msgid "For each uploaded file:"
+msgstr "Para cada archivo cargado:"
+
+#: ../../../docs/streamlit-guide.md:187 0997431362b441ca99c016b91ca38ecc
+msgid "File name shown as heading."
+msgstr "El nombre del archivo se muestra como encabezado."
+
+#: ../../../docs/streamlit-guide.md:188 ca7753a66fff4791adb28926d3a3ffd1
+msgid "Select X variable."
+msgstr "Seleccione la variable X."
+
+#: ../../../docs/streamlit-guide.md:189 629e84066a164f5e952122a8ee9b15d1
+msgid "Select Y variable."
+msgstr "Seleccione la variable Y."
+
+#: ../../../docs/streamlit-guide.md:190 87bd5b0e306e46848c00dd895d3bfc1f
+msgid "Enter plot name (defaults to filename)."
+msgstr ""
+"Ingrese el nombre de la trama (el valor predeterminado es nombre de "
+"archivo)."
+
+#: ../../../docs/streamlit-guide.md:193 ../../../docs/streamlit-guide.md:254
+#: ../../../docs/streamlit-guide.md:338 071f0ac2250246879c862e0a78adc5cd
+#: 28cccf5cf14c4dc0bc834cd5de730857 9bae185378914f268a92cb8cdaa63416
+msgid ""
+"**Show plot title**: Checkbox to show or hide the title on all plots. "
+"Default from `PLOT_SHOW_TITLE` env var."
+msgstr ""
+"**Mostrar título del gráfico**: casilla de verificación para mostrar u "
+"ocultar el título en todos los gráficos. Valor predeterminado de "
+"`PLOT_SHOW_TITLE` env var."
+
+#: ../../../docs/streamlit-guide.md:195 c479141a6489424183eb965f5d0f67b6
+msgid "**Fit All Datasets**:"
+msgstr "**Ajustar a todos los conjuntos de datos**:"
+
+#: ../../../docs/streamlit-guide.md:196 03725907979c4270873ba15e282d515d
+msgid "Click the \"Multiple Datasets\" button (centered, blue)."
+msgstr "Haga clic en el botón \"Múltiples conjuntos de datos\" (centrado, azul)."
+
+#: ../../../docs/streamlit-guide.md:197 f658d14205914c61920261d28131f5b9
+msgid "All datasets are fitted sequentially."
+msgstr "Todos los conjuntos de datos se ajustan secuencialmente."
+
+#: ../../../docs/streamlit-guide.md:198 03b4e24ce2af43ae8af8c035bacc5080
+msgid "Progress indicators shown."
+msgstr "Se muestran indicadores de progreso."
+
+#: ../../../docs/streamlit-guide.md:200 ../../../docs/streamlit-guide.md:347
+#: 07c1c591d413416f8e9d1346b22f899c 69c6b83e1f2e42a0b1b607bec95869c9
+msgid "**Review All Results**:"
+msgstr "**Revisar todos los resultados**:"
+
+#: ../../../docs/streamlit-guide.md:201 4a1eda9aaf4e478fb9e064accba41402
+msgid "Results displayed for each dataset."
+msgstr "Resultados mostrados para cada conjunto de datos."
+
+#: ../../../docs/streamlit-guide.md:202 39427eecf1654b79b3411b60d483fd54
+msgid "Each has its own:"
+msgstr "Cada uno tiene el suyo:"
+
+#: ../../../docs/streamlit-guide.md:203 0f6aec12f08c4e2b8aead68fbc7dbe9b
+msgid "Equation."
+msgstr "Ecuación."
+
+#: ../../../docs/streamlit-guide.md:204 8fc65557bc784c91b476b3d43fc6c135
+msgid "Parameters."
+msgstr "Parámetros."
+
+#: ../../../docs/streamlit-guide.md:205 559ce3b430194ee99ff99583707d79fc
+msgid "Plot."
+msgstr "Trama."
+
+#: ../../../docs/streamlit-guide.md:206 8936e9291bd74eeda16b7aff4274d75f
+msgid "Download button."
+msgstr "Botón de descarga."
+
+#: ../../../docs/streamlit-guide.md:207 656df5b52b704b25966fd5c6ab609fae
+msgid "Scroll through results to compare."
+msgstr "Desplácese por los resultados para comparar."
+
+#: ../../../docs/streamlit-guide.md:209 595d8bf6698a4a66920e7d1f3f325541
+msgid "**Tips**:"
+msgstr "**Consejos**:"
+
+#: ../../../docs/streamlit-guide.md:210 1b69037ec0094a499b1280c6dd54f44c
+msgid "All files should have similar column names."
+msgstr "Todos los archivos deben tener nombres de columnas similares."
+
+#: ../../../docs/streamlit-guide.md:211 51a1573e123f44dd85d73207e27d3eb2
+msgid "X and Y variables can be different for each file if needed."
+msgstr ""
+"Las variables X e Y pueden ser diferentes para cada archivo si es necesario."
+
+#: ../../../docs/streamlit-guide.md:212 940f95b0e82445cfb701c77c3969e626
+msgid "Results appear in upload order."
+msgstr "Los resultados aparecen en orden de carga."
+
+#: ../../../docs/streamlit-guide.md:213 3d06c285a78f4b7bbf09ea0f6f43acf2
+msgid ""
+"You can upload another set of files and click the button again for another "
+"round of fits with the same equation."
+msgstr ""
+"Puede cargar otro conjunto de archivos y hacer clic en el botón nuevamente "
+"para otra ronda de ajustes con la misma ecuación."
+
+#: ../../../docs/streamlit-guide.md:230 938a8be96e2b4ab0b85508eb3e18c3b8
+msgid "Mode 3: Checker Fitting"
+msgstr "Modo 3: Ajuste corrector"
+
+#: ../../../docs/streamlit-guide.md:232 6f387945151d4c01989f87b1ad7331de
+msgid ""
+"**Purpose**: Test multiple equations on the same dataset to find the best "
+"fit."
+msgstr ""
+"**Propósito**: Probar varias ecuaciones en el mismo conjunto de datos para "
+"encontrar el mejor ajuste."
+
+#: ../../../docs/streamlit-guide.md:237 60b431e270004e3998ac08c2c4cbe027
+msgid "In sidebar, click \"Checker Fitting\"."
+msgstr "En la barra lateral, haga clic en \"Comprobador de ajuste\"."
+
+#: ../../../docs/streamlit-guide.md:240 5bce754df24248928dd8d717f8355695
+msgid "Upload your single data file."
+msgstr "Cargue su archivo de datos único."
+
+#: ../../../docs/streamlit-guide.md:243 ../../../docs/streamlit-guide.md:334
+#: 5e85d0c703bc4515842f13604ebc235c c17d9bb8c11f4209ba3dd78d3bbd4b35
+msgid "Choose X and Y variables."
+msgstr "Elija las variables X e Y."
+
+#: ../../../docs/streamlit-guide.md:244 ../../../docs/streamlit-guide.md:335
+#: cb6436e01bde4f2289d95f9ac8431b32 ec6bc9f1b4ae432bbe7c56e4851bd5d3
+msgid "Enter plot name."
+msgstr "Introduzca el nombre de la trama."
+
+#: ../../../docs/streamlit-guide.md:246 2b8538cb370b4142842d059c75c77929
+msgid "**Select Multiple Equations**:"
+msgstr "**Seleccione varias ecuaciones**:"
+
+#: ../../../docs/streamlit-guide.md:247 ec9b1d574b094240ad457dc4208317d8
+msgid "Click in the \"Select equation\" dropdown."
+msgstr "Haga clic en el menú desplegable \"Seleccionar ecuación\"."
+
+#: ../../../docs/streamlit-guide.md:248 7d49fd634d7f41f1aa909a9fe4913026
+msgid "**Select multiple options** by clicking each one."
+msgstr "**Seleccione varias opciones** haciendo clic en cada una."
+
+#: ../../../docs/streamlit-guide.md:249 ece65b35687c40fa9f90c8a4d7661fc7
+msgid "Options remain in the dropdown (multi-select)."
+msgstr "Las opciones permanecen en el menú desplegable (selección múltiple)."
+
+#: ../../../docs/streamlit-guide.md:250 f65881d318d04e73b573041a5e877449
+msgid "Default: First 3 equations pre-selected."
+msgstr "Valor predeterminado: primeras 3 ecuaciones preseleccionadas."
+
+#: ../../../docs/streamlit-guide.md:251 18c7607edd2341a5ad15f38b4c744ce8
+msgid "Custom formulas not available in this mode."
+msgstr "Fórmulas personalizadas no disponibles en este modo."
+
+#: ../../../docs/streamlit-guide.md:256 d05e85c36e554d8e901480be6486c6a7
+msgid "**Run Checker Fitting**:"
+msgstr "**Ejecutar ajuste del verificador**:"
+
+#: ../../../docs/streamlit-guide.md:257 66e7a997790d4876902c13e0a5452f40
+msgid "Click \"Checker Fitting\" button."
+msgstr "Haga clic en el botón \"Ajuste del inspector\"."
+
+#: ../../../docs/streamlit-guide.md:258 ../../../docs/streamlit-guide.md:343
+#: 32a7d7cb18eb428cbdbe1646a3d2125c c90625704f934f159a9d0a657397a4b3
+msgid "Progress bar shows completion."
+msgstr "La barra de progreso muestra la finalización."
+
+#: ../../../docs/streamlit-guide.md:259 b5a97a54d1e34f8081fc8ab8ab903d57
+msgid "Each equation fitted sequentially."
+msgstr "Cada ecuación se ajustó secuencialmente."
+
+#: ../../../docs/streamlit-guide.md:261 bc01487cfa6e4a8c8f28e13ed86777c0
+msgid "**Compare Results**:"
+msgstr "**Comparar resultados**:"
+
+#: ../../../docs/streamlit-guide.md:262 4afdaf0f1c644b9691d4e7f04e025b8a
+msgid "All results displayed vertically."
+msgstr "Todos los resultados se muestran verticalmente."
+
+#: ../../../docs/streamlit-guide.md:263 d0540b2ca11c4d7baf7b204163509db8
+msgid "Compare:"
+msgstr "Comparar:"
+
+#: ../../../docs/streamlit-guide.md:264 aa1540586f1e4e67b20573b31bba14d9
+msgid "R² values (higher is better)."
+msgstr "Valores R² (cuanto más alto, mejor)."
+
+#: ../../../docs/streamlit-guide.md:265 2434ee612a224cef8461f57f3bad0809
+msgid "Visual fit quality in plots."
+msgstr "Calidad de ajuste visual en las parcelas."
+
+#: ../../../docs/streamlit-guide.md:266 a8e51332a29d46128931ac9444bcfc4f
+msgid "Parameter values."
+msgstr "Valores de los parámetros."
+
+#: ../../../docs/streamlit-guide.md:267 4fc05945e7e341b0a8c5e20c77181666
+msgid "Identify the best-fitting equation."
+msgstr "Identifique la ecuación que mejor se ajuste."
+
+#: ../../../docs/streamlit-guide.md:287 a81706862c1b4b25b9c09b009dd9d6df
+msgid "Mode 4: View Data"
+msgstr "Modo 4: Ver datos"
+
+#: ../../../docs/streamlit-guide.md:289 b77e64579e494547b46fb0990e982aeb
+msgid ""
+"**Purpose**: View data from a file without performing any fitting. Includes "
+"transform, clean, and download options."
+msgstr ""
+"**Propósito**: Ver datos de un archivo sin realizar ningún ajuste. Incluye "
+"opciones de transformación, limpieza y descarga."
+
+#: ../../../docs/streamlit-guide.md:294 089d2d6ded5d460c903b170cf1b90e48
+msgid "In the sidebar, select \"View Data\" (or \"Mirar datos\" in Spanish)."
+msgstr "En la barra lateral, seleccione \"Ver datos\" (o \"Mirar datos\" en español)."
+
+#: ../../../docs/streamlit-guide.md:300 696536c29ef0480691f51b271a77bc5a
+msgid "**View Data**:"
+msgstr "**Ver datos**:"
+
+#: ../../../docs/streamlit-guide.md:301 6de82a41102340beb66eeb2515e76d38
+msgid "Expand the data section to see the table."
+msgstr "Expanda la sección de datos para ver la tabla."
+
+#: ../../../docs/streamlit-guide.md:302 e62bf73edbd04a27a6c720a3c55d79c3
+msgid ""
+"Click **Show variable pairs** (or equivalent in your language) for scatter "
+"matrix (pair plots)."
+msgstr ""
+"Haga clic en **Mostrar pares de variables** (o equivalente en su idioma) "
+"para ver la matriz de dispersión (gráficos de pares)."
+
+#: ../../../docs/streamlit-guide.md:304 50c64099587e4831950d505dfaaec402
+msgid "**Transform Data** (optional):"
+msgstr "**Transformar datos** (opcional):"
+
+#: ../../../docs/streamlit-guide.md:305 5f4bcec3ad10411d88217870079bb544
+msgid ""
+"Select a transform from the dropdown: FFT, FFT magnitude, inverse FFT, DCT, "
+"inverse DCT, log, log10, exp, sqrt, square, standardize (z-score), or "
+"normalize [0,1]."
+msgstr ""
+"Seleccione una transformación del menú desplegable: FFT, magnitud FFT, FFT "
+"inversa, DCT, DCT inversa, log, log10, exp, sqrt, cuadrado, estandarizar "
+"(puntuación z) o normalizar [0,1]."
+
+#: ../../../docs/streamlit-guide.md:306 c08e93e5864f4875ac09eb9bc99b33df
+msgid "Click **Transform** to apply. The table updates immediately."
+msgstr ""
+"Haga clic en **Transformar** para aplicar. La tabla se actualiza "
+"inmediatamente."
+
+#: ../../../docs/streamlit-guide.md:308 61210c6948174e298a2d90fd67b04c5a
+msgid "**Clean Data** (optional):"
+msgstr "**Limpiar datos** (opcional):"
+
+#: ../../../docs/streamlit-guide.md:309 bf34d5d4f45b44aa862ea3a4beb98ae6
+msgid ""
+"Select a cleaning option: drop NaN rows, drop duplicates, fill NaN "
+"(mean/median/zero), or remove outliers (IQR or z-score)."
+msgstr ""
+"Seleccione una opción de limpieza: elimine filas de NaN, elimine duplicados,"
+" complete NaN (media/mediana/cero) o elimine valores atípicos (IQR o "
+"puntuación z)."
+
+#: ../../../docs/streamlit-guide.md:310 5a72a2e3bd0241299716f52fc61ca463
+msgid "Click **Clean** to apply. The table updates immediately."
+msgstr ""
+"Haga clic en **Limpiar** para aplicar. La tabla se actualiza inmediatamente."
+
+#: ../../../docs/streamlit-guide.md:312 482edc6982e14ce08b49fdb8f95d47c1
+msgid "**Download Updated Data** (optional):"
+msgstr "**Descargar datos actualizados** (opcional):"
+
+#: ../../../docs/streamlit-guide.md:313 b147b08a015a4046bdb3123e3850cc22
+msgid "Choose format (CSV, TXT, XLSX) from the dropdown."
+msgstr "Elija el formato (CSV, TXT, XLSX) en el menú desplegable."
+
+#: ../../../docs/streamlit-guide.md:314 b630f79f60514a9ea35177cbfa59f3da
+msgid ""
+"Click the download button to save the current (possibly transformed/cleaned)"
+" data."
+msgstr ""
+"Haga clic en el botón de descarga para guardar los datos actuales "
+"(posiblemente transformados/limpiados)."
+
+#: ../../../docs/streamlit-guide.md:316 94cd1c4a15a64478ac9b0ad2a949b786
+msgid "**Help** (optional):"
+msgstr "**Ayuda** (opcional):"
+
+#: ../../../docs/streamlit-guide.md:317 889e11e92bf1488cb6ec869049d951a6
+msgid ""
+"Expand the Help section for a reference with pair plots, transform options "
+"(each with a detailed description), clean options (each with a detailed "
+"description), and save. Content available in Spanish, English, and German."
+msgstr ""
+"Expanda la sección Ayuda para obtener una referencia con gráficos de pares, "
+"opciones de transformación (cada una con una descripción detallada), "
+"opciones de limpieza (cada una con una descripción detallada) y guarde. "
+"Contenido disponible en español, inglés y alemán."
+
+#: ../../../docs/streamlit-guide.md:319 8ff990b9b0a54e629e9e79e754849513
+msgid ""
+"**Use case**: Inspect columns, check data quality, transform or clean data, "
+"visualize variable pairs, or download processed data before deciding on a "
+"fitting mode."
+msgstr ""
+"**Caso de uso**: inspeccione columnas, verifique la calidad de los datos, "
+"transforme o limpie datos, visualice pares de variables o descargue datos "
+"procesados ​​antes de decidirse por un modo de ajuste."
+
+#: ../../../docs/streamlit-guide.md:321 5dcd69b2d97344ffada8a987398bd606
+msgid "Mode 5: Total Fitting"
+msgstr "Modo 5: Ajuste total"
+
+#: ../../../docs/streamlit-guide.md:323 55342e68d50a40deb8515bdb0de9b5ca
+msgid ""
+"**Purpose**: Automatically test ALL available equations on your dataset."
+msgstr ""
+"**Propósito**: Probar automáticamente TODAS las ecuaciones disponibles en su"
+" conjunto de datos."
+
+#: ../../../docs/streamlit-guide.md:328 9191a69de78c48d6b039d4d41c152236
+msgid "In sidebar, click \"Total Fitting\"."
+msgstr "En la barra lateral, haga clic en \"Ajuste total\"."
+
+#: ../../../docs/streamlit-guide.md:331 ca3b0a094ee941b6ad3630af88edb2ae
+msgid "Upload your data file."
+msgstr "Sube tu archivo de datos."
+
+#: ../../../docs/streamlit-guide.md:340 9488635166cc44c9a0d9ae869aec90c7
+msgid "**Run Total Fitting**:"
+msgstr "**Ejecutar ajuste total**:"
+
+#: ../../../docs/streamlit-guide.md:341 98f99f85704b42749d63ec5208a115cb
+msgid "Info message shows: \"Total Fitting: [N] equations\"."
+msgstr "El mensaje informativo muestra: \"Ajuste total: [N] ecuaciones\"."
+
+#: ../../../docs/streamlit-guide.md:342 b6e0a5f4def841d5bc43d448e28ec8c1
+msgid "Click \"Total Fitting\" button."
+msgstr "Haga clic en el botón \"Ajuste total\"."
+
+#: ../../../docs/streamlit-guide.md:344 91963dcd19de408e92c7a6439c79794f
+msgid "**All** predefined equations fitted automatically."
+msgstr "**Todas** las ecuaciones predefinidas se ajustan automáticamente."
+
+#: ../../../docs/streamlit-guide.md:345 9211e1b930d94fcf9dd95867c2609247
+msgid "Takes longer than other modes."
+msgstr "Tarda más que otros modos."
+
+#: ../../../docs/streamlit-guide.md:348 16b27c2c382d4a56846ee35f1e5b7e40
+msgid "Comprehensive results for all equation types."
+msgstr "Resultados completos para todo tipo de ecuaciones."
+
+#: ../../../docs/streamlit-guide.md:349 cdf1943f5a284b04b54ae7f9b322986b
+msgid "Scroll through to find the best fit."
+msgstr "Desplácese para encontrar la mejor opción."
+
+#: ../../../docs/streamlit-guide.md:350 19a0abe7f2a24ec099eb11a910c72e33
+msgid "Look for highest R² value."
+msgstr "Busque el valor R² más alto."
+
+#: ../../../docs/streamlit-guide.md:352 2882171ab05942e5b9850743b04c59e4
+msgid "**Use Cases**:"
+msgstr "**Casos de uso**:"
+
+#: ../../../docs/streamlit-guide.md:353 2119a882ef4346d3a53e068585139334
+msgid "Exploratory data analysis."
+msgstr "Análisis de datos exploratorios."
+
+#: ../../../docs/streamlit-guide.md:354 ba4290f416bf4b3ea9ef81daddf8865b
+msgid "No prior knowledge of expected relationship."
+msgstr "Sin conocimiento previo de la relación esperada."
+
+#: ../../../docs/streamlit-guide.md:355 9cd85821bd194b3083b88087a1622887
+msgid "Creating comprehensive reports."
+msgstr "Creación de informes completos."
+
+#: ../../../docs/streamlit-guide.md:356 0a6cfce023b24d098d551d05ad8cc347
+msgid "Educational purposes (see all function types)."
+msgstr "Fines educativos (ver todos los tipos de funciones)."
+
+#: ../../../docs/streamlit-guide.md:374 d9566e1ca5c74aaa84599bd8316d6429
+msgid "Data Upload"
+msgstr "Carga de datos"
+
+#: ../../../docs/streamlit-guide.md:376 83118d3542c644778780d5b0e81493a4
+msgid "Supported Formats"
+msgstr "Formatos admitidos"
+
+#: ../../../docs/streamlit-guide.md:378 33cb879d27284daab383ae085819fa9b
+msgid "**CSV** (`.csv`): Comma-separated values."
+msgstr "**CSV** (`.csv`): valores separados por comas."
+
+#: ../../../docs/streamlit-guide.md:379 bac87342d1ef40b6a8e2a93dd30c12a5
+msgid "**Excel** (`.xlsx`): Microsoft Excel files."
+msgstr "**Excel** (`.xlsx`): archivos de Microsoft Excel."
+
+#: ../../../docs/streamlit-guide.md:380 63b3f30dc74d4118a08d70f70e12a3e4
+msgid "**TXT** (`.txt`): Tab-separated or space-separated text files."
+msgstr ""
+"**TXT** (`.txt`): archivos de texto separados por tabulaciones o espacios."
+
+#: ../../../docs/streamlit-guide.md:382 8ebcb566236a41bdb5569e1e8c4302e4
+msgid "File Size Limits"
+msgstr "Límites de tamaño de archivo"
+
+#: ../../../docs/streamlit-guide.md:384 d36f3612bcca49b4bc85ee2975d6af2c
+msgid "**Online version**: Limited by Streamlit Cloud (typically 200 MB)."
+msgstr ""
+"**Versión en línea**: Limitada por Streamlit Cloud (normalmente 200 MB)."
+
+#: ../../../docs/streamlit-guide.md:385 f5077417656c4fa7b8c1bc880ffbbc79
+msgid "**Local version**: Limited by your computer's memory."
+msgstr "**Versión local**: Limitada por la memoria de tu computadora."
+
+#: ../../../docs/streamlit-guide.md:387 6012e3fccdb94ff88d27dea47e07482e
+msgid "Upload Methods"
+msgstr "Subir métodos"
+
+#: ../../../docs/streamlit-guide.md:389 dbbcde080a424c2f8949197e41ab12d5
+msgid "**Click \"Browse files\"**: Opens file picker dialog."
+msgstr ""
+"**Haga clic en \"Examinar archivos\"**: abre el cuadro de diálogo del "
+"selector de archivos."
+
+#: ../../../docs/streamlit-guide.md:390 86993e1ded71405b853049d633ad9778
+msgid ""
+"**Drag and drop**: Drag files from your file manager into the upload area."
+msgstr ""
+"**Arrastrar y soltar**: arrastre archivos desde su administrador de archivos"
+" al área de carga."
+
+#: ../../../docs/streamlit-guide.md:393 e66c9b3228cf4ddba1cc6a2ac73bb9f3
+msgid "Multiple File Upload"
+msgstr "Carga de múltiples archivos"
+
+#: ../../../docs/streamlit-guide.md:395 dc1eea7f324b4ac88468770890cce86f
+msgid "Hold **Ctrl** (Windows/Linux) or **Cmd** (Mac) while selecting."
+msgstr ""
+"Mantenga presionada **Ctrl** (Windows/Linux) o **Cmd** (Mac) mientras "
+"selecciona."
+
+#: ../../../docs/streamlit-guide.md:396 5ba972d78f784e31aa4121b50591b89b
+msgid "Or drag multiple files at once."
+msgstr "O arrastre varios archivos a la vez."
+
+#: ../../../docs/streamlit-guide.md:397 4af1559545e84ff79e81b60c5f834d87
+msgid "Only available in \"Multiple Datasets\" mode."
+msgstr "Sólo disponible en el modo \"Múltiples conjuntos de datos\"."
+
+#: ../../../docs/streamlit-guide.md:400 6bc6c031688243e19a2d2ed5b9908b70
+msgid "Data Preview"
+msgstr "Vista previa de datos"
+
+#: ../../../docs/streamlit-guide.md:402 382fd91298ce489087f8b562b44b3b8d
+msgid "After upload, expand \"Show Data\" to see:"
+msgstr "Después de la carga, expanda \"Mostrar datos\" para ver:"
+
+#: ../../../docs/streamlit-guide.md:403 0e07f9e851784c27b9582c524dcd9de3
+msgid "First and last rows."
+msgstr "Primera y última fila."
+
+#: ../../../docs/streamlit-guide.md:404 4639780b03a041a89df3a64a4f5c7d5c
+msgid "All columns."
+msgstr "Todas las columnas."
+
+#: ../../../docs/streamlit-guide.md:405 4ad71eefad074bdfad6ef713cc1ccf70
+msgid "Data types."
+msgstr "Tipos de datos."
+
+#: ../../../docs/streamlit-guide.md:406 04e91b031c1e4f8aa9d1bd2370638141
+msgid "Verify data loaded correctly."
+msgstr "Verifique los datos cargados correctamente."
+
+#: ../../../docs/streamlit-guide.md:408 ff2c9e0b9a6446f69a38adde0e664dd9
+msgid "Understanding Results"
+msgstr "Comprender los resultados"
+
+#: ../../../docs/streamlit-guide.md:410 587d2dce75f449c19537ab37eb5b58c5
+msgid ""
+"Results are shown in three columns, then the plot, then the download button."
+msgstr ""
+"Los resultados se muestran en tres columnas, luego el gráfico y luego el "
+"botón de descarga."
+
+#: ../../../docs/streamlit-guide.md:412 944daeb25d4346e3bb827a0ee528ebbe
+msgid "Column 1: Equation"
+msgstr "Columna 1: Ecuación"
+
+#: ../../../docs/streamlit-guide.md:414 2cae7e1ed3e040d2972362731a2e509f
+msgid ""
+"**Formula** (if available): The generic equation form (e.g. *y = mx + n*)."
+msgstr ""
+"**Fórmula** (si está disponible): la forma de ecuación genérica (por "
+"ejemplo, *y = mx + n*)."
+
+#: ../../../docs/streamlit-guide.md:415 744c54fea16046c28d4ae0b8578444c1
+msgid ""
+"**Formatted equation**: The equation with fitted parameter values (e.g. *y ="
+" 5.123·x + 2.456*)."
+msgstr ""
+"**Ecuación formateada**: La ecuación con valores de parámetros ajustados "
+"(por ejemplo, *y = 5,123·x + 2,456*)."
+
+#: ../../../docs/streamlit-guide.md:416 5c5c7f2153b44932999df53b0ab9ff2b
+msgid "Uses standard mathematical symbols (·, ², etc.)."
+msgstr "Utiliza símbolos matemáticos estándar (·, ², etc.)."
+
+#: ../../../docs/streamlit-guide.md:418 fab3c3dde6a1428d87ea386d6422f6e2
+msgid "Column 2: Parameters"
+msgstr "Columna 2: Parámetros"
+
+#: ../../../docs/streamlit-guide.md:420 42c7f6eb227e4cbb99519da05ad01d57
+msgid ""
+"Fit parameters (e.g. a, b, c or m, n) with uncertainties and confidence "
+"intervals:"
+msgstr ""
+"Ajuste los parámetros (por ejemplo, a, b, c o m, n) con incertidumbres e "
+"intervalos de confianza:"
+
+#: ../../../docs/streamlit-guide.md:422 baa5833f982b41ee8da7f8a06e1060bc
+msgid ""
+"Each parameter: value and uncertainty (e.g. *m = 5.123 , σ(m) = 0.045*)."
+msgstr ""
+"Cada parámetro: valor e incertidumbre (por ejemplo, *m = 5,123, σ(m) = "
+"0,045*)."
+
+#: ../../../docs/streamlit-guide.md:423 7297952b3f7940e690a1b1831f31b1e7
+#, python-format
+msgid "IC 95%: 95% confidence interval for each parameter."
+msgstr "IC 95%: intervalo de confianza del 95% para cada parámetro."
+
+#: ../../../docs/streamlit-guide.md:425 54b528ed32484acbacb77d0768d2ee26
+msgid "Column 3: Statistics"
+msgstr "Columna 3: Estadísticas"
+
+#: ../../../docs/streamlit-guide.md:427 88bf3dfd2cf6480da08ab297709e2251
+msgid "**R²**: Coefficient of determination."
+msgstr "**R²**: Coeficiente de determinación."
+
+#: ../../../docs/streamlit-guide.md:428 00c3b3cf9fa943979933636e31c25674
+msgid "**RMSE**: Root mean square error."
+msgstr "**RMSE**: raíz del error cuadrático medio."
+
+#: ../../../docs/streamlit-guide.md:429 ece1a904b7034c1081985db0fea11c2f
+msgid "**χ²**: Chi-squared."
+msgstr "**χ²**: Chi-cuadrado."
+
+#: ../../../docs/streamlit-guide.md:430 d5e8ba7f995d4419a9c7b102301e1dde
+msgid "**χ²_red**: Reduced chi-squared."
+msgstr "**χ²_red**: Chi-cuadrado reducido."
+
+#: ../../../docs/streamlit-guide.md:431 af26abef862c4576af51a341daa1d5ad
+msgid "**ν (g.l.)**: Degrees of freedom."
+msgstr "**ν (g.l.)**: Grados de libertad."
+
+#: ../../../docs/streamlit-guide.md:433 468ac94158ff41038096afe58d83db0d
+msgid "Plot Components"
+msgstr "Componentes de la trama"
+
+#: ../../../docs/streamlit-guide.md:435 2e6694fc82b04503beaaa877dea407d2
+msgid "**Data Points**:"
+msgstr "**Puntos de datos**:"
+
+#: ../../../docs/streamlit-guide.md:436 65c544650fdb44a2aa99028665aafc17
+msgid "Red circles (or other markers)."
+msgstr "Círculos rojos (u otros marcadores)."
+
+#: ../../../docs/streamlit-guide.md:437 253d32b19b3e43cdbb121afbb557976b
+msgid "Error bars if uncertainties provided."
+msgstr "Barras de error si se proporcionan incertidumbres."
+
+#: ../../../docs/streamlit-guide.md:438 614c82dca5594edfaa30ec755b48029e
+msgid "Your original measurements."
+msgstr "Tus medidas originales."
+
+#: ../../../docs/streamlit-guide.md:440 d1eaec367bd94b26b415ce759a5f74f5
+msgid "**Fitted Curve**:"
+msgstr "**Curva ajustada**:"
+
+#: ../../../docs/streamlit-guide.md:441 585b1f54578f4aa286b4891995b026b8
+msgid "Black line (or configured color)."
+msgstr "Línea negra (o color configurado)."
+
+#: ../../../docs/streamlit-guide.md:442 7a0bb0d06af5486aa1cae3d2c29e08c0
+msgid "Smooth curve through data."
+msgstr "Curva suave a través de datos."
+
+#: ../../../docs/streamlit-guide.md:443 51745933df71432da7dc276755ca7dcb
+msgid "Based on fitted equation."
+msgstr "Basado en la ecuación ajustada."
+
+#: ../../../docs/streamlit-guide.md:445 55b3846a6bbc43869561d0e2859aead0
+msgid "**Axis Labels**:"
+msgstr "**Etiquetas de eje**:"
+
+#: ../../../docs/streamlit-guide.md:446 49f7ffa3bd69426dbc55a95173a82a30
+msgid "X-axis: Your X variable name."
+msgstr "Eje X: el nombre de su variable X."
+
+#: ../../../docs/streamlit-guide.md:447 ed66aece00204861a74be5d0e505b9a3
+msgid "Y-axis: Your Y variable name."
+msgstr "Eje Y: el nombre de su variable Y."
+
+#: ../../../docs/streamlit-guide.md:449 7d6b20f71a544601a2d67d34e1e2bcac
+msgid "**Legend** (if shown):"
+msgstr "**Leyenda** (si se muestra):"
+
+#: ../../../docs/streamlit-guide.md:450 84eb1ff74dc647649072b1a2615f53d1
+msgid "Equation with parameters."
+msgstr "Ecuación con parámetros."
+
+#: ../../../docs/streamlit-guide.md:451 ee2ba68d868d4aa1aae99ba304080666
+msgid "R² value."
+msgstr "Valor R²."
+
+#: ../../../docs/streamlit-guide.md:453 9bdf38f10b55460cb8f5e6b8b349b252
+msgid "R² Value (Coefficient of Determination)"
+msgstr "Valor R² (Coeficiente de Determinación)"
+
+#: ../../../docs/streamlit-guide.md:455 b3bc304d4e1b4ff7826989d34082be2d
+msgid "**Interpretation**:"
+msgstr "**Interpretación**:"
+
+#: ../../../docs/streamlit-guide.md:456 1cfac031320140c6b7ebad4a6e388f52
+msgid "**R² = 1.0**: Perfect fit (rare in real data)."
+msgstr "**R² = 1,0**: Ajuste perfecto (poco común en datos reales)."
+
+#: ../../../docs/streamlit-guide.md:457 76eb1348b3e6485eb0d86e1a434fe6dd
+msgid "**R² > 0.95**: Excellent fit ✓."
+msgstr "**R² > 0,95**: Excelente ajuste ✓."
+
+#: ../../../docs/streamlit-guide.md:458 d205b7acc0db4f7c87664115c2892b57
+msgid "**R² > 0.85**: Good fit ✓."
+msgstr "**R² > 0,85**: Buen ajuste ✓."
+
+#: ../../../docs/streamlit-guide.md:459 4adcd5d0115447f185e80dd1260a816c
+msgid "**R² > 0.70**: Acceptable fit ⚠️."
+msgstr "**R² > 0,70**: Ajuste aceptable ⚠️."
+
+#: ../../../docs/streamlit-guide.md:460 50dbe5a459474b41a5954ab47cac8b02
+msgid "**R² < 0.70**: Poor fit - try different equation ✗."
+msgstr ""
+"**R² < 0,70**: Ajuste deficiente: pruebe con una ecuación diferente ✗."
+
+#: ../../../docs/streamlit-guide.md:462 4055d6229ded4907946d28b7aa9de2c0
+msgid "**What it means**:"
+msgstr "**Qué significa**:"
+
+#: ../../../docs/streamlit-guide.md:463 18c70b9129fb40d2aeb01d6b4b4acdbc
+msgid "Percentage of variance explained by the model."
+msgstr "Porcentaje de varianza explicada por el modelo."
+
+#: ../../../docs/streamlit-guide.md:464 d2d269e31bc64e2fa875537c467bd52a
+#, python-format
+msgid "R² = 0.95 means 95% of variance explained."
+msgstr "R² = 0,95 significa que se explica el 95% de la varianza."
+
+#: ../../../docs/streamlit-guide.md:465 b44c80b2742f4528be2590457efca50e
+msgid "Higher is better."
+msgstr "Cuanto más alto es mejor."
+
+#: ../../../docs/streamlit-guide.md:467 8e35b70c3c2241d6ba7320431dc2ced7
+msgid "Downloading Plots"
+msgstr "Descargando Parcelas"
+
+#: ../../../docs/streamlit-guide.md:469 e3eb3302f2d14ce7b218a068ecbdab6b
+msgid "Scroll to the result you want (plot is above the download button)."
+msgstr ""
+"Desplácese hasta el resultado que desee (el gráfico está encima del botón de"
+" descarga)."
+
+#: ../../../docs/streamlit-guide.md:471 7451786681d44ec28507b20b4562b23f
+msgid ""
+"File is saved with the configured format (default PNG); filename: "
+"`[plot_name].png` (or `.pdf` if configured)."
+msgstr ""
+"El archivo se guarda con el formato configurado (PNG predeterminado); nombre"
+" de archivo: `[plot_name].png` (o `.pdf` si está configurado)."
+
+#: ../../../docs/streamlit-guide.md:473 ef5257461660471cadf5d40eacf22229
+msgid "**Download Tips**:"
+msgstr "**Descargar consejos**:"
+
+#: ../../../docs/streamlit-guide.md:474 7cfd7ca82ade4fff932eee4b175c0c5c
+msgid "Download all plots you need before closing the browser."
+msgstr ""
+"Descargue todos los gráficos que necesite antes de cerrar el navegador."
+
+#: ../../../docs/streamlit-guide.md:475 2beb41c048674c30b0ab932299286df3
+msgid "Plots are high-resolution (configured DPI)."
+msgstr "Los gráficos son de alta resolución (DPI configurados)."
+
+#: ../../../docs/streamlit-guide.md:476 e8d0ef641f21415eb10eb6b0fda8cec1
+msgid ""
+"If the app is configured for PDF output, the in-app preview is shown as PNG "
+"but the downloaded file is PDF."
+msgstr ""
+"Si la aplicación está configurada para salida PDF, la vista previa en la "
+"aplicación se muestra como PNG pero el archivo descargado es PDF."
+
+#: ../../../docs/streamlit-guide.md:478 51cc59a8412b4b90955a76384a06fff9
+msgid "Tips and Best Practices"
+msgstr "Consejos y mejores prácticas"
+
+#: ../../../docs/streamlit-guide.md:480 57a13dc6a680491db011c3d227285705
+msgid "Performance Tips"
+msgstr "Consejos de rendimiento"
+
+#: ../../../docs/streamlit-guide.md:482 f4542a2aa540420f8d2c821116efa014
+msgid "**Use local version for large datasets**: Faster than online."
+msgstr ""
+"**Utilice la versión local para conjuntos de datos grandes**: más rápido que"
+" en línea."
+
+#: ../../../docs/streamlit-guide.md:483 8bc70f5f5033409cbd98a5f0e16fdcce
+msgid "**Close unused browser tabs**: Frees memory."
+msgstr "**Cerrar pestañas del navegador que no se utilicen**: libera memoria."
+
+#: ../../../docs/streamlit-guide.md:484 ef8b064ff9664845b75faba6704236f5
+msgid "**One mode at a time**: Don't switch modes mid-analysis."
+msgstr "**Un modo a la vez**: no cambie de modo a mitad del análisis."
+
+#: ../../../docs/streamlit-guide.md:485 116aa9cf264d4297a94bc550a8bf0a92
+msgid "**Clear results**: Refresh page to clear old results and free memory."
+msgstr ""
+"**Borrar resultados**: actualice la página para borrar resultados antiguos y"
+" liberar memoria."
+
+#: ../../../docs/streamlit-guide.md:488 89faf587a6b349ab8166f7000f2601cb
+msgid "Data Tips"
+msgstr "Consejos sobre datos"
+
+#: ../../../docs/streamlit-guide.md:490 c6536c4134e64c698635db2f40548df8
+msgid "**Check data preview**: Always expand \"Show Data\" to verify upload."
+msgstr ""
+"**Ver vista previa de datos**: expanda siempre \"Mostrar datos\" para "
+"verificar la carga."
+
+#: ../../../docs/streamlit-guide.md:491 492ca7cab4be4906a95270485f92cbb8
+msgid ""
+"**Name columns clearly**: Use descriptive names like \"time_s\", "
+"\"voltage_V\"."
+msgstr ""
+"**Nombre las columnas claramente**: utilice nombres descriptivos como "
+"\"time_s\", \"voltage_V\"."
+
+#: ../../../docs/streamlit-guide.md:492 fc26c888188f4ea79fe5db5c413d02d6
+msgid ""
+"**Remove headers in Excel**: Only column names in first row, data starts row"
+" 2."
+msgstr ""
+"**Eliminar encabezados en Excel**: solo los nombres de las columnas en la "
+"primera fila, los datos comienzan en la fila 2."
+
+#: ../../../docs/streamlit-guide.md:493 60765b2f34a84567ace0f523a7cf4624
+msgid "**Consistent units**: Ensure all data uses the same units."
+msgstr ""
+"**Unidades consistentes**: asegúrese de que todos los datos utilicen las "
+"mismas unidades."
+
+#: ../../../docs/streamlit-guide.md:496 89947780e95d49c1883012c133895910
+msgid "Workflow Tips"
+msgstr "Consejos para el flujo de trabajo"
+
+#: ../../../docs/streamlit-guide.md:498 e0bee47458a747cc9222bb705c3dce89
+msgid "**Start with Normal Fitting**: Test single equation first."
+msgstr "**Comience con el ajuste normal**: Pruebe primero una ecuación única."
+
+#: ../../../docs/streamlit-guide.md:499 e7cf398ce9c74cebb05dfebd13c3049e
+msgid "**Use Checker for exploration**: When uncertain about best equation."
+msgstr ""
+"**Utilice Checker para exploración**: cuando no esté seguro de cuál es la "
+"mejor ecuación."
+
+#: ../../../docs/streamlit-guide.md:500 c96b6b9013b74d3ca23c3942fc6cd151
+msgid "**Use Total for comprehensive analysis**: When time permits."
+msgstr ""
+"**Utilice Total para un análisis exhaustivo**: cuando el tiempo lo permita."
+
+#: ../../../docs/streamlit-guide.md:501 5cb7f0e25c904a4eb7a343a385cf3fba
+msgid "**Document your results**: Download all relevant plots."
+msgstr ""
+"**Documente sus resultados**: descargue todos los gráficos relevantes."
+
+#: ../../../docs/streamlit-guide.md:504 6d3f1c86ca6048c6a9ecb1dbda3b2fdd
+msgid "Uncertainty Handling"
+msgstr "Manejo de la incertidumbre"
+
+#: ../../../docs/streamlit-guide.md:506 2819b992a2da4f49961d2587d36b2b1b
+msgid "If your data has uncertainties:"
+msgstr "Si tus datos tienen incertidumbres:"
+
+#: ../../../docs/streamlit-guide.md:507 dc2dcf58aae64a60af1808a21616000a
+msgid "Name columns `ux`, `uy` (lowercase 'u' + variable name)."
+msgstr ""
+"Nombre las columnas `ux`, `uy` (minúscula 'u' + nombre de la variable)."
+
+#: ../../../docs/streamlit-guide.md:508 0dad64435a114c668fe602ff69caf464
+msgid "Example: for variable `time`, uncertainty column is `utime`."
+msgstr ""
+"Ejemplo: para la variable \"tiempo\", la columna de incertidumbre es "
+"\"utime\"."
+
+#: ../../../docs/streamlit-guide.md:509 4d792b102d6d42e4b62c456b28877d8e
+msgid "Error bars appear automatically in plots."
+msgstr "Las barras de error aparecen automáticamente en los gráficos."
+
+#: ../../../docs/streamlit-guide.md:510 abd9050bd97f491abe67e0e57574c612
+msgid "Fitting is weighted by uncertainties."
+msgstr "El ajuste está ponderado por las incertidumbres."
+
+#: ../../../docs/streamlit-guide.md:512 b8bbe503c8164653bc878c8e2e7a7b83
+msgid "Custom Formula Tips"
+msgstr "Consejos de fórmulas personalizadas"
+
+#: ../../../docs/streamlit-guide.md:514 9e84426a13a64fc5ad301f12fe373d02
+msgid "**Test simple formulas first**: Try `a*x` before complex expressions."
+msgstr ""
+"**Pruebe primero fórmulas simples**: pruebe `a*x` antes de expresiones "
+"complejas."
+
+#: ../../../docs/streamlit-guide.md:515 76a20e45616347b69748fed276755295
+msgid "**Use parentheses**: `a/(1+b*x)` not `a/1+b*x`."
+msgstr "**Utilice paréntesis**: `a/(1+b*x)`, no `a/1+b*x`."
+
+#: ../../../docs/streamlit-guide.md:516 40102fcf844f48438cefe40da9c1159e
+msgid ""
+"**Available functions**: `np.sin()`, `np.cos()`, `np.exp()`, `np.log()`, "
+"`np.sqrt()`."
+msgstr ""
+"**Funciones disponibles**: `np.sin()`, `np.cos()`, `np.exp()`, `np.log()`, "
+"`np.sqrt()`."
+
+#: ../../../docs/streamlit-guide.md:517 114d5b7242804cfcb61ab782f6ad5326
+msgid "**Check parameter count**: Must match number of parameters defined."
+msgstr ""
+"**Verificar recuento de parámetros**: debe coincidir con el número de "
+"parámetros definidos."
+
+#: ../../../docs/streamlit-guide.md:520 24f25b65747c47eb9602293f319c2ce8
+msgid "Troubleshooting"
+msgstr "Solución de problemas"
+
+#: ../../../docs/streamlit-guide.md:522 1072440445e84195beb82e40ace869cc
+msgid "Upload Issues"
+msgstr "Subir problemas"
+
+#: ../../../docs/streamlit-guide.md:524 a0f3d7103ddb401da320c8e2e77ccadf
+msgid "**Problem**: File won't upload."
+msgstr "**Problema**: el archivo no se carga."
+
+#: ../../../docs/streamlit-guide.md:526 ../../../docs/streamlit-guide.md:543
+#: ../../../docs/streamlit-guide.md:553 ../../../docs/streamlit-guide.md:563
+#: ../../../docs/streamlit-guide.md:574 06d87194a9414918b1a680b4fcd82755
+#: 718542c86e024611970f0aab1b336976 75ddf844e8e945a2ab39f87bb97f48ae
+#: b0e5c1b1634d41d894674c2ada47b095 d5ffbb22e421481d8f975b2239bc4c90
+msgid "**Solutions**:"
+msgstr "**Soluciones**:"
+
+#: ../../../docs/streamlit-guide.md:527 46b5e558c38d4a0389b48a3742d8bf26
+msgid "Check file format (CSV, XLSX, TXT only)."
+msgstr "Verifique el formato del archivo (solo CSV, XLSX, TXT)."
+
+#: ../../../docs/streamlit-guide.md:528 fe49cc19e0b14ab58c1b4cdd4429997d
+msgid "Try smaller file."
+msgstr "Pruebe con un archivo más pequeño."
+
+#: ../../../docs/streamlit-guide.md:529 b3cb66d02df34ba590c7c88b3ac2e8f2
+msgid "Check internet connection (online version)."
+msgstr "Verifique la conexión a Internet (versión en línea)."
+
+#: ../../../docs/streamlit-guide.md:530 ../../../docs/streamlit-guide.md:557
+#: e4b30157cd534a3aada779e520ae3240 eb7e359b5d624927862c07b1c4cf9d5d
+msgid "Refresh page and try again."
+msgstr "Actualiza la página e inténtalo de nuevo."
+
+#: ../../../docs/streamlit-guide.md:533 2babe7d2250a470bbf493012511df152
+msgid "Fitting Fails"
+msgstr "El ajuste falla"
+
+#: ../../../docs/streamlit-guide.md:535 1564e355373541778fb34101651f86a4
+msgid "**Problem**: \"Fitting error\" message appears."
+msgstr "**Problema**: Aparece el mensaje \"Error de instalación\"."
+
+#: ../../../docs/streamlit-guide.md:537 3a778ccdf7e643fbbd0e415f9ea2e865
+msgid "**Possible causes**:"
+msgstr "**Posibles causas**:"
+
+#: ../../../docs/streamlit-guide.md:538 dc6e1993dbbd41c5a8d87cc33b003be8
+msgid "Not enough data points (need at least 5-10)."
+msgstr ""
+"No hay suficientes puntos de datos (se necesitan al menos entre 5 y 10)."
+
+#: ../../../docs/streamlit-guide.md:539 c651ed471c0049da94255b7185079a04
+msgid "Data doesn't match equation type."
+msgstr "Los datos no coinciden con el tipo de ecuación."
+
+#: ../../../docs/streamlit-guide.md:540 d6020b896ce54ba1af7c8e1d00e1f482
+msgid "Infinite or NaN values in data."
+msgstr "Valores infinitos o NaN en los datos."
+
+#: ../../../docs/streamlit-guide.md:541 27d7f7554b43478d8d899e258ab1da49
+msgid "All Y values are the same."
+msgstr "Todos los valores de Y son iguales."
+
+#: ../../../docs/streamlit-guide.md:544 09347f0b514f44999dce57ab39eebadf
+msgid "Check data for errors."
+msgstr "Verifique los datos en busca de errores."
+
+#: ../../../docs/streamlit-guide.md:545 748246042fc84794a9169127f5a85e7a
+msgid "Try different equation type."
+msgstr "Pruebe diferentes tipos de ecuaciones."
+
+#: ../../../docs/streamlit-guide.md:546 fda0f42881c94d8e85b37f99d757d11b
+msgid "Ensure sufficient data points."
+msgstr "Asegúrese de que haya suficientes puntos de datos."
+
+#: ../../../docs/streamlit-guide.md:547 711bc389790241cab9a02b59344932f9
+msgid "Remove outliers or bad data."
+msgstr "Elimine valores atípicos o datos incorrectos."
+
+#: ../../../docs/streamlit-guide.md:549 a2f2c72457ce4cfaba4a00d758f6b664
+msgid "Results Not Showing"
+msgstr "Los resultados no se muestran"
+
+#: ../../../docs/streamlit-guide.md:551 b8b1f2fb87dd4cd399e8292c994c8a20
+msgid "**Problem**: Clicked fit button but no results appear."
+msgstr ""
+"**Problema**: Se hizo clic en el botón de ajuste pero no aparecen "
+"resultados."
+
+#: ../../../docs/streamlit-guide.md:554 ae2dff641f5348338bad48fe87a6d69c
+msgid "Wait for processing (check for spinner)."
+msgstr "Espere el procesamiento (verifique la ruleta)."
+
+#: ../../../docs/streamlit-guide.md:555 5c5425eaf117449b882f2fe53cdd5d95
+msgid "Scroll down (results may be below viewport)."
+msgstr ""
+"Desplácese hacia abajo (los resultados pueden estar debajo de la ventana "
+"gráfica)."
+
+#: ../../../docs/streamlit-guide.md:556 f792ce335fe5431e8e623cc39e6e4d69
+msgid "Check browser console for errors (F12)."
+msgstr "Verifique la consola del navegador en busca de errores (F12)."
+
+#: ../../../docs/streamlit-guide.md:559 2610d60a6a9840c39e2dc06c9a261c1c
+msgid "App is Slow"
+msgstr "La aplicación es lenta"
+
+#: ../../../docs/streamlit-guide.md:561 9611b4ea3a47434481d334e29096f80e
+msgid "**Problem**: App responds slowly or freezes."
+msgstr "**Problema**: La aplicación responde lentamente o se congela."
+
+#: ../../../docs/streamlit-guide.md:564 fc52a0f1bcba41e4a53cf1277d9e4833
+msgid "Use local version instead of online."
+msgstr "Utilice la versión local en lugar de en línea."
+
+#: ../../../docs/streamlit-guide.md:565 cf5d5bef887f4a5db843788da5d64e97
+msgid "Reduce dataset size."
+msgstr "Reducir el tamaño del conjunto de datos."
+
+#: ../../../docs/streamlit-guide.md:566 397fa13cc89443ccbf812fed6bb668cc
+msgid "Close other browser tabs."
+msgstr "Cierra otras pestañas del navegador."
+
+#: ../../../docs/streamlit-guide.md:567 9f352a343c7548a8a4e3395b20434d85
+msgid "Clear browser cache."
+msgstr "Borrar caché del navegador."
+
+#: ../../../docs/streamlit-guide.md:568 0d4d24a5dc614dc38e768d2dee5cef39
+msgid "Refresh the app."
+msgstr "Actualiza la aplicación."
+
+#: ../../../docs/streamlit-guide.md:570 3eebe0bc2fb244e48141032e485b4b5e
+msgid "Download Doesn't Work"
+msgstr "La descarga no funciona"
+
+#: ../../../docs/streamlit-guide.md:572 2609083334a2489191d924b84dd56f46
+msgid "**Problem**: Can't download plots."
+msgstr "**Problema**: No se pueden descargar gráficos."
+
+#: ../../../docs/streamlit-guide.md:575 0e29bd0f8e2a400ea7b29e42a9f6f3d9
+msgid "Check browser's download settings."
+msgstr "Verifique la configuración de descarga del navegador."
+
+#: ../../../docs/streamlit-guide.md:576 972a898008e94ca4bbdef4976540976a
+msgid "Allow downloads from streamlit.app domain."
+msgstr "Permitir descargas desde el dominio streamlit.app."
+
+#: ../../../docs/streamlit-guide.md:577 c8e98b793bb34b24ad7544a9eced2c7f
+msgid "Try right-click → \"Save image as\"."
+msgstr "Intente hacer clic derecho → \"Guardar imagen como\"."
+
+#: ../../../docs/streamlit-guide.md:578 e54064f7102b438588110d1b594c5b42
+msgid "Use different browser."
+msgstr "Utilice un navegador diferente."
+
+#: ../../../docs/streamlit-guide.md:580 9e1c7b68a3064adeba009aab284bf05e
+msgid "Keyboard Shortcuts"
+msgstr "Atajos de teclado"
+
+#: ../../../docs/streamlit-guide.md:582 8a0f48eb6b944abab04e0dfb235395b9
+msgid "While Streamlit doesn't have extensive keyboard shortcuts, these work:"
+msgstr ""
+"Si bien Streamlit no tiene atajos de teclado extensos, estos funcionan:"
+
+#: ../../../docs/streamlit-guide.md:584 2c27c4a88c6c4cafaa3688859ec2e176
+msgid "**Ctrl+R / Cmd+R**: Refresh the app."
+msgstr "**Ctrl+R / Cmd+R**: actualiza la aplicación."
+
+#: ../../../docs/streamlit-guide.md:585 75e997b8b5314169bf598321f067120b
+msgid "**F5**: Refresh the page."
+msgstr "**F5**: Actualiza la página."
+
+#: ../../../docs/streamlit-guide.md:586 c6f9d6e5520a4ca5ac4edfc89e1dfe2c
+msgid "**F11**: Full screen mode."
+msgstr "**F11**: Modo de pantalla completa."
+
+#: ../../../docs/streamlit-guide.md:587 aa47daf527e9433b8365e1b25687abb3
+msgid "**Ctrl+Plus / Cmd+Plus**: Zoom in."
+msgstr "**Ctrl+Más / Cmd+Más**: Acercar."
+
+#: ../../../docs/streamlit-guide.md:588 7f2dc5723290404bb9ff2caf2721380d
+msgid "**Ctrl+Minus / Cmd+Minus**: Zoom out."
+msgstr "**Ctrl+Menos / Cmd+Menos**: Alejar."
+
+#: ../../../docs/streamlit-guide.md:591 154d9debaa1845ce8fab2c8407558332
+msgid "Mobile and Tablet Usage"
+msgstr "Uso de dispositivos móviles y tabletas"
+
+#: ../../../docs/streamlit-guide.md:593 a8d03dfa0cc44064aedab3530b7a302d
+msgid "The Streamlit interface is responsive and works on mobile devices:"
+msgstr "La interfaz Streamlit responde y funciona en dispositivos móviles:"
+
+#: ../../../docs/streamlit-guide.md:595 8fe6bc36bb374a538e9dba0ca3529a42
+msgid "**Recommendations**:"
+msgstr "**Recomendaciones**:"
+
+#: ../../../docs/streamlit-guide.md:596 dd72ed9eb80045c08a215df57af07e59
+msgid "Use landscape orientation for better plot viewing."
+msgstr "Utilice la orientación horizontal para ver mejor la trama."
+
+#: ../../../docs/streamlit-guide.md:597 829ff9c062f840a19070638a9820c12c
+msgid "Tap and pinch to zoom plots."
+msgstr "Toque y pellizca para ampliar los gráficos."
+
+#: ../../../docs/streamlit-guide.md:598 212d0e52dcad4b289a97692bf4c5d9e0
+msgid "Use tablet or larger for easier interaction."
+msgstr "Utilice una tableta o una más grande para facilitar la interacción."
+
+#: ../../../docs/streamlit-guide.md:599 122ac21a1e804c86a4ba284b6e1d272a
+msgid "Desktop recommended for serious work."
+msgstr "Escritorio recomendado para trabajos serios."
+
+#: ../../../docs/streamlit-guide.md:601 5acaa79a28e1498dab230159184d1718
+msgid "Advanced Features"
+msgstr "Funciones avanzadas"
+
+#: ../../../docs/streamlit-guide.md:603 27a2f580f3e54366ba8d0d9ae9f5f936
+msgid "Session Persistence"
+msgstr "Persistencia de sesión"
+
+#: ../../../docs/streamlit-guide.md:605 4509130073ad4c50891b9f29d9d259c0
+msgid "Results persist during your browser session."
+msgstr "Los resultados persisten durante la sesión de su navegador."
+
+#: ../../../docs/streamlit-guide.md:606 d1cadd7d04ee473a8967a9f7b3073ecf
+msgid "Refresh clears all results."
+msgstr "Actualizar borra todos los resultados."
+
+#: ../../../docs/streamlit-guide.md:607 5481c30552984325bd70543ae5c21de2
+msgid "Online version: sessions timeout after inactivity."
+msgstr "Versión online: tiempo de espera de las sesiones tras inactividad."
+
+#: ../../../docs/streamlit-guide.md:609 bb93fa8b3f4e4dd3bb179719512cfdab
+msgid "Multiple Tabs"
+msgstr "Varias pestañas"
+
+#: ../../../docs/streamlit-guide.md:611 b20680f7cf2247db830d27417b34a0b8
+msgid "You can open multiple browser tabs with RegressionLab:"
+msgstr "Puede abrir varias pestañas del navegador con RegressionLab:"
+
+#: ../../../docs/streamlit-guide.md:612 bbc2b2062bf84be98ee221c2b8eb5f97
+msgid "Each tab is independent."
+msgstr "Cada pestaña es independiente."
+
+#: ../../../docs/streamlit-guide.md:613 33d4ec7e0ef24967a4c1353e5405a6f3
+msgid "Useful for comparing different analyses."
+msgstr "Útil para comparar diferentes análisis."
+
+#: ../../../docs/streamlit-guide.md:614 31408c1df1124732948ede502fc58a3d
+msgid "Be mindful of memory usage."
+msgstr "Tenga en cuenta el uso de la memoria."
+
+#: ../../../docs/streamlit-guide.md:616 4467a2eade904c21a518c37c2e039297
+msgid "Appearance and theme"
+msgstr "Apariencia y tema"
+
+#: ../../../docs/streamlit-guide.md:618 07b2f38e20e343138b6b1628d889a001
+msgid ""
+"The Streamlit UI uses the same configuration as the Tkinter app. Colors and "
+"fonts come from `.env` (or the Tkinter Configure dialog):"
+msgstr ""
+"La interfaz de usuario de Streamlit utiliza la misma configuración que la "
+"aplicación Tkinter. Los colores y fuentes provienen de `.env` (o el cuadro "
+"de diálogo Configurar de Tkinter):"
+
+#: ../../../docs/streamlit-guide.md:620 d8a16d7da2584cb9861760364b5ca05c
+msgid "**Background and text:** `UI_BACKGROUND`, `UI_FOREGROUND`"
+msgstr "**Fondo y texto:** `UI_BACKGROUND`, `UI_FOREGROUND`"
+
+#: ../../../docs/streamlit-guide.md:621 88b98fb031844e4e95f453b71cf68c2c
+msgid "**Sidebar:** Slightly lighter than the main area for separation"
+msgstr ""
+"**Barra lateral:** Ligeramente más clara que el área principal de separación"
+
+#: ../../../docs/streamlit-guide.md:622 cda7f9c1836f40c798cbffdcc104d348
+msgid "**Buttons and accents:** `UI_BUTTON_BG`, `UI_BUTTON_FG`, etc."
+msgstr "**Botones y acentos:** `UI_BUTTON_BG`, `UI_BUTTON_FG`, etc."
+
+#: ../../../docs/streamlit-guide.md:623 ac828e2b6b024abdb3da40c0adee9808
+msgid "**Fonts:** `UI_FONT_FAMILY`, `UI_FONT_SIZE`"
+msgstr "**Fuentes:** `UI_FONT_FAMILY`, `UI_FONT_SIZE`"
+
+#: ../../../docs/streamlit-guide.md:625 fcb3814de66c4f899675322c46b74d81
+msgid ""
+"So changing the theme in `.env` (or in Tkinter’s configuration) affects both"
+" the desktop and the web interface consistently."
+msgstr ""
+"Entonces, cambiar el tema en `.env` (o en la configuración de Tkinter) "
+"afecta tanto al escritorio como a la interfaz web de manera consistente."
+
+#: ../../../docs/streamlit-guide.md:627 e6cebbc5db574aab931ac4812f944852
+msgid "Differences from Tkinter Version"
+msgstr "Diferencias con la versión Tkinter"
+
+#: ../../../docs/streamlit-guide.md:629 54c9144053dc40879ae312f0c281a627
+msgid "**Streamlit has**:"
+msgstr "** Streamlit tiene **:"
+
+#: ../../../docs/streamlit-guide.md:630 03f8a529bd8b4de6af42c6b3f9f7b792
+msgid "✓ Modern, web-based interface."
+msgstr "✓ Interfaz moderna basada en web."
+
+#: ../../../docs/streamlit-guide.md:631 31a56d0e30dd48bdad218dc60739d20d
+msgid ""
+"✓ Same theme and configuration source (`.env` / config): colors, fonts, and "
+"layout rules match the Tkinter app where applicable (sidebar slightly "
+"lighter than main)."
+msgstr ""
+"✓ Mismo tema y fuente de configuración (`.env` / config): los colores, "
+"fuentes y reglas de diseño coinciden con la aplicación Tkinter cuando "
+"corresponda (barra lateral ligeramente más clara que la principal)."
+
+#: ../../../docs/streamlit-guide.md:632 0544b70be72d4e108cf14126df5b2248
+msgid "✓ Easy sharing via URL."
+msgstr "✓ Compartir fácilmente a través de URL."
+
+#: ../../../docs/streamlit-guide.md:633 368ca78d09524042be41a81219b6f45c
+msgid "✓ Mobile/tablet support."
+msgstr "✓ Soporte para móviles/tabletas."
+
+#: ../../../docs/streamlit-guide.md:634 23318b36b29e42d888829e8231dfc246
+msgid "✓ No installation needed (online)."
+msgstr "✓ No necesita instalación (en línea)."
+
+#: ../../../docs/streamlit-guide.md:635 082c5857353b42b4b147676f0c3d5d1c
+msgid ""
+"✓ Loop-like workflow: in Normal Fitting you can enable \"loop fitting\" and "
+"then fit another file with the same equation without changing mode; in "
+"Multiple Datasets you can upload another set of files and run again."
+msgstr ""
+"✓ Flujo de trabajo similar a un bucle: en Ajuste normal puede habilitar el "
+"\"ajuste de bucle\" y luego ajustar otro archivo con la misma ecuación sin "
+"cambiar el modo; en Múltiples conjuntos de datos puede cargar otro conjunto "
+"de archivos y ejecutarlo nuevamente."
+
+#: ../../../docs/streamlit-guide.md:637 000b0ef3ad214567beb810b8a1650258
+msgid "**Streamlit differs**:"
+msgstr "**Streamlit difiere**:"
+
+#: ../../../docs/streamlit-guide.md:638 13471fae340b4ff3949f5a69a561b331
+msgid "File input is by upload only (no local file browser)."
+msgstr ""
+"La entrada de archivos se realiza únicamente mediante carga (sin explorador "
+"de archivos local)."
+
+#: ../../../docs/streamlit-guide.md:639 496a3bc6868d4fcca6f17fcf00b08517
+msgid ""
+"No configuration panel in the sidebar (language and mode only); change "
+"settings in `.env` or via Tkinter’s Configure menu."
+msgstr ""
+"Sin panel de configuración en la barra lateral (solo idioma y modo); cambie "
+"la configuración en `.env` o mediante el menú Configurar de Tkinter."
+
+#: ../../../docs/streamlit-guide.md:640 61fd6594fbba424498b77e131f91a377
+msgid ""
+"Results layout: three columns (Equation, Parameters, Statistics), plot, then"
+" download button."
+msgstr ""
+"Diseño de resultados: tres columnas (Ecuación, Parámetros, Estadísticas), "
+"gráfico y luego botón de descarga."
+
+#: ../../../docs/streamlit-guide.md:641 76e85c596aa54d8e8c63636b8f6aa60b
+msgid ""
+"If output format is PDF, the in-app preview is PNG and the download is PDF."
+msgstr ""
+"Si el formato de salida es PDF, la vista previa en la aplicación es PNG y la"
+" descarga es PDF."
+
+#: ../../../docs/streamlit-guide.md:642 8d8a507bc0e84af59c5236429f575e3a
+msgid ""
+"**Prediction window** and **multidimensional fitting** (custom formulas with"
+" 2+ variables, 3D/residuals plots) are currently available in the Tkinter "
+"(desktop) version."
+msgstr ""
+"**Ventana de predicción** y **ajuste multidimensional** (fórmulas "
+"personalizadas con más de 2 variables, gráficos 3D/residuales) están "
+"disponibles actualmente en la versión de Tkinter (escritorio)."
+
+#: ../../../docs/streamlit-guide.md:643 16407dae6cd4466faeb46400ffd57431
+msgid ""
+"**View Data mode** in Streamlit has the same transform, clean, and download "
+"options as Tkinter."
+msgstr ""
+"**El modo Ver datos** en Streamlit tiene las mismas opciones de "
+"transformación, limpieza y descarga que Tkinter."
+
+#: ../../../docs/streamlit-guide.md:645 65c4c1fdeda04ed19c627f0ea4f0f922
+msgid "**When to use each**:"
+msgstr "**Cuándo usar cada uno**:"
+
+#: ../../../docs/streamlit-guide.md:646 8d3f058a54714cd5a076dc25e7dc53ae
+msgid "**Streamlit**: Quick analysis, sharing, accessibility."
+msgstr "**Streamlit**: análisis rápido, uso compartido y accesibilidad."
+
+#: ../../../docs/streamlit-guide.md:647 b1751039bf514365a07e594ff9077778
+msgid ""
+"**Tkinter**: Offline, local file browsing, in-app configuration dialog, "
+"extra features."
+msgstr ""
+"**Tkinter**: exploración de archivos local sin conexión, cuadro de diálogo "
+"de configuración en la aplicación, funciones adicionales."
+
+#: ../../../docs/streamlit-guide.md:649 c431a6a0b4034f4d993d192a020e23be
+msgid "Next Steps"
+msgstr "Próximos pasos"
+
+#: ../../../docs/streamlit-guide.md:651 db19868f56da4e0e915646e7f6afe0c7
+msgid ""
+"**Learn Tkinter**: See [Tkinter Guide](tkinter-guide.md) for desktop "
+"version."
+msgstr ""
+"**Aprenda Tkinter**: consulte la [Guía de Tkinter](tkinter-guide.md) para la"
+" versión de escritorio."
+
+#: ../../../docs/streamlit-guide.md:652 4535a750ef274a17b2d22a8338c7a7c1
+msgid ""
+"**Customize**: Configure appearance in [Configuration "
+"Guide](configuration.md)."
+msgstr ""
+"**Personalizar**: configure la apariencia en la [Guía de configuración] "
+"(configuration.md)."
+
+#: ../../../docs/streamlit-guide.md:653 b2d54e99507a4b4cb59a44c29f8b8391
+msgid ""
+"**Extend**: Learn to add functions in [Extending "
+"RegressionLab](extending.md)."
+msgstr ""
+"**Extender**: aprenda a agregar funciones en [Extending RegressionLab] "
+"(extending.md)."
+
+#: ../../../docs/streamlit-guide.md:658 61ba88fdf2bc41a3a4a1bb11749a9e32
+msgid ""
+"*Happy fitting! If you encounter issues, check the [Troubleshooting "
+"Guide](troubleshooting.md).*"
+msgstr ""
+"*¡Feliz ajuste! Si tiene problemas, consulte la [Guía de solución de "
+"problemas] (troubleshooting.md).*"

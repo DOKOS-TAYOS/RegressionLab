@@ -205,13 +205,25 @@ When adding or updating documentation:
 
 ## Localization
 
-Currently, documentation is in English only. To add translations:
+Documentation supports English and Spanish via Sphinx i18n (gettext). ReadTheDocs hosts both:
 
-1. Create language subdirectory: `docs/es/` for Spanish.
-2. Translate all markdown files.
-3. Update links to point to translated versions.
-4. Add language selector to index.
-5. Update Sphinx configuration.
+- **English**: `https://regressionlab.readthedocs.io/en/latest/`
+- **Spanish**: `https://regressionlab-es.readthedocs.io/es/latest/` (separate project linked as translation)
+
+### ReadTheDocs setup (Spanish project)
+
+1. On [ReadTheDocs](https://readthedocs.org/), create a new project (e.g. `regressionlab-es`).
+2. Import the same Git repository as the English project.
+3. In **Admin → Settings → Language**, select **Spanish**.
+4. In the **parent** project (regressionlab), go to **Admin → Translations** and add `regressionlab-es` as a translation.
+5. Both projects share `.readthedocs.yaml`; ReadTheDocs sets `READTHEDOCS_LANGUAGE` per project.
+
+### Translating content
+
+1. Regenerate `.pot` files: `python -m sphinx -b gettext sphinx-docs/source sphinx-docs/build/gettext`
+2. Update Spanish `.po` files: `sphinx-intl update -p sphinx-docs/build/gettext -l es -d sphinx-docs/locale`
+3. Edit `sphinx-docs/locale/es/LC_MESSAGES/*.po` (fill `msgstr` with translations).
+4. Commit and push; ReadTheDocs will rebuild automatically.
 
 ## Feedback
 

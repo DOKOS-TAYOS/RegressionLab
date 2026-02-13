@@ -17,6 +17,64 @@ try:
 except ImportError:
     pending_xref = None
 
+# Patch sphinxcontrib.relativeinclude.LinkTranslator to handle URL fragments (#anchor).
+# The stock LinkTranslator treats reftarget as a file path and fails for links like
+# configuration.md#update-check-tkinter or fragment-only refs like update-check-tkinter.
+def _patch_link_translator() -> None:
+    from os.path import relpath
+
+    from sphinxcontrib import relativeinclude
+
+    _logger = logging.getLogger("sphinxcontrib.relativeinclude")
+    _identify = getattr(relativeinclude, "_identify", lambda o: f"{type(o).__name__}")
+
+    def _patched_visit(self: "relativeinclude.LinkTranslator", node: nodes.Node) -> None:
+        if not isinstance(node, nodes.Element) or (
+            hasattr(node, "resolved") and getattr(node, "resolved", False)
+        ):
+            return
+        for attr in ("reftarget", "uri"):
+            if attr not in node.attributes:
+                continue
+            old_target = node[attr]
+            if any(old_target.startswith(s) for s in ("http", "https", "data")):
+                continue
+            # Split path and fragment
+            if "#" in old_target:
+                path_part, frag = old_target.split("#", 1)
+                fragment = "#" + frag if frag else ""
+            else:
+                path_part, fragment = old_target, ""
+            # Skip fragment-only (same-doc anchor)
+            if not path_part.strip():
+                if hasattr(node, "resolved"):
+                    node.resolved = True  # type: ignore[attr-defined]
+                continue
+            # Resolve path part only
+            try:
+                new_abs = (self.rel_base / path_part).resolve()
+            except Exception:
+                continue
+            if new_abs.exists():
+                node[attr] = relpath(new_abs, self.abs_base) + fragment
+                if hasattr(node, "resolved"):
+                    node.resolved = True  # type: ignore[attr-defined]
+                continue
+            # Path doesn't exist: skip without warning if it looks like a fragment (no extension)
+            if "." not in path_part and "/" not in path_part and "\\" not in path_part:
+                if hasattr(node, "resolved"):
+                    node.resolved = True  # type: ignore[attr-defined]
+                continue
+            # Otherwise warn (original behavior)
+            _logger.warning(
+                f"{_identify(self)}: couldn't resolve {_identify(node)} "
+                f"target path {new_abs} derived from {old_target}. Skipping!"
+            )
+        if hasattr(node, "resolved"):
+            node.resolved = True  # type: ignore[attr-defined]
+
+    relativeinclude.LinkTranslator.default_visit = _patched_visit
+
 # -- Path setup --------------------------------------------------------------
 # Add the project root directory to sys.path
 sys.path.insert(0, os.path.abspath('../../src'))
@@ -117,6 +175,15 @@ def _norm_base(raw: str) -> str:
     return os.path.basename(path_part)
 
 
+def _get_fragment(raw: str) -> str:
+    """Extract fragment (#anchor) from raw ref if present."""
+    if '#' in raw and not raw.startswith('#'):
+        part = raw.split('#', 1)[1].strip()
+        if part:
+            return '#' + urllib.parse.unquote(part)
+    return ''
+
+
 # Docname (no extension) for each .md key, for get_relative_uri
 _DOC_HTML_TO_DOCNAME = {v: v.replace('.html', '') for v in _DOC_MD_TO_HTML.values()}
 
@@ -127,10 +194,10 @@ def _rewrite_doc_md_links(app, doctree, docname):
     get_uri = getattr(builder, 'get_relative_uri', None) if builder else None
 
     def refuri_for(base: str) -> str:
-        html = _DOC_MD_TO_HTML.get(base)
+        html = _DOC_MD_TO_HTML.get(base) or (base if base.endswith('.html') else None)
         if not html or not get_uri:
             return html or ''
-        target_doc = _DOC_HTML_TO_DOCNAME.get(html)
+        target_doc = _DOC_HTML_TO_DOCNAME.get(html) or (base.replace('.html', '') if base.endswith('.html') else None)
         if target_doc:
             return get_uri(docname, target_doc)
         return html
@@ -142,8 +209,8 @@ def _rewrite_doc_md_links(app, doctree, docname):
             if not raw:
                 continue
             base = _norm_base(raw)
-            if base in _DOC_MD_TO_HTML:
-                node['refuri'] = refuri_for(base)
+            if base in _DOC_MD_TO_HTML or (base.endswith('.html') and base.replace('.html', '') in {v.replace('.html', '') for v in _DOC_MD_TO_HTML.values()}):
+                node['refuri'] = refuri_for(base) + _get_fragment(raw)
                 if attr == 'refid' and 'refid' in node:
                     del node['refid']
                 break
@@ -151,7 +218,8 @@ def _rewrite_doc_md_links(app, doctree, docname):
     if pending_xref is not None:
         doc_to_html = {
             **_DOC_MD_TO_HTML,
-            'configuration': 'configuration.html', 'usage': 'usage.html',
+            'configuration': 'configuration.html', 'configuration.html': 'configuration.html',
+            'configuration.md': 'configuration.html', 'usage': 'usage.html',
             'installation': 'installation.html', 'troubleshooting': 'troubleshooting.html',
             'introduction': 'introduction.html', 'streamlit-guide': 'streamlit-guide.html',
             'tkinter-guide': 'tkinter-guide.html', 'extending': 'extending.html',
@@ -164,7 +232,7 @@ def _rewrite_doc_md_links(app, doctree, docname):
             if base in doc_to_html:
                 html = doc_to_html[base]
                 target_doc = html.replace('.html', '')
-                uri = get_uri(docname, target_doc) if get_uri else html
+                uri = (get_uri(docname, target_doc) if get_uri else html) + _get_fragment(reftarget)
                 ref = nodes.reference(
                     '', '', *node.children, refuri=uri, internal=True
                 )
@@ -172,8 +240,41 @@ def _rewrite_doc_md_links(app, doctree, docname):
                 node.replace_self(ref)
 
 
+def _on_missing_reference(app, env, node, contnode):
+    """Resolve doc links like configuration.md#anchor that Sphinx/MyST cannot resolve."""
+    reftarget = node.get('reftarget', '')
+    if not reftarget or '#' not in reftarget:
+        return None
+    base = _norm_base(reftarget)
+    fragment = _get_fragment(reftarget)
+    doc_to_html = {
+        'configuration.md': 'configuration.html', 'configuration.html': 'configuration.html',
+        'configuration': 'configuration.html', 'installation.md': 'installation.html',
+        'usage.md': 'usage.html', 'troubleshooting.md': 'troubleshooting.html',
+        'introduction.md': 'introduction.html', 'streamlit-guide.md': 'streamlit-guide.html',
+        'tkinter-guide.md': 'tkinter-guide.html', 'extending.md': 'extending.html',
+        'customization.md': 'customization.html', 'contributing.md': 'contributing.html',
+        'license.md': 'license.html',
+    }
+    if base not in doc_to_html:
+        return None
+    html = doc_to_html[base]
+    target_doc = html.replace('.html', '')
+    try:
+        uri = app.builder.get_relative_uri(env.docname, target_doc) + fragment
+    except Exception:
+        uri = html + fragment
+    ref = nodes.reference(
+        '', '', *contnode.children, refuri=uri, internal=True
+    )
+    ref['classes'] = contnode.get('classes', [])
+    return ref
+
+
 def setup(app):  # noqa: D103
     """Register filter to suppress duplicate object description warnings and rewrite doc links."""
+    _patch_link_translator()
+
     def add_filters(_app):
         # Attach at source so duplicate-object warnings from Python domain never reach handlers
         logging.getLogger('sphinx.domains.python').addFilter(_DuplicateObjectFilter())
@@ -184,6 +285,7 @@ def setup(app):  # noqa: D103
     app.connect('builder-inited', add_filters)
     app.connect('autodoc-skip-member', _skip_imported_member)
     app.connect('doctree-resolved', _rewrite_doc_md_links)
+    app.connect('missing-reference', _on_missing_reference)
     return {'version': '0.1', 'parallel_read_safe': True}
 
 
@@ -259,7 +361,13 @@ suppress_warnings = [
     'myst.iref_ambiguous',  # extending/contributing matched by intersphinx (numpy, pandas, etc.)
 ]
 
-language = 'en'
+# Language: use READTHEDOCS_LANGUAGE when building on ReadTheDocs (en/es), else default to English
+language = os.environ.get('READTHEDOCS_LANGUAGE', 'en')
+
+# Localization: required for Spanish builds. Translations live in sphinx-docs/locale/<lang>/LC_MESSAGES/
+locale_dirs = ['../locale']
+gettext_uuid = True
+gettext_compact = False
 
 # The root toctree document (replaces deprecated master_doc)
 root_doc = 'index'

@@ -1,0 +1,397 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Alejandro Mata Ali
+# This file is distributed under the same license as the RegressionLab
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: RegressionLab 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-13 19:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../source/modules/loaders.rst:3 0e938287421a49098a91d5c1fa393f81
+msgid "Loaders Module"
+msgstr "Módulo Loaders"
+
+#: ../../source/modules/loaders.rst:5 bd0a0d994bc64d6caab7a518a7d1445f
+msgid "The ``loaders`` module handles data loading from different file formats."
+msgstr "El módulo ``loaders`` gestiona la carga de datos desde distintos formatos de archivo."
+
+#: ../../source/modules/loaders.rst:8 c8c55d3c37914a238f57cfa78b7e5bb9
+msgid "Data Loader"
+msgstr "Cargador de datos"
+
+#: 732a1a9c02d74b4a826da64eae3f5cec loaders.data_loader:1 of
+msgid "Data loading logic module."
+msgstr "Módulo de lógica de carga de datos."
+
+#: 05a91e8e9db84734b23bbcce21757554 loaders.data_loader:3 of
+msgid ""
+"This module handles all data loading operations without UI dependencies. "
+"It provides a clean separation between data access logic (backend) and "
+"user interface (frontend)."
+msgstr ""
+"Este módulo gestiona todas las operaciones de carga de datos sin "
+"dependencias de la interfaz. Proporciona una separación clara entre la "
+"lógica de acceso a datos (backend) y la interfaz de usuario (frontend)."
+
+#: 43a9047e26984416a2dd2f06c32342fe loaders.data_loader:7 of
+msgid "Key features:"
+msgstr "Características principales:"
+
+#: e96ea27b34c643a79eab60ac12e86905 loaders.data_loader:9 of
+msgid "Path construction for data files"
+msgstr "Construcción de rutas para archivos de datos"
+
+#: 5c7c8dfba00d404e99a18fa6c14494d6 loaders.data_loader:10 of
+msgid "Loading from CSV, TXT and Excel formats"
+msgstr "Carga desde formatos CSV, TXT y Excel"
+
+#: 0e1588833c2e4183bacd071b14187729 loaders.data_loader:11 of
+msgid "Variable name extraction from datasets"
+msgstr "Extracción de nombres de variables desde conjuntos de datos"
+
+#: 58e9d387d0ff4363b31517238ab1d9fa loaders.data_loader:12 of
+msgid "File categorization by type"
+msgstr "Categorización de archivos por tipo"
+
+#: be219c5021dd4618a9f74704a8c76d5f loaders.data_loader:14 of
+msgid ""
+"All functions are UI-independent and can be used in both GUI and CLI "
+"contexts."
+msgstr ""
+"Todas las funciones son independientes de la interfaz y pueden usarse "
+"tanto en contextos GUI como CLI."
+
+#: fc87789a60b242c39172a40b256e67df loaders.data_loader.load_data:1 of
+msgid "Load data based on file type."
+msgstr "Cargar datos según el tipo de archivo."
+
+#: ../../source/modules/loaders.rst 030472e462c74aa4a89abac8a6c08485
+#: 150ad233e85140b6a971c18afd871ce3 22cef08a74534b00879865132a140582
+#: 41fda51c23cd4092a3be3cd1bc2ef160 4e8b0c72cfd9461db1e48e48074c5061
+#: 675f3d3edcfe4f1cb9fce91caa72b589 6b09167370b04d88ac4aec104ee3a10b
+#: 853b2538ddf7432fb47eeea95819d133 927ed67289c841b39f53482aa7e2ca51
+#: loaders.data_loader.get_file_list_by_type
+#: loaders.data_loader.get_variable_names
+#: loaders.data_loader.load_data_workflow loaders.loading_utils.get_file_names
+#: of
+msgid "Parameters"
+msgstr "Parámetros"
+
+#: 09170ebeb32a40179dbac65e498449af loaders.data_loader.load_data:3 of
+msgid "Complete path to the file"
+msgstr "Ruta completa al archivo"
+
+#: 198e7dbc22ca4cb1bc88e6d98f335dd5 c2342f82d99d412eb4003b4e8e9c0432
+#: cf944a6a86f3462a9ec25ac99ad2b493 loaders.data_loader.get_file_list_by_type:6
+#: loaders.data_loader.load_data:4 loaders.data_loader.load_data_workflow:8 of
+msgid "File type ('csv', 'xlsx', 'txt')"
+msgstr "Tipo de archivo ('csv', 'xlsx', 'txt')"
+
+#: ../../source/modules/loaders.rst 14f2d2e5a6714b5eb5d0c01e6f55b013
+#: 4045d5be808f4904b6cc808e7c67fc80 4167bd38800f4b2f93223a48efff26b6
+#: 96029559858346fd9dbdb5cb3702e3d9 9c1e6c7332074533b81d45474c600072
+#: ac20063db52f4539ab9e20563bd34037 b7687bd12fa74388893208c798385f41
+#: c1c3ef5bf90f491497382cd244fda5e7 d2912aed90e540b6b9e04b325e71f46c
+#: loaders.data_loader.get_file_list_by_type
+#: loaders.data_loader.get_variable_names
+#: loaders.data_loader.load_data_workflow loaders.loading_utils.get_file_names
+#: of
+msgid "Returns"
+msgstr "Devuelve"
+
+#: c70ae2e7f85743b1bb6141a97b44832b loaders.data_loader.load_data:6 of
+msgid "DataFrame with loaded data."
+msgstr "DataFrame con los datos cargados."
+
+#: ../../source/modules/loaders.rst 31859b0cf15347b4889e945b5e4db00c
+#: 34defb538f3543449ea0362756d74329 3cca49b992684ce990f9566b10c10e87
+#: aa712a48908d4332b917ed375bf75aa9 b08f9e8fd5d94508afc5bfefdba59812
+#: c960a947cdbb443889fecd7de76eddd6 d1c91df1f4d0453f8953b18c953d22ea
+#: dd8723a16c1e404caa61fcb64c672510 loaders.data_loader.get_file_list_by_type
+#: loaders.data_loader.load_data_workflow loaders.loading_utils.get_file_names
+#: of
+msgid "Raises"
+msgstr "Lanza"
+
+#: 564e06ef283e4ced86373389f96bf67a 8b620fa10d9c4f79a10622fe74da3e7c
+#: loaders.data_loader.load_data:8 loaders.saving_utils.save_dataframe:9 of
+msgid "If file type is not supported."
+msgstr "Si el tipo de archivo no está soportado."
+
+#: 517aade6bf234563867d915d52c96d06 loaders.data_loader.load_data:9 of
+msgid "If file cannot be loaded (from underlying readers)."
+msgstr "Si el archivo no puede cargarse (desde los lectores subyacentes)."
+
+#: 15e479a623e94d8e89a1a1951947a129 loaders.data_loader.get_variable_names:1 of
+msgid "Extract variable names from the dataset."
+msgstr "Extraer nombres de variables del conjunto de datos."
+
+#: 35bec729e75d442b94595fa5641bb6b1 loaders.data_loader.get_variable_names:3 of
+msgid ""
+"When filter_uncertainty is False, returns all column names (e.g. 'x', "
+"'ux', 'y', 'uy'). When True, excludes uncertainty columns (e.g. 'ux', "
+"'uy') so only base variables like 'x', 'y' are returned. Uncertainty "
+"columns are assumed to be named 'u<varname>'."
+msgstr ""
+"Cuando filter_uncertainty es False, devuelve todos los nombres de columna "
+"(p. ej. 'x', 'ux', 'y', 'uy'). Cuando es True, excluye las columnas de "
+"incertidumbre (p. ej. 'ux', 'uy') de modo que solo se devuelven variables "
+"base como 'x', 'y'. Las columnas de incertidumbre se asumen con nombre 'u<nombre>'."
+
+#: 0d69f25902a74b18b5aafc7288a0f42d loaders.data_loader.get_variable_names:7 of
+msgid "DataFrame with the data"
+msgstr "DataFrame con los datos"
+
+#: 530c4d96de004e58b4a7e269c4c18936 loaders.data_loader.get_variable_names:8 of
+msgid "If True, exclude uncertainty columns from the result"
+msgstr "Si es True, excluir columnas de incertidumbre del resultado"
+
+#: 0cf90b8465ee4925aca00e605bd1adfb loaders.data_loader.get_variable_names:10
+#: of
+msgid "List of column names as strings."
+msgstr "Lista de nombres de columna como cadenas."
+
+#: 10d6cf2e5cd64c85b6d33333cd805ccb a8b0ba1a54354bbbaa15d160123a2114
+#: ba4e45fd9a944536bb8d2648afc0370b d93d680649a745beb69a439072defc28
+#: loaders.data_loader.get_file_list_by_type:16
+#: loaders.data_loader.get_variable_names:13
+#: loaders.data_loader.load_data_workflow:16
+#: loaders.loading_utils.get_file_names:17 of
+msgid "Examples"
+msgstr "Ejemplos"
+
+#: 533758b13174416296fdf261884726b7 loaders.data_loader.get_file_list_by_type:1
+#: of
+msgid "Get list of files based on selected type."
+msgstr "Obtener lista de archivos según el tipo seleccionado."
+
+#: 521bc008cf24498682c7f500c4ea62d1 loaders.data_loader.get_file_list_by_type:3
+#: of
+msgid ""
+"This function acts as a selector/router that returns the appropriate file"
+" list based on the user's file type selection."
+msgstr ""
+"Esta función actúa como selector/enrutador que devuelve la lista de "
+"archivos apropiada según la selección de tipo de archivo del usuario."
+
+#: 2b555799a53c4ee5bd908d696444b00e loaders.data_loader.get_file_list_by_type:7
+#: of
+msgid "List of CSV file names (without extension)"
+msgstr "Lista de nombres de archivos CSV (sin extensión)"
+
+#: 39918771e6304febbc1b8a3533d601ea loaders.data_loader.get_file_list_by_type:8
+#: of
+msgid "List of XLSX file names (without extension)"
+msgstr "Lista de nombres de archivos XLSX (sin extensión)"
+
+#: 583806765f434350a631817f25641e73 loaders.data_loader.get_file_list_by_type:9
+#: of
+msgid "List of TXT file names (without extension)"
+msgstr "Lista de nombres de archivos TXT (sin extensión)"
+
+#: 94f168acee984fbd877cc6b8e133ffc6
+#: loaders.data_loader.get_file_list_by_type:11 of
+msgid "List of files of the specified type"
+msgstr "Lista de archivos del tipo especificado"
+
+#: fd6c58b290de45e2be65fd436b0c6396
+#: loaders.data_loader.get_file_list_by_type:13 of
+msgid "If file type is not valid"
+msgstr "Si el tipo de archivo no es válido"
+
+#: cedc060aca8e4dd58b993fdba38a6d50 loaders.data_loader.load_data_workflow:1 of
+msgid "Complete data loading workflow."
+msgstr "Flujo completo de carga de datos."
+
+#: 462ed388e96d4e90973bab353747d956 loaders.data_loader.load_data_workflow:3 of
+msgid ""
+"This convenience function combines path preparation and data loading into"
+" a single operation. It's the main entry point for loading data files in "
+"the application."
+msgstr ""
+"Esta función de conveniencia combina la preparación de rutas y la carga "
+"de datos en una sola operación. Es el punto de entrada principal para "
+"cargar archivos de datos en la aplicación."
+
+#: 022285968e1946028320a5dcb23d595a loaders.data_loader.load_data_workflow:7 of
+msgid "File name without extension (e.g., 'Example')"
+msgstr "Nombre del archivo sin extensión (p. ej. 'Example')"
+
+#: 79e559f0f37541ff8df38497652fedcd loaders.data_loader.load_data_workflow:10
+#: of
+msgid ""
+"Tuple of (data DataFrame, complete file path) The file path is returned "
+"so it can be used for reloading in loop mode"
+msgstr ""
+"Tupla de (DataFrame de datos, ruta completa del archivo). Se devuelve la "
+"ruta para poder usarla al recargar en modo bucle."
+
+#: fd5b3b715d444aaca89674eb029c7b83 loaders.data_loader.load_data_workflow:13
+#: of
+msgid "If data cannot be loaded"
+msgstr "Si los datos no pueden cargarse"
+
+#: ../../source/modules/loaders.rst:13 0ead9469bcb74f358f4345809a1402bf
+msgid "Loading Utilities"
+msgstr "Utilidades de carga"
+
+#: a6285a18b83946fbb41fa2e63b9d0854 loaders.loading_utils:1 of
+msgid "Loading utilities for data file operations."
+msgstr "Utilidades de carga para operaciones con archivos de datos."
+
+#: d47261762fe34e7f92db5f21ba1024b4 loaders.loading_utils:3 of
+msgid "This module provides functions to:"
+msgstr "Este módulo proporciona funciones para:"
+
+#: e0bda8d58ca749e78e058ec0547d7433 loaders.loading_utils:5 of
+msgid "Load data from CSV, TXT and Excel files"
+msgstr "Cargar datos desde archivos CSV, TXT y Excel"
+
+#: 4017dfe96d6f421ca26e6076543961e2 loaders.loading_utils:6 of
+msgid "Scan directories for available data files"
+msgstr "Escanear directorios en busca de archivos de datos disponibles"
+
+#: ee98b357ef954960b300644db59e1c82 loaders.loading_utils:7 of
+msgid "Get the project root directory path"
+msgstr "Obtener la ruta del directorio raíz del proyecto"
+
+#: 9fb2b7a857944db394d6c94d2451ae5a loaders.loading_utils:9 of
+msgid "All file operations are relative to the project root directory."
+msgstr "Todas las operaciones de archivo son relativas al directorio raíz del proyecto."
+
+#: 34fce8bf43984e46b0e1b73725f929e6 loaders.loading_utils.csv_reader:1 of
+msgid "Load data from a CSV file."
+msgstr "Cargar datos desde un archivo CSV."
+
+#: ee16198a9625469d967e4c5f2a5d2166 loaders.loading_utils.csv_reader:3 of
+msgid "Path to the CSV file"
+msgstr "Ruta al archivo CSV"
+
+#: 1aa38668b01e4dcb92791df21a1698f3 loaders.loading_utils.csv_reader:5 of
+msgid "DataFrame with the CSV data, treating 'no' as NaN values"
+msgstr "DataFrame con los datos CSV, tratando 'no' como valores NaN"
+
+#: 1af5b9c84a034f57b676a45091a784f1 418175271d0448a2b2883e7447621ce9
+#: dc53bdf85b614ea2ab345625a65e3b2f loaders.loading_utils.csv_reader:7
+#: loaders.loading_utils.excel_reader:7 loaders.loading_utils.txt_reader:10 of
+msgid "If file does not exist"
+msgstr "Si el archivo no existe"
+
+#: 475913271a7045ad832e3f23e95834f5 70e91aa438234ee1a804675f4d5ffd40
+#: 95ce7c09d5ec489bb44e17dd58b914e0 loaders.loading_utils.csv_reader:8
+#: loaders.loading_utils.excel_reader:8 loaders.loading_utils.txt_reader:11 of
+msgid "If file cannot be read"
+msgstr "Si el archivo no puede leerse"
+
+#: 308ee0e982014a1ba8c23a6239473b39 loaders.loading_utils.txt_reader:1 of
+msgid "Load data from a text file (whitespace or tab separated)."
+msgstr "Cargar datos desde un archivo de texto (separado por espacios o tabulaciones)."
+
+#: 22358f1a835d44f9b77af4b91add50c9 loaders.loading_utils.txt_reader:3 of
+msgid ""
+"Uses pandas read_csv with sep=None (delimiter sniffing) so that tab-"
+"separated and space-separated values are detected automatically."
+msgstr ""
+"Usa pandas read_csv con sep=None (detección de delimitador) para que los "
+"valores separados por tabulaciones o espacios se detecten automáticamente."
+
+#: c5f79d7df69645c88d02b1a8d28cf3d2 loaders.loading_utils.txt_reader:6 of
+msgid "Path to the text file."
+msgstr "Ruta al archivo de texto."
+
+#: e5ecfabf30b4494d99b7189efdc94c41 loaders.loading_utils.txt_reader:8 of
+msgid "DataFrame with the text file data, treating 'no' as NaN values."
+msgstr "DataFrame con los datos del archivo de texto, tratando 'no' como valores NaN."
+
+#: 935fd197ada9424581533d00bc01d381 loaders.loading_utils.excel_reader:1 of
+msgid "Load data from an Excel file (.xlsx)."
+msgstr "Cargar datos desde un archivo Excel (.xlsx)."
+
+#: 5321a8e6acea41698e4e9cac3b03c080 loaders.loading_utils.excel_reader:3 of
+msgid "Path to the Excel file"
+msgstr "Ruta al archivo Excel"
+
+#: b429ceecb1a64a578853bbe2d2931b60 loaders.loading_utils.excel_reader:5 of
+msgid "DataFrame with the Excel data"
+msgstr "DataFrame con los datos de Excel"
+
+#: 199719959c7e41efa16063a1f2001ccb loaders.loading_utils.get_file_names:1 of
+msgid "Get categorized file names from a directory."
+msgstr "Obtener nombres de archivos categorizados de un directorio."
+
+#: 61a1e77e5aee47679d54dc84964a738f loaders.loading_utils.get_file_names:3 of
+msgid ""
+"Scans the specified directory and categorizes files by extension, "
+"returning file names without their extensions. This allows the UI to "
+"present clean file names to the user while the full path can be "
+"reconstructed when needed."
+msgstr ""
+"Escanea el directorio especificado y categoriza archivos por extensión, "
+"devolviendo nombres sin extensión. Así la interfaz puede mostrar nombres "
+"limpios y la ruta completa puede reconstruirse cuando haga falta."
+
+#: e6ac040cf64444f186f57f6fdb62ab76 loaders.loading_utils.get_file_names:8 of
+msgid "Name of the directory to scan (default: None, relative to project root)"
+msgstr "Nombre del directorio a escanear (por defecto: None, relativo a la raíz del proyecto)"
+
+#: 30e6d4dbd6854c0e90e631447c971351 loaders.loading_utils.get_file_names:10 of
+msgid ""
+"(csv_files, xlsx_files, txt_files) Each list contains file names without "
+"extensions"
+msgstr ""
+"(csv_files, xlsx_files, txt_files) Cada lista contiene nombres de archivo sin extensiones"
+
+#: 16b44d3555644240be64600a0a00d9fa loaders.loading_utils.get_file_names of
+msgid "Return type"
+msgstr "Tipo de retorno"
+
+#: 3c7357deecde4e8fafc79e1c7be7f111 loaders.loading_utils.get_file_names:14 of
+msgid "If directory does not exist"
+msgstr "Si el directorio no existe"
+
+#: ../../source/modules/loaders.rst:18 d17ad5c9710342ffaa2f7b1aca291ecf
+msgid "Saving Utilities"
+msgstr "Utilidades de guardado"
+
+#: da1d91f9abc74b35ad0176b2e55115f1 loaders.saving_utils:1 of
+msgid "Save DataFrame to file (CSV, TXT, XLSX)."
+msgstr "Guardar DataFrame en archivo (CSV, TXT, XLSX)."
+
+#: a35055409be44bb982ce5eeb1be1f7b5 loaders.saving_utils.save_dataframe:1 of
+msgid "Save a DataFrame to file."
+msgstr "Guardar un DataFrame en archivo."
+
+#: 47daadd218df4a39aa87976900d55e32 loaders.saving_utils.save_dataframe:3 of
+msgid "DataFrame to save."
+msgstr "DataFrame a guardar."
+
+#: c81ecbeb62a44d049d3e13a3f3c98ea5 loaders.saving_utils.save_dataframe:4 of
+msgid "Full path to the output file."
+msgstr "Ruta completa al archivo de salida."
+
+#: ba94d12b99ae473eacc82cada7285d2c loaders.saving_utils.save_dataframe:5 of
+msgid "'csv', 'txt', or 'xlsx'. If None, inferred from path extension."
+msgstr "'csv', 'txt' o 'xlsx'. Si es None, se infiere por la extensión de la ruta."
+
+#: 1ab768965c7b425e92801b541d52172f loaders.saving_utils.save_dataframe:7 of
+msgid "The path where the file was saved."
+msgstr "La ruta donde se guardó el archivo."
+
+#: 90aca6ac3b63484f8f77bf1a8b8b3647
+#: loaders.saving_utils.get_default_save_directory:1 of
+msgid "Return the default directory for saving (input folder)."
+msgstr "Devolver el directorio por defecto para guardar (carpeta input)."
+

@@ -1,0 +1,553 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Alejandro Mata Ali
+# This file is distributed under the same license as the RegressionLab
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: RegressionLab 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-13 19:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../source/modules/utils.rst:3 ee1970d851f243b2ba2ab386f41fa4f9
+msgid "Utilities Module"
+msgstr "Módulo de utilidades"
+
+#: ../../source/modules/utils.rst:5 9268a621dc424e2685fba292dd0bf369
+msgid "The ``utils`` module contains general utilities and helper functions."
+msgstr "El módulo ``utils`` contiene utilidades generales y funciones auxiliares."
+
+#: ../../source/modules/utils.rst:8 a68aa71967ef49a7b469e11f92f0dded
+msgid "Logger"
+msgstr "Registro (logger)"
+
+#: 8e93e753017141b994b9c3524f3e5eb1 of utils.logger:1
+msgid "Logging configuration for RegressionLab."
+msgstr "Configuración de registro para RegressionLab."
+
+#: 8c676c74cecb416682857ab86d3f33e5 of utils.logger:3
+msgid ""
+"This module provides centralized logging configuration and utilities. It "
+"supports both file and console logging with customizable log levels."
+msgstr ""
+"Este módulo proporciona configuración centralizada de registro y utilidades. "
+"Soporta registro en archivo y consola con niveles de log personalizables."
+
+#: ae7765d33c1a4853a5f0048c3d104526 of utils.logger.ColoredFormatter:1
+msgid "Bases: :py:class:`~logging.Formatter`"
+msgstr "Bases: :py:class:`~logging.Formatter`"
+
+#: c7442f9b3b75498a889c100933908e02 of utils.logger.ColoredFormatter:1
+msgid "Custom formatter that adds color to console log output."
+msgstr "Formateador personalizado que añade color a la salida de log en consola."
+
+#: ebbf64391aa44a8aa4567d9134b9f0e6 of utils.logger.ColoredFormatter:3
+msgid "Colors are applied based on log level:"
+msgstr "Los colores se aplican según el nivel de log:"
+
+#: 71a14040e9874b44b4a69cc4ff1d486a of utils.logger.ColoredFormatter:5
+msgid "DEBUG: Cyan"
+msgstr "DEBUG: Cian"
+
+#: e0f80b1af43143518f58cae03141ffe9 of utils.logger.ColoredFormatter:6
+msgid "INFO: Green"
+msgstr "INFO: Verde"
+
+#: ca7d36decd8b4170a0de2026a30daf5d of utils.logger.ColoredFormatter:7
+msgid "WARNING: Yellow"
+msgstr "WARNING: Amarillo"
+
+#: 3c905e615dd7451e8f071d7029d9187d of utils.logger.ColoredFormatter:8
+msgid "ERROR: Red"
+msgstr "ERROR: Rojo"
+
+#: 08cb0c3cd1184343a189719f56e589d1 of utils.logger.ColoredFormatter:9
+msgid "CRITICAL: Bright Red"
+msgstr "CRITICAL: Rojo brillante"
+
+#: ed85b5e4eb1941f6a993dabd9dd1a699 of utils.logger.ColoredFormatter.format:1
+msgid "Format the log record with colors."
+msgstr "Formatear el registro de log con colores."
+
+#: ../../source/modules/utils.rst 09e66da756494be895c423416cfb2d75
+#: 1221747a126b4baabfdc00a7994e370a 2d5ed3af3b1548c88895bed34b511820
+#: 36222d6bc3c947dc8cda01b2d9d3ee52 54a7b5214dd04f9ca79384227f7e023e
+#: 80ade8cefff04857baab907e6a3df8ec 8da1c443fc2d4ae2b0fd0c1373d3e595
+#: 9d1d2b69ad854283affa8c58eb3904e5 a03b4fb1589e4f71b844fc6b18111ac8
+#: ae18ee525f1a42ec9c8796eec1389b5f b891c162450a41ab9d5dacd020c6ebd0
+#: ce82d17ac3ee49aa96004c561e8be8bc d18060a7214a470780580418d6f812f2
+#: fc62edc057c04405b083a1bc1a4f7a49 of utils.logger.get_logger
+#: utils.logger.log_exception utils.logger.log_function_call
+#: utils.logger.setup_logging
+msgid "Parameters"
+msgstr "Parámetros"
+
+#: ef8a96065fad4b8692be2f0f81ecb7af of utils.logger.ColoredFormatter.format:3
+msgid "The log record to format"
+msgstr "El registro de log a formatear"
+
+#: ../../source/modules/utils.rst 04bdc50c045f417696c2d5bf9f051771
+#: 21f060a5ab4c4308bfdfadad24ee48da 2a82506da10f448d91322e237837f063
+#: 48ec97953cde4edcbef759c88b7a5a31 6e25fb4f2a8c478191b3d92773cbf238
+#: 8731d5ac32694c9690f8679fe7e32fb6 89bde3ab9a4546d3b38e6df76268747f
+#: 9d24b2dfd2214918b049e34e89df3c37 be3b296fc95341ccb2998c1d9302077c
+#: f17dfb88b1304e0487653317e5569c34 of utils.logger.get_logger
+msgid "Returns"
+msgstr "Devuelve"
+
+#: 98e3ea086a0f46a88d51dc4498fab97c of utils.logger.ColoredFormatter.format:5
+msgid "Formatted and colored log string"
+msgstr "Cadena de log formateada y con color"
+
+#: e45f44a51f9f4c9cbfa2e3084453cf39 of utils.logger.get_log_level_from_env:1
+msgid "Get log level from environment variable."
+msgstr "Obtener nivel de log desde variable de entorno."
+
+#: 33766c8ad3274feb9d5e9b89363101cc of utils.logger.get_log_level_from_env:3
+msgid "Logging level constant (e.g., logging.INFO)"
+msgstr "Constante de nivel de log (p. ej. logging.INFO)"
+
+#: 427471010121460b853b5f874a75edec of utils.logger.get_log_file_from_env:1
+msgid "Get log file path from environment variable."
+msgstr "Obtener ruta del archivo de log desde variable de entorno."
+
+#: ec538992dfce4814b0453e077de1fcac of utils.logger.get_log_file_from_env:3
+msgid "Path to log file"
+msgstr "Ruta al archivo de log"
+
+#: d7f510de751b43448c7165394b774e04 of utils.logger.should_log_to_console:1
+msgid "Check if console logging is enabled via environment variable."
+msgstr "Comprobar si el registro en consola está activado vía variable de entorno."
+
+#: 05b318c541f74022b0bcbacc2f2dcd85 of utils.logger.should_log_to_console:3
+msgid "True if console logging should be enabled"
+msgstr "True si el registro en consola debe estar activado"
+
+#: b75c785268ef42cab019105cc9947eb9 of utils.logger.setup_logging:1
+msgid "Configure application-wide logging."
+msgstr "Configurar el registro para toda la aplicación."
+
+#: f12bb7e591af4d03ac5ec19d36831228 of utils.logger.setup_logging:3
+msgid ""
+"This function sets up logging to both file and console (optional). If no "
+"parameters are provided, it uses environment variables or defaults."
+msgstr ""
+"Esta función configura el registro en archivo y consola (opcional). Si no "
+"se proporcionan parámetros, usa variables de entorno o valores por defecto."
+
+#: 0743bb0e604545e58f78c0fa5e0ac10b of utils.logger.setup_logging:6
+msgid "Path to log file. If None, uses LOG_FILE env var or default"
+msgstr "Ruta al archivo de log. Si es None, usa la variable de entorno LOG_FILE o el valor por defecto"
+
+#: 3b62d838e0644f1eb1ff9708dfef42f1 of utils.logger.setup_logging:7
+msgid "Logging level. If None, uses LOG_LEVEL env var or INFO"
+msgstr "Nivel de log. Si es None, usa la variable de entorno LOG_LEVEL o INFO"
+
+#: ee44dc9706b147b0bfe4f100460ec11a of utils.logger.setup_logging:8
+msgid "Enable console logging. If None, uses LOG_CONSOLE env var or True"
+msgstr "Activar registro en consola. Si es None, usa la variable de entorno LOG_CONSOLE o True"
+
+#: 1e78c8245c5d475884d4cfcafe6b24b6 of utils.logger.setup_logging:9
+msgid "Format string for log messages"
+msgstr "Cadena de formato para mensajes de log"
+
+#: 909944b2aff747bda9433d7e36eab1cf of utils.logger.setup_logging:10
+msgid "Format string for timestamps"
+msgstr "Cadena de formato para marcas de tiempo"
+
+#: 0f9d0890809b463f9d10e6d7fd25a768 637195f7bb5f4525a311be633fa2f69c
+#: dea522427243459890419de4fea6c227 f0408bcbb3594ae9b25e5f74b78fcaa8 of
+#: utils.logger.get_logger:8 utils.logger.log_exception:8
+#: utils.logger.log_function_call:8 utils.logger.setup_logging:13
+msgid "Examples"
+msgstr "Ejemplos"
+
+#: c0590c411f7242b2b980e94a783a885a of utils.logger.get_logger:1
+msgid "Get a logger instance for a specific module."
+msgstr "Obtener una instancia de logger para un módulo específico."
+
+#: fe6633bc3b92449a8fcfcb52583d243c of utils.logger.get_logger:3
+msgid "Name of the logger (typically __name__ of the module)"
+msgstr "Nombre del logger (típicamente __name__ del módulo)"
+
+#: 6219d704015c47c9b8eeec4e20c6784f of utils.logger.get_logger:5
+msgid "Logger instance"
+msgstr "Instancia del logger"
+
+#: 5fdb3daaf4a54fddb8393f4af930d265 of utils.logger.log_function_call:1
+msgid "Log a function call with its parameters."
+msgstr "Registrar una llamada a función con sus parámetros."
+
+#: e1e3e4398c4747b58e2450a47cca8b67 of utils.logger.log_function_call:3
+msgid "Logger instance to use"
+msgstr "Instancia del logger a usar"
+
+#: 47bbb591a57449dc8cd445478b0710d6 of utils.logger.log_function_call:4
+msgid "Name of the function being called"
+msgstr "Nombre de la función que se llama"
+
+#: e715ae5699b048f7a6417edcaf525580 of utils.logger.log_function_call:5
+msgid "Function parameters to log"
+msgstr "Parámetros de la función a registrar"
+
+#: 528f3dec00dd4f6197f789f5f16b8e9c of utils.logger.log_exception:1
+msgid "Log an exception with context."
+msgstr "Registrar una excepción con contexto."
+
+#: 74ae692193b746cf8062e5dfbdd3a58a of utils.logger.log_exception:3
+msgid "Logger instance to use."
+msgstr "Instancia del logger a usar."
+
+#: b8ed37ebb2984653aa496af11914046f of utils.logger.log_exception:4
+msgid "Exception that occurred."
+msgstr "Excepción que ocurrió."
+
+#: 144aeab72d034a87a7f74a9a14472038 of utils.logger.log_exception:5
+msgid "Optional context description."
+msgstr "Descripción opcional del contexto."
+
+#: ../../source/modules/utils.rst:13 76b8afc7b82849cf8ec7861e01301783
+msgid "Exceptions"
+msgstr "Excepciones"
+
+#: 92f759d65ea343828c4416cfb1e27539 of utils.exceptions:1
+msgid "Custom exceptions for the RegressionLab application."
+msgstr "Excepciones personalizadas para la aplicación RegressionLab."
+
+#: 3af40c53a64746a1959a2a2c448eb9ed of utils.exceptions:3
+msgid ""
+"This module defines specific exception types for different error "
+"scenarios, providing better error handling and debugging capabilities."
+msgstr ""
+"Este módulo define tipos de excepción específicos para distintos escenarios "
+"de error, proporcionando mejor manejo de errores y capacidades de depuración."
+
+#: d576b11583eb493d8b889791141a861e of utils.exceptions.RegressionLabError:1
+msgid "Bases: :py:class:`Exception`"
+msgstr "Bases: :py:class:`Exception`"
+
+#: 2c7ccba67e554374a03d9a3aa4c64400 of utils.exceptions.RegressionLabError:1
+msgid "Base exception class for all RegressionLab-related errors."
+msgstr "Clase base de excepción para todos los errores relacionados con RegressionLab."
+
+#: 0b26e1df9f444773948e7753548580f5 af0f48e6b03b419386720db67a53b20f
+#: ba52fbf2e14c4cd1aec770eb89a7f8d3 d9706b89a8bf45c6abd6e4e3b851b175
+#: da7528bf94894b88830d25d252593161 e4286f65d12b4c178b6d387d94995a67 of
+#: utils.exceptions.ConfigurationError:1 utils.exceptions.DataLoadError:1
+#: utils.exceptions.DataValidationError:1 utils.exceptions.EquationError:1
+#: utils.exceptions.FittingError:1 utils.exceptions.ValidationError:1
+msgid "Bases: :py:class:`~utils.exceptions.RegressionLabError`"
+msgstr "Bases: :py:class:`~utils.exceptions.RegressionLabError`"
+
+#: e418722abc27465c9afe67b5c0b68a11 of utils.exceptions.DataLoadError:1
+msgid "Exception raised when data loading fails."
+msgstr "Excepción que se lanza cuando falla la carga de datos."
+
+#: 3596b63c33484bf6a487b0e228f370cb of utils.exceptions.DataValidationError:1
+msgid "Exception raised when data validation fails."
+msgstr "Excepción que se lanza cuando falla la validación de datos."
+
+#: 63a8a29a9ce44fbaad8879840a6cae92 cff28f523e6c4deeb17b862df47ae912 of
+#: utils.exceptions.FileNotFoundError:1 utils.exceptions.InvalidFileTypeError:1
+msgid "Bases: :py:class:`~utils.exceptions.DataLoadError`"
+msgstr "Bases: :py:class:`~utils.exceptions.DataLoadError`"
+
+#: 7e06f420aca74ccf94c8e5eddafb2029 of utils.exceptions.FileNotFoundError:1
+msgid "Exception raised when a requested file or directory is not found."
+msgstr "Excepción que se lanza cuando no se encuentra el archivo o directorio solicitado."
+
+#: f73834d9df804c5d856baf261d09c84a of utils.exceptions.FileNotFoundError:3
+msgid ""
+"Note: This is a RegressionLab-specific exception (subclass of "
+"DataLoadError). It is distinct from builtins.FileNotFoundError but serves"
+" the same semantic purpose."
+msgstr ""
+"Nota: Es una excepción específica de RegressionLab (subclase de "
+"DataLoadError). Se distingue de builtins.FileNotFoundError pero cumple "
+"el mismo propósito semántico."
+
+#: 14421a26cc1e4c158b555f8e4d26dca4 of utils.exceptions.InvalidFileTypeError:1
+msgid "Exception raised when file type is not supported."
+msgstr "Excepción que se lanza cuando el tipo de archivo no está soportado."
+
+#: e73268ccc9b846949929a0ae95402361 of utils.exceptions.FittingError:1
+msgid "Exception raised when curve fitting fails."
+msgstr "Excepción que se lanza cuando falla el ajuste de curvas."
+
+#: de973c2b00df48d1ad095d07e850d933 of utils.exceptions.EquationError:1
+msgid "Exception raised when equation evaluation fails."
+msgstr "Excepción que se lanza cuando falla la evaluación de la ecuación."
+
+#: 5b152a16a26a4a109a6327ab2474e0c8 of utils.exceptions.ConfigurationError:1
+msgid "Exception raised when configuration is invalid."
+msgstr "Excepción que se lanza cuando la configuración no es válida."
+
+#: 16b59eebee0a40c9bcf6ce9539da6109 of utils.exceptions.ValidationError:1
+msgid "Exception raised when input validation fails."
+msgstr "Excepción que se lanza cuando falla la validación de entrada."
+
+#: ../../source/modules/utils.rst:18 2ee33942df944680a27d9728bc282b4c
+msgid "Validators"
+msgstr "Validadores"
+
+#: 390815d4602d4cb0a3260925dbfc7052 of utils.validators:1
+msgid "Data validation utilities for the RegressionLab application."
+msgstr "Utilidades de validación de datos para la aplicación RegressionLab."
+
+#: c6d9c3ad5eef44279fe8a9d959eba519 of utils.validators:3
+msgid ""
+"This module provides functions to validate data integrity, file paths, "
+"and parameter values before processing."
+msgstr ""
+"Este módulo proporciona funciones para validar integridad de datos, rutas "
+"de archivo y valores de parámetros antes del procesamiento."
+
+#: 199a98a530164ec7b49bffcd614b5ba9 of utils.validators.validate_file_path:1
+msgid "Validate that a file path exists and is accessible."
+msgstr "Validar que una ruta de archivo exista y sea accesible."
+
+#: 18102e9435414119b57f02b2d05e1e3a of utils.validators.validate_file_path:3
+msgid "Path to the file"
+msgstr "Ruta al archivo"
+
+#: ../../source/modules/utils.rst 4bb46735248d44659b423b3ea87762d6
+#: a20663372ec44ba7834027d24bc90241 aa1f63590d864d9fbbaae4e89dbcfc33
+#: b7a3dc7914264ea8bd4deeabea297eba c76067b6032f4371af40519db7c130f5
+#: efc6caad84f44ae199a067c425e36e69
+msgid "Raises"
+msgstr "Lanza"
+
+#: 7d73debcd83144fc93c0177aadc27920 of utils.validators.validate_file_path:5
+msgid "If file does not exist"
+msgstr "Si el archivo no existe"
+
+#: ff9d1bfbed054ad2a70263f38a01a787 of utils.validators.validate_file_path:6
+msgid "If path is not a file"
+msgstr "Si la ruta no es un archivo"
+
+#: 409882f403644b0e9107aa6e49b559af of utils.validators.validate_file_type:1
+msgid "Validate that a file type is supported."
+msgstr "Validar que un tipo de archivo esté soportado."
+
+#: eaafe2f8606344f2ae9d91ad7d017c4e of utils.validators.validate_file_type:3
+msgid "File extension (e.g., 'csv', 'xlsx')."
+msgstr "Extensión del archivo (p. ej. 'csv', 'xlsx')."
+
+#: 5e865362b6d448b8b7e8e96430c51e7b of utils.validators.validate_file_type:4
+msgid ""
+"List of allowed file types. If None, uses the central list from "
+":data:`config.DATA_FILE_TYPES`."
+msgstr ""
+"Lista de tipos de archivo permitidos. Si es None, usa la lista central de "
+":data:`config.DATA_FILE_TYPES`."
+
+#: af83ddc22d704805a08d4e4c0f5574c5 of utils.validators.validate_file_type:7
+msgid "If file type is not supported."
+msgstr "Si el tipo de archivo no está soportado."
+
+#: 173317203a9946b4be7eb7be52a6365c of utils.validators.validate_dataframe:1
+msgid "Validate that a DataFrame is suitable for fitting."
+msgstr "Validar que un DataFrame sea adecuado para el ajuste."
+
+#: 164bff74c4134d31ab8deca9d053c00a b5f185c2240f463aa27893f7a306750f of
+#: utils.validators.validate_data_format:9
+#: utils.validators.validate_dataframe:3
+msgid "DataFrame to validate"
+msgstr "DataFrame a validar"
+
+#: ef48f3cb62794a6289d368ec24e5c492 of utils.validators.validate_dataframe:4
+msgid "Minimum number of rows required"
+msgstr "Número mínimo de filas requerido"
+
+#: ff2ddb48904c462e8dc66b3a334f839f of utils.validators.validate_dataframe:6
+msgid "If DataFrame is invalid"
+msgstr "Si el DataFrame no es válido"
+
+#: 4a4f7306f35642cba0ebd9dbc09b1399 of utils.validators.validate_fitting_data:1
+msgid "Comprehensive validation for fitting data."
+msgstr "Validación completa para datos de ajuste."
+
+#: b0d62e819062421c9a424eeebcc3d095 of utils.validators.validate_fitting_data:3
+msgid "Validates:"
+msgstr "Valida:"
+
+#: 1b6916b04c384299881a490dcc31d09b of utils.validators.validate_fitting_data:5
+msgid "DataFrame is not empty"
+msgstr "El DataFrame no está vacío"
+
+#: d8b925fd87f84c718def4f8538f5fcc0 of utils.validators.validate_fitting_data:6
+msgid "Required columns exist"
+msgstr "Existen las columnas requeridas"
+
+#: 117371b6fa044dc5bb4e46e84502232b of utils.validators.validate_fitting_data:7
+msgid "Data is numeric"
+msgstr "Los datos son numéricos"
+
+#: bf79ffe4eeab4fbdbbe736426bd0452b of utils.validators.validate_fitting_data:8
+msgid "Uncertainty columns exist and are valid"
+msgstr "Las columnas de incertidumbre existen y son válidas"
+
+#: b6694bf1daf846a597eb3196cf29e0ef of
+#: utils.validators.validate_fitting_data:10
+msgid "DataFrame or dict with data to fit (dict is converted to DataFrame)."
+msgstr "DataFrame o dict con datos a ajustar (el dict se convierte en DataFrame)."
+
+#: 1ee1cda619da48b2a3fed104191b64cf of
+#: utils.validators.validate_fitting_data:11
+msgid "Name of the independent variable column"
+msgstr "Nombre de la columna de variable independiente"
+
+#: e4dd5dbea01b429ebb071a80ed0100d6 of
+#: utils.validators.validate_fitting_data:12
+msgid "Name of the dependent variable column"
+msgstr "Nombre de la columna de variable dependiente"
+
+#: 097cfb099fc24d66847e789b10397ecf of
+#: utils.validators.validate_fitting_data:14
+msgid "If any validation fails"
+msgstr "Si falla cualquier validación"
+
+#: 4c9b8f6f14f5434aa03f7dbbd53d0451 of
+#: utils.validators.validate_parameter_names:1
+msgid "Validate parameter names for custom equations."
+msgstr "Validar nombres de parámetros para ecuaciones personalizadas."
+
+#: bd3b8b74a0484655a2f381462264782e of
+#: utils.validators.validate_parameter_names:3
+msgid "List of parameter names"
+msgstr "Lista de nombres de parámetros"
+
+#: d4650975283a48a686bc21d43b6db2ce of
+#: utils.validators.validate_parameter_names:5
+msgid "If parameter names are invalid"
+msgstr "Si los nombres de parámetros no son válidos"
+
+#: 90a35e2990d3491781c17f74565c6e24 of utils.validators.parse_optional_float:1
+msgid "Parse a string to float; empty or invalid input returns None."
+msgstr "Convertir una cadena a float; entrada vacía o inválida devuelve None."
+
+#: 9f3410595e3e454c91e99ede08c38aae of utils.validators.parse_optional_float:3
+msgid ""
+"Useful for optional numeric fields in dialogs (e.g. initial guess, "
+"bounds)."
+msgstr ""
+"Útil para campos numéricos opcionales en diálogos (p. ej. estimación inicial, "
+"límites)."
+
+#: 768c04d938e14e02b6bed805c08fca7c of utils.validators.parse_optional_float:5
+msgid "String to parse (e.g. from an Entry widget)."
+msgstr "Cadena a parsear (p. ej. de un widget Entry)."
+
+#: ed7161a43e9047859239570d90c474c3 of utils.validators.parse_optional_float:7
+msgid "The parsed float, or None if empty or invalid."
+msgstr "El float parseado, o None si está vacío o es inválido."
+
+#: f699d8a7a8dc42f391238f5668bddf3e of utils.validators.validate_data_format:1
+msgid "Comprehensive validation of data file format."
+msgstr "Validación completa del formato del archivo de datos."
+
+#: 35e0b92e9afb49f88c203c8e133825f2 of utils.validators.validate_data_format:3
+msgid ""
+"This function validates: - Column names are valid and not duplicated - "
+"All columns contain numeric data - No completely empty rows - Minimum "
+"requirements (rows and columns)"
+msgstr ""
+"Esta función valida: - Los nombres de columna son válidos y no están duplicados - "
+"Todas las columnas contienen datos numéricos - No hay filas completamente vacías - "
+"Requisitos mínimos (filas y columnas)"
+
+#: 997115a723c342919cdacdf1a23da5bb of utils.validators.validate_data_format:11
+msgid "If data format is invalid"
+msgstr "Si el formato de datos no es válido"
+
+#: ../../source/modules/utils.rst:23 885495183c1c405aa82e432761bb076f
+msgid "Update Checker"
+msgstr "Comprobador de actualizaciones"
+
+#: 5343185e91b544c7beeda16221452778 of utils.update_checker:1
+msgid "Update checker for RegressionLab."
+msgstr "Comprobador de actualizaciones para RegressionLab."
+
+#: 7e47d61fc6954b9fbfea243b3e09cb9e of utils.update_checker:3
+msgid ""
+"Checks weekly if a newer version is available in the repository. If so, "
+"shows a dialog (when enabled via env) and can perform git pull without "
+"overwriting user data (input/, output/, .env, etc.)."
+msgstr ""
+"Comprueba semanalmente si hay una versión más reciente en el repositorio. "
+"Si es así, muestra un diálogo (cuando está activado vía env) y puede ejecutar "
+"git pull sin sobrescribir datos del usuario (input/, output/, .env, etc.)."
+
+#: b03d1d76192d4abeb4de8cc0faea21e2 of utils.update_checker.should_run_check:1
+msgid "Return True if we should run the update check (once per week)."
+msgstr "Devuelve True si debemos ejecutar la comprobación de actualizaciones (una vez por semana)."
+
+#: 64965612b551463fb69c03b3ab1e5108 of utils.update_checker.should_run_check:3
+msgid "True if enough time has passed since last check, or no previous check."
+msgstr "True si ha pasado suficiente tiempo desde la última comprobación, o no hubo comprobación previa."
+
+#: 1d36850debb3443dbcdfcba4f7b2c347 of utils.update_checker.record_check_done:1
+msgid "Record that an update check was performed (touch the file)."
+msgstr "Registrar que se realizó una comprobación de actualizaciones (touch del archivo)."
+
+#: bf7fa8e54dbe477fa1064ec29f0786a5 of
+#: utils.update_checker.fetch_latest_version:1
+msgid "Fetch the latest version from the remote pyproject.toml."
+msgstr "Obtener la última versión desde el pyproject.toml remoto."
+
+#: d672e5ee1e1f4d2ea3395cc894ceabe7 of
+#: utils.update_checker.fetch_latest_version:3
+msgid "URL to pyproject.toml. If None, uses env UPDATE_CHECK_URL or default."
+msgstr "URL al pyproject.toml. Si es None, usa la variable de entorno UPDATE_CHECK_URL o el valor por defecto."
+
+#: b43b9d85679c41b9bbc0319f0873da8c of
+#: utils.update_checker.fetch_latest_version:6
+msgid "Version string (e.g. '1.0.0') or None if fetch failed."
+msgstr "Cadena de versión (p. ej. '1.0.0') o None si falló la obtención."
+
+#: 3f71e426268c486fbe44e622c5456887 of
+#: utils.update_checker.is_update_available:1
+msgid "Check if a newer version is available."
+msgstr "Comprobar si hay una versión más reciente disponible."
+
+#: 834e4b76b04b432ba1a8996f4423ee55 of
+#: utils.update_checker.is_update_available:3
+msgid "Current application version."
+msgstr "Versión actual de la aplicación."
+
+#: d1ccc1de080b45fc82e15c192c2e1967 of
+#: utils.update_checker.is_update_available:5
+msgid "The latest version string if newer, else None."
+msgstr "La cadena de la última versión si es más reciente, si no None."
+
+#: be00268740ba43a38727853025a0dd85 of utils.update_checker.perform_git_pull:1
+msgid "Perform git pull in the project root."
+msgstr "Ejecutar git pull en la raíz del proyecto."
+
+#: 0cde58fed03e49d4898064b19c8e7e9b of utils.update_checker.perform_git_pull:3
+msgid ""
+"Before pulling, this function stashes any local changes in input/ and "
+"output/ directories to prevent them from being overwritten. After the "
+"pull completes, the stashed changes are restored. Files in .env and other"
+" .gitignore entries are automatically protected by git."
+msgstr ""
+"Antes de hacer pull, esta función guarda en stash los cambios locales en "
+"input/ y output/ para evitar que se sobrescriban. Tras completar el pull, "
+"se restauran los cambios guardados. Los archivos .env y otras entradas "
+".gitignore están protegidos automáticamente por git."
+
+#: f6b00933496d461abaa2e11c69b3db27 of utils.update_checker.perform_git_pull:8
+msgid "Tuple of (success, message). Message is user-friendly."
+msgstr "Tupla (success, message). El mensaje es amigable para el usuario."
+

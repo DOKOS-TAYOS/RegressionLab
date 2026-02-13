@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Documentation (i18n)**: Sphinx i18n support for English and Spanish. ReadTheDocs can host both: create a separate project (e.g. `regressionlab-es`) with Language set to Spanish and link it as a translation of the main project. Spanish translations added for: index, introduction (complete), installation (partial), license (partial), api/index (partial), configuration (titles). Remaining .po files can be filled manually. See `docs/README.md` (Localization).
 - **Update check (Tkinter)**: Weekly check for updates when opening the app. If a newer version is available and `CHECK_UPDATES` is enabled (default), a dialog asks whether to update. If confirmed, the app runs `git pull`; `input/`, `output/`, and `.env` are preserved. Configurable via `.env`: `CHECK_UPDATES` (enable/disable), `CHECK_UPDATES_FORCE` (force check every time, for testing), `UPDATE_CHECK_URL` (URL to fetch version from). See [Configuration Guide](docs/configuration.md#7-update-check-tkinter).
 
 ### Changed

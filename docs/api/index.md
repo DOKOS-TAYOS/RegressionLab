@@ -99,7 +99,7 @@ RegressionLab/
 
 ### Data Analysis
 
-- **data_analysis** - Transforms (FFT, DCT, log, exp, etc.) and cleaning (drop NaN, outliers, etc.). Used by the View Data window in Tkinter and Streamlit.
+- **[data_analysis](data_analysis.md)** - Transforms (FFT, DCT, log, exp, etc.) and cleaning (drop NaN, outliers, etc.). Used by the View Data window in Tkinter and Streamlit.
 
 ### Visualization
 
@@ -513,7 +513,8 @@ For detailed documentation of each module, see the individual module pages:
 
 - **Core**: [config](config.md), [i18n](i18n.md)
 - **Fitting**: [fitting_functions](fitting_functions.md), [fitting_utils](fitting_utils.md), [workflow_controller](workflow_controller.md), [custom_function_evaluator](custom_function_evaluator.md), [estimators](estimators.md)
-- **Loaders**: [data_loader](data_loader.md), [loading_utils](loading_utils.md)
+- **Loaders**: [data_loader](data_loader.md), [loading_utils](loading_utils.md), [saving_utils](saving_utils.md)
+- **Data Analysis**: [data_analysis](data_analysis.md)
 - **Plotting**: [plot_utils](plot_utils.md)
 - **Frontend**: [ui_main_menu](ui_main_menu.md), [ui_dialogs](ui_dialogs.md), [image_utils](image_utils.md), [keyboard_nav](keyboard_nav.md), [streamlit_app](streamlit_app.md)
 - **Utils**: [exceptions](exceptions.md), [logger](logger.md), [validators](validators.md)

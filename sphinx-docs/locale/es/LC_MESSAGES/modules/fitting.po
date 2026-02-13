@@ -1,0 +1,1802 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, Alejandro Mata Ali
+# This file is distributed under the same license as the RegressionLab
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: RegressionLab 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-13 19:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../source/modules/fitting.rst:3 ddcb69216fdc407d8f75cbf07731f219
+msgid "Fitting Module"
+msgstr "Módulo de ajuste"
+
+#: ../../source/modules/fitting.rst:5 f56ea369510d4321b482631921ae263c
+msgid ""
+"The ``fitting`` module contains all functions and utilities for "
+"performing curve fitting."
+msgstr ""
+"El módulo ``fitting`` contiene todas las funciones y utilidades para "
+"realizar el ajuste de curvas."
+
+#: ../../source/modules/fitting.rst:8 4ddcfd4b6ca84962b3b033fdb092da0a
+msgid "Fitting Functions"
+msgstr "Funciones de ajuste"
+
+#: ../../source/modules/fitting.rst:10 df1d6409b37c44c1bd9033ebcca2abb7
+msgid "Main fitting functions package (re-exports from fitting.functions)."
+msgstr "Paquete principal de funciones de ajuste (reexporta desde fitting.functions)."
+
+#: e280ac78fe59459c9e1ddbaa08e95005 fitting.fitting_functions:1 of
+msgid "Fitting functions and operations for curve fitting."
+msgstr "Funciones y operaciones de ajuste para ajuste de curvas."
+
+#: edba0e10dcd54b82a97c1fe110d9d871 fitting.fitting_functions:3 of
+msgid ""
+"This package re-exports all model functions and fitting wrappers from "
+"fitting.functions so that existing code using getattr(fitting_functions, "
+"name) continues to work."
+msgstr ""
+"Este paquete reexporta todas las funciones de modelo y wrappers de ajuste desde "
+"fitting.functions para que el código que usa getattr(fitting_functions, "
+"name) siga funcionando."
+
+#: dcab633e35d742dd9b6ec72765a9887a fitting.fitting_functions:7 of
+msgid "Provides:"
+msgstr "Proporciona:"
+
+#: 43f8add03b424b5cb25fc4cdd4677bff fitting.fitting_functions:8 of
+msgid ""
+"Mathematical functions for curve fitting (linear_function, sin_function, "
+"etc.)"
+msgstr ""
+"Funciones matemáticas para ajuste de curvas (linear_function, sin_function, "
+"etc.)"
+
+#: 9d6d16f7a4a5421f9412825da0db49ae fitting.fitting_functions:9 of
+msgid "High-level fitting wrappers (fit_linear_function, fit_sin_function, etc.)"
+msgstr "Wrappers de ajuste de alto nivel (fit_linear_function, fit_sin_function, etc.)"
+
+#: a115101174d142afbd852579a565eace fitting.fitting_functions:10 of
+msgid "Factory functions to generate custom fitting functions dynamically"
+msgstr "Funciones factoría para generar funciones de ajuste personalizadas dinámicamente"
+
+#: ../../source/modules/fitting.rst:15 a481f91b296c47ae984856e88495cce0
+msgid "Mathematical Functions"
+msgstr "Funciones matemáticas"
+
+#: ../../source/modules/fitting.rst:17 b3cc778dfbda47bb9863063c4d6cfa34
+msgid ""
+"The ``fitting.functions`` subpackage contains mathematical model "
+"functions organized by family."
+msgstr ""
+"El subpaquete ``fitting.functions`` contiene funciones de modelo matemático "
+"organizadas por familia."
+
+#: ../../source/modules/fitting.rst:20 ceca680e7dbf4f7b882d0c4dccaf088d
+msgid "Base Types"
+msgstr "Tipos base"
+
+#: 510e8ae1bf004ef8af4ab39459ced759 fitting.functions._base:1 of
+msgid "Shared types and imports for fitting functions."
+msgstr "Tipos e importaciones compartidos para las funciones de ajuste."
+
+#: ../../source/modules/fitting.rst:25 4c68f2da376f4dc497e25e941a659d76
+msgid "Polynomial Functions"
+msgstr "Funciones polinomiales"
+
+#: c9a3ba97e9e54f14a1579285a33ccec6 fitting.functions.polynomials:1 of
+msgid "Polynomial and linear fitting functions."
+msgstr "Funciones de ajuste polinomial y lineal."
+
+#: 055deae934a142f080b82690c91c2003
+#: fitting.functions.polynomials.generate_polynomial_function:1 of
+msgid ""
+"Generate a polynomial function dynamically based on which parameters are "
+"enabled."
+msgstr ""
+"Generar una función polinomial dinámicamente según qué parámetros estén activos."
+
+#: ../../source/modules/fitting.rst 002398c31d094fe38179ca5dbeb3ec9c
+#: 05760f07d17c4db9945ec772149358b1 068074dd8fe240198e0b3001bf04e1a3
+#: fitting.fitting_utils.format_parameter
+#: fitting.fitting_utils.get_equation_param_info
+#: fitting.workflow_controller.apply_all_equations of
+msgid "Parameters"
+msgstr "Parámetros"
+
+#: 0ae128ce2b904126acb0654c5e29da55
+#: fitting.functions.polynomials.generate_polynomial_function:3 of
+msgid ""
+"List of booleans indicating which polynomial terms to include. Index i "
+"corresponds to the coefficient of t^i."
+msgstr ""
+"Lista de booleanos que indican qué términos polinomiales incluir. El índice i "
+"corresponde al coeficiente de t^i."
+
+#: ../../source/modules/fitting.rst 008b4eb0a22b4638b352a26861e33549
+#: fitting.fitting_utils.format_parameter
+#: fitting.fitting_utils.get_equation_param_info of
+msgid "Returns"
+msgstr "Devuelve"
+
+#: 0798e1ef5ebf46458dcc87f23293eb19
+#: fitting.functions.polynomials.generate_polynomial_function:6 of
+msgid "A function that takes t and the enabled coefficients as arguments."
+msgstr "Una función que recibe t y los coeficientes activos como argumentos."
+
+#: c7b2805310444ecb8a11f38a36c1578a
+#: fitting.functions.polynomials.fit_linear_function_with_n:1 of
+msgid "Fit a linear model with intercept, :math:`y = m x + n`."
+msgstr "Ajustar un modelo lineal con ordenada en el origen, :math:`y = m x + n`."
+
+#: e147045b681d4cc5865556a8737e6ea0
+#: fitting.functions.polynomials.fit_linear_function_with_n:3 of
+msgid ""
+"Data source (dictionary or DataFrame) containing ``x``, ``y`` and their "
+"uncertainties (``ux``, ``uy``)."
+msgstr ""
+"Fuente de datos (diccionario o DataFrame) con ``x``, ``y`` y sus "
+"incertidumbres (``ux``, ``uy``)."
+
+#: 04ef6c94e1d24e78adda17d297e5cc3e 08ba448e5fe343e6bd746ccaabbc2cde
+#: fitting.functions.polynomials.fit_linear_function_with_n:5 of
+msgid "Name of the independent variable column."
+msgstr "Nombre de la columna de variable independiente."
+
+#: 05c8f8d88bec4f6697dbae1c590ee671 109a3e2bdd574ed09f34ab78fe61565d
+#: fitting.functions.polynomials.fit_linear_function_with_n:6 of
+msgid "Name of the dependent variable column."
+msgstr "Nombre de la columna de variable dependiente."
+
+#: fa264b67f4d64758815c7d2e6fb1940b
+#: fitting.functions.polynomials.fit_linear_function_with_n:7 of
+msgid ""
+"Optional list overriding the automatically estimated ``[n, m]``; ``None``"
+" entries keep the estimate."
+msgstr ""
+"Lista opcional que sobrescribe la estimación automática ``[n, m]``; las "
+"entradas ``None`` mantienen la estimación."
+
+#: b62db664ffd7462ca4241d011e4721d3
+#: fitting.functions.polynomials.fit_linear_function_with_n:9 of
+msgid ""
+"Optional pair ``(lower, upper)`` with bounds for ``[n, m]``; ``None`` "
+"entries keep the estimator bounds."
+msgstr ""
+"Par opcional ``(lower, upper)`` con límites para ``[n, m]``; las entradas "
+"``None`` mantienen los límites del estimador."
+
+#: ebfc1cdc97a44a90a5750b3ef7447562
+#: fitting.functions.polynomials.fit_linear_function_with_n:12 of
+msgid ""
+"Tuple ``(text, y_fitted, equation)`` as produced by "
+":func:`fitting.fitting_utils.generic_fit`."
+msgstr ""
+"Tupla ``(text, y_fitted, equation)`` como la producida por "
+":func:`fitting.fitting_utils.generic_fit`."
+
+#: bd795ea04a6945f88293ab4654d888f1
+#: fitting.functions.polynomials.fit_linear_function:1 of
+msgid "Fit a linear model through the origin, :math:`y = m x`."
+msgstr "Ajustar un modelo lineal que pasa por el origen, :math:`y = m x`."
+
+#: 38082d7163854e4797414297290b3abd
+#: fitting.functions.polynomials.fit_linear_function:3 of
+msgid "Data source with columns for ``x``, ``y`` and their uncertainties."
+msgstr "Fuente de datos con columnas para ``x``, ``y`` y sus incertidumbres."
+
+#: ac3cd6105e594d06a04677739164f027
+#: fitting.functions.polynomials.fit_linear_function:6 of
+msgid ""
+"Optional list overriding the estimated slope ``[m]``; ``None`` keeps the "
+"estimate."
+msgstr ""
+"Lista opcional que sobrescribe la pendiente estimada ``[m]``; ``None`` mantiene "
+"la estimación."
+
+#: 05cd31a5d10e4daea5807288025b8b94
+#: fitting.functions.polynomials.fit_linear_function:8 of
+msgid "Optional pair ``(lower, upper)`` with bounds for ``[m]``."
+msgstr "Par opcional ``(lower, upper)`` con límites para ``[m]``."
+
+#: 0b2d74a9523c4814a85f6fbe5a6f5c16 17e640948c4848559bf9b0329a2f8003
+#: fitting.functions.polynomials.fit_linear_function:10 of
+msgid "Tuple ``(text, y_fitted, equation)`` from :func:`generic_fit`."
+msgstr "Tupla ``(text, y_fitted, equation)`` de :func:`generic_fit`."
+
+#: 93642d57d5b640f991dd8a9fe5f5c15c
+#: fitting.functions.polynomials.fit_quadratic_function_complete:1 of
+msgid "Fit a full quadratic model :math:`y = c x^2 + b x + a`."
+msgstr "Ajustar un modelo cuadrático completo :math:`y = c x^2 + b x + a`."
+
+#: 0b58a2182b72429888e21b860e9fe920 5e967d791287425eafe382e68e7721a9
+#: 8623a3a4f7d84152be87de7cf7f38502
+#: fitting.functions.polynomials.fit_fourth_power:3
+#: fitting.functions.polynomials.fit_quadratic_function:3
+#: fitting.functions.polynomials.fit_quadratic_function_complete:3 of
+msgid "Data source with ``x``, ``y`` and their uncertainties."
+msgstr "Fuente de datos con ``x``, ``y`` y sus incertidumbres."
+
+#: 235c33eed4be4e88b87cd1d687bc538a 23ee14680c1c4236bde6016efdb34064
+#: 774c8b25c01c45cf8445292362bab82f ad71e87f25ee490ab884aa8dde7d6290
+#: fc4f37e3faf7445dba24eecea8581001
+#: fitting.functions.polynomials.fit_quadratic_function_complete:6
+#: fitting.functions.special.fit_binomial_function:7
+#: fitting.functions.trigonometric.fit_cos_function_with_c:6
+#: fitting.functions.trigonometric.fit_sin_function_with_c:6
+#: fitting.functions.trigonometric.fit_tan_function_with_c:6 of
+msgid "Optional overrides for ``[a, b, c]``."
+msgstr "Sobrescrituras opcionales para ``[a, b, c]``."
+
+#: 0d01097a92bd4e8cafb28aaeb1a7e2ca 19fb6eba95754f57a782e5d7f78fa91b
+#: 20b58aa219d5487387e5cef51d8701c3 3aad8a62e21e42548c3b8c5154652613
+#: 8b1c8be9aa6b4ddf8167244f71423562
+#: fitting.functions.polynomials.fit_quadratic_function_complete:7
+#: fitting.functions.special.fit_binomial_function:8
+#: fitting.functions.trigonometric.fit_cos_function_with_c:7
+#: fitting.functions.trigonometric.fit_sin_function_with_c:7
+#: fitting.functions.trigonometric.fit_tan_function_with_c:7 of
+msgid "Optional bounds for ``[a, b, c]``."
+msgstr "Límites opcionales para ``[a, b, c]``."
+
+#: 9b29a6049d0b4cd9aaad2a88bf9480e1
+#: fitting.functions.polynomials.fit_quadratic_function:1 of
+msgid "Fit a pure quadratic model through the origin, :math:`y = a x^2`."
+msgstr "Ajustar un modelo cuadrático puro por el origen, :math:`y = a x^2`."
+
+#: 2662a0f68d7143cfb02b3b1664a2f5d8 3d0cb3f98eed45839ea7bfe6c2450282
+#: 5e54123a1dd44e04a875a95bb5c508aa 837ae5bbac964b2c8cdecfac11a05ad9
+#: fitting.functions.inverse.fit_inverse_function:6
+#: fitting.functions.inverse.fit_inverse_square_function:6
+#: fitting.functions.polynomials.fit_fourth_power:6
+#: fitting.functions.polynomials.fit_quadratic_function:6 of
+msgid "Optional override for ``[a]``."
+msgstr "Sobrescritura opcional para ``[a]``."
+
+#: 7684f56515e04534ac76cbc5e5f11c62 99d7b67d107f485889cb0c5dd2f45f19
+#: d7789abcf861425583cc5e437cb52764 e973c56c661f450199185e86b305ed4a
+#: ec25c354ab3445fb833af35902773c3f
+#: fitting.functions.inverse.fit_inverse_function:7
+#: fitting.functions.inverse.fit_inverse_square_function:7
+#: fitting.functions.inverse.fit_ln_function:7
+#: fitting.functions.polynomials.fit_fourth_power:7
+#: fitting.functions.polynomials.fit_quadratic_function:7 of
+msgid "Optional bounds for ``[a]``."
+msgstr "Límites opcionales para ``[a]``."
+
+#: 5168fa262fd3455e84ceb6769c6b6b5d
+#: fitting.functions.polynomials.fit_fourth_power:1 of
+msgid "Fit a fourth‑power model through the origin, :math:`y = a x^4`."
+msgstr "Ajustar un modelo de cuarta potencia por el origen, :math:`y = a x^4`."
+
+#: ../../source/modules/fitting.rst:30 2c90b66bff03499e92471629ccddd4f6
+msgid "Trigonometric Functions"
+msgstr "Funciones trigonométricas"
+
+#: 6d53a7d41de946df8d21261d712b617a fitting.functions.trigonometric:1 of
+msgid "Trigonometric and hyperbolic fitting functions."
+msgstr "Funciones de ajuste trigonométricas e hiperbólicas."
+
+#: c5edf303586748f2bbb1e6acf577020e
+#: fitting.functions.trigonometric.generate_trigonometric_function:1 of
+msgid "Generate a trigonometric function dynamically based on the function type."
+msgstr "Generar una función trigonométrica dinámicamente según el tipo de función."
+
+#: 74106ffd2f484f04be4a132ba2e7dde5
+#: fitting.functions.trigonometric.generate_trigonometric_function:3 of
+msgid "Type of function ('sin', 'cos', 'sinh', 'cosh')."
+msgstr "Tipo de función ('sin', 'cos', 'sinh', 'cosh')."
+
+#: b43a01c4f1304436a0d31164fce6a680
+#: fitting.functions.trigonometric.generate_trigonometric_function:4 of
+msgid "Whether to include a phase shift parameter c."
+msgstr "Si se incluye el parámetro de desfase c."
+
+#: 89da14b26309434a8b41cd3f993dbb44
+#: fitting.functions.trigonometric.generate_trigonometric_function:6 of
+msgid "A function that takes t and parameters (a, b, [c]) as arguments."
+msgstr "Una función que recibe t y los parámetros (a, b, [c]) como argumentos."
+
+#: 3fb217702ed340efbd4c3bd9cbbef3b8
+#: fitting.functions.trigonometric.tan_function:1 of
+msgid "Tangent function: y = a * tan(b*t)"
+msgstr "Función tangente: y = a * tan(b*t)"
+
+#: a72b60a59d764e96bac1cc9182b9376e
+#: fitting.functions.trigonometric.tan_function_with_c:1 of
+msgid "Tangent function with phase: y = a * tan(b*t + c)"
+msgstr "Función tangente con fase: y = a * tan(b*t + c)"
+
+#: 4a87a3bc3dcb4c9fbc31fb6895cf6d6a
+#: fitting.functions.trigonometric.fit_sin_function:1 of
+msgid "Fit a sine model without phase, :math:`y = a \\sin(b x)`."
+msgstr "Ajustar un modelo seno sin fase, :math:`y = a \\sin(b x)`."
+
+#: 3f4f4a4eae6c49078f5cfdff00181cf2 4b044356c113455c942b55b51b8d3972
+#: 701b3cdc92f9409d84a729345d25b618 71533356abfd4b2babe51c8bd1d0731c
+#: 7aee89d07ca24b3db63b03276631ee2c 7f281db2f5de40738d2e2df7c4c4bd52
+#: 8348f6287a3f4a0797cb950bc0686bbb 9a7e0dba59e54edb9f9b4c8ba1d8f7f6
+#: a3ebcb403a35478d9385f11ae7a4c437 b9f19493fca645dfbe5d8e2a69ff6e58
+#: c0b559461413458dbe5f981d0ff62850 c158cce2dc6844ecb188441e5564b92c
+#: e24730ae1bb8409f9bdad1aad7401f62 f3e37ea1340e42269432bef2e99a3aea
+#: fitting.functions.special.fit_binomial_function:4
+#: fitting.functions.special.fit_exponential_function:3
+#: fitting.functions.special.fit_gaussian_function:4
+#: fitting.functions.special.fit_hermite_polynomial_3:6
+#: fitting.functions.special.fit_hermite_polynomial_4:6
+#: fitting.functions.special.fit_square_pulse_function:6
+#: fitting.functions.trigonometric.fit_cos_function:3
+#: fitting.functions.trigonometric.fit_cos_function_with_c:3
+#: fitting.functions.trigonometric.fit_cosh_function:3
+#: fitting.functions.trigonometric.fit_sin_function:3
+#: fitting.functions.trigonometric.fit_sin_function_with_c:3
+#: fitting.functions.trigonometric.fit_sinh_function:3
+#: fitting.functions.trigonometric.fit_tan_function:3
+#: fitting.functions.trigonometric.fit_tan_function_with_c:3 of
+msgid "Data source with ``x``, ``y`` and uncertainties."
+msgstr "Fuente de datos con ``x``, ``y`` e incertidumbres."
+
+#: 01d8463308a74f53a6e07f89f2cbe5ea 0f753a4f679f45179136a0e593040b84
+#: 8da69d1794c1457ca19f619ff14f2710 9ca762e3ba44414b8ff9b00443f58955
+#: ab92542cac3e430da927c71b0887baa8 f3c4797fb033454390e8e82f2a0345ed
+#: fitting.functions.special.fit_exponential_function:6
+#: fitting.functions.trigonometric.fit_cos_function:6
+#: fitting.functions.trigonometric.fit_cosh_function:6
+#: fitting.functions.trigonometric.fit_sin_function:6
+#: fitting.functions.trigonometric.fit_sinh_function:6
+#: fitting.functions.trigonometric.fit_tan_function:6 of
+msgid "Optional overrides for ``[a, b]``."
+msgstr "Sobrescrituras opcionales para ``[a, b]``."
+
+#: 392396cdcfb942a88f3f7b6fe1029774 5549a3b29cd24a0ebd893ca45a2fee51
+#: 9fe40b59321544fbb45307503b962ad7 c55b867f86aa4236a2ac56c2da13d1cc
+#: e917c00459a049f3940ab4dc8d54f8fc f0bedd9fab114e4481385daf1699b411
+#: fitting.functions.special.fit_exponential_function:7
+#: fitting.functions.trigonometric.fit_cos_function:7
+#: fitting.functions.trigonometric.fit_cosh_function:7
+#: fitting.functions.trigonometric.fit_sin_function:7
+#: fitting.functions.trigonometric.fit_sinh_function:7
+#: fitting.functions.trigonometric.fit_tan_function:7 of
+msgid "Optional bounds for ``[a, b]``."
+msgstr "Límites opcionales para ``[a, b]``."
+
+#: bf8c91531de74a7ba1bd2ed20db672ce
+#: fitting.functions.trigonometric.fit_sin_function_with_c:1 of
+msgid "Fit a sine model with phase, :math:`y = a \\sin(b x + c)`."
+msgstr "Ajustar un modelo seno con fase, :math:`y = a \\sin(b x + c)`."
+
+#: b8982853a2324d24a7c481c1cd0e8d14
+#: fitting.functions.trigonometric.fit_cos_function:1 of
+msgid "Fit a cosine model without phase, :math:`y = a \\cos(b x)`."
+msgstr "Ajustar un modelo coseno sin fase, :math:`y = a \\cos(b x)`."
+
+#: e6433c6674ac49aeb112a14832c0aa19
+#: fitting.functions.trigonometric.fit_cos_function_with_c:1 of
+msgid "Fit a cosine model with phase, :math:`y = a \\cos(b x + c)`."
+msgstr "Ajustar un modelo coseno con fase, :math:`y = a \\cos(b x + c)`."
+
+#: e3e3574285c04b67a5824eb435353402
+#: fitting.functions.trigonometric.fit_sinh_function:1 of
+msgid "Fit a hyperbolic sine model, :math:`y = a \\sinh(b x)`."
+msgstr "Ajustar un modelo seno hiperbólico, :math:`y = a \\sinh(b x)`."
+
+#: b8cb324cb4324bd4b4b7c43ccb790d1c
+#: fitting.functions.trigonometric.fit_cosh_function:1 of
+msgid "Fit a hyperbolic cosine model, :math:`y = a \\cosh(b x)`."
+msgstr "Ajustar un modelo coseno hiperbólico, :math:`y = a \\cosh(b x)`."
+
+#: b02dd1a0ad1e43338bd51430d557806e
+#: fitting.functions.trigonometric.fit_tan_function:1 of
+msgid "Fit a tangent model without phase, :math:`y = a \\tan(b x)`."
+msgstr "Ajustar un modelo tangente sin fase, :math:`y = a \\tan(b x)`."
+
+#: 5db0e898b9654726a72c44ffee3566c3
+#: fitting.functions.trigonometric.fit_tan_function_with_c:1 of
+msgid "Fit a tangent model with phase, :math:`y = a \\tan(b x + c)`."
+msgstr "Ajustar un modelo tangente con fase, :math:`y = a \\tan(b x + c)`."
+
+#: ../../source/modules/fitting.rst:35 91cbcfc18d18474d8121c13b0e172109
+msgid "Inverse Functions"
+msgstr "Funciones inversas"
+
+#: 6593a8b46e074222ab62fb3de54db3d3 fitting.functions.inverse:1 of
+msgid "Inverse and logarithmic fitting functions."
+msgstr "Funciones de ajuste inversas y logarítmicas."
+
+#: ea3d7d847c4e4820abe7a5629dc7842e fitting.functions.inverse.ln_function:1 of
+msgid "Natural logarithm function: y = a*ln(t)"
+msgstr "Función logaritmo natural: y = a*ln(t)"
+
+#: ee4b3cdf60974362b1267ff0d4babd90
+#: fitting.functions.inverse.generate_inverse_function:1 of
+msgid "Generate an inverse power function dynamically based on the power."
+msgstr "Generar una función de potencia inversa dinámicamente según el exponente."
+
+#: 836b807e64f54a2e90aacaf8138c6643
+#: fitting.functions.inverse.generate_inverse_function:3 of
+msgid "The power of t in the denominator (e.g., 1 for 1/t, 2 for 1/t^2)."
+msgstr "El exponente de t en el denominador (p. ej. 1 para 1/t, 2 para 1/t^2)."
+
+#: 08630233710f48d690c259dcd5414fee
+#: fitting.functions.inverse.generate_inverse_function:5 of
+msgid "A function that takes t and coefficient a as arguments."
+msgstr "Una función que recibe t y el coeficiente a como argumentos."
+
+#: 922a863605224b01b07adea779381bb9 fitting.functions.inverse.fit_ln_function:1
+#: of
+msgid "Fit a logarithmic model :math:`y = a \\ln(x)`."
+msgstr "Ajustar un modelo logarítmico :math:`y = a \\ln(x)`."
+
+#: dfbd38ca37d143d98c030265f1450f2c fitting.functions.inverse.fit_ln_function:3
+#: of
+msgid "Data source with positive ``x`` values, ``y`` and uncertainties."
+msgstr "Fuente de datos con valores ``x`` positivos, ``y`` e incertidumbres."
+
+#: 08234553057a4f50943484d0aa4911d9 fitting.functions.inverse.fit_ln_function:6
+#: of
+msgid "Optional override for the coefficient ``[a]``."
+msgstr "Sobrescritura opcional para el coeficiente ``[a]``."
+
+#: 65d05f09ac2f4066bf0bab07c2a03c25
+#: fitting.functions.inverse.fit_inverse_function:1 of
+msgid "Fit an inverse model :math:`y = a / x`."
+msgstr "Ajustar un modelo inverso :math:`y = a / x`."
+
+#: 12b7b70eb185442d9cd65a5d436fba71 41d1a1f8ee72403480202e41d63e956e
+#: fitting.functions.inverse.fit_inverse_function:3
+#: fitting.functions.inverse.fit_inverse_square_function:3 of
+msgid "Data source with non‑zero ``x`` values, ``y`` and uncertainties."
+msgstr "Fuente de datos con valores ``x`` no nulos, ``y`` e incertidumbres."
+
+#: ed2780ea0e9e49c995b0f70a8643f586
+#: fitting.functions.inverse.fit_inverse_square_function:1 of
+msgid "Fit an inverse‑square model :math:`y = a / x^2`."
+msgstr "Ajustar un modelo inverso del cuadrado :math:`y = a / x^2`."
+
+#: ../../source/modules/fitting.rst:40 b0edfa2a4d264d759633a8c98cc729e7
+msgid "Special Functions"
+msgstr "Funciones especiales"
+
+#: 8b71d765a80a433a80db05ca60967e6f fitting.functions.special:1 of
+msgid ""
+"Gaussian, exponential, binomial, square pulse, and Hermite fitting "
+"functions."
+msgstr ""
+"Funciones de ajuste gaussiana, exponencial, binomial, pulso cuadrado y Hermite."
+
+#: 9363528799bd441b8bf57ba8a05a97b0
+#: fitting.functions.special.fit_gaussian_function:1 of
+msgid ""
+"Fit a Gaussian (normal) model :math:`y = A \\exp(-(x-\\mu)^2 / "
+"(2\\sigma^2))`."
+msgstr ""
+"Ajustar un modelo gaussiano (normal) :math:`y = A \\exp(-(x-\\mu)^2 / "
+"(2\\sigma^2))`."
+
+#: 92149cec0a0145a4a40366401bb4694b
+#: fitting.functions.special.fit_gaussian_function:7 of
+msgid "Optional overrides for ``[A, μ, σ]``."
+msgstr "Sobrescrituras opcionales para ``[A, μ, σ]``."
+
+#: 12396ed56c804d6899a529e24a853d3a
+#: fitting.functions.special.fit_gaussian_function:8 of
+msgid "Optional bounds for ``[A, μ, σ]``."
+msgstr "Límites opcionales para ``[A, μ, σ]``."
+
+#: b8a344875cae4936ba294f4ee392ad26
+#: fitting.functions.special.fit_exponential_function:1 of
+msgid "Fit an exponential model :math:`y = a \\exp(b x)`."
+msgstr "Ajustar un modelo exponencial :math:`y = a \\exp(b x)`."
+
+#: bcee205bdb2d46d99dfb66829b6d0666
+#: fitting.functions.special.fit_binomial_function:1 of
+msgid ""
+"Fit a logistic (binomial‑type) model :math:`y = a / (1 + \\exp(-b (x - "
+"c)))`."
+msgstr ""
+"Ajustar un modelo logístico (tipo binomial) :math:`y = a / (1 + \\exp(-b (x - "
+"c)))`."
+
+#: cffe3b5d6689491a86a7489fd727f860
+#: fitting.functions.special.fit_square_pulse_function:1 of
+msgid "Fit a smooth square‑pulse model in time."
+msgstr "Ajustar un modelo de pulso cuadrado suave en el tiempo."
+
+#: d5c32b8a1af945259571cef306c607b8
+#: fitting.functions.special.fit_square_pulse_function:3 of
+msgid ""
+"The underlying function approximates a finite‑width pulse centered at "
+"``t0`` with width ``w`` and amplitude ``A`` using hyperbolic tangents."
+msgstr ""
+"La función subyacente aproxima un pulso de anchura finita centrado en "
+"``t0`` con anchura ``w`` y amplitud ``A`` usando tangentes hiperbólicas."
+
+#: 66ed382b6778402a8fda77803969de6f
+#: fitting.functions.special.fit_square_pulse_function:9 of
+msgid "Optional overrides for ``[A, t0, w]``."
+msgstr "Sobrescrituras opcionales para ``[A, t0, w]``."
+
+#: 07dc2ed2f5544ce0852adb8413d8b701
+#: fitting.functions.special.fit_square_pulse_function:10 of
+msgid "Optional bounds for ``[A, t0, w]``."
+msgstr "Límites opcionales para ``[A, t0, w]``."
+
+#: aeebda5acefb405e84397f193240fdb3
+#: fitting.functions.special.fit_hermite_polynomial_3:1 of
+msgid "Fit a Hermite polynomial expansion up to degree 3."
+msgstr "Ajustar una expansión en polinomios de Hermite hasta grado 3."
+
+#: 7de328520080425cb638629cb6b0e421
+#: fitting.functions.special.fit_hermite_polynomial_3:3 of
+msgid ""
+"The model is :math:`y = c_0 H_0(x) + c_1 H_1(x) + c_2 H_2(x) + c_3 "
+"H_3(x)`, where :math:`H_k` are physicists’ Hermite polynomials."
+msgstr ""
+"El modelo es :math:`y = c_0 H_0(x) + c_1 H_1(x) + c_2 H_2(x) + c_3 "
+"H_3(x)`, donde :math:`H_k` son los polinomios de Hermite (físicos)."
+
+#: 3e5768dc464643ad99a9edacc4aa98cd
+#: fitting.functions.special.fit_hermite_polynomial_3:9 of
+msgid "Optional overrides for ``[c0, c1, c2, c3]``."
+msgstr "Sobrescrituras opcionales para ``[c0, c1, c2, c3]``."
+
+#: 19bdeeb121cf4b15914f67707635e6d3
+#: fitting.functions.special.fit_hermite_polynomial_3:10 of
+msgid "Optional bounds for ``[c0, c1, c2, c3]``."
+msgstr "Límites opcionales para ``[c0, c1, c2, c3]``."
+
+#: 715bd5241dd2473fa99180ee54975222
+#: fitting.functions.special.fit_hermite_polynomial_4:1 of
+msgid "Fit a Hermite polynomial expansion up to degree 4."
+msgstr "Ajustar una expansión en polinomios de Hermite hasta grado 4."
+
+#: 4825c16c3de14dc6b671ceb75b0f2672
+#: fitting.functions.special.fit_hermite_polynomial_4:3 of
+msgid ""
+"The model extends :func:`fit_hermite_polynomial_3` with an additional "
+":math:`c_4 H_4(x)` term."
+msgstr ""
+"El modelo extiende :func:`fit_hermite_polynomial_3` con un término adicional "
+":math:`c_4 H_4(x)`."
+
+#: 4f7e306d1a1f4231841f861ef7964da1
+#: fitting.functions.special.fit_hermite_polynomial_4:9 of
+msgid "Optional overrides for ``[c0, c1, c2, c3, c4]``."
+msgstr "Sobrescrituras opcionales para ``[c0, c1, c2, c3, c4]``."
+
+#: 9a7ef4269c6e44f59cc2ee784934e115
+#: fitting.functions.special.fit_hermite_polynomial_4:10 of
+msgid "Optional bounds for ``[c0, c1, c2, c3, c4]``."
+msgstr "Límites opcionales para ``[c0, c1, c2, c3, c4]``."
+
+#: ../../source/modules/fitting.rst:45 f6d6bc10623243f895d6e6d2881eab73
+msgid "Fitting Utilities"
+msgstr "Utilidades de ajuste"
+
+#: e031a69815474cadbdd688eb12d437d9 fitting.fitting_utils:1 of
+msgid "Fitting utilities for RegressionLab."
+msgstr "Utilidades de ajuste para RegressionLab."
+
+#: ce5bfd3dd8364dc9a17966ba78e4cbdd fitting.fitting_utils:3 of
+msgid ""
+"This module provides parameter formatting, equation resolution, and "
+"integration with the fitting_functions package (initial guesses, bounds, "
+"fit execution)."
+msgstr ""
+"Este módulo proporciona formato de parámetros, resolución de ecuaciones e "
+"integración con el paquete fitting_functions (valores iniciales, límites, "
+"ejecución del ajuste)."
+
+#: 27f374b61b0646b685b3b977bb8f8c32 fitting.fitting_utils.format_scientific:1
+#: of
+msgid "Format a number, using 10^exp with literal superscript instead of E or e."
+msgstr "Formatear un número usando 10^exp con superíndice literal en lugar de E o e."
+
+#: bfe37bf227a14bc08e3367560a5a8273 fitting.fitting_utils.format_scientific:3
+#: of
+msgid "Number to format."
+msgstr "Número a formatear."
+
+#: 705a68993afb46a78ea1a30080c0dd04 fitting.fitting_utils.format_scientific:4
+#: of
+msgid "Format specifier (default '.4g' for general format)."
+msgstr "Especificador de formato (por defecto '.4g' para formato general)."
+
+#: 2ff9f7d2ecc44909b2df93d5a2df1fcb fitting.fitting_utils.format_scientific:6
+#: of
+msgid "Formatted string, e.g. '1.234×10⁻⁵' instead of '1.234e-05'."
+msgstr "Cadena formateada, p. ej. '1.234×10⁻⁵' en lugar de '1.234e-05'."
+
+#: 9b8c90d24e75487e9020693b803dc6ff fitting.fitting_utils.format_parameter:1 of
+msgid "Format a parameter value and its uncertainty using scientific notation."
+msgstr "Formatear un valor de parámetro y su incertidumbre en notación científica."
+
+#: 9a6300b9c11a45858b35a21c545bcba5 fitting.fitting_utils.format_parameter:3 of
+msgid ""
+"The function chooses a sensible number of decimals for ``value`` based on"
+" the exponent of ``sigma`` and returns both the rounded value and the "
+"formatted uncertainty."
+msgstr ""
+"La función elige un número razonable de decimales para ``value`` según el "
+"exponente de ``sigma`` y devuelve tanto el valor redondeado como la "
+"incertidumbre formateada."
+
+#: b5c6c18693b844c2a7ae45c1594cc521 fitting.fitting_utils.format_parameter:7 of
+msgid "Parameter value."
+msgstr "Valor del parámetro."
+
+#: d1ebe0e32d76408d9e14730e7bd6b994 fitting.fitting_utils.format_parameter:8 of
+msgid "Uncertainty in the parameter."
+msgstr "Incertidumbre del parámetro."
+
+#: 7561532904df44ffa5f6789198637b5b fitting.fitting_utils.format_parameter:10
+#: of
+msgid ""
+"Tuple ``(rounded_value, sigma_str)`` where ``sigma_str`` is in scientific"
+" notation (for example ``'1.2E-03'``)."
+msgstr ""
+"Tupla ``(rounded_value, sigma_str)`` donde ``sigma_str`` está en notación "
+"científica (por ejemplo ``'1.2E-03'``)."
+
+#: 2b6681b6f9fb4b5d96461d2c72457257 b885ca93bc224171b30184743c56069c
+#: bdcd433895d34418b51f7dafaf574fbc eb3750e037f84a7bb6fb0986e1c7840d
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator:8
+#: fitting.fitting_utils.format_parameter:14
+#: fitting.fitting_utils.get_equation_param_info:11
+#: fitting.workflow_controller.apply_all_equations:20 of
+msgid "Examples"
+msgstr "Ejemplos"
+
+#: bcd6e008e9224257b4888fa2262e38ad fitting.fitting_utils.generic_fit:1 of
+msgid "Generic fitting function that performs curve fitting with any function."
+msgstr "Función de ajuste genérica que realiza ajuste de curvas con cualquier función."
+
+#: 33faa86b5f0a45f3849b426931938a8a fitting.fitting_utils.generic_fit:3 of
+msgid ""
+"This function handles the complete fitting workflow including parameter "
+"extraction, uncertainty calculation, and result formatting."
+msgstr ""
+"Esta función maneja el flujo completo de ajuste: extracción de parámetros, "
+"cálculo de incertidumbres y formato de resultados."
+
+#: fd3f81258143437fb9a2c88d4da725f1 fitting.fitting_utils.generic_fit:6 of
+msgid "Data dictionary containing x, y and their uncertainties"
+msgstr "Diccionario de datos con x, y y sus incertidumbres"
+
+#: 9d487f27f3784c888e71a3982f4eca34 fitting.fitting_utils.generic_fit:7 of
+msgid ""
+"Name(s) of the x variable(s) - For single variable: string (e.g., \"x\") "
+"- For multiple variables: list of strings (e.g., [\"x_0\", \"x_1\"])"
+msgstr ""
+"Nombre(s) de la(s) variable(s) x - Una variable: cadena (p. ej. \"x\") - "
+"Varias variables: lista de cadenas (p. ej. [\"x_0\", \"x_1\"])"
+
+#: 17c748c7ab284800937b358fe0961950 fitting.fitting_utils.generic_fit:10 of
+msgid "Name of the y variable"
+msgstr "Nombre de la variable y"
+
+#: db248261aa7d48f9b782be5b6e9f4c43 fitting.fitting_utils.generic_fit:11 of
+msgid "Function to fit (e.g., linear_function_with_n, sin_function, etc.)"
+msgstr "Función a ajustar (p. ej. linear_function_with_n, sin_function, etc.)"
+
+#: 85faa51b942c423282a09dfee3871598 fitting.fitting_utils.generic_fit:12 of
+msgid "List of parameter names (e.g., ['m', 'n'] or ['a', 'b', 'c'])"
+msgstr "Lista de nombres de parámetros (p. ej. ['m', 'n'] o ['a', 'b', 'c'])"
+
+#: a4ed97cf58214ea0ab46929e7ba3c933 fitting.fitting_utils.generic_fit:13 of
+#, python-brace-format
+msgid "Template for equation display (e.g., \"y={m}x+{n}\")"
+msgstr "Plantilla para mostrar la ecuación (p. ej. \"y={m}x+{n}\")"
+
+#: ed99ae59ccc84579b6bce7b2133314f3 fitting.fitting_utils.generic_fit:14 of
+msgid "Optional initial parameter values for fitting (improves convergence)"
+msgstr "Valores iniciales opcionales de parámetros para el ajuste (mejora la convergencia)"
+
+#: 0453e84949fa432e8ae87ccc549d6731 fitting.fitting_utils.generic_fit:15 of
+msgid ""
+"Optional (lower_bounds, upper_bounds) for parameters; avoids overflow in "
+"exponentials"
+msgstr ""
+"Opcional (lower_bounds, upper_bounds) para parámetros; evita desbordamiento "
+"en exponenciales"
+
+#: 9d7aba2f83ad4b75aade77d40f96040f fitting.fitting_utils.generic_fit:17 of
+msgid ""
+"Optional original formula string (e.g. \"y = mx + n\"); used for custom "
+"fits; predefined fits use EQUATIONS config lookup."
+msgstr ""
+"Cadena de fórmula original opcional (p. ej. \"y = mx + n\"); se usa en "
+"ajustes personalizados; los predefinidos usan la config EQUATIONS."
+
+#: 7da595f44e3149b9904cc925dc24e30d fitting.fitting_utils.generic_fit:20 of
+msgid ""
+"- text: Formatted text with parameters, uncertainties, R² and statistics "
+"- y_fitted: Array with fitted y values - equation: Original formula (if "
+"known), newline, and formatted equation with parameter values - fit_info:"
+" Dict with 'fit_func', 'params', 'cov', 'x_names' for prediction; None if"
+" unavailable"
+msgstr ""
+"- text: Texto formateado con parámetros, incertidumbres, R² y estadísticas - "
+"y_fitted: Array con valores y ajustados - equation: Fórmula original (si se "
+"conoce), salto de línea y ecuación formateada con valores - fit_info: Dict "
+"con 'fit_func', 'params', 'cov', 'x_names' para predicción; None si no hay"
+
+#: 9964236d26b64d90a59315eef99b39cf fitting.fitting_utils.generic_fit:20 of
+msgid "text: Formatted text with parameters, uncertainties, R² and statistics"
+msgstr "text: Texto formateado con parámetros, incertidumbres, R² y estadísticas"
+
+#: 8a5440d4a6d54badb528c801c548b466 fitting.fitting_utils.generic_fit:21 of
+msgid "y_fitted: Array with fitted y values"
+msgstr "y_fitted: Array con valores y ajustados"
+
+#: d2b19ebae98844f9a06fbfa650056dc2 fitting.fitting_utils.generic_fit:22 of
+msgid ""
+"equation: Original formula (if known), newline, and formatted equation "
+"with parameter values"
+msgstr ""
+"equation: Fórmula original (si se conoce), salto de línea y ecuación "
+"formateada con valores de parámetros"
+
+#: 118726a38466410d82a0ffaa23d65eab fitting.fitting_utils.generic_fit:23 of
+msgid ""
+"fit_info: Dict with 'fit_func', 'params', 'cov', 'x_names' for "
+"prediction; None if unavailable"
+msgstr ""
+"fit_info: Dict con 'fit_func', 'params', 'cov', 'x_names' para predicción; "
+"None si no está disponible"
+
+#: ../../source/modules/fitting.rst df52db3339b94564a1c69eb61921195d
+#: e421d3a22c5547188574ceef5bf0ef64 f6e2afff9c68431a90424b8c08fb0334
+#: fddcc472c4da4f94b3b96e615dff0ec8
+msgid "Return type"
+msgstr "Tipo de retorno"
+
+#: ../../source/modules/fitting.rst 00ab8d21319543c99febab81af6941c2
+#: 0a668e8ba84540d2b81ab582145e5f3a 6aedab12c1c540a6a495246d26f9fd67
+#: c171283944e442ac831240c6c18fb651 e729121595534cb0b560b607472a29bf
+msgid "Raises"
+msgstr "Lanza"
+
+#: 1a16bdb03d844c32a17a02e2d5e17fa0 fitting.fitting_utils.generic_fit:26 of
+msgid "If fitting fails or data is invalid"
+msgstr "Si el ajuste falla o los datos no son válidos"
+
+#: fc0d8c33a9804bdcb6f9fd7381fe9ec4
+#: fitting.fitting_utils.get_equation_param_info:1 of
+msgid "Get parameter names and display formula for a given equation type."
+msgstr "Obtener nombres de parámetros y fórmula de visualización para un tipo de ecuación."
+
+#: 7bfc53a7b5dc4d7db3c71111b541939f
+#: fitting.fitting_utils.get_equation_param_info:3 of
+msgid ""
+"Identifier of the equation (for example ``'linear_function_with_n'`` or "
+"``'gaussian_function'``)."
+msgstr ""
+"Identificador de la ecuación (por ejemplo ``'linear_function_with_n'`` o "
+"``'gaussian_function'``)."
+
+#: a4f88ffa6efd42ffbb5e9f09695a7d20
+#: fitting.fitting_utils.get_equation_param_info:6 of
+msgid ""
+"Tuple ``(param_names, formula_str)`` where ``param_names`` is a list of "
+"parameter names in order and ``formula_str`` is a human‑readable "
+"equation, or ``None`` if the equation is unknown."
+msgstr ""
+"Tupla ``(param_names, formula_str)`` donde ``param_names`` es la lista de "
+"nombres de parámetros en orden y ``formula_str`` es la ecuación legible, "
+"o ``None`` si la ecuación es desconocida."
+
+#: 2e85ef7700fd4f3eb640adfc1a55f78e
+#: fitting.fitting_utils.get_equation_format_for_function:1 of
+msgid ""
+"Return the format template (with placeholders) for the given fit function"
+" name."
+msgstr ""
+"Devolver la plantilla de formato (con marcadores) para el nombre de la "
+"función de ajuste dada."
+
+#: 6e9704e5ea834746aacfea90d651bd20 e25942bbc3a54bf5b003a920ac1075db
+#: fitting.fitting_utils.get_equation_format_for_function:3
+#: fitting.fitting_utils.get_equation_param_names_for_function:3 of
+msgid "Name of the fitting function (e.g. ``'fit_linear_function_with_n'``)."
+msgstr "Nombre de la función de ajuste (p. ej. ``'fit_linear_function_with_n'``)."
+
+#: 3f91f065ca0442288d8769cd63c1b16a
+#: fitting.fitting_utils.get_equation_format_for_function:5 of
+#, python-brace-format
+msgid ""
+"Format string (e.g. ``'y={m}x+{n}'``) or ``None`` if not found or no "
+"format key."
+msgstr ""
+"Cadena de formato (p. ej. ``'y={m}x+{n}'``) o ``None`` si no se encuentra o "
+"no hay clave format."
+
+#: 8c72d9280c5c4345af6fde81bb9ae161
+#: fitting.fitting_utils.get_equation_param_names_for_function:1 of
+msgid ""
+"Return the parameter names for the given fit function from equations "
+"config."
+msgstr ""
+"Devolver los nombres de parámetros de la función de ajuste dada desde la "
+"config equations."
+
+#: 7e9f9e5055664686bd0e6b054f9d4e7d
+#: fitting.fitting_utils.get_equation_param_names_for_function:5 of
+msgid "List of parameter names in the order expected by the fit function."
+msgstr "Lista de nombres de parámetros en el orden esperado por la función de ajuste."
+
+#: 7c671bf0030e41ea890916414174bffc
+#: fitting.fitting_utils.get_equation_param_names_for_function:7 of
+msgid "If no equation config is found or param_names is missing."
+msgstr "Si no se encuentra config de ecuación o falta param_names."
+
+#: 7d1570b4ddb142da9720260ae8dfe061 fitting.fitting_utils.merge_initial_guess:1
+#: of
+msgid "Merge automatically computed initial guesses with user overrides."
+msgstr "Combinar estimaciones iniciales calculadas automáticamente con las del usuario."
+
+#: 57d95761c548474690a25e3625b212b4 fitting.fitting_utils.merge_initial_guess:3
+#: of
+msgid ""
+"For each index, if the override list has a non-``None`` value it replaces"
+" the computed one; otherwise the original computed value is kept."
+msgstr ""
+"Para cada índice, si la lista de sobrescritura tiene un valor no ``None`` "
+"reemplaza el calculado; si no, se mantiene el valor calculado original."
+
+#: 4272f078f1f44d8bba8a557997e3513a fitting.fitting_utils.merge_initial_guess:6
+#: of
+msgid "List of automatically estimated parameter values."
+msgstr "Lista de valores de parámetros estimados automáticamente."
+
+#: 6f5629b0837240b08f4d079ffc1be1d4 fitting.fitting_utils.merge_initial_guess:7
+#: of
+msgid ""
+"Optional list of user‑provided overrides (same length as ``computed``); "
+"``None`` entries mean “keep computed”."
+msgstr ""
+"Lista opcional de sobrescrituras del usuario (misma longitud que ``computed``); "
+"las entradas ``None`` significan \"mantener el calculado\"."
+
+#: bc6f9b7155e740b29ed4664a3df05432
+#: fitting.fitting_utils.merge_initial_guess:10 of
+msgid "New list with the effective initial guess for each parameter."
+msgstr "Nueva lista con la estimación inicial efectiva de cada parámetro."
+
+#: 4ec185871e534a00b50f73bd269d5e3b fitting.fitting_utils.merge_bounds:1 of
+msgid "Merge automatically computed parameter bounds with user overrides."
+msgstr "Combinar límites de parámetros calculados automáticamente con los del usuario."
+
+#: 556a07d044ab4f23911a6539d06577e3 fitting.fitting_utils.merge_bounds:3 of
+msgid ""
+"Bounds are given as a pair ``(lower, upper)``. For each parameter index, "
+"non‑``None`` values in ``override_lower`` or ``override_upper`` replace "
+"the corresponding computed bound. Missing computed bounds default to "
+"``(-inf, +inf)``."
+msgstr ""
+"Los límites son un par ``(lower, upper)``. Para cada índice, los valores "
+"no ``None`` en ``override_lower`` u ``override_upper`` reemplazan el límite "
+"calculado. Los límites calculados faltantes pasan a ``(-inf, +inf)``."
+
+#: 1ce9ab9649bb4d5ea726d044f5ae0ae9 fitting.fitting_utils.merge_bounds:8 of
+msgid ""
+"Optional pair of sequences with base lower and upper bounds as produced "
+"by estimators, or ``None``."
+msgstr ""
+"Par opcional de secuencias con límites inferior y superior base de los "
+"estimadores, o ``None``."
+
+#: 6b39047ec8c84cbfa98d5d9cd3953ea9 fitting.fitting_utils.merge_bounds:10 of
+msgid "Optional list of lower bound overrides."
+msgstr "Lista opcional de sobrescrituras del límite inferior."
+
+#: febea597f2c34cdbaade074861920f0f fitting.fitting_utils.merge_bounds:11 of
+msgid "Optional list of upper bound overrides."
+msgstr "Lista opcional de sobrescrituras del límite superior."
+
+#: 9f4ecb06adcc47a0a88edfde5ae62fc0 fitting.fitting_utils.merge_bounds:12 of
+msgid "Total number of parameters in the model."
+msgstr "Número total de parámetros del modelo."
+
+#: 9328513c48d145b2861ccd69bf7b7d77 fitting.fitting_utils.merge_bounds:14 of
+msgid ""
+"Tuple ``(lower_bounds, upper_bounds)`` as tuples of floats, or "
+"``computed_bounds`` unchanged if no overrides are provided."
+msgstr ""
+"Tupla ``(lower_bounds, upper_bounds)`` como tuplas de float, o "
+"``computed_bounds`` sin cambios si no se dan sobrescrituras."
+
+#: 5de2d87d29924ff7a8ad9d374a048dd0
+#: fitting.fitting_utils.get_fitting_function:1 of
+msgid "Get the fitting function corresponding to the equation name."
+msgstr "Obtener la función de ajuste correspondiente al nombre de la ecuación."
+
+#: 7c1033fe7e814740a9c219a05b2776c5
+#: fitting.fitting_utils.get_fitting_function:3 of
+msgid ""
+"Returns a function (data, x_name, y_name, plot_name) that performs the "
+"fit. If initial_guess_override or bounds_override are provided, they are "
+"passed to the underlying fit (None in a slot means use estimator value)."
+msgstr ""
+"Devuelve una función (data, x_name, y_name, plot_name) que realiza el ajuste. "
+"Si se pasan initial_guess_override o bounds_override, se envían al ajuste "
+"subyacente (None en un hueco significa usar el valor del estimador)."
+
+#: a0bb6ce6b2d140cca5613489d311e9d3
+#: fitting.fitting_utils.get_fitting_function:7 of
+msgid "String identifier for the equation type."
+msgstr "Identificador de cadena para el tipo de ecuación."
+
+#: 30ad1b5563a941e48639271d9be29fe2
+#: fitting.fitting_utils.get_fitting_function:8 of
+msgid "Optional list of initial values (None = use estimator)."
+msgstr "Lista opcional de valores iniciales (None = usar estimador)."
+
+#: 61fd3dea46d64a65881a148c26585244
+#: fitting.fitting_utils.get_fitting_function:9 of
+msgid "Optional (lower_list, upper_list) (None in slot = use estimator)."
+msgstr "Opcional (lower_list, upper_list) (None en hueco = usar estimador)."
+
+#: 58a8ce8268d045af986ca27a1edc9e47
+#: fitting.fitting_utils.get_fitting_function:11 of
+msgid "The corresponding fitting function, or None if not found or error occurs."
+msgstr "La función de ajuste correspondiente, o None si no se encuentra o hay error."
+
+#: ../../source/modules/fitting.rst:50 e773419e364c45b7a10a50de1b8d5bdc
+msgid "Custom Function Evaluator"
+msgstr "Evaluador de funciones personalizadas"
+
+#: 51ec4f58e53a4b3bb93e7d89d3c93c49 fitting.custom_function_evaluator:1 of
+msgid "Custom Function Evaluator Module"
+msgstr "Módulo evaluador de funciones personalizadas"
+
+#: 2dcd074a7a1249c6b2e004ae92d7ff31 fitting.custom_function_evaluator:3 of
+msgid ""
+"This module provides safe runtime evaluation of custom mathematical "
+"functions for curve fitting."
+msgstr ""
+"Este módulo proporciona evaluación segura en tiempo de ejecución de "
+"funciones matemáticas personalizadas para ajuste de curvas."
+
+#: b6d25d850919476282710ad723f82f5a fitting.custom_function_evaluator:6 of
+msgid "Key features:"
+msgstr "Características principales:"
+
+#: da0fe6d2bacd4937b8e7626d295217b2 fitting.custom_function_evaluator:8 of
+msgid "Safe evaluation with restricted namespace"
+msgstr "Evaluación segura con espacio de nombres restringido"
+
+#: 633119a1465e4ecd8fc5d327fc75db88 fitting.custom_function_evaluator:9 of
+msgid "Automatic conversion of mathematical notation to NumPy functions"
+msgstr "Conversión automática de notación matemática a funciones NumPy"
+
+#: 2e35bda021dc4635b2d8a8118cf33ac9 fitting.custom_function_evaluator:10 of
+msgid "Integration with the generic_fit function"
+msgstr "Integración con la función generic_fit"
+
+#: d9eae738aec24c16a49d60d50ec1d4c0 fitting.custom_function_evaluator:11 of
+msgid "No dynamic file generation required"
+msgstr "No se requiere generación dinámica de archivos"
+
+#: 1d0352f9b43748a29071d9353a0c4fd4
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator:1 of
+msgid "Bases: :py:class:`object`"
+msgstr "Bases: :py:class:`object`"
+
+#: ae0fdc71a8b6471dab7d59fa2dd4977b
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator:1 of
+msgid "Evaluates custom mathematical functions safely at runtime."
+msgstr "Evalúa funciones matemáticas personalizadas de forma segura en tiempo de ejecución."
+
+#: 8e21fbb5b2874ec2bd1ac4a3568d35f1
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator:3 of
+msgid ""
+"This class takes a user-defined mathematical formula and parameter names,"
+" converts it to a NumPy-compatible function, and provides methods for "
+"curve fitting operations."
+msgstr ""
+"Esta clase recibe una fórmula matemática y nombres de parámetros definidos "
+"por el usuario, la convierte en una función compatible con NumPy y ofrece "
+"métodos para operaciones de ajuste de curvas."
+
+#: c5404f30cf38425cbc8ab374fc4c0b61
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator.__init__:1 of
+msgid "Initialize the custom function evaluator."
+msgstr "Inicializar el evaluador de funciones personalizadas."
+
+#: 2e6dba224572401994a98497c4550459
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator.__init__:3 of
+msgid ""
+"Mathematical formula as string (e.g., \"a*sin(x) + b\" or \"a*x_0**2 + "
+"b*x_1 + c\")"
+msgstr ""
+"Fórmula matemática como cadena (p. ej. \"a*sin(x) + b\" o \"a*x_0**2 + "
+"b*x_1 + c\")"
+
+#: a7345b0d816d44b890e17f3bf0f81c81
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator.__init__:4 of
+msgid "List of parameter names used in the formula"
+msgstr "Lista de nombres de parámetros usados en la fórmula"
+
+#: f975e02c4e084eed8b7be13777dd4c31
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator.__init__:5 of
+msgid "Number of independent variables (1 for x, >1 for x_0, x_1, etc.)"
+msgstr "Número de variables independientes (1 para x, >1 para x_0, x_1, etc.)"
+
+#: 5f4836e77aa34c5f8891adb9ddb820b5
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator.__init__:7 of
+msgid "If parameter names are invalid"
+msgstr "Si los nombres de parámetros no son válidos"
+
+#: ec811482f1f34834af9769bfbe308069
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator.__init__:8 of
+msgid "If equation cannot be parsed"
+msgstr "Si la ecuación no se puede parsear"
+
+#: 8a17c2fcdb6746d9b2bc77137e325493
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator.fit:1 of
+msgid "Perform curve fitting using the custom function."
+msgstr "Realizar ajuste de curvas usando la función personalizada."
+
+#: 044b154d7f2b4a8aa8eedcf7b27511d8
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator.fit:3 of
+msgid ""
+"This method uses the generic_fit function from fitting_utils to perform "
+"the actual curve fitting with error propagation."
+msgstr ""
+"Este método usa la función generic_fit de fitting_utils para realizar el "
+"ajuste de curvas con propagación de errores."
+
+#: 9715b7000eaf498e9baef61e368f82e5
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator.fit:6 of
+msgid "Data dictionary or DataFrame containing x, y and their uncertainties."
+msgstr "Diccionario de datos o DataFrame con x, y y sus incertidumbres."
+
+#: 2d1bcb38435e41a69c21bd6d881dc299
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator.fit:7 of
+msgid ""
+"Name(s) of the independent variable(s). - For single variable: string "
+"(e.g., \"x\") - For multiple variables: list of strings (e.g., [\"x_0\", "
+"\"x_1\"])"
+msgstr ""
+"Nombre(s) de la(s) variable(s) independiente(s). Una variable: cadena "
+"(p. ej. \"x\"). Varias: lista de cadenas (p. ej. [\"x_0\", \"x_1\"])."
+
+#: 666d1a1125bd43faa950af5901e6020e
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator.fit:10 of
+msgid "Name of the dependent variable."
+msgstr "Nombre de la variable dependiente."
+
+#: d3d0918ecec14a26b615d418b4b64bc8
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator.fit:12 of
+msgid ""
+"- text: Formatted text with parameters and uncertainties (includes R²). -"
+" y_fitted: Array with fitted y values. - equation: Formatted equation "
+"with parameter values."
+msgstr ""
+"- text: Texto formateado con parámetros e incertidumbres (incluye R²). - "
+"y_fitted: Array con valores y ajustados. - equation: Ecuación formateada "
+"con valores de parámetros."
+
+#: 18ebd88d289943649382df05e5755234
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator.fit:12 of
+msgid "text: Formatted text with parameters and uncertainties (includes R²)."
+msgstr "text: Texto formateado con parámetros e incertidumbres (incluye R²)."
+
+#: 7dc5f3f4d87249308d95e099b2e8343c
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator.fit:13 of
+msgid "y_fitted: Array with fitted y values."
+msgstr "y_fitted: Array con valores y ajustados."
+
+#: 5e8767b66c694dfaa78447d5a5f39775
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator.fit:14 of
+msgid "equation: Formatted equation with parameter values."
+msgstr "equation: Ecuación formateada con valores de parámetros."
+
+#: 99a6d104e11048baae2a799cfe96f30e
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator.fit:17 of
+msgid "If fitting fails."
+msgstr "Si el ajuste falla."
+
+#: 963c6582fc67438ea32c025c36c99b07
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator.fit:18 of
+msgid "If equation evaluation fails."
+msgstr "Si falla la evaluación de la ecuación."
+
+#: eedfe8f19b444464813fdc4c551db159
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator.get_function:1 of
+msgid "Get the generated function for direct use."
+msgstr "Obtener la función generada para uso directo."
+
+#: 768f29c46c434678ae3fe0e31bc02fc0
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator.get_function:3 of
+msgid "The callable function that evaluates the formula"
+msgstr "La función invocable que evalúa la fórmula"
+
+#: 278fdb7a066d4f0cb17c7f8959623973
+#: fitting.custom_function_evaluator.CustomFunctionEvaluator.__repr__:1 of
+msgid "String representation of the evaluator."
+msgstr "Representación en cadena del evaluador."
+
+#: ../../source/modules/fitting.rst:55 238f8742e2b34710befa9f09fdd181ae
+msgid "Workflow Controller"
+msgstr "Controlador de flujo de trabajo"
+
+#: a52ed09c83234c0eb82d4e93a39fdb14 fitting.workflow_controller:1 of
+msgid ""
+"Workflow controller for fitting operations. Contains coordination "
+"functions and workflow patterns for the fitting application."
+msgstr ""
+"Controlador de flujo para operaciones de ajuste. Contiene funciones de "
+"coordinación y patrones de flujo para la aplicación."
+
+#: a2cd6e7e55f242a59efa3c49ba2d3a04
+#: fitting.workflow_controller.reload_data_by_type:1 of
+msgid "Reload data from a file based on its type."
+msgstr "Recargar datos de un archivo según su tipo."
+
+#: a0b76462f0344c1da6b49e09a49e8ab0
+#: fitting.workflow_controller.reload_data_by_type:3 of
+msgid ""
+"This function is used in loop mode to reload updated data from the same "
+"file. Useful when the user is modifying data in real-time and wants to "
+"see the updated fit after each modification."
+msgstr ""
+"Se usa en modo bucle para recargar datos actualizados del mismo archivo. "
+"Útil cuando el usuario modifica datos en tiempo real y quiere ver el ajuste "
+"actualizado tras cada cambio."
+
+#: da9bf23c70974c00b75a125a03d332d2
+#: fitting.workflow_controller.reload_data_by_type:7 of
+msgid "Path to the data file"
+msgstr "Ruta al archivo de datos"
+
+#: 4f4fd278f2fb4e69b26ae1a5370c8a06
+#: fitting.workflow_controller.reload_data_by_type:8 of
+msgid "Type of file ('csv', 'xlsx', 'txt')"
+msgstr "Tipo de archivo ('csv', 'xlsx', 'txt')"
+
+#: 920c2dff26134881a67a44dc56841dcc
+#: fitting.workflow_controller.reload_data_by_type:10 of
+msgid "Loaded data as DataFrame"
+msgstr "Datos cargados como DataFrame"
+
+#: 2be074b06bae4a819d250f28b56f2429
+#: fitting.workflow_controller.reload_data_by_type:12 of
+msgid "If file_type is not supported or loading fails"
+msgstr "Si el tipo de archivo no está soportado o falla la carga"
+
+#: 5e15511ec47b4e07bea3ee78ba3adf23
+#: fitting.workflow_controller.single_fit_with_loop:1 of
+msgid "Execute a single fitting operation with optional loop mode."
+msgstr "Ejecutar una operación de ajuste única con modo bucle opcional."
+
+#: 307118cc17ef45e381991d569eb9d55f
+#: fitting.workflow_controller.single_fit_with_loop:3 of
+msgid ""
+"This function performs an initial fit and then optionally loops, "
+"reloading data and refitting each iteration. This is useful for iterative"
+" data analysis where the user modifies the data file between fits to "
+"explore different scenarios."
+msgstr ""
+"Realiza un ajuste inicial y opcionalmente entra en bucle recargando datos "
+"y reajustando en cada iteración. Útil para análisis iterativo cuando el "
+"usuario modifica el archivo entre ajustes para explorar distintos escenarios."
+
+#: 4308a27cc7be42fc834b904936dca9ef
+#: fitting.workflow_controller.single_fit_with_loop:8 of
+msgid ""
+"Workflow: 1. Perform initial fit with current data 2. Show results and "
+"ask if user wants to continue 3. If yes: reload data from file and repeat"
+" 4. If no: exit"
+msgstr ""
+"Flujo: 1. Ajuste inicial con datos actuales 2. Mostrar resultados y preguntar "
+"si continuar 3. Si sí: recargar datos del archivo y repetir 4. Si no: salir"
+
+#: d3f063bfe24449c0a7ba0a169f639ff0
+#: fitting.workflow_controller.single_fit_with_loop:14 of
+msgid "Fitting function to call (must accept data, x_name, y_name, plot_name)"
+msgstr "Función de ajuste a llamar (debe aceptar data, x_name, y_name, plot_name)"
+
+#: 59de7b080105449aa8f6ac8ec56a6f26
+#: fitting.workflow_controller.single_fit_with_loop:15 of
+msgid "Initial dataset (pandas DataFrame)"
+msgstr "Conjunto de datos inicial (pandas DataFrame)"
+
+#: 763422c532044526a34e83d97ab44f77
+#: fitting.workflow_controller.single_fit_with_loop:16 of
+msgid "X variable column name(s) - string for single variable, list for multiple"
+msgstr "Nombre(s) de columna de variable X: cadena para una, lista para varias"
+
+#: a4dd9e12dc61479ca809feaa1e242ae4
+#: fitting.workflow_controller.single_fit_with_loop:17 of
+msgid "Y variable column name"
+msgstr "Nombre de la columna de variable Y"
+
+#: a59f44c5f45345eaa7d29f9b191baa1a
+#: fitting.workflow_controller.single_fit_with_loop:18 of
+msgid "Plot name for window titles and filename"
+msgstr "Nombre del gráfico para títulos de ventana y nombre de archivo"
+
+#: bab5d19d39414c939cdce2e4488ec8ae
+#: fitting.workflow_controller.single_fit_with_loop:19 of
+msgid "Path to data file for reloading"
+msgstr "Ruta al archivo de datos para recargar"
+
+#: aa7250c5db784e2ba632804735990048
+#: fitting.workflow_controller.single_fit_with_loop:20 of
+msgid "File type ('csv', 'xlsx', 'txt')"
+msgstr "Tipo de archivo ('csv', 'xlsx', 'txt')"
+
+#: b744bdc9e3b14c3fa1c4fdd0cc12e5f0
+#: fitting.workflow_controller.multiple_fit_with_loop:1 of
+msgid "Execute multiple fitting operations with optional loop mode."
+msgstr "Ejecutar varias operaciones de ajuste con modo bucle opcional."
+
+#: e3145fd1b3c344138d824114a6c9c49d
+#: fitting.workflow_controller.multiple_fit_with_loop:3 of
+msgid ""
+"Performs fitting on multiple datasets sequentially, with the option to "
+"reload and refit each dataset in a loop. Each dataset can be "
+"independently continued or stopped."
+msgstr ""
+"Realiza ajustes sobre varios conjuntos de forma secuencial, con opción de "
+"recargar y reajustar cada uno en bucle. Cada conjunto puede continuar o "
+"detenerse de forma independiente."
+
+#: 002f093c905a4b4484351eafb72a101a
+#: fitting.workflow_controller.multiple_fit_with_loop:7 of
+msgid ""
+"Workflow: 1. Fit all datasets once 2. Ask user for each dataset if they "
+"want to continue 3. For datasets marked to continue: reload and refit 4. "
+"Repeat until no datasets are marked to continue"
+msgstr ""
+"Flujo: 1. Ajustar todos los conjuntos una vez 2. Preguntar por cada uno si "
+"continuar 3. Para los marcados para continuar: recargar y reajustar 4. "
+"Repetir hasta que ninguno quede marcado para continuar"
+
+#: f5ea630a890842d88247ee9ffac03fb4
+#: fitting.workflow_controller.multiple_fit_with_loop:13 of
+msgid "Fitting function to call (must accept data, x_name, y_name, plot_name)."
+msgstr "Función de ajuste a llamar (debe aceptar data, x_name, y_name, plot_name)."
+
+#: 0bdcc81057e847fda53e7dd059c562ff
+#: fitting.workflow_controller.multiple_fit_with_loop:14 of
+msgid ""
+"List of dictionaries, each containing: - 'data': dataset (pandas "
+"DataFrame) - 'x_name': X variable column name - 'y_name': Y variable "
+"column name - 'plot_name': plot name for display and filename - "
+"'data_file_path': path to data file for reloading - 'data_file_type': "
+"file type ('csv', 'xlsx', 'txt')"
+msgstr ""
+"Lista de diccionarios, cada uno con: - 'data': conjunto (pandas DataFrame) - "
+"'x_name': nombre de columna X - 'y_name': nombre de columna Y - 'plot_name': "
+"nombre del gráfico - 'data_file_path': ruta para recargar - 'data_file_type': "
+"tipo ('csv', 'xlsx', 'txt')"
+
+#: 5912e4c353824168a6a46fa240427094
+#: fitting.workflow_controller.apply_all_equations:1 of
+msgid "Apply all available equation types to a dataset."
+msgstr "Aplicar todos los tipos de ecuación disponibles a un conjunto de datos."
+
+#: cd805af9ffe64310b3a1b3706dc05e67
+#: fitting.workflow_controller.apply_all_equations:3 of
+msgid ""
+"This function automatically tests all predefined equation types on a "
+"single dataset, displaying results for each. Useful for exploratory data "
+"analysis to determine which mathematical model best fits the data."
+msgstr ""
+"Prueba automáticamente todos los tipos de ecuación predefinidos sobre un "
+"único conjunto y muestra los resultados de cada uno. Útil para análisis "
+"exploratorio y ver qué modelo se ajusta mejor."
+
+#: a0571bd11e7f44d6b2128846ec88b533
+#: fitting.workflow_controller.apply_all_equations:7 of
+msgid ""
+"The function iterates through all equations and displays the fit results "
+"one by one, allowing the user to compare goodness of fit visually."
+msgstr ""
+"Itera por todas las ecuaciones y muestra los resultados de ajuste uno a uno, "
+"permitiendo comparar visualmente la bondad del ajuste."
+
+#: cd0b8512eeed45568d00f8b904a0e134
+#: fitting.workflow_controller.apply_all_equations:10 of
+msgid "Function to set the current equation type (e.g., 'linear_function')"
+msgstr "Función para fijar el tipo de ecuación actual (p. ej. 'linear_function')"
+
+#: 31074874db98466b928c27a36bc7588c
+#: fitting.workflow_controller.apply_all_equations:11 of
+msgid "Function to retrieve the fitter for the currently set equation type"
+msgstr "Función para obtener el ajustador del tipo de ecuación actual"
+
+#: fa595f87b6b842a6931e9c19f2fef544
+#: fitting.workflow_controller.apply_all_equations:12 of
+msgid ""
+"List of equation type identifiers to test (e.g., from "
+"config.AVAILABLE_EQUATION_TYPES)"
+msgstr ""
+"Lista de identificadores de tipo de ecuación a probar (p. ej. de "
+"config.AVAILABLE_EQUATION_TYPES)"
+
+#: 4fadc29ce07f45a0b3c4b5fc66897f10
+#: fitting.workflow_controller.apply_all_equations:14 of
+msgid "Dataset to fit (pandas DataFrame)"
+msgstr "Conjunto de datos a ajustar (pandas DataFrame)"
+
+#: f12b4fd49e13492c84f4e2a984c3f495
+#: fitting.workflow_controller.apply_all_equations:15 of
+msgid "Independent variable column name"
+msgstr "Nombre de la columna de variable independiente"
+
+#: c6226c514fc24985af8d2538b4851151
+#: fitting.workflow_controller.apply_all_equations:16 of
+msgid "Dependent variable column name"
+msgstr "Nombre de la columna de variable dependiente"
+
+#: a9bfb83473e84b5ba21ff7fa202c6674
+#: fitting.workflow_controller.apply_all_equations:17 of
+msgid "Plot name for display and filename (optional)."
+msgstr "Nombre del gráfico para mostrar y nombre de archivo (opcional)."
+
+#: eb921588864a4f979a02d04b1dbe9a80
+#: fitting.workflow_controller.coordinate_data_loading:1 of
+msgid "Coordinate the complete data loading workflow."
+msgstr "Coordinar el flujo completo de carga de datos."
+
+#: 5b13f9f741f54568819a202caf8b8cad
+#: fitting.workflow_controller.coordinate_data_loading:3 of
+msgid ""
+"This function orchestrates the entire data loading process: 1. Open "
+"native file dialog to select a data file 2. Load the data 3. Ask user for"
+" variables to use"
+msgstr ""
+"Orquesta todo el proceso de carga: 1. Abrir diálogo nativo para elegir "
+"archivo 2. Cargar datos 3. Pedir al usuario las variables a usar"
+
+#: 9dc3833e878f439592980fddb81b3665 a89bb007acd2426d8d331b6613be6772
+#: fitting.workflow_controller.coordinate_data_loading:8
+#: fitting.workflow_controller.coordinate_data_viewing:6 of
+msgid "Parent Tkinter window."
+msgstr "Ventana Tkinter padre."
+
+#: be70df4c399e4f038240816e744fe0df
+#: fitting.workflow_controller.coordinate_data_loading:9 of
+msgid ""
+"Function that opens native file dialog, returns (path, file_type) or "
+"(None, None) on cancel. E.g. open_load_dialog from frontend.ui_dialogs."
+msgstr ""
+"Función que abre el diálogo nativo de archivos y devuelve (path, file_type) "
+"o (None, None) al cancelar. P. ej. open_load_dialog de frontend.ui_dialogs."
+
+#: 56b8ca4799bc45dc869f1b7bc28ac638
+#: fitting.workflow_controller.coordinate_data_loading:11 of
+msgid "Function to ask for variables."
+msgstr "Función para pedir las variables."
+
+#: 85c910020aa74fd1a4681af6fc0ea910
+#: fitting.workflow_controller.coordinate_data_loading:13 of
+msgid ""
+"Tuple (data, x_name, y_name, plot_name, file_path, file_type). On user "
+"cancel, data is empty string and other fields are empty strings."
+msgstr ""
+"Tupla (data, x_name, y_name, plot_name, file_path, file_type). Si el usuario "
+"cancela, data es cadena vacía y el resto también."
+
+#: 651854a8e5e94e6d8a90212bb5ebbc15
+#: fitting.workflow_controller.coordinate_data_viewing:1 of
+msgid "Coordinate the data viewing workflow."
+msgstr "Coordinar el flujo de visualización de datos."
+
+#: 2bc6a5b26beb4cd6ba8e8a2a45f70ee2
+#: fitting.workflow_controller.coordinate_data_viewing:3 of
+msgid ""
+"This function orchestrates the process of selecting and displaying data "
+"from files without performing any fitting operations."
+msgstr ""
+"Orquesta la selección y visualización de datos desde archivos sin realizar "
+"ningún ajuste."
+
+#: c335956ef0da410e82877a60e20ee08f
+#: fitting.workflow_controller.coordinate_data_viewing:7 of
+msgid ""
+"Function that opens native file dialog, returns (path, file_type) or "
+"(None, None) on cancel."
+msgstr ""
+"Función que abre el diálogo nativo de archivos y devuelve (path, file_type) "
+"o (None, None) al cancelar."
+
+#: 040c8b82accc4f3d9cc437da6e5eac37
+#: fitting.workflow_controller.coordinate_data_viewing:9 of
+msgid "Function to display data."
+msgstr "Función para mostrar los datos."
+
+#: 045bfef369b146c1a5a0ee186f9905b1
+#: fitting.workflow_controller.coordinate_equation_selection:1 of
+msgid "Coordinate the equation selection workflow."
+msgstr "Coordinar el flujo de selección de ecuación."
+
+#: f8afd8f71b864bcaa857c41f247d67dd
+#: fitting.workflow_controller.coordinate_equation_selection:3 of
+msgid ""
+"Handles the complete process of equation selection, including both "
+"predefined equations and custom user-defined equations."
+msgstr ""
+"Maneja todo el proceso de selección de ecuación: predefinidas y ecuaciones "
+"personalizadas del usuario."
+
+#: 0846328610914436b19eaed55bf61f64 2e722ab584ee44bcabf28566a9e01c13
+#: fitting.workflow_controller.coordinate_custom_equation:8
+#: fitting.workflow_controller.coordinate_equation_selection:6 of
+msgid "Parent Tkinter window"
+msgstr "Ventana Tkinter padre"
+
+#: 838f8a4804c6496ea7fdc19970704f6c
+#: fitting.workflow_controller.coordinate_equation_selection:7 of
+msgid "Function to ask for equation type"
+msgstr "Función para pedir el tipo de ecuación"
+
+#: a487836a99f04b2ba2d54c22633cdc3e
+#: fitting.workflow_controller.coordinate_equation_selection:8 of
+msgid "Function to ask for number of parameters"
+msgstr "Función para pedir el número de parámetros"
+
+#: 14a20ebca14c4f4abb7458fb6947f67c f1e90194e4404d1b8a2e9afad54778d3
+#: fitting.workflow_controller.coordinate_custom_equation:10
+#: fitting.workflow_controller.coordinate_equation_selection:9 of
+msgid "Function to ask for parameter names"
+msgstr "Función para pedir los nombres de parámetros"
+
+#: 3f7d9318636c47e8b193735296531dad a559cdf193d74416add1e8da186ce19b
+#: fitting.workflow_controller.coordinate_custom_equation:11
+#: fitting.workflow_controller.coordinate_equation_selection:10 of
+msgid "Function to ask for custom formula"
+msgstr "Función para pedir la fórmula personalizada"
+
+#: 120d58e6641b497b8e9d73ffe229c8a3
+#: fitting.workflow_controller.coordinate_equation_selection:11 of
+msgid "Function to retrieve fitting function by name"
+msgstr "Función para obtener la función de ajuste por nombre"
+
+#: 2a585e4b5ee545deb03b69af1d41f7b3
+#: fitting.workflow_controller.coordinate_equation_selection:13 of
+msgid "Tuple of (equation_name, fitter_function)"
+msgstr "Tupla (equation_name, fitter_function)"
+
+#: 92e217f1821742d3a7742ad0d8dd9338
+#: fitting.workflow_controller.coordinate_custom_equation:1 of
+msgid "Coordinate the custom equation creation workflow."
+msgstr "Coordinar el flujo de creación de ecuación personalizada."
+
+#: 01ac66311fcb40eebe88ed313c810645
+#: fitting.workflow_controller.coordinate_custom_equation:3 of
+msgid ""
+"Handles the process of creating a user-defined custom fitting equation by"
+" collecting parameter information and the formula. Returns only the "
+"backend fitting function (without visualization), maintaining separation "
+"of concerns."
+msgstr ""
+"Gestiona la creación de una ecuación de ajuste personalizada: recoge "
+"parámetros y fórmula. Devuelve solo la función de ajuste del backend "
+"(sin visualización), manteniendo la separación de responsabilidades."
+
+#: 98c95733db094888bd3b7f8a5ff83c39
+#: fitting.workflow_controller.coordinate_custom_equation:9 of
+msgid "Function to ask for number of parameters and independent variables"
+msgstr "Función para pedir número de parámetros y variables independientes"
+
+#: 17eedc5545a746da956eb23277879911
+#: fitting.workflow_controller.coordinate_custom_equation:13 of
+msgid "<formula>', backend_fit_function) or (EXIT_SIGNAL, None) if cancelled"
+msgstr "(formula, backend_fit_function) o (EXIT_SIGNAL, None) si se cancela"
+
+#: ../../source/modules/fitting.rst:60 393e19674eb546048fb06bc07cddbcad
+msgid "Estimators"
+msgstr "Estimadores"
+
+#: e3695798985e4aa68687a0c0a0ec35fe fitting.estimators:1 of
+msgid "Initial parameter estimators for curve fitting."
+msgstr "Estimadores de parámetros iniciales para ajuste de curvas."
+
+#: a36ad6b15314465ab9a21e63b71d47cd fitting.estimators:3 of
+msgid ""
+"Inputs (x, y) are assumed to be finite and already validated/cleaned by "
+"the caller. This module provides functions to estimate initial parameter "
+"values and ranges for various model types (linear, polynomial, "
+"trigonometric, gaussian, logistic, exponential, etc.) to improve fitting "
+"convergence."
+msgstr ""
+"Se asume que las entradas (x, y) son finitas y validadas/limpiadas por el "
+"llamador. Este módulo proporciona funciones para estimar valores y rangos "
+"iniciales de parámetros para distintos modelos (lineal, polinomial, "
+"trigonométrico, gaussiano, logístico, exponencial, etc.) y mejorar la "
+"convergencia del ajuste."
+
+#: cb65a6a6c92740a2aee4f2bd91c3282b
+#: fitting.estimators.estimate_trigonometric_parameters:1 of
+msgid "Estimate initial parameters for trigonometric functions (sin/cos)."
+msgstr "Estimar parámetros iniciales para funciones trigonométricas (sen/cos)."
+
+#: 6562d32aada84e20bf5304e68c9def74
+#: fitting.estimators.estimate_trigonometric_parameters:3 of
+msgid ""
+"Estimates amplitude (a) and angular frequency (b) for y = a * sin(b*x) or"
+" y = a * cos(b*x). Uses peak detection first, with autocorrelation "
+"fallback when peaks are insufficient."
+msgstr ""
+"Estima amplitud (a) y frecuencia angular (b) para y = a*sin(b*x) o "
+"y = a*cos(b*x). Primero detección de picos; si faltan picos usa autocorrelación."
+
+#: 11ebf8569b124b448510547caede8320 3189a59ab5bf438a9a8a417f57d20997
+#: 5bf7172557fc4edbb43e57ace7d87fb2 5e4e00e1fdc0474fb81c9e431d593b57
+#: 778fdcfa41a145539f40ca7ccf964eb0 7eb0794385b145d1aaedce76cd21eb22
+#: b1351e22c016462187d00b831254aecd de89685dbae446f2b4813693c91ed344
+#: e3c0db240a1540bcbabb3d2257b3af78
+#: fitting.estimators.estimate_binomial_parameters:4
+#: fitting.estimators.estimate_exponential_parameters:4
+#: fitting.estimators.estimate_gaussian_parameters:4
+#: fitting.estimators.estimate_hyperbolic_bounds:6
+#: fitting.estimators.estimate_hyperbolic_parameters:6
+#: fitting.estimators.estimate_linear_parameters:3
+#: fitting.estimators.estimate_phase_shift:3
+#: fitting.estimators.estimate_single_power_parameter:4
+#: fitting.estimators.estimate_trigonometric_parameters:7 of
+msgid "Independent variable array"
+msgstr "Array de variable independiente"
+
+#: 0e06845b0a124c9e8cb96b4b7b6490ee 25b570b0c9754fefb763c7ad8c32b816
+#: 2b52e8d1a6e841728f9270daf11a3e1f 4692c409a47f44b8845075579a39f615
+#: 57fcf6c98ba6463ba8f0225eb8db3dba 601d8a63a7444551b88a86105f4f4cca
+#: 65acc00169b94555af8c071b2f4016e5 c8a65614384e44a7b6d868509f9589e1
+#: e81162fa259a4db087fe3e43d6431f08 ef0d1a7aa2bc4866846db83c9fdf83c6
+#: f8cd5e57ec6a4c07afb9c1db09e71913
+#: fitting.estimators.estimate_binomial_parameters:5
+#: fitting.estimators.estimate_exponential_parameters:5
+#: fitting.estimators.estimate_gaussian_parameters:5
+#: fitting.estimators.estimate_hyperbolic_parameters:7
+#: fitting.estimators.estimate_inverse_parameter:5
+#: fitting.estimators.estimate_linear_parameters:4
+#: fitting.estimators.estimate_ln_parameter:5
+#: fitting.estimators.estimate_phase_shift:4
+#: fitting.estimators.estimate_single_power_parameter:5
+#: fitting.estimators.estimate_square_pulse_parameters:5
+#: fitting.estimators.estimate_trigonometric_parameters:8 of
+msgid "Dependent variable array"
+msgstr "Array de variable dependiente"
+
+#: 0d69fb0db60d428d8adef1967be3e239 c852559d36b743b696d8d82074a11359
+#: fitting.estimators.estimate_hyperbolic_parameters:9
+#: fitting.estimators.estimate_trigonometric_parameters:10 of
+msgid "Tuple (amplitude, frequency)."
+msgstr "Tupla (amplitud, frecuencia)."
+
+#: c860b7ae3b9543739227f91f3ce5f763 fitting.estimators.estimate_phase_shift:1
+#: of
+msgid ""
+"Estimate initial phase shift for y = a * sin(b*x + c) or y = a * cos(b*x "
+"+ c)."
+msgstr ""
+"Estimar desfase inicial para y = a*sin(b*x + c) o y = a*cos(b*x + c)."
+
+#: ae7ffae331fc49e0a05a3b7c86fb1edf fitting.estimators.estimate_phase_shift:5
+#: of
+msgid "Estimated amplitude (a)"
+msgstr "Amplitud estimada (a)"
+
+#: 3a857e1b50a645a7b3ab034616663869 fitting.estimators.estimate_phase_shift:6
+#: of
+msgid "Estimated angular frequency (b)"
+msgstr "Frecuencia angular estimada (b)"
+
+#: 5c7e985740bc4057aea7bee7fb1ca327 fitting.estimators.estimate_phase_shift:8
+#: of
+msgid "Estimated phase shift (c)."
+msgstr "Desfase estimado (c)."
+
+#: a696580337c9481797411df5111dc3d6
+#: fitting.estimators.estimate_linear_parameters:1 of
+msgid ""
+"Estimate initial parameters for linear fit y = m*x + n (intercept n, "
+"slope m)."
+msgstr ""
+"Estimar parámetros iniciales para ajuste lineal y = m*x + n (ordenada n, "
+"pendiente m)."
+
+#: a3a4b5379c454ea09bd11955ad1a7782
+#: fitting.estimators.estimate_linear_parameters:6 of
+msgid "intercept and slope."
+msgstr "ordenada y pendiente."
+
+#: abdc290c6fc943e88f30f43a29fba19e
+#: fitting.estimators.estimate_polynomial_parameters:1 of
+msgid ""
+"Estimate initial parameters for polynomial y = c0 + c1*x + ... + "
+"c_degree*x^degree."
+msgstr ""
+"Estimar parámetros iniciales para polinomio y = c0 + c1*x + ... + "
+"c_degree*x^degree."
+
+#: 3cd76a96b00545aab4c17b5c41044ed1
+#: fitting.estimators.estimate_polynomial_parameters:3 of
+msgid "Independent variable array."
+msgstr "Array de variable independiente."
+
+#: 65f274d56892455380cdd590b6638eac
+#: fitting.estimators.estimate_polynomial_parameters:4 of
+msgid "Dependent variable array."
+msgstr "Array de variable dependiente."
+
+#: 2b8534f79c28497f8bda2230092e7bf9
+#: fitting.estimators.estimate_polynomial_parameters:5 of
+msgid "Polynomial degree."
+msgstr "Grado del polinomio."
+
+#: 438a47c17dfd48d597316bddc39d10cb
+#: fitting.estimators.estimate_polynomial_parameters:7 of
+msgid "List of coefficients [c0, c1, ..., c_degree] (constant term first)."
+msgstr "Lista de coeficientes [c0, c1, ..., c_degree] (término constante primero)."
+
+#: 7c8c0465f26544428c8ebe2145425859
+#: fitting.estimators.estimate_single_power_parameter:1 of
+msgid ""
+"Estimate coefficient a for y = a * x^power (no constant term). Least-"
+"squares: a = sum(y * x^power) / sum(x^(2*power))."
+msgstr ""
+"Estimar coeficiente a para y = a*x^power (sin término constante). Mínimos "
+"cuadrados: a = sum(y*x^power)/sum(x^(2*power))."
+
+#: d2acb3a212ce45249394e1ed733cbe86
+#: fitting.estimators.estimate_single_power_parameter:6 of
+msgid "Exponent (e.g. 2 for quadratic through origin)"
+msgstr "Exponente (p. ej. 2 para cuadrática por el origen)"
+
+#: a3255da59531435bb4b40c51965f7a91 d4659485e4354050bae6a7cd4ec49425
+#: d5fb3c00c1a04976878959c3103e78ad
+#: fitting.estimators.estimate_inverse_parameter:8
+#: fitting.estimators.estimate_ln_parameter:7
+#: fitting.estimators.estimate_single_power_parameter:8 of
+msgid "Estimated coefficient a."
+msgstr "Coeficiente a estimado."
+
+#: af936e9e097f4ee78573659be8349068 fitting.estimators.estimate_ln_parameter:1
+#: of
+msgid ""
+"Estimate initial parameter a for y = a * ln(x). Least squares with no "
+"intercept; positive x only."
+msgstr ""
+"Estimar parámetro inicial a para y = a*ln(x). Mínimos cuadrados sin "
+"ordenada; solo x positivos."
+
+#: c21c2f5c52964c08b4f08344e531006a fitting.estimators.estimate_ln_parameter:4
+#: of
+msgid "Independent variable array (positive)"
+msgstr "Array de variable independiente (positivos)"
+
+#: 91f541fb329b445fbc69590e748f2295
+#: fitting.estimators.estimate_inverse_parameter:1 of
+msgid ""
+"Estimate coefficient a for y = a / x^power. Uses median of (y * x^power) "
+"for robustness to outliers."
+msgstr ""
+"Estimar coeficiente a para y = a/x^power. Usa la mediana de (y*x^power) "
+"para robustez frente a valores atípicos."
+
+#: b2f1db04de5d4aa59ca356868bf296b8
+#: fitting.estimators.estimate_inverse_parameter:4 of
+msgid "Independent variable array (avoid zeros)"
+msgstr "Array de variable independiente (evitar ceros)"
+
+#: b211825b81ef4c13a6e2139cc7733d76
+#: fitting.estimators.estimate_inverse_parameter:6 of
+msgid "Power in denominator (1 or 2)"
+msgstr "Exponente en el denominador (1 o 2)"
+
+#: 9fd9138244b043d083a0c164daa23174
+#: fitting.estimators.estimate_gaussian_parameters:1 of
+msgid ""
+"Estimate initial (A, mu, sigma) for y = A * exp(-(x-mu)^2 / (2*sigma^2))."
+" A from max(y), mu from x at max, sigma from FWHM (half-max crossings)."
+msgstr ""
+"Estimar (A, mu, sigma) iniciales para y = A*exp(-(x-mu)^2/(2*sigma^2)). "
+"A del max(y), mu del x en el máximo, sigma del FWHM (cruces a mitad de máximo)."
+
+#: 1243271347204298b8b4baa09da29d67
+#: fitting.estimators.estimate_gaussian_parameters:7 of
+msgid "Tuple (A, mu, sigma)."
+msgstr "Tupla (A, mu, sigma)."
+
+#: 0184895332d342cd9c3bf5b8946f1125
+#: fitting.estimators.estimate_binomial_parameters:1 of
+msgid ""
+"Estimate (a, b, c) for logistic y = a / (1 + exp(-b*(x-c))). a = range, c"
+" = midpoint of transition, b from inverse of transition width."
+msgstr ""
+"Estimar (a, b, c) para logística y = a/(1+exp(-b*(x-c))). a = rango, c = "
+"punto medio de transición, b del inverso del ancho de transición."
+
+#: b473852d06924b149bb3a6cb3e6fb0af
+#: fitting.estimators.estimate_binomial_parameters:7 of
+msgid "Tuple (a, b, c)."
+msgstr "Tupla (a, b, c)."
+
+#: 11e2e6e11eb34bcbb6f184f7410e3245
+#: fitting.estimators.estimate_exponential_parameters:1 of
+msgid ""
+"Estimate (a, b) for y = a * exp(b*x). Uses log(y) = log(a) + b*x when y >"
+" 0; otherwise fallback from endpoints."
+msgstr ""
+"Estimar (a, b) para y = a*exp(b*x). Usa log(y)=log(a)+b*x cuando y>0; "
+"si no, fallback desde los extremos."
+
+#: f0596073e56049dd9bdd6d51973713cf
+#: fitting.estimators.estimate_exponential_parameters:7 of
+msgid "Tuple (a, b)."
+msgstr "Tupla (a, b)."
+
+#: 6323e2d3f3d14101a47f349fdcbaf51c
+#: fitting.estimators.estimate_square_pulse_parameters:1 of
+msgid ""
+"Estimate (A, t0, w) for a smooth square pulse: amplitude, center time, "
+"width. A from peak-to-peak, t0 from center of mass of ``y`` (absolute "
+"value), w from support of elevated region."
+msgstr ""
+"Estimar (A, t0, w) para pulso cuadrado suave: amplitud, tiempo central, "
+"anchura. A de pico a pico, t0 del centro de masas de ``y`` (valor absoluto), "
+"w del soporte de la región elevada."
+
+#: 08268c8eb1d644f08a9a76fc702ae314
+#: fitting.estimators.estimate_square_pulse_parameters:4 of
+msgid "Independent variable array (e.g. time)"
+msgstr "Array de variable independiente (p. ej. tiempo)"
+
+#: 73f82ee55f0a4865ac5d0fc61c743b63
+#: fitting.estimators.estimate_square_pulse_parameters:7 of
+msgid "Tuple (A, t0, w)."
+msgstr "Tupla (A, t0, w)."
+
+#: a4704f103cbe454ea74f166ad58afe2a
+#: fitting.estimators.estimate_hyperbolic_parameters:1 of
+msgid "Estimate initial parameters for hyperbolic functions (sinh/cosh)."
+msgstr "Estimar parámetros iniciales para funciones hiperbólicas (sinh/cosh)."
+
+#: dfa65df7e00f49df87208f62fe7f8164
+#: fitting.estimators.estimate_hyperbolic_parameters:3 of
+msgid ""
+"For y = a * sinh(b*x) or y = a * cosh(b*x): amplitude (a) from half the y"
+" range, frequency (b) from inverse of x range."
+msgstr ""
+"Para y = a*sinh(b*x) o y = a*cosh(b*x): amplitud (a) de la mitad del rango "
+"de y, frecuencia (b) del inverso del rango de x."
+
+#: a7844cfa475e489eae7a3218bb7b62d2
+#: fitting.estimators.estimate_hyperbolic_bounds:1 of
+msgid "Return parameter bounds for hyperbolic fits (sinh/cosh) to avoid overflow."
+msgstr "Devolver cotas de parámetros para ajustes hiperbólicos (sinh/cosh) y evitar desbordamiento."
+
+#: 3177691210504ccbad6d7f8a95d7e40d
+#: fitting.estimators.estimate_hyperbolic_bounds:3 of
+msgid ""
+"For y = a * sinh(b*x) or y = a * cosh(b*x): a can be any real, b must be "
+"bounded so that b*max(abs(x)) does not cause overflow in exp."
+msgstr ""
+"Para y = a*sinh(b*x) o y = a*cosh(b*x): a puede ser cualquier real; b debe "
+"estar acotado para que b*max(abs(x)) no cause desbordamiento en exp."
+
+#: c1acaf56df9549648f73824608999dc0
+#: fitting.estimators.estimate_hyperbolic_bounds:8 of
+msgid "Pair (lower_bounds, upper_bounds), each of length 2 for (a, b)."
+msgstr "Par (lower_bounds, upper_bounds), cada uno de longitud 2 para (a, b)."
+
