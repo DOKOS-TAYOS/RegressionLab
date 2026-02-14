@@ -13,29 +13,12 @@ from utils import get_logger
 
 logger = get_logger(__name__)
 
-# Help content keys for View Data (matches Tkinter help dialog)
-_VIEW_DATA_TRANSFORM_HELP_KEYS: List[str] = [
-    'view_data_transform_fft',
-    'view_data_transform_fft_magnitude',
-    'view_data_transform_ifft',
-    'view_data_transform_dct',
-    'view_data_transform_idct',
-    'view_data_transform_log',
-    'view_data_transform_log10',
-    'view_data_transform_exp',
-    'view_data_transform_sqrt',
-    'view_data_transform_square',
-    'view_data_transform_standardize',
-    'view_data_transform_normalize',
-    'view_data_transform_hilbert',
-    'view_data_transform_ihilbert',
-    'view_data_transform_envelope',
-    'view_data_transform_laplace',
-    'view_data_transform_ilaplace',
-    'view_data_transform_cepstrum',
-    'view_data_transform_hadamard',
-    'view_data_transform_ihadamard',
-]
+def _get_view_data_transform_help_keys() -> List[str]:
+    """Help keys for transforms, derived from TRANSFORM_OPTIONS to stay in sync."""
+    from data_analysis import TRANSFORM_OPTIONS
+    return [f'view_data_transform_{tid}' for tid in TRANSFORM_OPTIONS]
+
+
 _VIEW_DATA_CLEAN_HELP_KEYS: List[str] = [
     'view_data_clean_drop_na',
     'view_data_clean_drop_duplicates',
@@ -54,7 +37,7 @@ def _render_view_data_help() -> None:
         st.markdown(t('help.view_data_pair_plots_body'))
         st.markdown("---")
         st.markdown(f"**{t('help.view_data_transform_header')}**")
-        for key in _VIEW_DATA_TRANSFORM_HELP_KEYS:
+        for key in _get_view_data_transform_help_keys():
             st.markdown(t(f'help.{key}'))
         st.markdown("---")
         st.markdown(f"**{t('help.view_data_clean_header')}**")
@@ -266,12 +249,25 @@ def show_data_with_pair_plots(
             if len(variables) < 1:
                 st.caption(t('error.no_valid_data'))
             else:
-                from plotting import create_pair_plots
-                fig = create_pair_plots(display_data, variables, output_path=None)
-                st.subheader(t('dialog.pair_plots_title'))
-                st.pyplot(fig, width="stretch")
-                if hasattr(fig, 'close'):
-                    fig.close()
+                _MAX_PAIR_PLOT_VARS = 10
+                if len(variables) > _MAX_PAIR_PLOT_VARS:
+                    default_vars = variables[:_MAX_PAIR_PLOT_VARS]
+                    selected = st.multiselect(
+                        t('dialog.pair_plots_select_variables'),
+                        options=variables,
+                        default=default_vars,
+                        key=f'{key_prefix or "data"}_pair_vars',
+                    )
+                    plot_vars = selected[: _MAX_PAIR_PLOT_VARS] if selected else default_vars
+                else:
+                    plot_vars = variables
+                if plot_vars:
+                    from plotting import create_pair_plots
+                    fig = create_pair_plots(display_data, plot_vars, output_path=None)
+                    st.subheader(t('dialog.pair_plots_title'))
+                    st.pyplot(fig, width="stretch")
+                    if hasattr(fig, 'close'):
+                        fig.close()
 
         if key_prefix and isinstance(display_data, pd.DataFrame):
             _render_data_analysis_controls(display_data, key_prefix)

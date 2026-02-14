@@ -145,8 +145,8 @@ msgstr ""
 "cuadro de diálogo **Configurar**."
 
 #: ../../../docs/tkinter-guide.md:74 a67b0814372a49e19ef06fb9d208d382
-msgid "**Window size**: Adapts to content."
-msgstr "**Tamaño de ventana**: Se adapta al contenido."
+msgid "**Window size**: Adapts to content. All dialogs appear centered on screen."
+msgstr "**Tamaño de ventana**: Se adapta al contenido. Todos los diálogos aparecen centrados en pantalla."
 
 #: ../../../docs/tkinter-guide.md:75 e513067a34af4109bb42818930c7f6f6
 msgid ""
@@ -903,7 +903,15 @@ msgstr ""
 "**Ayuda** (abre un cuadro de diálogo con información detallada sobre cada "
 "opción y modo, en el idioma actual)."
 
-#: ../../../docs/tkinter-guide.md:383 0607668d28884f1f8a66e000ff0ea6dc
+#: ../../../docs/tkinter-guide.md:383
+msgid ""
+"If there are more than 10 variables, clicking the pair plots button opens a "
+"variable selection dialog first (max 10 for readability)."
+msgstr ""
+"Si hay más de 10 variables, al pulsar el botón de pares de variables se abre "
+"primero un diálogo de selección de variables (máx. 10 para mejor legibilidad)."
+
+#: ../../../docs/tkinter-guide.md:384 0607668d28884f1f8a66e000ff0ea6dc
 msgid ""
 "**Row 2**: Transform dropdown | Transform button (same accent color as "
 "equation buttons)."
@@ -1163,7 +1171,20 @@ msgstr ""
 msgid "Dialog Types"
 msgstr "Tipos de diálogo"
 
-#: ../../../docs/tkinter-guide.md:448 bfe408aa64e74afb96f0cf6234677a11
+#: ../../../docs/tkinter-guide.md:449
+msgid ""
+"All dialogs and secondary windows open centered on screen. Small dialogs "
+"(file type, variable selection, etc.) keep their natural size. The help and "
+"configuration dialogs use fixed dimensions (900×650 and 760×800 pixels) for "
+"consistent layout with collapsible sections."
+msgstr ""
+"Todos los diálogos y ventanas secundarias se abren centrados en pantalla. "
+"Los diálogos pequeños (tipo de archivo, selección de variables, etc.) "
+"mantienen su tamaño natural. Los diálogos de ayuda y configuración usan "
+"dimensiones fijas (900×650 y 760×800 píxeles) para un diseño consistente "
+"con secciones desplegables."
+
+#: ../../../docs/tkinter-guide.md:451 bfe408aa64e74afb96f0cf6234677a11
 msgid "Selection Dialogs"
 msgstr "Diálogos de selección"
 

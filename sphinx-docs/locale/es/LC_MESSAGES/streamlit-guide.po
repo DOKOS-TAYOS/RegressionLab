@@ -881,6 +881,14 @@ msgstr ""
 "Haga clic en **Mostrar pares de variables** (o equivalente en su idioma) "
 "para ver la matriz de dispersión (gráficos de pares)."
 
+#: ../../../docs/streamlit-guide.md:303
+msgid ""
+"If there are more than 10 variables, a multiselect appears to choose which "
+"variables to display (max 10 for readability)."
+msgstr ""
+"Si hay más de 10 variables, aparece un selector múltiple para elegir cuáles "
+"mostrar (máx. 10 para mejor legibilidad)."
+
 #: ../../../docs/streamlit-guide.md:304 50c64099587e4831950d505dfaaec402
 msgid "**Transform Data** (optional):"
 msgstr "**Transformar datos** (opcional):"

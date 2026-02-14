@@ -36,6 +36,7 @@ RegressionLab/
 │   │   ├── ui_main_menu.py
 │   │   ├── image_utils.py
 │   │   ├── keyboard_nav.py    # Keyboard navigation
+│   │   ├── window_utils.py    # Window positioning (centering)
 │   │   └── ui_dialogs/        # Dialog package
 │   │       ├── data_selection.py
 │   │       ├── equation.py
@@ -111,6 +112,7 @@ RegressionLab/
 - **[frontend.ui_dialogs](ui_dialogs.md)** - Dialog windows and user input (Tkinter)
 - **[frontend.image_utils](image_utils.md)** - Image loading and scaling utilities
 - **[frontend.keyboard_nav](keyboard_nav.md)** - Keyboard navigation utilities
+- **[frontend.window_utils](window_utils.md)** - Window positioning and centering
 - **[streamlit_app.app](streamlit_app.md)** - Web interface (Streamlit)
 
 ### Utilities
@@ -218,6 +220,7 @@ Quick summary:
 - Main menu: Edit `frontend/ui_main_menu.py`
 - Keyboard navigation: Edit `frontend/keyboard_nav.py` (see [keyboard_nav](keyboard_nav.md))
 - Image utilities: Edit `frontend/image_utils.py` (see [image_utils](image_utils.md))
+- Window positioning: Edit `frontend/window_utils.py` (see [window_utils](window_utils.md))
 - Dialogs: Edit modules in `frontend/ui_dialogs/` (e.g. `data_selection.py`, `equation.py`)
 - Styling: Configure in `.env` file
 
@@ -516,7 +519,7 @@ For detailed documentation of each module, see the individual module pages:
 - **Loaders**: [data_loader](data_loader.md), [loading_utils](loading_utils.md), [saving_utils](saving_utils.md)
 - **Data Analysis**: [data_analysis](data_analysis.md)
 - **Plotting**: [plot_utils](plot_utils.md)
-- **Frontend**: [ui_main_menu](ui_main_menu.md), [ui_dialogs](ui_dialogs.md), [image_utils](image_utils.md), [keyboard_nav](keyboard_nav.md), [streamlit_app](streamlit_app.md)
+- **Frontend**: [ui_main_menu](ui_main_menu.md), [ui_dialogs](ui_dialogs.md), [image_utils](image_utils.md), [keyboard_nav](keyboard_nav.md), [window_utils](window_utils.md), [streamlit_app](streamlit_app.md)
 - **Utils**: [exceptions](exceptions.md), [logger](logger.md), [validators](validators.md)
 
 ## Contributing

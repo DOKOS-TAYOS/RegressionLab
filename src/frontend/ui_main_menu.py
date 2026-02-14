@@ -22,6 +22,7 @@ from config import (
 )
 from frontend.keyboard_nav import setup_arrow_enter_navigation
 from frontend.ui_dialogs.tooltip import bind_tooltip
+from frontend.window_utils import place_window_centered
 from i18n import t
 
 
@@ -246,6 +247,7 @@ def show_exit_confirmation(parent_menu: Tk) -> None:
     close_button.focus_set()
     # Closing with X = cancel exit (same as "No")
     exit_level.protocol("WM_DELETE_WINDOW", exit_level.destroy)
+    place_window_centered(exit_level, preserve_size=True)
     parent_menu.wait_window(exit_level)
 
 

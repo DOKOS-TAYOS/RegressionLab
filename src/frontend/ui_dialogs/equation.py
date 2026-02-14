@@ -17,6 +17,7 @@ from utils import parse_optional_float
 
 from frontend.keyboard_nav import bind_enter_to_accept, setup_arrow_enter_navigation
 from frontend.ui_dialogs.tooltip import bind_tooltip
+from frontend.window_utils import place_window_centered
 
 
 UNICODE_PARAM_MAP: Dict[str, str] = {
@@ -210,6 +211,7 @@ def ask_equation_type(
         btn_accept.grid(row=len(param_names) + 2, column=1, columnspan=2, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'])
         apply_hover_to_children(frm)
         param_dlg.resizable(False, False)
+        place_window_centered(param_dlg, preserve_size=True)
         equation_level.wait_window(param_dlg)
 
     def handle_equation_click(eq_type: str) -> None:
@@ -288,6 +290,7 @@ def ask_equation_type(
 
     apply_hover_to_children(equation_level.frame_custom)
     equation_level.linear_function_with_n.focus_set()
+    place_window_centered(equation_level, preserve_size=True)
     parent_window.wait_window(equation_level)
 
     return (
@@ -375,6 +378,7 @@ def ask_num_parameters(parent_window: Any) -> Optional[Tuple[int, int]]:
     bind_enter_to_accept([num_parameter_level.num, num_parameter_level.num_indep], num_parameter_level.destroy)
     num_parameter_level.num.focus_set()
     num_parameter_level.resizable(False, False)
+    place_window_centered(num_parameter_level, preserve_size=True)
     parent_window.wait_window(num_parameter_level)
 
     if getattr(num_parameter_level, 'cancelled', False):
@@ -462,6 +466,7 @@ def ask_parameter_names(parent_window: Any, num_params: int) -> List[str]:
         bind_enter_to_accept([parameter_asker_leve.name_entry], parameter_asker_leve.destroy)
         apply_hover_to_children(parameter_asker_leve.frame_custom)
         parameter_asker_leve.name_entry.focus_set()
+        place_window_centered(parameter_asker_leve, preserve_size=True)
         parent_window.wait_window(parameter_asker_leve)
 
         if getattr(parameter_asker_leve, 'cancelled', False):
@@ -592,6 +597,7 @@ def ask_custom_formula(parent_window: Any, parameter_names: List[str], num_indep
     apply_hover_to_children(formulator_level.frame_custom)
     formulator_level.name_entry.focus_set()
     formulator_level.resizable(False, False)
+    place_window_centered(formulator_level, preserve_size=True)
     parent_window.wait_window(formulator_level)
 
     if getattr(formulator_level, 'cancelled', False):
@@ -661,6 +667,7 @@ def ask_num_fits(parent_window: Any, min_val: int = 2, max_val: int = 10) -> Opt
     bind_enter_to_accept([number_fits_level.num_x], number_fits_level.destroy)
     number_fits_level.num_x.focus_set()
     number_fits_level.resizable(False, False)
+    place_window_centered(number_fits_level, preserve_size=True)
     parent_window.wait_window(number_fits_level)
 
     if getattr(number_fits_level, 'cancelled', False):

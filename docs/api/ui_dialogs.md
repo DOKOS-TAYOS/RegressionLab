@@ -6,6 +6,8 @@ UI Dialogs package containing all Tkinter dialog windows for user interaction.
 
 The `frontend.ui_dialogs` package provides all dialog windows used in the Tkinter interface. It is split into submodules; the package re-exports public functions so that `from frontend.ui_dialogs import open_load_dialog, show_help_dialog`, etc. continue to work.
 
+All dialogs use `frontend.window_utils.place_window_centered` to appear centered on screen. Small dialogs keep their natural size; help and config dialogs use fixed dimensions (900×650 and 760×800 respectively).
+
 **Package structure:**
 - **`ui_dialogs/data_selection.py`** – `ask_variables`, `ask_multiple_x_variables`, `show_data_dialog`
 - **`ui_dialogs/load_data_dialog.py`** – `open_load_dialog` (native file picker for loading CSV, TXT, XLSX)
@@ -119,7 +121,7 @@ show_data_dialog(root, data)
 - Scrollable text widget with table display.
 - Monospaced font for alignment.
 - Read-only display.
-- **Pair plots**: Button to open scatter matrix of variable pairs; auto-updates when data is transformed or cleaned (if already open).
+- **Pair plots**: Button to open scatter matrix of variable pairs. When there are more than 8 variables, a selection dialog appears first (max 10 for readability). Auto-updates when data is transformed or cleaned (if already open).
 - **Save updated data**: Button opens file save dialog (CSV, TXT, XLSX).
 - **Help**: Button opens `show_data_view_help_dialog` with detailed info about every option and mode (pair plots, transforms, cleaning, save). Content available in Spanish, English, and German.
 - **Transform**: Dropdown (FFT, DCT, Hilbert, Laplace, cepstrum, Hadamard, envelope, log, exp, sqrt, standardize, normalize, etc., plus inverses) and Transform button (same style as equation buttons). Applies to all numeric columns.

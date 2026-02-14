@@ -70,6 +70,7 @@
     "show_data_title": "Visualización de datos",
     "show_pair_plots": "Visualizar pares de variables (nubes de puntos)",
     "pair_plots_title": "Gráficas de pares de variables",
+    "pair_plots_select_variables": "Variables a mostrar (máx. 10 para mejor legibilidad):",
     "exit_option": "Salir",
     "exit_instruction": "para salir",
     "download": "Descargar",

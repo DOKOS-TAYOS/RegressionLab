@@ -70,6 +70,7 @@
     "show_data_title": "Datenvisualisierung",
     "show_pair_plots": "Variablenpaare anzeigen (Streudiagramme)",
     "pair_plots_title": "Variablenpaar-Diagramme",
+    "pair_plots_select_variables": "Variablen anzeigen (max. 10 für Lesbarkeit):",
     "exit_option": "Beenden",
     "exit_instruction": "zum Beenden",
     "download": "Herunterladen",

@@ -40,6 +40,7 @@ _PAIR_PLOT_SCATTER_COLOR = '#1f77b4'
 _PAIR_PLOT_SCATTER_EDGE = 'white'
 _PAIR_PLOT_MAX_SIDE_INCHES = 12.0
 _PAIR_PLOT_CELL_INCHES_MAX = 2.8
+_PAIR_PLOT_CELL_INCHES_MIN = 1.4  # Minimum per cell so many variables stay readable
 
 
 def _save_figure(
@@ -119,8 +120,11 @@ def create_pair_plots(
     if font_config is None:
         font_config = FONT_CONFIG
 
-    # Cap figure size so windows/layouts do not grow too large
-    cell_inches = min(_PAIR_PLOT_CELL_INCHES_MAX, _PAIR_PLOT_MAX_SIDE_INCHES / n)
+    # Ensure readable cell size: min so figure stays compact, max so many vars stay visible
+    cell_inches = max(
+        _PAIR_PLOT_CELL_INCHES_MIN,
+        min(_PAIR_PLOT_CELL_INCHES_MAX, _PAIR_PLOT_MAX_SIDE_INCHES / n),
+    )
     figsize = (cell_inches * n, cell_inches * n)
 
     if n == 1:

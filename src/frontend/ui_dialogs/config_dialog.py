@@ -20,6 +20,7 @@ from config import (
     get_project_root,
     write_env_file,
 )
+from frontend.window_utils import place_window_centered
 from i18n import t
 
 _CONFIG_COLLAPSED = '\u25b6'
@@ -373,11 +374,13 @@ def show_config_dialog(parent_window: Any) -> bool:
         width=UI_STYLE['button_width'],
     ).pack(side='left')
 
-    screen_width = config_level.winfo_screenwidth()
-    screen_height = config_level.winfo_screenheight()
-    dialog_width = min(760, int(screen_width * 0.58))
-    dialog_height = min(800, int(screen_height * 0.85))
-    config_level.geometry(f'{dialog_width}x{dialog_height}+{max(0, (screen_width - dialog_width) // 2)}+{max(0, (screen_height - dialog_height) // 2)}')
+    place_window_centered(
+        config_level,
+        760,
+        800,
+        max_width_ratio=0.58,
+        max_height_ratio=0.85,
+    )
     config_level.resizable(False, False)
     config_level.update_idletasks()
     _update_config_wraplength()

@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Tkinter window positioning**: All dialogs and secondary windows now open centered on screen. New `frontend.window_utils` module with `place_window_centered()`. Small dialogs keep their natural size; help and config dialogs use fixed dimensions (900×650 and 760×800 px).
+- **Pair plots (View Data / Watch Data)**: Improved readability when there are many variables. Each cell now has a minimum size (1.4 in) so scatter plots stay legible. When there are more than 8 variables, Streamlit shows a multiselect to choose which variables to display (max 8); Tkinter opens a selection dialog. The selection is preserved when refreshing after transform/clean.
 - **Imports and package structure**: Centralized imports in all `__init__.py` files; `__all__` now follows import order. Cross-package imports use the package root (e.g. `from config import ...`, `from loaders import ...`). Imports within the same package use full module paths (e.g. `config.constants`, `loaders.loading_utils`) to avoid circular references.
 - **config**: Added `config.color_utils` with `lighten_hex`, `muted_from_hex`, `parse_hex_to_rgb`; re-exported from `config`. Added `get_env_from_schema` to config exports. Streamlit theme now uses `config.color_utils` instead of duplicate implementations.
 - **data_analysis**: `transforms` and `cleaning` now use shared `get_numeric_columns` from `data_analysis._utils` (removed duplicate implementations).

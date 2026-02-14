@@ -8,6 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from config import PLOT_CONFIG, UI_STYLE
+from frontend.window_utils import place_window_centered
 from fitting.fitting_utils import format_scientific
 from frontend.image_utils import (
     load_image_scaled,
@@ -148,6 +149,7 @@ def _show_prediction_dialog(parent: Toplevel, fit_info: Dict[str, Any]) -> None:
     if entries:
         entries[0].focus_set()
     _update_result()
+    place_window_centered(pred_win, preserve_size=True)
 
 
 def create_result_window(
@@ -325,4 +327,5 @@ def create_result_window(
     if plot_level.matplotlib_canvas is not None:
         plot_level._figure_3d = figure_3d  # keep reference to avoid garbage collection
 
+    place_window_centered(plot_level, preserve_size=True)
     return plot_level

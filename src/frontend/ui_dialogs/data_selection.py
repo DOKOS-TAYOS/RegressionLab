@@ -1,15 +1,17 @@
 """Data selection dialogs: file type, file name, variables, and data preview."""
 
-from typing import Any, List, Tuple
-from tkinter import Tk, Toplevel, StringVar, Text, ttk
+from typing import Any, List, Optional, Tuple
+from tkinter import Listbox, Tk, Toplevel, StringVar, Text, ttk
 
 from config import DATA_FILE_TYPES, EXIT_SIGNAL, UI_STYLE, apply_hover_to_children, get_entry_font
+from frontend.window_utils import place_window_centered
 from frontend.keyboard_nav import bind_enter_to_accept, setup_arrow_enter_navigation
 from i18n import t
 
 # Max size for pair-plot image window so it does not resize the desktop
 _PAIR_PLOT_MAX_WIDTH = 920
 _PAIR_PLOT_MAX_HEIGHT = 720
+_PAIR_PLOT_MAX_VARS = 10
 
 
 def _filter_uncertainty_variables(variable_names: List[str]) -> List[str]:
@@ -114,6 +116,7 @@ def ask_file_type(parent_window: Any) -> str:
     apply_hover_to_children(call_file_level.frame)
     call_file_level.radiobuttons[0].focus_set()
     call_file_level.resizable(False, False)
+    place_window_centered(call_file_level, preserve_size=True)
     parent_window.wait_window(call_file_level)
 
     if getattr(call_file_level, 'cancelled', False):
@@ -186,6 +189,7 @@ def ask_file_name(parent_window: Any, file_list: List[str]) -> str:
     apply_hover_to_children(call_data_level.frame_custom)
     call_data_level.name_entry.focus_set()
     call_data_level.resizable(False, False)
+    place_window_centered(call_data_level, preserve_size=True)
     parent_window.wait_window(call_data_level)
 
     if getattr(call_data_level, 'cancelled', False):
@@ -311,6 +315,7 @@ def ask_variables(parent_window: Any, variable_names: List[str]) -> Tuple[str, s
     apply_hover_to_children(call_var_level.frame_custom)
     call_var_level.graf_nom.focus_set()
     call_var_level.resizable(False, False)
+    place_window_centered(call_var_level, preserve_size=True)
     parent_window.wait_window(call_var_level)
 
     if getattr(call_var_level, 'cancelled', False):
@@ -414,6 +419,7 @@ def ask_multiple_x_variables(
     if x_combos:
         x_combos[0][1].focus_set()
     call_var_level.resizable(False, False)
+    place_window_centered(call_var_level, preserve_size=True)
     parent_window.wait_window(call_var_level)
 
     if getattr(call_var_level, 'cancelled', False):
@@ -421,6 +427,85 @@ def ask_multiple_x_variables(
     
     result = [x_var.get() for x_var in x_vars]
     return result if all(result) else []
+
+
+def _ask_pair_plot_variables(
+    parent: Tk | Toplevel,
+    variables: List[str],
+    max_select: int = _PAIR_PLOT_MAX_VARS,
+) -> Optional[List[str]]:
+    """
+    Ask user to select variables for pair plot when there are many.
+
+    Returns selected variable names (up to max_select), or None if cancelled.
+    """
+    if len(variables) <= max_select:
+        return variables
+
+    dlg = Toplevel(parent)
+    dlg.title(t('dialog.pair_plots_select_variables'))
+    dlg.configure(background=UI_STYLE['bg'])
+    dlg.transient(parent)
+    dlg.grab_set()
+
+    frame = ttk.Frame(dlg, padding=UI_STYLE['padding'])
+    frame.pack(fill='both', expand=True)
+
+    ttk.Label(
+        frame,
+        text=t('dialog.pair_plots_select_variables'),
+        wraplength=400,
+    ).pack(anchor='w', pady=(0, 4))
+
+    listbox = Listbox(
+        frame,
+        selectmode='extended',
+        height=min(12, len(variables)),
+        font=get_entry_font(),
+        exportselection=False,
+    )
+    scrollbar = ttk.Scrollbar(frame, orient='vertical', command=listbox.yview)
+    for v in variables:
+        listbox.insert('end', v)
+    listbox.config(yscrollcommand=scrollbar.set)
+
+    # Default select first max_select
+    for i in range(min(max_select, len(variables))):
+        listbox.selection_set(i)
+
+    listbox.pack(side='left', fill='both', expand=True, pady=4)
+    scrollbar.pack(side='right', fill='y', pady=4)
+
+    result: List[str] = []
+
+    def _on_accept() -> None:
+        nonlocal result
+        sel = listbox.curselection()
+        result = [variables[i] for i in sel][:max_select]
+        dlg.destroy()
+
+    def _on_cancel() -> None:
+        dlg.destroy()
+
+    btn_frame = ttk.Frame(frame)
+    btn_frame.pack(fill='x', pady=8)
+    ttk.Button(
+        btn_frame,
+        text=t('dialog.accept'),
+        command=_on_accept,
+        style='Primary.TButton',
+        width=UI_STYLE['button_width'],
+    ).pack(side='left', padx=2)
+    ttk.Button(
+        btn_frame,
+        text=t('dialog.cancel'),
+        command=_on_cancel,
+        width=UI_STYLE['button_width'],
+    ).pack(side='left', padx=2)
+
+    place_window_centered(dlg, preserve_size=True)
+    dlg.wait_window()
+    return result if result else None
 
 
 def _show_image_toplevel(
@@ -494,6 +579,7 @@ def _show_image_toplevel(
     close_btn.focus_set()
     bind_enter_to_accept([close_btn, win], _on_close)
     win.protocol("WM_DELETE_WINDOW", _on_close)
+    place_window_centered(win, preserve_size=True)
     return (win, label)
 
 
@@ -541,6 +627,7 @@ def show_data_dialog(parent_window: Tk | Toplevel, data: Any) -> None:
     # Pair plot window reference for auto-refresh when data changes
     watch_data_level._pair_plot_win: Toplevel | None = None
     watch_data_level._pair_plot_label: ttk.Label | None = None
+    watch_data_level._pair_plot_vars: Optional[List[str]] = None  # Selected vars when many
 
     # Data display area: reduced height for compact window
     _data_display_lines = 12
@@ -592,8 +679,20 @@ def show_data_dialog(parent_window: Tk | Toplevel, data: Any) -> None:
             variables = get_variable_names(current_data[0], filter_uncertainty=True)
             if not variables:
                 return
+            # Use stored selection if still valid; otherwise use all (or first N)
+            stored = getattr(watch_data_level, '_pair_plot_vars', None)
+            if stored:
+                plot_vars = [v for v in stored if v in variables][:_PAIR_PLOT_MAX_VARS]
+                if not plot_vars:
+                    plot_vars = variables[:_PAIR_PLOT_MAX_VARS]
+            else:
+                plot_vars = (
+                    variables[:_PAIR_PLOT_MAX_VARS]
+                    if len(variables) > _PAIR_PLOT_MAX_VARS
+                    else variables
+                )
             output_path = get_output_path('pair_plot')
-            create_pair_plots(current_data[0], variables, output_path=output_path)
+            create_pair_plots(current_data[0], plot_vars, output_path=output_path)
             _show_image_toplevel(
                 watch_data_level,
                 output_path,
@@ -615,8 +714,14 @@ def show_data_dialog(parent_window: Tk | Toplevel, data: Any) -> None:
             variables = get_variable_names(current_data[0], filter_uncertainty=True)
             if not variables:
                 return
+            plot_vars = _ask_pair_plot_variables(watch_data_level, variables)
+            if not plot_vars:
+                return
+            watch_data_level._pair_plot_vars = (
+                plot_vars if len(variables) > _PAIR_PLOT_MAX_VARS else None
+            )
             output_path = get_output_path('pair_plot')
-            create_pair_plots(current_data[0], variables, output_path=output_path)
+            create_pair_plots(current_data[0], plot_vars, output_path=output_path)
             win, label = _show_image_toplevel(
                 watch_data_level, output_path, t('dialog.pair_plots_title')
             )
@@ -758,4 +863,5 @@ def show_data_dialog(parent_window: Tk | Toplevel, data: Any) -> None:
         watch_data_level.destroy,
     )
     watch_data_level.accept_button.focus_set()
+    place_window_centered(watch_data_level, preserve_size=True)
     parent_window.wait_window(watch_data_level)

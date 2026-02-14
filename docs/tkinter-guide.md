@@ -71,7 +71,7 @@ When you launch the application, you see the main menu with buttons for each ope
 ```
 
 - **Button colors and layout**: Configurable via `.env` or the **Configure** dialog.
-- **Window size**: Adapts to content.
+- **Window size**: Adapts to content. All dialogs appear centered on screen.
 - **Information**: Opens the help dialog (objective, advantages, modes, data format, locations, statistics; optional Donations button).
 - **Configure**: Opens the configuration dialog; saving writes `.env` and restarts the application.
 
@@ -380,6 +380,7 @@ If you select "Custom Formula":
    - Dialog shows:
      - All columns and rows in table format.
      - **Row 1**: Pair plots button | Save updated data | **Help** (opens a dialog with detailed info about every option and mode, in the current language).
+   - If there are more than 10 variables, clicking the pair plots button opens a variable selection dialog first (max 10 for readability).
      - **Row 2**: Transform dropdown | Transform button (same accent color as equation buttons).
      - **Row 3**: Clean dropdown | Clean button (same accent color as equation buttons).
    - Use scrollbar to navigate the table.
@@ -444,6 +445,8 @@ If you select "Custom Formula":
 **Note**: A message at the bottom reminds you that the app will restart after saving. See the [Configuration Guide](configuration.md) for the full list of options and their meanings.
 
 ## Dialog Types
+
+All dialogs and secondary windows open centered on screen. Small dialogs (file type, variable selection, etc.) keep their natural size. The help and configuration dialogs use fixed dimensions (900×650 and 760×800 pixels) for consistent layout with collapsible sections.
 
 ### Selection Dialogs
 

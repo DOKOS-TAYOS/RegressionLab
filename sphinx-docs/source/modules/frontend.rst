@@ -19,6 +19,11 @@ Keyboard Navigation
 
 .. automodule:: frontend.keyboard_nav
 
+Window Positioning
+==================
+
+.. automodule:: frontend.window_utils
+
 Dialogs
 =========
 

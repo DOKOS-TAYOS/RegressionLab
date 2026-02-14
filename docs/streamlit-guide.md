@@ -300,6 +300,7 @@ If "Custom Formula" is selected:
 3. **View Data**:
    - Expand the data section to see the table.
    - Click **Show variable pairs** (or equivalent in your language) for scatter matrix (pair plots).
+   - If there are more than 10 variables, a multiselect appears to choose which variables to display (max 10 for readability).
 
 4. **Transform Data** (optional):
    - Select a transform from the dropdown: FFT, FFT magnitude, inverse FFT, DCT, inverse DCT, log, log10, exp, sqrt, square, standardize (z-score), normalize [0,1], Hilbert, inverse Hilbert, envelope (Hilbert), Laplace (discrete), inverse Laplace, cepstrum (real), Hadamard (Walsh), inverse Hadamard.

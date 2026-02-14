@@ -7,6 +7,7 @@ from tkinter import Tk, Toplevel, Frame, Canvas, StringVar, ttk
 
 from config import DONATIONS_URL, UI_STYLE, apply_hover_to_children
 from frontend.keyboard_nav import bind_enter_to_accept
+from frontend.window_utils import place_window_centered
 from i18n import t
 
 
@@ -161,13 +162,7 @@ def show_data_view_help_dialog(parent_window: Tk | Toplevel) -> None:
     win.transient(parent_window)
     win.protocol("WM_DELETE_WINDOW", win.destroy)
 
-    screen_width = win.winfo_screenwidth()
-    screen_height = win.winfo_screenheight()
-    dialog_width = min(900, int(screen_width * 0.7))
-    dialog_height = min(650, int(screen_height * 0.7))
-    offset_x = max(0, (screen_width - dialog_width) // 2)
-    offset_y = max(0, (screen_height - dialog_height) // 2)
-    win.geometry(f"{dialog_width}x{dialog_height}+{offset_x}+{offset_y}")
+    place_window_centered(win, 900, 650, max_width_ratio=0.7, max_height_ratio=0.7)
     win.resizable(True, True)
 
     main_frame = ttk.Frame(win, padding=UI_STYLE['border_width'])
@@ -387,15 +382,8 @@ def show_help_dialog(parent_window: Tk | Toplevel) -> None:
     help_level.configure(background=UI_STYLE['bg'])
     help_level.grab_set()
     help_level.protocol("WM_DELETE_WINDOW", help_level.destroy)
-
-    screen_width = help_level.winfo_screenwidth()
-    screen_height = help_level.winfo_screenheight()
-    dialog_width = min(900, int(screen_width * 0.7))
-    dialog_height = min(650, int(screen_height * 0.7))
-    offset_x = max(0, (screen_width - dialog_width) // 2)
-    offset_y = max(0, (screen_height - dialog_height) // 2)
-    help_level.geometry(f"{dialog_width}x{dialog_height}+{offset_x}+{offset_y}")
     help_level.resizable(width=False, height=False)
+    place_window_centered(help_level, 900, 650, max_width_ratio=0.7, max_height_ratio=0.7)
 
     main_frame = ttk.Frame(help_level, padding=UI_STYLE['border_width'])
     main_frame.pack(padx=UI_STYLE['padding'], pady=6, fill='both', expand=True)

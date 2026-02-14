@@ -181,7 +181,7 @@ Show data in an expander with optional pair plots and data analysis (transform, 
 - Renders transform dropdown and Apply button (FFT, DCT, Hilbert, Laplace, log, etc.).
 - Renders clean dropdown and Apply button (drop NaN, outliers, etc.).
 - Renders format selector and download button for the current data.
-- Pair plots use the current (possibly transformed) data.
+- Pair plots use the current (possibly transformed) data. When there are more than 10 variables, a multiselect lets the user choose which to display (max 10 for readability).
 - Renders Help expander with pair plots, transform options (each detailed), clean options (each detailed), and save. Same content as Tkinter help dialog; localized (Spanish, English, German).
 
 ### Fitting

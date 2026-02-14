@@ -75,7 +75,7 @@ print(f"Plot saved to: {plot_path}")
 
 #### `create_pair_plots(data, variable_names, plot_config=None, font_config=None, output_path=None) -> str | Figure`
 
-Create a grid of scatter plots for all pairs of variables (pair plot / scatter matrix).
+Create a grid of scatter plots for all pairs of variables (pair plot / scatter matrix). Each cell has a minimum size (1.4 in) so many variables remain readable. The Streamlit and Tkinter UIs limit to 10 variables when there are more, via a multiselect or selection dialog.
 
 **Parameters:**
 - `data`: DataFrame or dict-like with numeric columns

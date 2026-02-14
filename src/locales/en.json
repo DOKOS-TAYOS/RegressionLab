@@ -70,6 +70,7 @@
     "show_data_title": "Data visualization",
     "show_pair_plots": "Show variable pairs (scatter plots)",
     "pair_plots_title": "Variable pair plots",
+    "pair_plots_select_variables": "Variables to show (max 10 for readability):",
     "exit_option": "Exit",
     "exit_instruction": "to exit",
     "download": "Download",
