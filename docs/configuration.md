@@ -17,7 +17,7 @@ If you use the **Tkinter desktop application**, you can change settings without 
 - **Updates**: Weekly update check (enable/disable), force check for testing, and URL to fetch the latest version.
 - **Logging**: Log level (e.g. DEBUG, INFO), log file path, and whether messages are also printed to the console.
 
-![Configuration Dialog](../images/en_documentation/tkinter_docs/configuration.png)
+![Configuration Dialog](../images/en_documentation/tkinter_docs/config.png)
 
 Each option shows a short description. When you click **Accept**, the values are written to `.env` and the application restarts so the new settings take effect. **Cancel** discards changes. This is the easiest way to customize RegressionLab when using the desktop version.
 
@@ -600,7 +600,7 @@ LOG_CONSOLE=false
 You can change settings in two ways:
 
 - **From the app**: Main menu → **Configure** (or **Configurar**). Adjust values in the dialog and click **Accept**; the app restarts so the new settings take effect.
-![Configuration Dialog](../images/en_documentation/tkinter_docs/configuration.png)
+![Configuration Dialog](../images/en_documentation/tkinter_docs/config.png)
 - **By editing `.env`**: Edit `.env` with a text editor, save, then restart the application:
 
 ```bash

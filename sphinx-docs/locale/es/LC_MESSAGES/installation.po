@@ -191,7 +191,7 @@ msgid ""
 "Installer](../images/en_documentation/tkinter_docs/installer.png)"
 msgstr ""
 "Haz doble clic en `install.bat` ![Instalador de "
-"Windows](../images/en_documentation/tkinter_docs/installer.png)"
+"Windows](../images/es_documentation/tkinter_docs/installer.png)"
 
 #: ../../../docs/installation.md:47 7b3ea81ac8004010bcb7e81b35148434
 msgid "Windows Installer"
@@ -227,7 +227,7 @@ msgid ""
 "![Installation Process](../images/en_documentation/tkinter_docs/install.png)"
 msgstr ""
 "![Proceso de "
-"instalación](../images/en_documentation/tkinter_docs/install.png)"
+"instalación](../images/es_documentation/tkinter_docs/install.png)"
 
 #: ../../../docs/installation.md:61 82a648edf29d4f97b1bb0bacb656a463
 msgid "Installation Process"
@@ -244,7 +244,7 @@ msgid ""
 "Shortcut](../images/en_documentation/tkinter_docs/shortcut.png)"
 msgstr ""
 "¡Haga doble clic en el acceso directo del escritorio![Acceso directo al "
-"escritorio](../images/en_documentation/tkinter_docs/shortcut.png)"
+"escritorio](../images/es_documentation/tkinter_docs/shortcut.png)"
 
 #: ../../../docs/installation.md:64 ../../../docs/installation.md:272
 #: 5472eed9a33343a3906e63248744982c eacdcd0625d645ed897e9692428a6c58
@@ -518,7 +518,7 @@ msgid ""
 msgstr ""
 "¡Haga doble clic en el acceso directo \"RegressionLab\" en su "
 "escritorio![Acceso directo al "
-"escritorio](../images/en_documentation/tkinter_docs/shortcut.png)"
+"escritorio](../images/es_documentation/tkinter_docs/shortcut.png)"
 
 #: ../../../docs/installation.md:275 fca230f686a244e39ebb6940973683cb
 msgid "**Method 2: Shell Scripts**"

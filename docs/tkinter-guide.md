@@ -99,7 +99,7 @@ You can also use aliases (e.g. `spanish`, `english`, `deutsch`). Change requires
 
 2. **Select Equation Type**:
    - Dialog appears with dropdown menu.
-   ![Equation Selector](../images/en_documentation/tkinter_docs/equations.png)
+   ![Equation Selector](../images/en_documentation/tkinter_docs/equation.png)
    - Choose from predefined equations:
      - Linear (y=mx)
      - Linear with intercept (y=mx+n)
@@ -122,7 +122,6 @@ You can also use aliases (e.g. `spanish`, `english`, `deutsch`). Change requires
 
 4. **Select Data File**:
    - Native file picker opens.
-   ![File Selection](../images/en_documentation/tkinter_docs/files.png)
    - Default filter: all data files (CSV, TXT, XLSX). You can also filter by type.
    - Default location: `input/` directory.
    - Navigate to your data file and click "Open".
@@ -147,6 +146,8 @@ You can also use aliases (e.g. `spanish`, `english`, `deutsch`). Change requires
    - New window opens showing:
      ![Results Window](../images/en_documentation/tkinter_docs/result.png)
      - **Plot**: Your data with fitted curve. For 2 independent variables: interactive 3D plot (rotatable with mouse). For 3+ variables: residuals plot.
+         ![3D Fit Result](../images/en_documentation/tkinter_docs/3d_result.png)
+         ![Multiple Datasets Result](../images/en_documentation/tkinter_docs/multi_result.png)
      - **Equation**: Mathematical formula with parameters.
      - **Parameters**: Values with uncertainties.
      - **R² Value**: Goodness of fit.
@@ -172,7 +173,6 @@ If you select "Custom Formula":
 
 2. **Parameter Names**:
    - Dialog appears for each parameter.
-   ![Parameter Names](../images/en_documentation/tkinter_docs/custom_name.png)
    - Enter meaningful names (e.g., "amplitude", "frequency", "phase").
    - Or use defaults (p1, p2, etc.).
 
@@ -182,7 +182,7 @@ If you select "Custom Formula":
 
 4. **Enter Formula**:
    - Text entry dialog.
-   ![Custom Formula Entry](../images/en_documentation/tkinter_docs/custom_equation.png)
+   ![Custom Formula Entry](../images/en_documentation/tkinter_docs/custom_eq.png)
    - Enter formula using parameter names and `x` (or `x_0`, `x_1` for multidimensional).
    - Example: `amplitude * sin(frequency * x + phase)`.
    - Example (2 variables): `a*x_0 + b*x_1 + c`.
@@ -375,7 +375,7 @@ If you select "Custom Formula":
 
 3. **View Data**:
 
-   ![Data View](../images/en_documentation/tkinter_docs/variable_pair.png)
+   ![Data View](../images/en_documentation/tkinter_docs/data.png)
 
    - Dialog shows:
      - All columns and rows in table format.
@@ -416,7 +416,7 @@ If you select "Custom Formula":
 1. **Click "Information"** from the main menu.
 
 2. **View Help Dialog**:
-   ![Information Dialog](../images/en_documentation/tkinter_docs/information.png)
+   ![Information Dialog](../images/en_documentation/tkinter_docs/info.png)
 
    - Window with scrollable content and **collapsible sections** (click the section header to expand/collapse).
    - Sections: **Objective**, **Advantages**, **Fitting Modes** (including loop mode), **Custom Functions**, **Data Format** (columns, uncertainty prefix), **Data Location** (input dir, formats), **Output Location** (plots, logs), **Statistics** (R², RMSE, χ², reduced χ², DoF, 95% parameter intervals).
@@ -432,7 +432,7 @@ If you select "Custom Formula":
 1. **Click "Configure"** from the main menu.
 
 2. **Configuration dialog**:
-   ![Configuration Dialog](../images/en_documentation/tkinter_docs/configuration.png)
+   ![Configuration Dialog](../images/en_documentation/tkinter_docs/config.png)
 
    - **Collapsible sections** (click header to expand/collapse): Language, UI, Plot, Font, Paths, Links, Updates, Logging.
    - Each option has a label and a short description; values are shown in text fields, checkboxes (for booleans), or dropdowns (for fixed options).

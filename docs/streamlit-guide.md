@@ -10,6 +10,8 @@ The Streamlit interface offers:
 - **No installation**: Use the online version instantly.
 - **Visual feedback**: Real-time updates and progress indicators.
 - **Easy sharing**: Share results by downloading plots.
+![Main Menu](../images/en_documentation/streamlit_docs/main.png)
+
 
 Configuration (language, UI colors, fonts, plot style, paths, etc.) is the same as the Tkinter app: edit the `.env` file or use the Tkinter **Configure** menu. The Streamlit UI has no in-app configuration dialog; it reads `LANGUAGE`, `UI_BACKGROUND`, `UI_FOREGROUND`, `UI_BUTTON_*`, `UI_FONT_*`, and the rest of the env schema. The initial language and the entire look (background, sidebar, buttons, text) follow the same rules as the desktop version. The sidebar is rendered slightly lighter than the main area for visual separation.
 
@@ -63,10 +65,13 @@ The Streamlit interface consists of three main areas:
 ### 2. Main Area (Center)
 - **Logo and Title**: RegressionLab branding.
 - **Help Section**: Expandable information about the app.
+![Information](../images/en_documentation/streamlit_docs/info.png)
 - **Operation Controls**: File upload, variable selection, equation selection.
+![Names](../images/en_documentation/streamlit_docs/names.png)
 - **Results Display**: Plots and fitting results.
 
 ### 3. Results Section (Bottom)
+![Results](../images/en_documentation/streamlit_docs/result.png)
 - **Three columns**: Equation (formula and formatted equation, left), Parameters (fit parameters with uncertainties and IC 95%, center), Statistics (R², RMSE, χ², etc., right).
 - **Plot Display**: Visualization of fitted curves below the columns.
 - **Download Button**: Below each plot; save as PNG, JPG, or PDF (when configured).
@@ -108,10 +113,12 @@ The Streamlit interface consists of three main areas:
    - Wait for the file to upload and process.
 
 4. **View Data** (Optional):
+![Data](../images/en_documentation/streamlit_docs/data.png)
    - Expand "Show Data" to preview your dataset.
    - Verify columns are loaded correctly.
 
 5. **Select Variables**:
+![Names](../images/en_documentation/streamlit_docs/names.png)
    - **Independent Variable (X)**: Choose from dropdown (e.g., "time").
    - **Dependent Variable (Y)**: Choose from dropdown (e.g., "temperature").
    - **Plot Name**: Enter a name for the output file (e.g., "experiment1").
@@ -130,6 +137,7 @@ The Streamlit interface consists of three main areas:
    - Results appear below.
 
 9. **Review Results** (three columns + plot):
+![Results](../images/en_documentation/streamlit_docs/result.png)
    - **Equation** (left): Formula and formatted equation with fitted values.
    - **Parameters** (center): Fit parameters (e.g. a, b, c) with uncertainties and IC 95%.
    - **Statistics** (right): R², RMSE, χ², χ²_red, degrees of freedom.
@@ -147,6 +155,7 @@ If "Custom Formula" is selected:
 1. **Enter Number of Parameters**: Use the number input (1-10).
 2. **Name Parameters**: Enter names in the input boxes (e.g., "a", "b", "c").
 3. **Enter Formula**: Type your formula using Python syntax.
+![Custom](../images/en_documentation/streamlit_docs/custom_eq.png)
    - Example: `a*x**2 + b*x + c`.
    - Use `x` as the independent variable.
    - Use parameter names defined above.
@@ -299,11 +308,13 @@ If "Custom Formula" is selected:
 
 3. **View Data**:
    - Expand the data section to see the table.
+   ![Data](../images/en_documentation/streamlit_docs/data.png)
    - Click **Show variable pairs** (or equivalent in your language) for scatter matrix (pair plots).
    - If there are more than 10 variables, a multiselect appears to choose which variables to display (max 10 for readability).
 
 4. **Transform Data** (optional):
    - Select a transform from the dropdown: FFT, FFT magnitude, inverse FFT, DCT, inverse DCT, log, log10, exp, sqrt, square, standardize (z-score), normalize [0,1], Hilbert, inverse Hilbert, envelope (Hilbert), Laplace (discrete), inverse Laplace, cepstrum (real), Hadamard (Walsh), inverse Hadamard.
+   ![Transform](../images/en_documentation/streamlit_docs/transform.png)
    - Click **Transform** to apply. The table updates immediately.
 
 5. **Clean Data** (optional):

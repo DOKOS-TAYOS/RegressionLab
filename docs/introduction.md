@@ -61,6 +61,7 @@ Built-in support for:
 - Inverse functions (1/x, 1/x²).
 - Additional models: Gaussian, sigmoid (logistic), square pulse, Hermite polynomials.
 - **Custom formulas**: Define your own mathematical expressions. Custom formulas can have multiple independent variables (e.g. `x_0`, `x_1`) for multidimensional regression.
+![Equation Preview](../images/en_documentation/tkinter_docs/equation.png)
 
 ### 5. **Professional Visualization**
 - High-quality publication-ready plots.
@@ -68,6 +69,8 @@ Built-in support for:
 - Customizable plot styles and themes.
 - Automatic equation and parameter display.
 - Export plots as PNG, JPG, or PDF (configurable).
+![2D Fit Result](../images/en_documentation/tkinter_docs/result.png)
+
 
 ### 6. **Uncertainty Handling**
 Automatic detection and visualization of measurement uncertainties:
@@ -78,6 +81,8 @@ Automatic detection and visualization of measurement uncertainties:
 ### 7. **Multidimensional Regression and Predictions**
 - **Multidimensional fitting**: Use custom formulas with 2 or more independent variables. With 2 variables you get an interactive 3D surface plot; with 3+ you get a residuals plot.
 - **Prediction window** (desktop): Evaluate the fitted function at any point. Enter values for each independent variable and see the predicted value with propagated uncertainty when available.
+![3D Fit Result](../images/en_documentation/tkinter_docs/3d_result.png)
+![Multiple Datasets Result](../images/en_documentation/tkinter_docs/multi_result.png)
 
 ### 8. **Batch Processing**
 Save time by:
@@ -101,6 +106,7 @@ Customize through the **Configure** dialog (Tkinter) or the `.env` file:
 - **Paths**: Input/output directories, filename template, plot format (PNG/JPG/PDF).
 - **Links**: Donations URL (optional).
 - **Logging**: Level, file path, console output.
+![Configuration Dialog](../images/en_documentation/tkinter_docs/config.png)
 
 ### 11. **Extensible and Open Source**
 - MIT License - free for academic and commercial use.

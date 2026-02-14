@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RegressionLab 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-14 14:38+0100\n"
+"POT-Creation-Date: 2026-02-14 18:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -20,11 +20,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: ../../../docs/configuration.md:1 e1c413740beb4806b4ad8e7694abccbf
+#: ../../../docs/configuration.md:1 fcf91c4464a84a84a17478b449b407b4
 msgid "Configuration Guide"
 msgstr "Guía de configuración"
 
-#: ../../../docs/configuration.md:3 3df4a49e2a234759a70b44598194de73
+#: ../../../docs/configuration.md:3 786353dd5f194b5b929a2731fc6b523e
 msgid ""
 "RegressionLab is highly customizable through a single `.env` file. This "
 "guide describes every option, where it applies (desktop, web, or both), "
@@ -34,15 +34,15 @@ msgstr ""
 "`.env`. Esta guía describe cada opción, dónde se aplica (escritorio, web "
 "o ambas) y cómo cambiarla de forma segura."
 
-#: ../../../docs/configuration.md:5 42920d2749f14a0e83066727eeaf62cf
+#: ../../../docs/configuration.md:5 5f3bac9cf90d42f0a5cafd4ef22f5b55
 msgid "Getting Started with Configuration"
 msgstr "Comenzando con la configuración"
 
-#: ../../../docs/configuration.md:7 6f1e26586b454839b97cfe6ee7e61855
+#: ../../../docs/configuration.md:7 e21e9fe9c7ef4fc794eeef1397570f76
 msgid "Configuring from Tkinter (Desktop App)"
 msgstr "Configurando desde Tkinter (Aplicación de escritorio)"
 
-#: ../../../docs/configuration.md:9 1900e8eaf51b4cafa5ddc661c3bc17e2
+#: ../../../docs/configuration.md:9 fdd9533894724ada8e98cf3c67f7e286
 msgid ""
 "If you use the **Tkinter desktop application**, you can change settings "
 "without editing files: from the main menu, click **Configure** (or "
@@ -54,11 +54,11 @@ msgstr ""
 "**Configurar** (o **Configurar** en español). Se abre un cuadro de "
 "diálogo de configuración con **secciones plegables**:"
 
-#: ../../../docs/configuration.md:11 bcca822e8d6e4f09b240e359e29e96e9
+#: ../../../docs/configuration.md:11 64e09318cc2948b1bcac890a2664b82d
 msgid "**Language**: Interface language (Spanish, English, German)."
 msgstr "**Idioma**: Idioma de la interfaz (español, inglés, alemán)."
 
-#: ../../../docs/configuration.md:12 7b0d5c8fe3ee4b8b9cd8eaca3ac623ab
+#: ../../../docs/configuration.md:12 c2ccd37fc5aa4cfeae56b398239a86b6
 msgid ""
 "**UI**: Window and text colors, button colors (normal, cancel, accent), "
 "spacing, button width, font family and size, spinbox/entry widths, and "
@@ -68,7 +68,7 @@ msgstr ""
 " acento), espaciado, ancho de botón, familia y tamaño de fuente, ancho de"
 " entrada/cuadro giratorio y color de selección de vista previa de datos."
 
-#: ../../../docs/configuration.md:13 0cf002bba17d4667961a151eb634450c
+#: ../../../docs/configuration.md:13 13c23b7929064f62bb189ea26650bd6c
 msgid ""
 "**Plot**: Figure dimensions, DPI, title visibility, grid display, and "
 "line/marker style and colors for generated plots."
@@ -77,7 +77,7 @@ msgstr ""
 "visualización de cuadrícula y estilo y colores de línea/marcador para los"
 " trazados generados."
 
-#: ../../../docs/configuration.md:14 05197b8b761941ebbc9f2e506bbac827
+#: ../../../docs/configuration.md:14 bd8ce5c8d3a54aabb35bf2480fab61a8
 msgid ""
 "**Font**: Font family and sizes for plot title, axis labels, and tick "
 "labels."
@@ -85,7 +85,7 @@ msgstr ""
 "**Fuente**: familia de fuentes y tamaños para el título del gráfico, las "
 "etiquetas de los ejes y las etiquetas de marca."
 
-#: ../../../docs/configuration.md:15 b64adcb4458049ee9d9168f42079923c
+#: ../../../docs/configuration.md:15 3e2190205bf94853ae148461d03f3039
 msgid ""
 "**Paths**: Default input and output folders, filename template for saved "
 "plots, and export format (PNG, JPG, PDF)."
@@ -94,7 +94,7 @@ msgstr ""
 "nombre de archivo para trazados guardados y formato de exportación (PNG, "
 "JPG, PDF)."
 
-#: ../../../docs/configuration.md:16 84ac841c11024202a69e9c89be059135
+#: ../../../docs/configuration.md:16 79111333a3584257af57ea98f42925fb
 msgid ""
 "**Links**: Optional URL for the “Donations” link in the Information "
 "dialog."
@@ -102,7 +102,7 @@ msgstr ""
 "**Enlaces**: URL opcional para el enlace \"Donaciones\" en el cuadro de "
 "diálogo Información."
 
-#: ../../../docs/configuration.md:17 5ec4e66c3a3b4af6b65bbaf0f5469b7b
+#: ../../../docs/configuration.md:17 c43c502386d145e28baa6f9fccf96402
 msgid ""
 "**Updates**: Weekly update check (enable/disable), force check for "
 "testing, and URL to fetch the latest version."
@@ -111,7 +111,7 @@ msgstr ""
 "(activar/desactivar), verificación forzada para pruebas y URL para "
 "obtener la última versión."
 
-#: ../../../docs/configuration.md:18 3c4e97bac49d4ad78f8d95b0854396a6
+#: ../../../docs/configuration.md:18 c710c84005fc49bc824d9e853a32716e
 msgid ""
 "**Logging**: Log level (e.g. DEBUG, INFO), log file path, and whether "
 "messages are also printed to the console."
@@ -119,20 +119,21 @@ msgstr ""
 "**Registro**: nivel de registro (por ejemplo, DEBUG, INFO), ruta del "
 "archivo de registro y si los mensajes también se imprimen en la consola."
 
-#: ../../../docs/configuration.md:20 b36b850682744e90a422ce1dba7c4128
+#: ../../../docs/configuration.md:20 81623aeab8474021879b74ddab9f5aa0
+#, fuzzy
 msgid ""
 "![Configuration "
-"Dialog](../images/en_documentation/tkinter_docs/configuration.png)"
+"Dialog](../images/en_documentation/tkinter_docs/config.png)"
 msgstr ""
 "![Diálogo de "
-"configuración](../images/en_documentation/tkinter_docs/configuration.png)"
+"configuración](../images/es_documentation/tkinter_docs/config.png)"
 
 #: ../../../docs/configuration.md:20 ../../../docs/configuration.md:602
-#: 4b63625a82a14ec8954e0fde9fa5cf4f 96788c52244b4743a5010acfd8480137
+#: c307121ad4534979a7e3d924fb49d926 c87c0893249945baa78f520bf7e8e4bf
 msgid "Configuration Dialog"
 msgstr "Diálogo de configuración"
 
-#: ../../../docs/configuration.md:22 2ebe1db919e746909bb26fc23902878c
+#: ../../../docs/configuration.md:22 3345333aa15e4174b9589d3bacdc43d8
 msgid ""
 "Each option shows a short description. When you click **Accept**, the "
 "values are written to `.env` and the application restarts so the new "
@@ -145,11 +146,11 @@ msgstr ""
 "descarta los cambios. Esta es la forma más sencilla de personalizar "
 "RegressionLab cuando se utiliza la versión de escritorio."
 
-#: ../../../docs/configuration.md:24 90460994825a420a86cd5406a51e3b41
+#: ../../../docs/configuration.md:24 f583dd8a49a3491ba05a02e7af4bdaa9
 msgid "Locating the Configuration File"
 msgstr "Localización del archivo de configuración"
 
-#: ../../../docs/configuration.md:26 00a00e2229e74847b685fb43007999a9
+#: ../../../docs/configuration.md:26 aa2a80ce8dc94be7a8f821af6aa5a559
 msgid ""
 "The configuration file lives in the **root directory** of the "
 "RegressionLab project:"
@@ -157,39 +158,39 @@ msgstr ""
 "El archivo de configuración se encuentra en el **directorio raíz** del "
 "proyecto RegressionLab:"
 
-#: ../../../docs/configuration.md:34 eb4f1e6331df49d290339621d003c74c
+#: ../../../docs/configuration.md:34 599d19d69d7a4e6ea6ddb303e44a47e7
 msgid "First-time setup"
 msgstr "Configuración por primera vez"
 
-#: ../../../docs/configuration.md:36 40da7f7b57fd4684a34f724bdeb0ca6e
+#: ../../../docs/configuration.md:36 3d4398e5720545349546d10c43d4a098
 msgid "If `.env` does not exist yet:"
 msgstr "Si `.env` aún no existe:"
 
-#: ../../../docs/configuration.md:46 d08258002737451b876a99b2c519b9df
+#: ../../../docs/configuration.md:46 331f402416e040fd88e554b3ddb86a96
 msgid "Then open and edit `.env` with any text editor, for example:"
 msgstr "Luego abra y edite `.env` con cualquier editor de texto, por ejemplo:"
 
-#: ../../../docs/configuration.md:47 730bf0fd13304b8b987071d7ee139308
+#: ../../../docs/configuration.md:47 8a08bb4c75694f0588cde2783303c4ae
 msgid "**Visual Studio Code**: `code .env`."
 msgstr "**Código de Visual Studio**: `código .env`."
 
-#: ../../../docs/configuration.md:48 2ae6d8b40c8d4df9bb5255f318886e90
+#: ../../../docs/configuration.md:48 1f7ad1e2b71149e39696ba450982677c
 msgid "**Nano** (Linux/macOS): `nano .env`."
 msgstr "**Nano** (Linux/macOS): `nano .env`."
 
-#: ../../../docs/configuration.md:49 73bf98a3003a43e09730b4a4eb2776bc
+#: ../../../docs/configuration.md:49 8b99c985762244188a03ff6ffdb4c4be
 msgid "**Notepad** (Windows): `notepad .env`."
 msgstr "**Bloc de notas** (Windows): `bloc de notas .env`."
 
-#: ../../../docs/configuration.md:50 a8b22896e784497d9ca45784f3e4dc91
+#: ../../../docs/configuration.md:50 30adeec2c0874915ad0e50dd6064bcdd
 msgid "**Vim**: `vim .env`."
 msgstr "**Vim**: `vim .env`."
 
-#: ../../../docs/configuration.md:52 9d51ac76262148a680ce67cc47028e2d
+#: ../../../docs/configuration.md:52 2ceceee2d2a845d6b310f04be6b21d04
 msgid "Configuration Sections"
 msgstr "Secciones de configuración"
 
-#: ../../../docs/configuration.md:54 523416d3490b469faa59cf4482a9e0ee
+#: ../../../docs/configuration.md:54 f866c7abf525451ea2defcbbd9c789d6
 msgid ""
 "The `.env` file is grouped into sections that match the Tkinter "
 "**Configure** dialog:"
@@ -197,76 +198,78 @@ msgstr ""
 "El archivo `.env` está agrupado en secciones que coinciden con el cuadro "
 "de diálogo **Configurar** de Tkinter:"
 
-#: ../../../docs/configuration.md:56 7d87217e1aeb40cf9a2ddf2ae78ee7c3
+#: ../../../docs/configuration.md:56 b677cf8338264566966c60b1c13700e9
 msgid "[Language Configuration](#1-language-configuration)"
 msgstr "[Configuración de idioma](#1-language-configuration)"
 
-#: ../../../docs/configuration.md:57 a61e16b26eb54d97bde5978000ad9ad7
+#: ../../../docs/configuration.md:57 05c77441e5c44415879a075eef97450a
 msgid "[UI Theme Configuration](#2-ui-theme-configuration)"
-msgstr "[Configuración del tema de la interfaz de usuario](#2-ui-theme-configuration)"
+msgstr ""
+"[Configuración del tema de la interfaz de usuario](#2-ui-theme-"
+"configuration)"
 
-#: ../../../docs/configuration.md:58 c7ec5e86f5124accb0f501a3cefd70bc
+#: ../../../docs/configuration.md:58 22382b57fcc848578589357238d2820c
 msgid "[Plot Style Configuration](#3-plot-style-configuration)"
 msgstr "[Configuración de estilo de trama](#3-plot-style-configuration)"
 
-#: ../../../docs/configuration.md:59 3dfb085ee88e4eb2806cf40bc3e3b82d
+#: ../../../docs/configuration.md:59 d8c3119694e84411944986b7be0e1fb4
 #, fuzzy
 msgid "[Font Configuration](#4-font-configuration)"
 msgstr "[Configuración de fuente](#4-font-configuration)"
 
-#: ../../../docs/configuration.md:60 aae18d86244b46af82625b51821b83df
+#: ../../../docs/configuration.md:60 937c64bfa5544d508d1b580b91c477d3
 #, fuzzy
 msgid "[File Path Configuration](#5-file-path-configuration)"
 msgstr "[Configuración de ruta de archivo](#5-file-path-configuration)"
 
-#: ../../../docs/configuration.md:61 9058204f5c944bca985b23c66f4b8a94
+#: ../../../docs/configuration.md:61 5e204ab840354da0be3170dcf30dd2cd
 #, fuzzy
 msgid "[Links (Optional)](#6-links-optional)"
 msgstr "[Enlaces (opcional)](#6-links-optional)"
 
-#: ../../../docs/configuration.md:62 9f006d06cd2d4973b1b313d56ccd144f
+#: ../../../docs/configuration.md:62 b069e12168334ffe8e0c4c103ee8c83e
 #, fuzzy
 msgid "[Update Check (Tkinter)](#7-update-check-tkinter)"
 msgstr "[Comprobación de actualización (Tkinter)](#7-update-check-tkinter)"
 
-#: ../../../docs/configuration.md:63 cd0965ac3b144a46b815207595c7b7bc
+#: ../../../docs/configuration.md:63 1f669043f3cd478c9d9506e9568c0a5c
 #, fuzzy
 msgid "[Logging Configuration](#8-logging-configuration)"
 msgstr "[Configuración de registro](#8-logging-configuration)"
 
-#: ../../../docs/configuration.md:67 cfbd17902c1b410da741e62fc666b6b7
+#: ../../../docs/configuration.md:67 d930d2d7a880461e9fe947287f9dd762
 msgid "1. Language Configuration"
 msgstr "1. Configuración del idioma"
 
-#: ../../../docs/configuration.md:69 5d5e14fdb18540b8947f57e3bfdc84d5
+#: ../../../docs/configuration.md:69 2f482a6dcbb9488dbe8e27124aca6c11
 msgid "Setting the Application Language"
 msgstr "Configuración del idioma de la aplicación"
 
-#: ../../../docs/configuration.md:75 3ffe79e2833d4eeba67cf70427181833
+#: ../../../docs/configuration.md:75 ac3407ce2a154e08b60b1b10d06eb708
 msgid "**Available Languages**:"
 msgstr "**Idiomas disponibles**:"
 
-#: ../../../docs/configuration.md:76 1b42b0963fe442c8a263db71f14465c5
+#: ../../../docs/configuration.md:76 a64a670792854fd2841a116ead881b90
 msgid "`es`, `español`, `spanish`, `esp` → Spanish (default)"
 msgstr "`es`, `español`, `spanish`, `esp` → Español (predeterminado)"
 
-#: ../../../docs/configuration.md:77 e3b528b6307e423c9a740861a45679c8
+#: ../../../docs/configuration.md:77 ddc9a2a2dba44e80a0ee05d4d1512281
 msgid "`en`, `english`, `ingles`, `inglés`, `eng` → English"
 msgstr "`en`, `english`, `ingles`, `inglés`, `eng` → Inglés"
 
-#: ../../../docs/configuration.md:78 751b7857cb2a4dfc936089959c492adf
+#: ../../../docs/configuration.md:78 afc086a089aa4633bd1346bde4b8c57a
 msgid "`de`, `german`, `deutsch`, `ger` → German"
 msgstr "`de`, `alemán`, `deutsch`, `ger` → alemán"
 
-#: ../../../docs/configuration.md:80 b9b899a814274aeda62dbc0f15a76b7a
+#: ../../../docs/configuration.md:80 0af774e38f82487789835368513d74b2
 msgid "**Example**:"
 msgstr "**Ejemplo**:"
 
-#: ../../../docs/configuration.md:92 0a3000344fcc40a2a06fea7629f0b339
+#: ../../../docs/configuration.md:92 005e49857c3a49efa36837adeacd5be5
 msgid "**Effect**:"
 msgstr "**Efecto**:"
 
-#: ../../../docs/configuration.md:93 fcf846ca9598471a828267f50a6fc677
+#: ../../../docs/configuration.md:93 f3203daf412945e88b5cc26708a8a4ce
 msgid ""
 "Changes menus, buttons, dialogs, and all other interface text to the "
 "selected language."
@@ -274,13 +277,13 @@ msgstr ""
 "Cambia menús, botones, cuadros de diálogo y todos los demás textos de la "
 "interfaz al idioma seleccionado."
 
-#: ../../../docs/configuration.md:94 e75303b3005d4a43bab3a6daec0991b2
+#: ../../../docs/configuration.md:94 730f9c6525234903b184385be43c2ff3
 msgid "Applies to both the Tkinter desktop app and the Streamlit web interface."
 msgstr ""
 "Se aplica tanto a la aplicación de escritorio Tkinter como a la interfaz "
 "web Streamlit."
 
-#: ../../../docs/configuration.md:95 1997fde0497c497ca2b122f189b0841a
+#: ../../../docs/configuration.md:95 cb68114ec07245f788faab219ca3b4e8
 msgid ""
 "Does not change column names, file contents, or text you type (e.g. axis "
 "labels you enter yourself)."
@@ -289,11 +292,11 @@ msgstr ""
 " texto que escribe (por ejemplo, las etiquetas de los ejes que ingresa "
 "usted mismo)."
 
-#: ../../../docs/configuration.md:99 b864048a5c4e4faea06cd127168dd64f
+#: ../../../docs/configuration.md:99 dc52d7381fb846638622a10018631e2d
 msgid "2. UI Theme Configuration"
 msgstr "2. Configuración del tema de la interfaz de usuario"
 
-#: ../../../docs/configuration.md:101 d8ee9c85d8d540fdab9b297dda1332d5
+#: ../../../docs/configuration.md:101 d0f764c83e8a4805bc7b73be35e14b95
 msgid ""
 "These settings control the look of the Tkinter desktop app (window, "
 "buttons, fonts, spacing). The Streamlit web interface uses them where "
@@ -306,21 +309,21 @@ msgstr ""
 "diferir. Los colores al pasar el cursor y activar (hacer clic) se derivan"
 " automáticamente de los colores base que establezca."
 
-#: ../../../docs/configuration.md:103 b42005c315b24880a83d44385d9ede14
+#: ../../../docs/configuration.md:103 b7cadd564a7d4a15a069634b8128dfc6
 msgid "Color Settings"
 msgstr "Configuración de color"
 
-#: ../../../docs/configuration.md:105 5818b695c8194df28b3ab8e44d40858e
+#: ../../../docs/configuration.md:105 730dcbc2ba80448dae1ec77a3bdd2a8c
 msgid "Background and Foreground"
 msgstr "Fondo y primer plano"
 
-#: ../../../docs/configuration.md:112 716717fa8cc2402384575cd297d91c2d
+#: ../../../docs/configuration.md:112 ecf981fd1eda45d9a67258109566c81a
 msgid "**UI_BACKGROUND**: Background color of the main window and most panels."
 msgstr ""
 "**UI_BACKGROUND**: Color de fondo de la ventana principal y de la mayoría"
 " de los paneles."
 
-#: ../../../docs/configuration.md:113 ec61c0e8e8ba400187ed5897f81045c4
+#: ../../../docs/configuration.md:113 70a110902b644809803b540737fb6d0a
 msgid ""
 "**UI_FOREGROUND**: Default text color for labels, entries, and other UI "
 "text."
@@ -328,11 +331,11 @@ msgstr ""
 "**UI_FOREGROUND**: color de texto predeterminado para etiquetas, entradas"
 " y otro texto de la interfaz de usuario."
 
-#: ../../../docs/configuration.md:115 0acd863cfbfc450c8a14bf1a6375e130
+#: ../../../docs/configuration.md:115 93ba62235d0f4ed7b01cf5fa7f7d9d78
 msgid "**Color options**:"
 msgstr "**Opciones de color**:"
 
-#: ../../../docs/configuration.md:116 eedc4a277bd14e6eac0b9e1a2144d391
+#: ../../../docs/configuration.md:116 8b055fbbde464e7ea40b779c7fe68d23
 msgid ""
 "**Named colors**: `\"white\"`, `\"black\"`, `\"navy\"`, `\"crimson\"`, "
 "etc."
@@ -340,23 +343,23 @@ msgstr ""
 "**Colores con nombre**: `\"blanco\"`, `\"negro\"`, `\"azul marino\"`, "
 "`\"carmesí\"`, etc."
 
-#: ../../../docs/configuration.md:117 003255f680c343eaa291f1da47efa07e
+#: ../../../docs/configuration.md:117 9763fa4d71034d18a3ec4b908e5da6fa
 msgid "**Hex codes**: `\"#2C3E50\"`, `\"#FF5733\"`, etc."
 msgstr "**Códigos hexadecimales**: `\"#2C3E50\"`, `\"#FF5733\"`, etc."
 
-#: ../../../docs/configuration.md:119 8fdd449df9074096a3af1af9438f7ca1
+#: ../../../docs/configuration.md:119 ca599e4d6a4b4e5f99abd012547d7e35
 msgid "Button Colors"
 msgstr "Colores de botones"
 
-#: ../../../docs/configuration.md:128 26abd2588fd94814b560df2d37a50edb
+#: ../../../docs/configuration.md:128 403049432ce34808bfb3f673d2c8f07c
 msgid "**UI_BUTTON_BG**: Background color of all buttons."
 msgstr "**UI_BUTTON_BG**: Color de fondo de todos los botones."
 
-#: ../../../docs/configuration.md:129 f4a3aad873574d2bb7137877d50d54b0
+#: ../../../docs/configuration.md:129 99969a2ac5b54657915cbc8c12183cca
 msgid "**UI_BUTTON_FG**: Text color for standard action buttons."
 msgstr "**UI_BUTTON_FG**: color del texto para los botones de acción estándar."
 
-#: ../../../docs/configuration.md:130 e94f08a3a8fc47d8b0df41e0803937ca
+#: ../../../docs/configuration.md:130 e71479cc6d16432e811c0288a7d3abef
 msgid ""
 "**UI_BUTTON_FG_CANCEL**: Text color for cancel, exit, or destructive "
 "buttons."
@@ -364,7 +367,7 @@ msgstr ""
 "**UI_BUTTON_FG_CANCEL**: Color del texto para cancelar, salir o botones "
 "destructivos."
 
-#: ../../../docs/configuration.md:131 6c02b09bb9b34c0184c66d22719bf2fd
+#: ../../../docs/configuration.md:131 756ddda11ac54e1280c278f5ed068a41
 msgid ""
 "**UI_BUTTON_FG_ACCENT2**: Text color for secondary accent buttons (e.g. "
 "“Accept” in dialogs)."
@@ -372,15 +375,15 @@ msgstr ""
 "**UI_BUTTON_FG_ACCENT2**: Color del texto para los botones de acento "
 "secundarios (por ejemplo, \"Aceptar\" en los cuadros de diálogo)."
 
-#: ../../../docs/configuration.md:133 11edd87ff030428d8af1e894f74ae531
+#: ../../../docs/configuration.md:133 8b798ab68f934b3f8661e5a405092821
 msgid "Layout and Widget Sizes"
 msgstr "Tamaños de diseño y widgets"
 
-#: ../../../docs/configuration.md:135 17275ec9f3224b0795d56d990a8d557c
+#: ../../../docs/configuration.md:135 26d93e62c34041e8b3a782bb6288ab94
 msgid "Padding and Button Width"
 msgstr "Acolchado y ancho de botones"
 
-#: ../../../docs/configuration.md:142 a77dab71406a49c3bec07ba51314339e
+#: ../../../docs/configuration.md:142 e424183f979b4bf687fc60ada6ab2460
 msgid ""
 "**UI_PADDING**: Spacing in pixels between widgets, applied both "
 "horizontally and vertically."
@@ -388,7 +391,7 @@ msgstr ""
 "**UI_PADDING**: Espaciado en píxeles entre widgets, aplicado tanto "
 "horizontal como verticalmente."
 
-#: ../../../docs/configuration.md:143 f4af2f60dc014a47b4abc2b8aef174db
+#: ../../../docs/configuration.md:143 0a41b4e2ab6d4115b246be073ddcda6d
 msgid ""
 "**UI_BUTTON_WIDTH**: Nominal width of buttons in character units. “Wide” "
 "buttons use 2.5× this value."
@@ -396,27 +399,27 @@ msgstr ""
 "**UI_BUTTON_WIDTH**: ancho nominal de botones en unidades de caracteres. "
 "Los botones \"anchos\" utilizan 2,5 veces este valor."
 
-#: ../../../docs/configuration.md:145 1cf9281f318840b1821abe74ad9620bd
+#: ../../../docs/configuration.md:145 45e12bede4d24bc08d1d9e9e1016d7a3
 msgid "Font Settings"
 msgstr "Configuración de fuente"
 
-#: ../../../docs/configuration.md:152 9cb2df7417574115ba6d749f9ea33f31
+#: ../../../docs/configuration.md:152 54e4dda9049148f3995fec987a31c8c5
 msgid "**UI_FONT_FAMILY**: Font used for all UI text (menus, labels, buttons)."
 msgstr ""
 "**UI_FONT_FAMILY**: fuente utilizada para todo el texto de la interfaz de"
 " usuario (menús, etiquetas, botones)."
 
-#: ../../../docs/configuration.md:153 58f3f0ff567e4b0caed417d309e69c98
+#: ../../../docs/configuration.md:153 c1b6522299c847d29171e1183d51a1fa
 msgid "**UI_FONT_SIZE**: Base font size in points for the desktop interface."
 msgstr ""
 "**UI_FONT_SIZE**: tamaño de fuente base en puntos para la interfaz de "
 "escritorio."
 
-#: ../../../docs/configuration.md:155 327a68c605b8438a875b215ed1eb7b61
+#: ../../../docs/configuration.md:155 d15d87d476524d75b2dad8338d049cb3
 msgid "**Common font families**:"
 msgstr "**Familias de fuentes comunes**:"
 
-#: ../../../docs/configuration.md:156 1f5ea990f11c47bea61abd9662964d1b
+#: ../../../docs/configuration.md:156 d1f89cacbb9c495bb982879afd1ecd48
 msgid ""
 "**Monospace**: `\"Courier\"`, `\"Courier New\"`, `\"Menlo\"`, "
 "`\"Monaco\"`."
@@ -424,35 +427,35 @@ msgstr ""
 "**Monoespacio**: `\"Courier\"`, `\"Courier New\"`, `\"Menlo\"`, "
 "`\"Mónaco\"`."
 
-#: ../../../docs/configuration.md:157 f70932599f164bbe82a0e7786e78c96e
+#: ../../../docs/configuration.md:157 832b8907e8b4474cb04ceed51963822c
 msgid "**Sans-serif**: `\"Arial\"`, `\"Helvetica\"`, `\"Verdana\"`, `\"Tahoma\"`."
 msgstr "**Sans-serif**: `\"Arial\"`, `\"Helvetica\"`, `\"Verdana\"`, `\"Tahoma\"`."
 
-#: ../../../docs/configuration.md:158 cf2b18fd4eba4b59a54523aad5de2aa4
+#: ../../../docs/configuration.md:158 3dd20e5163564228824cc6bd49a9895c
 msgid "**Serif**: `\"Times New Roman\"`, `\"Georgia\"`, `\"Palatino\"`."
 msgstr "**Serif**: `\"Times New Roman\"`, `\"Georgia\"`, `\"Palatino\"`."
 
-#: ../../../docs/configuration.md:160 31d3f3b2e0214a3b9f48b5047a53472a
+#: ../../../docs/configuration.md:160 b346708954ab415c915e22063329941d
 msgid "Input Widget Sizes"
 msgstr "Tamaños de widgets de entrada"
 
-#: ../../../docs/configuration.md:167 178efd69694644dd8752844cb1d8d249
+#: ../../../docs/configuration.md:167 468ca010fdd74684a1f91e0cfe8b24e3
 msgid "**UI_SPINBOX_WIDTH**: Width of numeric spinbox fields in character units."
 msgstr ""
 "**UI_SPINBOX_WIDTH**: Ancho de los campos numéricos del cuadro de números"
 " en unidades de caracteres."
 
-#: ../../../docs/configuration.md:168 7a3e1ccdceab4bd3ba8f406978a1b826
+#: ../../../docs/configuration.md:168 8a7c2b826d564a9fbe65eab09a225463
 msgid "**UI_ENTRY_WIDTH**: Width of text entry fields in character units."
 msgstr ""
 "**UI_ENTRY_WIDTH**: Ancho de los campos de entrada de texto en unidades "
 "de caracteres."
 
-#: ../../../docs/configuration.md:170 23369423248f44e5a921cb73e4511871
+#: ../../../docs/configuration.md:170 10fff415c01c4a69a92f01f31ddf2c9a
 msgid "Data Preview (Text Widget)"
 msgstr "Vista previa de datos (widget de texto)"
 
-#: ../../../docs/configuration.md:176 74469fc46359468892ccaebbc44b9cbf
+#: ../../../docs/configuration.md:176 c6b048169ada4ef9904107663ad3e383
 msgid ""
 "**UI_TEXT_SELECT_BG**: Background color of selected text in the data "
 "preview area. The preview uses **UI_FOREGROUND** for text; its background"
@@ -462,27 +465,27 @@ msgstr ""
 "de vista previa de datos. La vista previa usa **UI_FOREGROUND** para el "
 "texto; su fondo se deriva del fondo principal de la interfaz de usuario."
 
-#: ../../../docs/configuration.md:178 3da3dba6cc33461d8a9bc44ad2122915
+#: ../../../docs/configuration.md:178 6e93fa6f16214c46ac4151eb03df6c06
 msgid "Example Themes"
 msgstr "Temas de ejemplo"
 
-#: ../../../docs/configuration.md:180 036e5ff49d0d4357bda36cf284570732
+#: ../../../docs/configuration.md:180 e3a84f9d703d40e381370e90b1f77aa0
 msgid "Professional Dark Theme (default-like)"
 msgstr "Tema oscuro profesional (predeterminado)"
 
-#: ../../../docs/configuration.md:192 42ce10d15a7f4b108291de53c0323be4
+#: ../../../docs/configuration.md:192 796b4304816c4bbd9b440967da915cb7
 msgid "Classic Light Theme"
 msgstr "Tema de luz clásico"
 
-#: ../../../docs/configuration.md:204 1ab88734bd75473783a35ef00a612018
+#: ../../../docs/configuration.md:204 5432405001744e85b5df966508260b16
 msgid "Ocean Theme"
 msgstr "Tema del océano"
 
-#: ../../../docs/configuration.md:218 f3592089ed2a41f4bd739b59a484d6de
+#: ../../../docs/configuration.md:218 5923fcdcae664f56b12c0302b0850259
 msgid "3. Plot Style Configuration"
 msgstr "3. Configuración del estilo de trazado"
 
-#: ../../../docs/configuration.md:220 f465457e80294f829689d6f137e3c616
+#: ../../../docs/configuration.md:220 caebc495b22b4fa189ef4230fd42f324
 msgid ""
 "These settings control the size, resolution, and visual style of the "
 "regression plots (used by both the Tkinter and Streamlit interfaces)."
@@ -491,11 +494,11 @@ msgstr ""
 "visual de los gráficos de regresión (utilizados por las interfaces "
 "Tkinter y Streamlit)."
 
-#: ../../../docs/configuration.md:222 17ce4fefe27f412994a9041e0d3b2790
+#: ../../../docs/configuration.md:222 4bcde3efadb443dbac5600b816db558e
 msgid "Figure Dimensions"
 msgstr "Dimensiones de la figura"
 
-#: ../../../docs/configuration.md:230 0b57c63980d54ef19ec0e8a0ee2fafba
+#: ../../../docs/configuration.md:230 7625b720784e4b0c919d7dddc2e1171b
 msgid ""
 "**PLOT_FIGSIZE_WIDTH**: Figure width in inches (for both on-screen "
 "display and saved files)."
@@ -503,11 +506,11 @@ msgstr ""
 "**PLOT_FIGSIZE_WIDTH**: Ancho de la figura en pulgadas (tanto para "
 "visualización en pantalla como para archivos guardados)."
 
-#: ../../../docs/configuration.md:231 22d4d8b108e64305b6e8d980610196e2
+#: ../../../docs/configuration.md:231 2514ad8511474a0895b45750c7abc7ef
 msgid "**PLOT_FIGSIZE_HEIGHT**: Figure height in inches."
 msgstr "**PLOT_FIGSIZE_HEIGHT**: Altura de la figura en pulgadas."
 
-#: ../../../docs/configuration.md:232 f97019e2984a460ea84ca7efc087e418
+#: ../../../docs/configuration.md:232 7878f3e1efb6489da01beb7e51d6218b
 msgid ""
 "**DPI**: Resolution in dots per inch; higher values give sharper output "
 "and larger file sizes."
@@ -515,41 +518,41 @@ msgstr ""
 "**DPI**: Resolución en puntos por pulgada; los valores más altos "
 "proporcionan resultados más nítidos y tamaños de archivo más grandes."
 
-#: ../../../docs/configuration.md:234 cd581f81d6544a1e918b492b93768c12
+#: ../../../docs/configuration.md:234 43566f4808bf49599195de5494d50836
 msgid "**Recommendations**:"
 msgstr "**Recomendaciones**:"
 
-#: ../../../docs/configuration.md:235 676648e4b3934f23918a457079b3efb0
+#: ../../../docs/configuration.md:235 f3f004988f88462a9d83056e99360cff
 msgid "**Screen display**: 100 DPI."
 msgstr "**Visualización de pantalla**: 100 DPI."
 
-#: ../../../docs/configuration.md:236 48d4ee5d7fca4fd7a0da5d1f4deebfa0
+#: ../../../docs/configuration.md:236 108d9316a3f44cb881c9a3bbbbf60adc
 msgid "**High-quality prints**: 300 DPI."
 msgstr "**Impresiones de alta calidad**: 300 DPI."
 
-#: ../../../docs/configuration.md:237 045915610a13491b8c3baa6d7e323949
+#: ../../../docs/configuration.md:237 b3551e94fd4c4837b4264ee94297cded
 msgid "**Publications**: 600 DPI."
 msgstr "**Publicaciones**: 600 DPI."
 
-#: ../../../docs/configuration.md:239 a79c57a8231d43a48d7b149498311731
+#: ../../../docs/configuration.md:239 f1f208ba1f2145a69cf2a0e7c02c9a48
 msgid "Title Display"
 msgstr "Visualización del título"
 
-#: ../../../docs/configuration.md:245 4574f5901e834db39648497415019332
+#: ../../../docs/configuration.md:245 b4982d8791554461be13d0e5f9aaacd6
 msgid "**PLOT_SHOW_TITLE**: Whether to display a title above the plot."
 msgstr "**PLOT_SHOW_TITLE**: si se muestra un título encima del gráfico."
 
-#: ../../../docs/configuration.md:246 9e00180ef4384d0390763ed342db63eb
+#: ../../../docs/configuration.md:246 14ca9c7044d043a5abcc6770778d87f0
 msgid "`true`: Show title (derived from the plot name)."
 msgstr "`true`: muestra el título (derivado del nombre de la trama)."
 
-#: ../../../docs/configuration.md:247 ee36c6f96f344f7891989e58a702a884
+#: ../../../docs/configuration.md:247 76fe2beafd3b43c8bce755c4b06ec5c4
 msgid "`false`: No title (cleaner look for slides or publications)."
 msgstr ""
 "`falso`: Sin título (aspecto más limpio para diapositivas o "
 "publicaciones)."
 
-#: ../../../docs/configuration.md:249 0bd8ca7098444a0b9f3125b0ba48ed4d
+#: ../../../docs/configuration.md:249 15135973cf274586b6bc3821aec0db11
 msgid ""
 "In the Streamlit app, a checkbox before each fit overrides this value per"
 " fit; the default is loaded from this env var."
@@ -558,79 +561,79 @@ msgstr ""
 "ajuste anula este valor por ajuste; el valor predeterminado se carga "
 "desde esta var de entorno."
 
-#: ../../../docs/configuration.md:251 42c6a5432d69466ebec801f73ed47779
+#: ../../../docs/configuration.md:251 282c8d54cfbd402abc764a86d01eef35
 msgid "Grid Display"
 msgstr "Visualización de cuadrícula"
 
-#: ../../../docs/configuration.md:257 64624507d273460bb3b85700ea471858
+#: ../../../docs/configuration.md:257 817999347860434fa990793ba979bc12
 msgid "**PLOT_SHOW_GRID**: Whether to display a background grid on the plot."
 msgstr "**PLOT_SHOW_GRID**: si se muestra una cuadrícula de fondo en el gráfico."
 
-#: ../../../docs/configuration.md:258 a5c4245c891f4f9b957c0e0a6c537096
+#: ../../../docs/configuration.md:258 4310393809094783b2dceedf2d336189
 msgid "`true`: Show grid lines (helps read values from the plot)."
 msgstr ""
 "`true`: muestra líneas de cuadrícula (ayuda a leer los valores del "
 "gráfico)."
 
-#: ../../../docs/configuration.md:259 252b7dbdf65a4411b85ab74c8a7ab747
+#: ../../../docs/configuration.md:259 e862d7d08cab44c4bec84ceb95ab164f
 msgid "`false`: No grid (default; cleaner look for slides or publications)."
 msgstr ""
 "`falso`: Sin cuadrícula (predeterminado; apariencia más limpia para "
 "diapositivas o publicaciones)."
 
-#: ../../../docs/configuration.md:261 497dfad7f0214ee3bb38312101ccc200
+#: ../../../docs/configuration.md:261 389f90b4979240e788093cc6071d821a
 msgid "Fitted Curve Style"
 msgstr "Estilo curvo ajustado"
 
-#: ../../../docs/configuration.md:269 31d822e8b34142a08d6e45c9bc0c297e
+#: ../../../docs/configuration.md:269 980cf353f8d7402caae7fd3ba2b404fc
 msgid "**PLOT_LINE_COLOR**: Color of the fitted regression curve."
 msgstr "**PLOT_LINE_COLOR**: Color de la curva de regresión ajustada."
 
-#: ../../../docs/configuration.md:270 ed63c6ef6e444b75a7f5c2ddac8df654
+#: ../../../docs/configuration.md:270 4c59d14647914532ab71ef57cb573e3f
 msgid "**PLOT_LINE_WIDTH**: Line width in points (e.g. 1.0 = thin, 2.0 = bold)."
 msgstr ""
 "**PLOT_LINE_WIDTH**: ancho de línea en puntos (por ejemplo, 1,0 = fino, "
 "2,0 = negrita)."
 
-#: ../../../docs/configuration.md:271 f10b5bf4b92d4ea7861e2d8a311330a7
+#: ../../../docs/configuration.md:271 ee4dcb56c37647c897b9c5c794d6294c
 msgid "**PLOT_LINE_STYLE**: Line pattern for the fitted curve."
 msgstr "**PLOT_LINE_STYLE**: Patrón de líneas para la curva ajustada."
 
-#: ../../../docs/configuration.md:273 a4aafbc5619d4c078219d520fb6adfc4
+#: ../../../docs/configuration.md:273 531dec639c9c49bc9a8cebe45d7d3721
 msgid "**Line style options**:"
 msgstr "**Opciones de estilo de línea**:"
 
-#: ../../../docs/configuration.md:274 0447244404d04b89b7a30653bd635983
+#: ../../../docs/configuration.md:274 b4df2e2612fb48eea773975da96bb867
 msgid "`\"-\"`: Solid line (default)."
 msgstr "`\"-\"`: Línea continua (predeterminado)."
 
-#: ../../../docs/configuration.md:275 11314ccf178748fab9e10a2ca1fecd41
+#: ../../../docs/configuration.md:275 d57500309feb4c21b5b4c483fb253f11
 msgid "`\"--\"`: Dashed line."
 msgstr "`\"--\"`: Línea discontinua."
 
-#: ../../../docs/configuration.md:276 4a2b1eb579a34c2082fecbb627aa7916
+#: ../../../docs/configuration.md:276 19a6d58e54dd4f5f9a9bc8dcbf83708f
 msgid "`\"-.\"`: Dash-dot line."
 msgstr "`\"-.\"`: Línea de guiones y puntos."
 
-#: ../../../docs/configuration.md:277 3e28ba5a24814293be9b842562cb463f
+#: ../../../docs/configuration.md:277 7132e3c847d64b61ad59274c5ae58a01
 msgid "`\":\"`: Dotted line."
 msgstr "`\":\"`: Línea de puntos."
 
-#: ../../../docs/configuration.md:279 b64e519288214463816f0a85f50ba8a5
+#: ../../../docs/configuration.md:279 7fd8e0493f864fd69d18ec7fd285d695
 msgid "Data Points Style"
 msgstr "Estilo de puntos de datos"
 
-#: ../../../docs/configuration.md:286 6b8194ace1934cf68454bbbb9d9f4fb5
+#: ../../../docs/configuration.md:286 5605d9546f3b4a5a9a1e504c29856247
 msgid "**PLOT_MARKER_FORMAT**: Marker shape for the measured data points."
 msgstr ""
 "**PLOT_MARKER_FORMAT**: Forma del marcador para los puntos de datos "
 "medidos."
 
-#: ../../../docs/configuration.md:287 e4d88d8062944778936e1cb4c3b0a1fe
+#: ../../../docs/configuration.md:287 6df26572880d4ce4953810b8a0856444
 msgid "**PLOT_MARKER_SIZE**: Marker size in points."
 msgstr "**PLOT_MARKER_SIZE**: Tamaño del marcador en puntos."
 
-#: ../../../docs/configuration.md:289 bb6fc3f300c846f8a110160623dca982
+#: ../../../docs/configuration.md:289 8db260134ba64ae4b7053834bf06ff9d
 msgid ""
 "**Marker format options**: `\"o\"` (circle, default), `\"s\"` (square), "
 "`\"^\"` (triangle up), `\"d\"` (diamond), `\"*\"` (star)."
@@ -639,11 +642,11 @@ msgstr ""
 "`\"s\"` (cuadrado), `\"^\"` (triángulo hacia arriba), `\"d\"` (diamante),"
 " `\"*\"` (estrella)."
 
-#: ../../../docs/configuration.md:291 3ab4acabe04c4b04a2978be15ee49161
+#: ../../../docs/configuration.md:291 64c102a779754b24969d8ef09da0c5d8
 msgid "Colors for Data Points"
 msgstr "Colores para puntos de datos"
 
-#: ../../../docs/configuration.md:299 c15949765c4a41a5bb77983b43e52c70
+#: ../../../docs/configuration.md:299 63af43de0aae4ddd861ee48c83d07634
 msgid ""
 "**PLOT_ERROR_COLOR**: Color of the vertical (or horizontal) error bars on"
 " data points."
@@ -651,51 +654,51 @@ msgstr ""
 "**PLOT_ERROR_COLOR**: Color de las barras de error verticales (u "
 "horizontales) en los puntos de datos."
 
-#: ../../../docs/configuration.md:300 41f4b93539c54d33b4a2f1cc9ebe4d74
+#: ../../../docs/configuration.md:300 101409cce483402cb5472d5b0e8f96aa
 msgid "**PLOT_MARKER_FACE_COLOR**: Fill color of the data point markers."
 msgstr ""
 "**PLOT_MARKER_FACE_COLOR**: Color de relleno de los marcadores de puntos "
 "de datos."
 
-#: ../../../docs/configuration.md:301 ca3ba27945354d5c8ae7d2765003e729
+#: ../../../docs/configuration.md:301 16ce0235c66d4f42b447393ea2586725
 msgid "**PLOT_MARKER_EDGE_COLOR**: Outline/border color of the markers."
 msgstr "**PLOT_MARKER_EDGE_COLOR**: Color de contorno/borde de los marcadores."
 
-#: ../../../docs/configuration.md:303 af242d4919c640928e7c497df44034ac
+#: ../../../docs/configuration.md:303 534f404b05e04360b64de62e1d17cbee
 msgid "**Common color names**:"
 msgstr "**Nombres de colores comunes**:"
 
-#: ../../../docs/configuration.md:304 5e9aa669bb06496e9ad13d9a934da00d
+#: ../../../docs/configuration.md:304 dabfe09caefc4c2facf653c25de49c3e
 msgid "Basic: `\"red\"`, `\"blue\"`, `\"green\"`, `\"black\"`, `\"white\"`."
 msgstr "Básico: `\"rojo\"`, `\"azul\"`, `\"verde\"`, `\"negro\"`, `\"blanco\"`."
 
-#: ../../../docs/configuration.md:305 e8e56e18c49846839dd19417db8aca08
+#: ../../../docs/configuration.md:305 2e0f7899a0004f5b9a1022cd35e853ad
 msgid "Extended: `\"crimson\"`, `\"navy\"`, `\"teal\"`, `\"gold\"`, `\"orange\"`."
 msgstr ""
 "Extendido: `\"carmesí\"`, `\"azul marino\"`, `\"verde azulado\"`, "
 "`\"dorado\"`, `\"naranja\"`."
 
-#: ../../../docs/configuration.md:306 41197606ac7b4c3db517d51b6b65536d
+#: ../../../docs/configuration.md:306 8ddc6a32a3164ab395c74fdc81fbf812
 msgid "Scientific: `\"darkblue\"`, `\"darkgreen\"`, `\"darkred\"`."
 msgstr "Científico: `\"azul oscuro\"`, `\"verde oscuro\"`, `\"rojo oscuro\"`."
 
-#: ../../../docs/configuration.md:308 7889f4b1b62142a184ca4cad9fea2759
+#: ../../../docs/configuration.md:308 ef9d3f7cf7804f99b3fd6811e14ee362
 msgid "Example Plot Styles"
 msgstr "Ejemplos de estilos de trama"
 
-#: ../../../docs/configuration.md:310 71e77bbc911c4f0b91f96b78a0a453ff
+#: ../../../docs/configuration.md:310 f73b3f74dc3b47b4b6ab07fa154c4b59
 msgid "Publication Style (Black & White)"
 msgstr "Estilo de publicación (blanco y negro)"
 
-#: ../../../docs/configuration.md:323 dc4056a390a341eda4a2bc80cf132b83
+#: ../../../docs/configuration.md:323 11faa08c1e004987899204694fdaa10a
 msgid "Colorful Presentation Style"
 msgstr "Estilo de presentación colorido"
 
-#: ../../../docs/configuration.md:338 30a75ea8b64d4074b1377a0eefe0d0b5
+#: ../../../docs/configuration.md:338 473a690ad1cb46a79a222bf0e3ac8a78
 msgid "4. Font Configuration"
 msgstr "4. Configuración de fuentes"
 
-#: ../../../docs/configuration.md:340 5a9c71faa0664e029a505ce644c886e0
+#: ../../../docs/configuration.md:340 42c45c29481642d49449b0062934ec49
 msgid ""
 "Control the font family, size, and style of all text drawn on the plots "
 "(title, axis labels, and tick numbers)."
@@ -703,11 +706,11 @@ msgstr ""
 "Controle la familia de fuentes, el tamaño y el estilo de todo el texto "
 "dibujado en los trazados (título, etiquetas de eje y números de marca)."
 
-#: ../../../docs/configuration.md:342 04543ca69da6452d989ce0d42405381f
+#: ../../../docs/configuration.md:342 5fd79c61f6224e9dbeb84ab5aab0de88
 msgid "Font Family"
 msgstr "Familia de fuentes"
 
-#: ../../../docs/configuration.md:348 5afd9e26703345c897b9d89b18b29282
+#: ../../../docs/configuration.md:348 c72882e23a7a470ca0dbb0debb3d0bbd
 msgid ""
 "**Options** (Matplotlib generic families; exact font depends on your "
 "system):"
@@ -715,13 +718,13 @@ msgstr ""
 "**Opciones** (familias genéricas de Matplotlib; la fuente exacta depende "
 "de su sistema):"
 
-#: ../../../docs/configuration.md:349 be72a4e63eee42dabd981f458899e967
+#: ../../../docs/configuration.md:349 815d7385c40843c989523d6f1e0beb4b
 msgid "`serif`: Serif fonts (e.g. Times-like); good for formal or printed work."
 msgstr ""
 "`serif`: fuentes Serif (por ejemplo, tipo Times); bueno para trabajos "
 "formales o impresos."
 
-#: ../../../docs/configuration.md:350 0ab32d0a0ed74229b3400b16ddb268ae
+#: ../../../docs/configuration.md:350 084438acb9d949068db5703a4d9d3415
 msgid ""
 "`sans-serif`: Sans-serif fonts (e.g. Arial-like); clean and readable on "
 "screen."
@@ -729,7 +732,7 @@ msgstr ""
 "`sans-serif`: fuentes Sans-serif (por ejemplo, tipo Arial); limpio y "
 "legible en pantalla."
 
-#: ../../../docs/configuration.md:351 5dcdd96347544f7099258d4961173869
+#: ../../../docs/configuration.md:351 81256f7f098a4dab9311b644a0a0930e
 msgid ""
 "`monospace`: Fixed-width fonts (e.g. Courier-like); useful for technical "
 "labels."
@@ -737,19 +740,19 @@ msgstr ""
 "`monoespacio`: fuentes de ancho fijo (por ejemplo, tipo Courier); útil "
 "para etiquetas técnicas."
 
-#: ../../../docs/configuration.md:352 f2dba61ba0cb466ea2c2c4510c149446
+#: ../../../docs/configuration.md:352 97b8847e5594461ea7bd6805e87d83d3
 msgid "`cursive`: Script-like fonts; decorative use."
 msgstr "`cursiva`: fuentes tipo script; uso decorativo."
 
-#: ../../../docs/configuration.md:353 1a741b89f2b84b0c833649d800abdb53
+#: ../../../docs/configuration.md:353 a09b05605c24498fa34b7c486c751c55
 msgid "`fantasy`: Decorative/artistic fonts."
 msgstr "`fantasía`: Fuentes decorativas/artísticas."
 
-#: ../../../docs/configuration.md:355 97a88ac4478d40df95e57a9dacb3394f
+#: ../../../docs/configuration.md:355 e2657d98096945d39f6e06f5fc8f8621
 msgid "Title Font"
 msgstr "Fuente del título"
 
-#: ../../../docs/configuration.md:362 49c3ace113c24dc99e94248174acb671
+#: ../../../docs/configuration.md:362 1aea6057a120427282b36513ac600541
 msgid ""
 "**FONT_TITLE_SIZE**: Relative size of the plot title. Only used when "
 "**PLOT_SHOW_TITLE** is `true`."
@@ -757,7 +760,7 @@ msgstr ""
 "**FONT_TITLE_SIZE**: Tamaño relativo del título de la trama. Solo se usa "
 "cuando **PLOT_SHOW_TITLE** es \"verdadero\"."
 
-#: ../../../docs/configuration.md:364 24274e4346244aca99f24dc7de13aec7
+#: ../../../docs/configuration.md:364 7608dc55e6514a0cb10d23bdd25ef532
 msgid ""
 "**Size options**: `xx-small`, `x-small`, `small`, `medium`, `large`, "
 "`x-large`, `xx-large`."
@@ -765,27 +768,27 @@ msgstr ""
 "**Opciones de tamaño**: `xx-pequeño`, `x-pequeño`, `pequeño`, `mediano`, "
 "`grande`, `x-grande`, `xx-grande`."
 
-#: ../../../docs/configuration.md:366 e6be9df363454058a2b07f6e209c9e3d
+#: ../../../docs/configuration.md:366 82103b3894fc4f22a70872f4702cd245
 msgid "**FONT_TITLE_WEIGHT**: Font weight (boldness) of the plot title."
 msgstr "**FONT_TITLE_WEIGHT**: Peso de fuente (negrita) del título de la trama."
 
-#: ../../../docs/configuration.md:368 cb2e9ade0a1940bba80049a43fefb24f
+#: ../../../docs/configuration.md:368 9cd05d8851bd42b69282825018d73621
 msgid "**Weight options**: `normal`, `light`, `semibold`, `bold`, `heavy`."
 msgstr ""
 "**Opciones de peso**: \"normal\", \"ligero\", \"semibold\", \"negrita\", "
 "\"pesado\"."
 
-#: ../../../docs/configuration.md:370 2fa7b863475e42f7a33ba0b9a94d74b0
+#: ../../../docs/configuration.md:370 aad3aed017c648068070a80c2fe1a352
 msgid "Axis Labels"
 msgstr "Etiquetas de eje"
 
-#: ../../../docs/configuration.md:377 9aff1882ef4549b1ac69f1da0bd589ec
+#: ../../../docs/configuration.md:377 0deb7fbab40d4e06abf1f3f43d36d56d
 msgid "**FONT_AXIS_SIZE**: Font size in points for the x- and y-axis labels."
 msgstr ""
 "**FONT_AXIS_SIZE**: Tamaño de fuente en puntos para las etiquetas de los "
 "ejes x e y."
 
-#: ../../../docs/configuration.md:378 604c1d0d51ce4b08887c4417b7439f64
+#: ../../../docs/configuration.md:378 adee3c33698a474cbc52f2e0b0561b1c
 msgid ""
 "**FONT_AXIS_STYLE**: Font style for axis labels (e.g. variable names are "
 "often italic)."
@@ -793,15 +796,15 @@ msgstr ""
 "**FONT_AXIS_STYLE**: estilo de fuente para las etiquetas de los ejes (por"
 " ejemplo, los nombres de las variables suelen estar en cursiva)."
 
-#: ../../../docs/configuration.md:380 57e75340d5174a30b83913b328f15e39
+#: ../../../docs/configuration.md:380 04527cad0c934078b961870980737a3d
 msgid "**Style options**: `normal`, `italic`, `oblique`."
 msgstr "**Opciones de estilo**: `normal`, `cursiva`, `oblicuo`."
 
-#: ../../../docs/configuration.md:382 f6f7206142744d6f89dcd8ec633fb000
+#: ../../../docs/configuration.md:382 66d33ebab1a34aeca48ba6828100e5b5
 msgid "Tick Labels"
 msgstr "Etiquetas de marca"
 
-#: ../../../docs/configuration.md:388 fc62e98f85e040cfa46d57a3cd4b87be
+#: ../../../docs/configuration.md:388 d0222c37a75c4d419a4441a6c53918a4
 msgid ""
 "**FONT_TICK_SIZE**: Font size in points for the numbers on the axis tick "
 "marks."
@@ -809,23 +812,23 @@ msgstr ""
 "**FONT_TICK_SIZE**: Tamaño de fuente en puntos para los números en las "
 "marcas de los ejes."
 
-#: ../../../docs/configuration.md:390 8d15ef088da24b88b9e63bd5134efe4b
+#: ../../../docs/configuration.md:390 877bb5e8abdd45cc9c0b00a2ef159de3
 msgid "Example Font Configurations"
 msgstr "Ejemplos de configuraciones de fuentes"
 
-#: ../../../docs/configuration.md:392 aeeeeba9ae23461c8b231daf1ebf500a
+#: ../../../docs/configuration.md:392 429887aed6614572a0c404860440bb19
 msgid "Academic Publication"
 msgstr "Publicación Académica"
 
-#: ../../../docs/configuration.md:402 667add9be7a449d2837c39e8ff273d51
+#: ../../../docs/configuration.md:402 533edc82708140e3840d19c285262f68
 msgid "Modern Presentation"
 msgstr "Presentación moderna"
 
-#: ../../../docs/configuration.md:414 1f0df0d17a2448a88faa184a576af802
+#: ../../../docs/configuration.md:414 d506dccf2f79413a878ffe4324ea6007
 msgid "5. File Path Configuration"
 msgstr "5. Configuración de la ruta del archivo"
 
-#: ../../../docs/configuration.md:416 d201ebcf6cbf4483a10f0e627b917b60
+#: ../../../docs/configuration.md:416 a1ce73d8fce94e9ea352cbc7c212bdc7
 msgid ""
 "Control the default folders for loading data and saving plots, the naming"
 " pattern for saved files, and the image format used when exporting."
@@ -834,16 +837,16 @@ msgstr ""
 "gráficos, el patrón de nombres de los archivos guardados y el formato de "
 "imagen utilizado al exportar."
 
-#: ../../../docs/configuration.md:425 56e89a65e26c42ccad2dfc788d42aa44
+#: ../../../docs/configuration.md:425 475ca2cfce5e47439c082bb486822c52
 msgid "Input Directory"
 msgstr "Directorio de entrada"
 
 #: ../../../docs/configuration.md:431 ../../../docs/configuration.md:441
-#: 186265aaf22c4c41a673bc54ad6b3460 bfb6c4f1c18d4a27842cd801ef513316
+#: 4d81704c06174ec094afe4ed83dab4b1 5c4cdcf810764403aecd77bc770b6ee5
 msgid "**Options**:"
 msgstr "**Opciones**:"
 
-#: ../../../docs/configuration.md:432 f5d55692a5804c89813edc4ee4126823
+#: ../../../docs/configuration.md:432 7577bf95b99441e296dfe805e5d8a167
 msgid ""
 "**Relative path** (from the RegressionLab root): e.g. `\"input\"`, "
 "`\"data\"`, `\"experiments\"`."
@@ -851,7 +854,7 @@ msgstr ""
 "**Ruta relativa** (desde la raíz de RegressionLab): p.e. `\"entrada\"`, "
 "`\"datos\"`, `\"experimentos\"`."
 
-#: ../../../docs/configuration.md:433 8becd273007243d8bb9f8746a5926490
+#: ../../../docs/configuration.md:433 bf4cbe1965534562b72faf091af4d5b5
 msgid ""
 "**Absolute path**: e.g. `\"/home/user/data\"` or "
 "`\"C:\\\\Users\\\\Name\\\\Documents\\\\Data\"`."
@@ -859,11 +862,11 @@ msgstr ""
 "**Ruta absoluta**: p.e. `\"/home/usuario/datos\"` o "
 "`\"C:\\\\Usuarios\\\\Nombre\\\\Documentos\\\\Datos\"`."
 
-#: ../../../docs/configuration.md:435 0ed7a0453a2642238917cdd935952d0a
+#: ../../../docs/configuration.md:435 864bcfe0701842d8baafcdd8b890cb7b
 msgid "Output Directory"
 msgstr "Directorio de salida"
 
-#: ../../../docs/configuration.md:442 c4254e27f1de4491acad36cb2d2dac9a
+#: ../../../docs/configuration.md:442 f56f48d921ae4011acfa55bfbfb271b0
 msgid ""
 "**Relative path**: e.g. `\"output\"`, `\"results\"`, `\"plots\"` (from "
 "the RegressionLab root)."
@@ -871,7 +874,7 @@ msgstr ""
 "**Ruta relativa**: p.e. `\"salida\"`, `\"resultados\"`, `\"gráficos\"` "
 "(de la raíz de RegressionLab)."
 
-#: ../../../docs/configuration.md:443 a78b697f2e734496b8d0ab3621fe04ba
+#: ../../../docs/configuration.md:443 fc2c07bc2f574a90a56e544fa29c0492
 msgid ""
 "**Absolute path**: e.g. `\"/home/user/results\"` or "
 "`\"C:\\\\Users\\\\Name\\\\Documents\\\\Results\"`."
@@ -879,17 +882,17 @@ msgstr ""
 "**Ruta absoluta**: p.e. `\"/home/usuario/resultados\"` o "
 "`\"C:\\\\Usuarios\\\\Nombre\\\\Documentos\\\\Resultados\"`."
 
-#: ../../../docs/configuration.md:445 f1e9d49eb06f4a1890a0239972d6cad1
+#: ../../../docs/configuration.md:445 27fe8ddea5ae4b9d8c6dfee6b54d8ced
 msgid ""
 "**Note**: The output directory is created automatically if it does not "
 "exist."
 msgstr "**Nota**: El directorio de salida se crea automáticamente si no existe."
 
-#: ../../../docs/configuration.md:447 08b63568800a4420880111d89f618782
+#: ../../../docs/configuration.md:447 9f052a0ad0da434a841970cfb5eebb30
 msgid "Filename Template"
 msgstr "Plantilla de nombre de archivo"
 
-#: ../../../docs/configuration.md:453 5dfa8424b6324f8fa02a8518977ca82e
+#: ../../../docs/configuration.md:453 3a6d3d43a09548a2abb8d4c256d3556f
 #, python-brace-format
 msgid ""
 "The `{}` placeholder is replaced with the plot name (e.g. from the loaded"
@@ -902,19 +905,19 @@ msgstr ""
 "ejemplo, `.png`)."
 
 #: ../../../docs/configuration.md:455 ../../../docs/configuration.md:571
-#: 53480ae37df348a3b8010310d2e5bfe4 9af8df91f3fc47659aa8b65ae0bce191
+#: 7b04ff562f3f4b7f83e8144744916d93 95a7039fb4014ea89835948600f909b9
 msgid "**Examples**:"
 msgstr "**Ejemplos**:"
 
-#: ../../../docs/configuration.md:469 9bf010edcb5f4c8dba4ec586066aba2d
+#: ../../../docs/configuration.md:469 2621189bb1f04049aa4dc1b74f1c22a4
 msgid "Plot Output Format"
 msgstr "Formato de salida del trazado"
 
-#: ../../../docs/configuration.md:475 f65fd130cde54837b8d8c69b6720b713
+#: ../../../docs/configuration.md:475 22e747b2219640ed911f11747391077f
 msgid "**Options**: `png`, `jpg`, `pdf`"
 msgstr "**Opciones**: `png`, `jpg`, `pdf`"
 
-#: ../../../docs/configuration.md:477 22c150dc853748af931553064a8f2b5e
+#: ../../../docs/configuration.md:477 b63aa1661fa84af9a466047d01499fbc
 msgid ""
 "**png**: Default; good balance of quality and file size; supports "
 "transparency."
@@ -922,7 +925,7 @@ msgstr ""
 "**png**: Predeterminado; buen equilibrio entre calidad y tamaño de "
 "archivo; apoya la transparencia."
 
-#: ../../../docs/configuration.md:478 9e7f4e20359a4036835a1f57164aeffc
+#: ../../../docs/configuration.md:478 0971a3112b894122bdcd6150be792815
 msgid ""
 "**jpg**: Smaller files; suitable for sharing or embedding when vector "
 "output is not required."
@@ -930,7 +933,7 @@ msgstr ""
 "**jpg**: archivos más pequeños; adecuado para compartir o incrustar "
 "cuando no se requiere salida vectorial."
 
-#: ../../../docs/configuration.md:479 7ee077fb38a749288679c241d6d5a35a
+#: ../../../docs/configuration.md:479 6aed318aa05a46ca98a1a8231dd7c4e8
 msgid ""
 "**pdf**: Vector output for publications and printing; in-app preview may "
 "still be raster (e.g. PNG)."
@@ -938,11 +941,11 @@ msgstr ""
 "**pdf**: Salida vectorial para publicaciones e impresión; Es posible que "
 "la vista previa en la aplicación aún sea rasterizada (por ejemplo, PNG)."
 
-#: ../../../docs/configuration.md:483 6e7721acf216453c9689668a0bce86c9
+#: ../../../docs/configuration.md:483 d3e135791fed434ba1af490809b95734
 msgid "6. Links (Optional)"
 msgstr "6. Enlaces (opcional)"
 
-#: ../../../docs/configuration.md:489 1673792bfc6741ae87bc3116eec3e8c5
+#: ../../../docs/configuration.md:489 3c73e4112ff544d58cb1711b0aedba34
 msgid ""
 "**DONATIONS_URL**: URL displayed as a “Donations” (or similar) link in "
 "the desktop app’s **Information** / help dialog, e.g. to support the "
@@ -953,11 +956,11 @@ msgstr ""
 "de escritorio, p. para apoyar el proyecto. Déjelo vacío para ocultar el "
 "enlace."
 
-#: ../../../docs/configuration.md:493 645b57c87c5d4d91990091ce6f6471ec
+#: ../../../docs/configuration.md:493 7a5bf808c63a418983e80ff6bc5810a9
 msgid "7. Update Check (Tkinter)"
 msgstr "7. Comprobación de actualización (Tkinter)"
 
-#: ../../../docs/configuration.md:495 00d40d82775c4bf193e4046decf9b782
+#: ../../../docs/configuration.md:495 f4d97dad52824db7915a1cf82a018ddd
 msgid ""
 "The Tkinter desktop app can check for updates once a week when you open "
 "it. If a newer version is available, a dialog asks whether you want to "
@@ -970,27 +973,27 @@ msgstr ""
 "aplicación ejecuta `git pull` para actualizar el código. Sus carpetas "
 "`input/`, `output/` y el archivo `.env` no se modifican."
 
-#: ../../../docs/configuration.md:503 f925dcb2206f4585926ac165597126cb
+#: ../../../docs/configuration.md:503 1a0be08f365b4a9abed44eca650ddb66
 msgid "Enable or Disable Update Check"
 msgstr "Activar o desactivar la comprobación de actualizaciones"
 
-#: ../../../docs/configuration.md:509 a0dcf4f3148943c9bc16eb90e6801da6
+#: ../../../docs/configuration.md:509 302c74bb8ac64e7a904367733ec72ff4
 msgid "`true`: Check for updates weekly when opening the app (default)."
 msgstr ""
 "`true`: busca actualizaciones semanalmente al abrir la aplicación "
 "(predeterminado)."
 
-#: ../../../docs/configuration.md:510 8e8703a7306e4b7eac4b059d38364c22
+#: ../../../docs/configuration.md:510 35a507e9f5374896b8da86228b4092b6
 msgid "`false`: Disable the update check entirely; no dialog will appear."
 msgstr ""
 "`falso`: deshabilita la verificación de actualizaciones por completo; no "
 "aparecerá ningún cuadro de diálogo."
 
-#: ../../../docs/configuration.md:512 7adb756e4965431aad677921968f449e
+#: ../../../docs/configuration.md:512 73844bc9f56f4b269b666316807b3556
 msgid "Force Check (for Testing)"
 msgstr "Verificación de fuerza (para prueba)"
 
-#: ../../../docs/configuration.md:518 b00de6b860504b32a07e2086b4a3e27b
+#: ../../../docs/configuration.md:518 79aa0382d15b4d16b50dc2c17d5860bd
 msgid ""
 "`true`: Always run the update check when opening the app, ignoring the "
 "7-day interval. Useful for testing."
@@ -999,15 +1002,15 @@ msgstr ""
 "la aplicación, ignorando el intervalo de 7 días. Útil para realizar "
 "pruebas."
 
-#: ../../../docs/configuration.md:519 22f674a2104841318f04c60aefbea617
+#: ../../../docs/configuration.md:519 287f6954418345aea7df45cc625e01de
 msgid "`false`: Use the normal weekly interval (default)."
 msgstr "`falso`: utiliza el intervalo semanal normal (predeterminado)."
 
-#: ../../../docs/configuration.md:521 5fc5b8da6b094e77a715ad181f0f076f
+#: ../../../docs/configuration.md:521 40802fa057a74061831eaa905c4950ce
 msgid "Version Check URL"
 msgstr "URL de verificación de versión"
 
-#: ../../../docs/configuration.md:527 7f53c741017a4e69b3900d60635a0009
+#: ../../../docs/configuration.md:527 966c8af6d0a44c5ab5a925c27f322e0f
 msgid ""
 "URL of the remote `pyproject.toml` used to fetch the latest version. "
 "Leave empty to use the default (RegressionLab main branch)."
@@ -1016,15 +1019,15 @@ msgstr ""
 " Déjelo vacío para usar el valor predeterminado (rama principal de "
 "RegressionLab)."
 
-#: ../../../docs/configuration.md:528 b82c3d489ac248128cfb8a481c68b621
+#: ../../../docs/configuration.md:528 f2ec6690959c4f91be7acd0b031c1959
 msgid "If you use a fork, set this to your fork's URL."
 msgstr "Si usa una bifurcación, configúrelo en la URL de su bifurcación."
 
-#: ../../../docs/configuration.md:530 81cca03c53ff4c4898b6c4b75d754770
+#: ../../../docs/configuration.md:530 89896869f73b42608d6c49f2773e29b7
 msgid "How It Works"
 msgstr "Cómo funciona"
 
-#: ../../../docs/configuration.md:532 4804b29096264994bd342b624e9638e4
+#: ../../../docs/configuration.md:532 ef51f9f23d00431aab050db9a875e9bf
 msgid ""
 "The app stores the last check timestamp in `.last_update_check` (project "
 "root). The file is empty; only its modification time is used."
@@ -1033,7 +1036,7 @@ msgstr ""
 "`.last_update_check` (raíz del proyecto). El archivo está vacío; sólo se "
 "utiliza su hora de modificación."
 
-#: ../../../docs/configuration.md:533 ef1879afbfca4f99b79b10324104857c
+#: ../../../docs/configuration.md:533 77b461427e1c48f7856a6d115752bab6
 msgid ""
 "If at least 7 days have passed (or `CHECK_UPDATES_FORCE=true`), the app "
 "fetches the remote version and compares it with the current one."
@@ -1041,7 +1044,7 @@ msgstr ""
 "Si han pasado al menos 7 días (o `CHECK_UPDATES_FORCE=true`), la "
 "aplicación recupera la versión remota y la compara con la actual."
 
-#: ../../../docs/configuration.md:534 88f97485c1684faeb28356a791d1914e
+#: ../../../docs/configuration.md:534 2889b298d94f45c8b2a5e6c0a2fdbb22
 msgid ""
 "If a newer version exists, a dialog asks whether to update. If you "
 "confirm, `git pull` is run. User data in `input/`, `output/`, and `.env` "
@@ -1051,11 +1054,11 @@ msgstr ""
 "desea actualizar. Si confirma, se ejecuta `git pull`. Los datos del "
 "usuario en `input/`, `output/` y `.env` se conservan."
 
-#: ../../../docs/configuration.md:538 18e9e67a572f42e9ad2f5bf4498f3bb2
+#: ../../../docs/configuration.md:538 8f63b7ff38f946a385262d7c6be42bcc
 msgid "8. Logging Configuration"
 msgstr "8. Configuración de registro"
 
-#: ../../../docs/configuration.md:540 fa5bf94b03fb42c1804d6126592c49c7
+#: ../../../docs/configuration.md:540 fcf1ff7b77194d25ab907550a0423b9f
 msgid ""
 "Control where and how much RegressionLab logs: level of detail, log file "
 "location, and whether messages are also printed to the console."
@@ -1064,15 +1067,15 @@ msgstr ""
 "ubicación del archivo de registro y si los mensajes también se imprimen "
 "en la consola."
 
-#: ../../../docs/configuration.md:548 15f1d0c762754071bdaa48b9e08bf4a1
+#: ../../../docs/configuration.md:548 b95481f420764ab9b9879fdbe9ba0165
 msgid "Log Level"
 msgstr "Nivel de registro"
 
-#: ../../../docs/configuration.md:554 29f7a30a7e7645a4a8c5cda6ac8febfb
+#: ../../../docs/configuration.md:554 6a4485af7a0a4510b3f385c17f698719
 msgid "**Options** (from most to least verbose):"
 msgstr "**Opciones** (de mayor a menor detalle):"
 
-#: ../../../docs/configuration.md:555 78063160aff74efa9f73b129a1413e4a
+#: ../../../docs/configuration.md:555 0145367bfc474e32a8c36e2017de65cf
 msgid ""
 "`DEBUG`: Very detailed messages (function flow, variable values); useful "
 "for development and debugging."
@@ -1080,27 +1083,27 @@ msgstr ""
 "`DEBUG`: Mensajes muy detallados (flujo de funciones, valores de "
 "variables); Útil para el desarrollo y la depuración."
 
-#: ../../../docs/configuration.md:556 ccc4671e94f84051a09ac99b9c273ad8
+#: ../../../docs/configuration.md:556 4ead50a3855344468abb12e9e56ec2bc
 msgid "`INFO`: General operational messages (default); good for normal use."
 msgstr ""
 "`INFO`: Mensajes operativos generales (predeterminado); Bueno para uso "
 "normal."
 
-#: ../../../docs/configuration.md:557 ea08ec3d3c484e869d42eacbc6f62fe0
+#: ../../../docs/configuration.md:557 dbfea3efd6874b66aa32d01fd5e29fe4
 msgid "`WARNING`: Only warnings and more severe; reduces log noise."
 msgstr ""
 "`ADVERTENCIA`: Sólo advertencias y más severas; reduce el ruido del "
 "tronco."
 
-#: ../../../docs/configuration.md:558 aad4167d16cb4a5cb0baa5d48e89d7f1
+#: ../../../docs/configuration.md:558 ddf057dc7d424f82bf58cc404f6bedf5
 msgid "`ERROR`: Only errors and critical issues."
 msgstr "`ERROR`: Sólo errores y problemas críticos."
 
-#: ../../../docs/configuration.md:559 8729302b3f87487685de167825b57311
+#: ../../../docs/configuration.md:559 6a1a238f1a134f3081513cfc164ce347
 msgid "`CRITICAL`: Only critical failures."
 msgstr "`CRÍTICO`: Sólo fallos críticos."
 
-#: ../../../docs/configuration.md:561 d50f590e30cb4aa6a4df0d2bebaf9b56
+#: ../../../docs/configuration.md:561 bad4030dbe174a7db2e02c03eb3fa42c
 msgid ""
 "**Recommendation**: Use `INFO` for everyday use; switch to `DEBUG` when "
 "troubleshooting."
@@ -1108,11 +1111,11 @@ msgstr ""
 "**Recomendación**: Utilice `INFO` para uso diario; cambie a `DEBUG` "
 "cuando solucione problemas."
 
-#: ../../../docs/configuration.md:563 d40ecf005cb3419996a747f7c8be4744
+#: ../../../docs/configuration.md:563 de63ff80e7f24080997a29d16a6d8e33
 msgid "Log File"
 msgstr "Archivo de registro"
 
-#: ../../../docs/configuration.md:569 c70621e42f674b0e884c4a9e7ff98c49
+#: ../../../docs/configuration.md:569 faa333570857460ba428da5350105fb1
 msgid ""
 "Path to the log file (relative to the RegressionLab root or absolute). "
 "Logs are appended; the file is created automatically if it does not "
@@ -1122,11 +1125,11 @@ msgstr ""
 "absoluta). Se adjuntan registros; el archivo se crea automáticamente si "
 "no existe."
 
-#: ../../../docs/configuration.md:583 c417eec050dd45da8fa577a1c4f3cb86
+#: ../../../docs/configuration.md:583 384512022cb04989bdc65dab91ec49b9
 msgid "Console Logging"
 msgstr "Registro de consola"
 
-#: ../../../docs/configuration.md:589 03c09f0be7094671ae8f29f501bfccc1
+#: ../../../docs/configuration.md:589 b5d4be05e87c4471a8282d179078b00a
 msgid ""
 "`true`: Also print log messages to the console/terminal (useful when "
 "running from a terminal)."
@@ -1134,13 +1137,13 @@ msgstr ""
 "`true`: también imprime mensajes de registro en la consola/terminal (útil"
 " cuando se ejecuta desde una terminal)."
 
-#: ../../../docs/configuration.md:590 7e97b55a6f3d4e9eac27522e6867ad64
+#: ../../../docs/configuration.md:590 e95854d775b74805839850fbbc375b4d
 msgid "`false`: Write only to the log file (default; cleaner when using the GUI)."
 msgstr ""
 "`falso`: escribe solo en el archivo de registro (predeterminado; más "
 "limpio cuando se usa la GUI)."
 
-#: ../../../docs/configuration.md:592 e441a3fa65b94b02ab9e03969804ecf9
+#: ../../../docs/configuration.md:592 cc15c1e495ce4508ba6d1ce1951af8cb
 msgid ""
 "**Recommendation**: Use `true` when debugging from the command line; use "
 "`false` when running the desktop app or for quieter operation."
@@ -1149,32 +1152,33 @@ msgstr ""
 "use \"falso\" cuando ejecute la aplicación de escritorio o para un "
 "funcionamiento más silencioso."
 
-#: ../../../docs/configuration.md:596 b7b4ba25d22d4b54a3ba7268f66cef68
+#: ../../../docs/configuration.md:596 807785dcf1c74e25a195780077e57c67
 msgid "Applying Configuration Changes"
 msgstr "Aplicar cambios de configuración"
 
-#: ../../../docs/configuration.md:598 eff17d017a834729a2b1f6c24866ed72
+#: ../../../docs/configuration.md:598 39731c7d5e7b41e3b1d989285534723c
 msgid "Tkinter (desktop)"
 msgstr "Tkinter (escritorio)"
 
-#: ../../../docs/configuration.md:600 85a84fbf58564e17b49f8e6943b27289
+#: ../../../docs/configuration.md:600 181fcb1602144864a863948a113c5639
 msgid "You can change settings in two ways:"
 msgstr "Puede cambiar la configuración de dos maneras:"
 
-#: ../../../docs/configuration.md:602 01856004d3c8444dbe658e69c8f52886
+#: ../../../docs/configuration.md:602 7540749bdce748bc97f99b69a1d4e97d
+#, fuzzy
 msgid ""
 "**From the app**: Main menu → **Configure** (or **Configurar**). Adjust "
 "values in the dialog and click **Accept**; the app restarts so the new "
 "settings take effect. ![Configuration "
-"Dialog](../images/en_documentation/tkinter_docs/configuration.png)"
+"Dialog](../images/en_documentation/tkinter_docs/config.png)"
 msgstr ""
 "**Desde la aplicación**: Menú principal → **Configurar** (o "
 "**Configurar**). Ajuste los valores en el cuadro de diálogo y haga clic "
 "en **Aceptar**; la aplicación se reinicia para que la nueva configuración"
 " surta efecto. ![Diálogo de "
-"configuración](../images/en_documentation/tkinter_docs/configuration.png)"
+"configuración](../images/es_documentation/tkinter_docs/config.png)"
 
-#: ../../../docs/configuration.md:604 fdabf6f9a4984f39b531a7fcc4a7057a
+#: ../../../docs/configuration.md:604 abacea39aeae4f1eaf6b66fc1709dbfc
 msgid ""
 "**By editing `.env`**: Edit `.env` with a text editor, save, then restart"
 " the application:"
@@ -1182,21 +1186,21 @@ msgstr ""
 "**Al editar `.env`**: Edite `.env` con un editor de texto, guarde y luego"
 " reinicie la aplicación:"
 
-#: ../../../docs/configuration.md:611 7d7381d4d9d84c0e8f4a1ca7157d88c9
+#: ../../../docs/configuration.md:611 43ac91715b744c6c954f873abedda98c
 msgid "Streamlit (web)"
 msgstr "Streamlit (web)"
 
-#: ../../../docs/configuration.md:613 a9d30a181f6a4d04b4daf7ffef9ed8d2
+#: ../../../docs/configuration.md:613 fcd0f4ddd9954cde8bcecac15c62e514
 msgid "Edit the `.env` file and save."
 msgstr "Edite el archivo `.env` y guárdelo."
 
-#: ../../../docs/configuration.md:614 3782c089b3da4ad3be61e3b1852251c4
+#: ../../../docs/configuration.md:614 64caa6c313b049deacfed14bcc7d0ba4
 msgid "Reload the app in your browser (e.g. Ctrl+R or Cmd+R)."
 msgstr ""
 "Vuelva a cargar la aplicación en su navegador (por ejemplo, Ctrl+R o "
 "Cmd+R)."
 
-#: ../../../docs/configuration.md:616 81bf5e06b2d34d7390f448a595aa0504
+#: ../../../docs/configuration.md:616 56e3ad1bf1f840e389f0cc57dbd305ec
 msgid ""
 "**Note**: For some changes (e.g. paths or logging), you may need to stop "
 "and restart the Streamlit server:"
@@ -1204,41 +1208,41 @@ msgstr ""
 "**Nota**: Para algunos cambios (por ejemplo, rutas o registros), es "
 "posible que tengas que detener y reiniciar el servidor Streamlit:"
 
-#: ../../../docs/configuration.md:626 8f73deef050945869b61e5381b544226
+#: ../../../docs/configuration.md:626 87f31e2677aa43e5a32baed99fab9cbf
 msgid "Common Configuration Scenarios"
 msgstr "Escenarios de configuración comunes"
 
-#: ../../../docs/configuration.md:628 3383a8a79fd941f88ceee50cc88742f7
+#: ../../../docs/configuration.md:628 9b241e55a3304d91a7fa718ae01a5119
 msgid "Scenario 1: Preparing plots for publication"
 msgstr "Escenario 1: Preparación de argumentos para publicación"
 
-#: ../../../docs/configuration.md:646 34a397d0c0db44d4975d511638a4acfa
+#: ../../../docs/configuration.md:646 302ddc1370fa442c9f8d933817666ca9
 msgid "Scenario 2: Quick data exploration"
 msgstr "Escenario 2: exploración rápida de datos"
 
-#: ../../../docs/configuration.md:662 3518465bd4d444cbac00e40a16db4098
+#: ../../../docs/configuration.md:662 09604d57383146bab619b5f369a516cd
 msgid "Scenario 3: Debugging issues"
 msgstr "Escenario 3: problemas de depuración"
 
-#: ../../../docs/configuration.md:671 7e43af82783849a3b12f752e65e2b1c6
+#: ../../../docs/configuration.md:671 bb8f6d1c53fa4f2b9d86b0ce1aa060fb
 msgid "Set **LOG_CONSOLE** to `true` so you can see logs in the terminal."
 msgstr ""
 "Establezca **LOG_CONSOLE** en \"verdadero\" para que pueda ver los "
 "registros en la terminal."
 
-#: ../../../docs/configuration.md:673 3171ba2b61764e6d8b4dbd9809fc2c42
+#: ../../../docs/configuration.md:673 fcbffc2f96b147b9a0595f56dd627e15
 msgid "Scenario 4: Batch processing"
 msgstr "Escenario 4: procesamiento por lotes"
 
-#: ../../../docs/configuration.md:685 55c9b745f65542d28a41f3d58bacf55e
+#: ../../../docs/configuration.md:685 b6b5089fd9534da3b970a0398b07d321
 msgid "Troubleshooting configuration"
 msgstr "Configuración de solución de problemas"
 
-#: ../../../docs/configuration.md:687 2158e3e883194d929b64a3c8b85432df
+#: ../../../docs/configuration.md:687 cd3909a4232446a49e6c835999c06d8a
 msgid "Changes not applied"
 msgstr "Cambios no aplicados"
 
-#: ../../../docs/configuration.md:689 70449728dd2b4d4e903a4fbec9882d67
+#: ../../../docs/configuration.md:689 28607de2be5e4dfbb029da21ed28f85d
 msgid "**Problem**: You edited `.env` but the app still shows old behavior."
 msgstr ""
 "**Problema**: Editaste `.env` pero la aplicación aún muestra un "
@@ -1246,22 +1250,22 @@ msgstr ""
 
 #: ../../../docs/configuration.md:691 ../../../docs/configuration.md:701
 #: ../../../docs/configuration.md:710 ../../../docs/configuration.md:719
-#: 25d161f6cf4f4833a6257ed07cfba737 2c5ca6f423444a23ba3fd3a19bd9c240
-#: 601bf94bd6c5404682abc5a28de81f72 7bcd5872e8ad4959a84a33fbb0285d69
+#: 517fd6371c3b46a8a4665a9f8518f40c aa32713017c84ad0b9539092d436500e
+#: e5f8d4e9f1874babadb0222824239bbc f77f7270b59240b5914a23dc980fb297
 msgid "**Solutions**:"
 msgstr "**Soluciones**:"
 
-#: ../../../docs/configuration.md:692 f6d11efadae749c28afd2409285c3d0c
+#: ../../../docs/configuration.md:692 fa2c00f2501841c099a4a74546455dc0
 msgid "Confirm the `.env` file was saved (check the timestamp)."
 msgstr "Confirme que se guardó el archivo `.env` (verifique la marca de tiempo)."
 
-#: ../../../docs/configuration.md:693 18654cc43fe34454850e134138b1b46b
+#: ../../../docs/configuration.md:693 1ed585a8da034030acac35d0754ea3ca
 msgid "Fully quit and restart the application (not just refresh the window)."
 msgstr ""
 "Salga y reinicie completamente la aplicación (no solo actualice la "
 "ventana)."
 
-#: ../../../docs/configuration.md:694 cd29bb309b104f3da1513ac3d60fd5d1
+#: ../../../docs/configuration.md:694 f1d2b1f6746e43079df0ff6315776c19
 msgid ""
 "Look for syntax errors: missing quotes, stray spaces, or broken lines in "
 "`.env`."
@@ -1269,7 +1273,7 @@ msgstr ""
 "Busque errores de sintaxis: comillas faltantes, espacios perdidos o "
 "líneas discontinuas en `.env`."
 
-#: ../../../docs/configuration.md:695 49e27967b4834149a73ba47c4a6e85a6
+#: ../../../docs/configuration.md:695 b10967b2bcc14dc7a9c33dfb2e29400d
 msgid ""
 "Ensure `.env` is in the RegressionLab project root (same folder as "
 "`src/`, `.env.example`, etc.)."
@@ -1277,15 +1281,15 @@ msgstr ""
 "Asegúrese de que `.env` esté en la raíz del proyecto de RegressionLab (la"
 " misma carpeta que `src/`, `.env.example`, etc.)."
 
-#: ../../../docs/configuration.md:697 a78b15dca4fc43d8934f5566301023d8
+#: ../../../docs/configuration.md:697 04aa5e3a630b4996b32419cc15cbdfff
 msgid "Invalid color names"
 msgstr "Nombres de colores no válidos"
 
-#: ../../../docs/configuration.md:699 1a64625d2bdd4fd38bc4b623d864b4cd
+#: ../../../docs/configuration.md:699 13ef5e720412422fa7040673ba55d9ae
 msgid "**Problem**: The app reports an invalid or unknown color."
 msgstr "**Problema**: La aplicación informa un color no válido o desconocido."
 
-#: ../../../docs/configuration.md:702 0d2e05164ddb424a93f7132cb2cfae04
+#: ../../../docs/configuration.md:702 fc458c95d9d84a58be5ad70f42291b03
 msgid ""
 "Put color values in double quotes: `\"midnight blue\"` not `midnight "
 "blue`."
@@ -1293,7 +1297,7 @@ msgstr ""
 "Coloque los valores de color entre comillas dobles: `\"azul "
 "medianoche\"`, no `azul medianoche`."
 
-#: ../../../docs/configuration.md:703 36586c89965644c49ecfab764e17b908
+#: ../../../docs/configuration.md:703 4c2de5d89dd94745b021fced262e0d4a
 msgid ""
 "Use a standard color name (e.g. from "
 "[Matplotlib](https://matplotlib.org/stable/gallery/color/named_colors.html))"
@@ -1303,21 +1307,21 @@ msgstr ""
 "[Matplotlib](https://matplotlib.org/stable/gallery/color/named_colors.html))"
 " o un código hexadecimal como `\"#2C3E50\"`."
 
-#: ../../../docs/configuration.md:704 98de155bc217457a9201765b1b344fda
+#: ../../../docs/configuration.md:704 aeb94084957a4b53b5bd8f02c8c16eed
 msgid "Check spelling; multi-word names must be quoted."
 msgstr "Revisar la ortografía; los nombres de varias palabras deben citarse."
 
-#: ../../../docs/configuration.md:706 e7aca9fee0334da6938f16b55d297462
+#: ../../../docs/configuration.md:706 d1c4f0f9e9384656ba26b41a825fe112
 msgid "Font not found"
 msgstr "Fuente no encontrada"
 
-#: ../../../docs/configuration.md:708 07947ace43bf4f84973e6ffdc2be3a2a
+#: ../../../docs/configuration.md:708 4e17e3d897eb415bbae44e56cb627982
 msgid "**Problem**: The UI or plot does not show the font you configured."
 msgstr ""
 "**Problema**: La interfaz de usuario o el gráfico no muestran la fuente "
 "que configuró."
 
-#: ../../../docs/configuration.md:711 45e69f7c60864129aa14494d142b2644
+#: ../../../docs/configuration.md:711 12c886cb784f4f5a8ec6dfda9a627d32
 msgid ""
 "Confirm the font is installed on your system (e.g. via Font Book, Windows"
 " Fonts)."
@@ -1325,7 +1329,7 @@ msgstr ""
 "Confirme que la fuente esté instalada en su sistema (por ejemplo, a "
 "través del Libro de fuentes, Fuentes de Windows)."
 
-#: ../../../docs/configuration.md:712 8e62562d984d4e9faf1745168fa6db75
+#: ../../../docs/configuration.md:712 6afeaf79cb9d4a6ea419498e1687ddc1
 msgid ""
 "Prefer generic families (`serif`, `sans-serif`, `monospace`); the system "
 "will pick a suitable font."
@@ -1333,17 +1337,17 @@ msgstr ""
 "Prefiere familias genéricas (`serif`, `sans-serif`, `monospace`); el "
 "sistema elegirá una fuente adecuada."
 
-#: ../../../docs/configuration.md:713 10f4ffad7fe04217aa2555359d2fa939
+#: ../../../docs/configuration.md:713 128a0867ab5c4b6ca16ba34861657f25
 msgid "Check the exact font name (e.g. “Times New Roman” vs “Times”)."
 msgstr ""
 "Verifique el nombre exacto de la fuente (por ejemplo, “Times New Roman” "
 "frente a “Times”)."
 
-#: ../../../docs/configuration.md:715 9a4c6cdcfa9b4c85ad251ab490718ad7
+#: ../../../docs/configuration.md:715 91054d84d1a14ce3bcdbdca453a550d2
 msgid "Path issues"
 msgstr "Problemas de ruta"
 
-#: ../../../docs/configuration.md:717 346c6bc621f44bf48eb18fc0c0897a6e
+#: ../../../docs/configuration.md:717 556ca90f3bb54462a13dc2603f5bdb08
 msgid ""
 "**Problem**: The app cannot find the input or output directory (or files "
 "in it)."
@@ -1351,7 +1355,7 @@ msgstr ""
 "**Problema**: La aplicación no puede encontrar el directorio de entrada o"
 " salida (o los archivos que contiene)."
 
-#: ../../../docs/configuration.md:720 df6aca6574c44b5e96dacd57e18de7ba
+#: ../../../docs/configuration.md:720 257226a85cfb491b9af308569d4dec20
 msgid ""
 "On Windows, use forward slashes (`/`) or escaped backslashes (`\\\\`) in "
 "paths."
@@ -1359,7 +1363,7 @@ msgstr ""
 "En Windows, utilice barras diagonales (`/`) o barras invertidas de escape"
 " (`\\\\`) en las rutas."
 
-#: ../../../docs/configuration.md:721 dedbe01d858d47bfbc172d3e62439c84
+#: ../../../docs/configuration.md:721 0098449c6c2e41159503643548b1f2a4
 msgid ""
 "For **FILE_INPUT_DIR**, the folder must exist; for **FILE_OUTPUT_DIR**, "
 "it is created if missing."
@@ -1367,11 +1371,11 @@ msgstr ""
 "Para **FILE_INPUT_DIR**, la carpeta debe existir; para "
 "**FILE_OUTPUT_DIR**, se crea si falta."
 
-#: ../../../docs/configuration.md:722 db93ea1d424e435da07db2950a825dd9
+#: ../../../docs/configuration.md:722 36c9ac63092947f4bbfe791b04a6a83f
 msgid "Check read/write permissions for the chosen directories."
 msgstr "Verifique los permisos de lectura/escritura para los directorios elegidos."
 
-#: ../../../docs/configuration.md:723 0cdb844c09304315890b8920b3388c63
+#: ../../../docs/configuration.md:723 8b9c767be1ed42e090ce76caaa231422
 msgid ""
 "If relative paths fail, try an absolute path to rule out working-"
 "directory issues."
@@ -1379,43 +1383,45 @@ msgstr ""
 "Si las rutas relativas fallan, pruebe con una ruta absoluta para "
 "descartar problemas con el directorio de trabajo."
 
-#: ../../../docs/configuration.md:727 2afb49f46bff4e5a96827f1228ad16f8
+#: ../../../docs/configuration.md:727 8731aaa41c234715bc70dd5154fe76e0
 msgid "Default configuration"
 msgstr "Configuración predeterminada"
 
-#: ../../../docs/configuration.md:729 1213bf5ac85d4ae08e43106dbe2cfa6f
+#: ../../../docs/configuration.md:729 42528ec7650f4ec3ac48adfec9c3dcb3
 msgid "To restore default settings, overwrite `.env` with the example file:"
 msgstr ""
 "Para restaurar la configuración predeterminada, sobrescriba `.env` con el"
 " archivo de ejemplo:"
 
-#: ../../../docs/configuration.md:735 f19da284a2eb4c7fab127212610cef24
+#: ../../../docs/configuration.md:735 dbaa29fdd10741f5a9827372c51eedb2
 msgid "Or delete `.env` and let RegressionLab use built-in defaults."
 msgstr ""
 "O elimine `.env` y deje que RegressionLab use los valores predeterminados"
 " integrados."
 
-#: ../../../docs/configuration.md:739 ce843aad543e4c69a8d480b22a00c3a4
+#: ../../../docs/configuration.md:739 fc4d640c84864af28748d50e8be0cfa2
 msgid "Next steps"
 msgstr "Próximos pasos"
 
-#: ../../../docs/configuration.md:741 7634294912bb4851b75d64a4f81af199
+#: ../../../docs/configuration.md:741 bc84d89a4e034f01ad9edcd798f443db
+#, fuzzy
 msgid ""
-"**Customize your plots**: Experiment with [plot styles](#plot-style-"
+"**Customize your plots**: Experiment with [plot styles](#3-plot-style-"
 "configuration) and fonts."
 msgstr ""
-"**Personaliza tus gráficos**: experimenta con [estilos de trazado](#3-plot-style-"
-"configuration) y fuentes."
+"**Personaliza tus gráficos**: experimenta con [estilos de trazado](#3"
+"-plot-style-configuration) y fuentes."
 
-#: ../../../docs/configuration.md:742 3076a151654941c49d29b3c502d79a01
+#: ../../../docs/configuration.md:742 a0b025334b834386afde8434a439b45d
+#, fuzzy
 msgid ""
-"**Create a theme**: Build a [UI theme](#ui-theme-configuration) that fits"
-" your workflow."
+"**Create a theme**: Build a [UI theme](#2-ui-theme-configuration) that "
+"fits your workflow."
 msgstr ""
 "**Crea un tema**: crea un [tema de interfaz de usuario](#2-ui-theme-"
 "configuration) que se adapte a tu flujo de trabajo."
 
-#: ../../../docs/configuration.md:743 9b053ea911d5427d861941fc11afad45
+#: ../../../docs/configuration.md:743 63f3ddd0e0d04cbabf808a8e8374ea1d
 msgid ""
 "**Go further**: See the [Extending RegressionLab](extending.md) guide for"
 " advanced customization."
@@ -1423,7 +1429,7 @@ msgstr ""
 "**Ir más lejos**: consulte la guía [Extending "
 "RegressionLab](extending.md) para una personalización avanzada."
 
-#: ../../../docs/configuration.md:747 a52f4516bef3429aab5ae3103a34f529
+#: ../../../docs/configuration.md:747 d0a28f9dfefd4c699746fe2483b9d5a0
 msgid ""
 "*Need more help? Check the [Troubleshooting Guide](troubleshooting.md) or"
 " open an issue on GitHub.*"

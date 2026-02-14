@@ -112,10 +112,13 @@ RegressionLab offers four different operation modes to match your workflow. Each
 
 **How it works**:
 1. Select an equation type (or define a custom formula).
+![Equation Selection](../images/en_documentation/tkinter_docs/equation.png)
 2. Choose whether to enable loop mode.
 3. Load your data file.
 4. Select X and Y variables.
+![Names Selection](../images/en_documentation/tkinter_docs/names.png)
 5. View the fitting results.
+![Results Window](../images/en_documentation/tkinter_docs/result.png)
 
 **Loop Mode**: 
 - Allows you to modify the data file and refit without restarting.
@@ -428,8 +431,11 @@ If none of the predefined equations work, you can define your own:
    - `a*np.exp(-b*x)` (exponential decay).
    - `a/(1 + b*x)` (hyperbola).
    - `a*x_0 + b*x_1 + c` (multidimensional, 2 variables: use `x_0`, `x_1`, etc.).
+![Custom eq](../images/en_documentation/tkinter_docs/custom_eq.png)
 
 For multidimensional (2+ variables), you will select multiple X columns during variable selection. With 2 variables you get an interactive 3D plot; with 3+ you get a residuals plot.
+![3D Fit Result](../images/en_documentation/tkinter_docs/3d_result.png)
+![Multiple Datasets Result](../images/en_documentation/tkinter_docs/multi_result.png)
 
 ### Prediction Window (Desktop)
 
