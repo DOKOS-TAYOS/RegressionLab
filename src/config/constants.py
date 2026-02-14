@@ -15,7 +15,7 @@ __copyright__ = "Public content for science use"
 __credits__ = ["Alejandro Mata Ali"]
 __maintainer__ = "Alejandro Mata Ali"
 __email__ = "alejandro.mata.ali@gmail.com"
-__status__ = "Beta"
+__status__ = "Production"
 
 # ---------------------------------------------------------------------------
 # Equations configuration

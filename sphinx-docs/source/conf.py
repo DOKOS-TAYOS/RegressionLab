@@ -193,12 +193,14 @@ def _rewrite_locale_asset_paths(doctree: nodes.document) -> None:
     """Rewrite image paths so they work in both normal and gettext (locale) builds.
 
     In locale builds, content comes from .po files; relative paths like ../images/...
-    are then resolved from the document dir (source/), so ../images points to
-    sphinx-docs/images instead of project root. Fix by rewriting ../images/ to
-    ../../images/ (relative to source/ = project root images/).
+    are resolved from the document dir (source/). Use ../../images/ (2 levels up from
+    source/ = project root). If Read the Docs resolves from locale/es/, try
+    setting LOCALE_IMAGE_LEVELS=3 in the build environment.
     """
+    # Allow override: LOCALE_IMAGE_LEVELS=3 if Read the Docs resolves from locale/es/
+    levels = max(1, int(os.environ.get("LOCALE_IMAGE_LEVELS", "3")))
     prefix = '../images/'
-    replacement = '../../images/'
+    replacement = ("../" * levels) + "images/"
     for node in doctree.traverse(nodes.image):
         uri = node.get('uri', '')
         if uri.startswith(prefix):
@@ -216,10 +218,31 @@ _LINK_MARKDOWN_RE = re.compile(
     r'^\[([^\]]*)\]\s*\(\s*([^)]+)\s*\)\s*$',
     re.DOTALL,
 )
-# Link inside a paragraph: [text](url)
+# Link inside a paragraph: [text](url) or [text] (url) - allow space between ] and (
 _LINK_INLINE_RE = re.compile(
-    r'\[([^\]]*)\]\(\s*([^)]+)\s*\)',
+    r'\[([^\]]*)\]\s*\(\s*([^)]+)\s*\)',
 )
+# Inline image inside a paragraph: ![alt](path) - path may be ../images/...
+_IMAGE_INLINE_RE = re.compile(
+    r'!\s*\[([^\]]*)\]\s*\(\s*((?:\.\./)+images/[^)]+)\s*\)',
+)
+_IMAGE_EXTENSIONS = ('.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp')
+
+
+def _is_image_path(target: str) -> bool:
+    """Return True if target is an image path (e.g. ../images/.../file.png)."""
+    t = target.strip().lower()
+    return any(t.endswith(ext) for ext in _IMAGE_EXTENSIONS) or (
+        'images/' in t and any(ext in t for ext in _IMAGE_EXTENSIONS)
+    )
+
+
+def _image_uri_from_path(path: str) -> str:
+    """Normalize image path to correct depth for locale builds."""
+    levels = int(os.environ.get("LOCALE_IMAGE_LEVELS", "3"))
+    if "images/" in path:
+        return ("../" * levels) + "images/" + path.split("images/", 1)[1]
+    return path
 
 
 def _convert_literal_markdown_paragraphs(app, doctree: nodes.document, docname: str) -> None:
@@ -249,9 +272,10 @@ def _convert_literal_markdown_paragraphs(app, doctree: nodes.document, docname: 
         if match:
             alt = match.group(1).strip()
             path = match.group(2).strip()
-            # Normalize to ../../images/... (relative to source/ = project root)
+            # Normalize path (same logic as _rewrite_locale_asset_paths)
+            levels = int(os.environ.get("LOCALE_IMAGE_LEVELS", "3"))
             if "images/" in path:
-                uri = "../../images/" + path.split("images/", 1)[1]
+                uri = ("../" * levels) + "images/" + path.split("images/", 1)[1]
             else:
                 uri = path
             img = nodes.image(uri=uri, alt=alt)
@@ -265,6 +289,17 @@ def _convert_literal_markdown_paragraphs(app, doctree: nodes.document, docname: 
         if match:
             link_text = match.group(1).strip()
             target = match.group(2).strip()
+            # If target is an image path, render as img not link
+            if _is_image_path(target):
+                uri = _image_uri_from_path(target)
+                from html import escape
+                raw = nodes.raw(
+                    "",
+                    f'<img src="{escape(uri)}" alt="{escape(link_text)}" />',
+                    format="html",
+                )
+                node.replace_self(raw)
+                continue
             if any(target.startswith(s) for s in ("http://", "https://", "mailto:")):
                 refuri = target
             elif get_uri:
@@ -288,6 +323,28 @@ def _convert_literal_markdown_paragraphs(app, doctree: nodes.document, docname: 
             node.replace_self(raw)
             continue
 
+        # Paragraph contains inline image: "text ![alt](../images/...)" - render img
+        match_img = _IMAGE_INLINE_RE.search(text)
+        if match_img and _IMAGE_INLINE_RE.search(text, match_img.end()) is None:
+            from html import escape
+            before = text[: match_img.start()]
+            alt = match_img.group(1).strip()
+            path = match_img.group(2).strip()
+            uri = _image_uri_from_path(path)
+            after = text[match_img.end() :]
+            new_children = []
+            if before:
+                new_children.append(nodes.Text(before))
+            new_children.append(
+                nodes.raw("", f'<img src="{escape(uri)}" alt="{escape(alt)}" />', format="html")
+            )
+            if after:
+                new_children.append(nodes.Text(after))
+            node.clear()
+            for c in new_children:
+                node += c
+            continue
+
         # Paragraph contains one markdown link in the middle (e.g. "Consulta la [Guía](installation.md) para...")
         match_inline = _LINK_INLINE_RE.search(text)
         if match_inline and _LINK_INLINE_RE.search(text, match_inline.end()) is None:
@@ -297,6 +354,21 @@ def _convert_literal_markdown_paragraphs(app, doctree: nodes.document, docname: 
             link_text = match_inline.group(1).strip()
             target = match_inline.group(2).strip()
             after = text[match_inline.end() :]
+            # If target is an image path, render as img not link
+            if _is_image_path(target):
+                uri = _image_uri_from_path(target)
+                new_children = []
+                if before:
+                    new_children.append(nodes.Text(before))
+                new_children.append(
+                    nodes.raw("", f'<img src="{escape(uri)}" alt="{escape(link_text)}" />', format="html")
+                )
+                if after:
+                    new_children.append(nodes.Text(after))
+                node.clear()
+                for c in new_children:
+                    node += c
+                continue
             if any(target.startswith(s) for s in ("http://", "https://", "mailto:")):
                 refuri = target
             elif get_uri:
