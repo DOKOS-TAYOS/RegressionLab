@@ -202,17 +202,24 @@ def _images_path_to_static(uri: str) -> str:
     return uri
 
 
-def _rewrite_locale_asset_paths(doctree: nodes.document) -> None:
+def _rewrite_locale_asset_paths(doctree: nodes.document, language: str = "en") -> None:
     """Rewrite image paths so they work on ReadTheDocs for both en and es builds.
 
     Use _static/ for doc images (copied via html_static_path) so paths work regardless
     of URL depth (/es/latest/, /en/latest/, etc.).
+    For Spanish (es), replace en_documentation with es_documentation so locale-specific
+    images are used.
     """
+    use_es_images = language == "es"
     for node in doctree.traverse(nodes.image):
         uri = node.get('uri', '')
+        if use_es_images and 'en_documentation' in uri:
+            uri = uri.replace('en_documentation', 'es_documentation')
         new_uri = _images_path_to_static(uri)
-        if new_uri != uri:
+        if new_uri != node.get('uri', ''):
             node['uri'] = new_uri
+        if 'candidates' in node:
+            node['candidates'] = {'*': node['uri']}
 
 
 # Regex for paragraphs that are only markdown image or link (locale builds sometimes
@@ -405,7 +412,8 @@ def _convert_literal_markdown_paragraphs(app, doctree: nodes.document, docname: 
 def _rewrite_doc_md_links(app, doctree, docname):
     """Rewrite links to docs/*.md so they point to the built .html (works in both .md and Sphinx)."""
     # Fix image paths for locale builds (content from .po resolves paths from source/)
-    _rewrite_locale_asset_paths(doctree)
+    language = getattr(app.config, 'language', 'en')
+    _rewrite_locale_asset_paths(doctree, language)
     # Convert paragraphs that are literal markdown image/link (gettext can emit raw text)
     _convert_literal_markdown_paragraphs(app, doctree, docname)
 
