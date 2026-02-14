@@ -189,22 +189,30 @@ def _get_fragment(raw: str) -> str:
 _DOC_HTML_TO_DOCNAME = {v: v.replace('.html', '') for v in _DOC_MD_TO_HTML.values()}
 
 
-def _rewrite_locale_asset_paths(doctree: nodes.document) -> None:
-    """Rewrite image paths so they work in both normal and gettext (locale) builds.
+def _images_path_to_static(uri: str) -> str:
+    """Convert ../images/... or ../../../images/... to _static/... for ReadTheDocs.
 
-    In locale builds, content comes from .po files; relative paths like ../images/...
-    are resolved from the document dir (source/). Use ../../images/ (2 levels up from
-    source/ = project root). If Read the Docs resolves from locale/es/, try
-    setting LOCALE_IMAGE_LEVELS=3 in the build environment.
+    On ReadTheDocs, Spanish docs are at /es/latest/; relative paths like ../../../images/
+    escape the site root and break. Using _static/ (copied via html_static_path) works
+    for all URL depths (en/latest/, es/latest/, etc.).
     """
-    # Allow override: LOCALE_IMAGE_LEVELS=3 if Read the Docs resolves from locale/es/
-    levels = max(1, int(os.environ.get("LOCALE_IMAGE_LEVELS", "3")))
-    prefix = '../images/'
-    replacement = ("../" * levels) + "images/"
+    for prefix in ('../images/', '../../images/', '../../../images/'):
+        if uri.startswith(prefix):
+            return '_static/' + uri[len(prefix):]
+    return uri
+
+
+def _rewrite_locale_asset_paths(doctree: nodes.document) -> None:
+    """Rewrite image paths so they work on ReadTheDocs for both en and es builds.
+
+    Use _static/ for doc images (copied via html_static_path) so paths work regardless
+    of URL depth (/es/latest/, /en/latest/, etc.).
+    """
     for node in doctree.traverse(nodes.image):
         uri = node.get('uri', '')
-        if uri.startswith(prefix):
-            node['uri'] = replacement + uri[len(prefix):]
+        new_uri = _images_path_to_static(uri)
+        if new_uri != uri:
+            node['uri'] = new_uri
 
 
 # Regex for paragraphs that are only markdown image or link (locale builds sometimes
@@ -238,10 +246,9 @@ def _is_image_path(target: str) -> bool:
 
 
 def _image_uri_from_path(path: str) -> str:
-    """Normalize image path to correct depth for locale builds."""
-    levels = int(os.environ.get("LOCALE_IMAGE_LEVELS", "3"))
+    """Normalize image path to _static/ for ReadTheDocs compatibility."""
     if "images/" in path:
-        return ("../" * levels) + "images/" + path.split("images/", 1)[1]
+        return "_static/" + path.split("images/", 1)[1]
     return path
 
 
@@ -272,12 +279,7 @@ def _convert_literal_markdown_paragraphs(app, doctree: nodes.document, docname: 
         if match:
             alt = match.group(1).strip()
             path = match.group(2).strip()
-            # Normalize path (same logic as _rewrite_locale_asset_paths)
-            levels = int(os.environ.get("LOCALE_IMAGE_LEVELS", "3"))
-            if "images/" in path:
-                uri = ("../" * levels) + "images/" + path.split("images/", 1)[1]
-            else:
-                uri = path
+            uri = _image_uri_from_path(path) if "images/" in path else path
             img = nodes.image(uri=uri, alt=alt)
             # Sphinx post_process_images expects image nodes to have 'candidates'
             img["candidates"] = {"*": uri}
@@ -596,7 +598,9 @@ html_theme = 'sphinx_rtd_theme'
 # Ensure _static exists (Sphinx does not create it)
 _static_dir = os.path.join(os.path.dirname(__file__), '_static')
 os.makedirs(_static_dir, exist_ok=True)
-html_static_path = ['_static']
+# Doc images from project root: copied to _static/ so paths work on ReadTheDocs (/es/latest/, etc.)
+_images_src = os.path.join(os.path.dirname(__file__), '..', '..', 'images')
+html_static_path = ['_static', _images_src] if os.path.isdir(_images_src) else ['_static']
 
 # Theme options
 html_theme_options = {
