@@ -6,18 +6,20 @@ import numpy as np
 import pandas as pd
 from numpy.typing import NDArray
 
-from fitting import fitting_utils, estimators
+# Re-export fitting utilities
+from fitting.fitting_utils import (
+    generic_fit,
+    get_equation_format_for_function,
+    get_equation_param_names_for_function,
+    merge_bounds,
+    merge_initial_guess,
+)
 
-generic_fit = fitting_utils.generic_fit
-get_equation_format_for_function = fitting_utils.get_equation_format_for_function
-get_equation_param_names_for_function = fitting_utils.get_equation_param_names_for_function
-merge_bounds = fitting_utils.merge_bounds
-merge_initial_guess = fitting_utils.merge_initial_guess
-
-(
+# Re-export estimators
+from fitting.estimators import (
     estimate_binomial_parameters,
-    estimate_gaussian_parameters,
     estimate_exponential_parameters,
+    estimate_gaussian_parameters,
     estimate_hyperbolic_bounds,
     estimate_hyperbolic_parameters,
     estimate_inverse_parameter,
@@ -28,20 +30,6 @@ merge_initial_guess = fitting_utils.merge_initial_guess
     estimate_single_power_parameter,
     estimate_square_pulse_parameters,
     estimate_trigonometric_parameters,
-) = (
-    estimators.estimate_binomial_parameters,
-    estimators.estimate_gaussian_parameters,
-    estimators.estimate_exponential_parameters,
-    estimators.estimate_hyperbolic_bounds,
-    estimators.estimate_hyperbolic_parameters,
-    estimators.estimate_inverse_parameter,
-    estimators.estimate_linear_parameters,
-    estimators.estimate_ln_parameter,
-    estimators.estimate_phase_shift,
-    estimators.estimate_polynomial_parameters,
-    estimators.estimate_single_power_parameter,
-    estimators.estimate_square_pulse_parameters,
-    estimators.estimate_trigonometric_parameters,
 )
 
 Numeric = Union[float, NDArray[np.floating]]
@@ -56,8 +44,8 @@ __all__ = [
     'merge_bounds',
     'merge_initial_guess',
     'estimate_binomial_parameters',
-    'estimate_gaussian_parameters',
     'estimate_exponential_parameters',
+    'estimate_gaussian_parameters',
     'estimate_hyperbolic_bounds',
     'estimate_hyperbolic_parameters',
     'estimate_inverse_parameter',

@@ -543,9 +543,16 @@ def create_3d_plot(
                 logger.warning("scipy not available, using simple mesh for 3D plot")
                 X_flat = X_mesh.ravel()
                 Y_flat = Y_mesh.ravel()
-                dists_sq = (X_flat[:, np.newaxis] - x_arr) ** 2 + (Y_flat[:, np.newaxis] - y_arr) ** 2
-                nearest_idx = np.argmin(dists_sq, axis=1)
-                Z_mesh = z_fitted_arr[nearest_idx].reshape(X_mesh.shape)
+                n_grid = len(X_flat)
+                Z_flat = np.empty(n_grid)
+                # Process in chunks to bound memory (~10M floats max per chunk)
+                chunk_size = max(1, min(500, 10_000_000 // max(1, len(x_arr))))
+                for start in range(0, n_grid, chunk_size):
+                    end = min(start + chunk_size, n_grid)
+                    dists_sq = ((X_flat[start:end, np.newaxis] - x_arr) ** 2
+                                + (Y_flat[start:end, np.newaxis] - y_arr) ** 2)
+                    Z_flat[start:end] = z_fitted_arr[np.argmin(dists_sq, axis=1)]
+                Z_mesh = Z_flat.reshape(X_mesh.shape)
         
         # Plot surface mesh with colors according to height (z)
         surf = ax.plot_surface(

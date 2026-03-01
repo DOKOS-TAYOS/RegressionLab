@@ -1,5 +1,6 @@
 """Application constants, equation mappings, and version."""
 
+import re as _re
 import sys
 from pathlib import Path
 from typing import Any
@@ -117,6 +118,17 @@ except (FileNotFoundError, yaml.YAMLError, ValueError, RuntimeError) as e:
 EQUATIONS: dict[str, dict[str, Any]] = _raw_equations
 AVAILABLE_EQUATION_TYPES: tuple[str, ...] = tuple(EQUATIONS.keys())
 
+# Reverse lookup: function_name -> eq_id for O(1) lookup by function name
+_FUNCTION_TO_EQUATION: dict[str, str] = {
+    meta["function"]: eq_id for eq_id, meta in EQUATIONS.items()
+}
+# Reverse lookup: format_template -> formula for O(1) lookup in generic_fit
+_FORMAT_TO_FORMULA: dict[str, str] = {
+    meta["format"]: meta.get("formula", "")
+    for meta in EQUATIONS.values()
+    if "format" in meta
+}
+
 # ---------------------------------------------------------------------------
 # Mathematical function replacements
 # ---------------------------------------------------------------------------
@@ -186,6 +198,13 @@ MATH_FUNCTION_REPLACEMENTS: dict[str, str] = {
     r'(?<!np\.)\bpi\b': 'np.pi',
     r'(?<!np\.)\be\b': 'np.e',
 }
+
+# Pre-compiled version of MATH_FUNCTION_REPLACEMENTS for use in hot paths.
+# Each entry is (compiled_regex, replacement_string).
+MATH_FUNCTION_REPLACEMENTS_COMPILED: list[tuple[_re.Pattern[str], str]] = [
+    (_re.compile(pattern), replacement)
+    for pattern, replacement in MATH_FUNCTION_REPLACEMENTS.items()
+]
 
 # ---------------------------------------------------------------------------
 # Language (i18n) constants

@@ -14,7 +14,7 @@ from typing import Any, Callable, List, Optional, Sequence, Tuple, Union
 import numpy as np
 
 # Local imports (heavy numerical libraries are imported lazily inside functions)
-from config import EQUATIONS, EXIT_SIGNAL
+from config import EQUATIONS, EXIT_SIGNAL, _FORMAT_TO_FORMULA, _FUNCTION_TO_EQUATION
 from i18n import t
 from utils import FittingError, get_logger
 
@@ -266,9 +266,7 @@ def generic_fit(
         formatted_params[name] = formatted_param
         formatted_uncertainties[name] = formatted_uncertainty
         text_lines.append(
-            '{0}={{{0}}}, \u03C3({0})={{{0}_u}}'.format(name).format(
-                **{name: formatted_param, f'{name}_u': formatted_uncertainty}
-            )
+            f'{name}={formatted_param}, \u03C3({name})={formatted_uncertainty}'
         )
     
     # Calculate fitted curve
@@ -287,23 +285,19 @@ def generic_fit(
     # Initialize statistics dictionary
     fit_stats = {}
     
-    # Calculate R² (coefficient of determination)
+    # Calculate R² and RMSE (reuse squared residuals)
     try:
-        ss_res = np.sum((y - y_fitted) ** 2)
+        residuals_sq = (y - y_fitted) ** 2
+        ss_res = np.sum(residuals_sq)
         ss_tot = np.sum((y - np.mean(y)) ** 2)
         fit_stats['r_squared'] = 1.0 - (ss_res / ss_tot) if ss_tot != 0 else 0.0
+        fit_stats['rmse'] = float(np.sqrt(np.mean(residuals_sq)))
         logger.debug(f"R² = {fit_stats['r_squared']:.6f}")
-    except Exception as e:
-        logger.warning("Error calculating R²: %s", str(e))
-        fit_stats['r_squared'] = 0.0
-    
-    # Calculate RMSE (Root Mean Square Error)
-    try:
-        fit_stats['rmse'] = float(np.sqrt(np.mean((y - y_fitted) ** 2)))
         logger.debug(f"RMSE = {fit_stats['rmse']:.6f}")
     except Exception as e:
-        logger.warning("Error calculating RMSE: %s", str(e))
-        fit_stats['rmse'] = float('nan')
+        logger.warning("Error calculating fit statistics: %s", str(e))
+        fit_stats.setdefault('r_squared', 0.0)
+        fit_stats.setdefault('rmse', float('nan'))
     
     # Calculate chi-squared statistics
     uy_safe = np.where(np.greater(uy, 1e-15), uy, 1e-15)
@@ -363,10 +357,7 @@ def generic_fit(
 
     # Prepend original formula from config if available (or equation_formula for custom fits)
     if equation_formula is None:
-        for _eq_id, meta in EQUATIONS.items():
-            if meta.get("format") == equation_template:
-                equation_formula = meta.get("formula")
-                break
+        equation_formula = _FORMAT_TO_FORMULA.get(equation_template) or None
     if equation_formula:
         equation_str = equation_formula + "\n" + formatted_equation
     else:
@@ -419,10 +410,10 @@ def get_equation_format_for_function(function_name: str) -> Optional[str]:
     Returns:
         Format string (e.g. ``'y={m}x+{n}'``) or ``None`` if not found or no format key.
     """
-    for _eq_id, meta in EQUATIONS.items():
-        if meta.get("function") == function_name:
-            return meta.get("format")
-    return None
+    eq_id = _FUNCTION_TO_EQUATION.get(function_name)
+    if eq_id is None:
+        return None
+    return EQUATIONS[eq_id].get("format")
 
 
 def get_equation_param_names_for_function(function_name: str) -> List[str]:
@@ -438,17 +429,17 @@ def get_equation_param_names_for_function(function_name: str) -> List[str]:
     Raises:
         FittingError: If no equation config is found or param_names is missing.
     """
-    for _eq_id, meta in EQUATIONS.items():
-        if meta.get("function") == function_name:
-            names = meta.get("param_names")
-            if not names:
-                raise FittingError(
-                    f"Missing param_names in equations config for {function_name!r}"
-                )
-            return list(names)
-    raise FittingError(
-        f"No equation config found for function {function_name!r}"
-    )
+    eq_id = _FUNCTION_TO_EQUATION.get(function_name)
+    if eq_id is None:
+        raise FittingError(
+            f"No equation config found for function {function_name!r}"
+        )
+    names = EQUATIONS[eq_id].get("param_names")
+    if not names:
+        raise FittingError(
+            f"Missing param_names in equations config for {function_name!r}"
+        )
+    return list(names)
 
 
 def merge_initial_guess(
@@ -472,8 +463,8 @@ def merge_initial_guess(
     if override is None or len(override) != len(computed):
         return list(computed)
     return [
-        float(override[i]) if override[i] is not None else computed[i]
-        for i in range(len(computed))
+        float(ov) if ov is not None else comp
+        for comp, ov in zip(computed, override)
     ]
 
 

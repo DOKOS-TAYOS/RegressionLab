@@ -1,6 +1,6 @@
 """Data transforms: Fourier, DCT, Laplace, Hilbert, log, etc."""
 
-from typing import List, Optional
+from typing import Callable, List, Optional
 
 import numpy as np
 import pandas as pd
@@ -19,13 +19,6 @@ try:
 except ImportError:
     hilbert = None  # type: ignore[assignment, misc]
     _HAS_SCIPY_HILBERT = False
-
-try:
-    from scipy.linalg import hadamard
-    _HAS_SCIPY_HADAMARD = True
-except ImportError:
-    hadamard = None  # type: ignore[assignment, misc]
-    _HAS_SCIPY_HADAMARD = False
 
 from data_analysis._utils import get_numeric_columns
 from utils import get_logger
@@ -81,6 +74,277 @@ TRANSFORM_OPTIONS: dict[str, str] = {
 }
 
 
+# ---------------------------------------------------------------------------
+# Helper: build result Series preserving NaN positions
+# ---------------------------------------------------------------------------
+
+def _make_result(
+    out: np.ndarray, nan_mask: np.ndarray, series: pd.Series,
+) -> pd.Series:
+    """Mask NaN positions back in and return a new Series."""
+    return pd.Series(
+        np.where(nan_mask, np.nan, out), index=series.index, name=series.name,
+    )
+
+
+# ---------------------------------------------------------------------------
+# FFT-based Hilbert helper (shared by hilbert, ihilbert, envelope)
+# ---------------------------------------------------------------------------
+
+def _fft_hilbert_filter(n: int) -> np.ndarray:
+    """Build the frequency-domain filter for the analytic signal."""
+    h = np.zeros(n)
+    h[0] = 1
+    h[n // 2] = 1 if n % 2 == 0 else 0
+    h[1 : n // 2] = 2
+    return h
+
+
+# ---------------------------------------------------------------------------
+# Fast Walsh-Hadamard Transform (O(n log n) time, O(n) memory)
+# ---------------------------------------------------------------------------
+
+def _fast_walsh_hadamard(a: np.ndarray, normalize: bool = True) -> np.ndarray:
+    """Vectorized Fast Walsh-Hadamard Transform. Input length must be power of 2."""
+    a = a.astype(float).copy()
+    n = len(a)
+    h = 1
+    while h < n:
+        a_reshaped = a.reshape(-1, 2 * h)
+        left = a_reshaped[:, :h].copy()
+        right = a_reshaped[:, h:]
+        a_reshaped[:, :h] = left + right
+        a_reshaped[:, h:] = left - right
+        h *= 2
+    if normalize:
+        a /= np.sqrt(n)
+    return a
+
+
+# ---------------------------------------------------------------------------
+# Individual transform handlers
+# Signature: (arr, nan_mask, valid, series) -> pd.Series
+# ---------------------------------------------------------------------------
+
+def _transform_fft(
+    arr: np.ndarray, nan_mask: np.ndarray, valid: np.ndarray, series: pd.Series,
+) -> pd.Series:
+    out = np.fft.fft(valid)
+    return _make_result(np.real(out), nan_mask, series)
+
+
+def _transform_fft_magnitude(
+    arr: np.ndarray, nan_mask: np.ndarray, valid: np.ndarray, series: pd.Series,
+) -> pd.Series:
+    return _make_result(np.abs(np.fft.fft(valid)), nan_mask, series)
+
+
+def _transform_dct(
+    arr: np.ndarray, nan_mask: np.ndarray, valid: np.ndarray, series: pd.Series,
+) -> pd.Series:
+    if _HAS_SCIPY_DCT and dct is not None:
+        out = dct(valid, type=2)
+    else:
+        out = np.fft.fft(valid).real  # fallback
+    return _make_result(out, nan_mask, series)
+
+
+def _transform_log(
+    arr: np.ndarray, nan_mask: np.ndarray, valid: np.ndarray, series: pd.Series,
+) -> pd.Series:
+    out = np.log(np.where(valid <= 0, np.nan, valid))
+    return pd.Series(out, index=series.index, name=series.name)
+
+
+def _transform_log10(
+    arr: np.ndarray, nan_mask: np.ndarray, valid: np.ndarray, series: pd.Series,
+) -> pd.Series:
+    out = np.log10(np.where(valid <= 0, np.nan, valid))
+    return pd.Series(out, index=series.index, name=series.name)
+
+
+def _transform_exp(
+    arr: np.ndarray, nan_mask: np.ndarray, valid: np.ndarray, series: pd.Series,
+) -> pd.Series:
+    return _make_result(np.exp(valid), nan_mask, series)
+
+
+def _transform_sqrt(
+    arr: np.ndarray, nan_mask: np.ndarray, valid: np.ndarray, series: pd.Series,
+) -> pd.Series:
+    out = np.sqrt(np.where(valid < 0, np.nan, valid))
+    return pd.Series(out, index=series.index, name=series.name)
+
+
+def _transform_square(
+    arr: np.ndarray, nan_mask: np.ndarray, valid: np.ndarray, series: pd.Series,
+) -> pd.Series:
+    return _make_result(valid ** 2, nan_mask, series)
+
+
+def _transform_standardize(
+    arr: np.ndarray, nan_mask: np.ndarray, valid: np.ndarray, series: pd.Series,
+) -> pd.Series:
+    valid_clean = arr[~nan_mask]
+    if len(valid_clean) == 0:
+        return pd.Series(np.full_like(arr, np.nan), index=series.index, name=series.name)
+    mean, std = valid_clean.mean(), valid_clean.std()
+    if std == 0:
+        out = np.zeros_like(arr)
+    else:
+        out = (arr - mean) / std
+    return _make_result(out, nan_mask, series)
+
+
+def _transform_normalize(
+    arr: np.ndarray, nan_mask: np.ndarray, valid: np.ndarray, series: pd.Series,
+) -> pd.Series:
+    valid_clean = arr[~nan_mask]
+    if len(valid_clean) == 0:
+        return pd.Series(np.full_like(arr, np.nan), index=series.index, name=series.name)
+    lo, hi = valid_clean.min(), valid_clean.max()
+    if hi == lo:
+        out = np.zeros_like(arr)
+    else:
+        out = (arr - lo) / (hi - lo)
+    return _make_result(out, nan_mask, series)
+
+
+def _transform_laplace(
+    arr: np.ndarray, nan_mask: np.ndarray, valid: np.ndarray, series: pd.Series,
+) -> pd.Series:
+    alpha = 0.1
+    n = len(valid)
+    exp_neg = np.exp(-alpha * np.arange(n, dtype=float))
+    return _make_result(np.cumsum(valid * exp_neg), nan_mask, series)
+
+
+def _transform_ilaplace(
+    arr: np.ndarray, nan_mask: np.ndarray, valid: np.ndarray, series: pd.Series,
+) -> pd.Series:
+    alpha = 0.1
+    out = np.empty_like(valid)
+    out[0] = valid[0]
+    n = len(valid)
+    if n > 1:
+        out[1:] = (valid[1:] - valid[:-1]) * np.exp(alpha * np.arange(1, n, dtype=float))
+    return _make_result(out, nan_mask, series)
+
+
+def _transform_hilbert(
+    arr: np.ndarray, nan_mask: np.ndarray, valid: np.ndarray, series: pd.Series,
+) -> pd.Series:
+    if _HAS_SCIPY_HILBERT and hilbert is not None:
+        out = np.imag(hilbert(valid))
+    else:
+        h = _fft_hilbert_filter(len(valid))
+        out = np.real(np.fft.ifft(np.fft.fft(valid) * h))
+    return _make_result(out, nan_mask, series)
+
+
+def _transform_ihilbert(
+    arr: np.ndarray, nan_mask: np.ndarray, valid: np.ndarray, series: pd.Series,
+) -> pd.Series:
+    if _HAS_SCIPY_HILBERT and hilbert is not None:
+        out = -np.imag(hilbert(valid))
+    else:
+        h = _fft_hilbert_filter(len(valid))
+        out = -np.real(np.fft.ifft(np.fft.fft(valid) * h))
+    return _make_result(out, nan_mask, series)
+
+
+def _transform_cepstrum(
+    arr: np.ndarray, nan_mask: np.ndarray, valid: np.ndarray, series: pd.Series,
+) -> pd.Series:
+    spec = np.fft.fft(valid)
+    eps = 1e-12
+    log_spec = np.log(np.abs(spec) ** 2 + eps)
+    return _make_result(np.real(np.fft.ifft(log_spec)), nan_mask, series)
+
+
+def _transform_hadamard(
+    arr: np.ndarray, nan_mask: np.ndarray, valid: np.ndarray, series: pd.Series,
+) -> pd.Series:
+    n = len(valid)
+    n2 = 1 << (n - 1).bit_length()  # next power of 2
+    padded = np.zeros(n2)
+    padded[:n] = valid
+    out = _fast_walsh_hadamard(padded)[:n].copy()
+    return _make_result(out, nan_mask, series)
+
+
+def _transform_ihadamard(
+    arr: np.ndarray, nan_mask: np.ndarray, valid: np.ndarray, series: pd.Series,
+) -> pd.Series:
+    # The normalized WHT is its own inverse
+    n = len(valid)
+    n2 = 1 << (n - 1).bit_length()
+    padded = np.zeros(n2)
+    padded[:n] = valid
+    out = _fast_walsh_hadamard(padded)[:n].copy()
+    return _make_result(out, nan_mask, series)
+
+
+def _transform_envelope(
+    arr: np.ndarray, nan_mask: np.ndarray, valid: np.ndarray, series: pd.Series,
+) -> pd.Series:
+    if _HAS_SCIPY_HILBERT and hilbert is not None:
+        out = np.abs(hilbert(valid))
+    else:
+        h = _fft_hilbert_filter(len(valid))
+        analytic = np.fft.ifft(np.fft.fft(valid) * h)
+        out = np.abs(analytic)
+    return _make_result(out, nan_mask, series)
+
+
+def _transform_ifft(
+    arr: np.ndarray, nan_mask: np.ndarray, valid: np.ndarray, series: pd.Series,
+) -> pd.Series:
+    return _make_result(np.fft.ifft(valid).real, nan_mask, series)
+
+
+def _transform_idct(
+    arr: np.ndarray, nan_mask: np.ndarray, valid: np.ndarray, series: pd.Series,
+) -> pd.Series:
+    if _HAS_SCIPY_DCT and idct is not None:
+        out = idct(valid, type=2)
+    else:
+        out = np.fft.ifft(valid).real  # fallback
+    return _make_result(out, nan_mask, series)
+
+
+# ---------------------------------------------------------------------------
+# Dispatch table: transform_id -> handler
+# ---------------------------------------------------------------------------
+
+_TRANSFORM_DISPATCH: dict[str, Callable] = {
+    TRANSFORM_FFT: _transform_fft,
+    TRANSFORM_FFT_MAGNITUDE: _transform_fft_magnitude,
+    TRANSFORM_DCT: _transform_dct,
+    TRANSFORM_LOG: _transform_log,
+    TRANSFORM_LOG10: _transform_log10,
+    TRANSFORM_EXP: _transform_exp,
+    TRANSFORM_SQRT: _transform_sqrt,
+    TRANSFORM_SQUARE: _transform_square,
+    TRANSFORM_STANDARDIZE: _transform_standardize,
+    TRANSFORM_NORMALIZE: _transform_normalize,
+    TRANSFORM_LAPLACE: _transform_laplace,
+    TRANSFORM_ILAPLACE: _transform_ilaplace,
+    TRANSFORM_HILBERT: _transform_hilbert,
+    TRANSFORM_IHILBERT: _transform_ihilbert,
+    TRANSFORM_CEPSTRUM: _transform_cepstrum,
+    TRANSFORM_HADAMARD: _transform_hadamard,
+    TRANSFORM_IHADAMARD: _transform_ihadamard,
+    TRANSFORM_ENVELOPE: _transform_envelope,
+    TRANSFORM_IFFT: _transform_ifft,
+    TRANSFORM_IDCT: _transform_idct,
+}
+
+
+# ---------------------------------------------------------------------------
+# Public API
+# ---------------------------------------------------------------------------
+
 def _apply_to_column(series: pd.Series, transform_id: str) -> pd.Series:
     """
     Apply a single transform to a numeric series.
@@ -92,199 +356,16 @@ def _apply_to_column(series: pd.Series, transform_id: str) -> pd.Series:
     Returns:
         New Series with transformed values (NaN preserved where present).
     """
+    handler = _TRANSFORM_DISPATCH.get(transform_id)
+    if handler is None:
+        raise ValueError(f"Unknown transform: {transform_id}")
+
     arr = np.asarray(series, dtype=float)
     nan_mask = np.isnan(arr)
     valid = arr.copy()
     valid[nan_mask] = 0  # temporary for transforms that don't handle NaN
 
-    if transform_id == TRANSFORM_FFT:
-        out = np.fft.fft(valid)
-        result = np.real(out)  # store real part in one column, could add imag
-        result = np.where(nan_mask, np.nan, result)
-        return pd.Series(result, index=series.index, name=series.name)
-
-    if transform_id == TRANSFORM_FFT_MAGNITUDE:
-        out = np.fft.fft(valid)
-        mag = np.abs(out)
-        mag = np.where(nan_mask, np.nan, mag)
-        return pd.Series(mag, index=series.index, name=series.name)
-
-    if transform_id == TRANSFORM_DCT:
-        if _HAS_SCIPY_DCT and dct is not None:
-            out = dct(valid, type=2)
-        else:
-            out = np.fft.fft(valid).real  # fallback
-        out = np.where(nan_mask, np.nan, out)
-        return pd.Series(out, index=series.index, name=series.name)
-
-    if transform_id == TRANSFORM_LOG:
-        out = np.log(np.where(valid <= 0, np.nan, valid))
-        return pd.Series(out, index=series.index, name=series.name)
-
-    if transform_id == TRANSFORM_LOG10:
-        out = np.log10(np.where(valid <= 0, np.nan, valid))
-        return pd.Series(out, index=series.index, name=series.name)
-
-    if transform_id == TRANSFORM_EXP:
-        out = np.exp(valid)
-        out = np.where(nan_mask, np.nan, out)
-        return pd.Series(out, index=series.index, name=series.name)
-
-    if transform_id == TRANSFORM_SQRT:
-        out = np.sqrt(np.where(valid < 0, np.nan, valid))
-        return pd.Series(out, index=series.index, name=series.name)
-
-    if transform_id == TRANSFORM_SQUARE:
-        out = valid ** 2
-        out = np.where(nan_mask, np.nan, out)
-        return pd.Series(out, index=series.index, name=series.name)
-
-    if transform_id == TRANSFORM_STANDARDIZE:
-        valid_clean = arr[~nan_mask]
-        if len(valid_clean) == 0:
-            return pd.Series(np.full_like(arr, np.nan), index=series.index, name=series.name)
-        mean, std = valid_clean.mean(), valid_clean.std()  # z-score uses population std (ddof=0)
-        if std == 0:
-            out = np.zeros_like(arr)
-        else:
-            out = (arr - mean) / std
-        out = np.where(nan_mask, np.nan, out)
-        return pd.Series(out, index=series.index, name=series.name)
-
-    if transform_id == TRANSFORM_NORMALIZE:
-        valid_clean = arr[~nan_mask]
-        if len(valid_clean) == 0:
-            return pd.Series(np.full_like(arr, np.nan), index=series.index, name=series.name)
-        lo, hi = valid_clean.min(), valid_clean.max()
-        if hi == lo:
-            out = np.zeros_like(arr)
-        else:
-            out = (arr - lo) / (hi - lo)
-        out = np.where(nan_mask, np.nan, out)
-        return pd.Series(out, index=series.index, name=series.name)
-
-    # Laplace (discrete cumulative): out[n] = sum_{k=0}^{n} x[k] * exp(-alpha*k), alpha=0.1
-    # Uses alpha < 1 for numerical stability in the inverse
-    if transform_id == TRANSFORM_LAPLACE:
-        alpha = 0.1
-        n = len(valid)
-        exp_neg = np.exp(-alpha * np.arange(n, dtype=float))
-        out = np.cumsum(valid * exp_neg)
-        out = np.where(nan_mask, np.nan, out)
-        return pd.Series(out, index=series.index, name=series.name)
-
-    # Inverse Laplace: x[n] = (out[n] - out[n-1]) * exp(alpha*n) for n>0, x[0]=out[0]
-    if transform_id == TRANSFORM_ILAPLACE:
-        alpha = 0.1
-        out = np.empty_like(valid)
-        out[0] = valid[0]
-        n = len(valid)
-        if n > 1:
-            out[1:] = (valid[1:] - valid[:-1]) * np.exp(alpha * np.arange(1, n, dtype=float))
-        out = np.where(nan_mask, np.nan, out)
-        return pd.Series(out, index=series.index, name=series.name)
-
-    # Hilbert transform (imaginary part of analytic signal)
-    if transform_id == TRANSFORM_HILBERT:
-        if _HAS_SCIPY_HILBERT and hilbert is not None:
-            analytic = hilbert(valid)
-            out = np.imag(analytic)
-        else:
-            # Fallback: FFT-based Hilbert
-            n = len(valid)
-            h = np.zeros(n)
-            h[0] = 1
-            h[n // 2] = 1 if n % 2 == 0 else 0
-            h[1 : n // 2] = 2
-            out = np.real(np.fft.ifft(np.fft.fft(valid) * h))
-        out = np.where(nan_mask, np.nan, out)
-        return pd.Series(out, index=series.index, name=series.name)
-
-    # Inverse Hilbert: H(H(x)) = -x, so H^{-1}(y) = -H(y)
-    if transform_id == TRANSFORM_IHILBERT:
-        if _HAS_SCIPY_HILBERT and hilbert is not None:
-            analytic = hilbert(valid)
-            out = -np.imag(analytic)
-        else:
-            n = len(valid)
-            h = np.zeros(n)
-            h[0] = 1
-            h[n // 2] = 1 if n % 2 == 0 else 0
-            h[1 : n // 2] = 2
-            out = -np.real(np.fft.ifft(np.fft.fft(valid) * h))
-        out = np.where(nan_mask, np.nan, out)
-        return pd.Series(out, index=series.index, name=series.name)
-
-    # Cepstrum (real): ifft(log(|fft|^2 + eps))
-    if transform_id == TRANSFORM_CEPSTRUM:
-        spec = np.fft.fft(valid)
-        eps = 1e-12
-        log_spec = np.log(np.abs(spec) ** 2 + eps)
-        out = np.real(np.fft.ifft(log_spec))
-        out = np.where(nan_mask, np.nan, out)
-        return pd.Series(out, index=series.index, name=series.name)
-
-    # Hadamard (Walsh): orthogonal transform, requires length power of 2
-    if transform_id == TRANSFORM_HADAMARD:
-        if _HAS_SCIPY_HADAMARD and hadamard is not None:
-            n = len(valid)
-            n2 = 1 << (n - 1).bit_length()  # next power of 2
-            padded = np.zeros(n2)
-            padded[:n] = valid
-            H = hadamard(n2)
-            out_full = (H @ padded) / np.sqrt(n2)
-            out = out_full[:n].copy()
-        else:
-            out = valid.copy()  # fallback: identity
-        out = np.where(nan_mask, np.nan, out)
-        return pd.Series(out, index=series.index, name=series.name)
-
-    # Inverse Hadamard: H/sqrt(n) is orthonormal, so inverse = H/sqrt(n) (same as forward)
-    if transform_id == TRANSFORM_IHADAMARD:
-        if _HAS_SCIPY_HADAMARD and hadamard is not None:
-            n = len(valid)
-            n2 = 1 << (n - 1).bit_length()
-            padded = np.zeros(n2)
-            padded[:n] = valid
-            H = hadamard(n2)
-            out_full = (H @ padded) / np.sqrt(n2)
-            out = out_full[:n].copy()
-        else:
-            out = valid.copy()
-        out = np.where(nan_mask, np.nan, out)
-        return pd.Series(out, index=series.index, name=series.name)
-
-    # Envelope (Hilbert): |analytic signal| = amplitude envelope
-    if transform_id == TRANSFORM_ENVELOPE:
-        if _HAS_SCIPY_HILBERT and hilbert is not None:
-            analytic = hilbert(valid)
-            out = np.abs(analytic)
-        else:
-            n = len(valid)
-            h = np.zeros(n)
-            h[0] = 1
-            h[n // 2] = 1 if n % 2 == 0 else 0
-            h[1 : n // 2] = 2
-            analytic = np.fft.ifft(np.fft.fft(valid) * h)
-            out = np.abs(analytic)
-        out = np.where(nan_mask, np.nan, out)
-        return pd.Series(out, index=series.index, name=series.name)
-
-    # Inverse transforms
-    if transform_id == TRANSFORM_IFFT:
-        out = np.fft.ifft(valid).real
-        out = np.where(nan_mask, np.nan, out)
-        return pd.Series(out, index=series.index, name=series.name)
-
-    if transform_id == TRANSFORM_IDCT:
-        if _HAS_SCIPY_DCT and idct is not None:
-            out = idct(valid, type=2)
-        else:
-            out = np.fft.ifft(valid).real  # fallback
-        out = np.where(nan_mask, np.nan, out)
-        return pd.Series(out, index=series.index, name=series.name)
-
-    raise ValueError(f"Unknown transform: {transform_id}")
+    return handler(arr, nan_mask, valid, series)
 
 
 def apply_transform(

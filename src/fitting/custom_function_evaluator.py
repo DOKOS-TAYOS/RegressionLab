@@ -22,7 +22,7 @@ import pandas as pd
 from numpy.typing import NDArray
 
 # Local imports
-from config import MATH_FUNCTION_REPLACEMENTS
+from config import MATH_FUNCTION_REPLACEMENTS_COMPILED
 from i18n import t
 from utils import (
     EquationError,
@@ -108,8 +108,8 @@ class CustomFunctionEvaluator:
         
         try:
             prepared = equation_str
-            for pattern, replacement in MATH_FUNCTION_REPLACEMENTS.items():
-                prepared = re.sub(pattern, replacement, prepared)
+            for compiled_pattern, replacement in MATH_FUNCTION_REPLACEMENTS_COMPILED:
+                prepared = compiled_pattern.sub(replacement, prepared)
             
             logger.debug(f"Formula prepared: {prepared}")
             return prepared
