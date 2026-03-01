@@ -67,15 +67,17 @@ def generic_fit(func, x, y, uy=None, p0=None):
     # Calculate fitted values
     y_fitted = func(x, *popt)
     
-    # Calculate R²
-    ss_res = np.sum((y - y_fitted) ** 2)
+    # Calculate R² and RMSE (residuals computed once and reused)
+    residuals_sq = (y - y_fitted) ** 2
+    ss_res = np.sum(residuals_sq)
     ss_tot = np.sum((y - np.mean(y)) ** 2)
     r_squared = 1 - (ss_res / ss_tot)
-    
+    rmse = float(np.sqrt(np.mean(residuals_sq)))
+
     return popt, y_fitted, r_squared
 ```
 
-This function is the **single point of control** for the optimization backend.
+This function is the **single point of control** for the optimization backend. Equation lookups (`get_equation_format_for_function`, `get_equation_param_names_for_function`) use O(1) reverse dicts built at module load, so there is no performance cost when resolving equations by function name.
 
 ## Why Change the Fitting Core?
 

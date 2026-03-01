@@ -104,9 +104,9 @@ class TestI18nTranslation:
     
     def test_translation_with_params(self) -> None:
         """Test translation with format parameters."""
-        result = t('log.version', version='1.0.0')
+        result = t('log.version', version='1.1.0')
         assert isinstance(result, str)
-        assert '1.0.0' in result
+        assert '1.1.0' in result
     
     def test_incomplete_path(self) -> None:
         """Test incomplete translation path."""

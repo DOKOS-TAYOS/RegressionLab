@@ -65,7 +65,7 @@ def record_check_done() -> None:
 
 def _parse_version(version_str: str) -> Tuple[int, ...]:
     """
-    Parse a version string like '1.0.0' or '1.2.3.dev1' into a comparable tuple.
+    Parse a version string like '1.1.0' or '1.2.3.dev1' into a comparable tuple.
 
     Args:
         version_str: Version string from pyproject.toml.
@@ -90,7 +90,7 @@ def fetch_latest_version(version_url: Optional[str] = None) -> Optional[str]:
             or default.
 
     Returns:
-        Version string (e.g. '1.0.0') or None if fetch failed.
+        Version string (e.g. '1.1.0') or None if fetch failed.
     """
     url = (version_url or get_env("UPDATE_CHECK_URL", _DEFAULT_VERSION_URL, str) or "").strip()
     if not url:
@@ -108,7 +108,7 @@ def fetch_latest_version(version_url: Optional[str] = None) -> Optional[str]:
             pass
         return None
 
-    # Parse version from pyproject.toml: version = "1.0.0"
+    # Parse version from pyproject.toml: version = "1.1.0"
     match = re.search(r'version\s*=\s*["\']([^"\']+)["\']', content)
     if match:
         return match.group(1).strip()

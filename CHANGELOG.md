@@ -5,6 +5,19 @@ All notable changes to RegressionLab are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-03-01
+
+### Changed
+
+- **Equation lookups (Performance)**: `get_equation_format_for_function()` and `get_equation_param_names_for_function()` now use O(1) reverse-lookup dicts (`_FUNCTION_TO_EQUATION`, `_FORMAT_TO_FORMULA`) instead of scanning the entire `EQUATIONS` dict on every call. The formula lookup in `generic_fit` also uses the same O(1) dict. Affects every `fit_*` call.
+- **Regex compilation (Performance)**: The ~40 regex patterns in `MATH_FUNCTION_REPLACEMENTS` are now pre-compiled at module load (`MATH_FUNCTION_REPLACEMENTS_COMPILED`). `custom_function_evaluator._prepare_formula()` uses the compiled patterns, avoiding recompilation on every custom formula evaluation.
+- **Residuals reuse (Performance/Readability)**: In `generic_fit`, `(y - y_fitted) ** 2` is now computed once as `residuals_sq` and reused for both R² and RMSE calculations.
+- **Formatting cleanup (Readability)**: In `fitting_utils.py`, nested `.format()` calls for parameter text replaced with direct f-strings; `merge_initial_guess` now uses `zip(computed, override)` instead of `range(len(computed))`.
+- **Transform dispatch (Performance/Maintainability)**: `_apply_to_column` in `transforms.py` refactored from a ~200-line if/elif chain to a dispatch dict (`_TRANSFORM_DISPATCH`) mapping transform IDs to small handler functions. Adding a new transform now requires only writing the handler and adding one dict entry.
+- **Simplified `_base.py` re-exports (Maintainability)**: `fitting/functions/_base.py` now uses standard `from module import name` imports instead of manual tuple-assignment. Reduces update points when adding new estimators or utilities.
+- **Walsh-Hadamard Transform (Performance)**: Replaced the O(n²) dense matrix approach (`scipy.linalg.hadamard(n2)`) with a vectorized in-place Fast Walsh-Hadamard Transform (FWHT) using only NumPy — O(n log n) time, O(n) memory. Removed `scipy.linalg.hadamard` dependency from transforms.
+- **3D plot fallback (Performance)**: The nearest-neighbor fallback in `plot_utils.py` (used when scipy is unavailable) now processes grid points in chunks, bounding peak memory to ~10M floats instead of allocating a full `(grid_size² × n_points)` distance matrix.
+
 ## [1.0.0] - 2026-02-14
 
 ### Added
@@ -180,6 +193,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial 0.8.x release. See repository history and documentation for features and changes prior to 0.8.1.
 
+[1.1.0]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v0.9.3...v1.0.0
 [0.9.3]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v0.9.2...v0.9.3
 [0.9.2]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v0.9.1...v0.9.2

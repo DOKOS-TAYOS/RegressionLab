@@ -7,7 +7,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: RegressionLab 1.0.0\n"
+"Project-Id-Version: RegressionLab 1.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-13 19:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -513,8 +513,8 @@ msgstr "URL al pyproject.toml. Si es None, usa la variable de entorno UPDATE_CHE
 
 #: b43b9d85679c41b9bbc0319f0873da8c of
 #: utils.update_checker.fetch_latest_version:6
-msgid "Version string (e.g. '1.0.0') or None if fetch failed."
-msgstr "Cadena de versión (p. ej. '1.0.0') o None si falló la obtención."
+msgid "Version string (e.g. '1.1.0') or None if fetch failed."
+msgstr "Cadena de versión (p. ej. '1.1.0') o None si falló la obtención."
 
 #: 3f71e426268c486fbe44e622c5456887 of
 #: utils.update_checker.is_update_available:1
