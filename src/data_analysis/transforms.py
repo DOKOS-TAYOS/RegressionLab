@@ -20,7 +20,7 @@ except ImportError:
     hilbert = None  # type: ignore[assignment, misc]
     _HAS_SCIPY_HILBERT = False
 
-from data_analysis._utils import get_numeric_columns
+from data_analysis._utils import _get_numeric_columns
 from utils import get_logger
 
 logger = get_logger(__name__)
@@ -386,7 +386,7 @@ def apply_transform(
     Returns:
         New DataFrame with transformed columns.
     """
-    cols = get_numeric_columns(data, columns)
+    cols = _get_numeric_columns(data, columns)
     if not cols:
         logger.warning("No numeric columns to transform")
         return data.copy()

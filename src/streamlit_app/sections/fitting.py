@@ -233,7 +233,7 @@ def show_equation_selector(
     return selected_equation, custom_formula, parameter_names
 
 
-def show_plot_title_checkbox(key_prefix: str = '') -> bool:
+def _show_plot_title_checkbox(key_prefix: str = '') -> bool:
     """
     Show checkbox to toggle plot title visibility for the next fit.
 
@@ -253,11 +253,3 @@ def show_plot_title_checkbox(key_prefix: str = '') -> bool:
     )
 
 
-def create_equation_options(equation_types: List[str]) -> Dict[str, str]:
-    """
-    Public wrapper around :func:`_create_equation_options`.
-
-    This function is imported by the modes module to build the mapping
-    from translated labels to equation identifiers.
-    """
-    return _create_equation_options(equation_types)

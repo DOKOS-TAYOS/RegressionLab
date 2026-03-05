@@ -652,14 +652,14 @@ def apply_hover_to_children(parent: Any) -> None:
         hover_style = cls + '.Hover'
         normal_style = w.cget('style') or cls
 
-        def _on_enter(ev: Any, widget: Any = w, norm: str = normal_style, hov: str = hover_style) -> None:
+        def _on_enter(_: Any, widget: Any = w, norm: str = normal_style, hov: str = hover_style) -> None:
             try:
                 widget.configure(style=hov)
             except tkinter.TclError:
                 # Hover style not available, ignore
                 pass
 
-        def _on_leave(ev: Any, widget: Any = w, norm: str = normal_style, hov: str = hover_style) -> None:
+        def _on_leave(_: Any, widget: Any = w, norm: str = normal_style, hov: str = hover_style) -> None:
             try:
                 widget.configure(style=norm)
             except tkinter.TclError:

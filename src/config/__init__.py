@@ -15,7 +15,6 @@ from .env import (
     get_env,
     get_env_from_schema,
     initialize_and_validate_config,
-    validate_all_env_values,
     write_env_file,
 )
 from .theme import (
@@ -59,7 +58,6 @@ __all__ = [
     'get_env',
     'get_env_from_schema',
     'initialize_and_validate_config',
-    'validate_all_env_values',
     'write_env_file',
     'FONT_CONFIG',
     'PLOT_CONFIG',

@@ -5,7 +5,7 @@ from typing import List, Optional
 import numpy as np
 import pandas as pd
 
-from data_analysis._utils import get_numeric_columns
+from data_analysis._utils import _get_numeric_columns
 from utils import get_logger
 
 logger = get_logger(__name__)
@@ -60,7 +60,7 @@ def apply_cleaning(
         logger.info(f"Dropped {before - len(result)} duplicate rows")
         return result
 
-    cols = get_numeric_columns(result, columns)
+    cols = _get_numeric_columns(result, columns)
 
     if clean_id == CLEAN_FILL_NA_MEAN:
         for col in cols:

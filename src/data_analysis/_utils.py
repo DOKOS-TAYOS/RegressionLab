@@ -5,7 +5,7 @@ from typing import List, Optional
 import pandas as pd
 
 
-def get_numeric_columns(
+def _get_numeric_columns(
     data: pd.DataFrame, columns: Optional[List[str]] = None
 ) -> List[str]:
     """

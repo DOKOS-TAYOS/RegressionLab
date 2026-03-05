@@ -415,8 +415,9 @@ Equation-to-function mapping is provided by the **`function`** field of each ent
 ```python
 from config import (
     PLOT_CONFIG, UI_STYLE, FONT_CONFIG, __version__, get_project_root,
-    get_current_env_values, validate_all_env_values
+    get_current_env_values
 )
+from config.env import validate_all_env_values
 
 # Application version
 print(f"RegressionLab v{__version__}")
