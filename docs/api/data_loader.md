@@ -10,32 +10,6 @@ The `data_loader` module provides functions for loading experimental data from v
 
 ### Data Loading
 
-#### `load_data_workflow(filename: str, file_type: str) -> Tuple[pd.DataFrame, str]`
-
-Complete data loading workflow - recommended entry point.
-
-This convenience function combines path preparation and data loading into a single operation. It's the main entry point for loading data files in the application.
-
-**Parameters:**
-- `filename`: File name without extension (e.g., 'Ejemplo')
-- `file_type`: File type ('csv', 'xlsx', 'txt')
-
-**Returns:**
-- Tuple of (data DataFrame, complete file path). The file path is returned so it can be used for reloading in loop mode.
-
-**Raises:**
-- `DataLoadError`: If data cannot be loaded
-
-**Example:**
-```python
-from loaders.data_loader import load_data_workflow
-
-# Load data using workflow
-data, file_path = load_data_workflow('Ejemplo', 'xlsx')
-print(data.head())
-print(f"Loaded from: {file_path}")
-```
-
 #### `load_data(file_path: str, file_type: str) -> pd.DataFrame`
 
 Primary function for loading data files.
@@ -93,62 +67,6 @@ print(f"All columns: {all_vars}")  # ['x', 'ux', 'y', 'uy']
 # Only data columns (no uncertainties)
 data_vars = get_variable_names(data, filter_uncertainty=True)
 print(f"Data columns: {data_vars}")  # ['x', 'y']
-```
-
-### Path Management
-
-#### `prepare_data_path(filename: str, file_type: str, base_dir: str = None) -> str`
-
-Construct the complete path to a data file.
-
-This function builds an absolute path from the project root to the data file, ensuring cross-platform compatibility using pathlib.
-
-**Parameters:**
-- `filename`: File name without extension (e.g., 'Ejemplo', 'Exper1')
-- `file_type`: File extension ('csv', 'xlsx', 'txt')
-- `base_dir`: Base directory where data files are located (relative to project root). If None, uses FILE_INPUT_DIR from environment variables or default 'input'
-
-**Returns:**
-- Complete file path (absolute from project root)
-
-**Example:**
-```python
-from loaders.data_loader import prepare_data_path
-
-# Prepare path for a file
-file_path = prepare_data_path('Ejemplo', 'xlsx')
-print(f"Full path: {file_path}")  # e.g., 'C:/Users/user/project/input/Ejemplo.xlsx'
-```
-
-#### `get_file_list_by_type(file_type: str, csv: list, xlsx: list, txt: list) -> list`
-
-Get list of files based on selected type.
-
-This function acts as a selector/router that returns the appropriate file list based on the user's file type selection.
-
-**Parameters:**
-- `file_type`: File type ('csv', 'xlsx', 'txt')
-- `csv`: List of CSV file names (without extension)
-- `xlsx`: List of XLSX file names (without extension)
-- `txt`: List of TXT file names (without extension)
-
-**Returns:**
-- List of files of the specified type
-
-**Raises:**
-- `InvalidFileTypeError`: If file type is not valid
-
-**Example:**
-```python
-from loaders.data_loader import get_file_list_by_type
-
-csv_files = ['data1', 'data2']
-xlsx_files = ['experiment1', 'experiment2']
-txt_files = ['notes']
-
-# Get CSV files
-csv_list = get_file_list_by_type('csv', csv_files, xlsx_files, txt_files)
-print(csv_list)  # ['data1', 'data2']
 ```
 
 ## Supported File Formats
@@ -291,11 +209,11 @@ if data.isnull().any().any():
 Typical workflow:
 
 ```python
-from loaders.data_loader import load_data_workflow, get_variable_names
+from loaders.data_loader import load_data, get_variable_names
 from fitting.fitting_functions import fit_linear_function_with_n
 
-# 1. Load data using workflow
-data, file_path = load_data_workflow('experiment', 'csv')
+# 1. Load data (use open_load_dialog or provide file path)
+data = load_data('input/experiment.csv', 'csv')
 
 # 2. Get available variables
 variables = get_variable_names(data, filter_uncertainty=True)

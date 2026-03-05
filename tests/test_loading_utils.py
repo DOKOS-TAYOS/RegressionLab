@@ -10,8 +10,7 @@ import pandas as pd
 import pytest
 
 from loaders import csv_reader, excel_reader, txt_reader
-from loaders.loading_utils import get_file_names
-from utils import DataLoadError, FileNotFoundError
+from utils import DataLoadError
 
 
 @pytest.fixture
@@ -107,26 +106,3 @@ class TestTxtReader:
         """Test reading nonexistent file raises error."""
         with pytest.raises(DataLoadError):
             txt_reader('/nonexistent/file.txt')
-
-
-class TestGetFileNames:
-    """Tests for get_file_names function."""
-    
-    def test_get_file_names_returns_tuple(self) -> None:
-        """Test get_file_names returns tuple of three lists."""
-        csv_files, xlsx_files, txt_files = get_file_names()
-        assert isinstance(csv_files, list)
-        assert isinstance(xlsx_files, list)
-        assert isinstance(txt_files, list)
-    
-    def test_get_file_names_returns_names_without_extensions(self) -> None:
-        """Test that returned names do not include file extensions."""
-        csv_files, xlsx_files, txt_files = get_file_names()
-        for name in csv_files + xlsx_files + txt_files:
-            assert isinstance(name, str)
-            assert not name.endswith('.csv') and not name.endswith('.xlsx') and not name.endswith('.txt')
-    
-    def test_get_file_names_raises_for_nonexistent_dir(self) -> None:
-        """Test get_file_names raises for nonexistent directory."""
-        with pytest.raises(FileNotFoundError):
-            get_file_names('nonexistent_directory_xyz')

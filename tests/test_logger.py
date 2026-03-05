@@ -14,7 +14,6 @@ from utils import (
     should_log_to_console,
     setup_logging,
     get_logger,
-    log_function_call,
     log_exception,
     ColoredFormatter,
 )
@@ -178,20 +177,6 @@ class TestGetLogger:
         logger1 = get_logger('module1')
         logger2 = get_logger('module2')
         assert logger1.name != logger2.name
-
-
-class TestLogFunctionCall:
-    """Tests for log_function_call function."""
-    
-    def test_log_function_call(self) -> None:
-        """Test logging a function call."""
-        logger = get_logger('test')
-        log_function_call(logger, 'test_function', x=1, y=2, name='test')
-    
-    def test_log_function_call_no_params(self) -> None:
-        """Test logging a function call without parameters."""
-        logger = get_logger('test')
-        log_function_call(logger, 'test_function')
 
 
 class TestLogException:

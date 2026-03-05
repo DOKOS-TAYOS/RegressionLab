@@ -1,11 +1,11 @@
-"""Data selection dialogs: file type, file name, variables, and data preview."""
+"""Data selection dialogs: variables and data preview."""
 
 from typing import Any, List, Optional, Tuple
 from tkinter import Listbox, Tk, Toplevel, StringVar, Text, ttk
 
-from config import DATA_FILE_TYPES, EXIT_SIGNAL, UI_STYLE, apply_hover_to_children, get_entry_font
+from config import UI_STYLE, apply_hover_to_children, get_entry_font
 from frontend.window_utils import place_window_centered
-from frontend.keyboard_nav import bind_enter_to_accept, setup_arrow_enter_navigation
+from frontend.keyboard_nav import bind_enter_to_accept
 from i18n import t
 
 # Max size for pair-plot image window so it does not resize the desktop
@@ -35,166 +35,6 @@ def _filter_uncertainty_variables(variable_names: List[str]) -> List[str]:
             excluded.add(u_var)
         filtered.append(var)
     return filtered if filtered else variable_names
-
-
-def ask_file_type(parent_window: Any) -> str:
-    """
-    Dialog to ask for data file type.
-
-    Presents radio buttons with file type options (xlsx, csv, txt, Exit).
-    User can select one option.
-
-    Args:
-        parent_window: Parent Tkinter window
-
-    Returns:
-        Selected file type (one of ``config.DATA_FILE_TYPES``, ``EXIT_SIGNAL``,
-        or empty string ``''``).
-    """
-    call_file_level = Toplevel()
-    call_file_level.title(t('dialog.data'))
-
-    call_file_level.frame = ttk.Frame(call_file_level, padding=UI_STYLE['border_width'])
-
-    call_file_level.tipo = StringVar()
-    call_file_level.label_message = ttk.Label(
-        call_file_level.frame,
-        text=t('dialog.file_type'),
-    )
-
-    file_type_values = tuple(DATA_FILE_TYPES) + (t('dialog.exit_option'),)
-    call_file_level.tipo.set(file_type_values[0])
-    call_file_level.cancelled = False
-
-    def _on_close_file_type() -> None:
-        call_file_level.cancelled = True
-        call_file_level.destroy()
-
-    call_file_level.protocol("WM_DELETE_WINDOW", _on_close_file_type)
-
-    call_file_level.radio_frame = ttk.Frame(call_file_level.frame)
-    call_file_level.radiobuttons = []
-    for i, value in enumerate(file_type_values):
-        rb = ttk.Radiobutton(
-            call_file_level.radio_frame,
-            text=value,
-            variable=call_file_level.tipo,
-            value=value,
-        )
-        rb.grid(row=i, column=0, sticky='w', padx=UI_STYLE['padding'], pady=2)
-        call_file_level.radiobuttons.append(rb)
-
-    call_file_level.accept_button = ttk.Button(
-        call_file_level.frame,
-        text=t('dialog.accept'),
-        command=call_file_level.destroy,
-        style='Primary.TButton',
-        width=UI_STYLE['button_width'],
-    )
-
-    call_file_level.frame.grid(column=0, row=0)
-    call_file_level.label_message.grid(
-        column=0, row=0, padx=UI_STYLE['padding'], pady=UI_STYLE['padding'], sticky='w'
-    )
-    call_file_level.radio_frame.grid(
-        column=0, row=1, padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
-    )
-    call_file_level.accept_button.grid(
-        column=0, row=2, padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
-    )
-
-    def _file_type_on_enter(widget: Any, _event: Any) -> bool:
-        if widget in call_file_level.radiobuttons:
-            widget.invoke()
-            return True
-        return False
-
-    setup_arrow_enter_navigation(
-        [[rb] for rb in call_file_level.radiobuttons] + [[call_file_level.accept_button]],
-        on_enter=_file_type_on_enter,
-    )
-    apply_hover_to_children(call_file_level.frame)
-    call_file_level.radiobuttons[0].focus_set()
-    call_file_level.resizable(False, False)
-    place_window_centered(call_file_level, preserve_size=True)
-    parent_window.wait_window(call_file_level)
-
-    if getattr(call_file_level, 'cancelled', False):
-        return EXIT_SIGNAL
-    selected_value = call_file_level.tipo.get()
-    if selected_value == t('dialog.exit_option'):
-        return EXIT_SIGNAL
-    return selected_value
-
-
-def ask_file_name(parent_window: Any, file_list: List[str]) -> str:
-    """
-    Dialog to select a specific file from the list.
-
-    Args:
-        parent_window: Parent Tkinter window.
-        file_list: List of available file names (without extensions).
-
-    Returns:
-        Selected file name (without extension), or empty string if cancelled.
-    """
-    call_data_level = Toplevel()
-    call_data_level.title(t('dialog.data'))
-    call_data_level.cancelled = False
-
-    def _on_close_file_name() -> None:
-        call_data_level.cancelled = True
-        call_data_level.destroy()
-
-    call_data_level.protocol("WM_DELETE_WINDOW", _on_close_file_name)
-    call_data_level.frame_custom = ttk.Frame(call_data_level, padding=UI_STYLE['border_width'])
-    call_data_level.arch = StringVar()
-
-    call_data_level.label_message = ttk.Label(
-        call_data_level.frame_custom,
-        text=t('dialog.file_name'),
-    )
-    call_data_level.name_entry = ttk.Combobox(
-        call_data_level.frame_custom,
-        textvariable=call_data_level.arch,
-        values=file_list,
-        state='readonly',
-        width=UI_STYLE['entry_width'],
-        font=get_entry_font(),
-    )
-    if file_list:
-        call_data_level.name_entry.current(0)
-
-    call_data_level.accept_button = ttk.Button(
-        call_data_level.frame_custom,
-        text=t('dialog.accept'),
-        command=call_data_level.destroy,
-        style='Primary.TButton',
-        width=UI_STYLE['button_width'],
-    )
-
-    call_data_level.frame_custom.grid(column=0, row=0)
-    call_data_level.label_message.grid(
-        column=0, row=0, padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
-    )
-    call_data_level.name_entry.grid(
-        column=1, row=0, padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
-    )
-    call_data_level.accept_button.grid(
-        column=0, row=1, columnspan=2,
-        padx=UI_STYLE['padding'], pady=UI_STYLE['padding']
-    )
-
-    bind_enter_to_accept([call_data_level.name_entry], call_data_level.destroy)
-    apply_hover_to_children(call_data_level.frame_custom)
-    call_data_level.name_entry.focus_set()
-    call_data_level.resizable(False, False)
-    place_window_centered(call_data_level, preserve_size=True)
-    parent_window.wait_window(call_data_level)
-
-    if getattr(call_data_level, 'cancelled', False):
-        return ''
-    return call_data_level.arch.get()
 
 
 def ask_variables(parent_window: Any, variable_names: List[str]) -> Tuple[str, str, str]:

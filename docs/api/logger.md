@@ -136,26 +136,6 @@ logger.addHandler(handler)
 
 ## Utility Functions
 
-### `log_function_call(logger: logging.Logger, func_name: str, **kwargs) -> None`
-
-Log a function call with its parameters.
-
-**Parameters:**
-- `logger`: Logger instance to use
-- `func_name`: Name of the function being called
-- `**kwargs`: Function parameters to log
-
-**Example:**
-```python
-from utils.logger import get_logger, log_function_call
-
-logger = get_logger(__name__)
-
-def fit_linear(x, y):
-    log_function_call(logger, 'fit_linear', x_name='time', y_name='distance')
-    # ... function implementation
-```
-
 ### `log_exception(logger: logging.Logger, exception: Exception, context: str = None) -> None`
 
 Log an exception with context.

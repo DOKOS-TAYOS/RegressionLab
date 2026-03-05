@@ -218,23 +218,6 @@ def get_logger(name: str) -> logging.Logger:
     return logging.getLogger(name)
 
 
-def log_function_call(logger: logging.Logger, func_name: str, **kwargs) -> None:
-    """
-    Log a function call with its parameters.
-    
-    Args:
-        logger: Logger instance to use
-        func_name: Name of the function being called
-        **kwargs: Function parameters to log
-
-    Examples:
-        >>> logger = get_logger(__name__)
-        >>> log_function_call(logger, 'fit_linear', x_name='time', y_name='distance')
-    """
-    params = ', '.join(f"{k}={v}" for k, v in kwargs.items())
-    logger.debug(f"Calling {func_name}({params})")
-
-
 def log_exception(
     logger: logging.Logger, exception: Exception, context: Optional[str] = None
 ) -> None:

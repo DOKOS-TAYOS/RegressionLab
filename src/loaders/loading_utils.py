@@ -1,27 +1,16 @@
 """
 Loading utilities for data file operations.
 
-This module provides functions to:
-
-    - Load data from CSV, TXT and Excel files
-    - Scan directories for available data files
-    - Get the project root directory path
-
-All file operations are relative to the project root directory.
+This module provides functions to load data from CSV, TXT and Excel files.
 """
-
-# Standard library
-from typing import List, Optional, Tuple
 
 # Third-party packages
 import pandas as pd
 
 # Local imports
-from config import FILE_CONFIG, get_project_root
 from i18n import t
 from utils import (
     DataLoadError,
-    FileNotFoundError,
     get_logger,
     validate_dataframe,
     validate_data_format,
@@ -140,71 +129,3 @@ def excel_reader(file_path: str) -> pd.DataFrame:
     except Exception as e:
         logger.error(t('log.error_reading_excel', path=file_path, error=str(e)), exc_info=True)
         raise DataLoadError(t('error.loading_excel_file', error=str(e)))
-
-
-def get_file_names(
-    directory: Optional[str] = None,
-) -> Tuple[List[str], List[str], List[str]]:
-    """
-    Get categorized file names from a directory.
-    
-    Scans the specified directory and categorizes files by extension,
-    returning file names without their extensions. This allows the UI
-    to present clean file names to the user while the full path can
-    be reconstructed when needed.
-    
-    Args:
-        directory: Name of the directory to scan (default: None, relative to project root)
-        
-    Returns:
-        Tuple of three lists: (csv_files, xlsx_files, txt_files)
-        Each list contains file names without extensions
-        
-    Raises:
-        FileNotFoundError: If directory does not exist
-        
-    Examples:
-        >>> csv, xlsx, txt = get_file_names()
-        >>> # If 'input' contains 'data.csv' and 'experiment.xlsx':
-        >>> print(csv)  # ['data']
-        >>> print(xlsx)  # ['experiment']
-    """
-    
-    # Get base directory from environment variable if not specified
-    if directory is None:
-        directory = FILE_CONFIG['input_dir']
-
-    logger.debug(t('log.scanning_directory', directory=directory))
-    
-    # Use pathlib for cross-platform path handling, relative to project root
-    project_root = get_project_root()
-    file_path = project_root / directory
-    
-    # Check if directory exists
-    if not file_path.exists():
-        logger.error(t('log.directory_not_exist', path=str(file_path)))
-        raise FileNotFoundError(t('error.directory_not_exist', directory=directory))
-    
-    if not file_path.is_dir():
-        logger.error(t('log.path_not_directory', path=str(file_path)))
-        raise DataLoadError(t('error.path_not_directory', directory=directory))
-    
-    try:
-        by_ext: dict[str, List[str]] = {'.csv': [], '.xlsx': [], '.txt': []}
-        for path in file_path.iterdir():
-            if path.is_file() and path.suffix in by_ext:
-                by_ext[path.suffix].append(path.stem)
-
-        csv, xlsx, txt = by_ext['.csv'], by_ext['.xlsx'], by_ext['.txt']
-        logger.info(t('log.found_files', csv=len(csv), xlsx=len(xlsx), txt=len(txt)))
-        return csv, xlsx, txt
-        
-    except PermissionError:
-        logger.error(t('log.permission_denied_directory', path=str(file_path)))
-        raise DataLoadError(t('error.permission_denied_directory', directory=directory))
-    except Exception as e:
-        logger.error(
-            t('log.error_scanning_directory', path=str(file_path), error=str(e)),
-            exc_info=True
-        )
-        raise DataLoadError(t('error.scanning_directory', error=str(e)))

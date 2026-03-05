@@ -11,7 +11,6 @@ from .exceptions import (
     InvalidFileTypeError,
     FittingError,
     EquationError,
-    ConfigurationError,
     ValidationError,
 )
 from .logger import (
@@ -21,7 +20,6 @@ from .logger import (
     should_log_to_console,
     setup_logging,
     get_logger,
-    log_function_call,
     log_exception,
 )
 from .validators import (
@@ -42,7 +40,6 @@ __all__ = [
     'InvalidFileTypeError',
     'FittingError',
     'EquationError',
-    'ConfigurationError',
     'ValidationError',
     'ColoredFormatter',
     'get_log_level_from_env',
@@ -50,7 +47,6 @@ __all__ = [
     'should_log_to_console',
     'setup_logging',
     'get_logger',
-    'log_function_call',
     'log_exception',
     'validate_dataframe',
     'validate_data_format',

@@ -46,11 +46,6 @@ class EquationError(RegressionLabError):
     pass
 
 
-class ConfigurationError(RegressionLabError):
-    """Exception raised when configuration is invalid."""
-    pass
-
-
 class ValidationError(RegressionLabError):
     """Exception raised when input validation fails."""
     pass

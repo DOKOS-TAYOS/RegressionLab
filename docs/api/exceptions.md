@@ -16,7 +16,6 @@ RegressionLabError (base)
 ├── DataValidationError
 ├── FittingError
 ├── EquationError
-├── ConfigurationError
 └── ValidationError
 ```
 
@@ -119,20 +118,6 @@ try:
     result = eval(formula, namespace)
 except SyntaxError as e:
     raise EquationError(f"Invalid formula syntax: {e}")
-```
-
-## Configuration Exceptions
-
-### `ConfigurationError`
-
-Exception raised when configuration is invalid.
-
-**Usage:**
-```python
-from utils.exceptions import ConfigurationError
-
-if dpi < 50 or dpi > 1200:
-    raise ConfigurationError(f"Invalid DPI value: {dpi}")
 ```
 
 ## Validation Exceptions

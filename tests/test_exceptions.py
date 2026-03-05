@@ -12,7 +12,6 @@ from utils import (
     InvalidFileTypeError,
     FittingError,
     EquationError,
-    ConfigurationError,
     ValidationError,
 )
 
@@ -25,7 +24,6 @@ from utils import (
     (InvalidFileTypeError, DataLoadError),
     (FittingError, RegressionLabError),
     (EquationError, RegressionLabError),
-    (ConfigurationError, RegressionLabError),
     (ValidationError, RegressionLabError),
 ])
 def test_exception_hierarchy(exception_class: type, parent_class: type) -> None:
@@ -41,7 +39,6 @@ def test_exception_hierarchy(exception_class: type, parent_class: type) -> None:
     InvalidFileTypeError,
     FittingError,
     EquationError,
-    ConfigurationError,
     ValidationError,
 ])
 def test_exception_raising(exception_class: type) -> None:
