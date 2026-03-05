@@ -395,27 +395,6 @@ SPINBOX_STYLE: dict[str, Any] = {
 }
 
 # -----------------------------------------------------------------------------
-# Button style presets (tk widgets): same relief/border/font, color by role
-# -----------------------------------------------------------------------------
-
-def _tk_button_base() -> dict[str, Any]:
-    base = {
-        'relief': UI_STYLE['button_relief'],
-        'bd': UI_STYLE['button_borderwidth'],
-        'highlightthickness': 0,
-        'activebackground': UI_STYLE['active_bg'],
-        'font': (UI_STYLE['font_family'], UI_STYLE['font_size']),
-    }
-    return base
-
-_BASE_BUTTON = _tk_button_base()
-
-BUTTON_STYLE_PRIMARY = {**_BASE_BUTTON, 'bg': UI_STYLE['button_bg'], 'fg': UI_STYLE['button_fg_accept'], 'activeforeground': _lighten_fg(UI_STYLE['button_fg_accept'])}
-BUTTON_STYLE_SECONDARY = {**_BASE_BUTTON, 'bg': UI_STYLE['button_bg'], 'fg': UI_STYLE['fg'], 'activeforeground': _lighten_fg(UI_STYLE['fg'])}
-BUTTON_STYLE_DANGER = {**_BASE_BUTTON, 'bg': UI_STYLE['button_bg'], 'fg': UI_STYLE['button_fg_cancel'], 'activeforeground': _lighten_fg(UI_STYLE['button_fg_cancel'])}
-BUTTON_STYLE_ACCENT = {**_BASE_BUTTON, 'bg': UI_STYLE['button_bg'], 'fg': UI_STYLE['button_fg_accept'], 'activeforeground': _lighten_fg(UI_STYLE['button_fg_accept'])}
-
-# -----------------------------------------------------------------------------
 # Plot config (unchanged)
 # -----------------------------------------------------------------------------
 

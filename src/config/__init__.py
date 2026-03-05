@@ -5,7 +5,7 @@ Re-exports all configuration from submodules so that
 "from config import UI_STYLE" etc. continue to work.
 """
 
-from .color_utils import lighten_hex, muted_from_hex, parse_hex_to_rgb
+from .color_utils import lighten_hex, muted_from_hex
 from .env import (
     DEFAULT_LOG_FILE,
     DEFAULT_LOG_LEVEL,
@@ -19,10 +19,6 @@ from .env import (
     write_env_file,
 )
 from .theme import (
-    BUTTON_STYLE_ACCENT,
-    BUTTON_STYLE_DANGER,
-    BUTTON_STYLE_PRIMARY,
-    BUTTON_STYLE_SECONDARY,
     FONT_CONFIG,
     PLOT_CONFIG,
     SPINBOX_STYLE,
@@ -57,7 +53,6 @@ from .constants import (
 __all__ = [
     'lighten_hex',
     'muted_from_hex',
-    'parse_hex_to_rgb',
     'DEFAULT_LOG_FILE',
     'DEFAULT_LOG_LEVEL',
     'DONATIONS_URL',
@@ -68,10 +63,6 @@ __all__ = [
     'initialize_and_validate_config',
     'validate_all_env_values',
     'write_env_file',
-    'BUTTON_STYLE_ACCENT',
-    'BUTTON_STYLE_DANGER',
-    'BUTTON_STYLE_PRIMARY',
-    'BUTTON_STYLE_SECONDARY',
     'FONT_CONFIG',
     'PLOT_CONFIG',
     'SPINBOX_STYLE',

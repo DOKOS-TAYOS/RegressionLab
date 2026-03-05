@@ -7,9 +7,9 @@ Configuration package for RegressionLab.
 The `config` package centralizes all application configuration, constants, and settings. It is split into submodules; the main package re-exports everything so that `from config import PLOT_CONFIG`, `from config import __version__`, etc. continue to work.
 
 **Package structure:**
-- **`config/color_utils.py`** – Pure hex color utilities (no config/env dependencies): `parse_hex_to_rgb`, `lighten_hex`, `muted_from_hex`. Used by Streamlit theme.
+- **`config/color_utils.py`** – Pure hex color utilities (no config/env dependencies): `lighten_hex`, `muted_from_hex`. Used by Streamlit theme.
 - **`config/env.py`** – Environment variables, `.env` loading, validation, `get_env`, `get_env_from_schema`, `get_current_env_values`, `write_env_file`, `validate_all_env_values`, `initialize_and_validate_config`, `ENV_SCHEMA`, `DEFAULT_LOG_FILE`, `DEFAULT_LOG_LEVEL`, `DONATIONS_URL`
-- **`config/theme.py`** – `UI_THEME`, `UI_STYLE`, `PLOT_CONFIG`, `FONT_CONFIG`, `BUTTON_STYLE_PRIMARY`, `BUTTON_STYLE_SECONDARY`, `BUTTON_STYLE_DANGER`, `BUTTON_STYLE_ACCENT`, `SPINBOX_STYLE`, `setup_fonts`, `get_entry_font`, `configure_ttk_styles`, `apply_hover_to_children`
+- **`config/theme.py`** – `UI_THEME`, `UI_STYLE`, `PLOT_CONFIG`, `FONT_CONFIG`, `SPINBOX_STYLE`, `setup_fonts`, `get_entry_font`, `configure_ttk_styles`, `apply_hover_to_children`
 - **`config/paths.py`** – `FILE_CONFIG`, `get_project_root`, `ensure_output_directory`, `get_output_path`
 - **`config/constants.py`** – `__version__`, `EQUATIONS`, `AVAILABLE_EQUATION_TYPES`, `EXIT_SIGNAL`, `MATH_FUNCTION_REPLACEMENTS`, `SUPPORTED_LANGUAGE_CODES`, `LANGUAGE_ALIASES`, `DEFAULT_LANGUAGE`, `DATA_FILE_TYPES`
 - **`config/equations.yaml`** – Single source of truth for equation definitions (function name, formula, format, param_names). Loaded by `constants.py` into `EQUATIONS`.
