@@ -106,7 +106,7 @@ popt, pcov = curve_fit(func, x_data, y_data, p0=[1.0, 1.0])
 
 ## Mathematical Function Conversion
 
-The module automatically converts standard mathematical notation to NumPy function calls using mappings from `config.MATH_FUNCTION_REPLACEMENTS`.
+The module automatically converts standard mathematical notation to NumPy function calls using mappings from `config.constants._MATH_FUNCTION_REPLACEMENTS`.
 
 ### Supported Conversions
 

@@ -10,7 +10,7 @@ The `logger.py` module provides centralized logging configuration and utilities.
 
 ### Logging Setup
 
-#### `setup_logging(log_file=None, level=None, console=None, log_format=DEFAULT_LOG_FORMAT, date_format=DEFAULT_DATE_FORMAT) -> None`
+#### `setup_logging(log_file=None, level=None, console=None, log_format=_DEFAULT_LOG_FORMAT, date_format=_DEFAULT_DATE_FORMAT) -> None`
 
 Configure application-wide logging.
 

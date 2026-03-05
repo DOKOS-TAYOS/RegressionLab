@@ -135,7 +135,7 @@ _FORMAT_TO_FORMULA: dict[str, str] = {
 # Regex patterns for converting user-friendly math notation to NumPy equivalents
 # when parsing custom formulas (e.g., 'ln(x)' becomes 'np.log(x)').
 # The (?<!np\.) lookbehind prevents re-matching names already inside "np.xxx".
-MATH_FUNCTION_REPLACEMENTS: dict[str, str] = {
+_MATH_FUNCTION_REPLACEMENTS: dict[str, str] = {
     # Logarithmic functions
     r'\bln\b': 'np.log',
     r'(?<!np\.)\blog\b': 'np.log10',
@@ -199,11 +199,11 @@ MATH_FUNCTION_REPLACEMENTS: dict[str, str] = {
     r'(?<!np\.)\be\b': 'np.e',
 }
 
-# Pre-compiled version of MATH_FUNCTION_REPLACEMENTS for use in hot paths.
+# Pre-compiled version of _MATH_FUNCTION_REPLACEMENTS for use in hot paths.
 # Each entry is (compiled_regex, replacement_string).
 MATH_FUNCTION_REPLACEMENTS_COMPILED: list[tuple[_re.Pattern[str], str]] = [
     (_re.compile(pattern), replacement)
-    for pattern, replacement in MATH_FUNCTION_REPLACEMENTS.items()
+    for pattern, replacement in _MATH_FUNCTION_REPLACEMENTS.items()
 ]
 
 # ---------------------------------------------------------------------------

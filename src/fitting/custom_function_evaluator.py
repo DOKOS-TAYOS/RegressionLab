@@ -92,7 +92,7 @@ class CustomFunctionEvaluator:
         Convert mathematical notation to NumPy function calls.
         
         This method replaces standard mathematical function names with their
-        NumPy equivalents using the mappings from config.MATH_FUNCTION_REPLACEMENTS.
+        NumPy equivalents using the mappings from config.constants._MATH_FUNCTION_REPLACEMENTS.
         For example, 'ln(x)' becomes 'np.log(x)'.
         
         Args:

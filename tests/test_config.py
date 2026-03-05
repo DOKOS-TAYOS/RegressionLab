@@ -18,11 +18,11 @@ from config import (
     PLOT_CONFIG,
     FONT_CONFIG,
     FILE_CONFIG,
-    MATH_FUNCTION_REPLACEMENTS,
     EQUATIONS,
     AVAILABLE_EQUATION_TYPES,
     EXIT_SIGNAL
 )
+from config.constants import _MATH_FUNCTION_REPLACEMENTS
 
 
 @pytest.fixture
@@ -136,9 +136,9 @@ class TestConfigConstants:
     
     def test_math_function_replacements(self) -> None:
         """Test math function replacements exist."""
-        assert isinstance(MATH_FUNCTION_REPLACEMENTS, dict)
+        assert isinstance(_MATH_FUNCTION_REPLACEMENTS, dict)
         # Keys use lookbehind pattern; check that expected targets exist
-        values = set(MATH_FUNCTION_REPLACEMENTS.values())
+        values = set(_MATH_FUNCTION_REPLACEMENTS.values())
         assert 'np.log' in values
         assert 'np.sin' in values
     

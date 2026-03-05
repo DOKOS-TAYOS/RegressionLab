@@ -16,29 +16,29 @@ try:
 
     # Initialize colorama for Windows
     colorama_init(autoreset=True)
-    COLORAMA_AVAILABLE = True
+    _COLORAMA_AVAILABLE = True
 except ImportError:
-    COLORAMA_AVAILABLE = False
+    _COLORAMA_AVAILABLE = False
 
 # Local imports
 from config import DEFAULT_LOG_FILE, DEFAULT_LOG_LEVEL, get_env
 from i18n import t
 
 # Format defaults
-DEFAULT_LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-DEFAULT_DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
+_DEFAULT_LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+_DEFAULT_DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
 
 # Color configuration for different log levels
-LOG_COLORS = {
-    'DEBUG': Fore.CYAN if COLORAMA_AVAILABLE else '',
-    'INFO': Fore.GREEN if COLORAMA_AVAILABLE else '',
-    'WARNING': Fore.YELLOW if COLORAMA_AVAILABLE else '',
-    'ERROR': Fore.RED if COLORAMA_AVAILABLE else '',
-    'CRITICAL': Fore.RED + Style.BRIGHT if COLORAMA_AVAILABLE else '',
+_LOG_COLORS = {
+    'DEBUG': Fore.CYAN if _COLORAMA_AVAILABLE else '',
+    'INFO': Fore.GREEN if _COLORAMA_AVAILABLE else '',
+    'WARNING': Fore.YELLOW if _COLORAMA_AVAILABLE else '',
+    'ERROR': Fore.RED if _COLORAMA_AVAILABLE else '',
+    'CRITICAL': Fore.RED + Style.BRIGHT if _COLORAMA_AVAILABLE else '',
 }
 
 # Map env log level names to logging constants (avoid rebuilding on every call)
-LEVEL_MAP = {
+_LEVEL_MAP = {
     'DEBUG': logging.DEBUG,
     'INFO': logging.INFO,
     'WARNING': logging.WARNING,
@@ -70,10 +70,10 @@ class ColoredFormatter(logging.Formatter):
         Returns:
             Formatted and colored log string
         """
-        if not COLORAMA_AVAILABLE:
+        if not _COLORAMA_AVAILABLE:
             return super().format(record)
         
-        color = LOG_COLORS.get(record.levelname, '')
+        color = _LOG_COLORS.get(record.levelname, '')
         reset = Style.RESET_ALL
         # Save the original levelname
         original_levelname = record.levelname
@@ -100,7 +100,7 @@ def get_log_level_from_env() -> int:
     # Use central configuration helper so values and defaults always
     # match those defined in ``.env`` / ``config.env.ENV_SCHEMA``.
     level_name = str(get_env('LOG_LEVEL', DEFAULT_LOG_LEVEL)).upper()
-    return LEVEL_MAP.get(level_name, logging.INFO)
+    return _LEVEL_MAP.get(level_name, logging.INFO)
 
 
 def get_log_file_from_env() -> str:
@@ -129,8 +129,8 @@ def setup_logging(
     log_file: Optional[str] = None,
     level: Optional[int] = None,
     console: Optional[bool] = None,
-    log_format: str = DEFAULT_LOG_FORMAT,
-    date_format: str = DEFAULT_DATE_FORMAT
+    log_format: str = _DEFAULT_LOG_FORMAT,
+    date_format: str = _DEFAULT_DATE_FORMAT
 ) -> None:
     """
     Configure application-wide logging.

@@ -11,7 +11,7 @@ The `config` package centralizes all application configuration, constants, and s
 - **`config/env.py`** – Environment variables, `.env` loading, validation, `get_env`, `get_env_from_schema`, `get_current_env_values`, `write_env_file`, `validate_all_env_values`, `initialize_and_validate_config`, `ENV_SCHEMA`, `DEFAULT_LOG_FILE`, `DEFAULT_LOG_LEVEL`, `DONATIONS_URL`
 - **`config/theme.py`** – `UI_THEME`, `UI_STYLE`, `PLOT_CONFIG`, `FONT_CONFIG`, `SPINBOX_STYLE`, `setup_fonts`, `get_entry_font`, `configure_ttk_styles`, `apply_hover_to_children`
 - **`config/paths.py`** – `FILE_CONFIG`, `get_project_root`, `ensure_output_directory`, `get_output_path`
-- **`config/constants.py`** – `__version__`, `EQUATIONS`, `AVAILABLE_EQUATION_TYPES`, `EXIT_SIGNAL`, `MATH_FUNCTION_REPLACEMENTS`, `SUPPORTED_LANGUAGE_CODES`, `LANGUAGE_ALIASES`, `DEFAULT_LANGUAGE`, `DATA_FILE_TYPES`
+- **`config/constants.py`** – `__version__`, `EQUATIONS`, `AVAILABLE_EQUATION_TYPES`, `EXIT_SIGNAL`, `MATH_FUNCTION_REPLACEMENTS_COMPILED`, `SUPPORTED_LANGUAGE_CODES`, `LANGUAGE_ALIASES`, `DEFAULT_LANGUAGE`, `DATA_FILE_TYPES`
 - **`config/equations.yaml`** – Single source of truth for equation definitions (function name, formula, format, param_names). Loaded by `constants.py` into `EQUATIONS`.
 
 Usage remains the same: import from `config` (e.g. `from config import PLOT_CONFIG, get_project_root`, `from config import lighten_hex, get_env_from_schema`).

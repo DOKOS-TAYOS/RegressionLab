@@ -3,7 +3,7 @@
 from typing import Tuple
 
 
-def parse_hex_to_rgb(hex_color: str) -> Tuple[int, int, int] | None:
+def _parse_hex_to_rgb(hex_color: str) -> Tuple[int, int, int] | None:
     """
     Parse a hex color string to RGB tuple (0-255 range).
 
@@ -49,7 +49,7 @@ def lighten_hex(hex_color: str, factor: float = 0.08, default: str = "#222222") 
     Returns:
         Lighter hex color as #rrggbb.
     """
-    rgb = parse_hex_to_rgb(hex_color)
+    rgb = _parse_hex_to_rgb(hex_color)
     if rgb is None:
         return default
     r, g, b = rgb
@@ -70,7 +70,7 @@ def muted_from_hex(hex_color: str, default: str = "#666666") -> str:
     Returns:
         Muted gray hex color as #rrggbb.
     """
-    rgb = parse_hex_to_rgb(hex_color)
+    rgb = _parse_hex_to_rgb(hex_color)
     if rgb is None:
         return default
     r, g, b = rgb
