@@ -9,7 +9,7 @@ The `config` package centralizes all application configuration, constants, and s
 **Package structure:**
 - **`config/color_utils.py`** – Pure hex color utilities (no config/env dependencies): `lighten_hex`, `muted_from_hex`. Used by Streamlit theme.
 - **`config/env.py`** – Environment variables, `.env` loading, validation, `get_env`, `get_env_from_schema`, `get_current_env_values`, `write_env_file`, `validate_all_env_values`, `initialize_and_validate_config`, `ENV_SCHEMA`, `DEFAULT_LOG_FILE`, `DEFAULT_LOG_LEVEL`, `DONATIONS_URL`
-- **`config/theme.py`** – `UI_THEME`, `UI_STYLE`, `PLOT_CONFIG`, `FONT_CONFIG`, `SPINBOX_STYLE`, `setup_fonts`, `get_entry_font`, `configure_ttk_styles`, `apply_hover_to_children`
+- **`config/theme.py`** – `UI_STYLE`, `PLOT_CONFIG`, `FONT_CONFIG`, `SPINBOX_STYLE`, `setup_fonts`, `get_entry_font`, `configure_ttk_styles`, `apply_hover_to_children`
 - **`config/paths.py`** – `FILE_CONFIG`, `get_project_root`, `ensure_output_directory`, `get_output_path`
 - **`config/constants.py`** – `__version__`, `EQUATIONS`, `AVAILABLE_EQUATION_TYPES`, `EXIT_SIGNAL`, `MATH_FUNCTION_REPLACEMENTS_COMPILED`, `SUPPORTED_LANGUAGE_CODES`, `LANGUAGE_ALIASES`, `DEFAULT_LANGUAGE`, `DATA_FILE_TYPES`
 - **`config/equations.yaml`** – Single source of truth for equation definitions (function name, formula, format, param_names). Loaded by `constants.py` into `EQUATIONS`.
@@ -78,12 +78,12 @@ PLOT_CONFIG = {
 }
 ```
 
-#### `UI_THEME`
+#### `UI_STYLE`
 
 Dictionary containing UI theme configuration for Tkinter:
 
 ```python
-UI_THEME = {
+UI_STYLE = {
     'background': 'midnight blue',
     'foreground': 'snow',
     'button_fg': 'lime green',
@@ -103,10 +103,6 @@ UI_THEME = {
     'entry_width': 25
 }
 ```
-
-#### `UI_STYLE`
-
-Backwards-compatible mapping for dialog components (uses `UI_THEME` values).
 
 #### `FONT_CONFIG`
 
@@ -418,7 +414,7 @@ Equation-to-function mapping is provided by the **`function`** field of each ent
 
 ```python
 from config import (
-    PLOT_CONFIG, UI_THEME, FONT_CONFIG, __version__, get_project_root,
+    PLOT_CONFIG, UI_STYLE, FONT_CONFIG, __version__, get_project_root,
     get_current_env_values, validate_all_env_values
 )
 
@@ -430,8 +426,8 @@ print(f"Figure size: {PLOT_CONFIG['figsize']}")
 print(f"DPI: {PLOT_CONFIG['dpi']}")
 
 # UI theme configuration
-print(f"Background: {UI_THEME['background']}")
-print(f"Font size: {UI_THEME['font_size']}")
+print(f"Background: {UI_STYLE['background']}")
+print(f"Font size: {UI_STYLE['font_size']}")
 
 # Font configuration
 print(f"Font family: {FONT_CONFIG['family']}")

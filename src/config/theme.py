@@ -378,9 +378,6 @@ UI_STYLE = {
     'entry_font_size': _font_size,
 }
 
-# Backward compatibility: UI_THEME is the same source
-UI_THEME = UI_STYLE
-
 # tk Spinbox options so it matches ttk Combobox (same field_bg, fg, font, relief).
 # readonlybackground: needed so readonly state uses theme bg on Windows.
 SPINBOX_STYLE: dict[str, Any] = {
