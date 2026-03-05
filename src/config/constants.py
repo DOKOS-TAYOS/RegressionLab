@@ -8,7 +8,7 @@ from typing import Any
 import yaml
 
 # Application version number
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 # Application metadata
 __author__ = "Alejandro Mata Ali"
