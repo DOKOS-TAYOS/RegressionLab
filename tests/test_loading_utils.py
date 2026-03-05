@@ -59,7 +59,7 @@ def txt_file() -> str:
 
 class TestCsvReader:
     """Tests for csv_reader function."""
-    
+
     def test_read_valid_csv(self, csv_file: str) -> None:
         """Test reading valid CSV file."""
         df = csv_reader(csv_file)
@@ -67,11 +67,31 @@ class TestCsvReader:
         assert len(df) == 3
         assert 'x' in df.columns
         assert 'y' in df.columns
-    
+
     def test_nonexistent_file(self) -> None:
         """Test reading nonexistent file raises error."""
         with pytest.raises(DataLoadError):
             csv_reader('/nonexistent/file.csv')
+
+    def test_empty_csv_raises_data_load_error(self) -> None:
+        """Test empty CSV file raises DataLoadError (EmptyDataError path)."""
+        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.csv') as tf:
+            tf.write('')  # Empty file
+        try:
+            with pytest.raises(DataLoadError):
+                csv_reader(tf.name)
+        finally:
+            Path(tf.name).unlink(missing_ok=True)
+
+    def test_malformed_csv_raises_data_load_error(self) -> None:
+        """Test malformed CSV raises DataLoadError (ParserError path)."""
+        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.csv') as tf:
+            tf.write('x,y\n"unclosed,quote\n1,2\n')  # Unclosed quote
+        try:
+            with pytest.raises(DataLoadError):
+                csv_reader(tf.name)
+        finally:
+            Path(tf.name).unlink(missing_ok=True)
 
 
 class TestExcelReader:
@@ -93,7 +113,7 @@ class TestExcelReader:
 
 class TestTxtReader:
     """Tests for txt_reader function."""
-    
+
     def test_read_valid_txt(self, txt_file: str) -> None:
         """Test reading valid TXT file."""
         df = txt_reader(txt_file)
@@ -101,8 +121,42 @@ class TestTxtReader:
         assert len(df) == 3
         assert 'x' in df.columns
         assert 'y' in df.columns
-    
+
     def test_nonexistent_file(self) -> None:
         """Test reading nonexistent file raises error."""
         with pytest.raises(DataLoadError):
             txt_reader('/nonexistent/file.txt')
+
+    def test_empty_txt_raises_data_load_error(self) -> None:
+        """Test empty TXT file raises DataLoadError (EmptyDataError path)."""
+        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt') as tf:
+            tf.write('')
+        try:
+            with pytest.raises(DataLoadError):
+                txt_reader(tf.name)
+        finally:
+            Path(tf.name).unlink(missing_ok=True)
+
+    def test_malformed_txt_raises_data_load_error(self) -> None:
+        """Test malformed TXT raises DataLoadError (ParserError path)."""
+        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt') as tf:
+            tf.write('x\ty\n"bad\tdata\n')  # Unclosed quote causes parse error
+        try:
+            with pytest.raises(DataLoadError):
+                txt_reader(tf.name)
+        finally:
+            Path(tf.name).unlink(missing_ok=True)
+
+
+class TestExcelReaderErrors:
+    """Tests for excel_reader error paths."""
+
+    def test_invalid_excel_raises_data_load_error(self) -> None:
+        """Test invalid/corrupted Excel file raises DataLoadError."""
+        with tempfile.NamedTemporaryFile(mode='wb', delete=False, suffix='.xlsx') as tf:
+            tf.write(b'not a valid xlsx file')
+        try:
+            with pytest.raises(DataLoadError):
+                excel_reader(tf.name)
+        finally:
+            Path(tf.name).unlink(missing_ok=True)

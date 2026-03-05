@@ -183,18 +183,25 @@ class TestGetLogger:
 
 class TestLogException:
     """Tests for log_exception function."""
-    
-    def test_log_exception_with_context(self) -> None:
+
+    def test_log_exception_with_context(self, caplog: pytest.LogCaptureFixture) -> None:
         """Test logging an exception with context."""
-        logger = get_logger('test')
-        exception = ValueError("Test error")
-        log_exception(logger, exception, "Test context")
-    
-    def test_log_exception_without_context(self) -> None:
+        with caplog.at_level(logging.ERROR):
+            log_exception(
+                get_logger('test'),
+                ValueError("Test error"),
+                "Test context",
+            )
+        assert "Test context" in caplog.text
+        assert "ValueError" in caplog.text
+        assert "Test error" in caplog.text
+
+    def test_log_exception_without_context(self, caplog: pytest.LogCaptureFixture) -> None:
         """Test logging an exception without context."""
-        logger = get_logger('test')
-        exception = RuntimeError("Test error")
-        log_exception(logger, exception)
+        with caplog.at_level(logging.ERROR):
+            log_exception(get_logger('test'), RuntimeError("Test error"))
+        assert "RuntimeError" in caplog.text
+        assert "Test error" in caplog.text
 
 
 class TestColoredFormatter:

@@ -9,6 +9,7 @@ import pandas as pd
 from config import EXIT_SIGNAL
 from fitting.fitting_utils import (
     format_parameter,
+    format_scientific,
     generic_fit,
     get_fitting_function,
 )
@@ -39,9 +40,42 @@ class TestFormatParameter:
         assert sigma_str == expected
     
     def test_small_sigma(self) -> None:
-        """Test formatting with very small uncertainty (literal superscript format)."""
-        _, sigma = format_parameter(1.23456789, 1e-8)
-        assert '×10' in sigma and '⁸' in sigma
+        """Test formatting with very small uncertainty: value rounded correctly, sigma ~1e-8."""
+        value, sigma_str = format_parameter(1.23456789, 1e-8)
+        # Value rounded to 9 decimals (1 - exp of 1e-8)
+        assert abs(value - 1.23456789) < 1e-9
+        # Sigma string represents ~1e-8 (scientific notation with 10^exp)
+        assert '×10' in sigma_str
+        # Parse exponent: format is "M×10⁻⁸" for 10^-8
+        superscript_to_digit = str.maketrans('⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻', '0123456789+-')
+        exp_part = sigma_str.split('×10')[-1].strip()
+        exp_str = exp_part.translate(superscript_to_digit)
+        exp_val = int(exp_str)
+        assert exp_val == -8
+
+
+class TestFormatScientific:
+    """Tests for format_scientific function."""
+
+    def test_small_value_superscript(self) -> None:
+        """Test small value uses 10^exp with superscript."""
+        result = format_scientific(1.234e-5)
+        assert '×10' in result
+        assert '⁻⁵' in result or '⁻⁰⁵' in result
+
+    def test_large_value_superscript(self) -> None:
+        """Test large value uses 10^exp with superscript."""
+        result = format_scientific(1.2e6)  # .4g produces scientific for 1e6+
+        assert '×10' in result
+        assert '⁶' in result
+
+    def test_inf_returns_infinity_symbol(self) -> None:
+        """Test inf value returns infinity symbol."""
+        assert format_scientific(np.inf) == '∞'
+
+    def test_nan_returns_nan(self) -> None:
+        """Test NaN value returns NaN string."""
+        assert format_scientific(np.nan) == 'NaN'
 
 
 class TestEstimateTrigonometricParameters:
@@ -153,26 +187,74 @@ class TestGenericFit:
                 'y={m}x'
             )
     
-    def test_non_convergent_fit(self) -> None:
-        """Test handling of non-convergent fit (linear data with sin model)."""
-        bad_data = pd.DataFrame({
-            'x': np.array([1.0, 2.0, 3.0]),
-            'ux': np.array([0.1, 0.1, 0.1]),
-            'y': np.array([100.0, 200.0, 300.0]),
-            'uy': np.array([1.0, 1.0, 1.0])
+    def test_non_convergent_fit_raises_fitting_error(self) -> None:
+        """Test that impossible bounds cause curve_fit to fail with FittingError."""
+        data = pd.DataFrame({
+            'x': np.array([1.0, 2.0, 3.0, 4.0, 5.0]),
+            'ux': np.ones(5) * 0.1,
+            'y': np.array([100.0, 200.0, 300.0, 400.0, 500.0]),
+            'uy': np.ones(5) * 1.0,
         })
-        # Fit may converge to a poor solution or raise FittingError; both are acceptable.
-        try:
+        # Bounds exclude any valid solution: amplitude and frequency forced near zero
+        # cannot fit linear data; curve_fit raises RuntimeError -> FittingError
+        with pytest.raises(FittingError):
             generic_fit(
-                bad_data,
+                data,
                 'x',
                 'y',
                 sin_function,
                 ['a', 'b'],
-                'y={a}sin({b}x)'
+                'y={a}sin({b}x)',
+                bounds=([0.0, 0.0], [0.001, 0.001]),
             )
-        except FittingError:
-            pass  # Expected when optimizer does not converge
+
+    def test_fit_with_bounds_succeeds(self, test_data: pd.DataFrame) -> None:
+        """Test generic fit with valid bounds converges."""
+        text, y_fitted, equation, fit_info = generic_fit(
+            test_data,
+            'x',
+            'y',
+            linear_function,
+            ['m'],
+            'y={m}x',
+            bounds=([0.0], [10.0]),
+        )
+        assert 'm=' in text
+        assert fit_info is not None
+        assert len(fit_info['params']) == 1
+
+    def test_fit_with_multiple_x_variables(self) -> None:
+        """Test generic fit with multiple independent variables (x as list)."""
+        # y = 2*x1 + 3*x2
+        data = pd.DataFrame({
+            'x1': [1.0, 2.0, 3.0, 4.0, 5.0],
+            'ux1': [0.1] * 5,
+            'x2': [1.0, 1.0, 1.0, 1.0, 1.0],
+            'ux2': [0.1] * 5,
+            'y': [5.0, 7.0, 9.0, 11.0, 13.0],  # 2*x1 + 3
+            'uy': [0.2] * 5,
+        })
+
+        def two_var_func(x: np.ndarray, a: float, b: float) -> np.ndarray:
+            return a * x[:, 0] + b * x[:, 1]
+
+        text, y_fitted, equation, fit_info = generic_fit(
+            data,
+            ['x1', 'x2'],
+            'y',
+            two_var_func,
+            ['a', 'b'],
+            'y={a}x1+{b}x2',
+        )
+        assert 'a=' in text
+        assert 'b=' in text
+        assert fit_info is not None
+        assert fit_info['x_names'] == ['x1', 'x2']
+        np.testing.assert_array_almost_equal(
+            fit_info['params'],
+            [2.0, 3.0],
+            decimal=1,
+        )
 
 
 class TestGetFittingFunction:
