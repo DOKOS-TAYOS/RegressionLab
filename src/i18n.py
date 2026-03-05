@@ -42,6 +42,8 @@ _translation_cache: Dict[str, Dict[str, Any]] = {}
 # Cache resolved keys for current language to avoid repeated nested lookups
 _key_cache: Dict[str, str] = {}
 
+__all__ = ['initialize_i18n', 't', 'DEFAULT_LANGUAGE']
+
 
 def _normalize_language(language: str) -> str:
     """

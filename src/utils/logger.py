@@ -47,7 +47,7 @@ _LEVEL_MAP = {
 }
 
 
-class ColoredFormatter(logging.Formatter):
+class _ColoredFormatter(logging.Formatter):
     """
     Custom formatter that adds color to console log output.
     
@@ -90,7 +90,7 @@ class ColoredFormatter(logging.Formatter):
         return formatted
 
 
-def get_log_level_from_env() -> int:
+def _get_log_level_from_env() -> int:
     """
     Get log level from environment variable.
     
@@ -103,7 +103,7 @@ def get_log_level_from_env() -> int:
     return _LEVEL_MAP.get(level_name, logging.INFO)
 
 
-def get_log_file_from_env() -> str:
+def _get_log_file_from_env() -> str:
     """
     Get log file path from environment variable.
     
@@ -113,7 +113,7 @@ def get_log_file_from_env() -> str:
     return str(get_env('LOG_FILE', DEFAULT_LOG_FILE))
 
 
-def should_log_to_console() -> bool:
+def _should_log_to_console() -> bool:
     """
     Check if console logging is enabled via environment variable.
     
@@ -151,13 +151,13 @@ def setup_logging(
     """
     # Get configuration from environment or use provided/default values
     if log_file is None:
-        log_file = get_log_file_from_env()
+        log_file = _get_log_file_from_env()
     
     if level is None:
-        level = get_log_level_from_env()
+        level = _get_log_level_from_env()
     
     if console is None:
-        console = should_log_to_console()
+        console = _should_log_to_console()
     
     # Create log directory if it doesn't exist (when path has a directory component)
     log_path = Path(log_file)
@@ -168,7 +168,7 @@ def setup_logging(
     # Use standard formatter for file (no colors)
     file_formatter = logging.Formatter(log_format, datefmt=date_format)
     # Use colored formatter for console
-    console_formatter = ColoredFormatter(log_format, datefmt=date_format)
+    console_formatter = _ColoredFormatter(log_format, datefmt=date_format)
     
     # Get root logger
     root_logger = logging.getLogger()

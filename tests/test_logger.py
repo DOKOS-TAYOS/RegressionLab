@@ -9,13 +9,15 @@ import tempfile
 from pathlib import Path
 
 from utils import (
-    get_log_level_from_env,
-    get_log_file_from_env,
-    should_log_to_console,
     setup_logging,
     get_logger,
     log_exception,
-    ColoredFormatter,
+)
+from utils.logger import (
+    _get_log_level_from_env,
+    _get_log_file_from_env,
+    _should_log_to_console,
+    _ColoredFormatter,
 )
 
 
@@ -47,7 +49,7 @@ class TestGetLogLevelFromEnv:
         """Test default log level when env var not set."""
         if 'LOG_LEVEL' in os.environ:
             del os.environ['LOG_LEVEL']
-        assert get_log_level_from_env() == logging.INFO
+        assert _get_log_level_from_env() == logging.INFO
     
     @pytest.mark.parametrize("level_str,expected", [
         ('DEBUG', logging.DEBUG),
@@ -58,12 +60,12 @@ class TestGetLogLevelFromEnv:
     def test_log_levels(self, level_str: str, expected: int) -> None:
         """Test different log levels."""
         os.environ['LOG_LEVEL'] = level_str
-        assert get_log_level_from_env() == expected
+        assert _get_log_level_from_env() == expected
     
     def test_invalid_level(self) -> None:
         """Test that invalid level defaults to INFO."""
         os.environ['LOG_LEVEL'] = 'INVALID'
-        assert get_log_level_from_env() == logging.INFO
+        assert _get_log_level_from_env() == logging.INFO
 
 
 class TestGetLogFileFromEnv:
@@ -83,12 +85,12 @@ class TestGetLogFileFromEnv:
         """Test default log file when env var not set."""
         if 'LOG_FILE' in os.environ:
             del os.environ['LOG_FILE']
-        assert get_log_file_from_env() == 'regressionlab.log'
+        assert _get_log_file_from_env() == 'regressionlab.log'
     
     def test_custom_log_file(self) -> None:
         """Test custom log file from env var."""
         os.environ['LOG_FILE'] = 'custom.log'
-        assert get_log_file_from_env() == 'custom.log'
+        assert _get_log_file_from_env() == 'custom.log'
 
 
 class TestShouldLogToConsole:
@@ -109,7 +111,7 @@ class TestShouldLogToConsole:
         if 'LOG_CONSOLE' in os.environ:
             del os.environ['LOG_CONSOLE']
         # Default is False according to get_env('LOG_CONSOLE', False, bool)
-        assert should_log_to_console() is False
+        assert _should_log_to_console() is False
     
     @pytest.mark.parametrize("value,expected", [
         ('true', True),
@@ -122,7 +124,7 @@ class TestShouldLogToConsole:
     def test_console_values(self, value: str, expected: bool) -> None:
         """Test console logging with different values."""
         os.environ['LOG_CONSOLE'] = value
-        assert should_log_to_console() == expected
+        assert _should_log_to_console() == expected
 
 
 class TestSetupLogging:
@@ -200,12 +202,12 @@ class TestColoredFormatter:
     
     def test_formatter_creation(self) -> None:
         """Test creating a ColoredFormatter."""
-        formatter = ColoredFormatter('%(message)s')
-        assert isinstance(formatter, ColoredFormatter)
+        formatter = _ColoredFormatter('%(message)s')
+        assert isinstance(formatter, _ColoredFormatter)
     
     def test_format_log_record(self) -> None:
         """Test formatting a log record."""
-        formatter = ColoredFormatter('%(levelname)s - %(message)s')
+        formatter = _ColoredFormatter('%(levelname)s - %(message)s')
         record = logging.LogRecord(
             name='test',
             level=logging.INFO,

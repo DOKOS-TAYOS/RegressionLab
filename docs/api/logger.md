@@ -119,20 +119,9 @@ The module provides colored console output when `colorama` is available:
 - **ERROR**: Red
 - **CRITICAL**: Bright Red
 
-### ColoredFormatter
+### Colored Output (Internal)
 
-Custom formatter that adds color to console log output.
-
-**Usage:**
-```python
-from utils.logger import ColoredFormatter
-import logging
-
-formatter = ColoredFormatter()
-handler = logging.StreamHandler()
-handler.setFormatter(formatter)
-logger.addHandler(handler)
-```
+Colored console output is provided by an internal formatter used by `setup_logging`. The formatter is not part of the public API; use `setup_logging()` to configure logging with colors.
 
 ## Utility Functions
 

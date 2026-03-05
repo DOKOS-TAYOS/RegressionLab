@@ -14,10 +14,6 @@ from .exceptions import (
     ValidationError,
 )
 from .logger import (
-    ColoredFormatter,
-    get_log_level_from_env,
-    get_log_file_from_env,
-    should_log_to_console,
     setup_logging,
     get_logger,
     log_exception,
@@ -41,10 +37,6 @@ __all__ = [
     'FittingError',
     'EquationError',
     'ValidationError',
-    'ColoredFormatter',
-    'get_log_level_from_env',
-    'get_log_file_from_env',
-    'should_log_to_console',
     'setup_logging',
     'get_logger',
     'log_exception',

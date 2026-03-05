@@ -11,6 +11,7 @@ from .fitting_utils import (
     generic_fit,
     get_fitting_function,
     format_parameter,
+    format_scientific,
     get_equation_param_info,
 )
 from .custom_function_evaluator import CustomFunctionEvaluator
@@ -44,6 +45,7 @@ __all__ = [
     'generic_fit',
     'get_fitting_function',
     'format_parameter',
+    'format_scientific',
     'get_equation_param_info',
     'CustomFunctionEvaluator',
     'reload_data_by_type',
