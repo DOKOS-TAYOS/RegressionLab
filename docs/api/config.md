@@ -8,7 +8,7 @@ The `config` package centralizes all application configuration, constants, and s
 
 **Package structure:**
 - **`config/color_utils.py`** – Pure hex color utilities (no config/env dependencies): `lighten_hex`, `muted_from_hex`. Used by Streamlit theme.
-- **`config/env.py`** – Environment variables, `.env` loading, validation, `get_env`, `get_env_from_schema`, `get_current_env_values`, `write_env_file`, `validate_all_env_values`, `initialize_and_validate_config`, `ENV_SCHEMA`, `DEFAULT_LOG_FILE`, `DEFAULT_LOG_LEVEL`, `DONATIONS_URL`
+- **`config/env.py`** – Environment variables, `.env` loading, validation, `get_env`, `get_env_from_schema`, `get_current_env_values`, `write_env_file`, `initialize_and_validate_config`, `ENV_SCHEMA`, `DEFAULT_LOG_FILE`, `DEFAULT_LOG_LEVEL`, `DONATIONS_URL`
 - **`config/theme.py`** – `UI_STYLE`, `PLOT_CONFIG`, `FONT_CONFIG`, `SPINBOX_STYLE`, `setup_fonts`, `get_entry_font`, `configure_ttk_styles`, `apply_hover_to_children`
 - **`config/paths.py`** – `FILE_CONFIG`, `get_project_root`, `ensure_output_directory`, `get_output_path`
 - **`config/constants.py`** – `__version__`, `EQUATIONS`, `AVAILABLE_EQUATION_TYPES`, `EXIT_SIGNAL`, `MATH_FUNCTION_REPLACEMENTS_COMPILED`, `SUPPORTED_LANGUAGE_CODES`, `LANGUAGE_ALIASES`, `DEFAULT_LANGUAGE`, `DATA_FILE_TYPES`
@@ -170,22 +170,6 @@ def get_env_from_schema(key: str) -> Any:
         
     Raises:
         KeyError: If key is not in ENV_SCHEMA
-    """
-```
-
-##### `validate_all_env_values()`
-
-Validate all environment values according to `ENV_SCHEMA` and return validation results.
-
-```python
-def validate_all_env_values() -> dict[str, tuple[Any, bool]]:
-    """
-    Validate all environment values according to ENV_SCHEMA and return
-    validation results.
-    
-    Returns:
-        Dictionary mapping environment keys to tuples of (corrected_value, was_corrected).
-        was_corrected is True if the value was invalid and had to be corrected.
     """
 ```
 
@@ -417,8 +401,6 @@ from config import (
     PLOT_CONFIG, UI_STYLE, FONT_CONFIG, __version__, get_project_root,
     get_current_env_values
 )
-from config.env import validate_all_env_values
-
 # Application version
 print(f"RegressionLab v{__version__}")
 
@@ -440,12 +422,6 @@ print(f"Project root: {root}")
 # Get all current environment values
 env_values = get_current_env_values()
 print(f"Current language: {env_values['LANGUAGE']}")
-
-# Validate all environment values
-validation_results = validate_all_env_values()
-for key, (value, was_corrected) in validation_results.items():
-    if was_corrected:
-        print(f"Warning: {key} was corrected to {value}")
 ```
 
 ### Checking Available Equations

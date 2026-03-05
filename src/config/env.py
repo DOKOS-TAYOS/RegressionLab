@@ -323,24 +323,14 @@ def get_env(
     return corrected_value
 
 
-def validate_all_env_values() -> dict[str, tuple[Any, bool]]:
+def _validate_all_env_values() -> dict[str, tuple[Any, bool]]:
     """
     Validate all environment values according to ENV_SCHEMA and return
-    validation results.
-
-    This function checks all environment variables defined in ENV_SCHEMA,
-    validates them, and returns information about which values were corrected.
+    validation results. Internal use by initialize_and_validate_config.
 
     Returns:
         Dictionary mapping environment keys to tuples of (corrected_value, was_corrected).
         was_corrected is True if the value was invalid and had to be corrected.
-
-    Examples:
-        >>> results = validate_all_env_values()
-        >>> results["LANGUAGE"]
-        ('es', False)  # Value was valid
-        >>> results["DPI"]
-        (100, True)  # Value was invalid and corrected to default
     """
     results: dict[str, tuple[Any, bool]] = {}
     
@@ -441,7 +431,7 @@ def initialize_and_validate_config() -> None:
         # Logger not available, skip logging
         logger = None
 
-    validation_results = validate_all_env_values()
+    validation_results = _validate_all_env_values()
     corrected_keys = [key for key, (_, was_corrected) in validation_results.items() if was_corrected]
 
     if corrected_keys and logger:

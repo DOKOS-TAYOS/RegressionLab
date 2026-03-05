@@ -14,7 +14,7 @@ from typing import Any, Callable, List, Optional, Sequence, Tuple, Union
 import numpy as np
 
 # Local imports (heavy numerical libraries are imported lazily inside functions)
-from config import EQUATIONS, EXIT_SIGNAL, _FORMAT_TO_FORMULA, _FUNCTION_TO_EQUATION
+from config import EQUATIONS, EXIT_SIGNAL, FORMAT_TO_FORMULA, FUNCTION_TO_EQUATION
 from i18n import t
 from utils import FittingError, get_logger
 
@@ -357,7 +357,7 @@ def generic_fit(
 
     # Prepend original formula from config if available (or equation_formula for custom fits)
     if equation_formula is None:
-        equation_formula = _FORMAT_TO_FORMULA.get(equation_template) or None
+        equation_formula = FORMAT_TO_FORMULA.get(equation_template) or None
     if equation_formula:
         equation_str = equation_formula + "\n" + formatted_equation
     else:
@@ -410,7 +410,7 @@ def get_equation_format_for_function(function_name: str) -> Optional[str]:
     Returns:
         Format string (e.g. ``'y={m}x+{n}'``) or ``None`` if not found or no format key.
     """
-    eq_id = _FUNCTION_TO_EQUATION.get(function_name)
+    eq_id = FUNCTION_TO_EQUATION.get(function_name)
     if eq_id is None:
         return None
     return EQUATIONS[eq_id].get("format")
@@ -429,7 +429,7 @@ def get_equation_param_names_for_function(function_name: str) -> List[str]:
     Raises:
         FittingError: If no equation config is found or param_names is missing.
     """
-    eq_id = _FUNCTION_TO_EQUATION.get(function_name)
+    eq_id = FUNCTION_TO_EQUATION.get(function_name)
     if eq_id is None:
         raise FittingError(
             f"No equation config found for function {function_name!r}"

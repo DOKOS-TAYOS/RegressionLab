@@ -119,11 +119,11 @@ EQUATIONS: dict[str, dict[str, Any]] = _raw_equations
 AVAILABLE_EQUATION_TYPES: tuple[str, ...] = tuple(EQUATIONS.keys())
 
 # Reverse lookup: function_name -> eq_id for O(1) lookup by function name
-_FUNCTION_TO_EQUATION: dict[str, str] = {
+FUNCTION_TO_EQUATION: dict[str, str] = {
     meta["function"]: eq_id for eq_id, meta in EQUATIONS.items()
 }
 # Reverse lookup: format_template -> formula for O(1) lookup in generic_fit
-_FORMAT_TO_FORMULA: dict[str, str] = {
+FORMAT_TO_FORMULA: dict[str, str] = {
     meta["format"]: meta.get("formula", "")
     for meta in EQUATIONS.values()
     if "format" in meta

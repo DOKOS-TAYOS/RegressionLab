@@ -29,13 +29,10 @@ from pathlib import Path
 from typing import Any, Dict, Optional
 
 from config import (
-    _DEFAULT_LANG,
+    DEFAULT_LANGUAGE,
     LANGUAGE_ALIASES,
     SUPPORTED_LANGUAGE_CODES,
 )
-
-# Default language if not specified (re-export from constants for backwards compatibility)
-DEFAULT_LANGUAGE: str = _DEFAULT_LANG
 
 # Current loaded language
 _current_language: str = DEFAULT_LANGUAGE

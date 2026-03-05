@@ -100,7 +100,7 @@ In the same module under `fitting/functions/`, create a fitting wrapper. The wra
 - **Signature**: `(data, x_name, y_name, initial_guess_override=None, bounds_override=None)`
 - **Return**: Your wrapper can return `(text, y_fitted, equation)` or the full 4-tuple from `generic_fit`: `(text, y_fitted, equation, fit_info)`. R² is included in `text`. Callers (e.g. Streamlit) use the first three values.
 
-Use `get_equation_param_names_for_function('fit_<name>')` and `get_equation_format_for_function('fit_<name>')` so parameter names and the equation format live only in `equations.yaml`. That way you define them once in config. These lookups are O(1) via pre-built reverse dicts (`_FUNCTION_TO_EQUATION` in `constants.py`).
+Use `get_equation_param_names_for_function('fit_<name>')` and `get_equation_format_for_function('fit_<name>')` so parameter names and the equation format live only in `equations.yaml`. That way you define them once in config. These lookups are O(1) via pre-built reverse dicts (`FUNCTION_TO_EQUATION` in `constants.py`).
 
 #### Basic Template
 
