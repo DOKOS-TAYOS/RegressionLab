@@ -14,8 +14,8 @@ _src_str = str(_src_dir)
 if _src_str not in sys.path:
     sys.path.insert(0, _src_str)
 
-import traceback
-from typing import Optional
+import traceback  # noqa: E402
+from typing import Optional  # noqa: E402
 
 import streamlit as st  # noqa: E402
 
