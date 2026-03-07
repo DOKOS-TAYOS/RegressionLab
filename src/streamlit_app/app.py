@@ -4,6 +4,16 @@ Streamlit Application for RegressionLab
 Web-based interface for curve fitting operations.
 """
 
+# Ensure src/ is on sys.path so config, streamlit_app, i18n, utils are importable
+# (required when run via Streamlit Cloud or `streamlit run app.py` without PYTHONPATH)
+import sys
+from pathlib import Path
+
+_src_dir = Path(__file__).resolve().parent.parent
+_src_str = str(_src_dir)
+if _src_str not in sys.path:
+    sys.path.insert(0, _src_str)
+
 import traceback
 from typing import Optional
 
