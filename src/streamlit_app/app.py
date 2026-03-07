@@ -4,15 +4,8 @@ Streamlit Application for RegressionLab
 Web-based interface for curve fitting operations.
 """
 
-import sys
 import traceback
-from pathlib import Path
 from typing import Optional
-
-# Add src directory to Python path for proper imports
-src_dir = Path(__file__).parent.parent
-if str(src_dir) not in sys.path:
-    sys.path.insert(0, str(src_dir))
 
 import streamlit as st  # noqa: E402
 

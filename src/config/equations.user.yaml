@@ -1,0 +1,28 @@
+# Optional local extensions for RegressionLab equations.
+#
+# This file is loaded after `equations.yaml`; entries here override base IDs
+# or add new ones.
+#
+# Minimal example (expression-based preset):
+#
+# my_linear_expression:
+#   type: expression
+#   expression: "a*x + b"
+#   formula: "y = ax + b"
+#   param_names: [a, b]
+#   # Optional:
+#   # format: "y={a}x+{b}"
+#   # num_independent_vars: 1
+#   # initial_guess: [1.0, 0.0]
+#   # bounds:
+#   #   - [null, null]
+#   #   - [null, null]
+#
+# Minimal example (python-based preset without editing __init__.py):
+#
+# my_python_fit:
+#   type: python
+#   target: "fitting.functions.special.fit_exponential_function"
+#   formula: "y = a exp(bx)"
+#   format: "y={a} exp({b}x)"
+#   param_names: [a, b]

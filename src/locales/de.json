@@ -164,6 +164,7 @@
     "invalid_formula": "Ungültige Formel: {error}",
     "evaluation_error": "Fehler bei der Auswertung der benutzerdefinierten Formel: {error}",
     "equation_empty": "Die Gleichung darf nicht leer sein",
+    "invalid_independent_vars": "Ungültige Anzahl unabhängiger Variablen: {num}",
     "equation_create_error": "Fehler beim Erstellen der benutzerdefinierten Funktion: {error}",
     "equation_prepare_error": "Fehler beim Vorbereiten der Formel: {error}",
     "equation_syntax_error": "Syntaxfehler in der Formel: {error}",

@@ -129,7 +129,10 @@ def _create_equation_options(equation_types: List[str]) -> Dict[str, str]:
     """
     equation_options: Dict[str, str] = {}
     for eq in equation_types:
-        eq_name = t(f'equations.{eq}')
+        key = f'equations.{eq}'
+        eq_name = t(key)
+        if eq_name == key:
+            eq_name = eq.replace('_', ' ').title()
         equation_options[eq_name] = eq
     equation_options[t('equations.custom_formula')] = 'custom_formula'
     return equation_options
@@ -196,7 +199,10 @@ def show_equation_selector(
 
     selected_equation = equation_options[selected_label]
     if selected_equation != 'custom_formula':
-        desc = t(f'equations_descriptions.{selected_equation}')
+        desc_key = f'equations_descriptions.{selected_equation}'
+        desc = t(desc_key)
+        if desc == desc_key:
+            desc = selected_equation.replace('_', ' ').title()
         formula = EQUATIONS.get(selected_equation, {}).get("formula", "")
         st.caption(f"**{desc}** : {formula}")
     custom_formula = None

@@ -22,5 +22,7 @@ if [ ! -d ".venv" ]; then
 fi
 
 # Activate virtual environment and run the program (background + nohup = terminal can close)
-source .venv/bin/activate && nohup python src/main_program.py > /dev/null 2>&1 &
+source .venv/bin/activate
+export PYTHONPATH="$PWD/src${PYTHONPATH:+:$PYTHONPATH}"
+nohup python -m regressionlab.main_program > /dev/null 2>&1 &
 exit 0

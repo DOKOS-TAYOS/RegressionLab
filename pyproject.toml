@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "regressionlab"
-version = "1.1.1"
+version = "1.1.2"
 description = "Scientific curve fitting application with GUI"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -14,7 +14,7 @@ authors = [
 ]
 keywords = ["curve-fitting", "scientific", "data-analysis"]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering",
     "License :: OSI Approved :: MIT License",
@@ -53,7 +53,8 @@ docs = [
 ]
 
 [project.scripts]
-regressionlab = "main_program:main"
+regressionlab = "regressionlab.main_program:main"
+regressionlab-streamlit = "regressionlab.streamlit_runner:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

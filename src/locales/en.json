@@ -164,6 +164,7 @@
     "invalid_formula": "Invalid formula: {error}",
     "evaluation_error": "Error evaluating custom formula: {error}",
     "equation_empty": "The equation cannot be empty",
+    "invalid_independent_vars": "Invalid number of independent variables: {num}",
     "equation_create_error": "Error creating custom function: {error}",
     "equation_prepare_error": "Error preparing formula: {error}",
     "equation_syntax_error": "Syntax error in formula: {error}",

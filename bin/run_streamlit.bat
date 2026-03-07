@@ -16,8 +16,9 @@ if not exist .venv (
 echo Starting RegressionLab Streamlit Application...
 echo.
 call .venv\Scripts\activate.bat
+set "PYTHONPATH=%CD%\src;%PYTHONPATH%"
 
 REM Run Streamlit application
-streamlit run src\streamlit_app\app.py
+python -m regressionlab.streamlit_runner
 
 pause

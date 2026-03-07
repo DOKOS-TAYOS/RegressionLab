@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [1.1.2] - 2026-03-07
+
+### Added
+
+- **Extensible equation presets (YAML-first)**: Added `equations.user.yaml` for local user presets merged with base `equations.yaml` via a central `equation_registry` loader in `config`.
+- **Expression-mode presets**: Equation schema now supports `type: expression` (with `expression`, `param_names`, optional defaults/bounds) in addition to `type: python`, while keeping legacy YAML compatibility.
+- **Security tests for custom formulas**: Added tests to verify AST-based safe evaluation rejects unsafe payloads.
+
+### Changed
+
+- **Equation output formatting**: When a parameter is negative, the formatted equation no longer shows "+-" (e.g. `y=5.2*x+-3.5`). It now displays a single minus sign (e.g. `y=5.2*x-3.5`).
+- **Fitting modularization**: Refactored `generic_fit` into smaller helper functions (validation/preparation, curve fit execution, statistics, formatting) to improve readability and testability.
+- **Equation resolution workflow**: `get_fitting_function` now resolves both expression-based and python-target presets from the unified equation registry.
+- **UI fallback behavior**: Tkinter and Streamlit now show a readable equation label fallback when translations are missing, avoiding blocked onboarding for new presets.
+- **Entry points**: Consolidated namespaced entry points under `regressionlab.*` and aligned project scripts.
+
+
 ## [1.1.1] - 2026-03-05
 
 ### Changed
@@ -202,6 +219,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial 0.8.x release. See repository history and documentation for features and changes prior to 0.8.1.
 
+[1.1.2]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/DOKOS-TAYOS/RegressionLab/compare/v0.9.3...v1.0.0

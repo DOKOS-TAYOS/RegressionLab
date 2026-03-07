@@ -4,14 +4,17 @@ This guide explains how to add new fitting functions to RegressionLab. Whether y
 
 ## Overview
 
-Adding a new fitting function involves four main steps:
+There are now two official extension paths:
 
-1. **Implement the model and fit function**: In the right module under `src/fitting/functions/`, add the mathematical function and a fitting wrapper that uses `generic_fit` (or `curve_fit` directly for advanced cases).
-2. **Export the fit function**: Add the new `fit_*` to the exports in `src/fitting/functions/__init__.py` so the app can resolve it by name.
-3. **Register in configuration**: Add an entry in `src/config/equations.yaml` (with `function`, `formula`, `format`, `param_names`) and add translations in `src/locales/`.
-4. **Test**: Run the app (Tkinter or Streamlit) and optionally add tests.
+1. **YAML-first (recommended)**: Add an entry to `src/config/equations.user.yaml`.
+   - `type: expression` lets you define the equation directly with `expression` and `param_names`.
+   - No Python code changes are required for simple models.
+2. **Python function (advanced)**: Add a callable and register it in YAML with `type: python` + `target`.
+   - `target` can be a short exported name (legacy) or a module path (for example `fitting.functions.special.fit_exponential_function`).
+3. **Optional i18n**: Add label/description translations in `src/locales/*.json`. If missing, the UI now falls back to a readable label from the equation ID.
+4. **Test**: Verify the new equation appears and fits correctly in Tkinter/Streamlit.
 
-The app resolves fit functions by name: it reads the `function` key from `equations.yaml` (e.g. `fit_exponential_function`) and does `getattr(fitting_functions, function_name)`. The `fitting_functions` package re-exports everything from `fitting.functions`, so any new `fit_*` must be implemented in one of the modules under `fitting/functions/` and re-exported from `fitting/functions/__init__.py`.
+The equation registry merges `equations.yaml` (base) + `equations.user.yaml` (local overrides/extensions) at startup, so local custom equations can be added without editing core files.
 
 ## Prerequisites
 
@@ -26,10 +29,11 @@ The app resolves fit functions by name: it reads the `function` key from `equati
 ```
 src/
 ├── config/
-│   └── equations.yaml                # Add entry: function, formula, format, param_names
+│   ├── equations.user.yaml           # Preferred place for local extensions
+│   └── equations.yaml                # Base presets (project-maintained)
 ├── fitting/
 │   └── functions/
-│       ├── __init__.py               # Export new fit_* (add to imports and __all__)
+│       ├── __init__.py               # Optional: keep exporting fit_* for short legacy targets
 │       ├── _base.py                  # Re-exports fitting utils and estimators
 │       ├── polynomials.py
 │       ├── trigonometric.py

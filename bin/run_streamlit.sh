@@ -16,6 +16,7 @@ fi
 echo "Starting RegressionLab Streamlit Application..."
 echo ""
 source .venv/bin/activate
+export PYTHONPATH="$PWD/src${PYTHONPATH:+:$PYTHONPATH}"
 
 # Run Streamlit application
-streamlit run src/streamlit_app/app.py
+python -m regressionlab.streamlit_runner

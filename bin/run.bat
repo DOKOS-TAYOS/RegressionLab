@@ -1,4 +1,5 @@
 @echo off
+setlocal
 REM ============================================================================
 REM RegressionLab - Quick Launch Script for Windows
 REM ============================================================================
@@ -22,4 +23,26 @@ if not exist .venv (
 
 REM Activate virtual environment and run the program (start = console closes after launch)
 call .venv\Scripts\activate.bat
-start "" pythonw src\main_program.py
+set "PYTHONPATH=%CD%\src;%PYTHONPATH%"
+set "PYTHON_EXE=%CD%\.venv\Scripts\python.exe"
+
+REM Precheck import so pythonw failures do not remain silent
+"%PYTHON_EXE%" -c "import regressionlab.main_program" >nul 2>&1
+if errorlevel 1 (
+    echo ERROR: RegressionLab precheck failed.
+    echo Running in console mode to show details...
+    "%PYTHON_EXE%" -m regressionlab.main_program
+    pause
+    exit /b 1
+)
+
+REM Run in console mode so startup errors are visible instead of silent.
+"%PYTHON_EXE%" -m regressionlab.main_program
+if errorlevel 1 (
+    echo.
+    echo ERROR: RegressionLab failed to start.
+    pause
+    exit /b 1
+)
+
+exit /b 0

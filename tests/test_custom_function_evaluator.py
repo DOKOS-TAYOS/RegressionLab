@@ -162,3 +162,25 @@ class TestReprMethod:
         assert "a*x + b" in repr_str
         assert "a" in repr_str
         assert "b" in repr_str
+
+
+class TestExpressionSecurity:
+    """Security tests for AST allowlist enforcement."""
+
+    @pytest.mark.parametrize(
+        "unsafe_equation",
+        [
+            "__import__('os').system('echo hacked')",
+            "np.__dict__['sin'](x)",
+            "(lambda z: z)(x)",
+        ],
+    )
+    def test_rejects_unsafe_payloads(self, unsafe_equation: str) -> None:
+        """Disallow dangerous or unsupported expression constructs."""
+        with pytest.raises(EquationError):
+            CustomFunctionEvaluator(unsafe_equation, ["a"])
+
+    def test_rejects_keyword_arguments_in_calls(self) -> None:
+        """Disallow call keywords to keep expression grammar constrained."""
+        with pytest.raises(EquationError):
+            CustomFunctionEvaluator("np.power(x, exponent=2)", ["a"])

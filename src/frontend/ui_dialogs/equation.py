@@ -52,6 +52,22 @@ _UNICODE_HINT_LINES: str = (
 )
 
 
+def _equation_label(eq_id: str) -> str:
+    """Return translated equation name with human-readable fallback."""
+    key = f'equations.{eq_id}'
+    translated = t(key)
+    if translated == key:
+        return eq_id.replace('_', ' ').title()
+    return translated
+
+
+def _equation_description(eq_id: str) -> str:
+    """Return translated equation description (empty when missing)."""
+    key = f'equations_descriptions.{eq_id}'
+    translated = t(key)
+    return '' if translated == key else translated
+
+
 def _normalize_unicode_text(text: str) -> str:
     """
     Replace explicit Unicode escape sequences with their corresponding characters.
@@ -136,16 +152,7 @@ def ask_equation_type(
         variable=configure_params_var,
     )
 
-    equation_keys = [
-        'linear_function_with_n', 'linear_function', 'quadratic_function_complete',
-        'quadratic_function', 'fourth_power', 'ln_function',
-        'inverse_function', 'inverse_square_function', 'sin_function',
-        'sin_function_with_c', 'cos_function', 'cos_function_with_c',
-        'tan_function', 'tan_function_with_c', 'sinh_function',
-        'cosh_function', 'exponential_function', 'binomial_function',
-        'gaussian_function', 'square_pulse_function', 'hermite_polynomial_3',
-        'hermite_polynomial_4',
-    ]
+    equation_keys = list(EQUATIONS.keys())
 
     def _show_param_dialog(eq_type: str) -> None:
         param_info = get_equation_param_info(eq_type)
@@ -231,8 +238,8 @@ def ask_equation_type(
         equation_level.destroy()
 
     for attr_name in equation_keys:
-        btn_text = t(f'equations.{attr_name}')
-        desc = t(f'equations_descriptions.{attr_name}')
+        btn_text = _equation_label(attr_name)
+        desc = _equation_description(attr_name)
         formula = EQUATIONS.get(attr_name, {}).get("formula", "")
         tooltip_text = f"{desc}\n{t('dialog.equation')} {formula}" if formula else desc
         btn = ttk.Button(
@@ -289,7 +296,8 @@ def ask_equation_type(
     setup_arrow_enter_navigation(nav_rows)
 
     apply_hover_to_children(equation_level.frame_custom)
-    equation_level.linear_function_with_n.focus_set()
+    if equation_keys:
+        getattr(equation_level, equation_keys[0]).focus_set()
     place_window_centered(equation_level, preserve_size=True)
     parent_window.wait_window(equation_level)
 

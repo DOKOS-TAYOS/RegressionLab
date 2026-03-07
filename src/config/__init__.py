@@ -1,11 +1,21 @@
-"""
-Central configuration for the RegressionLab project.
-
-Re-exports all configuration from submodules so that
-"from config import UI_STYLE" etc. continue to work.
-"""
+"""Central configuration facade (single import surface)."""
+# ruff: noqa: F401
 
 from .color_utils import lighten_hex, muted_from_hex
+from .constants import (
+    AVAILABLE_EQUATION_TYPES,
+    DATA_FILE_TYPES,
+    DEFAULT_LANGUAGE,
+    EQUATIONS,
+    EXIT_SIGNAL,
+    FORMAT_TO_FORMULA,
+    FUNCTION_TO_EQUATION,
+    LANGUAGE_ALIASES,
+    MATH_FUNCTION_REPLACEMENTS_COMPILED,
+    SUPPORTED_LANGUAGE_CODES,
+    VALID_LANGUAGE_INPUTS,
+    __version__,
+)
 from .env import (
     DEFAULT_LOG_FILE,
     DEFAULT_LOG_LEVEL,
@@ -17,6 +27,19 @@ from .env import (
     initialize_and_validate_config,
     write_env_file,
 )
+from .equation_registry import (
+    EQUATION_TYPE_EXPRESSION,
+    EQUATION_TYPE_PYTHON,
+    clear_equation_registry_cache,
+    get_equation_registry,
+    load_equation_registry,
+)
+from .paths import (
+    FILE_CONFIG,
+    ensure_output_directory,
+    get_output_path,
+    get_project_root,
+)
 from .theme import (
     FONT_CONFIG,
     PLOT_CONFIG,
@@ -27,59 +50,46 @@ from .theme import (
     get_entry_font,
     setup_fonts,
 )
-from .paths import (
-    FILE_CONFIG,
-    ensure_output_directory,
-    get_output_path,
-    get_project_root,
-)
-from .constants import (
-    AVAILABLE_EQUATION_TYPES,
-    DATA_FILE_TYPES,
-    EQUATIONS,
-    EXIT_SIGNAL,
-    FORMAT_TO_FORMULA,
-    FUNCTION_TO_EQUATION,
-    DEFAULT_LANGUAGE,
-    MATH_FUNCTION_REPLACEMENTS_COMPILED,
-    LANGUAGE_ALIASES,
-    SUPPORTED_LANGUAGE_CODES,
-    __version__,
-)
 
 __all__ = [
-    'lighten_hex',
-    'muted_from_hex',
-    'DEFAULT_LOG_FILE',
-    'DEFAULT_LOG_LEVEL',
-    'DONATIONS_URL',
-    'ENV_SCHEMA',
-    'get_current_env_values',
-    'get_env',
-    'get_env_from_schema',
-    'initialize_and_validate_config',
-    'write_env_file',
-    'FONT_CONFIG',
-    'PLOT_CONFIG',
-    'SPINBOX_STYLE',
-    'UI_STYLE',
-    'apply_hover_to_children',
-    'configure_ttk_styles',
-    'get_entry_font',
-    'setup_fonts',
-    'FILE_CONFIG',
-    'ensure_output_directory',
-    'get_output_path',
-    'get_project_root',
-    'AVAILABLE_EQUATION_TYPES',
-    'DATA_FILE_TYPES',
-    'EQUATIONS',
-    'EXIT_SIGNAL',
-    'FORMAT_TO_FORMULA',
-    'FUNCTION_TO_EQUATION',
-    'DEFAULT_LANGUAGE',
-    'MATH_FUNCTION_REPLACEMENTS_COMPILED',
-    'LANGUAGE_ALIASES',
-    'SUPPORTED_LANGUAGE_CODES',
-    '__version__',
+    "lighten_hex",
+    "muted_from_hex",
+    "AVAILABLE_EQUATION_TYPES",
+    "DATA_FILE_TYPES",
+    "DEFAULT_LANGUAGE",
+    "EQUATIONS",
+    "EXIT_SIGNAL",
+    "FORMAT_TO_FORMULA",
+    "FUNCTION_TO_EQUATION",
+    "LANGUAGE_ALIASES",
+    "MATH_FUNCTION_REPLACEMENTS_COMPILED",
+    "SUPPORTED_LANGUAGE_CODES",
+    "VALID_LANGUAGE_INPUTS",
+    "__version__",
+    "DEFAULT_LOG_FILE",
+    "DEFAULT_LOG_LEVEL",
+    "DONATIONS_URL",
+    "ENV_SCHEMA",
+    "get_current_env_values",
+    "get_env",
+    "get_env_from_schema",
+    "initialize_and_validate_config",
+    "write_env_file",
+    "EQUATION_TYPE_EXPRESSION",
+    "EQUATION_TYPE_PYTHON",
+    "clear_equation_registry_cache",
+    "get_equation_registry",
+    "load_equation_registry",
+    "FILE_CONFIG",
+    "ensure_output_directory",
+    "get_output_path",
+    "get_project_root",
+    "FONT_CONFIG",
+    "PLOT_CONFIG",
+    "SPINBOX_STYLE",
+    "UI_STYLE",
+    "apply_hover_to_children",
+    "configure_ttk_styles",
+    "get_entry_font",
+    "setup_fonts",
 ]

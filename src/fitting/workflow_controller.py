@@ -501,7 +501,11 @@ def coordinate_custom_equation(
     
     # Create a wrapper function that stores num_independent_vars as an attribute
     # This allows us to access it later for determining plot type
-    def fit_wrapper(data: Any, x_name: Union[str, List[str]], y_name: str) -> Tuple[str, Any, str]:
+    def fit_wrapper(
+        data: Any,
+        x_name: Union[str, List[str]],
+        y_name: str,
+    ) -> Tuple[str, Any, str, Optional[Dict[str, Any]]]:
         """Wrapper for evaluator.fit that stores num_independent_vars."""
         return evaluator.fit(data, x_name, y_name)
     
@@ -509,6 +513,6 @@ def coordinate_custom_equation(
     fit_wrapper.num_independent_vars = num_independent_vars  # type: ignore
     
     # Return backend function (fit only, no visualization)
-    # The wrapper returns (text, y_fitted, equation)
+    # The wrapper returns (text, y_fitted, equation, fit_info)
     equation_id = f"custom: {custom_formula[:30]}..."
     return equation_id, fit_wrapper

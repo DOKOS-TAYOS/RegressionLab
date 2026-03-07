@@ -164,6 +164,7 @@
     "invalid_formula": "Fórmula inválida: {error}",
     "evaluation_error": "Error al evaluar fórmula personalizada: {error}",
     "equation_empty": "La ecuación no puede estar vacía",
+    "invalid_independent_vars": "Número inválido de variables independientes: {num}",
     "equation_create_error": "Error al crear la función personalizada: {error}",
     "equation_prepare_error": "Error al preparar la fórmula: {error}",
     "equation_syntax_error": "Error de sintaxis en la fórmula: {error}",

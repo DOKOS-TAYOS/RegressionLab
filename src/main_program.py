@@ -5,15 +5,8 @@ Entry point for the curve fitting application with GUI interface.
 """
 
 # Standard library
-import sys
-from pathlib import Path
 from tkinter import messagebox
 from typing import Any, Callable, List, Optional, Union
-
-# Add src directory to Python path for proper imports
-src_dir = Path(__file__).parent
-if str(src_dir) not in sys.path:
-    sys.path.insert(0, str(src_dir))
 
 # Local imports (kept lightweight at startup; heavy modules are loaded lazily)
 from config import AVAILABLE_EQUATION_TYPES, EXIT_SIGNAL, __version__, initialize_and_validate_config  # noqa: E402
@@ -673,10 +666,15 @@ def main() -> None:
         logger.info(t('log.application_closed'))
     except Exception as e:
         logger.critical(t('log.unexpected_error', error=str(e)), exc_info=True)
-        messagebox.showerror(
-            t('error.critical_error'),
-            t('error.unexpected_error', error=str(e))
-        )
+        try:
+            messagebox.showerror(
+                t('error.critical_error'),
+                t('error.unexpected_error', error=str(e))
+            )
+        except Exception:
+            # If tkinter itself is broken (e.g. missing Tcl/Tk), at least show in console.
+            print(t('error.critical_error'))
+            print(t('error.unexpected_error', error=str(e)))
         raise
 
 
