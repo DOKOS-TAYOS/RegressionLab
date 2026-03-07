@@ -21,28 +21,25 @@ if not exist .venv (
     exit /b 1
 )
 
-REM Activate virtual environment and run the program (start = console closes after launch)
+REM Activate virtual environment and run the program
 call .venv\Scripts\activate.bat
 set "PYTHONPATH=%CD%\src;%PYTHONPATH%"
 set "PYTHON_EXE=%CD%\.venv\Scripts\python.exe"
+set "PYTHONW_EXE=%CD%\.venv\Scripts\pythonw.exe"
 
-REM Precheck import so pythonw failures do not remain silent
-"%PYTHON_EXE%" -c "import regressionlab.main_program" >nul 2>&1
-if errorlevel 1 (
-    echo ERROR: RegressionLab precheck failed.
-    echo Running in console mode to show details...
-    "%PYTHON_EXE%" -m regressionlab.main_program
-    pause
-    exit /b 1
+REM Check for --dev flag (run with terminal visible)
+set "DEV_MODE=0"
+if "%~1"=="--dev" (
+    set "DEV_MODE=1"
+    shift
 )
 
-REM Run in console mode so startup errors are visible instead of silent.
-"%PYTHON_EXE%" -m regressionlab.main_program
-if errorlevel 1 (
-    echo.
-    echo ERROR: RegressionLab failed to start.
-    pause
-    exit /b 1
+if "%DEV_MODE%"=="1" (
+    REM Dev mode: run with console visible
+    "%PYTHON_EXE%" -m regressionlab.main_program %*
+    exit /b 0
 )
 
+REM Default: run with pythonw (no console), start without waiting so terminal closes
+start "" "%PYTHONW_EXE%" -m regressionlab.main_program
 exit /b 0

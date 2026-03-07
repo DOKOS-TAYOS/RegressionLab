@@ -21,8 +21,23 @@ if [ ! -d ".venv" ]; then
     exit 1
 fi
 
-# Activate virtual environment and run the program (background + nohup = terminal can close)
+# Activate virtual environment and run the program
 source .venv/bin/activate
 export PYTHONPATH="$PWD/src${PYTHONPATH:+:$PYTHONPATH}"
-nohup python -m regressionlab.main_program > /dev/null 2>&1 &
-exit 0
+
+# Check for --dev flag (run with terminal visible)
+DEV_MODE=false
+if [[ "${1:-}" == "--dev" ]]; then
+    DEV_MODE=true
+    shift
+fi
+
+if $DEV_MODE; then
+    # Dev mode: run with terminal (foreground)
+    python -m regressionlab.main_program "$@"
+else
+    # Default: run without terminal (background), exit immediately so terminal closes
+    nohup python -m regressionlab.main_program > /dev/null 2>&1 &
+    disown
+    exit 0
+fi
