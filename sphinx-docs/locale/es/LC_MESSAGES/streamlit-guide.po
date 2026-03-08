@@ -549,8 +549,8 @@ msgstr ""
 "incertidumbres e IC del 95 %."
 
 #: ../../../docs/streamlit-guide.md:143 41ba8388187d4e2d958b6cb8917befa0
-msgid "**Statistics** (right): R², RMSE, χ², χ²_red, degrees of freedom."
-msgstr "**Estadísticas** (derecha): R², RMSE, χ², χ²_red, grados de libertad."
+msgid "**Statistics** (right): R², RMSE, χ², χ²\u1D63, degrees of freedom."
+msgstr "**Estadísticas** (derecha): R², RMSE, χ², χ²\u1D63, grados de libertad."
 
 #: ../../../docs/streamlit-guide.md:144 39d98bc580c5496d9a04c5365c756d74
 msgid ""
@@ -1282,8 +1282,8 @@ msgid "**χ²**: Chi-squared."
 msgstr "**χ²**: Chi-cuadrado."
 
 #: ../../../docs/streamlit-guide.md:442 0edad96115e6433f9e65c0ef5e28fd74
-msgid "**χ²_red**: Reduced chi-squared."
-msgstr "**χ²_red**: Chi-cuadrado reducido."
+msgid "**χ²\u1D63**: Reduced chi-squared."
+msgstr "**χ²\u1D63**: Chi-cuadrado reducido."
 
 #: ../../../docs/streamlit-guide.md:443 173f2dc57fa046808089941df3970eea
 msgid "**ν (g.l.)**: Degrees of freedom."

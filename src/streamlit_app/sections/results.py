@@ -28,7 +28,7 @@ def _split_equation(equation_str: str) -> Tuple[str, str]:
 def _split_parameters_text(text: str) -> Tuple[List[str], List[str]]:
     """
     Split backend parameters text into:
-    - Statistics: R², RMSE, χ², χ²_red, dof (exactly 5 lines).
+    - Statistics: R², RMSE, χ², χ²\u1D63, dof (exactly 5 lines).
     - Parameters: fit params (a, b, c) with uncertainties and their IC 95%.
     Backend order: (param=value , σ(param)=unc)* then 5 stats lines then (param IC 95%)*.
     """

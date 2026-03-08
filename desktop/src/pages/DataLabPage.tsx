@@ -154,7 +154,7 @@ export function DataLabPage() {
         {dataset ? (
           <>
             <div className="file-path-block">
-              <span className="muted-path">{dataset.filePath}</span>
+              <span className="muted-path dataset-path">{dataset.filePath}</span>
               <button className="ghost-button" onClick={() => void saveDataset()}>
                 {translate(activeLanguage, "data_analysis.save")}
               </button>

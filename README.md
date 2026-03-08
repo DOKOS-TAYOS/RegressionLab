@@ -18,7 +18,9 @@ RegressionLab provides:
 
 - multiple fitting modes: normal, multiple datasets, checker, and total fitting
 - interactive desktop plots with Plotly
-- data inspection, transform, cleaning, save, and pair plots
+- data inspection, transform, cleaning, save, and pair plots in a dedicated data view
+- batch result galleries with thumbnail previews and side-by-side comparison
+- live prediction and copyable solution text in the fit results
 - configuration via `.env` and the desktop UI
 - shared Python fitting core for desktop and Streamlit
 

@@ -77,9 +77,11 @@ async function copyTextToClipboard(text: string): Promise<boolean> {
 function ResultCardSection({
   title,
   lines,
+  columns = 3,
 }: {
   title: string;
   lines: string[];
+  columns?: 2 | 3;
 }) {
   if (lines.length === 0) {
     return null;
@@ -90,7 +92,7 @@ function ResultCardSection({
       <div className="section-title-row">
         <h4>{title}</h4>
       </div>
-      <div className="result-value-grid">
+      <div className={`result-value-grid columns-${columns}`}>
         {lines.map((line, index) => (
           <div className="result-value-card" key={`${title}-${index}`}>
             <code className="formatted-line">{line}</code>
@@ -129,11 +131,12 @@ function ResultDetailContent({
 
       <div className="result-sections-stack">
         <ResultCardSection
-          lines={parsedResult.statsLines}
+          lines={parsedResult.displayStatsLines}
           title={translate(activeLanguage, "dialog.results_stats_heading")}
         />
         <ResultCardSection
-          lines={parsedResult.parameterLines}
+          columns={2}
+          lines={parsedResult.displayParameterLines}
           title={translate(activeLanguage, "dialog.results_params_heading")}
         />
 
@@ -148,7 +151,7 @@ function ResultDetailContent({
             className="result-copy-textarea"
             readOnly
             rows={copyRows}
-            value={parsedResult.rawText}
+            value={parsedResult.displayRawText}
           />
         </section>
 
@@ -801,13 +804,13 @@ export function FitWorkspacePage() {
 
           {datasets.map((draft, index) => (
             <div className="dataset-card" key={`${index}-${draft.dataset?.id ?? "empty"}`}>
-              <div className="row actions">
+              <div className="row actions dataset-card-header">
                 <button className="primary-button" onClick={() => void loadDataset(index)}>
                   {draft.dataset
                     ? translate(activeLanguage, "desktop.replace_dataset")
                     : translate(activeLanguage, "dialog.upload_file")}
                 </button>
-                <span className="muted-path">
+                <span className="muted-path dataset-path">
                   {draft.dataset?.filePath ?? translate(activeLanguage, "desktop.no_dataset_loaded")}
                 </span>
               </div>

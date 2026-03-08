@@ -28,6 +28,7 @@ export function ThemedSelect({
   ariaLabel,
 }: ThemedSelectProps) {
   const rootRef = useRef<HTMLDivElement | null>(null);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
   const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const triggerId = useId();
   const listboxId = useId();
@@ -74,6 +75,9 @@ export function ThemedSelect({
     }
     onChange(nextOption.value);
     setOpen(false);
+    window.requestAnimationFrame(() => {
+      triggerRef.current?.focus();
+    });
   };
 
   const moveHighlight = (direction: 1 | -1) => {
@@ -167,6 +171,7 @@ export function ThemedSelect({
         id={triggerId}
         onClick={() => setOpen((current) => !current)}
         onKeyDown={handleTriggerKeyDown}
+        ref={triggerRef}
         type="button"
       >
         <span>{selectedOption?.label ?? placeholder ?? ""}</span>
@@ -194,7 +199,10 @@ export function ThemedSelect({
                   <button
                     aria-selected={isSelected}
                     className={`themed-select-option ${isSelected ? "selected" : ""} ${isHighlighted ? "highlighted" : ""}`}
-                    onClick={() => commitSelection(index)}
+                    onMouseDown={(event) => {
+                      event.preventDefault();
+                      commitSelection(index);
+                    }}
                     onMouseEnter={() => setHighlightedIndex(index)}
                     ref={(element) => {
                       optionRefs.current[index] = element;

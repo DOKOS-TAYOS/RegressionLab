@@ -874,8 +874,8 @@ msgstr ""
 "medición."
 
 #: ../../../docs/usage.md:357 e869381a570f4801bd40964427233a9b
-msgid "χ²_red (Reduced Chi-squared)"
-msgstr "χ²_red (Chi-cuadrado reducido)"
+msgid "χ²\u1D63 (Reduced Chi-squared)"
+msgstr "χ²\u1D63 (Chi-cuadrado reducido)"
 
 #: ../../../docs/usage.md:359 6b939b3d46de40b5b80ae7c8ee81f82a
 msgid ""

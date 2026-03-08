@@ -140,7 +140,7 @@ The Streamlit interface consists of three main areas:
 ![Results](../images/en_documentation/streamlit_docs/result.png)
    - **Equation** (left): Formula and formatted equation with fitted values.
    - **Parameters** (center): Fit parameters (e.g. a, b, c) with uncertainties and IC 95%.
-   - **Statistics** (right): R², RMSE, χ², χ²_red, degrees of freedom.
+   - **Statistics** (right): R², RMSE, χ², χ²\u1D63, degrees of freedom.
    - **Plot**: Data points and fitted curve below the columns (title uses the plot name if enabled).
    - **Download**: Button below the plot (PNG/JPG/PDF depending on configuration).
 
@@ -439,7 +439,7 @@ Fit parameters (e.g. a, b, c or m, n) with uncertainties and confidence interval
 - **R²**: Coefficient of determination.
 - **RMSE**: Root mean square error.
 - **χ²**: Chi-squared.
-- **χ²_red**: Reduced chi-squared.
+- **χ²\u1D63**: Reduced chi-squared.
 - **ν (g.l.)**: Degrees of freedom.
 
 ### Plot Components

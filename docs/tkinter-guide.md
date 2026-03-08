@@ -572,7 +572,7 @@ The result text includes **parameters** (value ± uncertainty and 95% confidence
 - **R²**: Coefficient of determination (goodness of fit).
 - **RMSE**: Root mean square error.
 - **χ²**: Chi-squared.
-- **χ²_red**: Reduced chi-squared.
+- **χ²\u1D63**: Reduced chi-squared.
 - **DoF (ν)**: Degrees of freedom.
 - **IC 95%**: 95% confidence interval for each fitted parameter.
 

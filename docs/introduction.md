@@ -25,7 +25,7 @@ RegressionLab is a Python-based scientific application that implements curve fit
 
 - **Multiple fitting functions**: Linear, polynomial, trigonometric (including tangent), logarithmic, exponential, inverse, hyperbolic, Gaussian, sigmoid, and custom formulas.
 - **Multidimensional regression**: Custom formulas can use 2 or more independent variables. With 2 independent variables, an interactive 3D plot is shown; with more than 2, a residuals plot is displayed.
-- **Prediction window**: In the desktop version, a "Prediction" button in the result window lets you evaluate the fitted function at user-specified inputs, with uncertainty propagation when parameter covariance is available.
+- **Integrated prediction panel**: In the desktop version, prediction inputs are part of the result view and update automatically, with uncertainty propagation when parameter covariance is available.
 - **Statistical analysis**: Automatic calculation of R², RMSE, chi-squared, reduced chi-squared, degrees of freedom, parameter uncertainties (from the fit covariance), and 95% confidence intervals for parameters.
 - **Flexible data formats**: Support for CSV, TXT (whitespace or tab-separated), and Excel (.xlsx) files with automatic uncertainty column detection.
 - **Batch processing**: Fit multiple datasets or equations simultaneously.
@@ -36,20 +36,20 @@ RegressionLab is a Python-based scientific application that implements curve fit
 ### 1. **Dual Interface**
 Choose the interface that works best for you:
 - **Web version** (Streamlit): Access from any browser, no installation required.
-- **Desktop version** (Tkinter): Full-featured native application with advanced options.
+- **Desktop version** (Electron): Full-featured desktop application with the same Python core and a modernized UI.
 
 ### 2. **Interfaces**
-- **Tkinter (desktop)**: Main menu with mode buttons (Normal Fitting, Multiple Datasets, Checker Fitting, Total Fitting, Watch Data), **Information** (help with collapsible sections), **Configure** (edit .env options in a dialog; saving restarts the app), and Exit.
+- **Electron (desktop)**: Home screen with the RegressionLab logo and version badge, a collapsible left sidebar, fit workflows, **Mirar datos / View Data**, **Information**, and **Configure**. Results include interactive plots, copyable solution text, automatic prediction, result galleries for batch modes, and an in-app comparison view.
 - **Streamlit (web)**: Sidebar for language and mode; main area for upload, variables, equation, and results. Configuration is done via the `.env` file (no in-app config dialog).
 
 ### 3. **Multiple Operation Modes**
 RegressionLab offers five operation modes so you can match the workflow to your task:
 
-- **Normal fitting**: Fits one equation to one dataset. Ideal when you already know the model and want a single, precise fit. Optionally use **loop mode** (Tkinter) or **loop fitting** (Streamlit: fit another file with the same equation without changing mode) for iterative refits.
+- **Normal fitting**: Fits one equation to one dataset. Ideal when you already know the model and want a single, precise fit. Optionally use **loop mode** in the desktop app to keep the selected file workflow and refit without reconfiguring everything.
 - **Fit multiple datasets**: Applies the *same* equation to several datasets at once. Use it when you want to test the same hypothesis on different data series (e.g., the same experiment on different days) and compare results systematically.
-- **Fit multiple functions**: Tests *different* equations on the *same* dataset. Lets you explore which model (e.g., linear vs. quadratic vs. exponential) best describes your data.
+- **Fit multiple functions**: Tests *different* equations on the *same* dataset. Lets you explore which model (e.g., linear vs. quadratic vs. exponential) best describes your data. In the desktop app, equations are selected with checkboxes and the results appear in a browsable gallery.
 - **Fit all functions**: Applies every available equation to one dataset. Use it for hypothesis exploration when you want to see which built-in or custom function fits best in one go.
-- **View data**: Inspect data from a file (table and pair plots) without performing any fitting. Transform (FFT, DCT, Hilbert, Laplace, log, etc.), clean (drop NaN, outliers, etc.), and save (or download) the processed data.
+- **View data**: Inspect data from a file without performing any fitting. The Electron desktop view shows the data table first, the pair plot below it, and the data help in the same page so you can inspect, transform, clean, and save in one place.
 
 ### 4. **Wide Range of Fitting Functions**
 Built-in support for:
@@ -80,7 +80,7 @@ Automatic detection and visualization of measurement uncertainties:
 
 ### 7. **Multidimensional Regression and Predictions**
 - **Multidimensional fitting**: Use custom formulas with 2 or more independent variables. With 2 variables you get an interactive 3D surface plot; with 3+ you get a residuals plot.
-- **Prediction window** (desktop): Evaluate the fitted function at any point. Enter values for each independent variable and see the predicted value with propagated uncertainty when available.
+- **Prediction panel** (desktop): Evaluate the fitted function at any point. Enter values for each independent variable and the predicted value updates automatically, with propagated uncertainty when available.
 ![3D Fit Result](../images/en_documentation/tkinter_docs/3d_result.png)
 ![Multiple Datasets Result](../images/en_documentation/tkinter_docs/multi_result.png)
 
@@ -98,9 +98,9 @@ Full support for multiple languages:
 - Easy to add more languages via JSON files in `src/locales/`.
 
 ### 10. **Highly Configurable**
-Customize through the **Configure** dialog (Tkinter) or the `.env` file:
+Customize through the **Configure** page in the Electron desktop app or the `.env` file:
 - **Language**: Spanish, English, German.
-- **UI (Tkinter)**: Colors, fonts, padding, button sizes, data-preview text style.
+- **UI (desktop)**: Colors, fonts, padding, button sizes, and data-preview text style.
 - **Plots**: Size, DPI, line/marker style, colors, title on/off.
 - **Fonts in plots**: Family, title/axis/tick size and style.
 - **Paths**: Input/output directories, filename template, plot format (PNG/JPG/PDF).

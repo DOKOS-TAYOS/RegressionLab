@@ -297,7 +297,7 @@ Display fitting results.
 **Layout:** Three columns (equation left, parameters center, statistics right), then the plot image, then the download button below the plot.
 - **Column 1 – Equation**: Formula and formatted equation with fitted values
 - **Column 2 – Parameters**: Fit parameters with uncertainties and IC 95%
-- **Column 3 – Statistics**: R², RMSE, χ², χ²_red, degrees of freedom
+- **Column 3 – Statistics**: R², RMSE, χ², χ²\u1D63, degrees of freedom
 - **Plot**: Full-width below the columns
 - **Download**: Button below the plot (saves PNG/JPG/PDF; when output format is PDF, in-app preview uses PNG)
 

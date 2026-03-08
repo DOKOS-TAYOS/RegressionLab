@@ -1496,8 +1496,8 @@ msgid "**χ²**: Chi-squared."
 msgstr "**χ²**: Chi-cuadrado."
 
 #: ../../../docs/tkinter-guide.md:575 257cab1e2b654f79ad07d22aaed4a93d
-msgid "**χ²_red**: Reduced chi-squared."
-msgstr "**χ²_red**: Chi-cuadrado reducido."
+msgid "**χ²\u1D63**: Reduced chi-squared."
+msgstr "**χ²\u1D63**: Chi-cuadrado reducido."
 
 #: ../../../docs/tkinter-guide.md:576 673e4fbf406c4c7a97d66154892a5fe7
 msgid "**DoF (ν)**: Degrees of freedom."
