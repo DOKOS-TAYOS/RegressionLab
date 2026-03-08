@@ -1,4 +1,4 @@
-export type ParsedResultText = {
+type ParsedResultText = {
   rawText: string;
   displayRawText: string;
   parameterValueLines: string[];
@@ -27,13 +27,6 @@ function interleaveLines(primaryLines: string[], secondaryLines: string[]): stri
   return combined;
 }
 
-function formatResultDisplayLine(line: string): string {
-  return line
-    .replaceAll("χ²\u1D63", "χ²\u1D63")
-    .replaceAll("Ï‡Â²\u1D63", "Ï‡Â²\u1D63")
-    .replaceAll("Ãâ€¡Ã‚Â²\u1D63", "Ãâ€¡Ã‚Â²\u1D63");
-}
-
 function isStatsStartLine(line: string): boolean {
   return line.includes("R²") || line.includes("RÂ²") || line.includes("RÃ‚Â²");
 }
@@ -46,7 +39,7 @@ export function parseResultText(rawText: string): ParsedResultText {
         .map((line) => line.trimEnd())
         .filter((line) => line.trim().length > 0)
     : [];
-  const displayLines = lines.map(formatResultDisplayLine);
+  const displayLines = lines;
 
   const statsStart = lines.findIndex(isStatsStartLine);
   if (statsStart < 0) {

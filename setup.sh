@@ -75,6 +75,29 @@ install_python312_linux() {
     fi
 }
 
+install_nodejs_linux() {
+    if command -v apt-get &> /dev/null; then
+        curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+        sudo apt-get install -y nodejs
+    elif command -v dnf &> /dev/null; then
+        curl -fsSL https://rpm.nodesource.com/setup_20.x | sudo bash -
+        sudo dnf install -y nodejs
+    elif command -v yum &> /dev/null; then
+        curl -fsSL https://rpm.nodesource.com/setup_20.x | sudo bash -
+        sudo yum install -y nodejs
+    elif command -v zypper &> /dev/null; then
+        sudo zypper install -y nodejs npm
+    elif command -v pacman &> /dev/null; then
+        sudo pacman -S --noconfirm nodejs npm
+    else
+        return 1
+    fi
+}
+
+is_macos() {
+    [ "$(uname -s)" = "Darwin" ]
+}
+
 echo ""
 echo "===================================="
 echo "   RegressionLab Setup (Unix/Mac)"
@@ -126,7 +149,7 @@ if ! command -v python3 &> /dev/null; then
     fi
 fi
 
-echo "[1/8] Checking Python version..."
+echo "[1/9] Checking Python version..."
 python3 --version
 
 # Check Python version is 3.12 or higher
@@ -137,7 +160,7 @@ python3 -c "import sys; exit(0 if sys.version_info >= (3, 12) else 1)" || {
 echo "      Python version OK"
 
 echo ""
-echo "[2/8] Ensuring tkinter is available (required for GUI)..."
+echo "[2/9] Ensuring tkinter is available (required for GUI)..."
 if ! python3 -c "import tkinter" 2>/dev/null; then
     if is_linux_with_pkg_manager; then
         echo "      Tkinter not found. Installing system package..."
@@ -158,7 +181,7 @@ else
 fi
 
 echo ""
-echo "[3/8] Creating virtual environment..."
+echo "[3/9] Creating virtual environment..."
 if [ -d ".venv" ]; then
     echo "      Virtual environment already exists, skipping creation"
 else
@@ -167,19 +190,19 @@ else
 fi
 
 echo ""
-echo "[4/8] Activating virtual environment..."
+echo "[4/9] Activating virtual environment..."
 source .venv/bin/activate
 
 echo ""
-echo "[5/8] Upgrading pip..."
+echo "[5/9] Upgrading pip..."
 python -m pip install --upgrade pip
 
 echo ""
-echo "[6/8] Installing dependencies..."
+echo "[6/9] Installing dependencies..."
 pip install -r requirements.txt
 
 echo ""
-echo "[7/8] Setting up environment file..."
+echo "[7/9] Setting up environment file..."
 if [ -f ".env" ]; then
     echo "      .env file already exists, skipping"
 else
@@ -192,7 +215,52 @@ else
 fi
 
 echo ""
-echo "[8/8] Creating desktop shortcut..."
+echo "[8/9] Checking Node.js (required for desktop app)..."
+RUN_NPM_INSTALL=false
+if command -v node &> /dev/null; then
+    echo "      Node.js found:"
+    node --version
+    RUN_NPM_INSTALL=true
+else
+    echo "      Node.js is not installed."
+    if is_linux_with_pkg_manager; then
+        read -p "Do you want to install Node.js 20+ now? (y/N): " INSTALL_NODE
+        if [[ "$INSTALL_NODE" =~ ^[Yy]$ ]]; then
+            echo "      Installing Node.js..."
+            if install_nodejs_linux; then
+                echo "      Node.js installed successfully."
+                RUN_NPM_INSTALL=true
+            else
+                echo "      ERROR: Failed to install Node.js automatically."
+                echo "      Please install Node.js 20+ manually from https://nodejs.org/"
+            fi
+        else
+            echo "      Skipping. Install Node.js 20+ manually and run: npm install --prefix desktop"
+        fi
+    elif is_macos; then
+        if command -v brew &> /dev/null; then
+            read -p "Do you want to install Node.js via Homebrew? (y/N): " INSTALL_NODE
+            if [[ "$INSTALL_NODE" =~ ^[Yy]$ ]]; then
+                brew install node
+                RUN_NPM_INSTALL=true
+            else
+                echo "      Skipping. Install Node.js 20+ manually."
+            fi
+        else
+            echo "      Install Homebrew (https://brew.sh) or Node.js from https://nodejs.org/"
+        fi
+    else
+        echo "      Please install Node.js 20+ from https://nodejs.org/"
+    fi
+fi
+
+if $RUN_NPM_INSTALL; then
+    echo "      Installing desktop frontend dependencies..."
+    npm install --prefix desktop || echo "      WARNING: npm install failed. Run manually: npm install --prefix desktop"
+fi
+
+echo ""
+echo "[9/9] Creating desktop shortcut..."
 
 # Determine desktop path based on OS
 if [ -d "$HOME/Desktop" ]; then

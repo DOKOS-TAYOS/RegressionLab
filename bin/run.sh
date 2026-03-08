@@ -46,15 +46,30 @@ fi
 
 # Check for --dev flag (run with terminal visible)
 DEV_MODE=false
-if [[ "${1:-}" == "--dev" ]]; then
-    DEV_MODE=true
+FORCE_BUILD=false
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --dev)
+            DEV_MODE=true
+            ;;
+        --build)
+            FORCE_BUILD=true
+            ;;
+    esac
     shift
-fi
+done
 
 if $DEV_MODE; then
     # Dev mode: Vite + Electron
     npm --prefix desktop run dev
 else
-    # Default: build renderer/electron and start the desktop app
-    npm --prefix desktop run start
+    if $FORCE_BUILD; then
+        # Force a rebuild before launching the desktop app
+        npm --prefix desktop run build
+        npm --prefix desktop run start:raw
+    else
+        # Default: reuse the existing build and rebuild only if sources changed
+        npm --prefix desktop run start
+    fi
 fi

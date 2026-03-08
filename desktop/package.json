@@ -9,10 +9,12 @@
     "dev:renderer": "vite",
     "dev:electron": "tsc -p electron.tsconfig.json --watch --preserveWatchOutput",
     "dev:app": "wait-on tcp:5173 file:dist-electron/electron/main.js && electron dist-electron/electron/main.js --dev-server-url=http://localhost:5173",
+    "ensure-build": "node scripts/ensure-build.mjs",
     "build": "npm run build:renderer && npm run build:electron",
     "build:renderer": "vite build",
     "build:electron": "tsc -p electron.tsconfig.json",
-    "start": "npm run build && electron dist-electron/electron/main.js",
+    "start": "npm run ensure-build && npm run start:raw",
+    "start:raw": "electron dist-electron/electron/main.js",
     "test": "vitest run",
     "test:e2e": "playwright test"
   },

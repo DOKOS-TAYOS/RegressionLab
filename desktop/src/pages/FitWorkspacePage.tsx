@@ -335,7 +335,6 @@ export function FitWorkspacePage() {
   const [initialGuess, setInitialGuess] = useState<string[]>([]);
   const [lowerBounds, setLowerBounds] = useState<string[]>([]);
   const [upperBounds, setUpperBounds] = useState<string[]>([]);
-  const [loopMode, setLoopMode] = useState(false);
   const [results, setResults] = useState<FitResultPayload[]>([]);
   const [running, setRunning] = useState(false);
   const [checkerSelection, setCheckerSelection] = useState<string[]>([]);
@@ -646,10 +645,6 @@ export function FitWorkspacePage() {
             <span className="eyebrow">{translate(activeLanguage, "desktop.workflow")}</span>
             <h2>{translate(activeLanguage, modeTitleKey)}</h2>
           </div>
-          <label className="toggle-chip">
-            <input type="checkbox" checked={loopMode} onChange={() => setLoopMode((value) => !value)} />
-            <span>{translate(activeLanguage, "desktop.loop_mode")}</span>
-          </label>
         </div>
 
         {mode === "normal" || mode === "multiple" ? (
@@ -867,7 +862,6 @@ export function FitWorkspacePage() {
           <button className="primary-button large" disabled={running} onClick={() => void runFits()}>
             {running ? translate(activeLanguage, "desktop.running") : translate(activeLanguage, "dialog.accept")}
           </button>
-          {loopMode ? <span className="muted-note">{translate(activeLanguage, "workflow.loop_help")}</span> : null}
         </div>
       </div>
 

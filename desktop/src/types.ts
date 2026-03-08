@@ -13,7 +13,7 @@ export type ApiErrorPayload = {
   };
 };
 
-export type ThemeTokens = {
+type ThemeTokens = {
   fontFamily: string;
   fontSize: number;
   fontSizeLarge: number;
@@ -78,7 +78,7 @@ export type EquationCatalogItem = {
   bounds?: unknown;
 };
 
-export type DatasetColumn = {
+type DatasetColumn = {
   name: string;
   dtype: string;
   isNumeric: boolean;

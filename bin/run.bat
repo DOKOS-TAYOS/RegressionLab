@@ -52,10 +52,16 @@ if not exist desktop\node_modules (
 
 REM Check for --dev flag (run with terminal visible)
 set "DEV_MODE=0"
-if "%~1"=="--dev" (
-    set "DEV_MODE=1"
-    shift
-)
+set "FORCE_BUILD=0"
+
+:parse_args
+if "%~1"=="" goto args_done
+if "%~1"=="--dev" set "DEV_MODE=1"
+if "%~1"=="--build" set "FORCE_BUILD=1"
+shift
+goto parse_args
+
+:args_done
 
 if "%DEV_MODE%"=="1" (
     REM Dev mode: start Vite + Electron
@@ -63,6 +69,13 @@ if "%DEV_MODE%"=="1" (
     exit /b 0
 )
 
-REM Default: build renderer/electron and launch desktop app
+if "%FORCE_BUILD%"=="1" (
+    REM Force a rebuild before launching the desktop app
+    npm --prefix desktop run build || exit /b 1
+    npm --prefix desktop run start:raw
+    exit /b 0
+)
+
+REM Default: reuse the existing build and rebuild only if sources changed
 npm --prefix desktop run start
 exit /b 0

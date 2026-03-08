@@ -95,6 +95,8 @@ macOS/Linux:
 ./bin/run.sh
 ```
 
+The normal launcher now reuses the existing desktop build. It only recompiles if the build files are missing or if the Electron/frontend sources changed.
+
 ### Development mode
 
 Windows:
@@ -109,23 +111,31 @@ macOS/Linux:
 ./bin/run.sh --dev
 ```
 
-### Important note about `install.*` / `setup.*`
+### Force a rebuild manually
 
-The repository still includes `install.bat`, `install.sh`, `setup.bat`, and `setup.sh`.
+If you want to rebuild the desktop frontend explicitly before launching:
 
-At the moment those scripts prepare the **Python** side, but they do **not**:
+Windows:
 
-- install Node.js
-- install npm packages for `desktop/`
-- run `npm install --prefix desktop`
-
-So even if you use those scripts, you still need to run:
-
-```bash
-npm install --prefix desktop
+```powershell
+.\bin\run.bat --build
 ```
 
-before the Electron desktop app will launch.
+macOS/Linux:
+
+```bash
+./bin/run.sh --build
+```
+
+### Using `install.*` / `setup.*`
+
+The scripts `install.bat`, `install.sh`, `setup.bat`, and `setup.sh` install everything needed:
+
+- Python (with optional install via winget on Windows)
+- Node.js (with optional install if not present)
+- `npm install --prefix desktop` for the Electron frontend
+
+If Node.js is not installed, the setup will ask whether to install it.
 
 ## Optional Streamlit Run
 

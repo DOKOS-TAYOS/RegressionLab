@@ -178,24 +178,6 @@ ipcMain.handle("app:relaunch", async () => {
   app.exit(0);
 });
 
-ipcMain.handle("window:minimize", async () => {
-  mainWindow?.minimize();
-});
-ipcMain.handle("window:maximize-toggle", async () => {
-  if (!mainWindow) {
-    return false;
-  }
-  if (mainWindow.isMaximized()) {
-    mainWindow.unmaximize();
-  } else {
-    mainWindow.maximize();
-  }
-  return mainWindow.isMaximized();
-});
-ipcMain.handle("window:close", async () => {
-  mainWindow?.close();
-});
-
 ipcMain.handle("dialog:open-data-file", async () => {
   const options = {
     properties: ["openFile"] as Array<"openFile">,

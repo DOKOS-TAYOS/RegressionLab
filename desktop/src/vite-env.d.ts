@@ -11,9 +11,6 @@ interface DesktopBridge {
   }): Promise<string | null>;
   openExternal(url: string): Promise<void>;
   revealPath(targetPath: string): Promise<void>;
-  minimize(): Promise<void>;
-  toggleMaximize(): Promise<boolean>;
-  close(): Promise<void>;
 }
 
 declare global {

@@ -28,20 +28,18 @@ git --version
 
 If your system uses `python3` instead of `python`, replace commands accordingly.
 
-## Important Note About The Existing Setup Scripts
+## Install Scripts
 
-The repository still contains:
+The repository contains:
 
-- `install.bat` / `install.sh`
-- `setup.bat` / `setup.sh`
+- `install.bat` / `install.sh` — clone the repo and run setup
+- `setup.bat` / `setup.sh` — configure the environment
 
-Those scripts currently prepare the **Python environment** only. They do **not** yet:
+These scripts now install everything needed for the desktop app:
 
-- install Node.js
-- install the Electron frontend dependencies
-- run `npm install --prefix desktop`
-
-So the desktop frontend requires one extra manual step after the Python setup.
+- Python (with optional install via winget on Windows)
+- Node.js (with optional install if not present)
+- `npm install --prefix desktop` for the Electron frontend
 
 ## Recommended Installation
 
@@ -106,6 +104,8 @@ npm install --prefix desktop
 .\bin\run.bat
 ```
 
+`run.bat` now reuses the existing Electron build. It only recompiles if the desktop build is missing or if frontend/Electron sources changed.
+
 ### macOS / Linux
 
 1. Clone the repository:
@@ -155,9 +155,11 @@ npm install --prefix desktop
 ./bin/run.sh
 ```
 
+`run.sh` now reuses the existing Electron build. It only recompiles if the desktop build is missing or if frontend/Electron sources changed.
+
 ## Using `setup.*` First
 
-If you prefer the existing scripts, you can still use:
+If you prefer the setup scripts directly:
 
 Windows:
 
@@ -171,13 +173,7 @@ macOS/Linux:
 ./setup.sh
 ```
 
-After that, you still need:
-
-```bash
-npm install --prefix desktop
-```
-
-before `bin/run.bat` or `./bin/run.sh` will work for the desktop app.
+These scripts install Python dependencies, Node.js (if missing), and the desktop frontend (`npm install --prefix desktop`).
 
 ## Development Mode
 
@@ -197,6 +193,28 @@ macOS/Linux:
 
 ```bash
 ./bin/run.sh --dev
+```
+
+## Force A Rebuild
+
+If you want to rebuild the desktop frontend explicitly before launching:
+
+Windows:
+
+```powershell
+.\bin\run.bat --build
+```
+
+macOS/Linux:
+
+```bash
+./bin/run.sh --build
+```
+
+You can also rebuild manually with:
+
+```bash
+npm --prefix desktop run build
 ```
 
 ## Running Only The Desktop API

@@ -11,9 +11,6 @@ const desktopApi = {
   }): Promise<string | null> => ipcRenderer.invoke("dialog:save-file", options),
   openExternal: (url: string): Promise<void> => ipcRenderer.invoke("shell:open-external", url),
   revealPath: (targetPath: string): Promise<void> => ipcRenderer.invoke("shell:reveal-path", targetPath),
-  minimize: (): Promise<void> => ipcRenderer.invoke("window:minimize"),
-  toggleMaximize: (): Promise<boolean> => ipcRenderer.invoke("window:maximize-toggle"),
-  close: (): Promise<void> => ipcRenderer.invoke("window:close"),
 };
 
 contextBridge.exposeInMainWorld("desktopApi", desktopApi);
