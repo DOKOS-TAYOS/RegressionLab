@@ -64,7 +64,19 @@ RegressionLab uses several open-source libraries, each with their own licenses:
 | **python-dotenv** | BSD-3-Clause | Environment variable management |
 | **colorama** | BSD-3-Clause | Colored terminal output |
 | **PyYAML** | MIT | YAML config (equations, etc.) |
-| **Streamlit** | Apache 2.0 | Web application framework |
+| **Streamlit** | Apache 2.0 | Optional web application framework |
+| **FastAPI** | MIT | Desktop sidecar API |
+| **Uvicorn** | BSD-3-Clause | Desktop sidecar server |
+
+### Desktop Frontend Dependencies
+
+| Package | License | Use |
+|---------|---------|-----|
+| **Electron** | MIT | Desktop shell/runtime |
+| **React** | MIT | Desktop UI rendering |
+| **React Router** | MIT | Desktop navigation |
+| **Plotly** | MIT | Interactive plots |
+| **Zustand** | MIT | Desktop state management |
 
 All of these licenses are permissive and compatible with the MIT License.
 

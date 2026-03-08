@@ -30,3 +30,7 @@ PyYAML>=6.0,<7.0
 
 # Web application framework
 streamlit>=1.31,<2.0
+
+# Desktop sidecar API
+fastapi>=0.116,<1.0
+uvicorn>=0.35,<1.0

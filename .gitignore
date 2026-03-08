@@ -38,6 +38,8 @@ desktop.ini
 
 # Testing
 .pytest_cache/
+pytest-cache-files-*/
+tests/.tmp/
 .coverage
 htmlcov/
 .tox/
@@ -51,6 +53,14 @@ dmypy.json
 
 # Linting
 .ruff_cache/
+
+# Desktop frontend
+desktop/node_modules/
+desktop/dist/
+desktop/dist-electron/
+desktop/playwright-report/
+desktop/test-results/
+desktop/.vite/
 
 # Logs
 *.log

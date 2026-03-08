@@ -25,7 +25,30 @@ REM Activate virtual environment and run the program
 call .venv\Scripts\activate.bat
 set "PYTHONPATH=%CD%\src;%PYTHONPATH%"
 set "PYTHON_EXE=%CD%\.venv\Scripts\python.exe"
-set "PYTHONW_EXE=%CD%\.venv\Scripts\pythonw.exe"
+set "REGRESSIONLAB_PYTHON=%PYTHON_EXE%"
+
+where node >nul 2>&1
+if errorlevel 1 (
+    echo ERROR: Node.js was not found in PATH
+    echo Install Node.js 20+ and run: npm install --prefix desktop
+    pause
+    exit /b 1
+)
+
+where npm >nul 2>&1
+if errorlevel 1 (
+    echo ERROR: npm was not found in PATH
+    echo Install Node.js 20+ and run: npm install --prefix desktop
+    pause
+    exit /b 1
+)
+
+if not exist desktop\node_modules (
+    echo ERROR: desktop dependencies are not installed
+    echo Run: npm install --prefix desktop
+    pause
+    exit /b 1
+)
 
 REM Check for --dev flag (run with terminal visible)
 set "DEV_MODE=0"
@@ -35,11 +58,11 @@ if "%~1"=="--dev" (
 )
 
 if "%DEV_MODE%"=="1" (
-    REM Dev mode: run with console visible
-    "%PYTHON_EXE%" -m regressionlab.main_program %*
+    REM Dev mode: start Vite + Electron
+    npm --prefix desktop run dev
     exit /b 0
 )
 
-REM Default: run with pythonw (no console), start without waiting so terminal closes
-start "" "%PYTHONW_EXE%" -m regressionlab.main_program
+REM Default: build renderer/electron and launch desktop app
+npm --prefix desktop run start
 exit /b 0

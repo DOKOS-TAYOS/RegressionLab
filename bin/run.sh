@@ -24,6 +24,25 @@ fi
 # Activate virtual environment and run the program
 source .venv/bin/activate
 export PYTHONPATH="$PWD/src${PYTHONPATH:+:$PYTHONPATH}"
+export REGRESSIONLAB_PYTHON="$PWD/.venv/bin/python"
+
+if ! command -v node >/dev/null 2>&1; then
+    echo "ERROR: Node.js was not found in PATH"
+    echo "Install Node.js 20+ and run: npm install --prefix desktop"
+    exit 1
+fi
+
+if ! command -v npm >/dev/null 2>&1; then
+    echo "ERROR: npm was not found in PATH"
+    echo "Install Node.js 20+ and run: npm install --prefix desktop"
+    exit 1
+fi
+
+if [ ! -d "desktop/node_modules" ]; then
+    echo "ERROR: desktop dependencies are not installed"
+    echo "Run: npm install --prefix desktop"
+    exit 1
+fi
 
 # Check for --dev flag (run with terminal visible)
 DEV_MODE=false
@@ -33,11 +52,9 @@ if [[ "${1:-}" == "--dev" ]]; then
 fi
 
 if $DEV_MODE; then
-    # Dev mode: run with terminal (foreground)
-    python -m regressionlab.main_program "$@"
+    # Dev mode: Vite + Electron
+    npm --prefix desktop run dev
 else
-    # Default: run without terminal (background), exit immediately so terminal closes
-    nohup python -m regressionlab.main_program > /dev/null 2>&1 &
-    disown
-    exit 0
+    # Default: build renderer/electron and start the desktop app
+    npm --prefix desktop run start
 fi

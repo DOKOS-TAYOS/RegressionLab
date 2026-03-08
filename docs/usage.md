@@ -8,7 +8,7 @@ RegressionLab provides two interfaces for curve fitting:
 
 - **Web Version (Streamlit)**: Browser-based, easy to use, accessible from anywhere. The sidebar lets you choose language and operation mode; the main area handles file upload, variable and equation selection, and results. Configuration is done by editing the `.env` file (no in-app config dialog).
 
-- **Desktop Version (Tkinter)**: Native application with full features and advanced options. The main menu offers mode buttons (Normal Fitting, Multiple Datasets, Checker Fitting, Total Fitting, Watch Data), **Information** (help with collapsible sections and optional Donations link), **Configure** (edit .env options in a dialog; saving restarts the app), and Exit.
+- **Desktop Version (Electron)**: Native desktop shell backed by the same Python core. It preserves the menu structure and fitting workflows from the legacy Tkinter app, but adds a smoother layout, Plotly-based interactive charts, and a local sidecar API for desktop-only features.
 
 Both versions share the same core functionality but have different user interfaces optimized for their platform.
 
@@ -21,7 +21,7 @@ Both versions share the same core functionality but have different user interfac
 - You're new to curve fitting.
 - You need to share the tool with others easily.
 
-### Use the Desktop Version (Tkinter) if:
+### Use the Desktop Version (Electron) if:
 - You need offline access.
 - You want faster performance with large datasets.
 - You prefer a traditional desktop application.
@@ -75,7 +75,7 @@ streamlit run src/streamlit_app/app.py
 
 The application will open in your default browser, usually at `http://localhost:8501`.
 
-### Desktop Version (Tkinter)
+### Desktop Version (Electron)
 
 #### Launching the Application
 
@@ -99,7 +99,10 @@ macOS/Linux:
 
 **Method 3: Direct Execution**
 ```bash
-python src/main_program.py
+npm install --prefix desktop
+bin/run.bat
+# Linux/macOS
+./bin/run.sh
 ```
 
 ## Operation Modes

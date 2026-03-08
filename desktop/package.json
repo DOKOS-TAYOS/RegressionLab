@@ -1,0 +1,43 @@
+{
+  "name": "regressionlab-desktop",
+  "private": true,
+  "version": "1.1.2",
+  "description": "Electron desktop frontend for RegressionLab",
+  "main": "dist-electron/electron/main.js",
+  "scripts": {
+    "dev": "concurrently -k \"npm:dev:renderer\" \"npm:dev:electron\" \"npm:dev:app\"",
+    "dev:renderer": "vite",
+    "dev:electron": "tsc -p electron.tsconfig.json --watch --preserveWatchOutput",
+    "dev:app": "wait-on tcp:5173 file:dist-electron/electron/main.js && electron dist-electron/electron/main.js --dev-server-url=http://localhost:5173",
+    "build": "npm run build:renderer && npm run build:electron",
+    "build:renderer": "vite build",
+    "build:electron": "tsc -p electron.tsconfig.json",
+    "start": "npm run build && electron dist-electron/electron/main.js",
+    "test": "vitest run",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "electron": "^35.0.0",
+    "plotly.js-dist-min": "^3.0.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-plotly.js": "^2.6.0",
+    "react-router-dom": "^7.0.0",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@types/node": "^22.13.10",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "jsdom": "^26.0.0",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.0",
+    "vitest": "^3.0.8",
+    "wait-on": "^8.0.3"
+  }
+}
